@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Product Page
+{% endblock %}
+
+{% block beforeContent %}
+  <a class="govuk-back-link" href="/products">Back to list</a>
+{% endblock %}
+
+{% block content %}
+
+{% from "tabs/macro.njk" import govukTabs %}
+{% from "table/macro.njk" import govukTable %}
+
+<h1 class="govuk-heading-xl">
+  Travel plug adaptor — Charge Worx 931L
+</h1>
+
+{{ govukTabs({
+  items: [
+    {
+      label: "Activity",
+      id: "activity",
+      panel: {
+        html: activityHtml
+      }
+    },
+    {
+      label: "Attachments",
+      id: "attachments",
+      panel: {
+        html: attachmentsHtml
+      }
+    },
+    {
+      label: "Businesses",
+      id: "businesses",
+      panel: {
+        html: businessesHtml
+      }
+    },
+    {
+      label: "Legislation",
+      id: "legislation",
+      panel: {
+        html: legislationHtml
+      }
+    },
+    {
+      label: "Related Material",
+      id: "related-material",
+      panel: {
+        html: relatedEntitiesHtml
+      }
+    },
+    {
+      label: "Full Detail",
+      id: "full-detail",
+      panel: {
+        html: fullDetailHtml
+      }
+    }
+  ]
+}) }}
+
+{% endblock %}
+
+{% set activityHtml %}
+<h2 class="govuk-heading-l">Activity</h2>
+
+{% endset -%}
+
+{% set attachmentsHtml %}
+<h2 class="govuk-heading-l">Attachments</h2>
+
+{% endset -%}
+
+{% set businessesHtml %}
+<h2 class="govuk-heading-l">Businesses</h2>
+
+{% endset -%}
+
+{% set legislationHtml %}
+<h2 class="govuk-heading-l">Legislation</h2>
+
+{% endset -%}
+
+{% set relatedEntitiesHtml %}
+<h2 class="govuk-heading-l">Related Material</h2>
+
+{% endset -%}
+
+{% set fullDetailHtml %}
+<h2 class="govuk-heading-l">Full Detail</h2>
+
+{% endset -%}
