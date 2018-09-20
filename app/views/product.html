@@ -10,9 +10,6 @@
 
 {% block content %}
 
-{% from "tabs/macro.njk" import govukTabs %}
-{% from "table/macro.njk" import govukTable %}
-
 <div class="govuk-width-container">
   <main class="govuk-main-wrapper">
 
@@ -117,6 +114,6 @@
 {% endset -%}
 
 {% set fullDetailHtml %}
-<h2 class="govuk-heading-l">Full Detail</h2>
+{% include "tab-sections/full-detail-product.html" %}
 
 {% endset -%}

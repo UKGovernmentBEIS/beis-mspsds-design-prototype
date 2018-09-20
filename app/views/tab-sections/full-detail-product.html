@@ -1,0 +1,91 @@
+{% from "table/macro.njk"         import govukTable %}
+
+<h2 class="govuk-heading-l">Full Detail</h2>
+
+{{ govukTable({
+  firstCellIsHeader: true,
+  rows: [
+    [
+      {
+        text: "Category"
+      },
+      {
+        text: "Electrical"
+      }
+    ],
+    [
+      {
+        text: "Type"
+      },
+      {
+        text: "Travel Adaptor"
+      }
+    ],
+    [
+      {
+        text: "Brand"
+      },
+      {
+        text: "Charge Worx"
+      }
+    ],
+    [
+      {
+        text: "Model name"
+      },
+      {
+        text: "International Travel Adaptor"
+      }
+    ],
+    [
+      {
+        text: "Model number"
+      },
+      {
+        text: "931L"
+      }
+    ],
+    [
+      {
+        text: "Serial / Product number"
+      },
+      {
+        text: "123123131"
+      }
+    ],
+    [
+      {
+        text: "Batch / Barcode"
+      },
+      {
+        text: "12345678911234"
+      }
+    ],
+    [
+      {
+        text: "Country of origin"
+      },
+      {
+        text: "China"
+      }
+    ],
+    [
+      {
+        text: "Description"
+      },
+      {
+        text: "Universal travel USB plug adaptor with surge protector"
+      }
+    ],
+    [
+      {
+        text: "Date on the market"
+      },
+      {
+        text: "April 2016"
+      }
+    ]
+  ]
+}) }}
+
+<a href="/product/edit">Edit details</a>
