@@ -1,0 +1,75 @@
+{% from "table/macro.njk"         import govukTable %}
+
+<h2 class="govuk-heading-l">Full Detail</h2>
+
+{{ govukTable({
+  firstCellIsHeader: true,
+  rows: [
+    [
+      {
+        text: "Reported risk"
+      },
+      {
+        text: "Product overheats and causes fire. Has caused significant injury"
+      }
+    ],
+    [
+      {
+        text: "Originator"
+      },
+      {
+        html: "Consumer. Hackney, London E8 1DY. <br> 020 8123 12334 <br> <a href='#'>View details</a>"
+      }
+    ],
+    [
+      {
+        text: "Event details"
+      },
+      {
+        text: "On 20th July 2018 a consumer in Hackney reported a fire in their flat caused by their kettle overheating and catching fire. They were burned and scaled by the hot water and fire. "
+      }
+    ],
+    [
+      {
+        text: "People affected"
+      },
+      {
+        text: "Adult consumers using the Kettle."
+      }
+    ],
+    [
+      {
+        text: "Applicable legislation"
+      },
+      {
+        text: ""
+      }
+    ],
+    [
+      {
+        text: "Correspondence"
+      },
+      {
+        text: "Original consumer email attached"
+      }
+    ],
+    [
+      {
+        text: "Previous steps taken"
+      },
+      {
+        html: "Manufacturer contacted on 21 July 2018 by phone. <br> Local authority contacted on 21 July 2018 by phone."
+      }
+    ],
+    [
+      {
+        text: "Additional notes"
+      },
+      {
+        text: "They have made their Local authority aware."
+      }
+    ]
+  ]
+}) }}
+
+<a href="/product/edit">Edit details</a>

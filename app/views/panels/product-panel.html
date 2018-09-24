@@ -1,0 +1,51 @@
+<div class="mspsds-product-panel">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h2 class="govuk-heading-m" title="Could also be a business, or...?">Product</h2>
+    </div>
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third">
+      <img src="public/images/placeholder.png" />
+    </div>
+    <div class="govuk-grid-column-two-thirds">
+      {{ govukTable({
+        firstCellIsHeader: true,
+        rows: [
+          [
+            {
+              text: "Brand"
+            },
+            {
+              text: "Charge Worx"
+            }
+          ],
+          [
+            {
+              text: "Model name"
+            },
+            {
+              text: "International Travel Adaptor"
+            }
+          ],
+          [
+            {
+              text: "Model number"
+            },
+            {
+              text: "931L"
+            }
+          ],
+          [
+            {
+              text: "Description"
+            },
+            {
+              text: "Universal travel USB plug adaptor with surge protector"
+            }
+          ]
+        ]
+      }) }}
+    </div>
+  </div>
+</div>

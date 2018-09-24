@@ -14,6 +14,7 @@ $govuk-global-styles: true;
 
 // Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
 @import "stat-highlights";
+@import "product-panel";
 
 // Ensure table header columns are wide enough that the headers are easily readable
 .govuk-table .govuk-table__header:first-of-type {
