@@ -1,0 +1,120 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Business Page
+{% endblock %}
+
+{% block beforeContent %}
+  <a class="govuk-back-link" href="/businesses">Back to list</a>
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-width-container">
+  <main class="govuk-main-wrapper">
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">
+          <span class="govuk-caption-xl">Business</span>
+          Tesco PLC
+        </h1>
+        <p class="govuk-body">Trading as: Tesco</p>
+      </div>
+
+      {# TODO: Commonise the stat-highlight section into its own module #}
+      <div class="govuk-grid-column-one-third">
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-one-half">
+            <h2 class="govuk-heading-l">Issues</h2>
+            <div class="stat-highlight-1">44</div>
+          </div>
+          <div class="govuk-grid-column-one-half">
+            <h2 class="govuk-heading-l">Cases</h2>
+            <div class="stat-highlight-2">3</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+{{ govukTabs({
+  items: [
+    {
+      label: "Activity",
+      id: "activity",
+      panel: {
+        html: activityHtml
+      }
+    },
+    {
+      label: "Contact details",
+      id: "contacts",
+      panel: {
+        html: contactsHtml
+      }
+    },
+    {
+      label: "Attachments",
+      id: "attachments",
+      panel: {
+        html: attachmentsHtml
+      }
+    },
+    {
+      label: "Products",
+      id: "products",
+      panel: {
+        html: productsHtml
+      }
+    },
+    {
+      label: "Related material",
+      id: "related-material",
+      panel: {
+        html: relatedEntitiesHtml
+      }
+    },
+    {
+      label: "Full detail",
+      id: "full-detail",
+      panel: {
+        html: fullDetailHtml
+      }
+    }
+  ]
+}) }}
+
+{% endblock %}
+
+{% set activityHtml %}
+<h2 class="govuk-heading-l">Activity</h2>
+
+{% endset -%}
+
+{% set contactsHtml %}
+<h2 class="govuk-heading-l">Contacts</h2>
+
+{% endset -%}
+
+{% set attachmentsHtml %}
+<h2 class="govuk-heading-l">Attachments</h2>
+
+{% endset -%}
+
+{% set productsHtml %}
+<h2 class="govuk-heading-l">Products</h2>
+
+{% endset -%}
+
+{% set relatedEntitiesHtml %}
+<h2 class="govuk-heading-l">Related material</h2>
+
+{% endset -%}
+
+{% set fullDetailHtml %}
+{% include "tab-sections/full-detail-business.html" %}
+
+{% endset -%}
