@@ -1,0 +1,27 @@
+{% from "table/macro.njk"         import govukTable %}
+
+<h2 class="govuk-heading-l">Full Detail</h2>
+
+{{ govukTable({
+  firstCellIsHeader: true,
+  rows: [
+    [
+      {
+        text: "People affected"
+      },
+      {
+        text: "Adult consumers using the Kettle."
+      }
+    ],
+    [
+      {
+        text: "Applicable legislation"
+      },
+      {
+        text: "Consumer Rights Act 2015"
+      }
+    ]
+  ]
+}) }}
+
+<a href="/product/edit">Edit details</a>

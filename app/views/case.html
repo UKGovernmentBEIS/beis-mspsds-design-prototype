@@ -50,7 +50,7 @@
       }
     },
     {
-      label: "Contact details",
+      label: "Contacts",
       id: "contacts",
       panel: {
         html: contactsHtml
@@ -68,6 +68,13 @@
       id: "products",
       panel: {
         html: productsHtml
+      }
+    },
+    {
+      label: "Businesses",
+      id: "businesses",
+      panel: {
+        html: businessesHtml
       }
     },
     {
@@ -109,12 +116,17 @@
 
 {% endset -%}
 
+{% set businessesHtml %}
+<h2 class="govuk-heading-l">Businesses</h2>
+
+{% endset -%}
+
 {% set relatedEntitiesHtml %}
 <h2 class="govuk-heading-l">Related material</h2>
 
 {% endset -%}
 
 {% set fullDetailHtml %}
-{% include "tab-sections/full-detail-business.html" %}
+{% include "tab-sections/full-detail-case.html" %}
 
 {% endset -%}
