@@ -22,19 +22,7 @@
         <p class="govuk-body">Trading as: Tesco</p>
       </div>
 
-      {# TODO: Commonise the stat-highlight section into its own module #}
-      <div class="govuk-grid-column-one-third">
-        <div class="govuk-grid-row">
-          <div class="govuk-grid-column-one-half">
-            <h2 class="govuk-heading-l">Issues</h2>
-            <div class="stat-highlight-1">44</div>
-          </div>
-          <div class="govuk-grid-column-one-half">
-            <h2 class="govuk-heading-l">Cases</h2>
-            <div class="stat-highlight-2">3</div>
-          </div>
-        </div>
-      </div>
+      {% include "includes/stat-highlight.html" %}
     </div>
 
   </main>
