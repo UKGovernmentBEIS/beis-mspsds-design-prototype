@@ -1,6 +1,6 @@
 %stat-highlight {
   display: inline-block;
-  padding: govuk-spacing(1) govuk-spacing(3);
+  padding: govuk-spacing(1) govuk-spacing(3) govuk-spacing(0);
 
   font-family: "nta", Arial, sans-serif;
   // QQ: Should these be specified using GDS includes rather than explicitly? If so, how?
