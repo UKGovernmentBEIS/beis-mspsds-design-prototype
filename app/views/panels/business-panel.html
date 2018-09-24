@@ -1,0 +1,44 @@
+<div class="govuk-grid-row mspsds-product-panel">
+  <div class="govuk-grid-column-one-third">
+    <img src="public/images/placeholder.png" title="Business identifying image - logo? premises photo?" />
+  </div>
+  <div class="govuk-grid-column-two-thirds">
+    {{ govukTable({
+      firstCellIsHeader: true,
+      rows: [
+        [
+          {
+            text: "Company number"
+          },
+          {
+            text: "00445790"
+          }
+        ],
+        [
+          {
+            text: "Company type"
+          },
+          {
+            text: "Public limited company"
+          }
+        ],
+        [
+          {
+            text: "Nature of business (SIC)"
+          },
+          {
+            text: "47110 - Retail sale in non-specialised stores with food, beverages or tobacco predominating"
+          }
+        ],
+        [
+          {
+            text: "Primary Authority"
+          },
+          {
+            text: "Hertfordshire County Council"
+          }
+        ]
+      ]
+    }) }}
+  </div>
+</div>
