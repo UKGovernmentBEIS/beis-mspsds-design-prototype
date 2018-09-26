@@ -1,0 +1,53 @@
+//QQ: @import 'colours';
+
+.visually-hidden {
+  display: none;
+}
+
+.timeline-2 {
+  border-left: 3px solid #005ea5;
+  list-style-type: none;
+  margin: govuk-spacing(0);
+  padding: govuk-spacing(0);
+}
+
+.timeline-2-entry {
+  margin: govuk-spacing(6) govuk-spacing(0);
+  padding-left: 1em;
+  position: relative;
+
+  &::before {
+    background-color: #005ea5;
+    content: ' ';
+    height: 3px;
+    left: 0;
+    position: absolute;
+    top: .5em;
+    width: 10px;
+  }
+
+  &:first-of-type {
+    margin: govuk-spacing(0) govuk-spacing(0);
+  }
+
+  .timeline-2-title {
+    display: block;
+    font-weight: 700;
+    margin-bottom: govuk-spacing(0);
+  }
+
+  .timeline-2-author,
+  .timeline-2-date {
+    color: #6f777b;
+    display: block;
+    margin-bottom: govuk-spacing(0);
+  }
+
+  .timeline-2-info {
+    margin-top: 0;
+  }
+
+  .timeline-2-body {
+    display: block;
+  }
+}
