@@ -19,7 +19,7 @@ $govuk-global-styles: true;
 
 // Ensure table header columns are wide enough that the headers are easily readable
 .govuk-table .govuk-table__header:first-of-type {
-  /* TODO: This really ought to be min-width but that doesn't work on table cells. Try to find a workaround? */
+  /* TODO:Dev This really ought to be min-width but that doesn't work on table cells. Try to find a workaround? */
   width: 33%;
 }
 
