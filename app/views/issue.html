@@ -101,7 +101,33 @@
 {% set activityHtml %}
 <h2 class="govuk-heading-l">Activity</h2>
 
-{% include "includes/activity-timeline.html" %}
+{% from "includes/activity-timeline.html" import activityTimeline %}
+
+{{ activityTimeline([
+  {
+    action: "Comment added",
+    text: "Have flagged as priority due to consumer injuries and potential risks of the product"
+  },
+  {
+    action: "Business added: Tesco PLC",
+    html: '
+      <details class="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Business details
+          </span>
+        </summary>
+        <div class="govuk-details__text govuk-body-s">
+          <span class="govuk-!-font-weight-bold">Tesco PLC</span><br/>
+          Trading as: Tesco<br/>
+          Company number: 00445790
+        </div>
+      </details>'
+  },
+  {
+    action: "Issue created"
+  }
+]) }}
 
 {% endset -%}
 

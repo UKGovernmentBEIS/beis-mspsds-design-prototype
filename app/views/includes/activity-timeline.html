@@ -1,3 +1,4 @@
+{% macro activityTimeline(eventList) %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <ol class="mspsds-activity-timeline">
@@ -10,31 +11,18 @@
         <p><a class="button" href="#0">Continue</a></p>
       </li>
       #}
+      {% for entry in eventList %}
       <li class="mspsds-activity-timeline__entry">
-        <h3 class="govuk-heading-s">Comment added</h3>
+        <h3 class="govuk-heading-s">{{entry.action}}</h3>
         <p class="mspsds-activity-timeline__entry-details govuk-body-s">By Tim Harwood, 16 August 2018</p>
-        <p>Have flagged as priority due to consumer injuries and potential risks of the product</p>
+        {% if entry.html %}
+        {{entry.html | safe}}
+        {% endif %}
+        {% if entry.text %}
+        <p>{{entry.text}}</p>
+        {% endif %}
       </li>
-      <li class="mspsds-activity-timeline__entry">
-        <h3 class="govuk-heading-s">Business added: Tesco PLC</h3>
-        <p class="mspsds-activity-timeline__entry-details govuk-body-s">By Tim Harwood, 16 August 2018</p>
-        <details class="govuk-details">
-          <summary class="govuk-details__summary">
-            <span class="govuk-details__summary-text">
-              Business details
-            </span>
-          </summary>
-          <div class="govuk-details__text govuk-body-s">
-            <span class="govuk-!-font-weight-bold">Tesco PLC</span><br/>
-            Trading as: Tesco<br/>
-            Company number: 00445790
-          </div>
-        </details>
-      </li>
-      <li class="mspsds-activity-timeline__entry">
-        <h3 class="govuk-heading-s">Issue created</h3>
-        <p class="mspsds-activity-timeline__entry-details govuk-body-s">By Tim Harwood, 16 August 2018</p>
-      </li>
+      {% endfor %}
     </ol>
   </div>
 </div>
@@ -43,3 +31,4 @@
     <a href="#">New activity</a>
   </div>
 </div>
+{% endmacro %}
