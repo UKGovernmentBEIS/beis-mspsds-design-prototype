@@ -1,0 +1,43 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <ol class="mspsds-activity-timeline">
+      {#TODO: Can we use responsive mixins in the SCSS rather than specifying font-size classes? #}
+      {# TODO: Consider how to highlight different entries. Below code is one possibility.
+      <li class="mspsds-activity-timeline__entry--action-needed">
+        <h3 class="govuk-heading-s">Ask someone to confirm your identity</h3>
+        <p class="time govuk-body-s">2 September 2017 at 1.01pm</p>
+        <p>Your old passport is damaged. We can’t print your new passport until your identity is confirmed.</p>
+        <p><a class="button" href="#0">Continue</a></p>
+      </li>
+      #}
+      <li class="mspsds-activity-timeline__entry">
+        <h3 class="govuk-heading-s">Comment added</h3>
+        <p class="mspsds-activity-timeline__entry-details govuk-body-s">By Tim Harwood, 16 August 2018</p>
+        <p>Have flagged as priority due to consumer injuries and potential risks of the product</p>
+      </li>
+      <li class="mspsds-activity-timeline__entry">
+        <h3 class="govuk-heading-s">Business added: Tesco PLC</h3>
+        <p class="mspsds-activity-timeline__entry-details govuk-body-s">By Tim Harwood, 16 August 2018</p>
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              Business details
+            </span>
+          </summary>
+          <div class="govuk-details__text govuk-body-s">
+            <span class="govuk-!-font-weight-bold">Tesco PLC</span><br/>
+            Trading as: Tesco<br/>
+            Company number: 00445790
+          </div>
+        </details>
+      </li>
+      <li class="mspsds-activity-timeline__entry">
+        <h3 class="govuk-heading-s">Issue created</h3>
+        <p class="mspsds-activity-timeline__entry-details govuk-body-s">By Tim Harwood, 16 August 2018</p>
+      </li>
+    </ol>
+  </div>
+  <div class="govuk-grid-column-two-thirds">
+    <a href="#">New activity</a>
+  </div>
+</div>

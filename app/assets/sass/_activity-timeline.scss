@@ -1,0 +1,147 @@
+$timeline-main-colour: govuk-colour("grey-1");
+$timeline-thickness: 4px;
+$timeline-spacing-point-to-entry: govuk-spacing(2);
+
+$timeline-point-top-margin-offset: 2px;
+$timeline-point-centre-diameter: 10px;
+$timeline-point-surround-radius: 4px;
+$timeline-point-highlight-surround-radius: 2 * $timeline-point-surround-radius;
+@function timeline-point-diameter() {
+ @return $timeline-point-centre-diameter + 2 * $timeline-point-surround-radius;
+}
+
+$timeline-point-centre-colour: govuk-colour("white");
+$timeline-point-origin-centre-colour: govuk-colour("grey-2");
+
+%activity-timeline__point {
+  content: "";
+  display: block;
+  width: $timeline-point-centre-diameter;
+  height: $timeline-point-centre-diameter;
+  border-radius: 50%;
+  background-color: $timeline-point-centre-colour;
+  border: $timeline-point-surround-radius solid $timeline-main-colour;
+  position: absolute;
+  z-index: 2;
+}
+
+%activity-timeline__point--origin {
+  @extend %activity-timeline__point;
+  background-color: $timeline-point-origin-centre-colour;
+}
+
+%activity-timeline__point--highlight {
+  @extend %activity-timeline__point;
+  background-color: $timeline-main-colour;
+  border-width: $timeline-point-highlight-surround-radius;
+}
+
+.mspsds-activity-timeline {
+  margin-top: govuk-spacing(0);
+  @include govuk-responsive-margin(4, "bottom");
+  margin-left: timeline-point-diameter()/2 + $timeline-thickness/2;
+  padding-bottom: $timeline-point-top-margin-offset + govuk-spacing(4) + timeline-point-diameter();
+  //TODO: The second part of the above is not responsive, but the corresponding padding will be. They need to match - ideally both responsive.
+  padding-left: govuk-spacing(0);
+
+  list-style-type: none;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: $timeline-point-top-margin-offset + timeline-point-diameter()/2;
+    left: -$timeline-thickness;
+    bottom: timeline-point-diameter()/2;
+    border-left: $timeline-thickness solid $timeline-main-colour;
+  }
+
+  &::after {
+    @extend %activity-timeline__point--origin;
+    left: -($timeline-thickness/2 + timeline-point-diameter()/2);
+    bottom: 0;
+  }
+}
+
+.mspsds-activity-timeline__entry {
+  margin-left: $timeline-spacing-point-to-entry + timeline-point-diameter()/2 - $timeline-thickness/2;
+  @include govuk-responsive-padding(4, "top");
+  @include govuk-responsive-padding(4, "bottom");
+  @include govuk-responsive-padding(3, "left");
+  &:first-of-type {
+    padding-top: govuk-spacing(0);
+  }
+  &:last-child {
+    margin-bottom: govuk-spacing(0);
+  }
+
+  position: relative;
+  display: block;
+
+  border-bottom: 1px solid govuk-colour("grey-3");
+
+  &::before {
+    @extend %activity-timeline__point;
+    left: -($timeline-spacing-point-to-entry + timeline-point-diameter());
+    top: $timeline-point-top-margin-offset + govuk-spacing(4);
+    //TODO: The second part of the above is not responsive, but the corresponding padding will be. They need to match - ideally both responsive.
+  }
+  &:first-of-type::before {
+    top: $timeline-point-top-margin-offset;
+  }
+
+  .govuk-heading-s {
+    margin-bottom: govuk-spacing(0);
+  }
+
+  .govuk-details {
+    @include govuk-responsive-margin(4, "bottom");
+
+    &:last-child {
+      margin-bottom: govuk-spacing(0);
+
+      .govuk-details__text {
+        margin-bottom: govuk-spacing(0);
+      }
+    }
+  }
+
+  p:last-child {
+    margin-bottom: govuk-spacing(0);
+  }
+
+  /* TODO: Consider how to highlight different entries. Below code is one possibility
+  &--action-needed {
+    background-color: govuk-colour("grey-3");
+    padding: 5px 20px 5px 15px;
+
+    h2 {
+      font-size: 1.2em;
+    }
+
+    &:before {
+      @extend %activity-timeline__point--highlight;
+      left: -36px;
+      top: 16px;
+    }
+  }
+  .action_needed {
+    background-color: govuk-colour("grey-3");
+    padding: 5px 20px 5px 15px;
+
+    h2 {
+      font-size: 1.2em;
+    }
+
+    &:before {
+      @extend %activity-timeline__point--highlight;
+      left: -36px;
+      top: 16px;
+    }
+  }
+  */
+}
+
+.mspsds-activity-timeline__entry-details {
+  color: $govuk-secondary-text-colour;
+}

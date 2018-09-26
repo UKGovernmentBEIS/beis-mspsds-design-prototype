@@ -15,9 +15,7 @@ $govuk-global-styles: true;
 // Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
 @import "stat-highlights";
 @import "product-panel";
-// TODO: Only one of the below is needed - decide which style we prefer
-@import "timeline-1";
-@import "timeline-2";
+@import "activity-timeline";
 
 // Ensure table header columns are wide enough that the headers are easily readable
 .govuk-table .govuk-table__header:first-of-type {
