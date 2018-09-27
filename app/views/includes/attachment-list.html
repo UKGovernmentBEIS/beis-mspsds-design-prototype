@@ -1,0 +1,60 @@
+{% macro attachmentList(numberOfAttachments) %}
+
+{% for attachmentNumber in range(0, numberOfAttachments) %}
+<div class="mspsds-attachment-list">
+  {% if (loop.index % 2) == 1 %}
+  {{ imageAttachment() }}
+  {% else %}
+  {{ documentAttachment() }}
+  {% endif %}
+  {% if attachmentNumber != numberOfAttachments-1 %}
+  <hr class="govuk-section-break govuk-section-break--m govuk-section-break govuk-section-break--visible" />
+  {% endif %}
+</div>
+{% endfor %}
+
+{% endmacro %}
+
+{% macro imageAttachment() %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-third">
+    <img src="public/images/placeholder.png" />
+  </div>
+
+  <div class="govuk-grid-column-two-thirds">
+    <h3 class="mspsds-attachment-list__image-title govuk-heading-m">Image title</h3>
+    <p class="mspsds-attachment-list__image-date govuk-body-s">Updated 12/08/2018</p>
+    <p class="govuk-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+    <a href="#">Edit image details</a>
+  </div>
+</div>
+
+{% endmacro %}}
+
+{% macro documentAttachment() %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-third">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half">
+        <p></p>
+      </div>
+      <div class="govuk-grid-column-one-half">
+        <div class="mspsds-attachment-list__document-file-details">
+          <img src="public/images/document-thumbnail.png" title="Document preview?" />
+          <span class="mspsds-attachment-list__document-type-and-length govuk-body-s">PDF, 110 pp</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="govuk-grid-column-two-thirds">
+    <h3 class="mspsds-attachment-list__image-title govuk-heading-m">Document title</h3>
+    <p class="mspsds-attachment-list__image-date govuk-body-s">Test results, uploaded 12/08/2018</p>
+    <p class="govuk-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+    <a href="#">Edit document details</a>
+  </div>
+</div>
+
+{% endmacro %}
