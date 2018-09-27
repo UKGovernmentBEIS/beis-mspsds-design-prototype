@@ -78,6 +78,32 @@
 {% set activityHtml %}
 <h2 class="govuk-heading-l">Activity</h2>
 
+{% from "includes/activity-timeline.html" import activityTimeline %}
+
+{{ activityTimeline([
+  {
+    action: "Product added: Travel plug adaptor — Charge Worx 931L",
+    html: '
+      <p>Role: <span class="govuk-!-font-weight-bold">Distributor</span></p>
+      <details class="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Product details
+          </span>
+        </summary>
+        <div class="govuk-details__text govuk-body-s">
+          Brand: Charge Worx<br />
+          Model Name: International Travel Adaptor<br />
+          Model number: 931L<br />
+          Description: Universal travel USB plug adaptor with surge protector
+        </div>
+      </details>'
+  },
+  {
+    action: "Business created"
+  }
+]) }}
+
 {% endset -%}
 
 {% set contactsHtml %}
