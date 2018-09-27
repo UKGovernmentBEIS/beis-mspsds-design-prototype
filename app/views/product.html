@@ -110,7 +110,12 @@
 {% endset -%}
 
 {% set attachmentsHtml %}
-<h2 class="govuk-heading-l">Attachments</h2>
+<h2 class="govuk-heading-l">Manage Images</h2>
+<a href="#">Add new image</a>
+
+{% from "includes/image-list.html" import imageList %}
+
+{{ imageList(5) }}
 
 {% endset -%}
 
