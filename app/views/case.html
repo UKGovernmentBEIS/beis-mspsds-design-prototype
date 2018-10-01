@@ -133,6 +133,15 @@
 {% set contactsHtml %}
 <h2 class="govuk-heading-l">Contacts</h2>
 
+{% from "panels/contact-panel.html" import contactPanel %}
+
+<div class="govuk-grid-row">
+  {{ contactPanel("Main contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
+  {{ contactPanel("Head of Procurement", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
+  {{ contactPanel("Another contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
+  {{ contactPanel("And another", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
+</div>
+
 {% endset -%}
 
 {% set attachmentsHtml %}
