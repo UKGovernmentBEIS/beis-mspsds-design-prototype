@@ -34,6 +34,6 @@ div[class^="govuk-grid-column-"] img {
 }
 
 // Remove default bottom-margin from content at the end of a tab
-.govuk-tabs__panel > :last-child .govuk-table {
+.govuk-tabs__panel > :last-child .govuk-table:last-child {
   margin-bottom: govuk-spacing(0);
 }
