@@ -1,0 +1,5 @@
+.mspsds-block-link {
+  display: block;
+  @include govuk-responsive-margin(6, "bottom");
+  @include govuk-responsive-margin(6, "right");
+}
