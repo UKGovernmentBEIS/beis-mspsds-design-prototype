@@ -81,7 +81,7 @@
       label: "Related",
       id: "related",
       panel: {
-        html: relatedEntitiesHtml
+        html: relatedItemsHtml
       }
     },
     {
@@ -155,8 +155,14 @@
 
 {% endset -%}
 
-{% set relatedEntitiesHtml %}
-<h2 class="govuk-heading-l">Related material</h2>
+{% set relatedItemsHtml %}
+<h2 class="govuk-heading-l">Linked to this case</h2>
+
+{% include "includes/linked-items.html" %}
+
+<h2 class="govuk-heading-l">Potentially related to this case</h2>
+
+{% include "includes/potential-relationships.html" %}
 
 {% endset -%}
 

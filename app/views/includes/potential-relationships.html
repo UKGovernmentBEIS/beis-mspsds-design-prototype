@@ -1,0 +1,55 @@
+{% from "table/macro.njk"         import govukTable %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ govukTable({
+      firstCellIsHeader: true,
+      rows: [
+        [
+          {
+            text: "Cases"
+          },
+          {
+            text: "1"
+          },
+          {
+            html: "<a href='#'>View</a>"
+          }
+        ],
+        [
+          {
+            text: "Issues"
+          },
+          {
+            text: "3"
+          },
+          {
+            html: "<a href='#'>View</a>"
+          }
+        ],
+        [
+          {
+            text: "Products"
+          },
+          {
+            text: "6"
+          },
+          {
+            html: "<a href='#'>View</a>"
+          }
+        ],
+        [
+          {
+            text: "Businesses"
+          },
+          {
+            text: "2"
+          },
+          {
+            html: "<a href='#'>View</a>"
+          }
+        ]
+      ]
+    }) }}
+  </div>
+</div>
