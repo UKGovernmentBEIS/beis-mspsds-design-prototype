@@ -32,3 +32,8 @@ div[class^="govuk-grid-column-"] img {
 .govuk-grid-column-one-half:first-of-type .govuk-body {
   max-width: 96%;
 }
+
+// Remove default bottom-margin from content at the end of a tab
+.govuk-tabs__panel > :last-child .govuk-table {
+  margin-bottom: govuk-spacing(0);
+}
