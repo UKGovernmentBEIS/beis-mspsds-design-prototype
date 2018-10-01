@@ -1,8 +1,10 @@
 {% from "table/macro.njk" import govukTable %}
 
+{% macro linkedBusinessPanel(role) %}
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h3 class="govuk-heading-m">Manufacturer</h3>
+    <h3 class="govuk-heading-m">{{role}}</h3>
 
     {{ govukTable({
       firstCellIsHeader: true,
@@ -46,3 +48,5 @@
     <a href="#" class="mspsds-block-link">Business details</a>
   </div>
 </div>
+
+{% endmacro %}

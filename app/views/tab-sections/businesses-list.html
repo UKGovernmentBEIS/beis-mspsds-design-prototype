@@ -1,5 +1,7 @@
 <h2 class="govuk-heading-l">Businesses</h2>
 
-{% include "panels/linked-business-panel.html" %}
-{% include "panels/linked-business-panel.html" %}
-{% include "panels/linked-business-panel.html" %}
+{% from "panels/linked-business-panel.html" import linkedBusinessPanel %}
+
+{{ linkedBusinessPanel("Manufacturer") }}
+{{ linkedBusinessPanel("Importer") }}
+{{ linkedBusinessPanel("Distributor") }}
