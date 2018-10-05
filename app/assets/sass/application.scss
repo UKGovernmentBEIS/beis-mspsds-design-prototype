@@ -17,6 +17,7 @@ $govuk-global-styles: true;
 @import "activity-timeline";
 @import "attachment-list";
 @import "block-link";
+@import "site-nav";
 
 // Make images fit to column
 div[class^="govuk-grid-column-"] img {

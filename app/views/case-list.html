@@ -1,0 +1,47 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Case-list Page
+{% endblock %}
+
+{% block beforeContent %}
+
+  {% include "includes/site-nav.html" %}
+
+{% endblock %}
+
+
+{% block content %}
+
+  {% include "includes/case-list__header.html" %}
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full"> 
+        <p class="govuk-body">
+
+          <a class="govuk-link mspsds-block-link" href="/report-product.html">Report an unsafe product</a>
+
+          <a class="govuk-link mspsds-block-link" href="/begin-investigation.html">Begin an investigation</a>
+
+          <a class="govuk-link mspsds-block-link" href="/ask-question.html">Ask a question</a>
+
+        </p>
+
+    </div>
+  </div>
+
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+     {% include "includes/case-list__list.html" %}
+    </div>
+  </div>
+
+
+
+
+
+{% endblock %}
