@@ -1,0 +1,64 @@
+{% from "table/macro.njk" import govukTable %}
+
+
+
+{% macro productPanel(products) %}
+
+  {% for product in products %}
+
+    <div class="govuk-grid-row mspsds-product-panel">
+
+      <div class="govuk-grid-column-one-third">
+        <img src="public/images/placeholder.png" title="Product identifying image" />
+      </div>
+
+      <div class="govuk-grid-column-two-thirds">
+
+        {{ govukTable({
+          firstCellIsHeader: true,
+          rows: [
+            [
+              { text: "Brand"},
+              { text: product.brand }
+            ],
+            [
+              { text: "Model name" },
+              { text: product.modelName }
+            ],
+            [
+              { text: "Model number" },
+              { text: product.modelNumber  }
+            ],
+            [
+              { text: "Description" },
+              { text: product.description }
+            ]
+          ]
+        }) }}
+
+      </div>
+
+    </div>
+
+  {% else %}
+
+    <div class="govuk-grid-row mspsds-product-panel mspsds-product-panel__empty">
+
+
+      <div class="govuk-grid-column-full">
+        <h2 class="govuk-heading-l">There are no products attached to this case</h2>
+        <p class="govuk-body">Add a product to the case blah blah blah</p>
+        <p class="govuk-body">
+          <a class="govuk-link mspsds-block-link" href="/flows/add-product">Add product</a>
+        </p>
+
+      </div>
+
+    </div>
+
+
+  {% endfor %}
+
+
+
+{% endmacro %}

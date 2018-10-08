@@ -30,6 +30,23 @@
     
     <form action="./02-questioner-details" method="post" class="form">
 
+
+      {% set otherQuestionerHtml %}
+
+        {{ govukInput({
+          hint: {
+            text:     "Please give details",
+            classes:  "govuk-!-width-two-thirds"
+          },
+          classes:    "govuk-!-width-two-thirds",
+          id:         "other-questioner",
+          name:       "other-questioner"
+        }) }}
+
+      {% endset -%}
+
+
+
       {% call govukFieldset({
         legend: {
           text:           "Questioner type?",
@@ -65,25 +82,16 @@
             {
               value: "Other",
               text: "Other",
+              conditional: {
+                html: otherQuestionerHtml
+              },
               checked: checked("questioner-type", "Other")
             }
           ]
         }) }}
 
 
-        {{ govukInput({
-          label: {
-            text:     "Other questioner",
-            classes:  "govuk-!-width-two-thirds other-questioner"
-          },
-          hint: {
-            text:     "Please give details",
-            classes:  "govuk-!-width-two-thirds"
-          },
-          classes:    "govuk-!-width-two-thirds",
-          id:         "other-questioner",
-          name:       "other-questioner"
-        }) }}
+        
 
       {% endcall %}
 

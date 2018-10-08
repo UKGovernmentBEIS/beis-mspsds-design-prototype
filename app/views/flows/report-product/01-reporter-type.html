@@ -30,6 +30,20 @@
     
     <form action="./02-reporter-details" method="post" class="form">
 
+      {% set otherReporterHtml %}
+        {{ govukInput({
+          hint: {
+            text:     "Please give details",
+            classes:  "govuk-!-width-two-thirds"
+          },
+          classes:    "govuk-!-width-two-thirds",
+          id:         "other-reporter",
+          name:       "other-reporter"
+        }) }}
+      {% endset -%}
+
+
+
       {% call govukFieldset({
         legend: {
           text:           "Reporter type?",
@@ -70,26 +84,16 @@
             {
               value: "Other",
               text: "Other",
+              conditional: {
+                html: otherReporterHtml
+              },
               checked: checked("reporter-type", "Other")
             }
           ]
         }) }}
 
 
-        {{ govukInput({
-          label: {
-            text:     "Other reporter",
-            classes:  "govuk-!-width-two-thirds other-reporter"
-          },
-          hint: {
-            text:     "Please give details",
-            classes:  "govuk-!-width-two-thirds"
-          },
-          classes:    "govuk-!-width-two-thirds",
-          id:         "other-reporter",
-          name:       "other-reporter"
-        }) }}
-
+        
       {% endcall %}
 
 

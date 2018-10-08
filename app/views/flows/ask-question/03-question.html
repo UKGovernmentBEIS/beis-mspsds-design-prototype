@@ -30,6 +30,23 @@
     
     <form action="./04-question-created" method="post" class="form">
 
+
+      {% set otherQuestionTypeHtml %}
+
+        {{ govukInput({
+          hint: {
+            text:     "Please give details",
+            classes:  "govuk-!-width-two-thirds"
+          },
+          classes:    "govuk-!-width-two-thirds",
+          id:         "other-question-type",
+          name:       "other-question-type"
+        }) }}
+
+      {% endset -%}
+
+
+
       {% call govukFieldset({
         legend: {
           text:           "What type of question is it?",
@@ -65,25 +82,16 @@
             {
               value: "Other",
               text: "Other",
+              conditional: {
+                html: otherQuestionTypeHtml
+              },
               checked: checked("question-type", "Other")
             }
           ]
         }) }}
 
 
-        {{ govukInput({
-          label: {
-            text:     "Other question type",
-            classes:  "govuk-!-width-two-thirds other-questioner"
-          },
-          hint: {
-            text:     "Please give details",
-            classes:  "govuk-!-width-two-thirds"
-          },
-          classes:    "govuk-!-width-two-thirds",
-          id:         "other-question-type",
-          name:       "other-question-type"
-        }) }}
+        
 
       {% endcall %}
       

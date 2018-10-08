@@ -1,0 +1,157 @@
+{% extends "mspsds-layout.html" %}
+
+{% block pageTitle %}
+  Case Page
+{% endblock %}
+
+{% block beforeContent %}
+  <a class="govuk-back-link" href="/case-list">Back to list</a>
+{% endblock %}
+
+{% block content %}
+
+
+{{ pageTitle({
+  type:       "Case: 1810-0001",
+  title:      "Untitled case",
+  subTitle:   "Created by Tim Harwood, 10/10/2018"
+}) }}
+
+
+
+
+  {% from "panels/case-why.html" import caseWhy %}
+  {{ caseWhy() }}
+
+
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+
+  {% from "panels/product-panel__empty.html" import productPanel %}
+  {{ productPanel() }}
+
+
+<hr class="govuk-section-break govuk-section-break--m" />
+
+{{ govukTabs({
+  items: [
+    {
+      label: "Activity",
+      id: "activity",
+      panel: {
+        html: activityHtml
+      }
+    },
+    {
+      label: "Contacts",
+      id: "contacts",
+      panel: {
+        html: contactsHtml
+      }
+    },
+    {
+      label: "Attachments",
+      id: "attachments",
+      panel: {
+        html: attachmentsHtml
+      }
+    },
+    {
+      label: "Products",
+      id: "products",
+      panel: {
+        html: productsHtml
+      }
+    },
+    {
+      label: "Businesses",
+      id: "businesses",
+      panel: {
+        html: businessesHtml
+      }
+    },
+    {
+      label: "Related",
+      id: "related",
+      panel: {
+        html: relatedItemsHtml
+      }
+    },
+    {
+      label: "Full detail",
+      id: "full-detail",
+      panel: {
+        html: fullDetailHtml
+      }
+    }
+  ]
+}) }}
+
+{% endblock %}
+
+
+
+{% set activityHtml %}
+  <h2 class="govuk-heading-l">Activity</h2>
+
+  {% from "includes/activity-timeline.html" import activityTimeline %}
+
+  {{ activityTimeline([
+    {
+      action: "Case created"
+    }
+  ]) }}
+
+{% endset -%}
+
+
+
+{% set contactsHtml %}
+<h2 class="govuk-heading-l">Contacts</h2>
+
+  {% from "panels/contact-panel.html" import contactPanel %}
+
+  <div class="govuk-grid-row">
+    {{ contactPanel("Main contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
+    {{ contactPanel("Head of Procurement", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
+    {{ contactPanel("Another contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
+    {{ contactPanel("And another", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
+  </div>
+
+{% endset -%}
+
+
+{% set attachmentsHtml %}
+  <h2 class="govuk-heading-l">Attachments</h2>
+  <a href="#">Add new image</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Add new document</a>
+  {% from "includes/attachment-list.html" import attachmentList %}
+  {{ attachmentList(5) }}
+{% endset -%}
+
+
+{% set productsHtml %}
+  {% include "tab-sections/products-list.html" %}
+{% endset -%}
+
+
+{% set businessesHtml %}
+  {% include "tab-sections/businesses-list.html" %}
+{% endset -%}
+
+
+
+{% set relatedItemsHtml %}
+  <h2 class="govuk-heading-l">Linked to this case</h2>
+
+  {% include "includes/linked-items.html" %}
+
+  <h2 class="govuk-heading-l">Potentially related to this case</h2>
+
+  {% include "includes/potential-relationships.html" %}
+{% endset -%}
+
+
+
+{% set fullDetailHtml %}
+  {% include "tab-sections/full-detail-case.html" %}
+{% endset -%}

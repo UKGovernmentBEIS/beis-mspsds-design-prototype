@@ -1,0 +1,52 @@
+{% from "table/macro.njk" import govukTable %}
+
+
+{% macro caseWhy(whyData) %}
+
+  {% if whyData %}
+
+    <div class="govuk-grid-row mspsds-why-panel">
+
+      <div class="govuk-grid-column-one-half">
+        <h2 class="govuk-heading-m">Risk notes: Electric shock, fire</h2>
+        <p class="govuk-body govuk-!-margin-bottom-1">Travel adaptor available from high-street store Game has been reported to have caused a fire and severe electric shocks. Has been reported more than 10 times in the last 2 months.</p>
+        <p><a href="/case/risk/edit">Edit risk details</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/case/risk/view">View assessment</a></p>
+      </div>
+
+      <div class="govuk-grid-column-one-quarter">
+        <h2 class="govuk-heading-m govuk-!-font-weight-regular">Risk level</h2>
+        <p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold">Serious</p>
+      </div>
+
+      <div class="govuk-grid-column-one-quarter">
+        <h2 class="govuk-heading-m govuk-!-font-weight-regular">Sensitivity</h2>
+        <p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold">Medium</p>
+      </div>
+
+
+    </div>
+
+  {% else %}
+
+    <div class="govuk-grid-row mspsds-product-panel mspsds-product-panel__empty">
+
+
+      <div class="govuk-grid-column-full">
+        <h2 class="govuk-heading-l">Why does this case exist?</h2>
+        <p class="govuk-body">Please add information addressing why this case exists, be it assessed risk, initial triage info, reported incident etc</p>
+        <p class="govuk-body">
+          <a class="govuk-link mspsds-block-link" href="/flows/add-risk/01-add-risk">Add risk data</a>
+          <a class="govuk-link mspsds-block-link" href="/flows/add-priority/01-add-priority">Add priority data</a>
+          <a class="govuk-link mspsds-block-link" href="/flows/add-incident/01-add-incident">Add incident data</a>
+        </p>
+
+      </div>
+
+    </div>
+
+
+  {% endif %}
+
+
+
+{% endmacro %}
