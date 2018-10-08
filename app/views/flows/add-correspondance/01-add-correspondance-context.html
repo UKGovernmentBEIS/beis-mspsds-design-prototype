@@ -1,0 +1,180 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% block pageTitle %}
+  Add Correspondance
+{% endblock %}
+
+
+{% block beforeContent %}
+
+  {{ govukBackLink({
+    text: "Back to list",
+    href: "/case-list"
+  }) }}
+
+{% endblock %}
+
+
+{% block content %}
+
+
+  {{ pageTitle({
+    type:   "Case: 1810-0001",
+    title:  "Add correspondance"
+  }) }}
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    
+    <form action="./02-add-correspondance-content" method="post" class="form">
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Who is the correspondance with?",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukRadios({
+          idPrefix:   "correspondant",
+          name:       "correspondant",
+          items: [
+            {
+              value:  "Incident reporter",
+              text:   "Incident reporter",
+              checked: checked("correspondant", "Incident reporter")
+            },
+            {
+              value:  "Manufacturer",
+              text:   "Manufacturer",
+              checked: checked("correspondant", "Manufacturer")
+            },
+            {
+              value:  "Importer",
+              text:   "Importer",
+              checked: checked("correspondant", "Local authority (Trading standards)")
+            },
+            {
+              value:  "Retailer",
+              text:   "Retailer",
+              checked: checked("correspondant", "Retailer")
+            },
+            {
+              value: "Trading Standards / Other MSA",
+              text: "Trading Standards / Other MSA",
+              checked: checked("correspondant", "Trading Standards / Other MSA")
+            },
+            {
+              value: "Other",
+              text: "Other",
+              checked: checked("correspondant", "Other")
+            }
+          ]
+        }) }}
+
+
+        {{ govukInput({
+          label: {
+            text:     "Other correspondant",
+            classes:  "govuk-!-width-two-thirds other-correspondant"
+          },
+          hint: {
+            text:     "Please give details",
+            classes:  "govuk-!-width-two-thirds"
+          },
+          classes:    "govuk-!-width-two-thirds",
+          id:         "other-correspondant",
+          name:       "other-correspondant"
+        }) }}
+
+      {% endcall %}
+
+
+
+      {% call govukFieldset({
+        legend: {
+          text:           "How?",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukRadios({
+          idPrefix:   "correspondance-method",
+          name:       "correspondance-method",
+          items: [
+            {
+              value:  "Phone call",
+              text:   "Phone call",
+              checked: checked("correspondance-method", "Phone call")
+            },
+            {
+              value:  "Email",
+              text:   "Email",
+              checked: checked("correspondance-method", "Email")
+            }
+          ]
+        }) }}
+
+      {% endcall %}
+
+
+
+      {{ govukDateInput({
+        id:         "correspondance-date",
+        namePrefix: "correspondance-date",
+        fieldset: {
+          legend: {
+            text: "When?",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        hint: {
+          text: "For example, 31 3 2018"
+        }
+      }) }}
+
+
+
+
+      {% call govukFieldset({
+        legend: {
+          text: "Subject",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukInput({
+          hint: {
+            text: "Give an overview of the correspondance"
+          },
+          classes: "govuk-!-width-two-thirds",
+          id:   "correspondance-subject",
+          name: "correspondance-subject"
+        }) }}
+
+      {% endcall %}
+
+
+
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}

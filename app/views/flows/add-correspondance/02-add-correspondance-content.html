@@ -1,0 +1,79 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% block pageTitle %}
+  Add Correspondance
+{% endblock %}
+
+
+{% block beforeContent %}
+
+  {{ govukBackLink({
+    text: "Back to list",
+    href: "/case-list"
+  }) }}
+
+{% endblock %}
+
+
+{% block content %}
+
+
+  {{ pageTitle({
+    type:   "Case: 1810-0001",
+    title:  "Add correspondance content"
+  }) }}
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    
+    <form action="./03-add-correspondance-confirm" method="post" class="form">
+      
+      {% call govukFieldset({
+        legend: {
+          text:       "Email body, transcript or notes",
+          classes:    "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukTextarea({
+          name: "correspondance-content",
+          id:   "correspondance-content"
+        }) }}
+
+      {% endcall %}
+
+
+      {% call govukFieldset({
+        legend: {
+          text:       "And/or, upload a file if you have one",
+          classes:    "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+
+
+      {% endcall %}
+      
+        {{ govukFileUpload({
+          id: "correspondance-file-upload-1",
+          name: "correspondance-file-upload-1"
+        }) }}
+
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}

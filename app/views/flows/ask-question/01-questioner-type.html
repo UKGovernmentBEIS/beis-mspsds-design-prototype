@@ -1,0 +1,104 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% block pageTitle %}
+  Ask a question – Questioner type
+{% endblock %}
+
+
+{% block beforeContent %}
+
+  {{ govukBackLink({
+    text: "Back to list",
+    href: "/case-list"
+  }) }}
+
+{% endblock %}
+
+
+{% block content %}
+  
+  {{ pageTitle({
+    type:   "Ask a question",
+    title:  "Who’s asking?"
+  }) }}
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    
+    <form action="./02-questioner-details" method="post" class="form">
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Questioner type?",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukRadios({
+          idPrefix:   "questioner-type",
+          name:       "questioner-type",
+          items: [
+            {
+              value: "Business",
+              text: "Business",
+              checked: checked("questioner-type", "Business")
+            },
+            {
+              value: "Local authority (Trading standards)",
+              text: "Local authority (Trading standards)",
+              checked: checked("questioner-type", "Local authority (Trading standards)")
+            },
+            {
+              value: "Trade body",
+              text: "Trade body",
+              checked: checked("questioner-type", "Trade body")
+            },
+            {
+              value: "Other MSA",
+              text: "Other MSA",
+              checked: checked("questioner-type", "Other MSA")
+            },
+            {
+              value: "Other",
+              text: "Other",
+              checked: checked("questioner-type", "Other")
+            }
+          ]
+        }) }}
+
+
+        {{ govukInput({
+          label: {
+            text:     "Other questioner",
+            classes:  "govuk-!-width-two-thirds other-questioner"
+          },
+          hint: {
+            text:     "Please give details",
+            classes:  "govuk-!-width-two-thirds"
+          },
+          classes:    "govuk-!-width-two-thirds",
+          id:         "other-questioner",
+          name:       "other-questioner"
+        }) }}
+
+      {% endcall %}
+
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}

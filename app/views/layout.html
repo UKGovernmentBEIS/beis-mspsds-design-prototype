@@ -23,13 +23,16 @@
 {% from "textarea/macro.njk"      import govukTextarea %}
 {% from "warning-text/macro.njk"  import govukWarningText %}
 
+
 {% block head %}
   {% include "includes/head.html" %}
 {% endblock %}
 
+
 {% block pageTitle %}
   GOV.UK Prototype Kit
 {% endblock %}
+
 
 {% block header %}
   {% include "includes/cookie-banner.html" %}
@@ -41,6 +44,7 @@
     containerClasses: "govuk-width-container"
   }) }}
 {% endblock %}
+
 
 {% if useAutoStoreData %}
   {% block footer %}
@@ -60,6 +64,7 @@
     }) }}
   {% endblock %}
 {% endif %}
+
 
 {% block bodyEnd %}
   {% block scripts %}

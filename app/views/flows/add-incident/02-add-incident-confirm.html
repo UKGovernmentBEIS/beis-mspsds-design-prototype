@@ -1,0 +1,76 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% block pageTitle %}
+  Add Incident
+{% endblock %}
+
+
+{% block beforeContent %}
+
+  {{ govukBackLink({
+    text: "Back to list",
+    href: "/case-list"
+  }) }}
+
+{% endblock %}
+
+
+{% block content %}
+
+  {{ pageTitle({
+    type:   "Case: 1810-0001",
+    title:  "Confirm incident details"
+  }) }}
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    
+    <form action="/" method="post" class="form">
+
+      {{ govukTable({
+        firstCellIsHeader: true,
+        rows: [
+          [
+            { text: "Incident type" },
+            { text: data['incident-type'] }
+          ],
+          [
+            { text: "Description" },
+            { text: data['incident-description'] }
+          ],
+          [
+            { text: "Date" },
+            { text: data['incident-date-day'] +"/"+ data['incident-date-month'] +"/"+ data['incident-date-year'] }
+          ],
+          [
+            { text: "Affected party" },
+            { text: data['incident-affected-party'] }
+          ],
+          [
+            { text: "Location" },
+            { text: data['incident-location'] }
+          ]
+
+        ]
+      }) }}
+
+
+      {{ govukButton({
+        text: "Continue",
+        href: "/"
+      }) }}
+
+      <a class="govuk-link mspsds-block-link" href="/flows/add-correspondance/01-add-incident">Edit details</a>
+
+    </form>
+
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}

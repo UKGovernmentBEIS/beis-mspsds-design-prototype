@@ -1,0 +1,97 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% block pageTitle %}
+  New product safetly report – Reporter details
+{% endblock %}
+
+
+{% block beforeContent %}
+
+  {{ govukBackLink({
+    text: "Back to list",
+    href: "/case-list"
+  }) }}
+
+{% endblock %}
+
+
+{% block content %}
+
+  {{ pageTitle({
+    type:   "Report an unsafe product",
+    title:   data['reporter-type'] + " reporting"
+  }) }}
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="./03-case-created" method="post" class="form">
+    
+    {% call govukFieldset({
+      legend: {
+        text: "Reporter details",
+        classes: "govuk-fieldset__legend--l",
+        isPageHeading: false
+      }
+    }) %}
+    
+      {{ govukInput({
+        label: {
+          text: "Name"
+        },
+        classes: "govuk-!-width-two-thirds",
+        id:   "reporter-name",
+        name: "reporter-name"
+      }) }}
+
+
+      {{ govukInput({
+        label: {
+          text: "Phone number"
+        },
+        classes: "govuk-!-width-two-thirds",
+        id:   "reporter-phone-number",
+        name: "reporter-phone-number"
+      }) }}
+
+
+      {{ govukInput({
+        label: {
+          text: "Email address"
+        },
+        classes: "govuk-!-width-two-thirds",
+        id:   "reporter-email-address",
+        name: "reporter-email-address"
+      }) }}
+
+
+      {{ govukTextarea({
+        name: "reporter-other-detail",
+        id:   "reporter-other-detail",
+        label: {
+          text: "Other details"
+        },
+        hint: {
+          text: "Location, business/authority name, reference numbers etc"
+        }
+      }) }}
+
+    {% endcall %}
+
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+
+    </form>
+
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}

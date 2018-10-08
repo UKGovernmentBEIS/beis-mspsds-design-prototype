@@ -1,0 +1,20 @@
+{% macro pageTitle(titleData) %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <h1 class="govuk-heading-xl">
+      {% if titleData.type %}
+        <span class="govuk-caption-xl">{{titleData.type}}</span>
+      {% endif %}
+      {{titleData.title}}
+    </h1>
+
+    {% if titleData.sub-title %}
+      <span class="govuk-caption-m">{{titleData.sub-title}}</span>
+    {% endif %}
+    
+  </div>
+</div>
+
+{% endmacro %}

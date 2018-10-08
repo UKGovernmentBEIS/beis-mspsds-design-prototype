@@ -1,0 +1,79 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% block pageTitle %}
+  New product safetly report – What's being reported?
+{% endblock %}
+
+
+{% block beforeContent %}
+
+  {{ govukBackLink({
+    text: "Back to list",
+    href: "/case-list"
+  }) }}
+
+{% endblock %}
+
+
+{% block content %}
+
+  {{ pageTitle({
+    type:   "Case: 1810-0001",
+    title:  "Confirm correspondance details"
+  }) }}
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    
+    <form action="/" method="post" class="form">
+
+      {{ govukTable({
+        firstCellIsHeader: true,
+        rows: [
+          [
+            { text: "Correspondant" },
+            { text: data['correspondant'] }
+          ],
+          [
+            { text: "Method" },
+            { text: data['correspondance-method'] }
+          ],
+          [
+            { text: "Date" },
+            { text: data['correspondance-date-day'] +"/"+ data['correspondance-date-month'] +"/"+ data['correspondance-date-year'] }
+          ],
+          [
+            { text: "Subject" },
+            { text: data['correspondance-subject'] }
+          ],
+          [
+            { text: "Content" },
+            { text: data['correspondance-content'] }
+          ],
+          [
+            { text: "File" },
+            { text: data['correspondance-file-upload-1'] }
+          ]
+
+        ]
+      }) }}
+
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+      <a class="govuk-link mspsds-block-link" href="/flows/add-correspondance/01-add-correspondance-context">Edit details</a>
+
+    </form>
+
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% block pageTitle %}
+  New product safetly report – What's being reported?
+{% endblock %}
+
+
+{% block beforeContent %}
+
+  {{ govukBackLink({
+    text: "Back to list",
+    href: "/case-list"
+  }) }}
+
+{% endblock %}
+
+
+{% block content %}
+
+  {{ pageTitle({
+    type:   "Report an unsafe product",
+    title:  "Why is something being reported?"
+  }) }}
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    
+    <form action="./" method="post" class="form">
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Report type?",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukRadios({
+          idPrefix:   "report-type",
+          name:       "report-type",
+          items: [
+            {
+              value: "Incident",
+              text: "Incident",
+              checked: checked("report-type", "Incident")
+            },
+            {
+              value: "Proactive work",
+              text: "Proactive work",
+              checked: checked("report-type", "Proactive work")
+            },
+            {
+              value: "Other",
+              text: "Other",
+              checked: checked("report-type", "Other")
+            }
+          ]
+        }) }}
+
+
+        {{ govukInput({
+          label: {
+            text:     "Other report",
+            classes:  "govuk-!-width-two-thirds other-report"
+          },
+          hint: {
+            text:     "Please give details",
+            classes:  "govuk-!-width-two-thirds"
+          },
+          classes:    "govuk-!-width-two-thirds",
+          id:         "other-report",
+          name:       "other-report"
+        }) }}
+
+      {% endcall %}
+
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}
