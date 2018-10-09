@@ -30,6 +30,11 @@ div[class^="govuk-grid-column-"] img {
   width: 33%;
 }
 
+// Top-align table content
+.govuk-table th, .govuk-table td {
+  vertical-align: top;
+}
+
 // Stop text on left half from crowding content on the right
 .govuk-grid-column-one-half:first-of-type .govuk-body {
   max-width: 96%;
