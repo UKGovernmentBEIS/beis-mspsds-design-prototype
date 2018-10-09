@@ -10,12 +10,20 @@
 
 {% block content %}
 
+{% from "includes/case-status.html" import caseStatus %}
 
-{{ pageTitle({
-  type:       "Case: 1810-0001",
-  title:      "Untitled case",
-  subTitle:   "Created by Tim Harwood, 10/10/2018"
-}) }}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ pageTitle({
+      type:       "Case: 1810-0001",
+      title:      "Untitled case",
+      subTitle:   "Created by Tim Harwood, 10/10/2018"
+    }) }}
+  </div>
+  <div class="govuk-grid-column-one-third">
+    {{ caseStatus("Open", "Tim Harwood", "Not set") }}
+  </div>
+</div>
 
 
 

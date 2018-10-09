@@ -1,0 +1,14 @@
+.mspsds-case-status {
+  // TODO:Dev This margin should disappear at mobile sizes
+  margin-top: 30px + govuk-spacing(1) - govuk-spacing(2);
+
+  h2 {
+    margin-bottom: govuk-spacing(0);
+  }
+
+  td {
+    // TODO:Dev - Don't use !important if you can avoid it... put classes on the tds
+    vertical-align: bottom !important;
+    text-align: right;
+  }
+}

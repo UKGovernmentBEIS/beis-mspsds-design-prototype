@@ -1,0 +1,36 @@
+{% from "table/macro.njk"         import govukTable %}
+
+{% macro caseStatus(status, assignee, priority) %}
+
+{{ govukTable({
+  classes: "mspsds-case-status",
+  firstCellIsHeader: true,
+  rows: [
+    [
+      {
+        html: '<span class="govuk-caption-m govuk-!-font-size-16">Status</span>' + status
+      },
+      {
+        html: '<a href="#" class="govuk-!-font-size-16">Change</a>'
+      }
+    ],
+    [
+      {
+        html: '<span class="govuk-caption-m govuk-!-font-size-16">Assigned to</span>' + assignee
+      },
+      {
+        html: '<a href="#" class="govuk-!-font-size-16">Change</a>'
+      }
+    ],
+    [
+      {
+        html: '<span class="govuk-caption-m govuk-!-font-size-16">Priority</span>' + priority
+      },
+      {
+        html: '<a href="#" class="govuk-!-font-size-16">Change</a>'
+      }
+    ]
+  ]
+}) }}
+
+{% endmacro %}

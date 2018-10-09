@@ -18,6 +18,7 @@ $govuk-global-styles: true;
 @import "attachment-list";
 @import "block-link";
 @import "site-nav";
+@import "case-status";
 
 // Make images fit to column
 div[class^="govuk-grid-column-"] img {
@@ -25,7 +26,7 @@ div[class^="govuk-grid-column-"] img {
 }
 
 // Ensure table header columns are wide enough that the headers are easily readable
-.govuk-table .govuk-table__header:first-of-type {
+.govuk-grid-column-two-thirds .govuk-table .govuk-table__header:first-of-type {
   /* TODO:Dev This really ought to be min-width but that doesn't work on table cells. Try to find a workaround? */
   width: 33%;
 }
