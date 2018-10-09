@@ -9,8 +9,8 @@
 {% block beforeContent %}
 
   {{ govukBackLink({
-    text: "Back to list",
-    href: "/case-list"
+    text: "Back to case",
+    href: "/case"
   }) }}
 
 {% endblock %}
@@ -21,7 +21,7 @@
 
   {{ pageTitle({
     type:   "Case: 1810-0001",
-    title:  "Add correspondance content"
+    title:  "Record correspondance"
   }) }}
 
 
@@ -31,6 +31,26 @@
     
     <form action="./03-add-correspondance-confirm" method="post" class="form">
       
+      {% call govukFieldset({
+        legend: {
+          text: "Subject",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukInput({
+          hint: {
+            text: "Give an overview of the correspondance"
+          },
+          classes: "govuk-!-width-two-thirds",
+          id:   "correspondance-subject",
+          name: "correspondance-subject"
+        }) }}
+
+      {% endcall %}
+
+
       {% call govukFieldset({
         legend: {
           text:       "Email body, transcript or notes",
@@ -53,14 +73,14 @@
         }
       }) %}
 
-
-
-      {% endcall %}
-      
         {{ govukFileUpload({
           id: "correspondance-file-upload-1",
           name: "correspondance-file-upload-1"
         }) }}
+
+      {% endcall %}
+      
+
 
 
       {{ govukButton({

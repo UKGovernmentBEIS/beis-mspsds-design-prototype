@@ -9,8 +9,8 @@
 {% block beforeContent %}
 
   {{ govukBackLink({
-    text: "Back to list",
-    href: "/case-list"
+    text: "Back to case",
+    href: "/case"
   }) }}
 
 {% endblock %}
@@ -21,7 +21,7 @@
 
   {{ pageTitle({
     type:   "Case: 1810-0001",
-    title:  "Add correspondance"
+    title:  "Record correspondance"
   }) }}
 
 
@@ -30,6 +30,22 @@
   <div class="govuk-grid-column-two-thirds">
     
     <form action="./02-add-correspondance-content" method="post" class="form">
+      
+
+      
+      {% set otherCorrespondanceHtml %}
+
+        {{ govukInput({
+          hint: {
+            text:     "Please give details",
+            classes:  "govuk-!-width-two-thirds"
+          },
+          classes:    "govuk-!-width-two-thirds",
+          id:         "other-correspondant",
+          name:       "other-correspondant"
+        }) }}
+
+      {% endset -%}
 
       {% call govukFieldset({
         legend: {
@@ -71,24 +87,12 @@
             {
               value: "Other",
               text: "Other",
+              conditional: {
+                html: otherCorrespondanceHtml
+              },
               checked: checked("correspondant", "Other")
             }
           ]
-        }) }}
-
-
-        {{ govukInput({
-          label: {
-            text:     "Other correspondant",
-            classes:  "govuk-!-width-two-thirds other-correspondant"
-          },
-          hint: {
-            text:     "Please give details",
-            classes:  "govuk-!-width-two-thirds"
-          },
-          classes:    "govuk-!-width-two-thirds",
-          id:         "other-correspondant",
-          name:       "other-correspondant"
         }) }}
 
       {% endcall %}
@@ -138,29 +142,6 @@
           text: "For example, 31 3 2018"
         }
       }) }}
-
-
-
-
-      {% call govukFieldset({
-        legend: {
-          text: "Subject",
-          isPageHeading: false,
-          classes: "govuk-fieldset__legend--l"
-        }
-      }) %}
-
-        {{ govukInput({
-          hint: {
-            text: "Give an overview of the correspondance"
-          },
-          classes: "govuk-!-width-two-thirds",
-          id:   "correspondance-subject",
-          name: "correspondance-subject"
-        }) }}
-
-      {% endcall %}
-
 
 
 

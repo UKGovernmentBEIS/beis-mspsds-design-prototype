@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "mspsds-layout.html" %}
 
 {% block pageTitle %}
   Case Page
@@ -13,17 +13,22 @@
 {% from "includes/case-status.html" import caseStatus %}
 
 <div class="govuk-grid-row">
+
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">
-      <span class="govuk-caption-xl">Case ID: 2018-08-21-0001</span>
-      Charge Worx, Travel plug adaptor –Electric shock, fire hazard
-    </h1>
-    <p class="govuk-body">Created: 6th May 2018</p>
+    {{ pageTitle({
+      type:       "Case: 1810-0001",
+      title:      "Charge Worx, Travel plug adaptor –Electric shock, fire hazard",
+      subTitle:   "Created by Tim Harwood, 10/10/2018"
+    }) }}
   </div>
+
   <div class="govuk-grid-column-one-third">
     {{ caseStatus("Open","Nick Golding","High") }}
   </div>
+
 </div>
+
+
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">

@@ -1,23 +1,46 @@
 
+
+
+
+{% macro siteNav(currentNav) %}
+
   <nav id="nav">
 
     <div class="navbar">
 
       <ul class="navbar__list-items">
-        <li class="active">
-          <a href="#">Nav #1</a>
+        
+        {% if currentNav == '/case-list' %}
+          <li class="active">
+        {% else %}
+          <li>
+        {% endif %}
+          <a href="/case-list">Cases &amp; Questions</a>
         </li>
-        <li>
-          <a href="#">Nav #2</a>
+
+
+        {% if currentNav == '/product-list' %}
+          <li class="active">
+        {% else %}
+          <li>
+        {% endif %}
+          <a href="/product-list">Products</a>
         </li>
-        <li>
-          <a href="#">Nav #3</a>
+
+
+        {% if currentNav == '/business-list' %}
+          <li class="active">
+        {% else %}
+          <li>
+        {% endif %}
+          <a href="/business-list">Businesses</a>
         </li>
-        <li>
-          <a href="#">Nav #4</a>
-        </li>
+
+        
       </ul>
       
     </div>
 
   </nav>
+
+{% endmacro %}

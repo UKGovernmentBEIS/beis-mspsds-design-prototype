@@ -20,7 +20,7 @@
   
   {{ pageTitle({
     type:   "Ask a question",
-    title:  "What's the question?"
+    title:  "What do you want to know?"
   }) }}
 
 
@@ -104,8 +104,24 @@
         }
       }) %}
 
+        {{ govukInput({
+          label: {
+            text: "Question overview"
+          },
+          hint: {
+            text:     "The short version of the question, for viewing in lists etc",
+            classes:  "govuk-!-width-two-thirds"
+          },
+          classes:    "govuk-!-width-two-thirds",
+          id:         "question-overview",
+          name:       "question-overview"
+        }) }}
+
 
         {{ govukTextarea({
+          label: {
+            text: "Full question"
+          },
           hint: {
             text:     "Please give as much context / information as possible to aid finding the best answer",
             classes:  "govuk-!-width-two-thirds"
