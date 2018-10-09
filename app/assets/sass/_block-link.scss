@@ -4,11 +4,9 @@
   @include govuk-responsive-margin(4, "right");
 
 
-    .govuk-button + & {
+    .govuk-button ~ & {
         @include govuk-responsive-padding(2);
     }
 
 
 }
-
-
