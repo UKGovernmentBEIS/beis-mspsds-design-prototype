@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "mspsds-layout.html" %}
 
 {% block pageTitle %}
   Business Page
@@ -12,14 +12,19 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">
-      <span class="govuk-caption-xl">Business</span>
-      Tesco PLC
-    </h1>
-    <p class="govuk-body">Trading as: Tesco</p>
+
+    {{ pageTitle({
+      type:       "Business",
+      title:      "Tesco PLC",
+      subTitle:   "Trading as: Tesco"
+    }) }}
+
   </div>
 
-  {% include "includes/stat-highlight.html" %}
+  <div class="govuk-grid-column-one-third">
+    {% include "includes/stat-highlight.html" %}
+  </div>
+  
 </div>
 
 {% include "panels/business-panel.html" %}

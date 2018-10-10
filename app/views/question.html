@@ -11,11 +11,19 @@
 {% block content %}
 
 
-{{ pageTitle({
-  type:       "Question: 1810-0002",
-  title:      "What legislation applies to this travel adaptor?",
-  subTitle:   "Created by Tim Harwood, 10/10/2018"
-}) }}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ pageTitle({
+      type:       "Question: 1810-0002",
+      title:      "What legislation applies to this travel adaptor?",
+      subTitle:   "Created by Tim Harwood, 10/10/2018"
+    }) }}
+  </div>
+  <div class="govuk-grid-column-one-third">
+    {% from "includes/case-status.html" import caseStatus %}
+    {{ caseStatus("Open", "Tim Harwood", "Not set") }}
+  </div>
+</div>
 
 
 <div class="govuk-grid-row">

@@ -1,13 +1,46 @@
 {# TODO:Design Agree on name for this block #}
+<!--
 <div class="govuk-grid-column-one-third">
   <div class="govuk-grid-row">
+
     <div class="govuk-grid-column-one-half">
-      <h2 class="govuk-heading-l">Issues</h2>
-      <div class="stat-highlight-1">44</div>
-    </div>
-    <div class="govuk-grid-column-one-half">
-      <h2 class="govuk-heading-l">Cases</h2>
+      <h2 class="govuk-heading-m  govuk-!-margin-bottom-1">Cases</h2>
       <div class="stat-highlight-2">3</div>
     </div>
+
+    <div class="govuk-grid-column-one-half">
+      <h2 class="govuk-heading-m  govuk-!-margin-bottom-1">Questions</h2>
+      <div class="stat-highlight-1">4</div>
+    </div>
+
   </div>
 </div>
+-->
+
+
+{% from "table/macro.njk"         import govukTable %}
+
+
+{{ govukTable({
+  classes: "mspsds-case-status",
+  firstCellIsHeader: true,
+  rows: [
+    [
+      {
+        html: '<span class="govuk-caption-m govuk-!-font-size-16">Cases</span> 4'
+      },
+      {
+        html: '<a href="/flows/add-status/01-add-status" class="govuk-!-font-size-16">View</a>'
+      }
+    ],
+    [
+      {
+        html: '<span class="govuk-caption-m govuk-!-font-size-16">Questions</span> 6'
+      },
+      {
+        html: '<a href="/flows/assign/01-assign" class="govuk-!-font-size-16">View</a>'
+      }
+    ]
+  ]
+}) }}
+

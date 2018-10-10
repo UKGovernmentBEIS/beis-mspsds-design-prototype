@@ -12,14 +12,23 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">
-      <span class="govuk-caption-xl">Product</span>
-      Travel plug adaptor — Charge Worx 931L
-    </h1>
-    <p class="govuk-body">Created: 6th May 2018</p>
+  
+    {{ pageTitle({
+      type:       "Product",
+      title:      "Travel plug adaptor — Charge Worx 931L",
+      subTitle:   "Added 10/10/2018"
+    }) }}
+
+
   </div>
 
-  {% include "includes/stat-highlight.html" %}
+  <div class="govuk-grid-column-one-third">
+    {% include "includes/stat-highlight.html" %}
+  </div>
+
+
+  
+
 </div>
 
 {% include "panels/product-panel.html" %}
