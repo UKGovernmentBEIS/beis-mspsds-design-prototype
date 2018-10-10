@@ -30,23 +30,13 @@
 
 
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-one-half">
-    <h2 class="govuk-heading-m">Risk notes: Electric shock, fire</h2>
-    <p class="govuk-body govuk-!-margin-bottom-1">Travel adaptor available from high-street store Game has been reported to have caused a fire and severe electric shocks. Has been reported more than 10 times in the last 2 months.</p>
-    <p><a href="/case/risk/edit">Edit risk details</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/case/risk/view">View assessment</a></p>
-  </div>
+  {% from "panels/case-why.html" import caseWhy %}
+  {{ caseWhy({
+      hazardType: "Electric shock, fire",
+      hazardDescription: "Travel adaptor available from high-street store Game has been reported to have caused a fire and severe electric shocks. Has been reported more than 10 times in the last 2 months.",
+      riskLevel: "Serious"
+  }) }}
 
-  <div class="govuk-grid-column-one-quarter">
-    <h2 class="govuk-heading-m govuk-!-font-weight-regular">Risk level</h2>
-    <p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold">Serious</p>
-  </div>
-  <div class="govuk-grid-column-one-quarter">
-    <h2 class="govuk-heading-m govuk-!-font-weight-regular">Sensitivity</h2>
-    <p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold">Medium</p>
-  </div>
-
-</div>
 
 <hr class="govuk-section-break govuk-section-break--m" />
 

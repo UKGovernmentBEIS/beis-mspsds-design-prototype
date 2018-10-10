@@ -7,20 +7,39 @@
 
     <div class="govuk-grid-row mspsds-why-panel">
 
-      <div class="govuk-grid-column-one-half">
-        <h2 class="govuk-heading-m">Risk notes: Electric shock, fire</h2>
-        <p class="govuk-body govuk-!-margin-bottom-1">Travel adaptor available from high-street store Game has been reported to have caused a fire and severe electric shocks. Has been reported more than 10 times in the last 2 months.</p>
-        <p><a href="/case/risk/edit">Edit risk details</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/case/risk/view">View assessment</a></p>
+      <div class="govuk-grid-column-two-thirds">
+        <h2 class="govuk-heading-l">
+          <span class="govuk-caption-m">Hazard</span>
+          {{ whyData.hazardType }}
+        </h2>
+        <p class="govuk-body govuk-!-margin-bottom-1">
+          {{ whyData.hazardDescription}}
+        </p>
+        <p><a class="govuk-link mspsds-block-link" href="/flows/add-hazard/01-add-hazard">Edit hazard details</a></p>
       </div>
+      
 
-      <div class="govuk-grid-column-one-quarter">
-        <h2 class="govuk-heading-m govuk-!-font-weight-regular">Risk level</h2>
-        <p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold">Serious</p>
-      </div>
+      
 
-      <div class="govuk-grid-column-one-quarter">
-        <h2 class="govuk-heading-m govuk-!-font-weight-regular">Sensitivity</h2>
-        <p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold">Medium</p>
+      <div class="govuk-grid-column-one-third">
+
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-0">
+          <span class="govuk-caption-m">Risk level</span>
+        </h2>
+        
+        {% if whyData.riskLevel %}
+
+          <p class="govuk-body govuk-!-font-size-36 govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ whyData.riskLevel }}</p>
+          <a class="govuk-link mspsds-block-link" href="/flows/add-risk/01-add-risk">Edit risk details</a>
+          <a class="govuk-link mspsds-block-link" href="#">View assessment</a>
+
+        {% else %}
+
+          <p class="govuk-body govuk-!-font-size-36 govuk-!-font-weight-bold govuk-!-margin-bottom-1">None set</p>
+          <p><a href="/flows/add-risk/01-add-risk">Add risk data</a></p>
+
+        {% endif %}
+
       </div>
 
 
