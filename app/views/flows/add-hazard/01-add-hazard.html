@@ -71,6 +71,26 @@
 
 
 
+      {% call govukFieldset({
+        legend: {
+          text: "Who is it a risk to?",
+          classes: "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukInput({
+          hint: {
+            text: "Are there specific groups it might effect? i.e. Young children"
+          },
+          classes: "govuk-!-width-two-thirds",
+          id:   "hazard-to",
+          name: "hazard-to"
+        }) }}
+
+      {% endcall %}
+
+
+
       {% set riskAssessmentHtml %}
 
         {% call govukFieldset({
