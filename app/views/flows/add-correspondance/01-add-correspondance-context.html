@@ -47,9 +47,65 @@
 
       {% endset -%}
 
+
+      {% set phoneNumberHtml %}
+
+        {{ govukInput({
+          label: {
+            text:     "Phone number",
+            classes:  "gouk-!-width-two-thirds"
+          },
+          hint: {
+            text:     "Please include any dialing codes etc",
+            classes:  "govuk-!-width-two-thirds"
+          },
+          classes:    "govuk-!-width-two-thirds",
+          id:         "correspondant-phone-number",
+          name:       "correspondant-phone-number"
+        }) }}
+
+      {% endset -%}
+
+
+      {% set emailAddressHtml %}
+
+        {{ govukInput({
+          label: {
+            text:     "Email address",
+            classes:  "govuk-!-width-two-thirds"
+          },
+          classes:    "govuk-!-width-two-thirds",
+          id:         "correspondant-email-address",
+          name:       "correspondant-email-address"
+        }) }}
+
+      {% endset -%}
+
+
       {% call govukFieldset({
         legend: {
           text:           "Who is the correspondance with?",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukInput({
+          label: {
+            text:     "Name",
+            classes:  "govuk-!-width-two-thirds"
+          },
+          classes:    "govuk-!-width-two-thirds",
+          id:         "correspondant-name",
+          name:       "correspondant-name"
+        }) }}
+
+      {% endcall %}
+
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Who are they?",
           isPageHeading:  false,
           classes:        "govuk-fieldset__legend--l"
         }
@@ -114,11 +170,17 @@
             {
               value:  "Phone call",
               text:   "Phone call",
+              conditional: {
+                html: phoneNumberHtml
+              },
               checked: checked("correspondance-method", "Phone call")
             },
             {
               value:  "Email",
               text:   "Email",
+              conditional: {
+                html: emailAddressHtml
+              },
               checked: checked("correspondance-method", "Email")
             }
           ]
