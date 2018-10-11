@@ -8,15 +8,42 @@
     <div class="govuk-grid-row mspsds-why-panel">
 
       <div class="govuk-grid-column-two-thirds">
-        <h2 class="govuk-heading-l">
-          <span class="govuk-caption-m">Hazard</span>
-          {{ whyData.hazardType }}
-        </h2>
-        <p class="govuk-body govuk-!-margin-bottom-1">
-          {{ whyData.hazardDescription}}
-        </p>
-        <p><a class="govuk-link mspsds-block-link" href="/flows/add-hazard/01-add-hazard">Edit hazard details</a></p>
+
+
+        {% if whyData.hazardTo %}
+
+          <h2 class="govuk-heading-l govuk-grid-column-one-half">
+            <span class="govuk-caption-m">Hazard</span>
+            {{ whyData.hazardType }}
+          </h2>
+
+          <h2 class="govuk-heading-l govuk-grid-column-one-half">
+            <span class="govuk-caption-m">Vunerable group</span>
+            {{ whyData.hazardTo }}
+          </h2>
+
+        {% else %}
+
+          <h2 class="govuk-heading-l govuk-grid-column-one-half">
+            <span class="govuk-caption-m">Hazard</span>
+            {{ whyData.hazardType }}
+          </h2>
+
+
+        {% endif %}
+
+
+        <div class="govuk-grid-column-two-thirds">
+
+          <p class="govuk-body govuk-!-margin-bottom-1">
+            {{ whyData.hazardDescription}}
+          </p>
+          <p><a class="govuk-link mspsds-block-link" href="/flows/add-hazard/01-add-hazard">Edit hazard details</a></p>
+        </div>
+
       </div>
+
+      
       
 
       
