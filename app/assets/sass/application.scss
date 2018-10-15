@@ -20,6 +20,9 @@ $govuk-global-styles: true;
 @import "site-nav";
 @import "case-status";
 
+
+@import "mspsds-layout";
+
 // Make images fit to column
 div[class^="govuk-grid-column-"] img {
   width: 100%;
