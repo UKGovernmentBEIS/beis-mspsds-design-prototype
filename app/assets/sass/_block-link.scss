@@ -3,10 +3,7 @@
   @include govuk-responsive-margin(7, "bottom");
   @include govuk-responsive-margin(4, "right");
 
-
-    .govuk-button ~ & {
-        @include govuk-responsive-padding(2);
-    }
-
-
+  .govuk-button ~ & {
+      @include govuk-responsive-padding(2);
+  }
 }
