@@ -1,3 +1,9 @@
 [class*="govuk-grid-column"] > [class*="govuk-grid-column"]  {
     //margin-left: -15px;
 }
+
+
+.govuk-header nav {
+    display: inline-block;
+    float: right;
+}
