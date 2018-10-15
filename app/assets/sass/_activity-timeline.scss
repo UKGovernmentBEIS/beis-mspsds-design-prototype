@@ -94,16 +94,8 @@ $timeline-point-origin-centre-colour: govuk-colour("grey-2");
     margin-bottom: govuk-spacing(0);
   }
 
-  .govuk-details {
-    @include govuk-responsive-margin(4, "bottom");
-
-    &:last-child {
-      margin-bottom: govuk-spacing(0);
-
-      .govuk-details__text {
-        margin-bottom: govuk-spacing(0);
-      }
-    }
+  .mspsds-block-link {
+    @include govuk-responsive-margin(0, "bottom");
   }
 
   p:last-child {

@@ -104,69 +104,81 @@
 
 {{ activityTimeline([
   {
+    title: "Priority flag",
     action: "Comment added",
     text: "Have flagged as priority due to consumer injuries and potential risks of the product"
   },
   {
-    action: "Image added: /Image title/",
-    html: '<img src="public/images/placeholder.png" class="govuk-!-width-one-third" />'
-  },
-  {
-    action: "Document added: /Document Title/",
-    html: '<a href="#">View document</a>'
-  },
-  {
-    action: "Product added: Travel plug adaptor — Charge Worx 931L",
+    title: "Photo ID",
+    action: "Image added",
     html: '
-      <p>Role: <span class="govuk-!-font-weight-bold">Distributor</span></p>
-      <details class="govuk-details">
-        <summary class="govuk-details__summary">
-          <span class="govuk-details__summary-text">
-            Product details
-          </span>
-        </summary>
-        <div class="govuk-details__text govuk-body-s">
-          Brand: Charge Worx<br />
-          Model Name: International Travel Adaptor<br />
-          Model number: 931L<br />
-          Description: Universal travel USB plug adaptor with surge protector
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
+          <img src="public/images/placeholder.png" style="cursor:pointer" title="click to view full size" />
         </div>
-      </details>'
+        <div class="govuk-grid-column-two-thirds">
+          <p class="govuk-body">Image description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+        </div>
+      </div>'
   },
   {
-    action: "Business added: Tesco PLC",
+    title: "Investigation report",
+    action: "PDF document added",
     html: '
-      <p>Role: <span class="govuk-!-font-weight-bold">Distributor</span></p>
-      <details class="govuk-details">
-        <summary class="govuk-details__summary">
-          <span class="govuk-details__summary-text">
-            Business details
-          </span>
-        </summary>
-        <div class="govuk-details__text govuk-body-s">
-          <span class="govuk-!-font-weight-bold">Tesco PLC</span><br/>
-          Trading as: Tesco<br/>
-          Company number: 00445790
-        </div>
-      </details>'
+      <p class="govuk-body">Document description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+      <a href="#">View document</a>'
   },
   {
-    action: "Incident added: Laceration injury",
-    text: "Occurred 24/9/2018"
+    title: "Travel plug adaptor — Charge Worx 931L",
+    action: "Product added",
+    html: '
+      <p class="govuk-body">Action comment lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <a href="/product" class="mspsds-block-link">View product details</a>'
   },
   {
-    action: "Hazard added: Danger of electric shock",
+    title: "Tesco PLC",
+    action: "Business added",
+    html: '
+      <p class="govuk-body">Role: <span class="govuk-!-font-weight-bold">Distributor</span></p>
+      <p class="govuk-body">Action comment lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <a href="/business" class="mspsds-block-link">View business details</a>'
+  },
+  {
+    title: "Laceration injury",
+    action: "Incident added",
+    html: '
+    <p class="govuk-body">Incident description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    <p class="govuk-body">
+      Occurred: <span class="govuk-!-font-weight-bold">24/9/2018</span><br />
+      Affected party: <span class="govuk-!-font-weight-bold">36-year old woman</span><br />
+      Location: <span class="govuk-!-font-weight-bold">Rotherham</span>
+    </p>
+    <p class="govuk-body"><a href="#">View risk assessment document</a></p>'
+  },
+  {
+    title: "Danger of electric shock",
+    action: "Hazard added",
     text: "Hazard description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
   },
   {
-    action: "Hazard added: Danger of electric shock",
-    html: '<p class="govuk-body">Hazard description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><p class="govuk-body">Risk level: Medium</p><p class="govuk-body"><a href="#">View risk assessment document</a></p>'
+    title: "Danger of electric shock",
+    action: "Hazard added",
+    html: '
+      <p class="govuk-body">Hazard description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <p class="govuk-body">
+        Risk level: <span class="govuk-!-font-weight-bold">Medium</span><br />
+        Vulnerable group: <span class="govuk-!-font-weight-bold">Young children</span>
+      </p>
+      <p class="govuk-body"><a href="#">View risk assessment document</a></p>'
   },
   {
-    action: "Reporter added"
+    title: "Consumer report",
+    action: "Report details added"
   },
   {
-    action: "Case created"
+    title: "Case created",
+    action: "",
+    text: "Case creation comment - probably only exists if created as an investigation rather than as an indident report."
   }
 ]) }}
 
