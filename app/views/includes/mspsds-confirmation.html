@@ -1,8 +1,8 @@
-{% macro confirmation(text, actionText) %}
+{% macro confirmation(id, text, actionText) %}
 
 {% from "button/macro.njk" import govukButton %}
 
-<div class="govuk-grid-column-full mspsds-confirmation" style="display:none" id="confirmation-box-1">
+<div class="govuk-grid-column-full mspsds-confirmation" style="display:none" id="{{id}}">
   {% if actionText %}
   <span>{{text}}</span>
   {{ govukButton({
