@@ -13,3 +13,7 @@
 .mspsds-attachment-list__document-file-details {
   position: relative;
 }
+
+.mspsds-attachment-list__delete-button {
+  @include govuk-responsive-margin(2, "bottom");
+}

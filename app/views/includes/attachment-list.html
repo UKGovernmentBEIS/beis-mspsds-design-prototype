@@ -1,3 +1,5 @@
+{% from "button/macro.njk" import govukButton %}
+
 {% macro attachmentList(numberOfAttachments) %}
 
 {% for attachmentNumber in range(0, numberOfAttachments) %}
@@ -28,7 +30,11 @@
     <h3 class="mspsds-attachment-list__image-title govuk-heading-m">Image title</h3>
     <p class="mspsds-attachment-list__image-date govuk-body-s">Updated 12/08/2018</p>
     <p class="govuk-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-    <a href="#">Edit image details</a>
+    <a href="#" class="mspsds-block-link--mid-section">Edit image details</a><br />
+    {{ govukButton({
+      classes: "mspsds-attachment-list__delete-button",
+      text: "Delete"
+    }) }}
   </div>
 </div>
 
@@ -54,7 +60,11 @@
     <h3 class="mspsds-attachment-list__image-title govuk-heading-m">Document title</h3>
     <p class="mspsds-attachment-list__image-date govuk-body-s">Uploaded 12/08/2018</p>
     <p class="govuk-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-    <a href="#" class="mspsds-block-link">View PDF document</a><a href="#" class="mspsds-block-link">Edit document details</a>
+    <a href="#" class="mspsds-block-link--mid-section">View PDF document</a><a href="#" class="mspsds-block-link--mid-section">Edit document details</a><br />
+    {{ govukButton({
+      classes: "mspsds-attachment-list__delete-button",
+      text: "Delete"
+    }) }}
   </div>
 </div>
 
