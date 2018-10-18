@@ -1,0 +1,10 @@
+.mspsds-product-panel {
+  .govuk-table {
+    @include govuk-responsive-margin(2, "bottom");
+  }
+
+  .govuk-table + .mspsds-block-link {
+    // Align vertically with button text. TODO:Dev would be nice to do this without using magic numbers...
+    margin-top: 9px;
+  }
+}

@@ -1,4 +1,5 @@
 {% from "table/macro.njk" import govukTable %}
+{% from "button/macro.njk" import govukButton %}
 
 <div class="govuk-grid-row mspsds-product-panel">
   <div class="govuk-grid-column-one-third">
@@ -41,6 +42,10 @@
           }
         ]
       ]
+    }) }}
+    <a href="/product" class="mspsds-block-link">View product</a>
+    {{ govukButton({
+      text: "Remove"
     }) }}
   </div>
 </div>
