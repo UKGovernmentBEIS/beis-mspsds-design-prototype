@@ -1,0 +1,15 @@
+.mspsds-confirmation {
+  border-left: solid 8px govuk-colour("turquoise");
+  background-color: mix(white, govuk-colour("turquoise"), 90%);
+  @include govuk-responsive-padding(3);
+
+  span {
+    display: inline-block;
+    margin-top: 8px;
+  }
+
+  button {
+    @include govuk-responsive-margin(3, "left");
+    margin-bottom: 0;
+  }
+}
