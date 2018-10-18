@@ -13,17 +13,3 @@
 .mspsds-attachment-list__document-file-details {
   position: relative;
 }
-
-.mspsds-attachment-list__document-type-and-length {
-  // display: block;
-  // box-sizing: border-box;
-  // width: 100%;
-  // position: absolute;
-  // bottom: 7px; //TODO:Design I do not know why the div.govuk-grid-column-one-half has 7px extra height below its content, but this adjusts for that. Unhack if possible.
-  // @include govuk-responsive-margin(0, "bottom");
-
-  @include govuk-responsive-padding(1,"all");
-  color: $govuk-secondary-text-colour;
-  // background-color: transparentize(govuk-colour("black"), 0.3);
-  // color: govuk-colour("white");
-}
