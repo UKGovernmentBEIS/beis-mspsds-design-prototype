@@ -2,7 +2,7 @@
 
 {% from "button/macro.njk" import govukButton %}
 
-<div class="govuk-grid-column-full mspsds-confirmation">
+<div class="govuk-grid-column-full mspsds-confirmation" style="display:none" id="confirmation-box-1">
   {% if actionText %}
   <span>{{text}}</span>
   {{ govukButton({
