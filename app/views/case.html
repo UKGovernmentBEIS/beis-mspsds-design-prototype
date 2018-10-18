@@ -239,12 +239,7 @@
 {% endset -%}
 
 {% set attachmentsHtml %}
-<h2 class="govuk-heading-l">Attachments</h2>
-<a href="#" class="mspsds-block-link">Add new image</a><a href="#"  class="mspsds-block-link">Add new document</a>
-
-{% from "includes/attachment-list.html" import attachmentList %}
-
-{{ attachmentList(5) }}
+{% include "tab-sections/attachments.html" %}
 
 {% endset -%}
 
