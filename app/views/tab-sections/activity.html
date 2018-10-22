@@ -1,0 +1,127 @@
+<h2 class="govuk-heading-l">Activity history</h2>
+
+{% from "includes/activity-timeline.html" import activityTimeline %}
+
+{{ activityTimeline([
+  {
+    title: "Priority flag",
+    action: "Comment added",
+    text: "Have flagged as priority due to consumer injuries and potential risks of the product"
+  },
+  {
+    title: "Deleted: Photo ID",
+    action: "Image deleted",
+    html: '
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
+          <img src="public/images/placeholder.png" style="cursor:pointer" title="click to view full size" />
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+          <p class="govuk-body">Image description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+        </div>
+      </div>'
+  },
+  {
+    title: "Updated: Photo ID (was: picture of product in situ)",
+    action: "Image details updated",
+    html: '
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
+          <img src="public/images/placeholder.png" style="cursor:pointer" title="click to view full size" />
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+          <p class="govuk-body">Image description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+        </div>
+      </div>'
+  },
+  {
+    title: "picture of product in situ",
+    action: "Image added",
+    html: '
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
+          <img src="public/images/placeholder.png" style="cursor:pointer" title="click to view full size" />
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+          <p class="govuk-body">Image description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+        </div>
+      </div>'
+  },
+  {
+    title: "Deleted: Investigation report",
+    action: "Document deleted",
+    html: '
+      <p class="govuk-body">New document description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+      <a href="#">View PDF document</a>'
+  },
+  {
+    title: "Updated: Investigation report (was: Investigation details)",
+    action: "Document details updated",
+    html: '
+      <p class="govuk-body">New document description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+      <a href="#">View PDF document</a>'
+  },
+  {
+    title: "Investigation details",
+    action: "Document added",
+    html: '
+      <p class="govuk-body">Document description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+      <a href="#">View PDF document</a>'
+  },
+  {
+    title: "Removed: Travel plug adaptor — Charge Worx 931L",
+    action: "Product removed",
+    html: '
+      <a href="/product" class="mspsds-block-link">View product details</a>'
+  },
+  {
+    title: "Travel plug adaptor — Charge Worx 931L",
+    action: "Product added",
+    html: '
+      <a href="/product" class="mspsds-block-link">View product details</a>'
+  },
+  {
+    title: "Tesco PLC",
+    action: "Business added",
+    html: '
+      <p class="govuk-body">Role: <span class="govuk-!-font-weight-bold">Distributor</span></p>
+      <a href="/business" class="mspsds-block-link">View business details</a>'
+  },
+  {
+    title: "Laceration injury",
+    action: "Incident added",
+    html: '
+    <p class="govuk-body">Incident description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    <p class="govuk-body">
+      Occurred: <span class="govuk-!-font-weight-bold">24/9/2018</span><br />
+      Affected party: <span class="govuk-!-font-weight-bold">36-year old woman</span><br />
+      Location: <span class="govuk-!-font-weight-bold">Rotherham</span>
+    </p>
+    <p class="govuk-body"><a href="#">View risk assessment document</a></p>'
+  },
+  {
+    title: "Danger of electric shock",
+    action: "Hazard added",
+    text: "Hazard description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  },
+  {
+    title: "Danger of electric shock",
+    action: "Hazard added",
+    html: '
+      <p class="govuk-body">Hazard description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <p class="govuk-body">
+        Risk level: <span class="govuk-!-font-weight-bold">Medium</span><br />
+        Vulnerable group: <span class="govuk-!-font-weight-bold">Young children</span>
+      </p>
+      <p class="govuk-body"><a href="#">View risk assessment document</a></p>'
+  },
+  {
+    title: "Consumer report",
+    action: "Report details added"
+  },
+  {
+    title: "Case created",
+    action: "",
+    text: "Case creation comment - probably only exists if created as an investigation rather than as an indident report."
+  }
+]) }}
