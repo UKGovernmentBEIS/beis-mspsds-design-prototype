@@ -35,13 +35,13 @@
 
 
 
-  {% from "panels/case-why.html" import caseWhy %}
-  {{ caseWhy({
-      hazardType: "Electric shock, fire",
-      hazardTo:   "Young children",
-      hazardDescription: "Travel adaptor available from high-street store Game has been reported to have caused a fire and severe electric shocks. Has been reported more than 10 times in the last 2 months.",
-      riskLevel: "Serious"
-  }) }}
+{% from "panels/case-why.html" import caseWhy %}
+{{ caseWhy({
+  hazardType: "Electric shock, fire",
+  hazardTo:   "Young children",
+  hazardDescription: "Travel adaptor available from high-street store Game has been reported to have caused a fire and severe electric shocks. Has been reported more than 10 times in the last 2 months.",
+  riskLevel: "Serious"
+}) }}
 
 
 <hr class="govuk-section-break govuk-section-break--m" />
