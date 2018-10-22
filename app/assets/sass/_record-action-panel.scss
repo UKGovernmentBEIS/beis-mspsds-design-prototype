@@ -1,0 +1,9 @@
+.mspsds-record-action-panel {
+  a {
+    font-size: 19px;
+  }
+
+  .govuk-button {
+    @include govuk-responsive-margin(2, "bottom");
+  }
+}
