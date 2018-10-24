@@ -1,20 +1,20 @@
 {% extends "mspsds-layout.html" %}
 
 {% block pageTitle %}
-Record correspondence
+Record meeting
 {% endblock %}
 
 {% block beforeContent %}
 {{ govukBackLink({
   text: "Back to case",
-  href: "/case__empty"
+  href: "/case"
 }) }}
 {% endblock %}
 
 {% block content %}
 {{ pageTitle({
   type:   "Case: 1810-0001",
-  title:  "Record correspondence"
+  title:  "Record meeting"
 }) }}
 
 <div class="govuk-grid-row">
@@ -22,32 +22,31 @@ Record correspondence
 
     <form action="./03-add-correspondence-confirm" method="post" class="form">
 
+      {% from "./includes/correspondence-summary.html" import correspondenceSummary %}
+      {{ correspondenceSummary("Give an overview of the meeting") }}
+
       {% call govukFieldset({
         legend: {
-          text: "Summary",
+          text: "Details",
           isPageHeading: false,
           classes: "govuk-fieldset__legend--l"
         }
       }) %}
 
-        {{ govukInput({
+        {{ govukFileUpload({
           hint: {
-            text: "Give an overview of the correspondence"
+            text:     "Upload the transcript if you have one, or enter notes below",
+            classes:  "govuk-!-width-full"
           },
-          classes: "govuk-!-width-two-thirds",
-          id:   "correspondence-summary",
-          name: "correspondence-summary"
+          id: "correspondence-file-upload-1",
+          name: "correspondence-file-upload-1"
         }) }}
 
-      {% endcall %}
-
-      {% call govukFieldset({
-        legend: {
-          text:       "Email body, transcript or notes",
-          classes:    "govuk-fieldset__legend--l"
-        }
-      }) %}
         {{ govukTextarea({
+          label: {
+            text:     "Notes",
+            classes:  "govuk-!-width-two-thirds"
+          },
           name: "correspondence-content",
           id:   "correspondence-content"
         }) }}
@@ -55,7 +54,7 @@ Record correspondence
 
       {% call govukFieldset({
         legend: {
-          text:       "And/or upload a file if you have one",
+          text:       "Attachments",
           classes:    "govuk-fieldset__legend--l"
         }
       }) %}
