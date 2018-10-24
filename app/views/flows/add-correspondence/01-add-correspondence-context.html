@@ -1,20 +1,15 @@
 {% extends "mspsds-layout.html" %}
 
-
 {% block pageTitle %}
-  Record Correspondance
+Record correspondence
 {% endblock %}
-
 
 {% block beforeContent %}
-
-  {{ govukBackLink({
-    text: "Back to case",
-    href: "/case"
-  }) }}
-
+{{ govukBackLink({
+  text: "Back to case",
+  href: "/case"
+}) }}
 {% endblock %}
-
 
 {% block content %}
 
@@ -29,7 +24,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     
-    <form action="./02-add-correspondance-content" method="post" class="form">
       
 
       
@@ -47,21 +41,22 @@
 
       {% endset -%}
 
+    <form action="./02-add-correspondence-content" method="post" class="form">
 
       {% set phoneNumberHtml %}
 
         {{ govukInput({
           label: {
             text:     "Phone number",
-            classes:  "gouk-!-width-two-thirds"
+            classes:  "govuk-!-width-two-thirds"
           },
           hint: {
             text:     "Please include any dialing codes etc",
             classes:  "govuk-!-width-two-thirds"
           },
           classes:    "govuk-!-width-two-thirds",
-          id:         "correspondant-phone-number",
-          name:       "correspondant-phone-number"
+          id:         "correspondent-phone-number",
+          name:       "correspondent-phone-number"
         }) }}
 
       {% endset -%}
@@ -75,16 +70,16 @@
             classes:  "govuk-!-width-two-thirds"
           },
           classes:    "govuk-!-width-two-thirds",
-          id:         "correspondant-email-address",
-          name:       "correspondant-email-address"
+          id:         "correspondent-email-address",
+          name:       "correspondent-email-address"
         }) }}
 
       {% endset -%}
 
-
+      {% set whoLabel = "Who is the correspondence with?" %}
       {% call govukFieldset({
         legend: {
-          text:           "Who is the correspondance with?",
+          text:           whoLabel,
           isPageHeading:  false,
           classes:        "govuk-fieldset__legend--l"
         }
@@ -96,8 +91,6 @@
             classes:  "govuk-!-width-two-thirds"
           },
           classes:    "govuk-!-width-two-thirds",
-          id:         "correspondant-name",
-          name:       "correspondant-name"
         }) }}
 
       {% endcall %}
@@ -149,10 +142,11 @@
               checked: checked("correspondant", "Other")
             }
           ]
+          id:         "correspondent-name",
+          name:       "correspondent-name"
         }) }}
 
       {% endcall %}
-
 
 
       {% call govukFieldset({
@@ -164,8 +158,8 @@
       }) %}
 
         {{ govukRadios({
-          idPrefix:   "correspondance-method",
-          name:       "correspondance-method",
+          idPrefix:   "correspondence-method",
+          name:       "correspondence-method",
           items: [
             {
               value:  "Phone call",
@@ -173,7 +167,7 @@
               conditional: {
                 html: phoneNumberHtml
               },
-              checked: checked("correspondance-method", "Phone call")
+              checked: checked("correspondence-method", "Phone call")
             },
             {
               value:  "Email",
@@ -181,7 +175,7 @@
               conditional: {
                 html: emailAddressHtml
               },
-              checked: checked("correspondance-method", "Email")
+              checked: checked("correspondence-method", "Email")
             }
           ]
         }) }}
@@ -191,8 +185,8 @@
 
 
       {{ govukDateInput({
-        id:         "correspondance-date",
-        namePrefix: "correspondance-date",
+        id:         "correspondence-date",
+        namePrefix: "correspondence-date",
         fieldset: {
           legend: {
             text: "When?",
@@ -204,7 +198,6 @@
           text: "For example, 31 3 2018"
         }
       }) }}
-
 
 
       {{ govukButton({
