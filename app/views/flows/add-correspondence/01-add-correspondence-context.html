@@ -43,20 +43,10 @@ Record correspondence
       {% include "./includes/correspondence-method.html" %}
       {% endblock %}
 
-      {{ govukDateInput({
-        id:         "correspondence-date",
-        namePrefix: "correspondence-date",
-        fieldset: {
-          legend: {
-            text: "When?",
-            isPageHeading: false,
-            classes: "govuk-fieldset__legend--l"
-          }
-        },
-        hint: {
-          text: "For example, 31 3 2018"
-        }
-      }) }}
+      {% from "./includes/date-input.html" import correspondenceDate %}
+      {% block correspondenceDate %}
+      {{ correspondenceDate("When?") }}
+      {% endblock %}
 
       {{ govukButton({
         text: "Continue"
