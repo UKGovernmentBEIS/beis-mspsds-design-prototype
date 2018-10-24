@@ -2,6 +2,98 @@
 
 <h2 class="govuk-heading-l">Full Detail</h2>
 
+
+<div class="govuk-grid-row govuk-!-margin-bottom-4">
+
+  <div class="govuk-grid-column-full">
+    <h3 class="govuk-heading-m">Report</h3>
+
+    {{ govukTable({
+      firstCellIsHeader: true,      rows: [
+        [
+          {
+            text: "Reporter"
+          },
+          {
+            html: "Consumer. Hackney, London E8 1DY. <br> 020 8123 12334 <br> <a href='#'>View details</a>"
+          }
+        ],
+        [
+          {
+            text: "Correspondence"
+          },
+          {
+            html: "Original consumer email attached  <br> <a href='#'>View details</a>"
+          }
+        ],
+        [
+          {
+            text: "Previous steps taken"
+          },
+          {
+            html: "Manufacturer contacted on 21 July 2018 by phone. <br> Local authority contacted on 21 July 2018 by phone."
+          }
+        ],
+        [
+          {
+            text: "Additional notes"
+          },
+          {
+            text: "They have made their Local authority aware."
+          }
+        ]
+      ]
+    }) }}
+
+    <a href="#" class="mspsds-block-link">Edit details</a>
+  </div>
+
+</div>
+
+<hr class="govuk-section-break govuk-section-break--m" />
+
+<div class="govuk-grid-row govuk-!-margin-bottom-4">
+
+  <div class="govuk-grid-column-full">
+    <h3 class="govuk-heading-m">Incidents</h3>
+
+    {{ govukTable({
+      firstCellIsHeader: true,
+      rows: [
+          [
+            { text: "Incident type" },
+            { text: data['incident-type'] }
+          ],
+          [
+            { text: "Description" },
+            { text: data['incident-description'] }
+          ],
+          [
+            { text: "Date" },
+            { text: data['incident-date-day'] +"/"+ data['incident-date-month'] +"/"+ data['incident-date-year'] }
+          ],
+          [
+            { text: "Affected party" },
+            { text: data['incident-affected-party'] }
+          ],
+          [
+            { text: "Location" },
+            { text: data['incident-location'] }
+          ]
+
+        ]
+    }) }}
+
+    <a href="#" class="mspsds-block-link">Edit details</a>
+    <a href="#" class="mspsds-block-link">Add another incident</a>
+  </div>
+
+</div>
+
+<hr class="govuk-section-break govuk-section-break--m" />
+
+
+
 {{ govukTable({
   firstCellIsHeader: true,
   rows: [
