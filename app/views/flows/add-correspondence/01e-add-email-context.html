@@ -22,10 +22,17 @@ Record email
 
     <form action="./02e-add-email-content" method="post" class="form">
 
+      {% call govukFieldset({
+        legend: {
+          text:           "Email details",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
       {{ govukRadios({
         idPrefix:   "email-direction",
         name:       "email-direction",
-        classes:    "govuk-radios--inline",
+        classes:    "govuk-radios--inline mspsds-email-direction-radios",
         items: [
           {
             value:  "To",
@@ -39,9 +46,9 @@ Record email
           }
         ]
       }) }}
-
       {% include "./includes/name-input.html" %}
       {% include "./includes/email-input.html" %}
+      {% endcall %}
 
       {% from "./includes/date-input.html" import correspondenceDate %}
       {{ correspondenceDate("Date sent") }}
