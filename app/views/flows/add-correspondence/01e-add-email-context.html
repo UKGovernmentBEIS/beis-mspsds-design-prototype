@@ -11,6 +11,9 @@ Record email
 }) }}
 {% endblock %}
 
+{% block correspondentDetails %}
+{% endblock %}
+
 {% block correspondenceMethod %}
 {% call govukFieldset({
   legend: {
@@ -38,6 +41,7 @@ Record email
   ]
 }) }}
 
+{% include "./includes/name-input.html" %}
 {% include "./includes/email-input.html" %}
 
 {% endcall %}

@@ -25,26 +25,19 @@ Record correspondence
 
     <form action="./02-add-correspondence-content" method="post" class="form">
 
-      {% set whoLabel = "Who contacted the Office?" %}
+      {% block correspondentDetails %}
       {% call govukFieldset({
         legend: {
-          text:           whoLabel,
+          text:           "Who contacted the Office?",
           isPageHeading:  false,
           classes:        "govuk-fieldset__legend--l"
         }
       }) %}
 
-        {{ govukInput({
-          label: {
-            text:     "Name",
-            classes:  "govuk-!-width-two-thirds"
-          },
-          classes:    "govuk-!-width-two-thirds",
-          id:         "correspondent-name",
-          name:       "correspondent-name"
-        }) }}
+      {% include "./includes/name-input.html" %}
 
       {% endcall %}
+      {% endblock %}
 
       {% block correspondenceMethod %}
       {% include "./includes/correspondence-method.html" %}
