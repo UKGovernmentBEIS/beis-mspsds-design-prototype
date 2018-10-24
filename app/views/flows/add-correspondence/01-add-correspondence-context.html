@@ -39,7 +39,10 @@ Record correspondence
       {{ correspondenceDate("When?") }}
 
       {{ govukButton({
-        text: "Continue"
+        text: "Continue",
+        attributes: {
+          "onclick": "if(getElementById('correspondence-method-1').checked){window.location.href='./02p-add-phonecall-content'}else if(getElementById('correspondence-method-2').checked){window.location.href='./02e-add-email-content'}else{window.location.href='./02-add-correspondence-content'};return false;"
+        }
       }) }}
 
     </form>
