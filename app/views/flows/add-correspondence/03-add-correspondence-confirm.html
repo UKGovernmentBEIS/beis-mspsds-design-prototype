@@ -1,28 +1,21 @@
 {% extends "mspsds-layout.html" %}
 
-
 {% block pageTitle %}
-  New product safety report – What's being reported?
+Confirm correspondence information
 {% endblock %}
-
 
 {% block beforeContent %}
-
-  {{ govukBackLink({
-    text: "Back to case",
-    href: "/case"
-  }) }}
-
+{{ govukBackLink({
+  text: "Back to case",
+  href: "/case"
+}) }}
 {% endblock %}
 
-
 {% block content %}
-
-  {{ pageTitle({
-    type:   "Case: 1810-0001",
-    title:  "Confirm correspondance details"
-  }) }}
-
+{{ pageTitle({
+  type:   "Case: 1810-0001",
+  title:  "Confirm correspondence details"
+}) }}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -33,42 +26,40 @@
         firstCellIsHeader: true,
         rows: [
           [
-            { text: "Correspondant" },
-            { text: data['correspondant'] }
+            { text: "Correspondent" },
+            { text: data['correspondent'] }
           ],
           [
             { text: "Method" },
-            { text: data['correspondance-method'] }
+            { text: data['correspondence-method'] }
           ],
           [
             { text: "Date" },
-            { text: data['correspondance-date-day'] +"/"+ data['correspondance-date-month'] +"/"+ data['correspondance-date-year'] }
+            { text: data['correspondence-date-day'] +"/"+ data['correspondence-date-month'] +"/"+ data['correspondence-date-year'] }
           ],
           [
-            { text: "Subject" },
-            { text: data['correspondance-subject'] }
+            { text: "Summary" },
+            { text: data['correspondence-summary'] }
           ],
           [
             { text: "Content" },
-            { text: data['correspondance-content'] }
+            { text: data['correspondence-content'] }
           ],
           [
             { text: "File" },
-            { text: data['correspondance-file-upload-1'] }
+            { text: data['correspondence-file-upload-1'] }
           ]
 
         ]
       }) }}
 
-
       {{ govukButton({
         text: "Continue"
       }) }}
 
-      <a class="govuk-link mspsds-block-link" href="/flows/add-correspondance/01-add-correspondance-context">Edit details</a>
+      <a class="govuk-link mspsds-block-link" href="/flows/add-correspondence/01-add-correspondence-context">Edit details</a>
 
     </form>
-
 
   </div>
 </div>
