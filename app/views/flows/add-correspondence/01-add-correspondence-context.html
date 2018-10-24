@@ -13,70 +13,19 @@ Record correspondence
 
 {% block content %}
 
-
-  {{ pageTitle({
-    type:   "Case: 1810-0001",
-    title:  "Record correspondance"
-  }) }}
-
-
+{% block pageHeading %}
+{{ pageTitle({
+  type:   "Case: 1810-0001",
+  title:  "Record correspondence"
+}) }}
+{% endblock %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    
-      
-
-      
-      {% set otherCorrespondanceHtml %}
-
-        {{ govukInput({
-          hint: {
-            text:     "Please give details",
-            classes:  "govuk-!-width-two-thirds"
-          },
-          classes:    "govuk-!-width-two-thirds",
-          id:         "other-correspondant",
-          name:       "other-correspondant"
-        }) }}
-
-      {% endset -%}
 
     <form action="./02-add-correspondence-content" method="post" class="form">
 
-      {% set phoneNumberHtml %}
-
-        {{ govukInput({
-          label: {
-            text:     "Phone number",
-            classes:  "govuk-!-width-two-thirds"
-          },
-          hint: {
-            text:     "Please include any dialing codes etc",
-            classes:  "govuk-!-width-two-thirds"
-          },
-          classes:    "govuk-!-width-two-thirds",
-          id:         "correspondent-phone-number",
-          name:       "correspondent-phone-number"
-        }) }}
-
-      {% endset -%}
-
-
-      {% set emailAddressHtml %}
-
-        {{ govukInput({
-          label: {
-            text:     "Email address",
-            classes:  "govuk-!-width-two-thirds"
-          },
-          classes:    "govuk-!-width-two-thirds",
-          id:         "correspondent-email-address",
-          name:       "correspondent-email-address"
-        }) }}
-
-      {% endset -%}
-
-      {% set whoLabel = "Who is the correspondence with?" %}
+      {% set whoLabel = "Who contacted the Office?" %}
       {% call govukFieldset({
         legend: {
           text:           whoLabel,
@@ -91,98 +40,15 @@ Record correspondence
             classes:  "govuk-!-width-two-thirds"
           },
           classes:    "govuk-!-width-two-thirds",
-        }) }}
-
-      {% endcall %}
-
-
-      {% call govukFieldset({
-        legend: {
-          text:           "Who are they?",
-          isPageHeading:  false,
-          classes:        "govuk-fieldset__legend--l"
-        }
-      }) %}
-
-        {{ govukRadios({
-          idPrefix:   "correspondant",
-          name:       "correspondant",
-          items: [
-            {
-              value:  "Incident reporter",
-              text:   "Incident reporter",
-              checked: checked("correspondant", "Incident reporter")
-            },
-            {
-              value:  "Manufacturer",
-              text:   "Manufacturer",
-              checked: checked("correspondant", "Manufacturer")
-            },
-            {
-              value:  "Importer",
-              text:   "Importer",
-              checked: checked("correspondant", "Local authority (Trading standards)")
-            },
-            {
-              value:  "Retailer",
-              text:   "Retailer",
-              checked: checked("correspondant", "Retailer")
-            },
-            {
-              value: "Trading Standards / Other MSA",
-              text: "Trading Standards / Other MSA",
-              checked: checked("correspondant", "Trading Standards / Other MSA")
-            },
-            {
-              value: "Other",
-              text: "Other",
-              conditional: {
-                html: otherCorrespondanceHtml
-              },
-              checked: checked("correspondant", "Other")
-            }
-          ]
           id:         "correspondent-name",
           name:       "correspondent-name"
         }) }}
 
       {% endcall %}
 
-
-      {% call govukFieldset({
-        legend: {
-          text:           "How?",
-          isPageHeading:  false,
-          classes:        "govuk-fieldset__legend--l"
-        }
-      }) %}
-
-        {{ govukRadios({
-          idPrefix:   "correspondence-method",
-          name:       "correspondence-method",
-          items: [
-            {
-              value:  "Phone call",
-              text:   "Phone call",
-              conditional: {
-                html: phoneNumberHtml
-              },
-              checked: checked("correspondence-method", "Phone call")
-            },
-            {
-              value:  "Email",
-              text:   "Email",
-              conditional: {
-                html: emailAddressHtml
-              },
-              checked: checked("correspondence-method", "Email")
-            }
-          ]
-        }) }}
-
-      {% endcall %}
-
-
+      {% block correspondenceMethod %}
+      {% include "./includes/correspondence-method.html" %}
+      {% endblock %}
 
       {{ govukDateInput({
         id:         "correspondence-date",
@@ -199,18 +65,13 @@ Record correspondence
         }
       }) }}
 
-
       {{ govukButton({
         text: "Continue"
       }) }}
 
     </form>
 
-
   </div>
 </div>
-
-
-
 
 {% endblock %}

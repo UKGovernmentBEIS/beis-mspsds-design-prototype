@@ -1,0 +1,44 @@
+{% extends "flows/add-correspondence/01-add-correspondence-context.html" %}
+
+{% block pageTitle %}
+Record email
+{% endblock %}
+
+{% block pageHeading %}
+{{ pageTitle({
+  type:   "Case: 1810-0001",
+  title:  "Record email"
+}) }}
+{% endblock %}
+
+{% block correspondenceMethod %}
+{% call govukFieldset({
+  legend: {
+    text:           "Email details",
+    isPageHeading:  false,
+    classes:        "govuk-fieldset__legend--l"
+  }
+}) %}
+
+{{ govukRadios({
+  idPrefix:   "correspondence-direction",
+  name:       "correspondence-direction",
+  classes:    "govuk-radios--inline",
+  items: [
+    {
+      value:  "To",
+      text:   "To",
+      checked: checked("correspondence-direction", "To")
+    },
+    {
+      value:  "From",
+      text:   "From",
+      checked: checked("correspondence-direction", "From")
+    }
+  ]
+}) }}
+
+{% include "./includes/email-input.html" %}
+
+{% endcall %}
+{% endblock %}
