@@ -1,36 +1,27 @@
 {% extends "mspsds-layout.html" %}
 
-
 {% block pageTitle %}
-  Record Correspondance
+Record correspondence
 {% endblock %}
-
 
 {% block beforeContent %}
-
-  {{ govukBackLink({
-    text: "Back to case",
-    href: "/case"
-  }) }}
-
+{{ govukBackLink({
+  text: "Back to case",
+  href: "/case"
+}) }}
 {% endblock %}
 
-
 {% block content %}
-
-
-  {{ pageTitle({
-    type:   "Case: 1810-0001",
-    title:  "Record correspondance"
-  }) }}
-
-
+{{ pageTitle({
+  type:   "Case: 1810-0001",
+  title:  "Record correspondence"
+}) }}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    
-    <form action="./03-add-correspondance-confirm" method="post" class="form">
-      
+
+    <form action="./03-add-correspondence-confirm" method="post" class="form">
+
       {% call govukFieldset({
         legend: {
           text: "Subject",
@@ -41,15 +32,14 @@
 
         {{ govukInput({
           hint: {
-            text: "Give an overview of the correspondance"
+            text: "Give an overview of the correspondence"
           },
           classes: "govuk-!-width-two-thirds",
-          id:   "correspondance-subject",
-          name: "correspondance-subject"
+          id:   "correspondence-subject",
+          name: "correspondence-subject"
         }) }}
 
       {% endcall %}
-
 
       {% call govukFieldset({
         legend: {
@@ -57,14 +47,11 @@
           classes:    "govuk-fieldset__legend--l"
         }
       }) %}
-
         {{ govukTextarea({
-          name: "correspondance-content",
-          id:   "correspondance-content"
+          name: "correspondence-content",
+          id:   "correspondence-content"
         }) }}
-
       {% endcall %}
-
 
       {% call govukFieldset({
         legend: {
@@ -72,16 +59,11 @@
           classes:    "govuk-fieldset__legend--l"
         }
       }) %}
-
         {{ govukFileUpload({
-          id: "correspondance-file-upload-1",
-          name: "correspondance-file-upload-1"
+          id: "correspondence-file-upload-1",
+          name: "correspondence-file-upload-1"
         }) }}
-
       {% endcall %}
-      
-
-
 
       {{ govukButton({
         text: "Continue"
@@ -89,11 +71,6 @@
 
     </form>
 
-
   </div>
 </div>
-
-
-
-
 {% endblock %}
