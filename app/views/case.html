@@ -5,8 +5,18 @@
 {% endblock %}
 
 {% block beforeContent %}
+
+  {{ govukPhaseBanner({
+    tag: {
+      text: "beta"
+    },
+    html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+  }) }}
+
   <a class="govuk-back-link" href="/case-list">Back to list</a>
+
 {% endblock %}
+
 
 {% block content %}
 
@@ -22,8 +32,7 @@
   <div class="govuk-grid-column-two-thirds">
     {{ pageTitle({
       type:       "Case: 1810-0001",
-      title:      "Charge Worx, Travel plug adaptor –Electric shock, fire hazard",
-      subTitle:   "Created by Tim Harwood, 10/10/2018"
+      title:      "Charge Worx, Travel plug adaptor –Electric shock, fire hazard"
     }) }}
   </div>
 
@@ -42,6 +51,10 @@
   hazardDescription: "Travel adaptor available from high-street store Game has been reported to have caused a fire and severe electric shocks. Has been reported more than 10 times in the last 2 months.",
   riskLevel: "Serious"
 }) }}
+
+{% include "panels/product-panel.html" %}
+
+
 
 <h2 class="govuk-heading-l">Add new activity</h2>
 {% include "panels/record-action.html" %}

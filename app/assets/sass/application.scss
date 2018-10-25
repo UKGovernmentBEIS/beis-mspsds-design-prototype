@@ -26,7 +26,9 @@ $govuk-global-styles: true;
 @import "record-action-panel";
 @import "case-why-panel";
 @import "add-correspondence";
-
+@import "case-filter";
+@import "search";
+@import "creation-controls";
 
 @import "mspsds-layout";
 

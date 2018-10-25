@@ -1,40 +1,62 @@
-.navbar .navbar__list-items {
+.navbar {
+  
+  position: relative;
+  background-color: govuk-colour("grey-4");
+
+  &:before {
+    content: ' ';
+    position: absolute;
+    width:  100vw;
+    top:    0;
+    bottom: 1px;
+    margin-left: calc(-1 * (100vw - 100%) /2 );
+    background-color: govuk-colour("grey-4");
+    z-index: 0;
+  }
 
 
-  border-bottom: 1px solid $govuk-border-colour;
-  margin-block-start: 0;
-  margin-block-end: 0;
-  padding-inline-start: 0;
 
-  li {
-    display: inline-block;
+  .navbar__list-items {
+    
+    position: relative;
+    z-index: 1;
 
-    a {
-      //@include bold-19;
-      //@extend .bold-small;
-      color:    $govuk-text-colour;
-      display:  inline-block;
-      padding:  15px 5px 10px 5px;
-      margin-right: 0;
-      text-decoration: none;
+    border-bottom: 1px solid $govuk-border-colour;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-inline-start: 0;
 
-      &:hover {
-        -webkit-box-shadow: inset 0px -5px 0px 0px $govuk-link-hover-colour;
-           -moz-box-shadow: inset 0px -5px 0px 0px $govuk-link-hover-colour;
-                box-shadow: inset 0px -5px 0px 0px $govuk-link-hover-colour;
+    li {
+      display: inline-block;
+
+      a {
+        //@include bold-19;
+        //@extend .bold-small;
+        color:    $govuk-text-colour;
+        display:  inline-block;
+        padding:  15px 5px 10px 5px;
+        margin-right: 0;
+        text-decoration: none;
+
+        &:hover {
+          -webkit-box-shadow: inset 0px -5px 0px 0px $govuk-link-hover-colour;
+             -moz-box-shadow: inset 0px -5px 0px 0px $govuk-link-hover-colour;
+                  box-shadow: inset 0px -5px 0px 0px $govuk-link-hover-colour;
+        }
+
+        &:focus {
+          outline: 0;
+        }
       }
 
-      &:focus {
-        outline: 0;
+      &.active a,
+      &.active a:hover {
+        color: $govuk-link-colour;
+        -webkit-box-shadow: inset 0px -5px 0px 0px $govuk-link-colour;
+           -moz-box-shadow: inset 0px -5px 0px 0px $govuk-link-colour;
+                box-shadow: inset 0px -5px 0px 0px $govuk-link-colour;
       }
     }
 
-    &.active a,
-    &.active a:hover {
-      color: $govuk-link-colour;
-      -webkit-box-shadow: inset 0px -5px 0px 0px $govuk-link-colour;
-         -moz-box-shadow: inset 0px -5px 0px 0px $govuk-link-colour;
-              box-shadow: inset 0px -5px 0px 0px $govuk-link-colour;
-    }
   }
 }

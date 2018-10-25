@@ -8,4 +8,8 @@
   	@include govuk-responsive-padding(2);
   }
 
+  .mspsds-case-filter ~ & {
+    @include govuk-responsive-margin(0, "bottom");
+  }
+
 }

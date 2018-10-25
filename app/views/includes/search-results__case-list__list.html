@@ -1,0 +1,49 @@
+{% from "table/macro.njk" import govukTable %}
+
+{{ govukTable({
+
+  head: [
+    {
+      text: "Case/Question"
+    },
+    {
+      text: "Match"
+    }
+  ],
+  rows: [
+  [
+      {
+        html: "<span class='govuk-caption-m'>0132-1421</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        html: "<span class='govuk-caption-m'>Case reference</span>01<span class='highlight'>32-142</span>1"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>1534-1287</span> <a href='/case'>I-Sonite, Armband Phone Case – Choking hazard</a>"
+      },
+      {
+        html: "<span class='govuk-caption-m'>Assignee</span><span class='highlight'>Nick</span> Golding – <span class='highlight'>nick</span>.golding@softwire.com"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>1809-1234</span> <a href='/case'>Makita, drill – Electric shock, fire hazard</a>"
+      },
+      {
+        html: "<span class='govuk-caption-m'>Product, model number</span> Makita Pen, 1/4 x 18 mm, Stainless Steel, F <span class='highlight'>32142</span>"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>1806-1212</span> <a href='/case'>Kingfisher Technology, Cable Lead Adaptor – Electric shock hazard</a>"
+      },
+      {
+        html: "<span class='govuk-caption-m'>Product, manufacturer reference</span> <span class='highlight'>32142</span>-USB-UCE6-90-BLA-D"
+      }
+    ]
+    
+
+  ]
+}) }}
