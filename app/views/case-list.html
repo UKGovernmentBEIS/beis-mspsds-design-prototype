@@ -6,8 +6,15 @@
 {% endblock %}
 
 {% block beforeContent %}
+
+    {{ govukPhaseBanner({
+        tag: {
+          text: "beta"
+        },
+        html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+    }) }}
   
-  {{ siteNav('/case-list') }}
+    {{ siteNav('/case-list') }}
 
 {% endblock %}
 
