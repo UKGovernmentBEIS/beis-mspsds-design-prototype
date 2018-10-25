@@ -2,74 +2,63 @@
 
 <h2 class="govuk-heading-l">Full Detail</h2>
 
-{{ govukTable({
-  firstCellIsHeader: true,
-  rows: [
-    [
-      {
-        text: "Reported risk"
-      },
-      {
-        text: "Product overheats and causes fire. Has caused significant injury"
-      }
-    ],
-    [
-      {
-        text: "Originator"
-      },
-      {
-        html: "Consumer. Hackney, London E8 1DY. <br> 020 8123 12334 <br> <a href='#'>View details</a>"
-      }
-    ],
-    [
-      {
-        text: "Event details"
-      },
-      {
-        text: "On 20th July 2018 a consumer in Hackney reported a fire in their flat caused by their kettle overheating and catching fire. They were burned and scaled by the hot water and fire. "
-      }
-    ],
-    [
-      {
-        text: "People affected"
-      },
-      {
-        text: "Adult consumers using the Kettle."
-      }
-    ],
-    [
-      {
-        text: "Applicable legislation"
-      },
-      {
-        text: ""
-      }
-    ],
-    [
-      {
-        text: "Correspondence"
-      },
-      {
-        text: "Original consumer email attached"
-      }
-    ],
-    [
-      {
-        text: "Previous steps taken"
-      },
-      {
-        html: "Manufacturer contacted on 21 July 2018 by phone. <br> Local authority contacted on 21 July 2018 by phone."
-      }
-    ],
-    [
-      {
-        text: "Additional notes"
-      },
-      {
-        text: "They have made their Local authority aware."
-      }
-    ]
-  ]
-}) }}
 
-<a href="/product/edit">Edit details</a>
+<div class="govuk-grid-row govuk-!-margin-bottom-4">
+
+  <div class="govuk-grid-column-full">
+    <h3 class="govuk-heading-m">Report</h3>
+
+    {{ govukTable({
+      firstCellIsHeader: true,      rows: [
+        [
+          {
+            text: "Date"
+          },
+          {
+            html: "10/12/2018"
+          }
+        ],
+        [
+          {
+            text: "Question asked by"
+          },
+          {
+            html: "Business <br><a href='#'>View details</a>"
+          }
+        ],
+        [
+          {
+            text: "Correspondence"
+          },
+          {
+            html: "Original email attached  <br> <a href='#'>View details</a>"
+          }
+        ],
+        [
+          {
+            text: "Question type"
+          },
+          {
+            html: "Policy"
+          }
+        ],
+        [
+          {
+            text: "Additional notes"
+          },
+          {
+            text: "They have made their Local authority aware."
+          }
+        ]
+      ]
+    }) }}
+
+    <a href="#" class="mspsds-block-link">Edit details</a>
+  </div>
+
+</div>
+
+
+
+
+
