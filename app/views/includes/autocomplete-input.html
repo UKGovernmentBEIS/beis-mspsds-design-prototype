@@ -1,0 +1,21 @@
+{% macro autocompleteInput(idPrefix, legend, hint, values) %}
+
+<legend for="{{idPrefix}}-autocomplete" class="govuk-fieldset__legend govuk-fieldset__legend--l">{{legend}}</legend>
+{% if hint %}<span class="govuk-hint">{{hint | safe}}</span>{% endif %}
+<div class="govuk-body mspsds-autocomplete" id="{{idPrefix}}-autocomplete-container"></div>
+
+<style>#{{idPrefix}}-autocomplete-container .autocomplete__dropdown-arrow-down{z-index: 0}</style>
+<script type="text/javascript">
+  var values = [{% for value in values %}"{{value}}",{% endfor %}];
+
+  element = document.querySelector('#{{idPrefix}}-autocomplete-container')
+  id = '{{idPrefix}}-autocomplete'
+  accessibleAutocomplete({
+    element: element,
+    id: id,
+    showAllValues: true,
+    source: values
+  })
+</script>
+
+{% endmacro %}

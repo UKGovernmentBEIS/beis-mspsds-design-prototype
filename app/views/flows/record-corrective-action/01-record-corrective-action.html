@@ -1,7 +1,7 @@
 {% extends "mspsds-layout.html" %}
 
 {% block pageTitle %}
-Record testing request
+Record corrective action
 {% endblock %}
 
 {% block beforeContent %}
@@ -14,7 +14,7 @@ Record testing request
 {% block content %}
 {{ pageTitle({
   type:   "Case: 1810-0001",
-  title:  "Record testing request"
+  title:  "Record corrective action"
 }) }}
 
 <div class="govuk-grid-row">
@@ -22,38 +22,13 @@ Record testing request
 
     <form action="/case" method="post" class="form">
 
-      <legend for="case-products-autocomplete" class="govuk-fieldset__legend govuk-fieldset__legend--l">Which product should be tested?</legend>
-      <span class="govuk-hint">Only products already added to the case are listed. <a href="#">Add a product</a></span>
-      <div class="govuk-body mspsds-autocomplete" id="case-products-autocomplete-container"></div>
-
-      <style>#case-products-autocomplete-container .autocomplete__dropdown-arrow-down{z-index: 0}</style>
-      <script type="text/javascript">
-        var products = [
-          'Travel plug adaptor — Charge Worx 931L',
-          'iPhone charger – unbranded, white',
-          'Travel plug adaptor – Multipower 94998',
-        ]
-
-        element = document.querySelector('#case-products-autocomplete-container')
-        id = 'case-products-autocomplete'
-        accessibleAutocomplete({
-          element: element,
-          id: id,
-          showAllValues: true,
-          source: products
-        })
-      </script>
-
-      {% from "includes/legislation-input.html" import legislationInput %}
-      {{ legislationInput("Against which legislation?") }}
-
       {% from "date-input/macro.njk"    import govukDateInput %}
       {{ govukDateInput({
         id:         "testing-request-date",
         namePrefix: "testing-request-date",
         fieldset: {
           legend: {
-            text: "When did you request testing?",
+            text: "When was this action decided?",
             isPageHeading: false,
             classes: "govuk-fieldset__legend--l"
           }
@@ -62,6 +37,24 @@ Record testing request
           text: "For example, 31 3 2018"
         }
       }) }}
+
+      {% from "includes/autocomplete-input.html" import autocompleteInput %}
+      {% set products = [
+        'Travel plug adaptor — Charge Worx 931L',
+        'iPhone charger – unbranded, white',
+        'Travel plug adaptor – Multipower 94998'
+      ] %}
+      {{ autocompleteInput("case-products", "Which product is subject to action?", "Only products already added to the case are listed. <a href='#'>Add a product</a>", products) }}
+
+      {% from "includes/legislation-input.html" import legislationInput %}
+      {{ legislationInput("Under which legislation?") }}
+
+      {% set businesses = [
+        'Charge Worx',
+        'Wonderlite Ltd.',
+        'Trader Joe\'s bargain basement'
+      ] %}
+      {{ autocompleteInput("case-businesses", "Which business is responsible?", "Only businesses already added to the case are listed. <a href='#'>Add a business</a>", businesses) }}
 
       {% call govukFieldset({
         legend: {

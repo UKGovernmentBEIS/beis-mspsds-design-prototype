@@ -44,7 +44,8 @@ Record test result
         })
       </script>
 
-      {% include "includes/legislation-input.html" %}
+      {% from "includes/legislation-input.html" import legislationInput %}
+      {{ legislationInput("Against which legislation?") }}
 
       {% from "date-input/macro.njk"    import govukDateInput %}
       {{ govukDateInput({
