@@ -1,0 +1,99 @@
+{% extends "mspsds-layout.html" %}
+
+{% block pageTitle %}
+Record testing request
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back to case",
+  href: "/case"
+}) }}
+{% endblock %}
+
+{% block content %}
+{{ pageTitle({
+  type:   "Case: 1810-0001",
+  title:  "Record testing request"
+}) }}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="/case" method="post" class="form">
+
+      <legend for="case-products-autocomplete" class="govuk-fieldset__legend govuk-fieldset__legend--l">Which product should be tested?</legend>
+      <span class="govuk-hint">Only products already added to the case are listed. <a href="#">Add a product</a></span>
+      <div class="govuk-body mspsds-autocomplete" id="case-products-autocomplete-container"></div>
+
+      <style>#case-products-autocomplete-container .autocomplete__dropdown-arrow-down{z-index: 0}</style>
+      <script type="text/javascript">
+        var products = [
+          'Travel plug adaptor — Charge Worx 931L',
+          'iPhone charger – unbranded, white',
+          'Travel plug adaptor – Multipower 94998',
+        ]
+
+        element = document.querySelector('#case-products-autocomplete-container')
+        id = 'case-products-autocomplete'
+        accessibleAutocomplete({
+          element: element,
+          id: id,
+          showAllValues: true,
+          source: products
+        })
+      </script>
+
+      {% include "./includes/legislation-input.html" %}
+
+      {% from "date-input/macro.njk"    import govukDateInput %}
+      {{ govukDateInput({
+        id:         "testing-request-date",
+        namePrefix: "testing-request-date",
+        fieldset: {
+          legend: {
+            text: "When did you request testing?",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        hint: {
+          text: "For example, 31 3 2018"
+        }
+      }) }}
+
+      {% call govukFieldset({
+        legend: {
+          text: "Further details",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--l"
+        }
+      }) %}
+        {{ govukTextarea({
+          name: "testing-request-details",
+          id:   "testing-request-details"
+        }) }}
+      {% endcall %}
+
+      {% call govukFieldset({
+        legend: {
+          text:       "Related attachments",
+          classes:    "govuk-fieldset__legend--l"
+        }
+      }) %}
+        {{ govukFileUpload({
+          id: "testing-request-file-upload-1",
+          name: "testing-request-file-upload-1"
+        }) }}
+      {% endcall %}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
