@@ -64,11 +64,11 @@
           <div class="options-container">
             <div>
               
-                <label for="statusOpen">
+                <label for="statusOpen" class="label checkbox-label">
                   <input name="statusOpen" value="Open" id="statusOpen" type="checkbox">Open
                 </label>
               
-                <label for="statusClosed">
+                <label for="statusClosed" class="label checkbox-label">
                   <input name="statusClosed" value="Closed" id="statusClosed" type="checkbox">Closed
                 </label>
               
@@ -86,20 +86,72 @@
           <div class="options-container">
             <div>
               
-                <label for="PriorityHigh">
+                <label for="PriorityHigh" class="label checkbox-label">
                   <input name="PriorityHigh" value="High" id="PriorityHigh" type="checkbox">High
                 </label>
 
-                <label for="PriorityMedium">
+                <label for="PriorityMedium" class="label checkbox-label">
                   <input name="PriorityMedium" value="Medium" id="PriorityMedium" type="checkbox">Medium
                 </label>
 
-                <label for="PriorityLow">
+                <label for="PriorityLow" class="label checkbox-label">
                   <input name="PriorityLow" value="High" id="PriorityLow" type="checkbox">Low
                 </label>
               
             </div>
           </div>
+
+      </div>
+
+
+      <div class="govuk-option-select ">
+
+          <input type="checkbox" class="option-select-display" id="option-select-display-Assignee">
+          <label for="option-select-display-Assignee" class="option-select-label">Assignee</label>
+          
+
+          <div class="options-container">
+            <div>
+              
+                <label for="assigneeTim" class="label checkbox-label">
+                  <input name="assigneeTim" value="Tim" id="Tim" type="checkbox">Tim Harwood &mdash; tim.harwood@softwire.com
+                </label>
+
+                <label for="assigneeNick" class="label checkbox-label">
+                  <input name="assigneeNick" value="Nick" id="assigneeNick" type="checkbox">Nick Golding &mdash; nick.golding@softwire.com
+                </label>
+
+                <label for="case-assignne-autocomplete" class="label ">Other
+                  <div id="case-assignee-autocomplete-container"></div>
+                </label>
+                
+              
+            </div>
+
+            
+          </div>
+
+
+          <script type="text/javascript">
+
+
+            var assignees = [
+              'Tim Harwood – tim.harwood@softwire.com',
+              'Nick Golding – nick.golding@softwire.com',
+              'Ed Smith-Muller – ed.smith-muller@softwire.com',
+            ]
+          
+
+            element = document.querySelector('#case-assignee-autocomplete-container')
+            id = 'case-assignne-autocomplete'
+            accessibleAutocomplete({
+              element: element,
+              id: id,
+              showNoOptionsFound: false,
+              source: assignees
+            })
+          </script>
+
 
       </div>
 

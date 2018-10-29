@@ -21,7 +21,7 @@
         overflow-x: hidden;
         border: 5px solid #dee0e2;
 
-        label {
+        .label {
             
             display: inline-block;
             font-family: "nta",Arial,sans-serif;
@@ -30,20 +30,27 @@
             font-size: 16px;
             line-height: 1.25;
             box-sizing: border-box;
-            padding: 7px 0 7px 35px;
+            padding: 7px;
             border-bottom: 1px solid #bfc1c3;
             width: 100%;
             cursor: pointer;
 
         }
 
-        input {
+        .checkbox-label {
+            padding: 7px 7px 7px 35px;
+        }
+
+
+
+        input[type='checkbox'] {
             float: left;
             margin: 2px 0 0 -27px;
             width: 20px;
             height: 20px;
         }
     }
+
 
     .option-select-display {
         display: none;
