@@ -1,0 +1,41 @@
+
+{% extends "mspsds-layout.html" %}
+
+{% block pageTitle %}
+  Case-list Page
+{% endblock %}
+
+{% block beforeContent %}
+
+    {{ govukPhaseBanner({
+        tag: {
+          text: "beta"
+        },
+        html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+    }) }}
+  
+    {{ siteNav('/case-list') }}
+
+{% endblock %}
+
+
+{% block content %}
+
+  {% include "includes/creation-controls.html" %}
+
+
+  {% include "includes/case-list__header-v1.html" %}
+
+  
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+     {% include "includes/case-list__list-v1.html" %}
+    </div>
+  </div>
+
+
+
+
+
+{% endblock %}

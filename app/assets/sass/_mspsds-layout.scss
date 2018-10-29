@@ -37,17 +37,12 @@
 
         }
 
-        .checkbox-label {
-            padding: 7px 7px 7px 35px;
+        .govuk-checkboxes {
+            padding: 7px;
         }
 
-
-
-        input[type='checkbox'] {
-            float: left;
-            margin: 2px 0 0 -27px;
-            width: 20px;
-            height: 20px;
+        .govuk-form-group {
+            margin-bottom: 0;
         }
     }
 

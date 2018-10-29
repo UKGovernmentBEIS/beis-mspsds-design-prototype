@@ -10,3 +10,16 @@
   }
 
 }
+
+.mspsds-case-filters {
+	.mspsds-case-filter {
+		margin-right: govuk-spacing(0);
+	}
+
+	.mspsds-case-filter__arrow-down {
+	    width: 24px;
+	    height: 24px;
+	    margin-right: govuk-spacing(3);
+	}
+}
+

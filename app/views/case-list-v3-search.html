@@ -50,7 +50,7 @@
       <form id="search" class="mspsds-search govuk-form-group" action="/case-list-v3-search" method="get" role="search">
           <div class="mspsds-search__content">
             <label for="mspsds-search__input" class="mspsds-search__label govuk-label" >Search cases &amp; questions</label>
-            <input type="search" name="q" id="mspsds-search__input" title="Search" class="js-search-focus mspsds-search__input govuk-input" value="">
+            <input type="search" name="q" id="mspsds-search__input" title="Search" class="js-search-focus mspsds-search__input govuk-input" value="{{data['q']}}">
             <input class="submit mspsds-search__submit" type="submit" value="Search">
           </div>
       </form>
@@ -266,19 +266,21 @@
       </div>
 
 
+
       {{ govukButton({
         text: "Apply filters"
       }) }}
 
 
-
     </div>
 
 
 
-    <div class="govuk-grid-column-two-thirds">
-     {% include "includes/case-list__list.html" %}
+    <div class="govuk-grid-column-two-thirds mspsds-search__results">
+     {% include "includes/search-results__case-list__list.html" %}
     </div>
+
+
   </div>
 
 
