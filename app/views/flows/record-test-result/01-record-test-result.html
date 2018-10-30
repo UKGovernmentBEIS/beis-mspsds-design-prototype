@@ -22,27 +22,13 @@ Record test result
 
     <form action="/case" method="post" class="form">
 
-      <legend for="case-products-autocomplete" class="govuk-fieldset__legend govuk-fieldset__legend--l">Which product was tested?</legend>
-      <span class="govuk-hint">Only products already added to the case are listed. <a href="#">Add a product</a></span>
-      <div class="govuk-body mspsds-autocomplete" id="case-products-autocomplete-container"></div>
-
-      <style>#case-products-autocomplete-container .autocomplete__dropdown-arrow-down{z-index: 0}</style>
-      <script type="text/javascript">
-        var products = [
-          'Travel plug adaptor — Charge Worx 931L',
-          'iPhone charger – unbranded, white',
-          'Travel plug adaptor – Multipower 94998',
-        ]
-
-        element = document.querySelector('#case-products-autocomplete-container')
-        id = 'case-products-autocomplete'
-        accessibleAutocomplete({
-          element: element,
-          id: id,
-          showAllValues: true,
-          source: products
-        })
-      </script>
+      {% from "includes/autocomplete-input.html" import autocompleteInput %}
+      {% set products = [
+        'Travel plug adaptor — Charge Worx 931L',
+        'iPhone charger – unbranded, white',
+        'Travel plug adaptor – Multipower 94998'
+      ] %}
+      {{ autocompleteInput("case-products", "Which product was tested?", "Only products already added to the case are listed. <a href='#'>Add a product</a>", products) }}
 
       {% from "includes/legislation-input.html" import legislationInput %}
       {{ legislationInput("Against which legislation?") }}
