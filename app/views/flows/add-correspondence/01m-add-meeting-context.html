@@ -29,7 +29,8 @@ Record meeting
           classes:        "govuk-fieldset__legend--l"
         }
       }) %}
-        {% include "./includes/name-input.html" %}
+        {% from "./includes/name-input.html" import nameInput %}
+        {{ nameInput("Name(s)") }}
       {% endcall %}
 
       {% from "./includes/date-input.html" import correspondenceDate %}

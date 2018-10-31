@@ -29,7 +29,8 @@ Record phonecall
           classes:        "govuk-fieldset__legend--l"
         }
       }) %}
-        {% include "./includes/name-input.html" %}
+        {% from "./includes/name-input.html" import nameInput %}
+        {{ nameInput("Name") }}
         {% include "./includes/phonenumber-input.html" %}
       {% endcall %}
 
