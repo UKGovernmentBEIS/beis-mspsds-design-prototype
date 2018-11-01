@@ -1,8 +1,10 @@
 .navbar {
   
   position: relative;
-  background-color: govuk-colour("grey-4");
 
+  background-color: govuk-colour("grey-4");
+  
+  /*
   &:before {
     content: ' ';
     position: absolute;
@@ -13,12 +15,13 @@
     background-color: govuk-colour("grey-4");
     z-index: 0;
   }
-
+  */
 
 
   .navbar__list-items {
     
     position: relative;
+
     z-index: 1;
 
     border-bottom: 1px solid $govuk-border-colour;
@@ -59,4 +62,24 @@
     }
 
   }
+
+
+  .creation {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    //transform: translateY(-50%);
+    
+
+    .govuk-button--start {
+      font-size: 1rem;
+      margin: 0;
+    }
+  
+
+
+  }
+
+
+
 }

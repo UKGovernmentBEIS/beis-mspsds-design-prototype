@@ -1,0 +1,147 @@
+.mspsds-case-sort {
+    float: right;
+    padding: 0 15px;
+}
+
+.mspsds-case-control {
+    //background-color:   govuk-colour("grey-3");
+    //@include govuk-responsive-padding(4);
+
+    &:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+}
+
+.mspsds-case-card {
+    
+    position:           relative;
+    display: flex;
+
+    box-sizing: border-box;
+    @include govuk-responsive-margin(1);
+    
+
+    color: govuk-colour("black");
+
+    & * {
+        box-sizing: border-box;
+    }
+
+
+    background-color:   #F8F8F8;
+    border:             1px solid #F3F3F3;
+    @include govuk-responsive-padding(2);
+
+
+    &__indentifier {
+        display: inline-block;
+        width: grid-width( one-half);
+        position: absolute;
+
+        @include govuk-typography-responsive($size: 14);
+        
+        text-transform: uppercase;
+        color: govuk-colour("grey-1");   
+    }
+
+
+    &__product,
+    &__hazard {
+        display: block;
+    }
+    
+    &__title {
+        display: inline-block;
+        width: grid-width(one-half);
+
+        @include govuk-responsive-margin(4, "top");
+
+        @include govuk-typography-responsive($size: 19);
+        @include govuk-typography-weight-bold();
+    }
+
+    &__state {
+        display: inline-block;
+        width: grid-width(one-half);
+
+        .mspsds-case-filter {
+            float: left;
+        }
+    }
+
+
+    &__assignee {
+        width: grid-width(one-half);
+    }
+
+    &__priority {
+        width: grid-width(one-quarter);
+    }
+
+    &__dateUpdated {
+        width: grid-width(one-quarter);
+    }
+
+
+    &__status {
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    
+    &__dateCreated {
+        display: none;
+    }
+
+    &__Draft {
+        font-style: italic;
+
+        & * {
+             @include govuk-typography-weight-regular();
+        }
+
+
+    }
+
+    &__Draft  &__indentifier, 
+    &__Draft  &__title {
+        @include govuk-responsive-padding(3, "left");
+    }
+    
+    &__Draft  &__status {
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+
+        background-color:   govuk-colour("blue");
+        color:              govuk-colour("white");
+
+        .mspsds-case-filter__key {
+            display: none;
+        }
+
+        .mspsds-case-filter__value {
+            
+            @include govuk-typography-responsive($size: 14);
+            line-height: 1;
+            text-transform: uppercase;
+            color:              govuk-colour("white");
+
+            transform-origin: top left;
+            transform: rotate(-90deg);
+            position: absolute;
+            top: 50%;
+            left: 0;
+        }
+    }
+
+
+
+
+
+}

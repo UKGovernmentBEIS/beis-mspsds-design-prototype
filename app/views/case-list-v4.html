@@ -1,0 +1,156 @@
+
+{% extends "mspsds-layout.html" %}
+
+{% block pageTitle %}
+  Case-list Page
+{% endblock %}
+
+{% block beforeContent %}
+
+    {{ govukPhaseBanner({
+        tag: {
+          text: "beta"
+        },
+        html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+    }) }}
+  
+    {{ siteNavV2('/case-list') }}
+
+{% endblock %}
+
+
+{% block content %}
+
+
+
+  {% include "includes/case-list__header-v2.html" %}
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+      {% from "includes/case-card.html"         import caseCard %}
+
+      {{ caseCard({
+          type:   'Case',
+          status: 'Open',
+          id:     '2018-0781',
+
+          product:  'Charge Worx, Travel plug adaptor',
+          hazard:   'Electric shock, fire hazard',
+
+          assignee:     'Tim Harwood',
+          priority:     'High',
+          dateUpdated:  '21/10/2018',
+          dateCreated:  '18/10/2018'
+      }) }}
+
+
+      {{ caseCard({
+          type:   'Case',
+          status: 'Draft',
+          id:     '2018-0781',
+
+          product:  'Charge Worx, Travel plug adaptor',
+          hazard:   'Electric shock, fire hazard',
+
+          assignee:     'Tim Harwood',
+          priority:     'High',
+          dateUpdated:  '21/10/2018',
+          dateCreated:  '18/10/2018'
+      }) }}
+      
+      {{ caseCard({
+          type:   'Case',
+          status: 'Open',
+          id:     '2018-0781',
+
+          product:  'Charge Worx, Travel plug adaptor',
+          hazard:   'Electric shock, fire hazard',
+
+          assignee:     'Tim Harwood',
+          priority:     'High',
+          dateUpdated:  '21/10/2018',
+          dateCreated:  '18/10/2018'
+      }) }}
+
+      {{ caseCard({
+          type:   'Case',
+          status: 'Open',
+          id:     '2018-0781',
+
+          product:  'Charge Worx, Travel plug adaptor',
+          hazard:   'Electric shock, fire hazard',
+
+          assignee:     'Tim Harwood',
+          priority:     'High',
+          dateUpdated:  '21/10/2018',
+          dateCreated:  '18/10/2018'
+      }) }}
+
+      {{ caseCard({
+          type:   'Case',
+          status: 'Open',
+          id:     '2018-0781',
+
+          product:  'Charge Worx, Travel plug adaptor',
+          hazard:   'Electric shock, fire hazard',
+
+          assignee:     'Tim Harwood',
+          priority:     'High',
+          dateUpdated:  '21/10/2018',
+          dateCreated:  '18/10/2018'
+      }) }}
+
+      {{ caseCard({
+          type:   'Case',
+          status: 'Open',
+          id:     '2018-0781',
+
+          product:  'Charge Worx, Travel plug adaptor',
+          hazard:   'Electric shock, fire hazard',
+
+          assignee:     'Tim Harwood',
+          priority:     'High',
+          dateUpdated:  '21/10/2018',
+          dateCreated:  '18/10/2018'
+      }) }}
+
+      {{ caseCard({
+          type:   'Case',
+          status: 'Open',
+          id:     '2018-0781',
+
+          product:  'Charge Worx, Travel plug adaptor',
+          hazard:   'Electric shock, fire hazard',
+
+          assignee:     'Tim Harwood',
+          priority:     'High',
+          dateUpdated:  '21/10/2018',
+          dateCreated:  '18/10/2018'
+      }) }}
+
+      {{ caseCard({
+          type:   'Case',
+          status: 'Open',
+          id:     '2018-0781',
+
+          product:  'Charge Worx, Travel plug adaptor',
+          hazard:   'Electric shock, fire hazard',
+
+          assignee:     'Tim Harwood',
+          priority:     'High',
+          dateUpdated:  '21/10/2018',
+          dateCreated:  '18/10/2018'
+      }) }}
+
+
+
+    </div>
+  </div>
+
+
+
+
+
+{% endblock %}

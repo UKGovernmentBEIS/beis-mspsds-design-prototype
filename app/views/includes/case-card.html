@@ -1,0 +1,67 @@
+{% from "includes/case-filter.html"         import caseFilter %}
+
+
+{% macro caseCard(caseInfo) %}
+ 
+
+<div class="mspsds-case-card mspsds-case-card__{{caseInfo.type}} mspsds-case-card__{{caseInfo.status}} govuk-body govuk-!-font-weight-regular">
+
+    <span class="mspsds-case-card__indentifier">
+
+        {% if caseInfo.type %}
+            <span class="mspsds-case-card__type">{{caseInfo.type}}</span>
+        {% endif %}
+
+        {% if caseInfo.id %}
+            <span class="mspsds-case-card__id">{{caseInfo.id}}</span>
+        {% endif %}
+
+    </span>
+
+
+    <span class="mspsds-case-card__title">
+
+        {% if caseInfo.product %}
+            <span class="mspsds-case-card__product">{{caseInfo.product}}</span>
+        {% else %}
+            <span class="mspsds-case-card__product mspsds-case-card__product--undefined">Undefined product</span>
+        {% endif %}
+
+        {% if caseInfo.hazard %}
+            <span class="mspsds-case-card__hazard">{{caseInfo.hazard}}</span>
+        {% else %}
+            <span class="mspsds-case-card__hazard mspsds-case-card__hazard--undefined">Undefined hazard</span>
+        {% endif %}
+
+    </span>
+
+
+    <span class="mspsds-case-card__state">
+
+        {% if caseInfo.status %}
+            {{ caseFilter("Status",caseInfo.status, "mspsds-case-card__status") }}
+        {% endif %}
+
+        {% if caseInfo.assignee %}
+            {{ caseFilter("Assigned to",caseInfo.assignee, "mspsds-case-card__assignee") }}
+        {% endif %}
+
+        {% if caseInfo.priority %}
+            {{ caseFilter("Priority",caseInfo.priority, "mspsds-case-card__priority") }}
+        {% endif %}
+
+        {% if caseInfo.dateUpdated %}
+            {{ caseFilter("Last updated",caseInfo.dateUpdated, "mspsds-case-card__dateUpdated") }}
+        {% endif %}
+
+        {% if caseInfo.dateCreated %}
+            {{ caseFilter("Created",caseInfo.dateCreated, "mspsds-case-card__dateCreated") }}
+        {% endif %}
+
+    </span>
+
+
+</div>
+
+
+{% endmacro %}

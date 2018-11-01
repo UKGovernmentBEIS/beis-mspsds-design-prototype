@@ -1,7 +1,7 @@
 .mspsds-case-filter {
 
   margin: govuk-spacing(0);
-  margin-right: govuk-spacing(3);
+  padding-right: govuk-spacing(3);
   display: inline-block;
   width: auto;
 
@@ -12,14 +12,48 @@
 }
 
 .mspsds-case-filters {
+
+    position: relative;
+
+    &--open {
+        background-color:   govuk-colour("grey-3");
+        @include govuk-responsive-padding(4);
+    }
+
 	.mspsds-case-filter {
-		margin-right: govuk-spacing(0);
+		padding-right: govuk-spacing(0);
 	}
 
+    .mspsds-case-filter + .mspsds-case-filter,
+    .mspsds-case-filter + .mspsds-block-link {
+        margin-left: govuk-spacing(2);
+    }
+
 	.mspsds-case-filter__arrow-down {
-	    width: 24px;
-	    height: 24px;
-	    margin-right: govuk-spacing(3);
+        width: 16px;
+        height: 16px;
+        vertical-align: text-top;
+        margin-right: govuk-spacing(2);
 	}
 }
 
+.mspsds-case-filter-controls {
+  
+  .govuk-form-group {
+    margin-bottom: govuk-spacing(0);
+  }
+
+  tr {
+    td:nth-child(1) {
+      width:20%;
+    }
+
+    td:nth-child(2) {
+      width:60%;
+    }
+
+    td:nth-child(3) {
+     width:20%; 
+    } 
+  }
+}

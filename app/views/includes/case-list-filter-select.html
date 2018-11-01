@@ -1,0 +1,31 @@
+{% from "select/macro.njk"        import govukSelect %}
+
+
+
+
+{% macro caseListFilterSelect(selected) %}
+
+  {% macro setSelected(itemName, selectedItem) %}{{ true if itemName === selectedItem else false }}{% endmacro %}
+
+
+    <div class="mspsds-case-sort">
+      {{ govukSelect({
+          id: "filter-select",
+          name: "filter-select",
+          classes: " govuk-!-margin-bottom-0 ",
+          items: [
+            {
+              value:  "Add filter",
+              text:   "Add filter",
+              selected: setSelected("Add filter", selected)
+            },
+            {
+              value:  "Assignee",
+              text:   "Assignee",
+              selected: setSelected("Assignee", selected)
+            }
+          ]
+        }) }}
+    </div>
+
+{% endmacro %}
