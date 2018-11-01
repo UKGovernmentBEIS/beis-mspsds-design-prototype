@@ -20,6 +20,10 @@
         @include govuk-responsive-padding(4);
     }
 
+    &--inline {
+        margin-top: 30px;
+    }
+
 	.mspsds-case-filter {
 		padding-right: govuk-spacing(0);
 	}

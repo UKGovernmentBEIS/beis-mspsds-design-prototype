@@ -47,7 +47,7 @@
   
     <div class="govuk-grid-column-one-third">
 
-      <form id="search" class="mspsds-search govuk-form-group" action="/case-list-v3-search" method="get" role="search">
+      <form id="search" class="mspsds-search mspsds-search--left govuk-form-group" action="/case-list-v3-search" method="get" role="search">
           <div class="mspsds-search__content">
             <label for="mspsds-search__input" class="mspsds-search__label govuk-label" >Search cases &amp; questions</label>
             <input type="search" name="q" id="mspsds-search__input" title="Search" class="js-search-focus mspsds-search__input govuk-input" value="">
@@ -58,7 +58,7 @@
     
       <div class="govuk-option-select ">
           
-          <input type="checkbox" class="option-select-display" id="option-select-display-Status">
+          <input type="checkbox" class="option-select-display" id="option-select-display-Status" checked>
           <label for="option-select-display-Status" class="option-select-label">Status</label>
 
           <div class="options-container">
@@ -69,8 +69,8 @@
                 items: [
                   {
                     value: "statusOpen",
-                    
-                    text: "Open"
+                    text: "Open",
+                    checked: true
                   },
                   {
                     value: "statusClosed",

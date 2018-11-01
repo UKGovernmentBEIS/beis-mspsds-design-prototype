@@ -18,6 +18,10 @@
         border: 0;
     }
 
+    &--left {
+        @include govuk-responsive-margin(6, "bottom");
+    }
+
 }
 
 
