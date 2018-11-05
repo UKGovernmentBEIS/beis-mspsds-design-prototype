@@ -9,6 +9,12 @@
     margin: govuk-spacing(0);
   }
 
+
+  &__key {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
   &__arrow-down {
       display: none;
       width: 16px;
