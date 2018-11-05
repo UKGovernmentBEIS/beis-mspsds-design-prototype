@@ -1,12 +1,17 @@
 
 {% extends "mspsds-layout.html" %}
 
-{% from "includes/case-filter.html"       import caseFilter %}
-{% from "includes/case-sort.html"         import caseSort %}
-{% from "includes/case-card.html"         import caseCard %}
-{% from "includes/case-card-list.html"    import caseCardList %}
-
 {% from "select/macro.njk"                import govukSelect %}
+
+{% from "includes/case-sort.html"           import caseSort %}
+{% from "includes/case-filter.html"         import caseFilter %}
+{% from "includes/case-card.html"           import caseCard %}
+{% from "includes/case-card-list.html"      import caseCardList %}
+
+
+
+
+{% set bodyClasses = "mspsds-width-container case-list-1" %}
 
 
 
@@ -29,7 +34,11 @@
 {% endblock %}
 
 
+
+
 {% block content %}
+
+
   
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -39,7 +48,19 @@
     </div>
   </div>
 
-  {% include "includes/case-list__header-search.html" %}
+
+  <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third govuk-!-margin-bottom-2 mspsds-case-control">
+          {{ headerSearch({
+            action:"search-results__cases-opt1.html",
+            label: "Keywords"
+          }) }}
+      </div>
+  </div>
+
+
+
+
 
   <div class="mspsds-tab-container">
     {{ govukTabs({

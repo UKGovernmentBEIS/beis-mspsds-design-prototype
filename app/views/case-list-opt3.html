@@ -1,11 +1,6 @@
 
 {% extends "mspsds-layout.html" %}
 
-{% from "includes/case-filter.html"       import caseFilter %}
-{% from "includes/case-sort.html"         import caseSort %}
-{% from "includes/case-card.html"         import caseCard %}
-{% from "includes/case-card-list.html"    import caseCardList %}
-
 {% from "select/macro.njk"                import govukSelect %}
 
 {% set bodyClasses = "mspsds-width-container case-list-3" %}
@@ -41,20 +36,16 @@
     </div>
   </div>
 
-  
+
+
 
   <div class="govuk-grid-row">
-
-    <div class="govuk-grid-column-one-quarter govuk-!-margin-bottom-2 mspsds-case-control">
-        <form id="search" class="mspsds-search govuk-form-group" action="/search-results__cases-opt3" method="get" role="search">
-            <div class="mspsds-search__content">
-              <label for="mspsds-search__input" class="mspsds-search__label govuk-label" >Keywords</label>
-              <input type="search" name="q" id="mspsds-search__input" title="Search" class="js-search-focus mspsds-search__input govuk-input" value="{{data['q']}}">
-              <input class="submit mspsds-search__submit" type="submit" value="Search">
-            </div>
-        </form>
-    </div>
-
+      <div class="govuk-grid-column-one-quarter govuk-!-margin-bottom-2 mspsds-case-control">
+          {{ headerSearch({
+            action:"search-results__cases-opt3.html",
+            label: "Keywords"
+          }) }}
+      </div>
   </div>
 
 
@@ -67,7 +58,7 @@
           
           {% call govukFieldset({
               legend: {
-                text:           "Quick Filters",
+                text:           "Filters",
                 isPageHeading:  false
               }
             }) %}

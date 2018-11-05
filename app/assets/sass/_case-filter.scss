@@ -9,15 +9,49 @@
     margin: govuk-spacing(0);
   }
 
+  &__arrow-down {
+      display: none;
+      width: 16px;
+      height: 16px;
+      vertical-align: text-top;
+      margin-right: govuk-spacing(2);
+  }
+
+  &--expandable  {
+
+    //background: url("data:image/svg+xml;base64,PHN2ZyBjbGFzcz0ibXNwc2RzLWNhc2UtZmlsdGVyX19hcnJvdy1kb3duIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHBhdGggZD0iTTI1NiwyOTguM0wyNTYsMjk4LjNMMjU2LDI5OC4zbDE3NC4yLTE2Ny4yYzQuMy00LjIsMTEuNC00LjEsMTUuOCwwLjJsMzAuNiwyOS45YzQuNCw0LjMsNC41LDExLjMsMC4yLDE1LjVMMjY0LjEsMzgwLjkgIGMtMi4yLDIuMi01LjIsMy4yLTguMSwzYy0zLDAuMS01LjktMC45LTguMS0zTDM1LjIsMTc2LjdjLTQuMy00LjItNC4yLTExLjIsMC4yLTE1LjVMNjYsMTMxLjNjNC40LTQuMywxMS41LTQuNCwxNS44LTAuMkwyNTYsMjk4LjMgIHoiPjwvcGF0aD48L3N2Zz4=");
+    background: url('data:image/svg+xml;charset=UTF-8,<svg class="mspsds-case-filter__arrow-down" viewBox="0 0 512 512"><path d="M256,298.3L256,298.3L256,298.3l174.2-167.2c4.3-4.2,11.4-4.1,15.8,0.2l30.6,29.9c4.4,4.3,4.5,11.3,0.2,15.5L264.1,380.9  c-2.2,2.2-5.2,3.2-8.1,3c-3,0.1-5.9-0.9-8.1-3L35.2,176.7c-4.3-4.2-4.2-11.2,0.2-15.5L66,131.3c4.4-4.3,11.5-4.4,15.8-0.2L256,298.3  z"></path></svg>');
+
+
+    
+  }
+
 }
+
+.mspsds-case-filter-display {
+      display: none;
+    }
 
 .mspsds-case-filters {
 
     position: relative;
 
+
+    .mspsds-case-filter-display:checked ~ & {
+      display: none;
+    }
+
+
     &--open {
+        display: none;
         background-color:   govuk-colour("grey-3");
         @include govuk-responsive-padding(4);
+
+        .mspsds-case-filter-display:checked ~ & {
+          display: block;
+        }
+
+
     }
 
     &--inline {
@@ -28,17 +62,11 @@
 		padding-right: govuk-spacing(0);
 	}
 
-    .mspsds-case-filter + .mspsds-case-filter,
-    .mspsds-case-filter + .mspsds-block-link {
-        margin-left: govuk-spacing(2);
-    }
+  .mspsds-case-filter + .mspsds-case-filter,
+  .mspsds-case-filter + .mspsds-block-link {
+      margin-left: govuk-spacing(2);
+  }
 
-	.mspsds-case-filter__arrow-down {
-        width: 16px;
-        height: 16px;
-        vertical-align: text-top;
-        margin-right: govuk-spacing(2);
-	}
 }
 
 .mspsds-case-filter-controls {

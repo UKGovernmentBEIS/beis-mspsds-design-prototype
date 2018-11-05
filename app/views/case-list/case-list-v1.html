@@ -24,13 +24,142 @@
   {% include "includes/creation-controls.html" %}
 
 
-  {% include "includes/case-list__header-v1.html" %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {{ pageTitle({
+        title:      "Cases / Questions"
+      }) }}
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form id="search" class="mspsds-search govuk-form-group" action="/search-results__cases" method="get" role="search">
+            <div class="mspsds-search__content">
+              <label for="mspsds-search__input" class="mspsds-search__label govuk-label" >Search cases &amp; questions</label>
+              <input type="search" name="q" id="mspsds-search__input" title="Search" class="js-search-focus mspsds-search__input govuk-input">
+              <input class="submit mspsds-search__submit" type="submit" value="Search">
+            </div>
+        </form>
+
+    </div>
+
+    <div class="govuk-grid-column-one-half">
+      
+      <div class="mspsds-case-filters mspsds-case-filters--inline">
+        {{ caseFilter("Status","Open", "mspsds-case-filter--expandable") }}
+        {{ caseFilter("Assigned to","Anyone", "mspsds-case-filter--expandable") }}
+
+        <a class="govuk-link mspsds-block-link govuk-body-s" href="case-filters">All filters</a>
+      </div>
+
+    </div>
+
+  </div>
+
+  
 
   
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-     {% include "includes/case-list__list-v1.html" %}
+     {% from "table/macro.njk" import govukTable %}
+
+{{ govukTable({
+  classes: "mspsds-case-list",
+  head: [
+    {
+      text: "Case/Question"
+    },
+    {
+      text: "Priority"
+    },
+    {
+      text: "Last update"
+    }
+  ],
+  rows: [
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ]
+
+  ]
+}) }}
     </div>
   </div>
 

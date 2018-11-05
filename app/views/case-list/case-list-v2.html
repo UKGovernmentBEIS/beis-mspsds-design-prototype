@@ -24,7 +24,29 @@
 
   {% include "includes/creation-controls.html" %}
 
-  {% include "includes/case-list__header.html" %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {{ pageTitle({
+        title:      "Cases & Questions"
+      }) }}
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+        <form id="search" class="mspsds-search govuk-form-group" action="/search-results__cases" method="get" role="search">
+            <div class="mspsds-search__content">
+              <label for="mspsds-search__input" class="mspsds-search__label govuk-label" >Search cases &amp; questions</label>
+              <input type="search" name="q" id="mspsds-search__input" title="Search" class="js-search-focus mspsds-search__input govuk-input">
+              <input class="submit mspsds-search__submit" type="submit" value="Search">
+            </div>
+        </form>
+
+    </div>
+
+  </div>
 
 
 
@@ -96,7 +118,150 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-     {% include "includes/case-list__list.html" %}
+     {% from "table/macro.njk" import govukTable %}
+
+{{ govukTable({
+  classes: "mspsds-case-list",
+  head: [
+    {
+      text: "Case/Question"
+    },
+    {
+      text: "Status"
+    },
+    {
+      text: "Priority/Risk"
+    },
+    {
+      text: "Assigned"
+    },
+    {
+      text: "Last update"
+    }
+  ],
+  rows: [
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ]
+
+  ]
+}) }}
     </div>
   </div>
 
@@ -122,7 +287,150 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-     {% include "includes/case-list__list.html" %}
+     {% from "table/macro.njk" import govukTable %}
+
+{{ govukTable({
+  classes: "mspsds-case-list",
+  head: [
+    {
+      text: "Case/Question"
+    },
+    {
+      text: "Status"
+    },
+    {
+      text: "Priority/Risk"
+    },
+    {
+      text: "Assigned"
+    },
+    {
+      text: "Last update"
+    }
+  ],
+  rows: [
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ]
+
+  ]
+}) }}
     </div>
   </div>
 
@@ -148,7 +456,150 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-     {% include "includes/case-list__list.html" %}
+     {% from "table/macro.njk" import govukTable %}
+
+{{ govukTable({
+  classes: "mspsds-case-list",
+  head: [
+    {
+      text: "Case/Question"
+    },
+    {
+      text: "Status"
+    },
+    {
+      text: "Priority/Risk"
+    },
+    {
+      text: "Assigned"
+    },
+    {
+      text: "Last update"
+    }
+  ],
+  rows: [
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ]
+
+  ]
+}) }}
     </div>
   </div>
 
@@ -175,7 +626,150 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-     {% include "includes/case-list__list.html" %}
+     {% from "table/macro.njk" import govukTable %}
+
+{{ govukTable({
+  classes: "mspsds-case-list",
+  head: [
+    {
+      text: "Case/Question"
+    },
+    {
+      text: "Status"
+    },
+    {
+      text: "Priority/Risk"
+    },
+    {
+      text: "Assigned"
+    },
+    {
+      text: "Last update"
+    }
+  ],
+  rows: [
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ]
+
+  ]
+}) }}
     </div>
   </div>
 
@@ -199,7 +793,150 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-     {% include "includes/case-list__list.html" %}
+     {% from "table/macro.njk" import govukTable %}
+
+{{ govukTable({
+  classes: "mspsds-case-list",
+  head: [
+    {
+      text: "Case/Question"
+    },
+    {
+      text: "Status"
+    },
+    {
+      text: "Priority/Risk"
+    },
+    {
+      text: "Assigned"
+    },
+    {
+      text: "Last update"
+    }
+  ],
+  rows: [
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ],
+    [
+      {
+        html: "<span class='govuk-caption-m'>xxxx-xxxx</span> <a href='/case'>Charge Works, Travel plug adaptor – Electric shock, fire hazard</a>"
+      },
+      {
+        text: "Open"
+      },
+      {
+        text: "Medium"
+      },
+      {
+        text: "Tim Harwood"
+      },
+      {
+        text: "21/08/2018"
+      }
+    ]
+
+  ]
+}) }}
     </div>
   </div>
 

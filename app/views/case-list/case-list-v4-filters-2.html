@@ -23,7 +23,78 @@
 
 
 
-  {% include "includes/case-list__header-v2-filters-2.html" %}
+    <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {{ pageTitle({
+        title:      "Cases / Questions"
+      }) }}
+    </div>
+  </div>
+
+
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full govuk-!-margin-bottom-2 mspsds-case-control">
+
+            <div class="govuk-grid-column-one-third">
+                <form id="search" class="mspsds-search govuk-form-group" action="/search-results__cases" method="get" role="search">
+                    <div class="mspsds-search__content">
+                      <label for="mspsds-search__input" class="mspsds-search__label govuk-label" >Keywords</label>
+                      <input type="search" name="q" id="mspsds-search__input" title="Search" class="js-search-focus mspsds-search__input govuk-input">
+                      <input class="submit mspsds-search__submit" type="submit" value="Search">
+                    </div>
+                </form>
+            </div>
+
+
+            
+      
+    </div>
+
+
+    <div class="govuk-grid-column-full">
+        <div class="govuk-grid-column-two-thirds mspsds-case-filters">
+            
+              <span class="govuk-label">Filters</span>
+
+              {{ caseFilter("Status","Open") }}
+
+              {{ caseFilter("Assigned to","Tim Harwood") }}
+
+              <a class="govuk-link mspsds-block-link govuk-body-s" href="case-list-v4-filters">Edit filters</a>
+
+          </div>
+
+        <div class="mspsds-case-sort">
+          {{ govukSelect({
+              id: "sort",
+              name: "sort",
+              classes: " govuk-!-margin-bottom-0 ",
+              label: {
+                text: "Sort by"
+              },
+              items: [
+                {
+                  value: "updated",
+                  text: "Last updated",
+                  selected: true
+                },
+                {
+                  value: "created",
+                  text: "Date created"
+                },
+                {
+                  value: "priority",
+                  text: "Priority"
+                }
+              ]
+            }) }}
+        </div>
+
+    </div>
+
+  </div>
 
 
   <div class="govuk-grid-row">
