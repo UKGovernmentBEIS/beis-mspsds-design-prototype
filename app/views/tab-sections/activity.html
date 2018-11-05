@@ -4,9 +4,10 @@
 
 {{ activityTimeline([
   {
-    title: "Priority flag",
-    action: "Comment added",
-    text: "Have flagged as priority due to consumer injuries and potential risks of the product"
+    title: "Comment: Tim Harwood",
+    hideName: true,
+    action: "",
+    text: "Needs addressing asap - we're nearly at the end of SLA"
   },
   {
     title: "Corrective action initiated",
@@ -199,12 +200,24 @@
       <p class="govuk-body"><a href="#">View risk assessment document</a></p>'
   },
   {
+    title: "Priority: High",
+    action: "Set",
+    text: 'Have flagged as priority due to consumer injuries and potential risks of the product'
+  },
+  {
     title: "Consumer report",
-    action: "Report details added"
+    action: "Report details added",
+    html: '
+      <p class="govuk-body">
+        Name: <span class="govuk-!-font-weight-bold">Mina Harker</span><br />
+        Phone number: <span class="govuk-!-font-weight-bold">07123 123123</span><br />
+        Email address: <span class="govuk-!-font-weight-bold">mina@castledracula.ro</span>
+      </p>
+      <p class="govuk-body">Other details captured during the report entry</p>'
   },
   {
     title: "Case created",
     action: "",
-    text: "Case creation comment - probably only exists if created as an investigation rather than as an indident report."
+    text: "Case creation comment - probably only exists if created as an investigation rather than as an incident report."
   }
 ]) }}

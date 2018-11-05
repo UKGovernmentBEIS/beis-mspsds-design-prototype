@@ -14,12 +14,12 @@
       {% for entry in eventList %}
       <li class="mspsds-activity-timeline__entry">
         <h3 class="govuk-heading-s">{{entry.title}}</h3>
-        <p class="mspsds-activity-timeline__entry-details govuk-body-s">{{entry.action}} by Tim Harwood, 16 August 2018</p>
+        <p class="mspsds-activity-timeline__entry-details govuk-body-s">{{entry.action}}{{ "" if entry.hideName else " by Tim Harwood," }} 16 August 2018</p>
         {% if entry.html %}
         {{entry.html | safe}}
         {% endif %}
         {% if entry.text %}
-        <p>{{entry.text}}</p>
+        <p class="govuk-body">{{entry.text}}</p>
         {% endif %}
       </li>
       {% endfor %}
