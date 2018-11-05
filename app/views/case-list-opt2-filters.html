@@ -1,0 +1,284 @@
+
+{% extends "mspsds-layout.html" %}
+
+{% from "includes/case-filter.html"       import caseFilter %}
+{% from "includes/case-sort.html"         import caseSort %}
+{% from "includes/case-card.html"         import caseCard %}
+{% from "includes/case-card-list.html"    import caseCardList %}
+
+{% from "select/macro.njk"                import govukSelect %}
+
+
+{% block pageTitle %}
+  Case-list Page
+{% endblock %}
+
+{% block beforeContent %}
+
+    {{ govukPhaseBanner({
+        tag: {
+          text: "beta"
+        },
+        html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+    }) }}
+  
+    {{ siteNavV2('/case-list') }}
+
+{% endblock %}
+
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {{ pageTitle({
+        title: "Cases"
+      }) }}
+    </div>
+  </div>
+
+  {% include "includes/case-list__header-search.html" %}
+
+
+  <div class="govuk-grid-row govuk-!-margin-bottom-4 ">
+
+    <div class="govuk-grid-column-full mspsds-case-filters--open">
+
+        <div class="govuk-grid-column-one-third">
+
+          {% call govukFieldset({
+              legend: {
+                text:           "Quick Filters",
+                isPageHeading:  false,
+                classes:        "govuk-fieldset__legend--m"
+              }
+            }) %}
+
+              {{ govukRadios({
+                idPrefix:   "quick-filter",
+                name:       "quick-filter",
+                items: [
+                  {
+                    value: "Assigned to me",
+                    text: "Assigned to me",
+                    checked: checked("quick-filter", "Assigned to me")
+                  },
+                  {
+                    value: "Assigned to my team",
+                    text: "Assigned to my team",
+                    checked: checked("quick-filter", "Assigned to my team")
+                  },
+                  {
+                    value: "High Priority",
+                    text: "High Priority",
+                    checked: checked("quick-filter", "High Priority")
+                  },
+                  {
+                    value:  "Pre-triage",
+                    text:   "Pre-triage",
+                    checked: checked("quick-filter", "Pre-triage")
+                  },
+                  {
+                    value: "5+ days since update",
+                    text: "5+ days since update",
+                    checked: checked("quick-filter", "5+ days since update")
+                  }
+
+                ]
+              }) }}
+
+          {% endcall %}
+
+        </div>
+
+        <div class="govuk-grid-column-two-thirds">
+
+          {% call govukFieldset({
+              legend: {
+                text:           "or, set specific filters",
+                isPageHeading:  false,
+                classes:        "govuk-fieldset__legend--m"
+              }
+          }) %}
+
+          {{ govukTable({
+              classes: "mspsds-case-filter-controls",
+              rows: [
+                [{
+                    html: govukSelect({
+                            id: "filter-select",
+                            name: "filter-select",
+                            classes: " govuk-!-margin-bottom-0 ",
+                            items: [
+                              {
+                                value:  "Status",
+                                text:   "Status",
+                                selected: true
+                              }
+                            ]
+                          })
+                  },
+                  {
+                    html: govukCheckboxes({
+                              classes: "govuk-checkboxes--inline",
+                              idPrefix: "waste",
+                              name: "waste",
+                              items: [
+                                {
+                                  value: "open",
+                                  text: "Open",
+                                  checked: true
+                                },
+                                {
+                                  value: "closed",
+                                  text: "Closed"
+                                }
+                              ]
+                            })
+                  },
+                  {
+                    format: "numeric",
+                    html:   '<a class="govuk-link govuk-body-s govuk-!-margin-bottom-0" href="#">Remove</a>'
+                  }],
+
+                  [{
+                    html: govukSelect({
+                            id: "filter-select",
+                            name: "filter-select",
+                            classes: " govuk-!-margin-bottom-0 ",
+                            items: [
+                              {
+                                value:  "Assigned to",
+                                text:   "Assigned to",
+                                selected: true
+                              }
+                            ]
+                          })
+                  },
+                  {
+                    html:   '<label for="case-assignne-autocomplete" class="label ">
+                                <div id="case-assignee-autocomplete-container"></div>
+                             </label>'
+                  },
+                  {
+                    format: "numeric",
+                    html:   '<a class="govuk-link govuk-body-s govuk-!-margin-bottom-0" href="#">Remove</a>'
+                  }],
+
+
+
+                  [{
+                    html: govukSelect({
+                            id: "filter-select",
+                            name: "filter-select",
+                            classes: " govuk-!-margin-bottom-0 ",
+                            items: [
+                              {
+                                value:  "Add filter",
+                                text:   "Add filter",
+                                selected: true
+                              },
+                              {
+                                value:  "Assigned to",
+                                text:   "Assigned to"
+                              },
+                              {
+                                value:  "Status",
+                                text:   "Status"
+                              },
+                              {
+                                value: "Priority",
+                                text: "Priority"
+                              },
+                              {
+                                value: "Risk level",
+                                text: "Risk level"
+                              },
+                              {
+                                value: "Hazard type",
+                                text: "Hazard type"
+                              },
+                              {
+                                value: "Creation date",
+                                text: "Creation date"
+                              },
+                              {
+                                value: "Last update date",
+                                text: "Last update date"
+                              },
+                              {
+                                value: "Product type",
+                                text: "Product type"
+                              },
+                              {
+                                value: "Product category",
+                                text: "Product category"
+                              },
+                              {
+                                value: "Country of origin",
+                                text: "Country of origin"
+                              }
+                            ]
+                          })
+                  },
+                  {
+                    text: " "
+                  },
+                  {
+                    text: " "
+                  }]
+              ]
+            }) }}
+
+
+          {% endcall %}
+
+
+          <script type="text/javascript">
+
+
+            var assignees = [
+              'Tim Harwood – tim.harwood@softwire.com',
+              'Nick Golding – nick.golding@softwire.com',
+              'Ed Smith-Muller – ed.smith-muller@softwire.com',
+            ];
+          
+
+            element = document.querySelector('#case-assignee-autocomplete-container');
+            id = 'case-assignne-autocomplete';
+            accessibleAutocomplete({
+              element: element,
+              id: id,
+              defaultValue: 'Tim Harwood – tim.harwood@softwire.com',
+              showNoOptionsFound: false,
+              source: assignees
+            });
+          </script>
+
+
+          </div>
+
+    </div>
+    <div class="govuk-grid-column-full mspsds-case-filters--open">
+          {{ govukButton({
+            text: "Apply filters",
+            classes: "govuk-!-margin-bottom-0"
+          }) }}
+
+          <a class="govuk-link mspsds-block-link govuk-body-s govuk-!-margin-bottom-0" href="case-list-opt2">Cancel</a>
+    </div>
+
+  </div>
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full mspsds-case-list-tab mspsds-case-list--Open mspsds-case-list--High ">
+      {{ caseCardList() }}
+    </div>
+  </div>
+
+
+
+
+
+{% endblock %}

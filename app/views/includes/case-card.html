@@ -4,7 +4,14 @@
 {% macro caseCard(caseInfo) %}
  
 
-<div class="mspsds-case-card mspsds-case-card__{{caseInfo.type}} mspsds-case-card__{{caseInfo.status}} govuk-body govuk-!-font-weight-regular">
+<div class="mspsds-case-card 
+            mspsds-case-card--{{caseInfo.type}} 
+            mspsds-case-card--{{caseInfo.status}}
+            mspsds-case-card--{{caseInfo.assignee}} 
+            mspsds-case-card--{{caseInfo.priority}} 
+            mspsds-case-card--{{caseInfo.overdue}}
+            mspsds-case-card--{{caseInfo.team}}
+            govuk-body govuk-!-font-weight-regular">
 
     <span class="mspsds-case-card__indentifier">
 
@@ -36,30 +43,41 @@
     </span>
 
 
-    <span class="mspsds-case-card__state">
+    {% if caseInfo.match %}
 
-        {% if caseInfo.status %}
-            {{ caseFilter("Status",caseInfo.status, "mspsds-case-card__status") }}
-        {% endif %}
+        <span class="mspsds-case-card__match">
+            {{ caseFilter(caseInfo.match.key,caseInfo.match.value, "mspsds-case-card__match") }}
+        </span>
 
-        {% if caseInfo.assignee %}
-            {{ caseFilter("Assigned to",caseInfo.assignee, "mspsds-case-card__assignee") }}
-        {% endif %}
+    {% else %}
 
-        {% if caseInfo.priority %}
-            {{ caseFilter("Priority",caseInfo.priority, "mspsds-case-card__priority") }}
-        {% endif %}
+        <span class="mspsds-case-card__state">
 
-        {% if caseInfo.dateUpdated %}
-            {{ caseFilter("Last updated",caseInfo.dateUpdated, "mspsds-case-card__dateUpdated") }}
-        {% endif %}
+            {% if caseInfo.status %}
+                {{ caseFilter("Status",caseInfo.status, "mspsds-case-card__status") }}
+            {% endif %}
 
-        {% if caseInfo.dateCreated %}
-            {{ caseFilter("Created",caseInfo.dateCreated, "mspsds-case-card__dateCreated") }}
-        {% endif %}
+            {% if caseInfo.assignee %}
+                {{ caseFilter("Assigned to",caseInfo.assignee, "mspsds-case-card__assignee") }}
+            {% else %}
+                <div class="mspsds-case-filter mspsds-case-card__assignee">&nbsp;</div>
+            {% endif %}
 
-    </span>
+            {% if caseInfo.priority %}
+                {{ caseFilter("Priority",caseInfo.priority, "mspsds-case-card__priority") }}
+            {% endif %}
 
+            {% if caseInfo.dateUpdated %}
+                {{ caseFilter("Last updated",caseInfo.dateUpdated, "mspsds-case-card__dateUpdated") }}
+            {% endif %}
+
+            {% if caseInfo.dateCreated %}
+                {{ caseFilter("Created",caseInfo.dateCreated, "mspsds-case-card__dateCreated") }}
+            {% endif %}
+
+        </span>
+
+    {% endif %}
 
 </div>
 

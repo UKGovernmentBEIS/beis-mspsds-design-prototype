@@ -4,7 +4,7 @@
 
   <span class="mspsds-case-filter {{classes}}">
     <span class="govuk-caption-m govuk-!-font-size-16 mspsds-case-filter__key">{{key}}</span>
-    <span class="govuk-heading-s mspsds-case-filter__value">{{value}}</span>
+    <span class="govuk-heading-s mspsds-case-filter__value">{{value | safe }}</span>
   </span>
 
 {% endmacro %}

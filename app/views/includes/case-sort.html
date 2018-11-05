@@ -1,0 +1,28 @@
+{% from "select/macro.njk"                import govukSelect %}
+
+{% macro caseSort() %}
+
+    <div class="mspsds-case-sort">
+      {{ govukSelect({
+          id: "sort",
+          name: "sort",
+          classes: " govuk-!-margin-bottom-0 ",
+          items: [
+            {
+              value: "updated",
+              text: "Sort: Last updated",
+              selected: true
+            },
+            {
+              value: "created",
+              text: "Sort: Date created"
+            },
+            {
+              value: "priority",
+              text: "Sort: Priority"
+            }
+          ]
+        }) }}
+    </div>
+
+{% endmacro %}

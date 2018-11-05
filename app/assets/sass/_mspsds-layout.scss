@@ -3,6 +3,22 @@
 }
 
 
+.mspsds-width-container.case-list-3 {
+
+    @media (min-width: 1280px) {
+        .govuk-width-container {
+            min-width: 1020px
+        }
+    }
+
+    @media (min-width: 1440px) {
+        .govuk-width-container {
+            min-width: 1280px
+        }
+    }
+
+}
+
 .govuk-header nav {
     display: inline-block;
     float: right;

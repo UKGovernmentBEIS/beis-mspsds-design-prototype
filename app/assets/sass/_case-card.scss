@@ -1,3 +1,6 @@
+
+$marginIndent: 10px;
+
 .mspsds-case-sort {
     float: right;
     padding: 0 15px;
@@ -14,13 +17,68 @@
     }
 }
 
+
+.mspsds-case-list-tab {
+
+    margin-left:    -10px;
+    margin-right:   -10px;
+    
+    &.mspsds-case-list--Overdue {
+        .mspsds-case-card:not(.mspsds-case-card--Overdue) {
+            display: none;
+        }
+    }
+
+    &.mspsds-case-list--Processing {
+        .mspsds-case-card:not(.mspsds-case-card--Processing) {
+            display: none;
+        }
+    }
+
+    &.mspsds-case-list--High {
+        .mspsds-case-card:not(.mspsds-case-card--High) {
+            display: none;
+        }
+        .mspsds-case-card__priority {
+            display: none;
+        }
+    }
+
+    &.mspsds-case-list--Tim {
+        .mspsds-case-card:not(.mspsds-case-card--Tim) {
+            display: none;
+        }
+
+        .mspsds-case-card__assignee {
+            display: none;
+        }
+    }
+    
+    &.mspsds-case-list--Open {
+        .mspsds-case-card:not(.mspsds-case-card--Open) {
+            display: none;
+        }
+    }
+
+    &.mspsds-case-list--Draft {
+        .mspsds-case-card:not(.mspsds-case-card--Draft):not(.mspsds-case-card--Open)  {
+            display: none;
+        }
+    }
+
+
+}
+
+
+
+
 .mspsds-case-card {
     
     position:           relative;
     display: flex;
 
     box-sizing: border-box;
-    @include govuk-responsive-margin(1);
+    @include govuk-responsive-margin(1, "bottom");
     
 
     color: govuk-colour("black");
@@ -30,7 +88,7 @@
     }
 
 
-    background-color:   #F8F8F8;
+    background-color:   govuk-colour("grey-4");
     border:             1px solid #F3F3F3;
     @include govuk-responsive-padding(2);
 
@@ -63,11 +121,13 @@
     }
 
     &__state {
-        display: inline-block;
+        display: inline-flex;
+        justify-content: flex-end;
+
         width: grid-width(one-half);
 
         .mspsds-case-filter {
-            float: left;
+            //float: left;
         }
     }
 
@@ -96,22 +156,39 @@
         display: none;
     }
 
-    &__Draft {
+    &--Draft {
         font-style: italic;
 
         & * {
              @include govuk-typography-weight-regular();
         }
 
+    }
+
+    &--Closed {
+        
+        background-color:   govuk-colour("white");
+        color:              govuk-colour("grey-2"); 
+
+        & * {
+             @include govuk-typography-weight-regular();
+             color:     govuk-colour("grey-2");   
+        }
 
     }
 
-    &__Draft  &__indentifier, 
-    &__Draft  &__title {
+
+
+    &--Draft  &__indentifier, 
+    &--Draft  &__title,
+    &--Closed  &__indentifier, 
+    &--Closed  &__title {
         @include govuk-responsive-padding(3, "left");
     }
     
-    &__Draft  &__status {
+    
+    &--Closed  &__status,
+    &--Draft  &__status {
         display: block;
         position: absolute;
         top: 0;
@@ -135,8 +212,17 @@
             transform-origin: top left;
             transform: rotate(-90deg);
             position: absolute;
-            top: 50%;
+            top: 55%;
             left: 0;
+        }
+    }
+
+    &--Closed  &__status {
+        background-color:   govuk-colour("grey-1");
+        color:              govuk-colour("white");
+
+        .mspsds-case-filter__value {
+            top: 60%;
         }
     }
 
