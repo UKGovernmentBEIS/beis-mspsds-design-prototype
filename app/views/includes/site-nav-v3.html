@@ -1,0 +1,36 @@
+{% from "button/macro.njk"        import govukButton %}
+
+
+{% macro siteNavV3(navList) %}
+
+  <nav id="nav">
+
+    <div class="navbar">
+
+      <ul class="navbar__list-items">
+
+        {% for entry in navList %}
+
+          <li class="{{entry.classes}}">
+              <a href="{{entry.link}}">{{entry.label}}</a>
+          </li>
+
+        {% endfor %}
+        
+      </ul>
+
+      <div class="creation">
+        {{ govukButton({
+          text: "Create new",
+          href: "#",
+          classes: "govuk-button--start"
+        }) }}
+      </div>
+        
+    </div>
+
+    
+
+  </nav>
+
+{% endmacro %}

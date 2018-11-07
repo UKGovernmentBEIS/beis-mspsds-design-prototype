@@ -1,0 +1,228 @@
+{% extends "mspsds-layout.html" %}
+
+{% block pageTitle %}
+  Question Page
+{% endblock %}
+
+
+{% block beforeContent %}
+
+  {{ govukPhaseBanner({
+    tag: {
+      text: "beta"
+    },
+    html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+  }) }}
+
+  {{ govukBackLink({
+    text: "Back to Cases",
+    href: "./case-list"
+  }) }}
+
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ pageTitle({
+      type:       "Question: 1811-0771",
+      title:      "Toys (Safety) Regulations -can you plead guilty in absence?",
+      subTitle:   "Created by Tim Harwood, 10/10/2018"
+    }) }}
+  </div>
+  <div class="govuk-grid-column-one-third">
+    {% from "includes/case-status.html" import caseStatus %}
+    {{ caseStatus("Open", "Amanda Farrell", "High") }}
+  </div>
+</div>
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-third">
+    <h2 class="govuk-heading-m">
+      <span class="govuk-caption-m">Asked by:</span>
+      Jenny Patterson
+    </h2>
+  </div>
+  <div class="govuk-grid-column-two-thirds">
+    
+    <p class="govuk-body">I am about to serve summons on a toy safety issue, which is something we have not done for a while. I have established that these are Summary only offences, via S12(5) CPA and time limit is 12 months (reg 56). So, question is, can the defendant enter a plea of guilty in absence, hence requiring relevant pape work for such a plea to be served?</p>
+
+    <p class="govuk-body">Section 12 Magistrates Courts Act 1980 seems to say a plea of guilty can be made in absence, but my logic circuits question how someone can plead guilty by letter to an offence with a possible prison sentence.</p>
+
+    <p class="govuk-body">I can't find anything in the Criminal Procedure Rules which assists.</p>
+
+  </div>
+</div>
+
+
+<div class="mspsds-overview">
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h2 class="govuk-heading-m" title="Could also be a business, or...?">Product</h2>
+    </div>
+  </div>
+
+</div>
+
+<hr class="govuk-section-break govuk-section-break--m" />
+
+{{ govukTabs({
+  items: [
+    {
+      label: "Activity",
+      id: "activity",
+      panel: {
+        html: activityHtml
+      }
+    },
+    {
+      label: "Contacts",
+      id: "contacts",
+      panel: {
+        html: contactsHtml
+      }
+    },
+    {
+      label: "Attachments",
+      id: "attachments",
+      panel: {
+        html: attachmentsHtml
+      }
+    },
+    {
+      label: "Products",
+      id: "products",
+      panel: {
+        html: productsHtml
+      }
+    },
+    {
+      label: "Businesses",
+      id: "businesses",
+      panel: {
+        html: businessesHtml
+      }
+    },
+    {
+      label: "Related",
+      id: "related",
+      panel: {
+        html: relatedItemsHtml
+      }
+    },
+    {
+      label: "Full detail",
+      id: "full-detail",
+      panel: {
+        html: fullDetailHtml
+      }
+    }
+  ]
+}) }}
+
+{% endblock %}
+
+{% set activityHtml %}
+<h2 class="govuk-heading-l">Activity</h2>
+
+{% from "includes/activity-timeline.html" import activityTimeline %}
+
+{{ activityTimeline([
+  {
+    action: "Question created"
+  }
+]) }}
+
+{% endset -%}
+
+
+
+{% set contactsHtml %}
+  <h2 class="govuk-heading-l">Contacts</h2>
+  <a href="#" class="mspsds-block-link">Add a contact</a>
+{% endset -%}
+
+
+
+{% set attachmentsHtml %}
+  <h2 class="govuk-heading-l">Attachments</h2>
+  <a href="#">Add new image</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Add new document</a>
+{% endset -%}
+
+
+
+{% set productsHtml %}
+  <h2 class="govuk-heading-l">Products</h2>
+  <a href="#" class="mspsds-block-link">Add a product</a>
+{% endset -%}
+
+
+
+{% set businessesHtml %}
+  <h2 class="govuk-heading-l">Businesses</h2>
+  <a href="#" class="mspsds-block-link">Add a business</a>
+{% endset -%}
+
+
+
+{% set relatedItemsHtml %}
+  <h2 class="govuk-heading-l">Linked to this question</h2>
+{% endset -%}
+
+
+
+{% set fullDetailHtml %}
+  {% from "table/macro.njk"         import govukTable %}
+
+  <h2 class="govuk-heading-l">Full Detail</h2>
+
+
+  <div class="govuk-grid-row govuk-!-margin-bottom-4">
+
+    <div class="govuk-grid-column-full">
+      <h3 class="govuk-heading-m">Question</h3>
+
+      {{ govukTable({
+        firstCellIsHeader: true,
+        rows: [
+          [
+            { text: "Created by" },
+            { html: "Tim Harwood" }
+          ],
+          [
+            { text: "Date" },
+            { html: "10/10/2018" }
+          ],
+          [
+            { text: "Question asked by" },
+            { html: "Trading Standards <br><a href='#'>View details</a>" }
+          ],
+          [
+            { text: "Correspondence" },
+            { html: "Original email attached  <br> <a href='#'>View details</a>" }
+          ],
+          [
+            { text: "Question type" },
+            { html: "Legislation" }
+          ]
+        ]
+      }) }}
+
+      <a href="#" class="mspsds-block-link">Edit details</a>
+    </div>
+
+  </div>
+
+
+{% endset -%}
+
+
+
+

@@ -49,11 +49,12 @@
 
     <div class="govuk-grid-column-full">
 
-        <input type="checkbox" class="mspsds-case-filter-display" id="filter-display" checked>
+        <input type="checkbox" class="mspsds-case-filter-display" id="filter-display" >
 
         <div class="mspsds-case-filters">
               <span class="govuk-label">Filters</span>
               {{ caseFilter("Status","Open") }}
+              {{ caseFilter("Assigned to","Tim Harwood") }}
 
               <a class="govuk-link mspsds-block-link govuk-body-s" href="#"><label for="filter-display">Edit filters</label></a>
 

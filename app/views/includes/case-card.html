@@ -26,7 +26,11 @@
     </span>
 
 
-    <span class="mspsds-case-card__title">
+    <a class="mspsds-case-card__title" href="{{caseInfo.link}}" >
+
+        {% if caseInfo.question %}
+            <span class="mspsds-case-card__product">{{caseInfo.question}}</span>
+        {% endif %}
 
         {% if caseInfo.product %}
             <span class="mspsds-case-card__product">{{caseInfo.product}}</span>
@@ -37,10 +41,14 @@
         {% if caseInfo.hazard %}
             <span class="mspsds-case-card__hazard">{{caseInfo.hazard}}</span>
         {% else %}
-            <span class="mspsds-case-card__hazard mspsds-case-card__hazard--undefined">Undefined hazard</span>
+
+            {% if caseInfo.type == 'Case' %}
+                <span class="mspsds-case-card__hazard mspsds-case-card__hazard--undefined">Undefined hazard</span>
+            {% endif %}
+
         {% endif %}
 
-    </span>
+    </a>
 
 
     {% if caseInfo.match %}

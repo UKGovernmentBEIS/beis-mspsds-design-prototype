@@ -1,0 +1,231 @@
+{% extends "mspsds-layout.html" %}
+
+{% block pageTitle %}
+  Question Page
+{% endblock %}
+
+
+{% block beforeContent %}
+
+  {{ govukPhaseBanner({
+    tag: {
+      text: "beta"
+    },
+    html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+  }) }}
+
+  {{ govukBackLink({
+    text: "Back to Cases",
+    href: "./case-list"
+  }) }}
+
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ pageTitle({
+      type:       "Question: 1811-0758",
+      title:      "Has anyone recently advised on snap bracelets / slap wraps?",
+      subTitle:   "Created by Tim Harwood, 10/10/2018"
+    }) }}
+  </div>
+  <div class="govuk-grid-column-one-third">
+    {% from "includes/case-status.html" import caseStatus %}
+    {{ caseStatus("Open", "Adebola Showemimo", "High") }}
+  </div>
+</div>
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-third">
+    <h2 class="govuk-heading-m">
+      <span class="govuk-caption-m">Asked by:</span>
+      Jenny Patterson
+    </h2>
+  </div>
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body">PCC Plymotion are looking to run some road safety awareness aimed at cyclists. One product they are considering handing out to raise awareness are snap bracelets / slap warps. These are hi viz plastic coated lengths of metal and if you tap them onto your arm they wrap around.We have previously advised not to supply these as there have been safety issues with the edges of the metal being sharp and cutting through the plastic outer and injuring users.</p>
+
+    <p class="govuk-body">Their website lists a number of authorities that they provide with promotional material. Red Zulu have provided a test certificate dated 06 September 2005 (12 years ago) to show that the snap bracelet has been tested against parts of EN71. The report states the item is NOT a toy but has passed the tests applied to it.</p>
+
+    <p class="govuk-body">The Supplier has also provided advice details of communication with TS. Plymotion have only provided an extract of this advice which is that:</p>
+
+    <p class="govuk-body">“My view is a bracelet handed out as part of an overall promotional road safety package cannot meet the reflective requirements for PPE. As such you would presumably argue that you therefore do not supply it as PPE, it is merely one of various items intended to promote the message that reflective clothing and other items increase safety. The product is not ‘intended to make the wearer stand out’. As the product is not considered PPE it does not need a CE Mark.</p>
+
+    <p class="govuk-body">As regards the Toy Safety requirements there are many items which at first sight do not appear to be toys but which are, through reason of their design, intended use, packaging, logos etc. There is nothing in what you have told me that makes me consider this would be classed as a toy, although ultimately the decision about this, and what to do as regards testing, is for you. Again, not being a toy it would not require a CE Mark.”</p>
+
+    <p class="govuk-body">I have asked for the full version of this advice.</p>
+
+    <p class="govuk-body">I can accept an argument that they may not be PPE but I struggle to see an argument that they are not toys if they are being given to children. What else are they? If the snap bracelets / slap warps are only given to adults I would suggest that they would be caught by GPSR and appropriately marked as not suitable for children and not to be used as PPE.</p>
+  </div>
+</div>
+
+
+<div class="mspsds-overview">
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h2 class="govuk-heading-m" title="Could also be a business, or...?">Product</h2>
+    </div>
+  </div>
+
+  {% include "panels/product-panel__Q1.html" %}
+
+</div>
+
+<hr class="govuk-section-break govuk-section-break--m" />
+
+{{ govukTabs({
+  items: [
+    {
+      label: "Activity",
+      id: "activity",
+      panel: {
+        html: activityHtml
+      }
+    },
+    {
+      label: "Contacts",
+      id: "contacts",
+      panel: {
+        html: contactsHtml
+      }
+    },
+    {
+      label: "Attachments",
+      id: "attachments",
+      panel: {
+        html: attachmentsHtml
+      }
+    },
+    {
+      label: "Products",
+      id: "products",
+      panel: {
+        html: productsHtml
+      }
+    },
+    {
+      label: "Businesses",
+      id: "businesses",
+      panel: {
+        html: businessesHtml
+      }
+    },
+    {
+      label: "Related",
+      id: "related",
+      panel: {
+        html: relatedItemsHtml
+      }
+    },
+    {
+      label: "Full detail",
+      id: "full-detail",
+      panel: {
+        html: fullDetailHtml
+      }
+    }
+  ]
+}) }}
+
+{% endblock %}
+
+{% set activityHtml %}
+<h2 class="govuk-heading-l">Activity</h2>
+
+{% from "includes/activity-timeline.html" import activityTimeline %}
+
+{{ activityTimeline([
+  {
+    action: "Comment added",
+    html: "I've done some research into <a href='#'>this legislation</a> but it doesn't seem to apply here."
+  },
+  {
+    title: "Red Zulu",
+    action: "Business added",
+    html: '
+      <p class="govuk-body">Role: <span class="govuk-!-font-weight-bold">Manufacturer</span></p>
+      <a href="./business" class="mspsds-block-link">View business details</a>'
+  },
+  {
+    title: "Red Zulu – Slap Wrap",
+    action: "Product added",
+    html: '
+      <a href="./product-1" class="mspsds-block-link">View product details</a>'
+  },
+  {
+    action: "Question created"
+  }
+]) }}
+
+{% endset -%}
+
+
+
+{% set contactsHtml %}
+  <h2 class="govuk-heading-l">Contacts</h2>
+
+    {% from "panels/contact-panel.html" import contactPanel %}
+    <div class="govuk-grid-row">
+      {{ contactPanel("Main contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
+      {{ contactPanel("Head of Procurement", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
+      {{ contactPanel("Another contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
+      {{ contactPanel("And another", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
+    </div>
+
+{% endset -%}
+
+
+
+{% set attachmentsHtml %}
+  <h2 class="govuk-heading-l">Attachments</h2>
+  <a href="#">Add new image</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Add new document</a>
+
+  {% from "includes/attachment-list.html" import attachmentList %}
+  {{ attachmentList(5) }}
+{% endset -%}
+
+
+
+{% set productsHtml %}
+
+  <h2 class="govuk-heading-l">Products</h2>
+  <a href="#" class="mspsds-block-link">Add a product</a>
+
+  <div class="mspsds-product-list">
+    {% include "panels/product-panel__Q1.html" %}
+  </div>
+
+{% endset -%}
+
+
+
+
+{% set businessesHtml %}
+  {% include "tab-sections/businesses-list.html" %}
+{% endset -%}
+
+
+
+
+{% set relatedItemsHtml %}
+<h2 class="govuk-heading-l">Linked to this question</h2>
+
+{% include "includes/linked-items.html" %}
+
+<h2 class="govuk-heading-l">Potentially related to this question</h2>
+
+{% include "includes/potential-relationships.html" %}
+
+{% endset -%}
+
+{% set fullDetailHtml %}
+  {% include "tab-sections/full-detail-question.html" %}
+{% endset -%}

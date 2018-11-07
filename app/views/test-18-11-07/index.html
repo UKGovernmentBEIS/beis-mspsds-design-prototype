@@ -1,0 +1,84 @@
+{% extends "mspsds-layout.html" %}
+
+{% set bodyClasses = "mspsds-width-container case-list-3" %}
+
+{% block pageTitle %}
+  Test setup
+{% endblock %}
+
+
+{% block beforeContent %}
+
+    {{ govukPhaseBanner({
+        tag: {
+          text: "beta"
+        },
+        html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+    }) }}
+  
+    {{ siteNavV3([
+      { 
+        label: 'Home',
+        link: './',
+        classes: 'active'
+      }, { 
+        label: 'Cases',
+        link: './case-list'
+      }, { 
+        label: 'Products',
+        link: './product-list'
+      }, { 
+        label: 'Businesses',
+        link: './business-list'
+      }
+    ]) }}
+
+{% endblock %}
+
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {{ pageTitle({
+        title: "Setup"
+      }) }}
+    </div>
+  </div>
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+      {{ govukTable({
+        firstCellIsHeader: true,
+        rows: [
+          [
+            { text: "Testing with" },
+            { text: data['testing-name'] }
+          ],
+          [
+            { text: "Team" },
+            { text: data['testing-team'] }
+          ]
+        ]
+      }) }}
+
+
+      {{ govukButton({
+        text: "Continue",
+        href: "./case-list"
+      }) }}
+
+      <a class="govuk-link mspsds-block-link" href="./setup">Change setup</a>
+
+
+
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}

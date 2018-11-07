@@ -1,0 +1,169 @@
+{% extends "mspsds-layout.html" %}
+
+{% block pageTitle %}
+  Product Page
+{% endblock %}
+
+{% block beforeContent %}
+
+  {{ govukPhaseBanner({
+    tag: {
+      text: "beta"
+    },
+    html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+  }) }}
+
+  {{ govukBackLink({
+    text: "Back to Products",
+    href: "/product-list"
+  }) }}
+
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+  
+    {{ pageTitle({
+      type:       "Product",
+      title:      "Travel plug adaptor — Charge Worx 931L",
+      subTitle:   "Added 10/10/2018"
+    }) }}
+
+
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    {% include "includes/stat-highlight.html" %}
+  </div>
+
+
+  
+
+</div>
+
+{% include "panels/product-panel.html" %}
+
+<hr class="govuk-section-break govuk-section-break--m" />
+
+{{ govukTabs({
+  items: [
+    {
+      label: "Activity",
+      id: "activity",
+      panel: {
+        html: activityHtml
+      }
+    },
+    {
+      label: "Attachments",
+      id: "attachments",
+      panel: {
+        html: attachmentsHtml
+      }
+    },
+    {
+      label: "Businesses",
+      id: "businesses",
+      panel: {
+        html: businessesHtml
+      }
+    },
+    {
+      label: "Legislation",
+      id: "legislation",
+      panel: {
+        html: legislationHtml
+      }
+    },
+    {
+      label: "Related",
+      id: "related",
+      panel: {
+        html: relatedItemsHtml
+      }
+    },
+    {
+      label: "Full Detail",
+      id: "full-detail",
+      panel: {
+        html: fullDetailHtml
+      }
+    }
+  ]
+}) }}
+
+{% endblock %}
+
+{% set activityHtml %}
+<h2 class="govuk-heading-l">Activity</h2>
+
+{% from "includes/activity-timeline.html" import activityTimeline %}
+
+{{ activityTimeline([
+  {
+    action: "Comment added",
+    text: "Definitely something dubious about this product"
+  },
+  {
+    action: "Business added: Tesco PLC",
+    html: '
+      <p>Role: <span class="govuk-!-font-weight-bold">Distributor</span></p>
+      <details class="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Business details
+          </span>
+        </summary>
+        <div class="govuk-details__text govuk-body-s">
+          <span class="govuk-!-font-weight-bold">Tesco PLC</span><br/>
+          Trading as: Tesco<br/>
+          Company number: 00445790
+        </div>
+      </details>'
+  },
+  {
+    action: "Product created"
+  }
+]) }}
+
+{% endset -%}
+
+{% set attachmentsHtml %}
+<h2 class="govuk-heading-l">Attachments</h2>
+<a href="#">Add new image</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Add new document</a>
+
+{% from "includes/attachment-list.html" import attachmentList %}
+
+{{ attachmentList(5) }}
+
+{% endset -%}
+
+{% set businessesHtml %}
+{% include "tab-sections/businesses-list.html" %}
+
+{% endset -%}
+
+{% set legislationHtml %}
+<h2 class="govuk-heading-l">Legislation</h2>
+
+{% endset -%}
+
+{% set relatedItemsHtml %}
+<h2 class="govuk-heading-l">Linked to this product</h2>
+
+{% include "includes/linked-items.html" %}
+
+<h2 class="govuk-heading-l">Potentially related to this product</h2>
+
+{% include "includes/potential-relationships.html" %}
+
+{% endset -%}
+
+{% set fullDetailHtml %}
+{% include "tab-sections/full-detail-product.html" %}
+
+{% endset -%}

@@ -19,6 +19,22 @@
 
 }
 
+
+.mspsds-controls {
+    
+    .mspsds-block-link {
+        line-height: 2.2em;
+    }
+    
+    .mspsds-overview & {
+        display: none;
+    }
+
+}
+
+
+
+
 .govuk-header nav {
     display: inline-block;
     float: right;

@@ -1,0 +1,47 @@
+{% from "table/macro.njk"         import govukTable %}
+
+<h2 class="govuk-heading-l">Full Detail</h2>
+
+{{ govukTable({
+  firstCellIsHeader: true,
+  rows: [
+    [
+      { text: "Category" },
+      { text: "Toys" }
+    ],
+    [
+      { text: "Type" },
+      { text: "Toys" }
+    ],
+    [
+      { text: "Brand" },
+      { text: "Red Zulu" }
+    ],
+    [
+      { text: "Name" },
+      { text: "Slap Wrap" }
+    ],
+    [
+      { text: "Serial / Product number" },
+      { text: "123123131" }
+    ],
+    [
+      { text: "Batch / Barcode" },
+      { text: "12345678911234" }
+    ],
+    [
+      { text: "Country of origin" },
+      { text: "China" }
+    ],
+    [
+      { text: "Description" },
+      { text: "Popular slap on bracelet or ankle reflector" }
+    ],
+    [
+      { text: "Date on the market" },
+      { text: "April 2016" }
+    ]
+  ]
+}) }}
+
+<a href="/product/edit">Edit details</a>
