@@ -1,0 +1,127 @@
+{% extends "mspsds-layout.html" %}
+{% from "input/macro.njk" import govukInput %}
+
+{% block pageTitle %}
+  Assign report
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukPhaseBanner({
+  tag: {
+    text: "beta"
+  },
+  html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+}) }}
+
+{{ govukBackLink({
+  text: "Back to report",
+  href: "/case__new-question"
+}) }}
+{% endblock %}
+
+{% set otherAssigneeHtml %}
+{{ govukInput({
+  label: {
+    text:     "Name / Email address",
+    classes:  "govuk-!-width-two-thirds"
+  },
+  classes:    "govuk-!-width-two-thirds",
+  id:         "other-correspondent",
+  name:       "other-correspondent"
+}) }}
+{% endset -%}
+
+{% block content %}
+{{ pageTitle({
+  type:  "Report ref. 1810-0001",
+  title: "Assign report for further action"
+}) }}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form action="/case__new-question" method="post" class="form">
+      {% call govukFieldset({
+        legend: {
+          text:           "Please indicate a priority",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+        {{ govukRadios({
+          idPrefix:   "priority-level",
+          name:       "priority-level",
+          hint: {
+            text: "This will help the next team schedule work on this report"
+          },
+          items: [
+            {
+              value:  "Low",
+              text:   "Low",
+              checked: checked("priority-level", "Low")
+            },
+            {
+              value:  "Medium",
+              text:   "Medium",
+              checked: checked("priority-level", "Medium")
+            },
+            {
+              value:  "High",
+              text:   "High",
+              checked: checked("priority-level", "High")
+            }
+          ]
+        }) }}
+        {{ govukTextarea({
+          label: {
+            text: "Why are you setting it to this level?"
+          },
+          id:   "priority-description",
+          name: "priority-description"
+        }) }}
+      {% endcall %}
+      {% call govukFieldset({
+        legend: {
+          text:           "Assignee",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+        {{ govukRadios({
+          idPrefix:   "assignee",
+          name:       "assignee",
+          fieldset: {
+            legend: {
+              text:     "Teams",
+              classes:  "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+            {
+              value:  "Team - Trading Standards Co-ordination",
+              text:   "Team - Trading Standards Co-ordination"
+            },
+            {
+              value:  "Team - Incident Management Unit",
+              text:   "Team - Incident Management Unit"
+            },
+            {
+              divider: "or"
+            },
+            {
+              value: "Other",
+              text: "Other",
+              conditional: {
+                html: otherAssigneeHtml
+              }
+            }
+          ]
+        }) }}
+      {% endcall %}
+
+      {{ govukButton({
+        text: "Assign"
+      }) }}
+    </form>
+  </div>
+</div>
+{% endblock %}

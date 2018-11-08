@@ -1,0 +1,87 @@
+{% extends "mspsds-layout.html" %}
+
+{% block pageTitle %}
+  Resolve report
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukPhaseBanner({
+  tag: {
+    text: "beta"
+  },
+  html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+}) }}
+
+{{ govukBackLink({
+  text: "Back to report",
+  href: "/case__new-question"
+}) }}
+{% endblock %}
+
+{% block content %}
+{{ pageTitle({
+  type:  "Report ref. 1810-0001",
+  title: "Mark report as resolved"
+}) }}
+
+{% set otherResolutionHtml %}
+{{ govukTextarea({
+  label: {
+    text: "Please give details"
+  },
+  id:   "status-description",
+  name: "status-description"
+}) }}
+{% endset %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form action="/case__new-question" method="post" class="form">
+      {% call govukFieldset({
+        legend: {
+          text: "Reason",
+          classes: "govuk-fieldset__legend--l"
+        }
+      }) %}
+        {{ govukRadios({
+          idPrefix:   "status-reason",
+          name:       "status-reason",
+          items: [
+            {
+              value:  "Info only",
+              text:   "Report is for information only",
+              checked: checked("status-reason", "Info only")
+            },
+            {
+              value:  "Already resolved",
+              text:   "Enquiry was resolved by initial conversation",
+              checked: checked("status-reason", "Already resolved")
+            },
+            {
+              value:  "No capacity",
+              text:   "No capacity to take further action currently",
+              checked: checked("status-reason", "No capacity")
+            },
+            {
+              value:  "Other",
+              text:   "Other",
+              checked: checked("status-reason", "Other"),
+              conditional: {
+                html: otherResolutionHtml
+              }
+            }
+          ]
+        }) }}
+      {% endcall %}
+
+      {{ govukButton({
+        text: "Resolve report"
+      }) }}
+    </form>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

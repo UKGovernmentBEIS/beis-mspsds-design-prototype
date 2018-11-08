@@ -1,0 +1,13 @@
+{% from "button/macro.njk" import govukButton %}
+
+<div class="govuk-grid-column-one-thirds">
+  <p class="govuk-body">When you've entered all relevant detail for this question, please close it or assign it onwards.</p>
+  {{ govukButton({
+    text: "Assign",
+    href: "/flows/report-assign/01-report-assign"
+  }) }}
+  {{ govukButton({
+    text: "Mark as resolved",
+    href: "/flows/report-close/01-report-close"
+  }) }}
+</div>
