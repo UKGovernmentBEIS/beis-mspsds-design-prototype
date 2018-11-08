@@ -1,8 +1,10 @@
 {% from "includes/case-card.html"         import caseCard %}
 
-{% macro caseCardList(caseInfo) %}
+{% macro caseCardList(filters) %}
+  
 
-  {{ caseCard({
+  {{ caseCard(
+    {
       type:   'Case',
       link:   './case',
       status: 'Open',
@@ -15,9 +17,9 @@
       team:         'Processing',
       priority:     'High',
       overdue:      'Overdue',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+    }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -30,9 +32,9 @@
 
       assignee:     'Ed Smith-Muller',
       priority:     'Medium',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
 
   {{ caseCard({
@@ -47,9 +49,9 @@
       assignee:     'Tim Harwood',
       team:         'Processing',
       priority:     'Low',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -63,9 +65,9 @@
       assignee:     'Tim Harwood',
       team:         'Processing',
       priority:     'High',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -80,9 +82,9 @@
       team:         'Processing',
       priority:     'High',
       overdue:      'Overdue',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -96,9 +98,9 @@
       assignee:     'Nick Golding',
       team:         'Processing',
       priority:     'Medium',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Question',
@@ -112,9 +114,9 @@
       assignee:     'Amanda Farrell',
       team:         'TSC',
       priority:     'High',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -127,9 +129,9 @@
 
       assignee:     'Ed Smith-Muller',
       priority:     'Low',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -144,9 +146,9 @@
       team:         'Processing',
       priority:     'Low',
       overdue:      'Overdue',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
 
   {{ caseCard({
@@ -161,9 +163,9 @@
       assignee:     'Tim Harwood',
       team:         'Processing',
       priority:     'High',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
 
   {{ caseCard({
@@ -178,9 +180,9 @@
       assignee:     'Tim Harwood',
       team:         'Processing',
       priority:     'Medium',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -193,9 +195,9 @@
 
       assignee:     'Ed Smith-Muller',
       priority:     'Low',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -210,9 +212,9 @@
       team:         'Processing',
       priority:     'Medium',
       overdue:      'Overdue',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -225,9 +227,9 @@
 
       assignee:     'Nick Goldingd',
       priority:     'Low',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Question',
@@ -241,9 +243,9 @@
       assignee:     'Adebola Showemimo',
       team:         'TSC',
       priority:     'High',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -256,9 +258,9 @@
 
       assignee:     'Ed Smith-Muller',
       priority:     'Medium',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -272,9 +274,9 @@
       assignee:     'Nick Golding',
       team:         'Processing',
       priority:     'Low',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
 
   {{ caseCard({
@@ -289,9 +291,9 @@
       assignee:     'Adebola Showemimo',
       team:         'TSC',
       priority:     'Low',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
 
   {{ caseCard({
@@ -306,9 +308,9 @@
       assignee:     'Nick Golding',
       team:         'Processing',
       priority:     'Medium',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -321,9 +323,9 @@
 
       assignee:     'Ed Smith-Muller',
       priority:     'High',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -337,9 +339,9 @@
       assignee:     'Nick Golding',
       team:         'Processing',
       priority:     'Low',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -354,9 +356,9 @@
       team:         'Processing',
       priority:     'High',
       overdue:      'Overdue',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -369,9 +371,9 @@
 
       assignee:     'Ed Smith-Muller',
       priority:     'Low',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -385,9 +387,9 @@
       assignee:     'Tim Harwood',
       team:         'Processing',
       priority:     'Medium',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -402,9 +404,9 @@
       team:         'Processing',
       priority:     'High',
       overdue:      'Overdue',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Question',
@@ -418,9 +420,9 @@
       assignee:     'Adebola Showemimo',
       team:         'TSC',
       priority:     'Medium',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
 
   {{ caseCard({
@@ -435,9 +437,9 @@
       assignee:     'Tim Harwood',
       team:         'Processing',
       priority:     'Low',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -451,9 +453,9 @@
       assignee:     'Tim Harwood',
       team:         'Processing',
       priority:     'High',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -468,9 +470,9 @@
       team:         'Processing',
       priority:     'High',
       overdue:      'Overdue',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -484,9 +486,9 @@
       assignee:     'Nick Golding',
       team:         'Processing',
       priority:     'Medium',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -500,9 +502,9 @@
       assignee:     'Tim Harwood',
       team:         'Processing',
       priority:     'High',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -515,9 +517,9 @@
 
       assignee:     'Ed Smith-Muller',
       priority:     'Low',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Question',
@@ -532,9 +534,9 @@
       team:         'TSC',
       priority:     'High',
       overdue:      'Overdue',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
 
   {{ caseCard({
@@ -549,9 +551,9 @@
       assignee:     'Tim Harwood',
       team:         'Processing',
       priority:     'High',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
 
   {{ caseCard({
@@ -566,9 +568,9 @@
       assignee:     'Tim Harwood',
       team:         'Processing',
       priority:     'Medium',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -581,9 +583,9 @@
 
       assignee:     'Ed Smith-Muller',
       priority:     'Low',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -598,9 +600,9 @@
       team:         'Processing',
       priority:     'Medium',
       overdue:      'Overdue',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -613,9 +615,9 @@
 
       assignee:     'Nick Goldingd',
       priority:     'Low',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -629,9 +631,9 @@
       assignee:     'Tim Harwood',
       team:         'Processing',
       priority:     'High',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -644,9 +646,9 @@
 
       assignee:     'Ed Smith-Muller',
       priority:     'Medium',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Question',
@@ -660,9 +662,9 @@
       assignee:     'Amanda Farrell',
       team:         'TSC',
       priority:     'Low',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
 
   {{ caseCard({
@@ -676,9 +678,9 @@
 
       assignee:     'Ed Smith-Muller',
       priority:     'Low',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
 
   {{ caseCard({
@@ -693,9 +695,9 @@
       assignee:     'Nick Golding',
       team:         'Processing',
       priority:     'Medium',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -708,9 +710,9 @@
 
       assignee:     'Ed Smith-Muller',
       priority:     'High',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -724,9 +726,9 @@
       assignee:     'Nick Golding',
       team:         'Processing',
       priority:     'Low',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Question',
@@ -741,9 +743,9 @@
       team:         'TSC',
       priority:     'High',
       overdue:      'Overdue',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -756,9 +758,9 @@
 
       assignee:     'Ed Smith-Muller',
       priority:     'Low',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
   {{ caseCard({
       type:   'Case',
@@ -772,9 +774,9 @@
       assignee:     'Tim Harwood',
       team:         'Processing',
       priority:     'Medium',
-      dateUpdated:  '21/10/1811',
-      dateCreated:  '18/10/1811'
-  }) }}
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
 
 
 {% endmacro %}

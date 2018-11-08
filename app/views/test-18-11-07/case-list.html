@@ -41,7 +41,92 @@
 
 
 
+
+
 {% block content %}
+
+{% set filters = [] %}
+
+
+{% if data['quick-filter'] == 'me' %}
+  {% set filters =     [{
+        filterType:'assignee',
+        filterValues:[ data['testing-name'] ]
+      },
+      {
+        filterType:'status',
+        filterValues:['Open', 'Draft']
+      }] 
+  %}
+{% endif %}
+
+
+{% if data['quick-filter'] == 'team' %}
+  {% set filters =     [{
+        filterType:'team',
+        filterValues:[ data['testing-team'] ]
+      },
+      {
+        filterType:'status',
+        filterValues:['Open', 'Draft']
+      }] 
+  %}
+{% endif %}
+
+
+
+{% if data['quick-filter'] == 'priority' %}
+  {% set filters =     [{
+        filterType:'priority',
+        filterValues:[ 'High' ]
+      },
+      {
+        filterType:'status',
+        filterValues:['Open', 'Draft']
+      }] 
+  %}
+{% endif %}
+
+
+{% if data['quick-filter'] == 'overdue' %}
+  {% set filters =     [{
+        filterType:'overdue',
+        filterValues:[ 'Overdue' ]
+      },
+      {
+        filterType:'status',
+        filterValues:['Open', 'Draft']
+      }] 
+  %}
+{% endif %}
+
+
+
+{% if data['quick-filter'] == 'specific' %}
+
+  {% if data['Status'] %}
+    {% set filters = (filters.push({filterType: 'status', filterValues: data['Status']}), filters) %}
+  {% endif %}
+
+  {% if data['Type'] %}
+    {% set filters = (filters.push({filterType: 'type', filterValues: data['Type']}), filters) %}
+  {% endif %}
+
+  {% if data['Priority'] %}
+    {% set filters = (filters.push({filterType: 'priority', filterValues: data['Priority']}), filters) %}
+  {% endif %}
+
+  {% if data['case-assignee-autocomplete'] %}
+    {% set filters = (filters.push({filterType: 'assignee', filterValues: [ data['case-assignee-autocomplete'] ] }), filters) %}
+  {% endif %}
+
+
+
+{% endif %}
+
+
+
+
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -68,9 +153,237 @@
     
     <div class="govuk-grid-column-one-quarter govuk-!-margin-bottom-2 mspsds-case-control">
       
+      <form id="case-filters">
 
-      <div>
+          {% set otherHtml %}
+                  
+                  <div class="govuk-option-select ">
           
+                    <input type="checkbox" class="option-select-display" id="option-select-display-Type" {{ 'checked' if data['Type'] }} >
+                    <label for="option-select-display-Type" class="option-select-label">Type</label>
+
+                    <div class="options-container">
+                      <div>
+                        {{ govukCheckboxes({
+                          idPrefix: "Type",
+                          name: "Type",
+                          items: [
+                            {
+                              value: "Case",
+                              text: "Case",
+                              checked: checked("Type", "Case")
+                            },
+                            {
+                              value: "Question",
+                              text: "Question",
+                              checked: checked("Type", "Question")
+                            }
+                          ]
+                        }) }}
+                      </div>
+                    </div>
+
+                </div>
+
+                  <div class="govuk-option-select ">
+          
+                    <input type="checkbox" class="option-select-display" id="option-select-display-Status" {{ 'checked' if data['Status'] }}>
+                    <label for="option-select-display-Status" class="option-select-label">Status</label>
+
+                    <div class="options-container">
+                      <div>
+                        {{ govukCheckboxes({
+                          idPrefix: "Status",
+                          name: "Status",
+                          items: [
+                            {
+                              value: "Open",
+                              text: "Open",
+                              checked: checked("Status", "Open")
+                            },
+                            {
+                              value: "Closed",
+                              text: "Closed",
+                              checked: checked("Status", "Closed")
+                            }
+                            ,
+                            {
+                              value: "Draft",
+                              text: "Draft",
+                              checked: checked("Status", "Draft")
+                            }
+                          ]
+                        }) }}
+                      </div>
+                    </div>
+
+                </div>
+
+                
+                <div class="govuk-option-select ">
+                    
+                    <input type="checkbox" class="option-select-display" id="option-select-display-Priority" {{ 'checked' if data['Priority'] }}>
+                    <label for="option-select-display-Priority" class="option-select-label">Priority</label>
+
+                    <div class="options-container">
+                      <div>
+                        {{ govukCheckboxes({
+                          idPrefix: "Priority",
+                          name: "Priority",
+                          items: [
+                            {
+                              value: "High",
+                              text: "High",
+                              checked: checked("Priority", "High")
+                            },
+                            {
+                              value: "Medium",
+                              text: "Medium",
+                              checked: checked("Priority", "Medium")
+                            },
+                            {
+                              value: "Low",
+                              text: "Low",
+                              checked: checked("Priority", "Low")
+                            }
+                          ]
+                        }) }}
+                      </div>
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="govuk-option-select ">
+
+                    <input type="checkbox" class="option-select-display" id="option-select-display-Assignee" {{ 'checked' if data['Assignee'] }}>
+                    <label for="option-select-display-Assignee" class="option-select-label">Assignee</label>
+                    
+
+                    <div class="options-container">
+                      <div>
+                        
+                          <!-- {{ govukCheckboxes({
+                            idPrefix: "Assignee",
+                            name: "Assignee",
+                            items: [
+                              {
+                                value: "Tim",
+                                html: "Tim Harwood"
+                              },
+                              {
+                                value: "Nick",
+                                html: "Nick Golding"
+                              }
+                            ]
+                          }) }} -->
+
+                          <label for="case-assignee-autocomplete" class="label ">Name
+                            <div id="case-assignee-autocomplete-container"></div>
+                          </label>
+                          
+                        
+                      </div>
+
+                      
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="govuk-option-select ">
+                    
+                    <input type="checkbox" class="option-select-display" id="option-select-display-Created-Date" {{ 'checked' if data['from'] }}>
+                    <label for="option-select-display-Created-Date" class="option-select-label">Created Date</label>
+
+                    <div class="options-container">
+                      <div>
+
+                          <div class="label">
+                            {{ govukDateInput({
+                              id: "from",
+                              namePrefix: "from",
+                              fieldset: {
+                                legend: {
+                                  text: "From",
+                                  isPageHeading: false
+                                }
+                              }
+                            }) }}
+
+                          </div>
+
+                          
+                          <div class="label">
+                            {{ govukDateInput({
+                              id: "to",
+                              namePrefix: "to",
+                              fieldset: {
+                                legend: {
+                                  text: "To",
+                                  isPageHeading: false
+                                }
+                              }
+                            }) }}  
+                          </div>
+
+                      </div>
+                    </div>
+
+                </div>
+
+
+
+                <div class="govuk-option-select ">
+                    
+                    <input type="checkbox" class="option-select-display" id="option-select-display-Update-Date" {{ 'checked' if data['Status'] }}>
+                    <label for="option-select-display-Update-Date" class="option-select-label">Update Date</label>
+
+                    <div class="options-container">
+                      <div>
+
+                          <div class="label">
+                            {{ govukDateInput({
+                              id: "from",
+                              namePrefix: "from",
+                              fieldset: {
+                                legend: {
+                                  text: "From",
+                                  isPageHeading: false
+                                }
+                              }
+                            }) }}
+
+                          </div>
+
+                          
+                          <div class="label">
+                            {{ govukDateInput({
+                              id: "to",
+                              namePrefix: "to",
+                              fieldset: {
+                                legend: {
+                                  text: "To",
+                                  isPageHeading: false
+                                }
+                              }
+                            }) }}  
+                          </div>
+
+                      </div>
+                    </div>
+
+                </div>
+
+
+
+          {% endset -%}
+
+
           {% call govukFieldset({
               legend: {
                 text:           "Filters",
@@ -83,29 +396,35 @@
                 name:       "quick-filter",
                 items: [
                   {
-                    value: "Assigned to me",
+                    value: "me",
                     text: "Assigned to me",
-                    checked: checked("quick-filter", "Assigned to me")
+                    checked: checked("quick-filter", "me")
                   },
                   {
-                    value: "Assigned to my team",
+                    value: "team",
                     text: "Assigned to my team",
-                    checked: checked("quick-filter", "Assigned to my team")
+                    checked: checked("quick-filter", "team")
                   },
                   {
-                    value: "High Priority",
+                    value: "priority",
                     text: "High Priority",
-                    checked: checked("quick-filter", "High Priority")
+                    checked: checked("quick-filter", "priority")
                   },
                   {
-                    value:  "Pre-triage",
-                    text:   "Pre-triage",
-                    checked: checked("quick-filter", "Pre-triage")
+                    value: "overdue",
+                    text: "Overdue",
+                    checked: checked("quick-filter", "overdue")
                   },
                   {
-                    value: "5+ days since update",
-                    text: "5+ days since update",
-                    checked: checked("quick-filter", "5+ days since update")
+                    divider: "or"
+                  },
+                  {
+                    value: "specific",
+                    text: "Specific filters",
+                    checked: checked("quick-filter", "specific"),
+                    conditional: {
+                      html: otherHtml
+                    }
                   }
 
                 ]
@@ -113,228 +432,45 @@
 
           {% endcall %}
 
-      </div>
-
-
-      <div class="govuk-option-select ">
-          
-          <input type="checkbox" class="option-select-display" id="option-select-display-Status" checked>
-          <label for="option-select-display-Status" class="option-select-label">Status</label>
-
-          <div class="options-container">
-            <div>
-              {{ govukCheckboxes({
-                idPrefix: "Status",
-                name: "Status",
-                items: [
-                  {
-                    value: "statusOpen",
-                    text: "Open",
-                    checked: true
-                  },
-                  {
-                    value: "statusClosed",
-                    text: "Closed"
-                  }
-                ]
-              }) }}
-            </div>
-          </div>
-
-      </div>
-
-      
-      <div class="govuk-option-select ">
-          
-          <input type="checkbox" class="option-select-display" id="option-select-display-Priority">
-          <label for="option-select-display-Priority" class="option-select-label">Priority</label>
-
-          <div class="options-container">
-            <div>
-              {{ govukCheckboxes({
-                idPrefix: "Priority",
-                name: "Priority",
-                items: [
-                  {
-                    value: "PriorityHigh",
-                    
-                    text: "High"
-                  },
-                  {
-                    value: "PriorityMedium",
-                    text: "Medium"
-                  },
-                  {
-                    value: "PriorityLow",
-                    text: "Low"
-                  }
-                ]
-              }) }}
-            </div>
-          </div>
-
-      </div>
-
-
-
-
-      <div class="govuk-option-select ">
-
-          <input type="checkbox" class="option-select-display" id="option-select-display-Assignee">
-          <label for="option-select-display-Assignee" class="option-select-label">Assignee</label>
-          
-
-          <div class="options-container">
-            <div>
-              
-                {{ govukCheckboxes({
-                  idPrefix: "Assignee",
-                  name: "Assignee",
-                  items: [
-                    {
-                      value: "Tim",
-                      html: "Tim Harwood<br/>tim.harwood@softwire.com"
-                    },
-                    {
-                      value: "Nick",
-                      html: "Nick Golding<br/>nick.golding@softwire.com"
-                    }
-                  ]
-                }) }}
-
-                <label for="case-assignne-autocomplete" class="label ">Other
-                  <div id="case-assignee-autocomplete-container"></div>
-                </label>
-                
-              
-            </div>
-
-            
-          </div>
-
-
-          <script type="text/javascript">
-
-
-            var assignees = [
-              'Tim Harwood – tim.harwood@softwire.com',
-              'Nick Golding – nick.golding@softwire.com',
-              'Ed Smith-Muller – ed.smith-muller@softwire.com',
-            ]
-          
-
-            element = document.querySelector('#case-assignee-autocomplete-container')
-            id = 'case-assignne-autocomplete'
-            accessibleAutocomplete({
-              element: element,
-              id: id,
-              showNoOptionsFound: false,
-              source: assignees
-            })
-          </script>
-
-
-      </div>
-
-
-
-      <div class="govuk-option-select ">
-          
-          <input type="checkbox" class="option-select-display" id="option-select-display-Created-Date">
-          <label for="option-select-display-Created-Date" class="option-select-label">Created Date</label>
-
-          <div class="options-container">
-            <div>
-
-                <div class="label">
-                  {{ govukDateInput({
-                    id: "from",
-                    namePrefix: "from",
-                    fieldset: {
-                      legend: {
-                        text: "From",
-                        isPageHeading: false
-                      }
-                    }
-                  }) }}
-
-                </div>
-
-                
-                <div class="label">
-                  {{ govukDateInput({
-                    id: "to",
-                    namePrefix: "to",
-                    fieldset: {
-                      legend: {
-                        text: "To",
-                        isPageHeading: false
-                      }
-                    }
-                  }) }}  
-                </div>
-
-            </div>
-          </div>
-
-      </div>
-
-
-
-      <div class="govuk-option-select ">
-          
-          <input type="checkbox" class="option-select-display" id="option-select-display-Update-Date">
-          <label for="option-select-display-Update-Date" class="option-select-label">Update Date</label>
-
-          <div class="options-container">
-            <div>
-
-                <div class="label">
-                  {{ govukDateInput({
-                    id: "from",
-                    namePrefix: "from",
-                    fieldset: {
-                      legend: {
-                        text: "From",
-                        isPageHeading: false
-                      }
-                    }
-                  }) }}
-
-                </div>
-
-                
-                <div class="label">
-                  {{ govukDateInput({
-                    id: "to",
-                    namePrefix: "to",
-                    fieldset: {
-                      legend: {
-                        text: "To",
-                        isPageHeading: false
-                      }
-                    }
-                  }) }}  
-                </div>
-
-            </div>
-          </div>
-
-      </div>
 
 
       {{ govukButton({
-        text: "Apply filters"
+        text: "Apply filters",
+        name:   "filter-submit"
       }) }}
 
 
+    </form>
+
+    <script type="text/javascript">
+
+
+      var assignees = [
+        'Tim Harwood',
+        'Nick Golding',
+        'Ed Smith-Muller',
+        'Amanda Farrell',
+        'Adebola Showemimo'
+      ];
+
+      element = document.querySelector('#case-assignee-autocomplete-container');
+      id = 'case-assignee-autocomplete';
+      accessibleAutocomplete({
+        element: element,
+        id: id,
+        name: id,
+        showNoOptionsFound: false,
+        source: assignees
+      });
+    </script>
+      
 
 
     </div>
     
 
-    <div class="govuk-grid-column-three-quarters mspsds-case-list-tab mspsds-case-list--Open ">
-      {{ caseCardList() }}
+    <div class="govuk-grid-column-three-quarters mspsds-case-list-tab ">
+      {{ caseCardList(filters) }}
     </div>
 
 
