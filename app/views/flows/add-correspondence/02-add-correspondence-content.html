@@ -53,17 +53,8 @@ Record correspondence
         }) }}
       {% endcall %}
 
-      {% call govukFieldset({
-        legend: {
-          text:       "And/or upload a file if you have one",
-          classes:    "govuk-fieldset__legend--l"
-        }
-      }) %}
-        {{ govukFileUpload({
-          id: "correspondence-file-upload-1",
-          name: "correspondence-file-upload-1"
-        }) }}
-      {% endcall %}
+      {% from "includes/attachment-input.html" import attachmentInput %}
+      {{ attachmentInput("And/or upload a file if you have one", "correspondence") }}
 
       {{ govukButton({
         text: "Continue"

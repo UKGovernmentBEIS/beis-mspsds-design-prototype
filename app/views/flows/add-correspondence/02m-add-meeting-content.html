@@ -52,17 +52,8 @@ Record meeting
         }) }}
       {% endcall %}
 
-      {% call govukFieldset({
-        legend: {
-          text:       "Attachments",
-          classes:    "govuk-fieldset__legend--l"
-        }
-      }) %}
-        {{ govukFileUpload({
-          id: "correspondence-file-upload-1",
-          name: "correspondence-file-upload-1"
-        }) }}
-      {% endcall %}
+      {% from "includes/attachment-input.html" import attachmentInput %}
+      {{ attachmentInput("Related attachments", "correspondence") }}
 
       {{ govukButton({
         text: "Continue"

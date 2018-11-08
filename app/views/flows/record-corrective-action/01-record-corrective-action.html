@@ -83,17 +83,8 @@ Record corrective action
         }) }}
       {% endcall %}
 
-      {% call govukFieldset({
-        legend: {
-          text:       "Related attachments",
-          classes:    "govuk-fieldset__legend--l"
-        }
-      }) %}
-        {{ govukFileUpload({
-          id: "corrective-action-file-upload-1",
-          name: "corrective-action-file-upload-1"
-        }) }}
-      {% endcall %}
+      {% from "includes/attachment-input.html" import attachmentInput %}
+      {{ attachmentInput("Related attachments", "corrective-action") }}
 
       {{ govukButton({
         text: "Continue"

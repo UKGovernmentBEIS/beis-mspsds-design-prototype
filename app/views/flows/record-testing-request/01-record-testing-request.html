@@ -62,17 +62,8 @@ Record testing request
         }) }}
       {% endcall %}
 
-      {% call govukFieldset({
-        legend: {
-          text:       "Related attachments",
-          classes:    "govuk-fieldset__legend--l"
-        }
-      }) %}
-        {{ govukFileUpload({
-          id: "testing-request-file-upload-1",
-          name: "testing-request-file-upload-1"
-        }) }}
-      {% endcall %}
+      {% from "includes/attachment-input.html" import attachmentInput %}
+      {{ attachmentInput("Related attachments", "testing-request") }}
 
       {{ govukButton({
         text: "Continue"
