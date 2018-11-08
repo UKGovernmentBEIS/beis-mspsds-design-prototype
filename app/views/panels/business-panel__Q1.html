@@ -1,0 +1,46 @@
+{% from "table/macro.njk" import govukTable %}
+
+<div class="govuk-grid-row mspsds-product-panel">
+  <div class="govuk-grid-column-one-third">
+    <img src="/public/images/redzulu.gif" title="Business identifying image - logo? premises photo?" />
+  </div>
+  <div class="govuk-grid-column-two-thirds">
+    {{ govukTable({
+      firstCellIsHeader: true,
+      rows: [
+        [
+          {
+            text: "Company number"
+          },
+          {
+            text: "05086107"
+          }
+        ],
+        [
+          {
+            text: "Company type"
+          },
+          {
+            text: "Private limited Company"
+          }
+        ],
+        [
+          {
+            text: "Nature of business (SIC)"
+          },
+          {
+            text: "82990 - Other business support service activities not elsewhere classified"
+          }
+        ],
+        [
+          {
+            text: "Primary Authority"
+          },
+          {
+            text: "Shropshire County Council"
+          }
+        ]
+      ]
+    }) }}
+  </div>
+</div>

@@ -15,7 +15,7 @@
 
   {{ govukBackLink({
     text: "Back to Products",
-    href: "/product-list"
+    href: "./product-list"
   }) }}
 
 {% endblock %}
@@ -45,7 +45,9 @@
 
 </div>
 
-{% include "panels/product-panel.html" %}
+<div class="mspsds-overview">
+  {% include "panels/product-panel.html" %}
+</div>
 
 <hr class="govuk-section-break govuk-section-break--m" />
 

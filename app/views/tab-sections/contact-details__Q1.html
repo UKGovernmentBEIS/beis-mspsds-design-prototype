@@ -1,0 +1,17 @@
+{% from "panels/business-address-panel.html" import businessAddress %}
+{% from "panels/contact-panel.html" import contactPanel %}
+
+<h2 class="govuk-heading-l">Addresses</h2>
+
+<div class="govuk-grid-row">
+  {{ businessAddress("Main site", "Ivy House, Newcastle, Craven Arms", "Shropshire", "SY7 8QL") }}
+  {{ businessAddress("Secondary site", "48 Bush Road", "London", "N1 1XQ") }}
+  {{ businessAddress("Registered address", "Ivy House, Newcastle, Craven Arms", "Shropshire", "SY7 8QL") }}
+</div>
+
+<h2 class="govuk-heading-l govuk-!-margin-top-6">Contacts</h2>
+
+<div class="govuk-grid-row">
+      {{ contactPanel("Main contact", "Paul Jones", "020 7123 12345", "paul.jones@red-zulu.com") }}
+      {{ contactPanel("Head of Procurement", "Gemma Wilkinson", "", "gemma.wilkinson@red-zulu.com") }}
+</div>

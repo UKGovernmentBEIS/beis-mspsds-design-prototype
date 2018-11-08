@@ -15,7 +15,7 @@
 
   {{ govukBackLink({
     text: "Back to Businesses",
-    href: "/business-list"
+    href: "./business-list"
   }) }}
 
 {% endblock %}
@@ -29,8 +29,8 @@
 
     {{ pageTitle({
       type:       "Business",
-      title:      "Tesco PLC",
-      subTitle:   "Trading as: Tesco"
+      title:      "Red Zulu Ltd",
+      subTitle:   "Trading as: Red Zulu"
     }) }}
 
   </div>
@@ -41,7 +41,7 @@
   
 </div>
 
-{% include "panels/business-panel.html" %}
+{% include "panels/business-panel__Q1.html" %}
 
 <hr class="govuk-section-break govuk-section-break--m" />
 
@@ -101,22 +101,16 @@
 
 {{ activityTimeline([
   {
-    action: "Product added: Travel plug adaptor — Charge Worx 931L",
+    title: "Has anyone recently advised on snap bracelets / slap wraps?",
+    action: "Question added",
     html: '
-      <p>Role: <span class="govuk-!-font-weight-bold">Distributor</span></p>
-      <details class="govuk-details">
-        <summary class="govuk-details__summary">
-          <span class="govuk-details__summary-text">
-            Product details
-          </span>
-        </summary>
-        <div class="govuk-details__text govuk-body-s">
-          Brand: Charge Worx<br />
-          Model Name: International Travel Adaptor<br />
-          Model number: 931L<br />
-          Description: Universal travel USB plug adaptor with surge protector
-        </div>
-      </details>'
+      <a href="./question-1" class="mspsds-block-link">View Question details</a>'
+  },
+  {
+    title: "Red Zulu – Slap Wrap",
+    action: "Product added",
+    html: '
+      <a href="./product-1" class="mspsds-block-link">View product details</a>'
   },
   {
     action: "Business created"
@@ -126,37 +120,47 @@
 {% endset -%}
 
 {% set contactsHtml %}
-{% include "tab-sections/contact-details.html" %}
-
+  {% include "tab-sections/contact-details__Q1.html" %}
 {% endset -%}
+
 
 {% set attachmentsHtml %}
-<h2 class="govuk-heading-l">Attachments</h2>
-<a href="#">Add new image</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Add new document</a>
+  <h2 class="govuk-heading-l">Attachments</h2>
+  <a href="#">Add new image</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Add new document</a>
 
-{% from "includes/attachment-list.html" import attachmentList %}
+  {% from "includes/attachment-list.html" import attachmentList %}
 
-{{ attachmentList(5) }}
-
+  {{ attachmentList(5) }}
 {% endset -%}
+
+
+
 
 {% set productsHtml %}
-{% include "tab-sections/products-list-business.html" %}
+
+  <h2 class="govuk-heading-l">Products</h2>
+  <a href="#" class="mspsds-block-link">Add a product</a>
+
+  <div class="mspsds-product-list">
+    {% include "panels/product-panel__Q1.html" %}
+  </div>
 
 {% endset -%}
+
 
 {% set relatedItemsHtml %}
-<h2 class="govuk-heading-l">Linked to this business</h2>
+  <h2 class="govuk-heading-l">Linked to this business</h2>
 
-{% include "includes/linked-items.html" %}
+  {% include "includes/linked-items.html" %}
 
-<h2 class="govuk-heading-l">Potentially related to this business</h2>
+  <h2 class="govuk-heading-l">Potentially related to this business</h2>
 
-{% include "includes/potential-relationships.html" %}
+  {% include "includes/potential-relationships.html" %}
 
 {% endset -%}
 
-{% set fullDetailHtml %}
-{% include "tab-sections/full-detail-business.html" %}
 
+
+{% set fullDetailHtml %}
+  {% include "tab-sections/full-detail-business.html" %}
 {% endset -%}

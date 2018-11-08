@@ -4,12 +4,12 @@
 
 <div class="govuk-grid-column-full mspsds-confirmation" id="{{id}}">
   {% if actionText %}
-  <span>{{text}}</span>
-  {{ govukButton({
-    text: actionText
-  }) }}
+      <span>{{text}}</span>
+      {{ govukButton({
+        text: actionText
+      }) }}
   {% else %}
-  {{text}}
+    {{text}}
   {% endif %}
 </div>
 

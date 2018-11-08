@@ -108,10 +108,16 @@
   {% from "includes/activity-timeline.html" import activityTimeline %}
 
   {{ activityTimeline([
-    {
-      action: "Comment added",
-      text: "Definitely something dubious about this product"
-    },
+      {
+        action: "Comment added",
+        text: "Definitely something dubious about this product"
+      },
+      {
+        title: "Has anyone recently advised on snap bracelets / slap wraps?",
+        action: "Question added",
+        html: '
+          <a href="./question-1" class="mspsds-block-link">View Question details</a>'
+      },
       {
       title: "Red Zulu",
       action: "Business added",
