@@ -1,6 +1,6 @@
 {% from "includes/case-card.html"         import caseCard %}
 
-{% macro caseCardList(filters) %}
+{% macro caseCardList(filters, q1, q2) %}
   
 
   {{ caseCard(
@@ -113,7 +113,7 @@
 
       assignee:     'Amanda Farrell',
       team:         'TSC',
-      priority:     'High',
+      priority:     'Low',
       dateUpdated:  '21/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -242,7 +242,7 @@
 
       assignee:     'Adebola Showemimo',
       team:         'TSC',
-      priority:     'High',
+      priority:     'Low',
       dateUpdated:  '21/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -530,7 +530,7 @@
       product:    'Toys',
       question:   'Toys (Safety) Regulations -can you plead guilty in absence?',
 
-      assignee:     'Amanda Farrell',
+      assignee:     q2,
       team:         'TSC',
       priority:     'High',
       overdue:      'Overdue',
@@ -739,7 +739,7 @@
       product:  'Red Zulu, Slap Wrap',
       question: 'Has anyone recently advised on snap bracelets / slap warps? ',
 
-      assignee:     'Adebola Showemimo',
+      assignee:     q1,
       team:         'TSC',
       priority:     'High',
       overdue:      'Overdue',

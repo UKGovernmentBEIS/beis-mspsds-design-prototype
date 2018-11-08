@@ -1,0 +1,185 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% block pageTitle %}
+  Assign case
+{% endblock %}
+
+
+{% block beforeContent %}
+
+  {{ govukBackLink({
+    text: "Back to question",
+    href: "./question-1"
+  }) }}
+
+{% endblock %}
+
+
+{% block content %}
+
+
+  {{ pageTitle({
+    type:   "Question: 1811-0758",
+    title:  "Assign Question"
+  }) }}
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h2 class="govuk-heading-l">Current assigned</h2>
+    <p class="govuk-body govuk-body-l">{{ data['q1-assigned']}}</p>
+  </div>
+</div>
+
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    
+    <form action="./question-1-assigned" method="post" class="form">
+      
+      {% set otherassignedHtml %}
+
+        {{ govukInput({
+          label: {
+            text:     "Name / Email address",
+            classes:  "govuk-!-width-two-thirds"
+          },
+          classes:    "govuk-!-width-two-thirds",
+          id:         "other-correspondent",
+          name:       "other-correspondent"
+        }) }}
+
+      {% endset -%}
+
+
+      {% set tsassignedHtml %}
+
+        {{ govukInput({
+          label: {
+            text:     "Authority name",
+            classes:  "govuk-!-width-two-thirds"
+          },
+          classes:    "govuk-!-width-two-thirds",
+          id:         "other-correspondent",
+          name:       "other-correspondent"
+        }) }}
+
+      {% endset -%}
+
+
+      {% call govukFieldset({
+        legend: {
+          text:           "New assigned",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukRadios({
+          idPrefix:   "q1-assigned",
+          name:       "q1-assigned",
+          fieldset: {
+            legend: {
+              text:     "Assign to a person",
+              classes:  "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+            {
+              divider: "Recent/Frequent"
+            },
+            {
+              value: "Tim Harwood",
+              text: "Tim Harwood"
+            },
+            {
+              value: "Nick Golding",
+              text: "Nick Golding"
+            },
+            {
+              value: "Amanda Farrell",
+              text: "Amanda Farrell"
+            },
+            {
+              value: "Adebola Showemimo",
+              text: "Adebola Showemimo"
+            },
+            {
+              divider: "or"
+            },
+            {
+              text: "Other",
+              value: "Other",
+              conditional: {
+                html: otherassignedHtml
+              }
+            }
+          ]
+        }) }}
+
+        {{ govukRadios({
+          idPrefix:   "q1-assigned",
+          name:       "q1-assigned",
+          fieldset: {
+            legend: {
+              text:     "Or to a team",
+              classes:  "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+            {
+              value: "Processing",
+              text: "Processing"
+            },
+            {
+              value: "IMU",
+              text: "IMU"
+            },
+            {
+              value: "Policy",
+              text: "Policy"
+            },
+            {
+              value: "Science & Tech",
+              text: "Science & Tech"
+            },
+            {
+              value: "Enforcement",
+              text: "Enforcement"
+            },
+            {
+              divider: "or"
+            },
+            {
+              text: "Trading standards",
+              value: "Trading standards",
+              conditional: {
+                html: tsassignedHtml
+              }
+            }
+          ]
+        }) }}
+
+      {% endcall %}
+
+
+
+      
+
+      {{ govukButton({
+        text: "Assign"
+      }) }}
+
+    </form>
+
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}

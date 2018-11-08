@@ -128,6 +128,84 @@
 
 
 
+      {% call govukFieldset({
+        legend: {
+          text:           "Who is Question 1 (slap wraps) assigned to?",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukRadios({
+          idPrefix:   "q1-assigned",
+          name:       "q1-assigned",
+          items: [
+            {
+              value: "Tim Harwood",
+              text: "Tim Harwood",
+              checked: checked("q1-assigned", "Tim Harwood")
+            },
+            {
+              value: "Nick Golding",
+              text: "Nick Golding",
+              checked: checked("q1-assigned", "Nick Golding")
+            },
+            {
+              value: "Amanda Farrell",
+              text: "Amanda Farrell",
+              checked: checked("q1-assigned", "Amanda Farrell")
+            },
+            {
+              value: "Adebola Showemimo",
+              text: "Adebola Showemimo",
+              checked: checked("q1-assigned", "Adebola Showemimo")
+            }
+          ]
+        }) }}
+
+      {% endcall %}
+
+
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Who is Question 2 (toy regulations) assigned to?",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukRadios({
+          idPrefix:   "q2-assigned",
+          name:       "q2-assigned",
+          items: [
+            {
+              value: "Tim Harwood",
+              text: "Tim Harwood",
+              checked: checked("q2-assigned", "Tim Harwood")
+            },
+            {
+              value: "Nick Golding",
+              text: "Nick Golding",
+              checked: checked("q2-assigned", "Nick Golding")
+            },
+            {
+              value: "Amanda Farrell",
+              text: "Amanda Farrell",
+              checked: checked("q2-assigned", "Amanda Farrell")
+            },
+            {
+              value: "Adebola Showemimo",
+              text: "Adebola Showemimo",
+              checked: checked("q2-assigned", "Adebola Showemimo")
+            }
+          ]
+        }) }}
+
+      {% endcall %}
+
+
+
       {{ govukButton({
         text: "Continue"
       }) }}

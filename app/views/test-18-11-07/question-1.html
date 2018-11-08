@@ -1,5 +1,10 @@
 {% extends "mspsds-layout.html" %}
 
+
+
+
+
+
 {% block pageTitle %}
   Question Page
 {% endblock %}
@@ -27,6 +32,13 @@
 {% block content %}
 
 
+{% from "includes/mspsds-confirmation.html" import confirmation %}
+
+{% if updated == 'true' %}
+  {{ confirmation("confirmation--question--assigned", "Question reassigned.") }}
+{% endif %}
+
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     {{ pageTitle({
@@ -36,8 +48,26 @@
     }) }}
   </div>
   <div class="govuk-grid-column-one-third">
-    {% from "includes/case-status.html" import caseStatus %}
-    {{ caseStatus("Open", "Adebola Showemimo", "High") }}
+    
+    {{ govukTable({
+      classes: "mspsds-case-status",
+      firstCellIsHeader: true,
+      rows: [
+        [
+          { html: '<span class="govuk-caption-m govuk-!-font-size-16">Status</span> Open'  },
+          { html: '<a href="#" class="govuk-!-font-size-16">Change</a>'}
+        ],
+        [
+          { html: '<span class="govuk-caption-m govuk-!-font-size-16">Assigned to</span>' + data['q1-assigned'] },
+          { html: '<a href="./assign-q1" class="govuk-!-font-size-16">Change</a>' }
+        ],
+        [
+          { html: '<span class="govuk-caption-m govuk-!-font-size-16">Priority</span> High'},
+          { html: '<a href="#" class="govuk-!-font-size-16">Change</a>'}
+        ]
+      ]
+    }) }}
+
   </div>
 </div>
 
