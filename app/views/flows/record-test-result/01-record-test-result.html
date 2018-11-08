@@ -87,17 +87,8 @@ Record test result
         }) }}
       {% endcall %}
 
-      {% call govukFieldset({
-        legend: {
-          text:       "Related attachments",
-          classes:    "govuk-fieldset__legend--l"
-        }
-      }) %}
-        {{ govukFileUpload({
-          id: "test-result-file-upload-1",
-          name: "test-result-file-upload-1"
-        }) }}
-      {% endcall %}
+      {% from "includes/attachment-input.html" import attachmentInput %}
+      {{ attachmentInput("Related attachments", "test-result") }}
 
       {{ govukButton({
         text: "Continue"

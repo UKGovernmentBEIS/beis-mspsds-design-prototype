@@ -77,13 +77,6 @@
       }
     },
     {
-      label: "Contacts",
-      id: "contacts",
-      panel: {
-        html: contactsHtml
-      }
-    },
-    {
       label: "Attachments",
       id: "attachments",
       panel: {
@@ -105,13 +98,6 @@
       }
     },
     {
-      label: "Related",
-      id: "related",
-      panel: {
-        html: relatedItemsHtml
-      }
-    },
-    {
       label: "Full detail",
       id: "full-detail",
       panel: {
@@ -128,20 +114,6 @@
 
 {% endset -%}
 
-{% set contactsHtml %}
-<h2 class="govuk-heading-l">Contacts</h2>
-
-{% from "panels/contact-panel.html" import contactPanel %}
-
-<div class="govuk-grid-row">
-  {{ contactPanel("Main contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
-  {{ contactPanel("Head of Procurement", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
-  {{ contactPanel("Another contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
-  {{ contactPanel("And another", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
-</div>
-
-{% endset -%}
-
 {% set attachmentsHtml %}
 {% include "tab-sections/attachments.html" %}
 
@@ -154,17 +126,6 @@
 
 {% set businessesHtml %}
 {% include "tab-sections/businesses-list.html" %}
-
-{% endset -%}
-
-{% set relatedItemsHtml %}
-<h2 class="govuk-heading-l">Linked to this case</h2>
-
-{% include "includes/linked-items.html" %}
-
-<h2 class="govuk-heading-l">Potentially related to this case</h2>
-
-{% include "includes/potential-relationships.html" %}
 
 {% endset -%}
 

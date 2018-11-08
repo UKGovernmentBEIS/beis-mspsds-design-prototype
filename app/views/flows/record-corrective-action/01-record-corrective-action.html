@@ -22,10 +22,24 @@ Record corrective action
 
     <form action="/flows/record-corrective-action/02-record-corrective-action-confirm" method="post" class="form">
 
+      {% call govukFieldset({
+        legend: {
+          text: "Summary",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--l"
+        }
+      }) %}
+        {{ govukInput({
+          classes: "govuk-!-width-two-thirds",
+          id:   "corrective-action-summary",
+          name: "corrective-action-summary"
+        }) }}
+      {% endcall %}
+
       {% from "date-input/macro.njk"    import govukDateInput %}
       {{ govukDateInput({
-        id:         "testing-request-date",
-        namePrefix: "testing-request-date",
+        id:         "corrective-action-date",
+        namePrefix: "corrective-action-date",
         fieldset: {
           legend: {
             text: "When was this action decided?",
@@ -64,22 +78,13 @@ Record corrective action
         }
       }) %}
         {{ govukTextarea({
-          name: "testing-request-details",
-          id:   "testing-request-details"
+          name: "corrective-action-details",
+          id:   "corrective-action-details"
         }) }}
       {% endcall %}
 
-      {% call govukFieldset({
-        legend: {
-          text:       "Related attachments",
-          classes:    "govuk-fieldset__legend--l"
-        }
-      }) %}
-        {{ govukFileUpload({
-          id: "testing-request-file-upload-1",
-          name: "testing-request-file-upload-1"
-        }) }}
-      {% endcall %}
+      {% from "includes/attachment-input.html" import attachmentInput %}
+      {{ attachmentInput("Related attachments", "corrective-action") }}
 
       {{ govukButton({
         text: "Continue"
