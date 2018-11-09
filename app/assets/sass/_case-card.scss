@@ -18,58 +18,6 @@ $marginIndent: 10px;
 }
 
 
-.mspsds-case-list-tab {
-
-    margin-left:    -10px;
-    margin-right:   -10px;
-    
-    &.mspsds-case-list--Overdue {
-        .mspsds-case-card:not(.mspsds-case-card--Overdue) {
-            display: none;
-        }
-    }
-
-    &.mspsds-case-list--Processing {
-        .mspsds-case-card:not(.mspsds-case-card--Processing) {
-            display: none;
-        }
-    }
-
-    &.mspsds-case-list--High {
-        .mspsds-case-card:not(.mspsds-case-card--High) {
-            display: none;
-        }
-        .mspsds-case-card__priority {
-            display: none;
-        }
-    }
-
-    &.mspsds-case-list--Tim {
-        .mspsds-case-card:not(.mspsds-case-card--Tim) {
-            display: none;
-        }
-
-        .mspsds-case-card__assignee {
-            display: none;
-        }
-    }
-    
-    &.mspsds-case-list--Open {
-        .mspsds-case-card:not(.mspsds-case-card--Open) {
-            display: none;
-        }
-    }
-
-    &.mspsds-case-list--Draft {
-        .mspsds-case-card:not(.mspsds-case-card--Draft):not(.mspsds-case-card--Open)  {
-            display: none;
-        }
-    }
-
-
-}
-
-
 
 
 .mspsds-case-card {
@@ -87,9 +35,7 @@ $marginIndent: 10px;
         box-sizing: border-box;
     }
 
-
-    background-color:   govuk-colour("grey-4");
-    border:             1px solid #F3F3F3;
+    
     @include govuk-responsive-padding(2);
 
 
@@ -118,6 +64,23 @@ $marginIndent: 10px;
 
         @include govuk-typography-responsive($size: 19);
         @include govuk-typography-weight-bold();
+
+
+        &:before {
+            content: " ";
+            position: absolute;
+            top:    0;
+            bottom: 0;
+            left:   0;
+            right:  0;
+
+            border:  1px solid govuk-colour("grey-3");
+        }
+
+        &:hover:before,
+        &:focus:before {
+            border:  1px solid currentColor;
+        }
     }
 
     &__state {
@@ -131,17 +94,19 @@ $marginIndent: 10px;
         }
     }
 
+    &__match {
+        width: grid-width(one-half);
+    }
+
+
 
     &__assignee {
         width: grid-width(one-half);
     }
 
-    &__priority {
-        width: grid-width(one-quarter);
-    }
 
     &__dateUpdated {
-        width: grid-width(one-quarter);
+        width: auto;
     }
 
 
