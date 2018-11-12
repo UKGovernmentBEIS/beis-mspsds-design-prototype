@@ -14,7 +14,7 @@
   }) }}
 
   {{ govukBackLink({
-    text: "Back to Case",
+    text: "Back to Cases",
     href: "./case-list"
   }) }}
 
@@ -25,12 +25,22 @@
 
 {% from "includes/case-status.html" import caseStatus %}
 
+
+
 {% from "includes/mspsds-confirmation.html" import confirmation %}
 
-<!--
+{% if updated == 'image-deleted' %}
+  
+{% endif %}
+
 {{ confirmation("confirmation--image-deleted", "Image \"Image title\" deleted.", "Undo") }}
-{{ confirmation("confirmation--product-removed", "Product \"Product title\" removed from this case.", "Undo") }}
--->
+
+
+{% if updated == 'product-removed' %}
+  {{ confirmation("confirmation--product-removed", "Product \"Product title\" removed from this case.", "Undo") }}
+{% endif %}
+
+
 
 <div class="govuk-grid-row">
 
@@ -42,7 +52,20 @@
   </div>
 
   <div class="govuk-grid-column-one-third">
-    {{ caseStatus("Open","Nick Golding","High") }}
+    {{ govukTable({
+      classes: "mspsds-case-status",
+      firstCellIsHeader: true,
+      rows: [
+        [
+          { html: '<span class="govuk-caption-m govuk-!-font-size-16">Status</span> Open'  },
+          { html: '<a href="#" class="govuk-!-font-size-16">Change</a>'}
+        ],
+        [
+          { html: '<span class="govuk-caption-m govuk-!-font-size-16">Assigned to</span>' + data['c1-assigned'] },
+          { html: '<a href="./assign-case-1" class="govuk-!-font-size-16">Change</a>' }
+        ]
+      ]
+    }) }}
   </div>
 
 </div>
@@ -61,7 +84,10 @@
 
 
   {% include "panels/product-panel.html" %}
+
 </div>
+
+
 
 
 <h2 class="govuk-heading-l">Add new activity</h2>
@@ -125,52 +151,62 @@
 
 {% endblock %}
 
-{% set activityHtml %}
-{% include "tab-sections/activity.html" %}
 
+
+{% set activityHtml %}
+  {% include "tab-sections/activity.html" %}
 {% endset -%}
+
+
+
 
 {% set contactsHtml %}
-<h2 class="govuk-heading-l">Contacts</h2>
+  {% from "panels/contact-panel.html" import contactPanel %}
 
-{% from "panels/contact-panel.html" import contactPanel %}
+  <h2 class="govuk-heading-l">Contacts</h2>
+  <a href="#" class="mspsds-block-link">Add a contact</a>
 
-<div class="govuk-grid-row">
-  {{ contactPanel("Main contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
-  {{ contactPanel("Head of Procurement", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
-  {{ contactPanel("Another contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
-  {{ contactPanel("And another", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
-</div>
+  <div class="govuk-grid-row">
+    {{ contactPanel("Main contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
+    {{ contactPanel("Head of Procurement", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
+    {{ contactPanel("Another contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
+    {{ contactPanel("And another", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
+  </div>
 
 {% endset -%}
+
+
 
 {% set attachmentsHtml %}
-{% include "tab-sections/attachments.html" %}
-
+  {% include "tab-sections/attachments.html" %}
 {% endset -%}
+
 
 {% set productsHtml %}
-{% include "tab-sections/products-list.html" %}
-
+  {% include "tab-sections/products-list.html" %}
 {% endset -%}
+
+
 
 {% set businessesHtml %}
-{% include "tab-sections/businesses-list.html" %}
-
+  {% include "tab-sections/businesses-list.html" %}
 {% endset -%}
+
+
 
 {% set relatedItemsHtml %}
-<h2 class="govuk-heading-l">Linked to this case</h2>
+  <h2 class="govuk-heading-l">Linked to this case</h2>
 
-{% include "includes/linked-items.html" %}
+  {% include "includes/linked-items.html" %}
 
-<h2 class="govuk-heading-l">Potentially related to this case</h2>
+  <h2 class="govuk-heading-l">Potentially related to this case</h2>
 
-{% include "includes/potential-relationships.html" %}
+  {% include "includes/potential-relationships.html" %}
 
 {% endset -%}
 
-{% set fullDetailHtml %}
-{% include "tab-sections/full-detail-case.html" %}
 
+
+{% set fullDetailHtml %}
+  {% include "tab-sections/full-detail-case.html" %}
 {% endset -%}

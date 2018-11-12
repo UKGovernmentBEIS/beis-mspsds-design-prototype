@@ -43,11 +43,15 @@
         ]
       ]
     }) }}
-    <a href="/product" class="mspsds-block-link">View product</a>
-    {{ govukButton({
-      text: "Remove from this case",
-      href: "#",
-      attributes: { "onclick": "document.getElementById('confirmation--product-removed').style.display='block'" }
-    }) }}
+
+    <div class="mspsds-controls">
+      <a href="/product" class="mspsds-block-link">View product</a>
+      {{ govukButton({
+        text: "Remove from this case",
+        href: "#",
+        attributes: { "onclick": "document.getElementById('confirmation--product-removed').style.display='block'" }
+      }) }}
+    </div>
+
   </div>
 </div>
