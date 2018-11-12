@@ -27,18 +27,25 @@
 
 
 
+
+
 {% from "includes/mspsds-confirmation.html" import confirmation %}
 
 {% if updated == 'image-deleted' %}
-  
+  {{ confirmation("confirmation--image-deleted", "Image \"Image title\" deleted.", "Undo") }}
+  {% set updated = '' %}
 {% endif %}
-
-{{ confirmation("confirmation--image-deleted", "Image \"Image title\" deleted.", "Undo") }}
-
 
 {% if updated == 'product-removed' %}
   {{ confirmation("confirmation--product-removed", "Product \"Product title\" removed from this case.", "Undo") }}
+  {% set updated = '' %}
 {% endif %}
+
+{% if updated == 'assigned' %}
+  {{ confirmation("confirmation--question--assigned", "Case reassigned.") }}
+  {% set updated = '' %}
+{% endif %}
+
 
 
 
@@ -62,7 +69,7 @@
         ],
         [
           { html: '<span class="govuk-caption-m govuk-!-font-size-16">Assigned to</span>' + data['c1-assigned'] },
-          { html: '<a href="./assign-case-1" class="govuk-!-font-size-16">Change</a>' }
+          { html: '<a href="./assign-c1" class="govuk-!-font-size-16">Change</a>' }
         ]
       ]
     }) }}
@@ -70,7 +77,7 @@
 
 </div>
 
-
+<hr class="govuk-section-break govuk-section-break--m" />
 
 <div class="mspsds-overview">
 
@@ -88,7 +95,7 @@
 </div>
 
 
-
+<hr class="govuk-section-break govuk-section-break--l" />
 
 <h2 class="govuk-heading-l">Add new activity</h2>
 {% include "panels/record-action.html" %}
@@ -105,17 +112,10 @@
       }
     },
     {
-      label: "Contacts",
-      id: "contacts",
+      label: "Full detail",
+      id: "full-detail",
       panel: {
-        html: contactsHtml
-      }
-    },
-    {
-      label: "Attachments",
-      id: "attachments",
-      panel: {
-        html: attachmentsHtml
+        html: fullDetailHtml
       }
     },
     {
@@ -133,17 +133,24 @@
       }
     },
     {
+      label: "Contacts",
+      id: "contacts",
+      panel: {
+        html: contactsHtml
+      }
+    },
+    {
+      label: "Attachments",
+      id: "attachments",
+      panel: {
+        html: attachmentsHtml
+      }
+    },
+    {
       label: "Related",
       id: "related",
       panel: {
         html: relatedItemsHtml
-      }
-    },
-    {
-      label: "Full detail",
-      id: "full-detail",
-      panel: {
-        html: fullDetailHtml
       }
     }
   ]
@@ -169,8 +176,6 @@
   <div class="govuk-grid-row">
     {{ contactPanel("Main contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
     {{ contactPanel("Head of Procurement", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
-    {{ contactPanel("Another contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
-    {{ contactPanel("And another", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
   </div>
 
 {% endset -%}
@@ -182,28 +187,49 @@
 {% endset -%}
 
 
+
+
+
 {% set productsHtml %}
-  {% include "tab-sections/products-list.html" %}
+  <h2 class="govuk-heading-l">Products</h2>
+  <a href="#" class="mspsds-block-link">Add a product</a>
+
+  <div class="mspsds-product-list">
+    {% include "panels/product-panel.html" %}
+  </div>
 {% endset -%}
+
+
 
 
 
 {% set businessesHtml %}
-  {% include "tab-sections/businesses-list.html" %}
+  <h2 class="govuk-heading-l">Businesses</h2>
+  <a href="#" class="mspsds-block-link">Add business</a>
+
+  {% from "panels/linked-business-panel.html" import linkedBusinessPanel %}
+
+  <div class="mspsds-business-list">
+    {{ linkedBusinessPanel("Manufacturer") }}
+    {{ linkedBusinessPanel("Importer") }}
+    {{ linkedBusinessPanel("Distributor") }}
+  </div>
+
 {% endset -%}
+
+
 
 
 
 {% set relatedItemsHtml %}
   <h2 class="govuk-heading-l">Linked to this case</h2>
-
   {% include "includes/linked-items.html" %}
 
   <h2 class="govuk-heading-l">Potentially related to this case</h2>
-
   {% include "includes/potential-relationships.html" %}
 
 {% endset -%}
+
 
 
 

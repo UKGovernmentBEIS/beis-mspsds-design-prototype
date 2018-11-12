@@ -90,6 +90,16 @@
               value: "Adebola Showemimo",
               text: "Adebola Showemimo",
               checked: checked("testing-name", "Adebola Showemimo")
+            },
+            {
+              value: "Christopher Hunter",
+              text: "Christopher Hunter",
+              checked: checked("testing-name", "Christopher Hunter")
+            },
+            {
+              value: "Adrian Hanratty",
+              text: "Adrian Hanratty",
+              checked: checked("testing-name", "Adrian Hanratty")
             }
           ]
         }) }}
@@ -132,6 +142,8 @@
 
 
 
+
+
       {% call govukFieldset({
         legend: {
           text:           "Who is Question 1 (slap wraps) assigned to?",
@@ -163,6 +175,16 @@
               value: "Adebola Showemimo",
               text: "Adebola Showemimo",
               checked: checked("q1-assigned", "Adebola Showemimo")
+            },
+            {
+              value: "Christopher Hunter",
+              text: "Christopher Hunter",
+              checked: checked("q1-assigned", "Christopher Hunter")
+            },
+            {
+              value: "Adrian Hanratty",
+              text: "Adrian Hanratty",
+              checked: checked("q1-assigned", "Adrian Hanratty")
             }
           ]
         }) }}
@@ -202,6 +224,115 @@
               value: "Adebola Showemimo",
               text: "Adebola Showemimo",
               checked: checked("q2-assigned", "Adebola Showemimo")
+            },
+            {
+              value: "Christopher Hunter",
+              text: "Christopher Hunter",
+              checked: checked("q2-assigned", "Christopher Hunter")
+            },
+            {
+              value: "Adrian Hanratty",
+              text: "Adrian Hanratty",
+              checked: checked("q2-assigned", "Adrian Hanratty")
+            }
+          ]
+        }) }}
+
+      {% endcall %}
+
+
+
+
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Who is Case 1 (Charge worx) assigned to?",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukRadios({
+          idPrefix:   "c1-assigned",
+          name:       "c1-assigned",
+          items: [
+            {
+              value: "Tim Harwood",
+              text: "Tim Harwood",
+              checked: checked("c1-assigned", "Tim Harwood")
+            },
+            {
+              value: "Nick Golding",
+              text: "Nick Golding",
+              checked: checked("c1-assigned", "Nick Golding")
+            },
+            {
+              value: "Amanda Farrell",
+              text: "Amanda Farrell",
+              checked: checked("c1-assigned", "Amanda Farrell")
+            },
+            {
+              value: "Adebola Showemimo",
+              text: "Adebola Showemimo",
+              checked: checked("c1-assigned", "Adebola Showemimo")
+            },
+            {
+              value: "Christopher Hunter",
+              text: "Christopher Hunter",
+              checked: checked("c1-assigned", "Christopher Hunter")
+            },
+            {
+              value: "Adrian Hanratty",
+              text: "Adrian Hanratty",
+              checked: checked("c1-assigned", "Adrian Hanratty")
+            }
+          ]
+        }) }}
+
+      {% endcall %}
+
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Who is Case 2 (finger puppets) assigned to?",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukRadios({
+          idPrefix:   "c2-assigned",
+          name:       "c2-assigned",
+          items: [
+            {
+              value: "Tim Harwood",
+              text: "Tim Harwood",
+              checked: checked("c2-assigned", "Tim Harwood")
+            },
+            {
+              value: "Nick Golding",
+              text: "Nick Golding",
+              checked: checked("c2-assigned", "Nick Golding")
+            },
+            {
+              value: "Amanda Farrell",
+              text: "Amanda Farrell",
+              checked: checked("c2-assigned", "Amanda Farrell")
+            },
+            {
+              value: "Adebola Showemimo",
+              text: "Adebola Showemimo",
+              checked: checked("c2-assigned", "Adebola Showemimo")
+            },
+            {
+              value: "Christopher Hunter",
+              text: "Christopher Hunter",
+              checked: checked("c2-assigned", "Christopher Hunter")
+            },
+            {
+              value: "Adrian Hanratty",
+              text: "Adrian Hanratty",
+              checked: checked("c2-assigned", "Adrian Hanratty")
             }
           ]
         }) }}

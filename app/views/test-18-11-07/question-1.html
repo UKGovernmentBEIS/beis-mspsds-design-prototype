@@ -67,6 +67,7 @@
   </div>
 </div>
 
+<hr class="govuk-section-break govuk-section-break--m" />
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-third">
@@ -117,17 +118,10 @@
       }
     },
     {
-      label: "Contacts",
-      id: "contacts",
+      label: "Full detail",
+      id: "full-detail",
       panel: {
-        html: contactsHtml
-      }
-    },
-    {
-      label: "Attachments",
-      id: "attachments",
-      panel: {
-        html: attachmentsHtml
+        html: fullDetailHtml
       }
     },
     {
@@ -145,17 +139,24 @@
       }
     },
     {
+      label: "Contacts",
+      id: "contacts",
+      panel: {
+        html: contactsHtml
+      }
+    },
+    {
+      label: "Attachments",
+      id: "attachments",
+      panel: {
+        html: attachmentsHtml
+      }
+    },
+    {
       label: "Related",
       id: "related",
       panel: {
         html: relatedItemsHtml
-      }
-    },
-    {
-      label: "Full detail",
-      id: "full-detail",
-      panel: {
-        html: fullDetailHtml
       }
     }
   ]

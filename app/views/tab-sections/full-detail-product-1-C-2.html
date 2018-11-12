@@ -1,0 +1,49 @@
+{% from "table/macro.njk"         import govukTable %}
+
+<h2 class="govuk-heading-l">Full Detail</h2>
+
+{{ govukTable({
+  firstCellIsHeader: true,
+  rows: [
+    [
+      { text: "Category" },
+      { text: "Toys" }
+    ],
+    [
+      { text: "Type" },
+      { text: "Finger puppets" }
+    ],
+    [
+      { text: "Brand" },
+      { text: "KL Original" }
+    ],
+    [
+      { text: "Name" },
+      { text: "Finger Monkeys" }
+    ],
+    [
+      { text: "Serial / Product number" },
+      { text: "239509348u54" }
+    ],
+    [
+      { text: "Country of origin" },
+      { text: "China" }
+    ],
+    [
+      { text: "Description" },
+      { text: "Battery-operated? plastic and fabric toy camouflage monkey, available in various colours:" }
+    ],
+    [
+      { text: "Link" },
+      { html: "<a target='_blank' href='https://www.amazon.co.uk/Finger-Monkey-interactive-Black/dp/B079G1LJBC'>https://www.amazon.co.uk/Finger-Monkey-interactive-Black/dp/B079G1LJBC</a>" }
+    ],
+    [
+      { text: "Date on the market" },
+      { text: "April 2016" }
+    ]
+  ]
+}) }}
+
+<a href="/product/edit">Edit details</a>
+
+

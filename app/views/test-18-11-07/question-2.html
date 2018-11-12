@@ -62,6 +62,7 @@
   </div>
 </div>
 
+<hr class="govuk-section-break govuk-section-break--m" />
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-third">
@@ -82,15 +83,7 @@
 </div>
 
 
-<div class="mspsds-overview">
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <h2 class="govuk-heading-m" title="Could also be a business, or...?">Product</h2>
-    </div>
-  </div>
-
-</div>
 
 <hr class="govuk-section-break govuk-section-break--m" />
 
@@ -104,17 +97,10 @@
       }
     },
     {
-      label: "Contacts",
-      id: "contacts",
+      label: "Full detail",
+      id: "full-detail",
       panel: {
-        html: contactsHtml
-      }
-    },
-    {
-      label: "Attachments",
-      id: "attachments",
-      panel: {
-        html: attachmentsHtml
+        html: fullDetailHtml
       }
     },
     {
@@ -132,17 +118,24 @@
       }
     },
     {
+      label: "Contacts",
+      id: "contacts",
+      panel: {
+        html: contactsHtml
+      }
+    },
+    {
+      label: "Attachments",
+      id: "attachments",
+      panel: {
+        html: attachmentsHtml
+      }
+    },
+    {
       label: "Related",
       id: "related",
       panel: {
         html: relatedItemsHtml
-      }
-    },
-    {
-      label: "Full detail",
-      id: "full-detail",
-      panel: {
-        html: fullDetailHtml
       }
     }
   ]

@@ -1,0 +1,166 @@
+{% extends "mspsds-layout.html" %}
+
+{% block pageTitle %}
+  Product Page
+{% endblock %}
+
+{% block beforeContent %}
+
+  {{ govukPhaseBanner({
+    tag: {
+      text: "beta"
+    },
+    html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+  }) }}
+
+  {{ govukBackLink({
+    text: "Back to Products",
+    href: "./product-list"
+  }) }}
+
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+  
+    {{ pageTitle({
+      type:       "Product",
+      title:      "Finger Monkeys — KL Original",
+      subTitle:   "Added 10/10/2018"
+    }) }}
+
+
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    {% include "includes/stat-highlight.html" %}
+  </div>
+
+</div>
+
+
+<div class="mspsds-overview">
+  {% include "panels/product-panel__C2-P1.html" %}
+</div>
+
+
+<hr class="govuk-section-break govuk-section-break--m" />
+
+{{ govukTabs({
+  items: [
+    {
+      label: "Activity",
+      id: "activity",
+      panel: {
+        html: activityHtml
+      }
+    },
+    {
+      label: "Full Detail",
+      id: "full-detail",
+      panel: {
+        html: fullDetailHtml
+      }
+    },
+    {
+      label: "Attachments",
+      id: "attachments",
+      panel: {
+        html: attachmentsHtml
+      }
+    },
+    {
+      label: "Businesses",
+      id: "businesses",
+      panel: {
+        html: businessesHtml
+      }
+    },
+
+    {
+      label: "Related",
+      id: "related",
+      panel: {
+        html: relatedItemsHtml
+      }
+    }
+  ]
+}) }}
+
+{% endblock %}
+
+
+
+
+{% set activityHtml %}
+  <h2 class="govuk-heading-l">Activity</h2>
+
+  {% from "includes/activity-timeline.html" import activityTimeline %}
+
+  {{ activityTimeline([
+    {
+      title: "Multiple, Finger puppets, poison hazard",
+      action: "Product added to case",
+      html: '
+        <a href="./case-2" class="mspsds-block-link">View Case details</a>'
+    },{
+      title: "KL Original",
+      action: "Business added",
+      html: '
+        <p class="govuk-body">Role: <span class="govuk-!-font-weight-bold">Manufacturer</span></p>
+        <a href="./business" class="mspsds-block-link">View business details</a>'
+    },
+    {
+      action: "Product created"
+    }
+  ]) }}
+
+{% endset -%}
+
+
+
+
+{% set fullDetailHtml %}
+  {% include "tab-sections/full-detail-product-1-C-2.html" %}
+{% endset -%}
+
+
+
+{% set attachmentsHtml %}
+  <h2 class="govuk-heading-l">Attachments</h2>
+  <a href="#">Add new image</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Add new document</a>
+
+  {% from "includes/attachment-list.html" import attachmentList %}
+
+  {{ attachmentList(1) }}
+
+{% endset -%}
+
+
+
+{% set businessesHtml %}
+  {% include "tab-sections/businesses-list__C2-P1.html" %}
+{% endset -%}
+
+
+
+{% set relatedItemsHtml %}
+
+  <h2 class="govuk-heading-l">Linked to this product</h2>
+  {% include "includes/linked-items.html" %}
+
+  <h2 class="govuk-heading-l">Potentially related to this product</h2>
+  {% include "includes/potential-relationships.html" %}
+
+{% endset -%}
+
+
+
+
+
+
+

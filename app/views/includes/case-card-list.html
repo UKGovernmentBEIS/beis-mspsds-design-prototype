@@ -1,6 +1,6 @@
 {% from "includes/case-card.html"         import caseCard %}
 
-{% macro caseCardList(filters, q1, q2) %}
+{% macro caseCardList(filters, q1, q2, a1, a2) %}
   
 
   {{ caseCard(
@@ -15,7 +15,6 @@
 
       assignee:     'Tim Harwood',
       team:         'Processing',
-      priority:     'High',
       overdue:      'Overdue',
       dateUpdated:  '21/10/2018',
       dateCreated:  '18/10/2018'
@@ -31,7 +30,6 @@
       hazard:   'Electric shock hazard',
 
       assignee:     'Ed Smith-Muller',
-      priority:     'Medium',
       dateUpdated:  '21/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -48,7 +46,6 @@
 
       assignee:     'Tim Harwood',
       team:         'Processing',
-      priority:     'Low',
       dateUpdated:  '21/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -64,7 +61,6 @@
 
       assignee:     'Tim Harwood',
       team:         'Processing',
-      priority:     'High',
       dateUpdated:  '21/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -80,7 +76,6 @@
 
       assignee:     'Nick Golding',
       team:         'Processing',
-      priority:     'High',
       overdue:      'Overdue',
       dateUpdated:  '20/10/2018',
       dateCreated:  '18/10/2018'
@@ -97,7 +92,6 @@
 
       assignee:     'Nick Golding',
       team:         'Processing',
-      priority:     'Medium',
       dateUpdated:  '21/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -113,7 +107,6 @@
 
       assignee:     'Amanda Farrell',
       team:         'TSC',
-      priority:     'Low',
       dateUpdated:  '20/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -128,7 +121,6 @@
       hazard:   'Electric shock hazard',
 
       assignee:     'Ed Smith-Muller',
-      priority:     'Low',
       dateUpdated:  '20/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -144,7 +136,6 @@
 
       assignee:     'Nick Golding',
       team:         'Processing',
-      priority:     'Low',
       overdue:      'Overdue',
       dateUpdated:  '20/10/2018',
       dateCreated:  '18/10/2018'
@@ -162,7 +153,6 @@
 
       assignee:     'Tim Harwood',
       team:         'Processing',
-      priority:     'High',
       dateUpdated:  '20/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -179,7 +169,6 @@
 
       assignee:     'Tim Harwood',
       team:         'Processing',
-      priority:     'Medium',
       dateUpdated:  '19/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -194,7 +183,6 @@
       hazard:   'Damage to sight hazard',
 
       assignee:     'Ed Smith-Muller',
-      priority:     'Low',
       dateUpdated:  '19/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -210,7 +198,6 @@
 
       assignee:     'Nick Golding',
       team:         'Processing',
-      priority:     'Medium',
       overdue:      'Overdue',
       dateUpdated:  '19/10/2018',
       dateCreated:  '18/10/2018'
@@ -218,15 +205,14 @@
 
   {{ caseCard({
       type:   'Case',
-      link:   './case',
+      link:   './case-1',
       status: 'Open',
       id:     '1811-0790',
 
       product:  'Charge Worx, Travel plug adaptor',
       hazard:   'Electric shock, fire hazard',
 
-      assignee:     'Nick Goldingd',
-      priority:     'Low',
+      assignee:     a1,
       dateUpdated:  '19/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -242,22 +228,20 @@
 
       assignee:     'Adebola Showemimo',
       team:         'TSC',
-      priority:     'Low',
       dateUpdated:  '19/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
 
   {{ caseCard({
       type:   'Case',
-      link:   './case',
+      link:   './case-2',
       status: 'Open',
       id:     '1811-0788',
 
-      product:  'Charge Worx, Travel plug adaptor',
-      hazard:   'Electric shock, fire hazard',
+      product:  'Multiple: Finger puppets',
+      hazard:   'Poison hazard',
 
-      assignee:     'Ed Smith-Muller',
-      priority:     'Medium',
+      assignee:     a2,
       dateUpdated:  '19/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -273,7 +257,6 @@
 
       assignee:     'Nick Golding',
       team:         'Processing',
-      priority:     'Low',
       dateUpdated:  '19/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -290,7 +273,6 @@
 
       assignee:     'Adebola Showemimo',
       team:         'TSC',
-      priority:     'Low',
       dateUpdated:  '19/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -307,7 +289,6 @@
 
       assignee:     'Nick Golding',
       team:         'Processing',
-      priority:     'Medium',
       dateUpdated:  '19/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -322,7 +303,6 @@
       hazard:   'Electric shock, fire hazard',
 
       assignee:     'Ed Smith-Muller',
-      priority:     'High',
       dateUpdated:  '18/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -338,7 +318,6 @@
 
       assignee:     'Nick Golding',
       team:         'Processing',
-      priority:     'Low',
       dateUpdated:  '18/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -354,7 +333,6 @@
 
       assignee:     'Nick Golding',
       team:         'Processing',
-      priority:     'High',
       overdue:      'Overdue',
       dateUpdated:  '18/10/2018',
       dateCreated:  '18/10/2018'
@@ -370,7 +348,6 @@
       hazard:   'Electric shock, fire hazard',
 
       assignee:     'Ed Smith-Muller',
-      priority:     'Low',
       dateUpdated:  '18/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -386,7 +363,6 @@
 
       assignee:     'Tim Harwood',
       team:         'Processing',
-      priority:     'Medium',
       dateUpdated:  '18/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -402,7 +378,6 @@
 
       assignee:     'Tim Harwood',
       team:         'Processing',
-      priority:     'High',
       overdue:      'Overdue',
       dateUpdated:  '18/10/2018',
       dateCreated:  '18/10/2018'
@@ -419,7 +394,6 @@
 
       assignee:     'Adebola Showemimo',
       team:         'TSC',
-      priority:     'Medium',
       dateUpdated:  '18/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -436,7 +410,6 @@
 
       assignee:     'Tim Harwood',
       team:         'Processing',
-      priority:     'Low',
       dateUpdated:  '18/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -452,7 +425,6 @@
 
       assignee:     'Tim Harwood',
       team:         'Processing',
-      priority:     'High',
       dateUpdated:  '18/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -468,7 +440,6 @@
 
       assignee:     'Nick Golding',
       team:         'Processing',
-      priority:     'High',
       overdue:      'Overdue',
       dateUpdated:  '18/10/2018',
       dateCreated:  '18/10/2018'
@@ -485,7 +456,6 @@
 
       assignee:     'Nick Golding',
       team:         'Processing',
-      priority:     'Medium',
       dateUpdated:  '18/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -501,7 +471,6 @@
 
       assignee:     'Tim Harwood',
       team:         'Processing',
-      priority:     'High',
       dateUpdated:  '17/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -516,7 +485,6 @@
       hazard:   'Electric shock hazard',
 
       assignee:     'Ed Smith-Muller',
-      priority:     'Low',
       dateUpdated:  '17/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -532,7 +500,6 @@
 
       assignee:     q2,
       team:         'TSC',
-      priority:     'High',
       overdue:      'Overdue',
       dateUpdated:  '17/10/2018',
       dateCreated:  '18/10/2018'
@@ -550,7 +517,6 @@
 
       assignee:     'Tim Harwood',
       team:         'Processing',
-      priority:     'High',
       dateUpdated:  '17/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -567,7 +533,6 @@
 
       assignee:     'Tim Harwood',
       team:         'Processing',
-      priority:     'Medium',
       dateUpdated:  '17/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -582,7 +547,6 @@
       hazard:   'Damage to sight hazard',
 
       assignee:     'Ed Smith-Muller',
-      priority:     'Low',
       dateUpdated:  '17/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -598,7 +562,6 @@
 
       assignee:     'Nick Golding',
       team:         'Processing',
-      priority:     'Medium',
       overdue:      'Overdue',
       dateUpdated:  '17/10/2018',
       dateCreated:  '18/10/2018'
@@ -613,8 +576,7 @@
       product:  'Charge Worx, Travel plug adaptor',
       hazard:   'Electric shock, fire hazard',
 
-      assignee:     'Nick Goldingd',
-      priority:     'Low',
+      assignee:     'Nick Golding',
       dateUpdated:  '17/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -630,7 +592,6 @@
 
       assignee:     'Tim Harwood',
       team:         'Processing',
-      priority:     'High',
       dateUpdated:  '17/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -645,7 +606,6 @@
       hazard:   'Electric shock, fire hazard',
 
       assignee:     'Ed Smith-Muller',
-      priority:     'Medium',
       dateUpdated:  '17/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -661,7 +621,6 @@
 
       assignee:     'Amanda Farrell',
       team:         'TSC',
-      priority:     'Low',
       dateUpdated:  '17/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -677,7 +636,6 @@
       hazard:   'Electric shock, fire hazard',
 
       assignee:     'Ed Smith-Muller',
-      priority:     'Low',
       dateUpdated:  '16/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -694,7 +652,6 @@
 
       assignee:     'Nick Golding',
       team:         'Processing',
-      priority:     'Medium',
       dateUpdated:  '16/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -709,7 +666,6 @@
       hazard:   'Electric shock, fire hazard',
 
       assignee:     'Ed Smith-Muller',
-      priority:     'High',
       dateUpdated:  '16/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -725,7 +681,6 @@
 
       assignee:     'Nick Golding',
       team:         'Processing',
-      priority:     'Low',
       dateUpdated:  '16/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -741,7 +696,6 @@
 
       assignee:     q1,
       team:         'TSC',
-      priority:     'High',
       overdue:      'Overdue',
       dateUpdated:  '16/10/2018',
       dateCreated:  '18/10/2018'
@@ -757,7 +711,6 @@
       hazard:   'Electric shock, fire hazard',
 
       assignee:     'Ed Smith-Muller',
-      priority:     'Low',
       dateUpdated:  '16/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
@@ -773,7 +726,6 @@
 
       assignee:     'Tim Harwood',
       team:         'Processing',
-      priority:     'Medium',
       dateUpdated:  '16/10/2018',
       dateCreated:  '18/10/2018'
   }, filters) }}
