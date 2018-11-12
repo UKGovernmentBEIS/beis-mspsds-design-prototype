@@ -30,7 +30,7 @@
 {% from "includes/mspsds-confirmation.html" import confirmation %}
 
 
-{% if updated == 'true' %}
+{% if updated == 'assigned' %}
   {{ confirmation("confirmation--question--assigned", "Question reassigned.") }}
 {% endif %}
 
