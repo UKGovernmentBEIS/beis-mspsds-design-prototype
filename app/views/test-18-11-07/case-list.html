@@ -58,7 +58,7 @@
 
 
 {% if data['Assignee'] %}
-  {% if 'me' in data['Assignee'] %}
+  {% if 'Me' in data['Assignee'] %}
     {% set assigneeFilters = (assigneeFilters.push( data['testing-name'] ), assigneeFilters) %}
   {% endif %}
 
@@ -112,7 +112,7 @@
 
 
       
-      <form id="case-filters">
+      <form id="case-filters"  method="post">
 
           {% set assigneeHtml %}
           <label for="case-assignee-autocomplete" class="label govuk-label">Name / Team
@@ -136,9 +136,9 @@
           name:       "Assignee",
           items: [
             {
-              value: "me",
+              value: "Me",
               text: "Me",
-              checked: checked("Assignee", "me")
+              checked: checked("Assignee", "Me")
             },
             {
               value: "other",

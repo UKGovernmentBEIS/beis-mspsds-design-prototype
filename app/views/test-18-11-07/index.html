@@ -50,6 +50,9 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
+
+    <form action="./case-list" method="post">
+
       {{ govukTable({
         firstCellIsHeader: true,
         rows: [
@@ -82,12 +85,11 @@
 
 
       {{ govukButton({
-        text: "Continue",
-        href: "./case-list"
+        text: "Continue"
       }) }}
 
       <a class="govuk-link mspsds-block-link" href="./setup">Change setup</a>
-
+    </form>
 
 
 
