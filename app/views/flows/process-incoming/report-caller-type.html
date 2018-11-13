@@ -26,21 +26,7 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-
     <form action="./report-caller-details" method="post" class="form">
-
-      {% set otherReporterHtml %}
-        {{ govukInput({
-          hint: {
-            text:     "Please give details",
-            classes:  "govuk-!-width-two-thirds"
-          },
-          classes:    "govuk-!-width-two-thirds",
-          id:         "other-reporter",
-          name:       "other-reporter"
-        }) }}
-      {% endset -%}
-
       {{ govukRadios({
         idPrefix:   "reporter-type",
         name:       "reporter-type",
@@ -61,17 +47,19 @@
             checked: checked("reporter-type", "Local authority (Trading standards)")
           },
           {
-            value: "Trade body",
-            text: "Trade body",
-            checked: checked("reporter-type", "Trade body")
+            value: "Other government department",
+            text: "Other government department",
+            checked: checked("reporter-type", "Other government department")
           },
           {
-            value: "Other",
-            text: "Other",
-            conditional: {
-              html: otherReporterHtml
-            },
-            checked: checked("reporter-type", "Other")
+            value: "Emergency service",
+            text: "Emergency service",
+            checked: checked("reporter-type", "Emergency service")
+          },
+          {
+            value: "Internal",
+            text: "Internal",
+            checked: checked("reporter-type", "Internal")
           }
         ]
       }) }}
@@ -79,9 +67,7 @@
       {{ govukButton({
         text: "Continue"
       }) }}
-
     </form>
-
   </div>
 </div>
 
