@@ -1,6 +1,11 @@
-{% from "table/macro.njk"         import govukTable %}
+{% from "table/macro.njk"             import govukTable %}
+{% from "includes/tab-title.html"     import tabTitle %}
 
-<h2 class="govuk-heading-l">Full Detail</h2>
+
+{{ tabTitle({
+        title:      'Full details',
+        controls:   '<a href="/product/edit">Edit details</a>'
+}) }}
 
 
 <div class="govuk-grid-row govuk-!-margin-bottom-4">
@@ -53,7 +58,6 @@
       ]
     }) }}
 
-    <a href="#" class="mspsds-block-link">Edit details</a>
   </div>
 
 </div>

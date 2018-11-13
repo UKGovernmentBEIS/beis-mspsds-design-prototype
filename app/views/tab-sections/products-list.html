@@ -1,5 +1,9 @@
-<h2 class="govuk-heading-l">Products</h2>
-<a href="#" class="mspsds-block-link">Add a product</a>
+{% from "includes/tab-title.html"               import tabTitle %}
+
+{{ tabTitle({
+        title:      'Products',
+        controls:   '<a href="#" class="mspsds-block-link">Add a product</a>'
+}) }}
 
 <div class="mspsds-product-list">
   {% include "panels/product-panel.html" %}

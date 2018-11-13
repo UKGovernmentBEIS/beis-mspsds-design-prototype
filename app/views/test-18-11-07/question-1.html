@@ -118,8 +118,8 @@
       }
     },
     {
-      label: "Full detail",
-      id: "full-detail",
+      label: "Full details",
+      id: "full-details",
       panel: {
         html: fullDetailHtml
       }
@@ -167,10 +167,16 @@
 
 
 
-{% set activityHtml %}
-  <h2 class="govuk-heading-l">Activity</h2>
 
-  {% from "includes/activity-timeline.html" import activityTimeline %}
+{% set activityHtml %}
+  {% from "includes/activity-timeline.html"       import activityTimeline %}
+  {% from "includes/tab-title.html"               import tabTitle %}
+
+
+  {{ tabTitle({
+        title:      'Activity'
+  }) }}
+
 
   {{ activityTimeline([
     {
@@ -199,39 +205,57 @@
 
 
 
-{% set contactsHtml %}
-  <h2 class="govuk-heading-l">Contacts</h2>
 
-    {% from "panels/contact-panel.html" import contactPanel %}
-    <div class="govuk-grid-row">
-      {{ contactPanel("Main contact", "Paul Jones", "020 7123 12345", "paul.jones@red-zulu.com") }}
-      {{ contactPanel("Head of Procurement", "Gemma Wilkinson", "", "gemma.wilkinson@red-zulu.com") }}
-    </div>
+
+{% set contactsHtml %}
+  {% from "includes/tab-title.html"       import tabTitle %}
+  {% from "panels/contact-panel.html"     import contactPanel %}
+
+  {{ tabTitle({
+        title:      'Contacts',
+        controls:   '<a href="#" class="mspsds-block-link">Add a contact</a>'
+  }) }}
+    
+  <div class="govuk-grid-row">
+    {{ contactPanel("Main contact", "Paul Jones", "020 7123 12345", "paul.jones@red-zulu.com") }}
+    {{ contactPanel("Head of Procurement", "Gemma Wilkinson", "", "gemma.wilkinson@red-zulu.com") }}
+  </div>
 
 {% endset -%}
 
 
 
-{% set attachmentsHtml %}
-  <h2 class="govuk-heading-l">Attachments</h2>
-  <a href="#">Add new image</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Add new document</a>
 
-  {% from "includes/attachment-list.html" import attachmentList %}
+
+{% set attachmentsHtml %}
+  {% from "includes/attachment-list.html"         import attachmentList %}
+  {% from "includes/tab-title.html"               import tabTitle %}
+
+  {{ tabTitle({
+        title:      'Attachments',
+        controls:   '<a href="#" class="mspsds-block-link">Add new image</a> <a href="#" class="mspsds-block-link">Add new document</a>'
+  }) }}
+
   {{ attachmentList(5) }}
 {% endset -%}
 
 
 
-{% set productsHtml %}
 
-  <h2 class="govuk-heading-l">Products</h2>
-  <a href="#" class="mspsds-block-link">Add a product</a>
+{% set productsHtml %}
+  {% from "includes/tab-title.html"               import tabTitle %}
+
+  {{ tabTitle({
+        title:      'Products',
+        controls:   '<a href="#" class="mspsds-block-link">Add a product</a>'
+  }) }}
 
   <div class="mspsds-product-list">
     {% include "panels/product-panel__Q1.html" %}
   </div>
 
 {% endset -%}
+
 
 
 
@@ -243,16 +267,21 @@
 
 
 
+
 {% set relatedItemsHtml %}
-<h2 class="govuk-heading-l">Linked to this question</h2>
+  <h2 class="govuk-heading-l">Linked to this question</h2>
 
-{% include "includes/linked-items.html" %}
+  {% include "includes/linked-items.html" %}
 
-<h2 class="govuk-heading-l">Potentially related to this question</h2>
+  <h2 class="govuk-heading-l">Potentially related to this question</h2>
 
-{% include "includes/potential-relationships.html" %}
+  {% include "includes/potential-relationships.html" %}
 
 {% endset -%}
+
+
+
+
 
 {% set fullDetailHtml %}
   {% include "tab-sections/full-detail-question.html" %}

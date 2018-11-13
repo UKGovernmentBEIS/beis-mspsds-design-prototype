@@ -7,4 +7,9 @@
     // Align vertically with button text. TODO:Dev would be nice to do this without using magic numbers...
     margin-top: 9px;
   }
+
+
+  img {
+    border:  1px solid govuk-colour("grey-3");
+  }
 }

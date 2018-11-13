@@ -1,76 +1,54 @@
-{% from "table/macro.njk"         import govukTable %}
+{% from "table/macro.njk"             import govukTable %}
+{% from "includes/tab-title.html"     import tabTitle %}
 
-<h2 class="govuk-heading-l">Full detail</h2>
+
+{{ tabTitle({
+        title:      'Full details',
+        controls:   '<a href="/product/edit">Edit details</a>'
+}) }}
+
 
 {{ govukTable({
-  caption: "Business details",
-  captionClasses: "govuk-heading-m",
   firstCellIsHeader: true,
   rows: [
     [
-      {
-        text: "Company number"
-      },
-      {
-        text: "00445790"
-      }
+      { text: "Registered name" },
+      { text: "Tesco PLC"  }
     ],
     [
-      {
-        text: "Company type"
-      },
-      {
-        text: "Public limited company"
-      }
+      { text: "Trading name" },
+      { text: "Tesco"  }
     ],
     [
-      {
-        text: "Registered office address"
-      },
-      {
-        text: "Tesco House, Shire Park, Kestrel Way, Welwyn Garden City, United Kingdom, AL7 1GA"
-      }
+      { text: "Company number" },
+      { text: "00445790"  }
     ],
     [
-      {
-        text: "VAT number"
-      },
-      {
-        text: "GB220430231"
-      }
+      { text: "Company type" },
+      { text: "Public limited company"  }
     ],
     [
-      {
-        text: "Nature of business (SIC)"
-      },
-      {
-        text: "47110 - Retail sale in non-specialised stores with food, beverages or tobacco predominating"
-      }
+      { text: "Registered office address" },
+      { text: "Tesco House, Shire Park, Kestrel Way, Welwyn Garden City, United Kingdom, AL7 1GA"  }
     ],
     [
-      {
-        text: "Primary Authority"
-      },
-      {
-        text: "Hertfordshire County Council"
-      }
+      { text: "VAT number" },
+      { text: "GB220430231"  }
     ],
     [
-      {
-        text: "Additional information"
-      },
-      {
-        text: "Tesco plc, trading as Tesco, is a British multinational groceries and general merchandise retailer with headquarters in Welwyn Garden City, Hertfordshire, England, United Kingdom."
+      { text: "Nature of business (SIC)" },
+      { text: "47110 - Retail sale in non-specialised stores with food, beverages or tobacco predominating"  }
+    ],
+    [
+      { text: "Primary Authority" },
+      { text: "Hertfordshire County Council"  }
+    ],
+    [
+      { text: "Additional information" },
+      { text: "Tesco plc, trading as Tesco, is a British multinational groceries and general merchandise with headquarters in Welwyn Garden City, Hertfordshire, England, United Kingdom."
       }
     ]
   ]
 }) }}
 
-<a href="/product/edit">Edit details</a>
-
 <hr class="govuk-section-break govuk-section-break--m" />
-
-<h3 class="govuk-heading-m">Company history</h3>
-
-{# TODO:Design Define what Company History looks like #}
-<p class="govuk-body">TBD</p>

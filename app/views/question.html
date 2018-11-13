@@ -122,87 +122,122 @@
 
 {% endblock %}
 
+
+
+
+
 {% set activityHtml %}
-<h2 class="govuk-heading-l">Activity</h2>
+  {% from "includes/activity-timeline.html"       import activityTimeline %}
+  {% from "includes/tab-title.html"               import tabTitle %}
 
-{% from "includes/activity-timeline.html" import activityTimeline %}
 
-{{ activityTimeline([
-  {
-    action: "Comment added",
-    html: "I've done some research into <a href='#'>this legislation</a> but it doesn't seem to apply here."
-  },
-  {
-    action: "Product added: Travel plug adaptor — Charge Worx 931L",
-    html: '
-      <p>Role: <span class="govuk-!-font-weight-bold">Distributor</span></p>
-      <details class="govuk-details">
-        <summary class="govuk-details__summary">
-          <span class="govuk-details__summary-text">
-            Product details
-          </span>
-        </summary>
-        <div class="govuk-details__text govuk-body-s">
-          Brand: Charge Worx<br />
-          Model Name: International Travel Adaptor<br />
-          Model number: 931L<br />
-          Description: Universal travel USB plug adaptor with surge protector
-        </div>
-      </details>'
-  },
-  {
-    action: "Question created"
-  }
-]) }}
+  {{ tabTitle({
+        title:      'Activity'
+  }) }}
+
+  {{ activityTimeline([
+    {
+      action: "Comment added",
+      html: "I've done some research into <a href='#'>this legislation</a> but it doesn't seem to apply here."
+    },
+    {
+      action: "Product added: Travel plug adaptor — Charge Worx 931L",
+      html: '
+        <p>Role: <span class="govuk-!-font-weight-bold">Distributor</span></p>
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              Product details
+            </span>
+          </summary>
+          <div class="govuk-details__text govuk-body-s">
+            Brand: Charge Worx<br />
+            Model Name: International Travel Adaptor<br />
+            Model number: 931L<br />
+            Description: Universal travel USB plug adaptor with surge protector
+          </div>
+        </details>'
+    },
+    {
+      action: "Question created"
+    }
+  ]) }}
 
 {% endset -%}
+
+
+
 
 {% set contactsHtml %}
-<h2 class="govuk-heading-l">Contacts</h2>
+  {% from "panels/contact-panel.html"     import contactPanel %}
+  {% from "includes/tab-title.html"       import tabTitle %}
 
-{% from "panels/contact-panel.html" import contactPanel %}
+  {{ tabTitle({
+          title:      'Contacts',
+          controls:   '<a href="/product/edit">Add contact</a>'
+  }) }}
 
-<div class="govuk-grid-row">
-  {{ contactPanel("Main contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
-  {{ contactPanel("Head of Procurement", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
-  {{ contactPanel("Another contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
-  {{ contactPanel("And another", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
-</div>
+  <div class="govuk-grid-row">
+    {{ contactPanel("Main contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
+    {{ contactPanel("Head of Procurement", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
+    {{ contactPanel("Another contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
+    {{ contactPanel("And another", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
+  </div>
 
 {% endset -%}
+
+
+
 
 {% set attachmentsHtml %}
-<h2 class="govuk-heading-l">Attachments</h2>
-<a href="#">Add new image</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Add new document</a>
+  {% from "includes/attachment-list.html"         import attachmentList %}
+  {% from "includes/tab-title.html"               import tabTitle %}
 
-{% from "includes/attachment-list.html" import attachmentList %}
+  {{ tabTitle({
+        title:      'Attachments',
+        controls:   '<a href="#" class="mspsds-block-link">Add new image</a> <a href="#" class="mspsds-block-link">Add new document</a>'
+  }) }}
 
-{{ attachmentList(5) }}
+  {{ attachmentList(5) }}
 
 {% endset -%}
+
+
+
 
 {% set productsHtml %}
-{% include "tab-sections/products-list.html" %}
-
+  {% include "tab-sections/products-list.html" %}
 {% endset -%}
+
+
+
 
 {% set businessesHtml %}
-{% include "tab-sections/businesses-list.html" %}
-
+  {% include "tab-sections/businesses-list.html" %}
 {% endset -%}
+
+
+
+
 
 {% set relatedItemsHtml %}
-<h2 class="govuk-heading-l">Linked to this question</h2>
+  <h2 class="govuk-heading-l">Linked to this question</h2>
 
-{% include "includes/linked-items.html" %}
+  {% include "includes/linked-items.html" %}
 
-<h2 class="govuk-heading-l">Potentially related to this question</h2>
+  <h2 class="govuk-heading-l">Potentially related to this question</h2>
 
-{% include "includes/potential-relationships.html" %}
+  {% include "includes/potential-relationships.html" %}
 
 {% endset -%}
+
+
+
 
 {% set fullDetailHtml %}
-{% include "tab-sections/full-detail-question.html" %}
-
+  {% include "tab-sections/full-detail-question.html" %}
 {% endset -%}
+
+
+
+

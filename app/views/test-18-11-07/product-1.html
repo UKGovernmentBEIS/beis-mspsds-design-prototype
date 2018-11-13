@@ -60,17 +60,10 @@
       }
     },
     {
-      label: "Full Detail",
-      id: "full-detail",
+      label: "Full Details",
+      id: "full-details",
       panel: {
         html: fullDetailHtml
-      }
-    },
-    {
-      label: "Attachments",
-      id: "attachments",
-      panel: {
-        html: attachmentsHtml
       }
     },
     {
@@ -80,7 +73,13 @@
         html: businessesHtml
       }
     },
-
+    {
+      label: "Attachments",
+      id: "attachments",
+      panel: {
+        html: attachmentsHtml
+      }
+    },
     {
       label: "Related",
       id: "related",
@@ -96,10 +95,16 @@
 
 
 
-{% set activityHtml %}
-  <h2 class="govuk-heading-l">Activity</h2>
 
-  {% from "includes/activity-timeline.html" import activityTimeline %}
+
+{% set activityHtml %}
+  {% from "includes/activity-timeline.html"       import activityTimeline %}
+  {% from "includes/tab-title.html"               import tabTitle %}
+
+
+  {{ tabTitle({
+        title:      'Activity'
+  }) }}
 
   {{ activityTimeline([
       {
@@ -128,15 +133,21 @@
 
 
 
+
+
 {% set attachmentsHtml %}
-  <h2 class="govuk-heading-l">Attachments</h2>
-  <a href="#">Add new image</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Add new document</a>
+  {% from "includes/attachment-list.html"         import attachmentList %}
+  {% from "includes/tab-title.html"               import tabTitle %}
 
-  {% from "includes/attachment-list.html" import attachmentList %}
+  {{ tabTitle({
+        title:      'Attachments',
+        controls:   '<a href="#" class="mspsds-block-link">Add new image</a> <a href="#" class="mspsds-block-link">Add new document</a>'
+  }) }}
 
-  {{ attachmentList(5) }}
+  {{ attachmentList(4) }}
 
 {% endset -%}
+
 
 
 
@@ -144,11 +155,6 @@
   {% include "tab-sections/businesses-list.html" %}
 {% endset -%}
 
-
-
-{% set legislationHtml %}
-  <h2 class="govuk-heading-l">Legislation</h2>
-{% endset -%}
 
 
 

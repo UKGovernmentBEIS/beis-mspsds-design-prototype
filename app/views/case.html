@@ -23,12 +23,37 @@
 
 {% block content %}
 
-{% from "includes/case-status.html" import caseStatus %}
+
+
+
+
 
 {% from "includes/mspsds-confirmation.html" import confirmation %}
 
-{{ confirmation("confirmation--image-deleted", "Image \"Image title\" deleted.", "Undo") }}
-{{ confirmation("confirmation--product-removed", "Product \"Product title\" removed from this case.", "Undo") }}
+{% if updated == 'image-added' %}
+  {{ confirmation("confirmation--image-added", "Image \"Image title\" added.", "Undo") }}
+  {% set updated = '' %}
+{% endif %}
+
+{% if updated == 'image-deleted' %}
+  {{ confirmation("confirmation--image-deleted", "Image \"Image title\" deleted.", "Undo") }}
+  {% set updated = '' %}
+{% endif %}
+
+{% if updated == 'product-removed' %}
+  {{ confirmation("confirmation--product-removed", "Product \"Product title\" removed from this case.", "Undo") }}
+  {% set updated = '' %}
+{% endif %}
+
+{% if updated == 'assigned' %}
+  {{ confirmation("confirmation--question--assigned", "Case reassigned.") }}
+  {% set updated = '' %}
+{% endif %}
+
+
+
+
+
 
 <div class="govuk-grid-row">
 
@@ -40,6 +65,7 @@
   </div>
 
   <div class="govuk-grid-column-one-third">
+    {% from "includes/case-status.html" import caseStatus %}
     {{ caseStatus("Open","Nick Golding","High") }}
   </div>
 
@@ -77,10 +103,10 @@
       }
     },
     {
-      label: "Attachments",
-      id: "attachments",
+      label: "Full details",
+      id: "full-details",
       panel: {
-        html: attachmentsHtml
+        html: fullDetailHtml
       }
     },
     {
@@ -98,10 +124,10 @@
       }
     },
     {
-      label: "Full detail",
-      id: "full-detail",
+      label: "Attachments",
+      id: "attachments",
       panel: {
-        html: fullDetailHtml
+        html: attachmentsHtml
       }
     }
   ]
@@ -109,27 +135,33 @@
 
 {% endblock %}
 
-{% set activityHtml %}
-{% include "tab-sections/activity.html" %}
 
+{% set activityHtml %}
+  {% include "tab-sections/activity.html" %}
 {% endset -%}
+
+
 
 {% set attachmentsHtml %}
-{% include "tab-sections/attachments.html" %}
-
+  {% include "tab-sections/attachments.html" %}
 {% endset -%}
+
+
 
 {% set productsHtml %}
-{% include "tab-sections/products-list.html" %}
-
+  {% include "tab-sections/products-list.html" %}
 {% endset -%}
+
+
 
 {% set businessesHtml %}
-{% include "tab-sections/businesses-list.html" %}
-
+  {% include "tab-sections/businesses-list.html" %}
 {% endset -%}
+
+
 
 {% set fullDetailHtml %}
-{% include "tab-sections/full-detail-case.html" %}
-
+  {% include "tab-sections/full-detail-case.html" %}
 {% endset -%}
+
+

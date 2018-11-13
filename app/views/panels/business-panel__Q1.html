@@ -5,31 +5,32 @@
     <img src="/public/images/redzulu.gif" title="Business identifying image - logo? premises photo?" />
   </div>
   <div class="govuk-grid-column-two-thirds">
+
     {{ govukTable({
       firstCellIsHeader: true,
       rows: [
         [
           {
+            text: "Registered name"
+          },
+          {
+            text: "Red Zulu Ltd"
+          }
+        ],
+        [
+          {
+            text: "Trading name"
+          },
+          {
+            text: "Red Zulu"
+          }
+        ],
+        [
+          {
             text: "Company number"
           },
           {
-            text: "05086107"
-          }
-        ],
-        [
-          {
-            text: "Company type"
-          },
-          {
-            text: "Private limited Company"
-          }
-        ],
-        [
-          {
-            text: "Nature of business (SIC)"
-          },
-          {
-            text: "82990 - Other business support service activities not elsewhere classified"
+            text: "00445790"
           }
         ],
         [
@@ -42,5 +43,6 @@
         ]
       ]
     }) }}
+    
   </div>
 </div>

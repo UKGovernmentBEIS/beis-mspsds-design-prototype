@@ -55,17 +55,17 @@
       }
     },
     {
+      label: "Full details",
+      id: "full-detail",
+      panel: {
+        html: fullDetailHtml
+      }
+    },
+    {
       label: "Contact details",
       id: "contacts",
       panel: {
         html: contactsHtml
-      }
-    },
-    {
-      label: "Attachments",
-      id: "attachments",
-      panel: {
-        html: attachmentsHtml
       }
     },
     {
@@ -76,17 +76,17 @@
       }
     },
     {
+      label: "Attachments",
+      id: "attachments",
+      panel: {
+        html: attachmentsHtml
+      }
+    },
+    {
       label: "Related",
       id: "related",
       panel: {
         html: relatedItemsHtml
-      }
-    },
-    {
-      label: "Full detail",
-      id: "full-detail",
-      panel: {
-        html: fullDetailHtml
       }
     }
   ]
@@ -94,10 +94,17 @@
 
 {% endblock %}
 
-{% set activityHtml %}
-<h2 class="govuk-heading-l">Activity</h2>
 
-{% from "includes/activity-timeline.html" import activityTimeline %}
+
+
+{% set activityHtml %}
+  {% from "includes/activity-timeline.html"       import activityTimeline %}
+  {% from "includes/tab-title.html"               import tabTitle %}
+
+
+  {{ tabTitle({
+        title:      'Activity'
+  }) }}
 
 {{ activityTimeline([
   {
@@ -119,33 +126,47 @@
 
 {% endset -%}
 
+
+
 {% set contactsHtml %}
   {% include "tab-sections/contact-details__Q1.html" %}
 {% endset -%}
 
 
-{% set attachmentsHtml %}
-  <h2 class="govuk-heading-l">Attachments</h2>
-  <a href="#">Add new image</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Add new document</a>
 
-  {% from "includes/attachment-list.html" import attachmentList %}
+
+{% set attachmentsHtml %}
+  {% from "includes/attachment-list.html"         import attachmentList %}
+  {% from "includes/tab-title.html"               import tabTitle %}
+
+  {{ tabTitle({
+        title:      'Attachments',
+        controls:   '<a href="#" class="mspsds-block-link">Add new image</a> <a href="#" class="mspsds-block-link">Add new document</a>'
+  }) }}
 
   {{ attachmentList(5) }}
+
 {% endset -%}
 
 
 
 
-{% set productsHtml %}
 
-  <h2 class="govuk-heading-l">Products</h2>
-  <a href="#" class="mspsds-block-link">Add a product</a>
+{% set productsHtml %}
+  {% from "includes/tab-title.html"               import tabTitle %}
+
+  {{ tabTitle({
+          title:      'Products',
+          controls:   '<a href="#" class="mspsds-block-link">Add a product</a>'
+  }) }}
 
   <div class="mspsds-product-list">
     {% include "panels/product-panel__Q1.html" %}
   </div>
 
 {% endset -%}
+
+
 
 
 {% set relatedItemsHtml %}
@@ -161,6 +182,10 @@
 
 
 
+
+
 {% set fullDetailHtml %}
   {% include "tab-sections/full-detail-business.html" %}
 {% endset -%}
+
+

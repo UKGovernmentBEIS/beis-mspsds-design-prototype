@@ -93,72 +93,87 @@
 
 {% endblock %}
 
+
+
+
+
 {% set activityHtml %}
-<h2 class="govuk-heading-l">Activity</h2>
+  {% from "includes/activity-timeline.html"       import activityTimeline %}
+  {% from "includes/tab-title.html"               import tabTitle %}
 
-{% from "includes/activity-timeline.html" import activityTimeline %}
 
-{{ activityTimeline([
-  {
-    action: "Comment added",
-    text: "Definitely something dubious about this product"
-  },
-  {
-    action: "Business added: Tesco PLC",
-    html: '
-      <p>Role: <span class="govuk-!-font-weight-bold">Distributor</span></p>
-      <details class="govuk-details">
-        <summary class="govuk-details__summary">
-          <span class="govuk-details__summary-text">
-            Business details
-          </span>
-        </summary>
-        <div class="govuk-details__text govuk-body-s">
-          <span class="govuk-!-font-weight-bold">Tesco PLC</span><br/>
-          Trading as: Tesco<br/>
-          Company number: 00445790
-        </div>
-      </details>'
-  },
-  {
-    action: "Product created"
-  }
-]) }}
+  {{ tabTitle({
+        title:      'Activity'
+  }) }}
+  
+
+  {{ activityTimeline([
+    {
+      action: "Comment added",
+      text: "Definitely something dubious about this product"
+    },
+    {
+      action: "Business added: Tesco PLC",
+      html: '
+        <p>Role: <span class="govuk-!-font-weight-bold">Distributor</span></p>
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              Business details
+            </span>
+          </summary>
+          <div class="govuk-details__text govuk-body-s">
+            <span class="govuk-!-font-weight-bold">Tesco PLC</span><br/>
+            Trading as: Tesco<br/>
+            Company number: 00445790
+          </div>
+        </details>'
+    },
+    {
+      action: "Product created"
+    }
+  ]) }}
 
 {% endset -%}
+
+
+
 
 {% set attachmentsHtml %}
-<h2 class="govuk-heading-l">Attachments</h2>
-<a href="#">Add new image</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Add new document</a>
+  {% from "includes/attachment-list.html"         import attachmentList %}
+  {% from "includes/tab-title.html"               import tabTitle %}
 
-{% from "includes/attachment-list.html" import attachmentList %}
+  {{ tabTitle({
+        title:      'Attachments',
+        controls:   '<a href="#" class="mspsds-block-link">Add new image</a> <a href="#" class="mspsds-block-link">Add new document</a>'
+  }) }}
 
-{{ attachmentList(5) }}
+  {{ attachmentList(5) }}
 
 {% endset -%}
+
+
+
 
 {% set businessesHtml %}
-{% include "tab-sections/businesses-list.html" %}
-
+  {% include "tab-sections/businesses-list.html" %}
 {% endset -%}
 
-{% set legislationHtml %}
-<h2 class="govuk-heading-l">Legislation</h2>
 
-{% endset -%}
+
+
 
 {% set relatedItemsHtml %}
-<h2 class="govuk-heading-l">Linked to this product</h2>
+  <h2 class="govuk-heading-l">Linked to this product</h2>
+  {% include "includes/linked-items.html" %}
 
-{% include "includes/linked-items.html" %}
-
-<h2 class="govuk-heading-l">Potentially related to this product</h2>
-
-{% include "includes/potential-relationships.html" %}
+  <h2 class="govuk-heading-l">Potentially related to this product</h2>
+  {% include "includes/potential-relationships.html" %}
 
 {% endset -%}
 
-{% set fullDetailHtml %}
-{% include "tab-sections/full-detail-product.html" %}
 
+
+{% set fullDetailHtml %}
+  {% include "tab-sections/full-detail-product.html" %}
 {% endset -%}

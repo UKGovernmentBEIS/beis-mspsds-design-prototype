@@ -64,10 +64,10 @@
       }
     },
     {
-      label: "Attachments",
-      id: "attachments",
+      label: "Full details",
+      id: "full-details",
       panel: {
-        html: attachmentsHtml
+        html: fullDetailHtml
       }
     },
     {
@@ -85,10 +85,10 @@
       }
     },
     {
-      label: "Full detail",
-      id: "full-detail",
+      label: "Attachments",
+      id: "attachments",
       panel: {
-        html: fullDetailHtml
+        html: attachmentsHtml
       }
     }
   ]
@@ -96,43 +96,61 @@
 
 {% endblock %}
 
+
+
+
 {% set activityHtml %}
-<h2 class="govuk-heading-l">Activity history</h2>
+  {% from "includes/activity-timeline.html"       import activityTimeline %}
+  {% from "includes/tab-title.html"               import tabTitle %}
 
-{% from "includes/activity-timeline.html" import activityTimeline %}
 
-{{ activityTimeline([
-  {
-    title: "Question logged",
-    action: "",
-    html: '
-      <p class="govuk-body">
-        Source type: <span class="govuk-!-font-weight-bold">Trading Standards</span><br />
-        Name: <span class="govuk-!-font-weight-bold">Diana Ross</span><br />
-        Phone number: <span class="govuk-!-font-weight-bold">07123 123123</span><br />
-        Email address: <span class="govuk-!-font-weight-bold">diana@mo.town</span>
-      </p>
-      <p class="govuk-body">Other reporter details captured during the report entry</p>'
-  }
-]) }}
+  {{ tabTitle({
+        title:      'Activity'
+  }) }}
+
+  {{ activityTimeline([
+    {
+      title: "Question logged",
+      action: "",
+      html: '
+        <p class="govuk-body">
+          Source type: <span class="govuk-!-font-weight-bold">Trading Standards</span><br />
+          Name: <span class="govuk-!-font-weight-bold">Diana Ross</span><br />
+          Phone number: <span class="govuk-!-font-weight-bold">07123 123123</span><br />
+          Email address: <span class="govuk-!-font-weight-bold">diana@mo.town</span>
+        </p>
+        <p class="govuk-body">Other reporter details captured during the report entry</p>'
+    }
+  ]) }}
 {% endset -%}
+
+
+
 
 {% set attachmentsHtml %}
-{% include "tab-sections/attachments.html" %}
-
+  {% include "tab-sections/attachments.html" %}
 {% endset -%}
+
+
+
 
 {% set productsHtml %}
-{% include "tab-sections/products-list.html" %}
-
+  {% include "tab-sections/products-list.html" %}
 {% endset -%}
+
+
+
 
 {% set businessesHtml %}
-{% include "tab-sections/businesses-list.html" %}
-
+  {% include "tab-sections/businesses-list.html" %}
 {% endset -%}
+
+
+
 
 {% set fullDetailHtml %}
-{% include "tab-sections/full-detail-case.html" %}
-
+  {% include "tab-sections/full-detail-case.html" %}
 {% endset -%}
+
+
+

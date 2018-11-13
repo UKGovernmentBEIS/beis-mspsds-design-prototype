@@ -30,10 +30,10 @@
   <div class="govuk-grid-column-two-thirds">
     {{ pageTitle({
       type:       "Case: 1810-0001",
-      title:      "Untitled case",
-      subTitle:   "Created by Tim Harwood, 10/10/2018"
+      title:      "Untitled case"
     }) }}
   </div>
+
   <div class="govuk-grid-column-one-third">
     {% from "includes/case-status.html" import caseStatus %}
     {{ caseStatus("Open", "Tim Harwood", "Not set") }}
@@ -66,10 +66,10 @@
       }
     },
     {
-      label: "Attachments",
-      id: "attachments",
+      label: "Full details",
+      id: "full-details",
       panel: {
-        html: attachmentsHtml
+        html: fullDetailHtml
       }
     },
     {
@@ -87,10 +87,10 @@
       }
     },
     {
-      label: "Full detail",
-      id: "full-detail",
+      label: "Attachments",
+      id: "attachments",
       panel: {
-        html: fullDetailHtml
+        html: attachmentsHtml
       }
     }
   ]
@@ -101,9 +101,14 @@
 
 
 {% set activityHtml %}
-  <h2 class="govuk-heading-l">Activity</h2>
+  {% from "includes/activity-timeline.html"       import activityTimeline %}
+  {% from "includes/tab-title.html"               import tabTitle %}
 
-  {% from "includes/activity-timeline.html" import activityTimeline %}
+
+  {{ tabTitle({
+        title:      'Activity'
+  }) }}
+  
 
   {{ activityTimeline([
     {
@@ -127,17 +132,27 @@
 
 
 
+
 {% set attachmentsHtml %}
-  <h2 class="govuk-heading-l">Attachments</h2>
-  <a href="#">Add new image</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Add new document</a>
   {% from "includes/attachment-list.html" import attachmentList %}
-  {{ attachmentList(5) }}
+  {% from "includes/tab-title.html"               import tabTitle %}
+
+  {{ tabTitle({
+        title:      'Attachments',
+        controls:   '<a href="#" class="mspsds-block-link">Add new image</a> <a href="#" class="mspsds-block-link">Add new document</a>'
+  }) }}
+
+
+  {{ attachmentList(0) }}
+
 {% endset -%}
+
 
 
 {% set productsHtml %}
   {% include "tab-sections/products-list.html" %}
 {% endset -%}
+
 
 
 {% set businessesHtml %}

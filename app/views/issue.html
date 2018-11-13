@@ -42,11 +42,7 @@
     <p><a href="/case/risk/edit">Edit risk details</a></p>
   </div>
 
-  <div class="govuk-grid-column-one-quarter">
-    <h2 class="govuk-heading-m govuk-!-font-weight-regular">Priority</h2>
-    <p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold">High</p>
-    <p><a href="/case/risk/edit">Edit priority</a></p>
-  </div>
+
   <div class="govuk-grid-column-one-quarter">
     <h2 class="govuk-heading-m govuk-!-font-weight-regular">Sensitivity</h2>
     <p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold">Medium</p>
@@ -99,61 +95,84 @@
 
 {% endblock %}
 
+
+
+
+
+
 {% set activityHtml %}
-<h2 class="govuk-heading-l">Activity</h2>
+  <h2 class="govuk-heading-l">Activity</h2>
+  {% from "includes/activity-timeline.html"       import activityTimeline %}
+  {% from "includes/tab-title.html"               import tabTitle %}
 
-{% from "includes/activity-timeline.html" import activityTimeline %}
 
-{{ activityTimeline([
-  {
-    action: "Comment added",
-    text: "Have flagged as priority due to consumer injuries and potential risks of the product"
-  },
-  {
-    action: "Business added: Tesco PLC",
-    html: '
-      <p>Role: <span class="govuk-!-font-weight-bold">Distributor</span></p>
-      <details class="govuk-details">
-        <summary class="govuk-details__summary">
-          <span class="govuk-details__summary-text">
-            Business details
-          </span>
-        </summary>
-        <div class="govuk-details__text govuk-body-s">
-          <span class="govuk-!-font-weight-bold">Tesco PLC</span><br/>
-          Trading as: Tesco<br/>
-          Company number: 00445790
-        </div>
-      </details>'
-  },
-  {
-    action: "Issue created"
-  }
-]) }}
+  {{ tabTitle({
+        title:      'Activity'
+  }) }}
+
+  {{ activityTimeline([
+    {
+      action: "Comment added",
+      text: "Have flagged as priority due to consumer injuries and potential risks of the product"
+    },
+    {
+      action: "Business added: Tesco PLC",
+      html: '
+        <p>Role: <span class="govuk-!-font-weight-bold">Distributor</span></p>
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              Business details
+            </span>
+          </summary>
+          <div class="govuk-details__text govuk-body-s">
+            <span class="govuk-!-font-weight-bold">Tesco PLC</span><br/>
+            Trading as: Tesco<br/>
+            Company number: 00445790
+          </div>
+        </details>'
+    },
+    {
+      action: "Issue created"
+    }
+  ]) }}
 
 {% endset -%}
+
+
 
 {% set attachmentsHtml %}
-<h2 class="govuk-heading-l">Attachments</h2>
-<a href="#">Add new image</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Add new document</a>
+  {% from "includes/attachment-list.html"         import attachmentList %}
+  {% from "includes/tab-title.html"               import tabTitle %}
 
-{% from "includes/attachment-list.html" import attachmentList %}
+  {{ tabTitle({
+        title:      'Attachments',
+        controls:   '<a href="#" class="mspsds-block-link">Add new image</a> <a href="#" class="mspsds-block-link">Add new document</a>'
+  }) }}
 
-{{ attachmentList(5) }}
+  {{ attachmentList(5) }}
 
 {% endset -%}
+
+
 
 {% set productsHtml %}
-{% include "tab-sections/products-list.html" %}
-
+  {% include "tab-sections/products-list.html" %}
 {% endset -%}
+
+
 
 {% set businessesHtml %}
-{% include "tab-sections/businesses-list.html" %}
-
+  {% include "tab-sections/businesses-list.html" %}
 {% endset -%}
+
+
 
 {% set fullDetailHtml %}
-{% include "tab-sections/full-detail-issue.html" %}
-
+  {% include "tab-sections/full-detail-issue.html" %}
 {% endset -%}
+
+
+
+
+

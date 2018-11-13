@@ -1,6 +1,12 @@
-{% from "table/macro.njk"         import govukTable %}
+{% from "table/macro.njk"             import govukTable %}
+{% from "includes/tab-title.html"     import tabTitle %}
 
-<h2 class="govuk-heading-l">Full Detail</h2>
+
+{{ tabTitle({
+        title:      'Full details',
+        controls:   '<a href="/product/edit">Edit details</a>'
+}) }}
+
 
 
 <div class="govuk-grid-row govuk-!-margin-bottom-4">
@@ -9,51 +15,31 @@
     <h3 class="govuk-heading-m">Report</h3>
 
     {{ govukTable({
-      firstCellIsHeader: true,      rows: [
+      firstCellIsHeader: true,      
+      rows: [
         [
-          {
-            text: "Date"
-          },
-          {
-            html: "10/12/2018"
-          }
+          { text: "Date" },
+          { html: "10/12/2018" }
         ],
         [
-          {
-            text: "Reporter"
-          },
-          {
-            html: "Consumer <br><a href='#'>View details</a>"
-          }
+          { text: "Reporter" },
+          { html: "Consumer <br><a href='#'>View details</a>" }
         ],
         [
-          {
-            text: "Correspondence"
-          },
-          {
-            html: "Original email attached  <br> <a href='#'>View details</a>"
-          }
+          { text: "Correspondence" },
+          { html: "Original email attached  <br> <a href='#'>View details</a>" }
         ],
         [
-          {
-            text: "Previous steps taken"
-          },
-          {
-            html: "Manufacturer contacted on 21 July 2018 by phone. <br> Local authority contacted on 21 July 2018 by phone."
-          }
+          { text: "Previous steps taken" },
+          { html: "Manufacturer contacted on 21 July 2018 by phone. <br> Local authority contacted on 21 uly 2018 by phone." }
         ],
         [
-          {
-            text: "Additional notes"
-          },
-          {
-            text: "They have made their Local authority aware."
-          }
+          {text: "Additional note" },
+          {text: "Their Local authority aware." }
         ]
       ]
     }) }}
 
-    <a href="#" class="mspsds-block-link">Edit details</a>
   </div>
 
 </div>

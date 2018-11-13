@@ -1,0 +1,64 @@
+{% from "panels/business-address-panel.html"    import businessAddress %}
+{% from "panels/contact-panel.html"             import contactPanel %}
+
+{% from "table/macro.njk"     import govukTable %}
+{% from "button/macro.njk"    import govukButton %}
+
+{% from "includes/tab-title.html"               import tabTitle %}
+
+
+{% macro contactSection(data) %}
+    
+    {{ tabTitle({
+            title:      'Addresses',
+            controls:   '<a href="/product/edit">Add address</a>'
+    }) }}
+
+
+    {% if data.locations %}
+
+        {% set locationRows = [] %}
+
+        {% for location in data.locations %}
+
+          {% set locationRows = ( locationRows.push([
+            {text: location.title},
+            {text: location.street},
+            {text: location.city},
+            {text: location.postcode}
+          ]), locationRows ) %}
+
+        {% endfor %}
+      
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds">
+            {{ govukTable({
+              firstCellIsHeader: true,
+              rows: locationRows
+            }) }}
+          </div>
+        </div>
+
+    {% endif %}
+
+
+    <hr class="govuk-section-break govuk-section-break--l" />
+
+
+    {{ tabTitle({
+            title:      'Contacts',
+            controls:   '<a href="/product/edit">Add contact</a>'
+    }) }}
+
+    {% if data.contacts %}
+
+        <div class="govuk-grid-row">
+          {{ contactPanel("Main contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
+          {{ contactPanel("Head of Procurement", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
+        </div>
+
+    {% endif %}
+
+
+
+{% endmacro %}

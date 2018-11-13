@@ -112,8 +112,8 @@
       }
     },
     {
-      label: "Full detail",
-      id: "full-detail",
+      label: "Full details",
+      id: "full-details",
       panel: {
         html: fullDetailHtml
       }
@@ -169,9 +169,12 @@
 
 {% set contactsHtml %}
   {% from "panels/contact-panel.html" import contactPanel %}
+  {% from "includes/tab-title.html"       import tabTitle %}
 
-  <h2 class="govuk-heading-l">Contacts</h2>
-  <a href="#" class="mspsds-block-link">Add a contact</a>
+  {{ tabTitle({
+        title:      'Contacts',
+        controls:   '<a href="#" class="mspsds-block-link">Add a contact</a>'
+  }) }}
 
   <div class="govuk-grid-row">
     {{ contactPanel("Main contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
@@ -191,8 +194,12 @@
 
 
 {% set productsHtml %}
-  <h2 class="govuk-heading-l">Products</h2>
-  <a href="#" class="mspsds-block-link">Add a product</a>
+  {% from "includes/tab-title.html"               import tabTitle %}
+
+  {{ tabTitle({
+          title:      'Products',
+          controls:   '<a href="#" class="mspsds-block-link">Add a product</a>'
+  }) }}
 
   <div class="mspsds-product-list">
     {% include "panels/product-panel.html" %}

@@ -1,0 +1,9 @@
+{% macro tabTitle(titleData) %}
+    <div class="mspsds-tab__title govuk-!-margin-bottom-6">
+        <h2 class="govuk-heading-l govuk-!-margin-bottom-1">{{titleData.title}}</h2>
+        
+        {% if titleData.controls %}
+            {{titleData.controls | safe}}
+        {% endif %}
+    </div>
+{% endmacro %}

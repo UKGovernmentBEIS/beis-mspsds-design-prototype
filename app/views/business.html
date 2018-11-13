@@ -55,17 +55,17 @@
       }
     },
     {
+      label: "Full details",
+      id: "full-detail",
+      panel: {
+        html: fullDetailHtml
+      }
+    },
+    {
       label: "Contact details",
       id: "contacts",
       panel: {
         html: contactsHtml
-      }
-    },
-    {
-      label: "Attachments",
-      id: "attachments",
-      panel: {
-        html: attachmentsHtml
       }
     },
     {
@@ -76,17 +76,17 @@
       }
     },
     {
+      label: "Attachments",
+      id: "attachments",
+      panel: {
+        html: attachmentsHtml
+      }
+    },
+    {
       label: "Related",
       id: "related",
       panel: {
         html: relatedItemsHtml
-      }
-    },
-    {
-      label: "Full detail",
-      id: "full-detail",
-      panel: {
-        html: fullDetailHtml
       }
     }
   ]
@@ -94,69 +94,117 @@
 
 {% endblock %}
 
+
+
 {% set activityHtml %}
-<h2 class="govuk-heading-l">Activity</h2>
+  {% from "includes/tab-title.html"             import tabTitle %}
+  {% from "includes/activity-timeline.html"     import activityTimeline %}
 
-{% from "includes/activity-timeline.html" import activityTimeline %}
 
-{{ activityTimeline([
-  {
-    action: "Product added: Travel plug adaptor — Charge Worx 931L",
-    html: '
-      <p>Role: <span class="govuk-!-font-weight-bold">Distributor</span></p>
-      <details class="govuk-details">
-        <summary class="govuk-details__summary">
-          <span class="govuk-details__summary-text">
-            Product details
-          </span>
-        </summary>
-        <div class="govuk-details__text govuk-body-s">
-          Brand: Charge Worx<br />
-          Model Name: International Travel Adaptor<br />
-          Model number: 931L<br />
-          Description: Universal travel USB plug adaptor with surge protector
-        </div>
-      </details>'
-  },
-  {
-    action: "Business created"
-  }
-]) }}
+  {{ tabTitle({
+        title:      'Activity'
+  }) }}
+
+
+  {{ activityTimeline([
+    {
+      action: "Product added: Travel plug adaptor — Charge Worx 931L",
+      html: '
+        <p>Role: <span class="govuk-!-font-weight-bold">Distributor</span></p>
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              Product details
+            </span>
+          </summary>
+          <div class="govuk-details__text govuk-body-s">
+            Brand: Charge Worx<br />
+            Model Name: International Travel Adaptor<br />
+            Model number: 931L<br />
+            Description: Universal travel USB plug adaptor with surge protector
+          </div>
+        </details>'
+    },
+    {
+      action: "Business created"
+    }
+  ]) }}
 
 {% endset -%}
+
+
 
 {% set contactsHtml %}
-{% include "tab-sections/contact-details.html" %}
+  {% from "tab-sections/contact-section.html" import contactSection %}
+  {{ contactSection({
+    locations: [
+      {
+        title:    'Main site',
+        street:   '48 Bush Road',
+        city:     'London',
+        postcode: 'N1 1XQ'
+      },
+      {
+        title:    'Secondary site',
+        street:   '47 Bush Road',
+        city:     'London',
+        postcode: 'N1 2XQ'
+      },
+      {
+        title:    '',
+        street:   '49 Bush Road',
+        city:     'London',
+        postcode: 'N1 3XQ'
+      },
+      {
+        title:    'Registered address',
+        street:   '50 Bush Road',
+        city:     'London',
+        postcode: 'N1 4XQ'
+      }
+    ],
+    contacts: {
 
+    }
+  }) }}
 {% endset -%}
+
+
+
 
 {% set attachmentsHtml %}
-<h2 class="govuk-heading-l">Attachments</h2>
-<a href="#">Add new image</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Add new document</a>
+  {% from "includes/tab-title.html"             import tabTitle %}
+  {% from "includes/attachment-list.html"       import attachmentList %}
 
-{% from "includes/attachment-list.html" import attachmentList %}
+  {{ tabTitle({
+        title:      'Attachments',
+        controls:   '<a href="#" class="mspsds-block-link">Add new image</a> <a href="#" class="mspsds-block-link">Add new document</a>'
+  }) }}
 
-{{ attachmentList(5) }}
+  {{ attachmentList(5) }}
 
 {% endset -%}
+
+
 
 {% set productsHtml %}
-{% include "tab-sections/products-list-business.html" %}
-
+  {% include "tab-sections/products-list-business.html" %}
 {% endset -%}
+
+
 
 {% set relatedItemsHtml %}
-<h2 class="govuk-heading-l">Linked to this business</h2>
+  <h2 class="govuk-heading-l">Linked to this business</h2>
+  {% include "includes/linked-items.html" %}
 
-{% include "includes/linked-items.html" %}
-
-<h2 class="govuk-heading-l">Potentially related to this business</h2>
-
-{% include "includes/potential-relationships.html" %}
-
+  <h2 class="govuk-heading-l">Potentially related to this business</h2>
+  {% include "includes/potential-relationships.html" %}
 {% endset -%}
+
+
 
 {% set fullDetailHtml %}
-{% include "tab-sections/full-detail-business.html" %}
-
+  {% include "tab-sections/full-detail-business.html" %}
 {% endset -%}
+
+

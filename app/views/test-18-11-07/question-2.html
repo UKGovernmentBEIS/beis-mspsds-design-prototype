@@ -97,8 +97,8 @@
       }
     },
     {
-      label: "Full detail",
-      id: "full-detail",
+      label: "Full details",
+      id: "full-details",
       panel: {
         html: fullDetailHtml
       }
@@ -143,46 +143,83 @@
 
 {% endblock %}
 
+
+
+
 {% set activityHtml %}
-<h2 class="govuk-heading-l">Activity</h2>
+  {% from "includes/activity-timeline.html"       import activityTimeline %}
+  {% from "includes/tab-title.html"               import tabTitle %}
 
-{% from "includes/activity-timeline.html" import activityTimeline %}
 
-{{ activityTimeline([
-  {
-    action: "Question created"
-  }
-]) }}
+  {{ tabTitle({
+        title:      'Activity'
+  }) }}
+
+
+  {{ activityTimeline([
+    {
+      action: "Question created"
+    }
+  ]) }}
 
 {% endset -%}
+
+
 
 
 
 {% set contactsHtml %}
-  <h2 class="govuk-heading-l">Contacts</h2>
-  <a href="#" class="mspsds-block-link">Add a contact</a>
+  {% from "includes/tab-title.html"               import tabTitle %}
+
+  {{ tabTitle({
+        title:      'Contacts',
+        controls:   '<a href="#" class="mspsds-block-link">Add a contact</a>'
+  }) }}
+
 {% endset -%}
+
+
 
 
 
 {% set attachmentsHtml %}
-  <h2 class="govuk-heading-l">Attachments</h2>
-  <a href="#">Add new image</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Add new document</a>
+  {% from "includes/tab-title.html"               import tabTitle %}
+
+  {{ tabTitle({
+        title:      'Attachments',
+        controls:   '<a href="#" class="mspsds-block-link">Add new image</a> <a href="#" class="mspsds-block-link">Add new document</a>'
+  }) }}
+
 {% endset -%}
+
+
+
 
 
 
 {% set productsHtml %}
-  <h2 class="govuk-heading-l">Products</h2>
-  <a href="#" class="mspsds-block-link">Add a product</a>
+  {% from "includes/tab-title.html"               import tabTitle %}
+
+  {{ tabTitle({
+        title:      'Products',
+        controls:   '<a href="#" class="mspsds-block-link">Add a product</a>'
+  }) }}
 {% endset -%}
+
+
 
 
 
 {% set businessesHtml %}
-  <h2 class="govuk-heading-l">Businesses</h2>
-  <a href="#" class="mspsds-block-link">Add a business</a>
+  {% from "includes/tab-title.html"               import tabTitle %}
+
+  {{ tabTitle({
+        title:      'Businesses',
+        controls:   '<a href="#" class="mspsds-block-link">Add a business</a>'
+  }) }}
 {% endset -%}
+
+
 
 
 
@@ -192,48 +229,52 @@
 
 
 
+
+
 {% set fullDetailHtml %}
-  {% from "table/macro.njk"         import govukTable %}
+    {% from "table/macro.njk"         import govukTable %}
+    {% from "includes/tab-title.html"     import tabTitle %}
 
-  <h2 class="govuk-heading-l">Full Detail</h2>
+
+    {{ tabTitle({
+            title:      'Full details',
+            controls:   '<a href="/product/edit">Edit details</a>'
+    }) }}
 
 
-  <div class="govuk-grid-row govuk-!-margin-bottom-4">
+    <div class="govuk-grid-row govuk-!-margin-bottom-4">
 
-    <div class="govuk-grid-column-full">
-      <h3 class="govuk-heading-m">Question</h3>
+      <div class="govuk-grid-column-full">
 
-      {{ govukTable({
-        firstCellIsHeader: true,
-        rows: [
-          [
-            { text: "Created by" },
-            { html: "Tim Harwood" }
-          ],
-          [
-            { text: "Date" },
-            { html: "10/10/2018" }
-          ],
-          [
-            { text: "Question asked by" },
-            { html: "Trading Standards <br><a href='#'>View details</a>" }
-          ],
-          [
-            { text: "Correspondence" },
-            { html: "Original email attached  <br> <a href='#'>View details</a>" }
-          ],
-          [
-            { text: "Question type" },
-            { html: "Legislation" }
+        {{ govukTable({
+          firstCellIsHeader: true,
+          rows: [
+            [
+              { text: "Created by" },
+              { html: "Tim Harwood" }
+            ],
+            [
+              { text: "Date" },
+              { html: "10/10/2018" }
+            ],
+            [
+              { text: "Question asked by" },
+              { html: "Trading Standards <br><a href='#'>View details</a>" }
+            ],
+            [
+              { text: "Correspondence" },
+              { html: "Original email attached  <br> <a href='#'>View details</a>" }
+            ],
+            [
+              { text: "Question type" },
+              { html: "Legislation" }
+            ]
           ]
-        ]
-      }) }}
+        }) }}
 
-      <a href="#" class="mspsds-block-link">Edit details</a>
+      </div>
+
     </div>
-
-  </div>
-
 
 {% endset -%}
 

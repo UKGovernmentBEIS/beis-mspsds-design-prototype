@@ -96,10 +96,16 @@
 
 
 
-{% set activityHtml %}
-  <h2 class="govuk-heading-l">Activity</h2>
 
-  {% from "includes/activity-timeline.html" import activityTimeline %}
+
+{% set activityHtml %}
+  {% from "includes/activity-timeline.html"       import activityTimeline %}
+  {% from "includes/tab-title.html"               import tabTitle %}
+
+
+  {{ tabTitle({
+        title:      'Activity'
+  }) }}
 
   {{ activityTimeline([
     {
@@ -124,27 +130,38 @@
 
 
 
+
+
 {% set fullDetailHtml %}
   {% include "tab-sections/full-detail-product-2-C-2.html" %}
 {% endset -%}
 
 
 
+
+
 {% set attachmentsHtml %}
-  <h2 class="govuk-heading-l">Attachments</h2>
-  <a href="#">Add new image</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Add new document</a>
+  {% from "includes/attachment-list.html"         import attachmentList %}
+  {% from "includes/tab-title.html"               import tabTitle %}
 
-  {% from "includes/attachment-list.html" import attachmentList %}
+  {{ tabTitle({
+        title:      'Attachments',
+        controls:   '<a href="#" class="mspsds-block-link">Add new image</a> <a href="#" class="mspsds-block-link">Add new document</a>'
+  }) }}
 
-  {{ attachmentList(1) }}
+  {{ attachmentList(2) }}
 
 {% endset -%}
+
+
 
 
 
 {% set businessesHtml %}
   {% include "tab-sections/businesses-list__C2-P2.html" %}
 {% endset -%}
+
+
 
 
 

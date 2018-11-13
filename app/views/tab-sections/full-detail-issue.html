@@ -1,6 +1,13 @@
-{% from "table/macro.njk"         import govukTable %}
+{% from "table/macro.njk"             import govukTable %}
+{% from "includes/tab-title.html"     import tabTitle %}
 
-<h2 class="govuk-heading-l">Full Detail</h2>
+
+{{ tabTitle({
+        title:      'Full details',
+        controls:   '<a href="/product/edit">Edit details</a>'
+}) }}
+
+
 
 {{ govukTable({
   firstCellIsHeader: true,
@@ -72,4 +79,3 @@
   ]
 }) }}
 
-<a href="/product/edit">Edit details</a>
