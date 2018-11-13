@@ -40,83 +40,36 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <form action="/case__new-question" method="post" class="form">
-      {% call govukFieldset({
-        legend: {
-          text:           "Please indicate a priority",
-          isPageHeading:  false,
-          classes:        "govuk-fieldset__legend--l"
-        }
-      }) %}
-        {{ govukRadios({
-          idPrefix:   "priority-level",
-          name:       "priority-level",
-          hint: {
-            text: "This will help the next team schedule work on this report"
+      {{ govukRadios({
+        idPrefix:   "assignee",
+        name:       "assignee",
+        fieldset: {
+          legend: {
+            text:     "Teams",
+            classes:  "govuk-fieldset__legend--s"
+          }
+        },
+        items: [
+          {
+            value:  "Team - Trading Standards Co-ordination",
+            text:   "Team - Trading Standards Co-ordination"
           },
-          items: [
-            {
-              value:  "Low",
-              text:   "Low",
-              checked: checked("priority-level", "Low")
-            },
-            {
-              value:  "Medium",
-              text:   "Medium",
-              checked: checked("priority-level", "Medium")
-            },
-            {
-              value:  "High",
-              text:   "High",
-              checked: checked("priority-level", "High")
-            }
-          ]
-        }) }}
-        {{ govukTextarea({
-          label: {
-            text: "Why are you setting it to this level?"
+          {
+            value:  "Team - Incident Management Unit",
+            text:   "Team - Incident Management Unit"
           },
-          id:   "priority-description",
-          name: "priority-description"
-        }) }}
-      {% endcall %}
-      {% call govukFieldset({
-        legend: {
-          text:           "Assignee",
-          isPageHeading:  false,
-          classes:        "govuk-fieldset__legend--l"
-        }
-      }) %}
-        {{ govukRadios({
-          idPrefix:   "assignee",
-          name:       "assignee",
-          fieldset: {
-            legend: {
-              text:     "Teams",
-              classes:  "govuk-fieldset__legend--s"
-            }
+          {
+            divider: "or"
           },
-          items: [
-            {
-              value:  "Team - Trading Standards Co-ordination",
-              text:   "Team - Trading Standards Co-ordination"
-            },
-            {
-              value:  "Team - Incident Management Unit",
-              text:   "Team - Incident Management Unit"
-            },
-            {
-              divider: "or"
-            },
-            {
-              value: "Other",
-              text: "Other",
-              conditional: {
-                html: otherAssigneeHtml
-              }
+          {
+            value: "Other",
+            text: "Other",
+            conditional: {
+              html: otherAssigneeHtml
             }
-          ]
-        }) }}
-      {% endcall %}
+          }
+        ]
+      }) }}
 
       {{ govukButton({
         text: "Assign"
