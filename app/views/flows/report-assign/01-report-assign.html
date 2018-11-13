@@ -1,5 +1,6 @@
 {% extends "mspsds-layout.html" %}
 {% from "input/macro.njk" import govukInput %}
+{% from "textarea/macro.njk" import govukTextarea %}
 
 {% block pageTitle %}
   Assign report
@@ -69,6 +70,13 @@
             }
           }
         ]
+      }) }}
+
+      {{ govukTextarea({
+        name: "assignment-rationale",
+        label: {
+          text: "Enter a reason for this assignment, or other comment, if desired"
+        }
       }) }}
 
       {{ govukButton({
