@@ -9,6 +9,10 @@ $govuk-global-styles: true;
 @import "patterns/task-list";
 @import "patterns/related-items";
 
+
+// Copied from: https://govuk-prototype-kit.herokuapp.com/public/stylesheets/patterns/_step-by-step-navigation.scss
+@import "patterns/step-by-step-navigation";
+
 // Components that aren't in Frontend
 @import "components/cookie-banner";
 

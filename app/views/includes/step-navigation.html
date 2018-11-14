@@ -1,0 +1,47 @@
+
+
+{% macro stepNavigation(steps) %}
+
+    <div id="step-by-step-navigation" class="app-step-nav  app-step-nav--active" >
+        <ol class="app-step-nav__steps">
+
+            {% for step in steps %}
+
+                {% set stepClass = 'app-step-nav__step' %}
+                {% if step.active %}
+                    {% set stepClass = stepClass + ' app-step-nav__step--active' %}
+                {% endif %}
+
+                <li class="{{stepClass}}">
+                    <div class="app-step-nav__header" data-position="{{loop.index}}">
+                        <h3 class="app-step-nav__title">
+
+                            <span class="app-step-nav__circle app-step-nav__circle--number">
+                                <span class="app-step-nav__circle-inner">
+                                    <span class="app-step-nav__circle-background">
+                                        <span class="app-step-nav__circle-step-label govuk-visually-hidden">Step</span> {{loop.index}}
+                                        <span class="app-step-nav__circle-step-colon govuk-visually-hidden" aria-hidden="true">:</span>
+                                    </span>
+                                </span>
+                            </span>
+
+                            <span class="js-step-title">
+                                <span class="js-step-title-text">{{step.title}}</span>
+                            </span>
+
+                        </h3>
+                    </div>
+
+                    <div class="app-step-nav__panel">
+                        <p class="app-step-nav__paragraph">{{step.description}}</p>
+                    </div>
+
+                </li>   
+
+            {% endfor %}
+
+        </ol>
+    </div>
+
+{% endmacro %}
+
