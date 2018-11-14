@@ -15,19 +15,19 @@
         },
         html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
     }) }}
-  
+
     {{ siteNavV3([
-      { 
+      {
         label: 'Home',
         link: './',
         classes: 'active'
-      }, { 
+      }, {
         label: 'Cases',
         link: './case-list'
-      }, { 
+      }, {
         label: 'Products',
         link: './product-list'
-      }, { 
+      }, {
         label: 'Businesses',
         link: './business-list'
       }
@@ -80,10 +80,6 @@
           [
             { text: "Case 2 assigned to" },
             { text: data['c2-assigned'] }
-          ],
-          [
-            { text: "Create flow" },
-            { text: data['create-url'] }
           ]
         ]
       }) }}

@@ -20,23 +20,23 @@
         },
         html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
     }) }}
-  
+
     {{ siteNavV3([
-      { 
+      {
         label: 'Home',
         link: './',
         classes: 'active'
-      }, { 
+      }, {
         label: 'Cases',
         link: './case-list'
-      }, { 
+      }, {
         label: 'Products',
         link: './product-list'
-      }, { 
+      }, {
         label: 'Businesses',
         link: './business-list'
       }
-    ], data['create-url'] ) }}
+    ], "/flows/process-incoming/report-origin-type" ) }}
 
 {% endblock %}
 
@@ -67,7 +67,7 @@
   {% if 'other' in data['Assignee'] %}
     {% if data['case-assignee-autocomplete'] %}
       {% set someoneElse = data['case-assignee-autocomplete'] %}
-      
+
       {% set assigneeFilters = (assigneeFilters.push( data['case-assignee-autocomplete'] ), assigneeFilters) %}
     {% endif %}
   {% endif %}
@@ -97,7 +97,7 @@
 
   <div class="govuk-grid-row">
 
-    
+
     <div class="govuk-grid-column-one-quarter govuk-!-margin-bottom-2 mspsds-case-control mspsds-case-filter-controls">
 
 
@@ -113,7 +113,7 @@
       <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
 
-      
+
       <form id="case-filters"  method="post">
 
           {% set assigneeHtml %}
@@ -196,7 +196,7 @@
           idPrefix:   "Sort",
           name:       "Sort",
           items: [
-            
+
             {
               value: "latest",
               text: "Updated: recent",
@@ -215,7 +215,7 @@
 
           ]
         }) }}
-          
+
 
         {{ govukButton({
           text: "Apply filters"
@@ -246,13 +246,13 @@
         name: id,
         showNoOptionsFound: false,
         defaultValue: '{{someoneElse}}',
-        showAllValues: true, 
+        showAllValues: true,
         dropdownArrow: () => '',
         source: assignees
       });
     </script>
 
-      
+
 
 
     </div>
