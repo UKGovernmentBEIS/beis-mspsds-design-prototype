@@ -243,7 +243,8 @@ Confirm report details
 
   <div class="govuk-grid-column-one-third">
     {% from "./includes/step-flow-map.html" import stepFlowMap %}
-    {{ stepFlowMap(data.new["issue-type"], 5 if data.new["issue-type"]=="Product safety allegation" else 3) }}
+    {% set isEmail = (data.new["origin-type"]=="Email") %}
+    {{ stepFlowMap(data.new["issue-type"], isEmail, 0) }}
   </div>
 </div>
 

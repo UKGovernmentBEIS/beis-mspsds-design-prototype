@@ -77,7 +77,8 @@
 
   <div class="govuk-grid-column-one-third">
     {% from "./includes/step-flow-map.html" import stepFlowMap %}
-    {{ stepFlowMap(data.new["issue-type"], 1) }}
+    {% set isEmail = (data.new["origin-type"]=="Email") %}
+    {{ stepFlowMap(data.new["issue-type"], isEmail, 1) }}
   </div>
 </div>
 
