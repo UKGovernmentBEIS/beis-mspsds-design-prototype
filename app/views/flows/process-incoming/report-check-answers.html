@@ -64,32 +64,118 @@ Confirm report details
           ]
         }) }}
       {% endcall %}
-      {% call govukFieldset({
-        legend: {
-          text:           "Issue details",
-          isPageHeading:  false,
-          classes:        "govuk-fieldset__legend--l"
-        }
-      }) %}
-        {{ govukTable({
-          firstCellIsHeader: true,
-          rows: [
-            [
-              { text: "Issue type" },
-              { text: "Enquiry" }
-            ],
-            [
-              { text: "Question summary" },
-              { text: "What legislation applies to this travel adaptor?" }
-            ],
-            [
-              { text: "Question in full" },
-              { text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi?" }
+      {% if data.new["issue-type"] == "Enquiry" %}
+        {% call govukFieldset({
+          legend: {
+            text:           "Enquiry details",
+            isPageHeading:  false,
+            classes:        "govuk-fieldset__legend--l"
+          }
+        }) %}
+          {{ govukTable({
+            firstCellIsHeader: true,
+            rows: [
+              [
+                { text: "Summary" },
+                { text: "What legislation applies to this travel adaptor?" }
+              ],
+              [
+                { text: "Enquiry in full" },
+                { text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi?" }
+              ]
             ]
-          ]
-        }) }}
-      {% endcall %}
-
+          }) }}
+        {% endcall %}
+      {% else %}
+        {% call govukFieldset({
+          legend: {
+            text:           "Incident details",
+            isPageHeading:  false,
+            classes:        "govuk-fieldset__legend--l"
+          }
+        }) %}
+          {{ govukTable({
+            firstCellIsHeader: true,
+            rows: [
+              [
+                { text: "Details" },
+                { text: data['allegation-incident-detail'] }
+              ],
+              [
+                { text: "Evidence" },
+                { text: data['allegation-incident-photo'] }
+              ],
+              [
+                { html: "<a href='#'>Edit</a>" },
+                { text: "" }
+              ]
+            ]
+          }) }}
+        {% endcall %}
+        {% call govukFieldset({
+          legend: {
+            text:           "Product details",
+            isPageHeading:  false,
+            classes:        "govuk-fieldset__legend--l"
+          }
+        }) %}
+          {{ govukTable({
+            firstCellIsHeader: true,
+            rows: [
+              [
+                { text: "Barcode" },
+                { text: data['allegation-product-barcode'] }
+              ],
+              [
+                { text: "Link" },
+                { text: data['allegation-product-url'] }
+              ],
+              [
+                { text: "Type" },
+                { text: data['allegation-product-type'] }
+              ],
+              [
+                { text: "Name" },
+                { text: data['allegation-product-name'] }
+              ],
+              [
+                { text: "Description" },
+                { text: data['allegation-product-description'] }
+              ],
+              [
+                { html: "<a href='#'>Edit</a>" },
+                { text: "" }
+              ]
+            ]
+          }) }}
+        {% endcall %}
+        {% call govukFieldset({
+          legend: {
+            text:           "Business details",
+            isPageHeading:  false,
+            classes:        "govuk-fieldset__legend--l"
+          }
+        }) %}
+          {{ govukTable({
+            firstCellIsHeader: true,
+            classes:  "govuk-!-margin-bottom-5",
+            rows: [
+              [
+                { text: "Details" },
+                { text: data['allegation-business-detail'] }
+              ],
+              [
+                { text: "Evidence" },
+                { text: data['allegation-business-photo'] }
+              ],
+              [
+                { html: "<a href='#'>Edit</a>" },
+                { text: "" }
+              ]
+            ]
+          }) }}
+        {% endcall %}
+      {% endif %}
       {% if data.new["origin-type"] == "Email" %}
         {% call govukFieldset({
           legend: {
@@ -133,7 +219,6 @@ Confirm report details
           }
         }) }}
       {% endcall %}
-
       {% call govukFieldset({
         legend: {
           text:       "Any extra photos / documents?",
