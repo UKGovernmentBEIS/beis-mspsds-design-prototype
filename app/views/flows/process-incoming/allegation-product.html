@@ -184,35 +184,8 @@
   </div>
 
   <div class="govuk-grid-column-one-third">
-
-    {% from "includes/step-navigation.html"         import stepNavigation %}
-
-    {{ stepNavigation([
-      {
-        title: 'Reporter details',
-        description: 'Record details of the person who contacted the office'
-      },
-      {
-        title: 'Incident details',
-        description: 'Record any specific event that happened'
-      },
-      {
-        title: 'Product information',
-        active: 'true',
-        description: 'Record anything you can about products involved'
-      },
-      {
-        title: 'Business information',
-        description: 'Record anything you can about any businessed involved'
-      },
-      {
-        title: 'Other information',
-        description: 'Add any extra details, and summarise'
-      }
-
-    ])  }}
-
-
+    {% from "./includes/step-flow-map.html" import stepFlowMap %}
+    {{ stepFlowMap(data.new["issue-type"], 3) }}
   </div>
 
 </div>

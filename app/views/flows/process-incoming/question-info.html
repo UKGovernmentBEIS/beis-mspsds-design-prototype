@@ -67,22 +67,8 @@
   </div>
 
   <div class="govuk-grid-column-one-third">
-    {% from "includes/step-navigation.html" import stepNavigation %}
-    {{ stepNavigation([
-      {
-        title: 'Reporter details',
-        description: 'Record details of the person who contacted the office'
-      },
-      {
-        title: 'Enquiry details',
-        active: 'true',
-        description: 'Record and summarise the question being asked'
-      },
-      {
-        title: 'Other information',
-        description: 'Add any extra details, and summarise'
-      }
-    ]) }}
+    {% from "./includes/step-flow-map.html" import stepFlowMap %}
+    {{ stepFlowMap(data.new["issue-type"], 2) }}
   </div>
 </div>
 

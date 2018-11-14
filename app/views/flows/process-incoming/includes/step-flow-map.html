@@ -1,0 +1,53 @@
+{% macro stepFlowMap(issueType, activeStep) %}
+{% from "includes/step-navigation.html" import stepNavigation %}
+{% if (issueType == "Product safety allegation") %}
+{% set steps = [
+  {
+    title: 'Reporter details',
+    active: activeStep == 1,
+    description: 'Record details of the person who contacted the office'
+  },
+  {
+    title: 'Incident details',
+    active: activeStep == 2,
+    description: 'Record any specific event that happened'
+  },
+  {
+    title: 'Product information',
+    active: activeStep == 3,
+    description: 'Record anything you can about products involved'
+  },
+  {
+    title: 'Business information',
+    active: activeStep == 4,
+    description: 'Record anything you can about any businessed involved'
+  },
+  {
+    title: 'Other information',
+    active: activeStep == 5,
+    description: 'Add any extra details, and summarise'
+  }
+] %}
+{% else %}
+{% set steps = [
+  {
+    title: 'Reporter details',
+    active: activeStep == 1,
+    description: 'Record details of the person who contacted the office'
+  },
+  {
+    title: 'Enquiry details',
+    active: activeStep == 2,
+    description: 'Record any specific event that happened'
+  },
+  {
+    title: 'Other information',
+    active: activeStep == 3,
+    description: 'Add any extra details, and summarise'
+  }
+] %}
+{% endif %}
+
+{{ stepNavigation(steps) }}
+
+{% endmacro %}

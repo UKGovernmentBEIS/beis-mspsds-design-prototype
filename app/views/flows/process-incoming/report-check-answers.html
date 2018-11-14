@@ -154,22 +154,8 @@ Confirm report details
   </div>
 
   <div class="govuk-grid-column-one-third">
-    {% from "includes/step-navigation.html" import stepNavigation %}
-    {{ stepNavigation([
-      {
-        title: 'Reporter details',
-        description: 'Record details of the person who contacted the office'
-      },
-      {
-        title: 'Enquiry details',
-        description: 'Record and summarise the question being asked'
-      },
-      {
-        title: 'Other information',
-        active: 'true',
-        description: 'Add any extra details, and summarise'
-      }
-    ]) }}
+    {% from "./includes/step-flow-map.html" import stepFlowMap %}
+    {{ stepFlowMap(data.new["issue-type"], 5 if data.new["issue-type"]=="Product safety allegation" else 3) }}
   </div>
 </div>
 
