@@ -8,13 +8,13 @@ module.exports = router
 
 // Process incoming report flow endpoints
 router.post('/flows/process-incoming/report-info-endpoint', function(req, res) {
-  let endpoint = req.session.data.new['issue-type']
-  switch (endpoint) {
+  let type = req.session.data.new['issue-type']
+  switch (type) {
     case 'Enquiry':
       res.redirect('/flows/process-incoming/question-info')
       break;
     case 'Product safety allegation':
-        res.redirect('/flows/process-incoming/allegation-info')
+        res.redirect('/flows/process-incoming/allegation-incident')
         break;
     case 'Product recall notification':
         res.redirect('/flows/process-incoming/recall-info')
@@ -23,6 +23,19 @@ router.post('/flows/process-incoming/report-info-endpoint', function(req, res) {
         res.redirect('/flows/process-incoming/rapex')
         break;
     default:
-      res.redirect(endpoint)
+      res.redirect(type)
+  }
+})
+
+router.post('/flows/process-incoming/save', function(req, res) {
+  let type = req.session.data.new['issue-type']
+  switch (type) {
+    case 'Enquiry':
+      res.redirect('/case__new-question')
+      break;
+    case 'Product safety allegation':
+        res.redirect('/case__new')
+        break;
+      res.redirect(type)
   }
 })
