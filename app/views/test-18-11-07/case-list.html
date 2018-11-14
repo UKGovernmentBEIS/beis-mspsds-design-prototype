@@ -10,6 +10,8 @@
   Case-list Page
 {% endblock %}
 
+
+
 {% block beforeContent %}
 
     {{ govukPhaseBanner({
@@ -22,11 +24,11 @@
     {{ siteNavV3([
       { 
         label: 'Home',
-        link: './'
+        link: './',
+        classes: 'active'
       }, { 
         label: 'Cases',
-        link: './case-list',
-        classes: 'active'
+        link: './case-list'
       }, { 
         label: 'Products',
         link: './product-list'
@@ -34,7 +36,7 @@
         label: 'Businesses',
         link: './business-list'
       }
-    ]) }}
+    ], data['create-url'] ) }}
 
 {% endblock %}
 

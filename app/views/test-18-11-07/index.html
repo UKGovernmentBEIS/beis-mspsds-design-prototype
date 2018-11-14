@@ -31,9 +31,10 @@
         label: 'Businesses',
         link: './business-list'
       }
-    ]) }}
+    ], data['create-url'] ) }}
 
 {% endblock %}
+
 
 
 {% block content %}
@@ -79,6 +80,10 @@
           [
             { text: "Case 2 assigned to" },
             { text: data['c2-assigned'] }
+          ],
+          [
+            { text: "Create flow" },
+            { text: data['create-url'] }
           ]
         ]
       }) }}

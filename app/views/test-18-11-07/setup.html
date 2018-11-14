@@ -15,23 +15,6 @@
         },
         html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
     }) }}
-  
-    {{ siteNavV3([
-      { 
-        label: 'Home',
-        link: './',
-        classes: 'active'
-      }, { 
-        label: 'Cases',
-        link: './case-list'
-      }, { 
-        label: 'Products',
-        link: './product-list'
-      }, { 
-        label: 'Businesses',
-        link: './business-list'
-      }
-    ]) }}
 
 {% endblock %}
 
@@ -53,9 +36,9 @@
     
     <form action="./index" method="post" class="form">
 
-      <input type="hidden" name="Assignee" value="Me">
-      <input type="hidden" name="Status" value="Open">
-      <input type="hidden" name="Sort" value="latest">
+      <input type="hidden" name="Assignee"  value="Me">
+      <input type="hidden" name="Status"    value="Open">
+      <input type="hidden" name="Sort"      value="latest">
 
 
 
@@ -335,6 +318,26 @@
               checked: checked("c2-assigned", "Adrian Hanratty")
             }
           ]
+        }) }}
+
+      {% endcall %}
+
+
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Create new – flow start",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukInput({
+          label: {
+            text: "URL (from /)"
+          },
+          id: "create-url",
+          name: "create-url"
         }) }}
 
       {% endcall %}

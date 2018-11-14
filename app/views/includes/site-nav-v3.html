@@ -1,7 +1,7 @@
 {% from "button/macro.njk"        import govukButton %}
 
 
-{% macro siteNavV3(navList) %}
+{% macro siteNavV3(navList, createLink) %}
 
   <nav id="nav">
 
@@ -19,10 +19,16 @@
         
       </ul>
 
-      <div class="creation">
+      {% if createLink %}
+        {% set create = createLink %}
+      {% else %}
+        {% set create = '#' %}
+      {% endif %}
+
+      <div class="creation" data-create="{{create}}">
         {{ govukButton({
           text: "Create new",
-          href: "#",
+          href: create,
           classes: "govuk-button--start"
         }) }}
       </div>
