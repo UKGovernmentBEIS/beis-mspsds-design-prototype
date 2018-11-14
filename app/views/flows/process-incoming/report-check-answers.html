@@ -20,6 +20,13 @@ Confirm report details
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <form action="/case__new-question" method="post" class="form">
+      {# Doesn't get displayed, but sets an id on the model #}
+      {{ govukInput({
+        id:   "issue-id",
+        name: "new[id]",
+        value: "1801-3032",
+        type: "hidden"
+      }) }}
       {% call govukFieldset({
         legend: {
           text:           "Reporter details",

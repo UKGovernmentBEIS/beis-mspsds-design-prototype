@@ -1,16 +1,3 @@
-{% set question = { 
-  id: "1811-0758",
-  title: "What legislation applies to this travel adaptor?", 
-  description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua? Aliqua???",
-  author: "Tim Harwood",
-  created_at: "10/10/2018",
-  reporter: {
-    name: "Diana Ross",
-    email: "diana@mo.town",
-    type: "Trading Standards",
-    phoneNumber: "07123 123123",
-    otherDetails: "Other reporter details captured during the report entry"
-  }
-}%}
+{% set question = data.new %}
 
 {% extends "./question__skeleton.html" %}
