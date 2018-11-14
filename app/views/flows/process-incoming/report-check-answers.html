@@ -1,0 +1,90 @@
+{% extends "mspsds-layout.html" %}
+
+{% block pageTitle %}
+Confirm report details
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back to case",
+  href: "/case__empty"
+}) }}
+{% endblock %}
+
+{% block content %}
+{{ pageTitle({
+  type:   "Process an incoming report",
+  title:  "Confirm report details"
+}) }}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="/case__new-question" method="post" class="form">
+
+      {{ govukTable({
+        firstCellIsHeader: true,
+        rows: [
+          [
+            { text: "Type" },
+            { text: "Email" }
+          ],
+          [
+            { text: "Reporter type" },
+            { text: "Consumer" }
+          ],
+          [
+            { text: "Reporter name" },
+            { text: "Jeff Bridges" }
+          ],
+          [
+            { text: "Reporter phone number" },
+            { text: "07123 123123" }
+          ],
+          [
+            { text: "Reporter email address" },
+            { text: "jeff.bridges@bowling.lane" }
+          ],
+          [
+            { text: "Other contact information" },
+            { text: "Lincolnshire Trading Standards" }
+          ],
+          [
+            { text: "Issue type" },
+            { text: "Enquiry" }
+          ],
+          [
+            { text: "Question summary" },
+            { text: "What legislation applies to this travel adaptor?" }
+          ],
+          [
+            { text: "Question in full" },
+            { text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi?" }
+          ],
+          [
+            { text: "Email subject" },
+            { text: "Legislation question" }
+          ],
+          [
+            { text: "Email body" },
+            { html: "Hi,<br /><br />Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br /><br />Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br /><br />Thanks, Jeff" }
+          ],
+          [
+            { text: "Attachment" },
+            { text: "product-image.jpg" }
+          ]
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+      <a class="govuk-link mspsds-block-link" href="/flows/process-incoming/report-origin-type">Edit details</a>
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
