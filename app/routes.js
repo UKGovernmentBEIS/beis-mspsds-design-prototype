@@ -39,3 +39,18 @@ router.post('/flows/process-incoming/save', function(req, res) {
       res.redirect(type)
   }
 })
+
+// Report flow: Decide whether to show email capture page
+router.post('/flows/process-incoming/email-check-endpoint', function(req, res) {
+  let endpoint = req.session.data.new['origin-type']
+  switch (endpoint) {
+    case 'Phonecall':
+      res.redirect('/flows/process-incoming/report-check-answers')
+      break;
+    case 'Email':
+        res.redirect('/flows/process-incoming/email-content')
+        break;
+    default:
+      res.redirect(endpoint)
+  }
+})
