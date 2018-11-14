@@ -89,31 +89,34 @@ Confirm report details
           ]
         }) }}
       {% endcall %}
-      {% call govukFieldset({
-        legend: {
-          text:           "Email details",
-          isPageHeading:  false,
-          classes:        "govuk-fieldset__legend--l"
-        }
-      }) %}
-        {{ govukTable({
-          firstCellIsHeader: true,
-          rows: [
-            [
-              { text: "Email subject" },
-              { text: "Legislation question" }
-            ],
-            [
-              { text: "Email body" },
-              { html: "Hi,<br /><br />Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br /><br />Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br /><br />Thanks, Jeff" }
-            ],
-            [
-              { text: "Attachment" },
-              { text: "product-image.jpg" }
+
+      {% if data.new["origin-type"] == "Email" %}
+        {% call govukFieldset({
+          legend: {
+            text:           "Email details",
+            isPageHeading:  false,
+            classes:        "govuk-fieldset__legend--l"
+          }
+        }) %}
+          {{ govukTable({
+            firstCellIsHeader: true,
+            rows: [
+              [
+                { text: "Email subject" },
+                { text: "Legislation question" }
+              ],
+              [
+                { text: "Email body" },
+                { html: "Hi,<br /><br />Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br /><br />Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br /><br />Thanks, Jeff" }
+              ],
+              [
+                { text: "Attachment" },
+                { text: "product-image.jpg" }
+              ]
             ]
-          ]
-        }) }}
-      {% endcall %}
+          }) }}
+        {% endcall %}
+      {% endif %}
 
       {% call govukFieldset({
         legend: {
