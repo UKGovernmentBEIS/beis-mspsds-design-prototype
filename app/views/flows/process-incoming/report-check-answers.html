@@ -19,71 +19,131 @@ Confirm report details
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-
     <form action="/case__new-question" method="post" class="form">
-
-      {{ govukTable({
-        firstCellIsHeader: true,
-        rows: [
-          [
-            { text: "Type" },
-            { text: "Email" }
-          ],
-          [
-            { text: "Reporter type" },
-            { text: "Consumer" }
-          ],
-          [
-            { text: "Reporter name" },
-            { text: "Jeff Bridges" }
-          ],
-          [
-            { text: "Reporter phone number" },
-            { text: "07123 123123" }
-          ],
-          [
-            { text: "Reporter email address" },
-            { text: "jeff.bridges@bowling.lane" }
-          ],
-          [
-            { text: "Other contact information" },
-            { text: "Lincolnshire Trading Standards" }
-          ],
-          [
-            { text: "Issue type" },
-            { text: "Enquiry" }
-          ],
-          [
-            { text: "Question summary" },
-            { text: "What legislation applies to this travel adaptor?" }
-          ],
-          [
-            { text: "Question in full" },
-            { text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi?" }
-          ],
-          [
-            { text: "Email subject" },
-            { text: "Legislation question" }
-          ],
-          [
-            { text: "Email body" },
-            { html: "Hi,<br /><br />Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br /><br />Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br /><br />Thanks, Jeff" }
-          ],
-          [
-            { text: "Attachment" },
-            { text: "product-image.jpg" }
+      {% call govukFieldset({
+        legend: {
+          text:           "Reporter details",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+        {{ govukTable({
+          firstCellIsHeader: true,
+          rows: [
+            [
+              { text: "Type" },
+              { text: "Email" }
+            ],
+            [
+              { text: "Reporter type" },
+              { text: "Consumer" }
+            ],
+            [
+              { text: "Reporter name" },
+              { text: "Jeff Bridges" }
+            ],
+            [
+              { text: "Reporter phone number" },
+              { text: "07123 123123" }
+            ],
+            [
+              { text: "Reporter email address" },
+              { text: "jeff.bridges@bowling.lane" }
+            ],
+            [
+              { text: "Other contact information" },
+              { text: "Lincolnshire Trading Standards" }
+            ]
           ]
-        ]
-      }) }}
+        }) }}
+      {% endcall %}
+      {% call govukFieldset({
+        legend: {
+          text:           "Issue details",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+        {{ govukTable({
+          firstCellIsHeader: true,
+          rows: [
+            [
+              { text: "Issue type" },
+              { text: "Enquiry" }
+            ],
+            [
+              { text: "Question summary" },
+              { text: "What legislation applies to this travel adaptor?" }
+            ],
+            [
+              { text: "Question in full" },
+              { text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi?" }
+            ]
+          ]
+        }) }}
+      {% endcall %}
+      {% call govukFieldset({
+        legend: {
+          text:           "Email details",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+        {{ govukTable({
+          firstCellIsHeader: true,
+          rows: [
+            [
+              { text: "Email subject" },
+              { text: "Legislation question" }
+            ],
+            [
+              { text: "Email body" },
+              { html: "Hi,<br /><br />Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br /><br />Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br /><br />Thanks, Jeff" }
+            ],
+            [
+              { text: "Attachment" },
+              { text: "product-image.jpg" }
+            ]
+          ]
+        }) }}
+      {% endcall %}
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Anything else?",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+        {{ govukTextarea({
+          name: "allegation-extra-detail",
+          id:   "allegation-extra-detail",
+          hint: {
+            text: "Record any other information that doesn't fit in the previous screens"
+          }
+        }) }}
+      {% endcall %}
+
+      {% call govukFieldset({
+        legend: {
+          text:       "Any extra photos / documents?",
+          classes:    "govuk-fieldset__legend--l"
+        }
+      }) %}
+        {{ govukFileUpload({
+          id: "allegation-extra-photo",
+          name: "allegation-extra-photo",
+          hint: {
+            text: "Upload any images or documents that don't fit in the previous screens"
+          }
+        }) }}
+      {% endcall %}
 
       {{ govukButton({
-        text: "Continue"
+        text: "Save"
       }) }}
-
       <a class="govuk-link mspsds-block-link" href="/flows/process-incoming/report-origin-type">Edit details</a>
-
     </form>
-
   </div>
 </div>
 
