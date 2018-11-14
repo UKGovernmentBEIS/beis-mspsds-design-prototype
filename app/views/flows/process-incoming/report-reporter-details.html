@@ -35,7 +35,7 @@
         },
         classes: "govuk-!-width-two-thirds",
         id:   "reporter-name",
-        name: "reporter-name"
+        name: "new[reporter][name]"
       }) }}
 
       {{ govukInput({
@@ -44,7 +44,7 @@
         },
         classes: "govuk-!-width-two-thirds",
         id:   "reporter-phone-number",
-        name: "reporter-phone-number"
+        name: "new[reporter][phone-number]"
       }) }}
 
       {{ govukInput({
@@ -53,11 +53,11 @@
         },
         classes: "govuk-!-width-two-thirds",
         id:   "reporter-email-address",
-        name: "reporter-email-address"
+        name: "new[reporter][email-address]"
       }) }}
 
       {{ govukTextarea({
-        name: "reporter-other-detail",
+        name: "new[reporter][other-detail]",
         id:   "reporter-other-detail",
         label: {
           text: "Other details"

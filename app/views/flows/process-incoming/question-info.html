@@ -41,8 +41,8 @@
             text: "This will be used as the issue title, and to display in lists etc."
           },
           classes: "govuk-!-width-two-thirds",
-          id:   "issue-summary",
-          name: "issue-summary"
+          id:   "question-summary",
+          name: "new[title]"
         }) }}
       {% endcall %}
 
@@ -54,8 +54,8 @@
         }
       }) %}
         {{ govukTextarea({
-          name: "reporter-other-detail",
-          id:   "reporter-other-detail"
+          name: "new[description]",
+          id:   "question-other-detail"
         }) }}
       {% endcall %}
 
