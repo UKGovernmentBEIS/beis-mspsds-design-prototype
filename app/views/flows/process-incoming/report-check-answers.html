@@ -145,6 +145,25 @@ Confirm report details
       <a class="govuk-link mspsds-block-link" href="/flows/process-incoming/report-origin-type">Edit details</a>
     </form>
   </div>
+
+  <div class="govuk-grid-column-one-third">
+    {% from "includes/step-navigation.html" import stepNavigation %}
+    {{ stepNavigation([
+      {
+        title: 'Reporter details',
+        description: 'Record details of the person who contacted the office'
+      },
+      {
+        title: 'Enquiry details',
+        description: 'Record and summarise the question being asked'
+      },
+      {
+        title: 'Other information',
+        active: 'true',
+        description: 'Add any extra details, and summarise'
+      }
+    ]) }}
+  </div>
 </div>
 
 {% endblock %}

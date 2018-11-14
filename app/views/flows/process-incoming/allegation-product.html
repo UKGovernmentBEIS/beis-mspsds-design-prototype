@@ -39,7 +39,7 @@
             classes:        "govuk-fieldset__legend--l "
           }
         }) %}
-          
+
           <p class="govuk-body-l govuk-!-margin-bottom-9">Record anything you can to help identify the product involved in the allegation</p>
 
         {% endcall %}
@@ -53,7 +53,7 @@
             classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
           }
         }) %}
-          
+
           {{ govukInput({
             hint: {
               classes:  "govuk-!-width-two-thirds",
@@ -63,7 +63,7 @@
             name: "allegation-product-barcode",
             classes:  "govuk-!-margin-bottom-5 govuk-!-width-two-thirds"
           }) }}
-          
+
         {% endcall %}
 
 
@@ -75,7 +75,7 @@
             classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
           }
         }) %}
-          
+
           {{ govukInput({
             hint: {
               classes:  "govuk-!-width-two-thirds",
@@ -85,10 +85,10 @@
             name: "allegation-product-url",
             classes:  "govuk-!-margin-bottom-5 govuk-!-width-two-thirds"
           }) }}
-          
+
         {% endcall %}
 
-        
+
 
         {% call govukFieldset({
           legend: {
@@ -97,7 +97,7 @@
             classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
           }
         }) %}
-          
+
           {{ govukInput({
             hint: {
               classes:  "govuk-!-width-two-thirds",
@@ -107,7 +107,7 @@
             name: "allegation-product-type",
             classes:  "govuk-!-margin-bottom-5 govuk-!-width-two-thirds"
           }) }}
-          
+
         {% endcall %}
 
 
@@ -121,7 +121,7 @@
             classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
           }
         }) %}
-          
+
           {{ govukTextarea({
             name: "allegation-product-name",
             id:   "allegation-product-name",
@@ -130,7 +130,7 @@
               text: "Record any name(ish) information: Brand, model name, model number, seriial numbers etc etc "
             }
           }) }}
-          
+
         {% endcall %}
 
 
@@ -142,7 +142,7 @@
             classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
           }
         }) %}
-          
+
           {{ govukTextarea({
             name: "allegation-product-description",
             id:   "allegation-product-description",
@@ -151,7 +151,7 @@
               text: "Any useful descriptive info: What material? How big? Etc"
             }
           }) }}
-          
+
         {% endcall %}
 
 
@@ -189,11 +189,15 @@
 
     {{ stepNavigation([
       {
+        title: 'Reporter details',
+        description: 'Record details of the person who contacted the office'
+      },
+      {
         title: 'Incident details',
         description: 'Record any specific event that happened'
       },
       {
-        title: 'Prodcut information',
+        title: 'Product information',
         active: 'true',
         description: 'Record anything you can about products involved'
       },

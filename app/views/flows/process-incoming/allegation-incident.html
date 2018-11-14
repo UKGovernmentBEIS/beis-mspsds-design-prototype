@@ -75,10 +75,12 @@
   </div>
 
   <div class="govuk-grid-column-one-third">
-
-    {% from "includes/step-navigation.html"         import stepNavigation %}
-
+    {% from "includes/step-navigation.html" import stepNavigation %}
     {{ stepNavigation([
+      {
+        title: 'Reporter details',
+        description: 'Record details of the person who contacted the office'
+      },
       {
         title: 'Incident details',
         active: 'true',
@@ -96,10 +98,7 @@
         title: 'Other information',
         description: 'Add any extra details, and summarise'
       }
-
-    ])  }}
-
-
+    ]) }}
   </div>
 
 </div>

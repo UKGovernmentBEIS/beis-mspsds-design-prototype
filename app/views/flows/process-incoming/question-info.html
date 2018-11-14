@@ -27,7 +27,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <form action="/report-check-answers" method="post" class="form">
+    <form action="/flows/process-incoming/report-check-answers" method="post" class="form">
 
       {% call govukFieldset({
         legend: {
@@ -60,11 +60,29 @@
       {% endcall %}
 
       {{ govukButton({
-        text: "Save"
+        text: "Continue"
       }) }}
 
     </form>
+  </div>
 
+  <div class="govuk-grid-column-one-third">
+    {% from "includes/step-navigation.html" import stepNavigation %}
+    {{ stepNavigation([
+      {
+        title: 'Reporter details',
+        description: 'Record details of the person who contacted the office'
+      },
+      {
+        title: 'Enquiry details',
+        active: 'true',
+        description: 'Record and summarise the question being asked'
+      },
+      {
+        title: 'Other information',
+        description: 'Add any extra details, and summarise'
+      }
+    ]) }}
   </div>
 </div>
 
