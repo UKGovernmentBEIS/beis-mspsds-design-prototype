@@ -29,6 +29,7 @@
 
 
 
+
 {% from "includes/mspsds-confirmation.html" import confirmation %}
 
 {% if updated == 'image-deleted' %}
@@ -45,6 +46,9 @@
   {{ confirmation("confirmation--question--assigned", "Case reassigned.") }}
   {% set updated = '' %}
 {% endif %}
+
+
+
 
 
 
@@ -101,6 +105,9 @@
 {% include "panels/record-action.html" %}
 
 <hr class="govuk-section-break govuk-section-break--m" />
+
+
+
 
 {{ govukTabs({
   items: [
@@ -160,6 +167,9 @@
 
 
 
+
+
+
 {% set activityHtml %}
   {% include "tab-sections/activity.html" %}
 {% endset -%}
@@ -167,27 +177,40 @@
 
 
 
-{% set contactsHtml %}
-  {% from "panels/contact-panel.html" import contactPanel %}
-  {% from "includes/tab-title.html"       import tabTitle %}
 
-  {{ tabTitle({
-        title:      'Contacts',
-        controls:   '<a href="#" class="mspsds-block-link">Add a contact</a>'
+
+{% set contactsHtml %}
+  {% from "tab-sections/contact-section.html" import contactSection %}
+
+  {{ contactSection({
+    hasContacts: true,
+    contacts: [
+      {
+        role:     'Main contact',
+        name:     'Paul Jones',
+        phone:    '0207 1234 5678',
+        email:    'paul.jones@abc.np'
+      },
+      {
+        role:     'Head of Procurement',
+        name:     'Gemma Wilkinson',
+        phone:    '',
+        email:    'gemma.wilkinson@abc.np'
+      }
+    ]
   }) }}
 
-  <div class="govuk-grid-row">
-    {{ contactPanel("Main contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
-    {{ contactPanel("Head of Procurement", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
-  </div>
-
 {% endset -%}
+
+
+
 
 
 
 {% set attachmentsHtml %}
   {% include "tab-sections/attachments.html" %}
 {% endset -%}
+
 
 
 
@@ -210,7 +233,8 @@
 
 
 
-{% set businessesHtml %}
+
+{% set oldBusinessesHtml %}
   <h2 class="govuk-heading-l">Businesses</h2>
   <a href="#" class="mspsds-block-link">Add business</a>
 
@@ -226,16 +250,56 @@
 
 
 
+{% set businessesHtml %}
+  {% from "tab-sections/businesses-section.html"  import businessSection %}
+
+  {{ businessSection({
+    businesses: [
+      {
+        role:                   'Manufacturer',
+        name:                   'Wonderlite Ltd.',
+        address:                '48 Bush Road, London N1 1XQ',
+        contact:                'Paul Jones, 0207 1234 5678, paul.jones@abc.np',
+        primaryAuthority:      'Suffolk Trading Standards'
+      }
+    ]
+  }) }}
+
+{% endset -%}
+
+
+
+
+
 
 
 {% set relatedItemsHtml %}
-  <h2 class="govuk-heading-l">Linked to this case</h2>
-  {% include "includes/linked-items.html" %}
+  {% from "includes/tab-title.html"               import tabTitle %}
+  {% from "includes/case-card-list.html"          import caseCardList %}
 
-  <h2 class="govuk-heading-l">Potentially related to this case</h2>
-  {% include "includes/potential-relationships.html" %}
+  {% set filters = [{
+    filterType: 'status',
+    filterValues: ['Open']
+  },{
+    filterType: 'product',
+    filterValues: ['Charge Worx, Travel plug adaptor']
+  },{
+    filterType: 'assignee',
+    filterValues: [ data['c1-assigned'], data['c2-assigned'] ]
+  }] %}
+
+
+  {{ tabTitle({
+        title:      'Related to this case'
+  }) }}
+
+
+  {{ caseCardList(filters, data['q1-assigned'], data['q2-assigned'], data['c1-assigned'], data['c2-assigned']) }}
 
 {% endset -%}
+
+
+
 
 
 
@@ -243,3 +307,6 @@
 {% set fullDetailHtml %}
   {% include "tab-sections/full-detail-case.html" %}
 {% endset -%}
+
+
+

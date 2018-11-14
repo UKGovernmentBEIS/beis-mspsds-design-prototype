@@ -169,11 +169,12 @@
 
 
 {% set contactsHtml %}
-  {% from "includes/tab-title.html"               import tabTitle %}
 
-  {{ tabTitle({
-        title:      'Contacts',
-        controls:   '<a href="#" class="mspsds-block-link">Add a contact</a>'
+  {% from "tab-sections/contact-section.html" import contactSection %}
+
+  {{ contactSection({
+    hasContacts: true,
+    contacts: []
   }) }}
 
 {% endset -%}
@@ -224,8 +225,31 @@
 
 
 {% set relatedItemsHtml %}
-  <h2 class="govuk-heading-l">Linked to this question</h2>
+  {% from "includes/tab-title.html"               import tabTitle %}
+  {% from "includes/case-card-list.html"          import caseCardList %}
+
+  {% set filters = [{
+    filterType: 'status',
+    filterValues: ['Open']
+  },{
+    filterType: 'product',
+    filterValues: ['Charge Worx, Travel plug adaptor']
+  },{
+    filterType: 'assignee',
+    filterValues: [ data['c1-assigned'], data['c2-assigned'] ]
+  }] %}
+
+
+  {{ tabTitle({
+        title:      'Related to this question'
+  }) }}
+
+
+  {{ caseCardList(filters, data['q1-assigned'], data['q2-assigned'], data['c1-assigned'], data['c2-assigned']) }}
+
 {% endset -%}
+
+
 
 
 

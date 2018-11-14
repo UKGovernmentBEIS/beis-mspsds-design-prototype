@@ -141,6 +141,7 @@
 
 
 
+
 {% set attachmentsHtml %}
   {% from "includes/tab-title.html"               import tabTitle %}
 
@@ -157,6 +158,7 @@
 
 
 
+
 {% set businessesHtml %}
   {% include "tab-sections/businesses-list.html" %}
 {% endset -%}
@@ -165,14 +167,35 @@
 
 
 
-{% set relatedItemsHtml %}
-  <h2 class="govuk-heading-l">Linked to this product</h2>
-  {% include "includes/linked-items.html" %}
 
-  <h2 class="govuk-heading-l">Potentially related to this product</h2>
-  {% include "includes/potential-relationships.html" %}
+{% set relatedItemsHtml %}
+  {% from "includes/tab-title.html"               import tabTitle %}
+  {% from "includes/case-card-list.html"          import caseCardList %}
+
+  {% set filters = [{
+    filterType: 'status',
+    filterValues: ['Open']
+  },{
+    filterType: 'product',
+    filterValues: ['Charge Worx, Travel plug adaptor']
+  },{
+    filterType: 'assignee',
+    filterValues: [ data['c1-assigned'], data['c2-assigned'] ]
+  }] %}
+
+
+  {{ tabTitle({
+        title:      'Related to this product'
+  }) }}
+
+
+  {{ caseCardList(filters, data['q1-assigned'], data['q2-assigned'], data['c1-assigned'], data['c2-assigned']) }}
 
 {% endset -%}
+
+
+
+
 
 
 

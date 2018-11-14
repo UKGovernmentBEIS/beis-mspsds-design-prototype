@@ -56,13 +56,13 @@
     },
     {
       label: "Full details",
-      id: "full-detail",
+      id: "full-details",
       panel: {
         html: fullDetailHtml
       }
     },
     {
-      label: "Contact details",
+      label: "Contacts",
       id: "contacts",
       panel: {
         html: contactsHtml
@@ -136,7 +136,10 @@
 
 {% set contactsHtml %}
   {% from "tab-sections/contact-section.html" import contactSection %}
+  
   {{ contactSection({
+    hasLocations: true,
+    hasContacts: true,
     locations: [
       {
         title:    'Main site',
@@ -163,9 +166,20 @@
         postcode: 'N1 4XQ'
       }
     ],
-    contacts: {
-
-    }
+    contacts: [
+      {
+        role:     'Main contact',
+        name:     'Paul Jones',
+        phone:    '0207 1234 5678',
+        email:    'paul.jones@abc.np'
+      },
+      {
+        role:     'Head of Procurement',
+        name:     'Gemma Wilkinson',
+        phone:    '',
+        email:    'gemma.wilkinson@abc.np'
+      }
+    ]
   }) }}
 {% endset -%}
 
@@ -187,19 +201,44 @@
 
 
 
+
+
 {% set productsHtml %}
   {% include "tab-sections/products-list-business.html" %}
 {% endset -%}
 
 
 
-{% set relatedItemsHtml %}
-  <h2 class="govuk-heading-l">Linked to this business</h2>
-  {% include "includes/linked-items.html" %}
 
-  <h2 class="govuk-heading-l">Potentially related to this business</h2>
-  {% include "includes/potential-relationships.html" %}
+
+
+{% set relatedItemsHtml %}
+  {% from "includes/tab-title.html"               import tabTitle %}
+  {% from "includes/case-card-list.html"          import caseCardList %}
+
+  {% set filters = [{
+    filterType: 'status',
+    filterValues: ['Open']
+  },{
+    filterType: 'product',
+    filterValues: ['Charge Worx, Travel plug adaptor']
+  },{
+    filterType: 'assignee',
+    filterValues: [ data['c1-assigned'], data['c2-assigned'] ]
+  }] %}
+
+
+  {{ tabTitle({
+        title:      'Related to this business'
+  }) }}
+
+
+  {{ caseCardList(filters, data['q1-assigned'], data['q2-assigned'], data['c1-assigned'], data['c2-assigned']) }}
+
 {% endset -%}
+
+
+
 
 
 

@@ -1,6 +1,3 @@
-{% from "panels/business-address-panel.html"    import businessAddress %}
-{% from "panels/contact-panel.html"             import contactPanel %}
-
 {% from "table/macro.njk"     import govukTable %}
 {% from "button/macro.njk"    import govukButton %}
 
@@ -8,54 +5,81 @@
 
 
 {% macro contactSection(data) %}
+
+    {% if data.hasLocations %}
     
-    {{ tabTitle({
-            title:      'Addresses',
-            controls:   '<a href="/product/edit">Add address</a>'
-    }) }}
+        {{ tabTitle({
+                title:      'Addresses',
+                controls:   '<a href="/product/edit">Add address</a>'
+        }) }}
 
 
-    {% if data.locations %}
+        {% if data.locations %}
 
-        {% set locationRows = [] %}
+            {% set locationRows = [] %}
 
-        {% for location in data.locations %}
+            {% for location in data.locations %}
 
-          {% set locationRows = ( locationRows.push([
-            {text: location.title},
-            {text: location.street},
-            {text: location.city},
-            {text: location.postcode}
-          ]), locationRows ) %}
+              {% set locationRows = ( locationRows.push([
+                {text: location.title},
+                {text: location.street},
+                {text: location.city},
+                {text: location.postcode}
+              ]), locationRows ) %}
 
-        {% endfor %}
-      
-        <div class="govuk-grid-row">
-          <div class="govuk-grid-column-two-thirds">
-            {{ govukTable({
-              firstCellIsHeader: true,
-              rows: locationRows
-            }) }}
-          </div>
-        </div>
+            {% endfor %}
+          
+            <div class="govuk-grid-row">
+              <div class="govuk-grid-column-full">
+                {{ govukTable({
+                  firstCellIsHeader: true,
+                  rows: locationRows
+                }) }}
+              </div>
+            </div>
+
+        {% endif %}
+        
+        <hr class="govuk-section-break govuk-section-break--l" />
 
     {% endif %}
 
 
-    <hr class="govuk-section-break govuk-section-break--l" />
+    {% if data.hasContacts %}
+
+        {{ tabTitle({
+                title:      'Contacts',
+                controls:   '<a href="/product/edit">Add contact</a>'
+        }) }}
+
+        {% if data.contacts %}
 
 
-    {{ tabTitle({
-            title:      'Contacts',
-            controls:   '<a href="/product/edit">Add contact</a>'
-    }) }}
+            {% set contactRows = [] %}
 
-    {% if data.contacts %}
+            {% for contact in data.contacts %}
 
-        <div class="govuk-grid-row">
-          {{ contactPanel("Main contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
-          {{ contactPanel("Head of Procurement", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
-        </div>
+              {% set contactRows = ( contactRows.push([
+                {text: contact.role},
+                {text: contact.name},
+                {text: contact.phone},
+                {text: contact.email}
+              ]), contactRows ) %}
+
+            {% endfor %}
+
+
+            <div class="govuk-grid-row">
+              <div class="govuk-grid-column-full">
+                {{ govukTable({
+                  firstCellIsHeader: true,
+                  rows: contactRows
+                }) }}
+              </div>
+            </div>
+
+
+        {% endif %}
 
     {% endif %}
 

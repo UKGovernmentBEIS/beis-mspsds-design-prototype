@@ -208,18 +208,26 @@
 
 
 {% set contactsHtml %}
-  {% from "includes/tab-title.html"       import tabTitle %}
-  {% from "panels/contact-panel.html"     import contactPanel %}
 
-  {{ tabTitle({
-        title:      'Contacts',
-        controls:   '<a href="#" class="mspsds-block-link">Add a contact</a>'
+  {% from "tab-sections/contact-section.html" import contactSection %}
+
+  {{ contactSection({
+    hasContacts: true,
+    contacts: [
+      {
+        role:     'Main contact',
+        name:     'Paul Jones',
+        phone:    '0207 1234 5678',
+        email:    'paul.jones@abc.np'
+      },
+      {
+        role:     'Head of Procurement',
+        name:     'Gemma Wilkinson',
+        phone:    '',
+        email:    'gemma.wilkinson@abc.np'
+      }
+    ]
   }) }}
-    
-  <div class="govuk-grid-row">
-    {{ contactPanel("Main contact", "Paul Jones", "020 7123 12345", "paul.jones@red-zulu.com") }}
-    {{ contactPanel("Head of Procurement", "Gemma Wilkinson", "", "gemma.wilkinson@red-zulu.com") }}
-  </div>
 
 {% endset -%}
 
@@ -268,16 +276,33 @@
 
 
 
+
+
 {% set relatedItemsHtml %}
-  <h2 class="govuk-heading-l">Linked to this question</h2>
+  {% from "includes/tab-title.html"               import tabTitle %}
+  {% from "includes/case-card-list.html"          import caseCardList %}
 
-  {% include "includes/linked-items.html" %}
+  {% set filters = [{
+    filterType: 'status',
+    filterValues: ['Open']
+  },{
+    filterType: 'product',
+    filterValues: ['Charge Worx, Travel plug adaptor']
+  },{
+    filterType: 'assignee',
+    filterValues: [ data['c1-assigned'], data['c2-assigned'] ]
+  }] %}
 
-  <h2 class="govuk-heading-l">Potentially related to this question</h2>
 
-  {% include "includes/potential-relationships.html" %}
+  {{ tabTitle({
+        title:      'Related to this question'
+  }) }}
+
+
+  {{ caseCardList(filters, data['q1-assigned'], data['q2-assigned'], data['c1-assigned'], data['c2-assigned']) }}
 
 {% endset -%}
+
 
 
 
@@ -286,3 +311,9 @@
 {% set fullDetailHtml %}
   {% include "tab-sections/full-detail-question.html" %}
 {% endset -%}
+
+
+
+
+
+

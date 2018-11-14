@@ -55,14 +55,14 @@
   </div>
 </div>
 
-<div>
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <h2 class="govuk-heading-m" title="Could also be a business, or...?">Product</h2>
-    </div>
+
+<div class="govuk-grid-row ">
+  <div class="govuk-grid-column-full mspsds-overview"">
+    <h2 class="govuk-heading-m" title="Could also be a business, or...?">Product</h2>
+    {% include "panels/product-panel.html" %}
   </div>
-  {% include "panels/product-panel.html" %}
 </div>
+
 
 <hr class="govuk-section-break govuk-section-break--m" />
 
@@ -70,23 +70,16 @@
   items: [
     {
       label: "Activity",
-      id: "activity",
+      id:    "activity",
       panel: {
         html: activityHtml
       }
     },
     {
-      label: "Contacts",
-      id: "contacts",
+      label: "Full details",
+      id:    "full-details",
       panel: {
-        html: contactsHtml
-      }
-    },
-    {
-      label: "Attachments",
-      id: "attachments",
-      panel: {
-        html: attachmentsHtml
+        html: fullDetailHtml
       }
     },
     {
@@ -104,17 +97,24 @@
       }
     },
     {
+      label: "Contacts",
+      id: "contacts",
+      panel: {
+        html: contactsHtml
+      }
+    },
+    {
+      label: "Attachments",
+      id: "attachments",
+      panel: {
+        html: attachmentsHtml
+      }
+    },
+    {
       label: "Related",
       id: "related",
       panel: {
         html: relatedItemsHtml
-      }
-    },
-    {
-      label: "Full detail",
-      id: "full-detail",
-      panel: {
-        html: fullDetailHtml
       }
     }
   ]
@@ -169,20 +169,26 @@
 
 
 {% set contactsHtml %}
-  {% from "panels/contact-panel.html"     import contactPanel %}
-  {% from "includes/tab-title.html"       import tabTitle %}
 
-  {{ tabTitle({
-          title:      'Contacts',
-          controls:   '<a href="/product/edit">Add contact</a>'
+  {% from "tab-sections/contact-section.html" import contactSection %}
+
+  {{ contactSection({
+    hasContacts: true,
+    contacts: [
+      {
+        role:     'Main contact',
+        name:     'Paul Jones',
+        phone:    '0207 1234 5678',
+        email:    'paul.jones@abc.np'
+      },
+      {
+        role:     'Head of Procurement',
+        name:     'Gemma Wilkinson',
+        phone:    '',
+        email:    'gemma.wilkinson@abc.np'
+      }
+    ]
   }) }}
-
-  <div class="govuk-grid-row">
-    {{ contactPanel("Main contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
-    {{ contactPanel("Head of Procurement", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
-    {{ contactPanel("Another contact", "Paul Jones", "020 7123 12345", "paul.jones@abc.np") }}
-    {{ contactPanel("And another", "Gemma Wilkinson", "", "gemma.wilkinson@abc.np") }}
-  </div>
 
 {% endset -%}
 
@@ -205,9 +211,12 @@
 
 
 
+
 {% set productsHtml %}
   {% include "tab-sections/products-list.html" %}
 {% endset -%}
+
+
 
 
 
@@ -220,16 +229,34 @@
 
 
 
+
 {% set relatedItemsHtml %}
-  <h2 class="govuk-heading-l">Linked to this question</h2>
+  {% from "includes/tab-title.html"               import tabTitle %}
+  {% from "includes/case-card-list.html"          import caseCardList %}
 
-  {% include "includes/linked-items.html" %}
+  {% set filters = [{
+    filterType: 'status',
+    filterValues: ['Open']
+  },{
+    filterType: 'product',
+    filterValues: ['Charge Worx, Travel plug adaptor']
+  },{
+    filterType: 'assignee',
+    filterValues: [ data['c1-assigned'], data['c2-assigned'] ]
+  }] %}
 
-  <h2 class="govuk-heading-l">Potentially related to this question</h2>
 
-  {% include "includes/potential-relationships.html" %}
+  {{ tabTitle({
+        title:      'Related to this question'
+  }) }}
+
+
+  {{ caseCardList(filters, data['q1-assigned'], data['q2-assigned'], data['c1-assigned'], data['c2-assigned']) }}
 
 {% endset -%}
+
+
+
 
 
 

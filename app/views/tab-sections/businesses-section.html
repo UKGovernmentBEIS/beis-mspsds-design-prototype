@@ -1,0 +1,23 @@
+{% from "includes/tab-title.html"           import tabTitle %}
+{% from "panels/linked-business.html"       import linkedBusiness %}
+
+
+
+
+{% macro businessSection(data) %}
+
+    {{ tabTitle({
+            title:      'Businesses',
+            controls:   '<a href="#" class="mspsds-block-link">Add business</a> <a href="#" class="mspsds-block-link">Manage business links</a>'
+    }) }}
+
+    {% set businessRows = [] %}
+
+    {% for business in data.businesses %}
+      {{ linkedBusiness(business) }}
+    {% endfor %}
+
+{% endmacro %}
+
+
+
