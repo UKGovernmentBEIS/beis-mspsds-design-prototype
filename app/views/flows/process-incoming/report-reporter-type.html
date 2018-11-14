@@ -21,12 +21,12 @@
 {% block content %}
 {{ pageTitle({
   type:   "Process an incoming report",
-  title:  "Caller type"
+  title:  "Reporter type"
 }) }}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <form action="./report-caller-details" method="post" class="form">
+    <form action="./report-reporter-details" method="post" class="form">
       {{ govukRadios({
         idPrefix:   "reporter-type",
         name:       "reporter-type",
