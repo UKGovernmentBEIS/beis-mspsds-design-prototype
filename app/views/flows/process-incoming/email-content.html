@@ -60,5 +60,9 @@ Record email
     </form>
 
   </div>
+  <div class="govuk-grid-column-one-third">
+    {% from "./includes/step-flow-map.html" import stepFlowMap %}
+    {{ stepFlowMap(data.new["issue-type"], 4 if data.new["issue-type"]=="Product safety allegation" else 2) }}
+  </div>
 </div>
 {% endblock %}
