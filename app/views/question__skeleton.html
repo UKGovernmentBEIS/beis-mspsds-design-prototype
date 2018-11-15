@@ -1,4 +1,5 @@
 {% extends "mspsds-layout.html" %}
+{% from "table/macro.njk"             import govukTable %}
 
 
 {% block pageTitle %}
@@ -150,5 +151,118 @@
 
 
 {% set fullDetailHtml %}
-  {% include "tab-sections/full-detail-case.html" %}
+  <div class="mspsds-tab__title govuk-!-margin-bottom-6">
+    <h2 class="govuk-heading-l govuk-!-margin-bottom-1">Full details</h2>
+  </div>
+
+  <div class="govuk-grid-row govuk-!-margin-bottom-4">
+    <div class="govuk-grid-column-full">
+      <h3 class="govuk-heading-m">Reporter</h3>
+      {{ govukTable({
+        firstCellIsHeader: true,
+        rows: [
+          [
+            { text: "Type" },
+            { text: data.new["origin-type"] }
+          ],
+          [
+            { text: "Reporter type" },
+            { text: data.new["reporter"]["type"] }
+          ],
+          [
+            { text: "Name" },
+            { text: data.new["reporter"]["name"] }
+          ],
+          [
+            { text: "Phone number" },
+            { text: data.new["reporter"]["phoneNumber"] }
+          ],
+          [
+            { text: "Email address" },
+            { text: data.new["reporter"]["emailAddress"] }
+          ],
+          [
+            { text: "Other contact information" },
+            { text: data.new["reporter"]["otherDetails"] }
+          ]
+        ]
+      }) }}
+    </div>
+  </div>
+
+
+  {% if question["issue-type"]=="Product safety allegation" %}
+  <div class="govuk-grid-row govuk-!-margin-bottom-4">
+    <div class="govuk-grid-column-full">
+      <h3 class="govuk-heading-m">Incident</h3>
+      {{ govukTable({
+        firstCellIsHeader: true,
+        rows: [
+          [
+            { text: "Details" },
+            { text: data['allegation-incident-detail'] }
+          ],
+          [
+            { text: "Evidence" },
+            { text: data['allegation-incident-photo'] }
+          ]
+        ]
+      }) }}
+    </div>
+  </div>
+  <hr class="govuk-section-break govuk-section-break--m" />
+  <div class="govuk-grid-row govuk-!-margin-bottom-4">
+    <div class="govuk-grid-column-full">
+      <h3 class="govuk-heading-m">Product details</h3>
+      {{ govukTable({
+        firstCellIsHeader: true,
+        rows: [
+          [
+            { text: "Barcode" },
+            { text: data['allegation-product-barcode'] }
+          ],
+          [
+            { text: "Link" },
+            { text: data['allegation-product-url'] }
+          ],
+          [
+            { text: "Type" },
+            { text: data['allegation-product-type'] }
+          ],
+          [
+            { text: "Name" },
+            { text: data['allegation-product-name'] }
+          ],
+          [
+            { text: "Description" },
+            { text: data['allegation-product-description'] }
+          ],
+          [
+            { text: "Image" },
+            { text: data["allegation-product-photo"] }
+          ]
+        ]
+      }) }}
+    </div>
+  </div>
+  <div class="govuk-grid-row govuk-!-margin-bottom-4">
+    <div class="govuk-grid-column-full">
+      <h3 class="govuk-heading-m">Business details</h3>
+      {{ govukTable({
+        firstCellIsHeader: true,
+        classes:  "govuk-!-margin-bottom-5",
+        rows: [
+          [
+            { text: "Details" },
+            { text: data['allegation-business-detail'] }
+          ],
+          [
+            { text: "Evidence" },
+            { text: data['allegation-business-photo'] }
+          ]
+        ]
+      }) }}
+    </div>
+  </div>
+  {% endif %}
 {% endset -%}
