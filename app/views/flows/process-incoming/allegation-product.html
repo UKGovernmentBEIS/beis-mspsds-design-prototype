@@ -57,7 +57,7 @@
           {{ govukInput({
             hint: {
               classes:  "govuk-!-width-two-thirds",
-              text: "If you've got this, it's probably the best piece of data to help us identify the product"
+              text: "If available"
             },
             id: "allegation-product-barcode",
             name: "allegation-product-barcode",
@@ -79,7 +79,7 @@
           {{ govukInput({
             hint: {
               classes:  "govuk-!-width-two-thirds",
-              text: "If you've got a weblink (Amazon / Ebay / Alibaba etc), this can be a great identifier"
+              text: "Identify the product with a link to an online retailer"
             },
             id: "allegation-product-url",
             name: "allegation-product-url",
@@ -101,7 +101,7 @@
           {{ govukInput({
             hint: {
               classes:  "govuk-!-width-two-thirds",
-              text: "What sort of thing is the product? A dishwasher? A soft toy? A chainsaw?"
+              text: "e.g. dishwasher, soft toy, chainsaw, etc."
             },
             id: "allegation-product-type",
             name: "allegation-product-type",
@@ -127,7 +127,7 @@
             id:   "allegation-product-name",
             classes:  "govuk-!-margin-bottom-5",
             hint: {
-              text: "Record any identifying label: Brand, model name, model number, serial numbers etc."
+              text: "Any identifying label: brand, model name, model number, etc."
             }
           }) }}
 
@@ -148,7 +148,7 @@
             id:   "allegation-product-description",
             classes:  "govuk-!-margin-bottom-5",
             hint: {
-              text: "Any useful descriptive info: What material? How big? etc."
+              text: "Any other descriptive information"
             }
           }) }}
 
@@ -168,7 +168,7 @@
             name: "allegation-product-photo",
             classes:  "govuk-!-margin-bottom-5",
             hint: {
-              text: "Upload any images that give evidence of the product"
+              text: "Upload any images that help identify the product"
             }
           }) }}
 
