@@ -34,7 +34,7 @@ router.post('/flows/process-incoming/save', function(req, res) {
       res.redirect('/case__new-question')
       break;
     case 'Product safety allegation':
-        res.redirect('/case__new')
+        res.redirect('/case__new-allegation')
         break;
       res.redirect(type)
   }
