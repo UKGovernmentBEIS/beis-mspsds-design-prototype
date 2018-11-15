@@ -265,4 +265,21 @@
     </div>
   </div>
   {% endif %}
+  {% if data["allegation-extra-detail"] %}
+  <div class="govuk-grid-row govuk-!-margin-bottom-4">
+    <div class="govuk-grid-column-full">
+      <h3 class="govuk-heading-m">Other information</h3>
+      {{ govukTable({
+        firstCellIsHeader: true,
+        classes:  "govuk-!-margin-bottom-5",
+        rows: [
+          [
+            { text: "Details" },
+            { text: data["allegation-extra-detail"] }
+          ]
+        ]
+      }) }}
+    </div>
+  </div>
+  {% endif %}
 {% endset -%}
