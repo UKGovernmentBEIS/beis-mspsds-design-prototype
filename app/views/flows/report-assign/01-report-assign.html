@@ -27,8 +27,8 @@
     classes:  "govuk-!-width-two-thirds"
   },
   classes:    "govuk-!-width-two-thirds",
-  id:         "other-correspondent",
-  name:       "other-correspondent"
+  id:         "other-assignee",
+  name:       "other-assignee"
 }) }}
 {% endset -%}
 
@@ -43,7 +43,7 @@
     <form action="/case__new-question" method="post" class="form">
       {{ govukRadios({
         idPrefix:   "assignee",
-        name:       "assignee",
+        name:       "new[assignee]",
         fieldset: {
           legend: {
             text:     "Teams",

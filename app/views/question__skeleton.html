@@ -29,15 +29,27 @@
       title:      question.title
     }) }}
   </div>
-</div>
-
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    {% include "panels/report-close-or-assign.html" %}
+  <div class="govuk-grid-column-one-third">
+    {% if question.assignee %}
+      {{ govukTable({
+        classes: "mspsds-case-status",
+        firstCellIsHeader: true,
+        rows: [
+          [
+            { html: '<span class="govuk-caption-m govuk-!-font-size-16">Status</span>' + "Open" },
+            { html: '<a href="/flows/add-status/01-add-status" class="govuk-!-font-size-16">Change</a>'  }
+          ],
+          [
+            { html: '<span class="govuk-caption-m govuk-!-font-size-16">Assigned to</span>' + question.assignee },
+            { html: '<a href="/flows/assign/01-assign" class="govuk-!-font-size-16">Change</a>'  }
+          ]
+        ]
+      }) }}
+    {% else %}
+      {% include "panels/report-close-or-assign.html" %}
+    {% endif %}
   </div>
 </div>
-
-<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible" />
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
