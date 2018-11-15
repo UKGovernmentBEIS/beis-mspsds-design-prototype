@@ -82,6 +82,23 @@ Confirm report details
       {% else %}
         {% call govukFieldset({
           legend: {
+            text:           "Allegation summary",
+            isPageHeading:  false,
+            classes:        "govuk-fieldset__legend--l"
+          }
+        }) %}
+          {{ govukTable({
+            firstCellIsHeader: true,
+            rows: [
+              [
+                { text: "Title" },
+                { text: data.new["title"] }
+              ]
+            ]
+          }) }}
+        {% endcall %}
+        {% call govukFieldset({
+          legend: {
             text:           "Incident",
             isPageHeading:  false,
             classes:        "govuk-fieldset__legend--l"
