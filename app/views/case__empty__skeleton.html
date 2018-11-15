@@ -21,10 +21,30 @@
 {% endblock %}
 
 
-
 {% block content %}
 
 
+{% from "includes/mspsds-confirmation.html" import confirmation %}
+
+{% if updated == 'image-added' %}
+  {{ confirmation("confirmation--image-added", "Image \"Image title\" added.", "Undo") }}
+  {% set updated = '' %}
+{% endif %}
+
+{% if updated == 'image-deleted' %}
+  {{ confirmation("confirmation--image-deleted", "Image \"Image title\" deleted.", "Undo") }}
+  {% set updated = '' %}
+{% endif %}
+
+{% if updated == 'product-removed' %}
+  {{ confirmation("confirmation--product-removed", "Product \"Product title\" removed from this case.", "Undo") }}
+  {% set updated = '' %}
+{% endif %}
+
+{% if updated == 'assigned' %}
+  {{ confirmation("confirmation--question--assigned", "Case reassigned.") }}
+  {% set updated = '' %}
+{% endif %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -40,13 +60,23 @@
   </div>
 </div>
 
-{% from "panels/case-why.html" import caseWhy %}
-{{ caseWhy(case.hazard) }}
+<div class="mspsds-overview">
+  {% from "panels/case-why.html" import caseWhy %}
+  {{ caseWhy(case.hazard) }}
 
-<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+  {# TODO - is this meant to be here? different between empty and not #}
+  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
-{% from "panels/product-panel__empty.html" import productPanel %}
-{{ productPanel(case.products[0]) }}
+  {% if case.products[0] %}
+    {% include "panels/product-panel.html" %}
+  {% else %}
+    {% from "panels/product-panel__empty.html" import productPanel %}
+    {{ productPanel(case.products[0]) }}
+  {% endif %}
+</div>
+
+<h2 class="govuk-heading-l">Add new activity</h2>
+{% include "panels/record-action.html" %}
 
 <hr class="govuk-section-break govuk-section-break--m" />
 
@@ -93,7 +123,6 @@
 {% endblock %}
 
 
-
 {% set activityHtml %}
   {% from "includes/activity-timeline.html"       import activityTimeline %}
   {% from "includes/tab-title.html"               import tabTitle %}
@@ -104,7 +133,7 @@
   }) }}
   
 
-  {{ activityTimeline([
+  {{ activityTimeline(case.staticActivites, [
     {
       title: case.reporter.type + " report",
       action: "Report details added",
@@ -121,11 +150,7 @@
       action: ""
     }
   ]) }}
-
 {% endset -%}
-
-
-
 
 {% set attachmentsHtml %}
   {% from "includes/attachment-list.html" import attachmentList %}
