@@ -39,27 +39,27 @@ Confirm report details
           rows: [
             [
               { text: "Type" },
-              { text: "Email" }
+              { text: data.new["origin-type"] }
             ],
             [
               { text: "Reporter type" },
-              { text: "Consumer" }
+              { text: data.new["reporter"]["type"] }
             ],
             [
               { text: "Reporter name" },
-              { text: "Jeff Bridges" }
+              { text: data.new["reporter"]["name"] }
             ],
             [
               { text: "Reporter phone number" },
-              { text: "07123 123123" }
+              { text: data.new["reporter"]["phoneNumber"] }
             ],
             [
               { text: "Reporter email address" },
-              { text: "jeff.bridges@bowling.lane" }
+              { text: data.new["reporter"]["emailAddress"] }
             ],
             [
               { text: "Other contact information" },
-              { text: "Lincolnshire Trading Standards" }
+              { text: data.new["reporter"]["otherDetails"] }
             ]
           ]
         }) }}
@@ -77,11 +77,11 @@ Confirm report details
             rows: [
               [
                 { text: "Summary" },
-                { text: "What legislation applies to this travel adaptor?" }
+                { text: data.new["title"] }
               ],
               [
                 { text: "Enquiry in full" },
-                { text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi?" }
+                { text: data.new["description"] }
               ]
             ]
           }) }}
@@ -89,7 +89,7 @@ Confirm report details
       {% else %}
         {% call govukFieldset({
           legend: {
-            text:           "Incident details",
+            text:           "Incident",
             isPageHeading:  false,
             classes:        "govuk-fieldset__legend--l"
           }
@@ -104,10 +104,6 @@ Confirm report details
               [
                 { text: "Evidence" },
                 { text: data['allegation-incident-photo'] }
-              ],
-              [
-                { html: "<a href='#'>Edit</a>" },
-                { text: "" }
               ]
             ]
           }) }}
@@ -143,15 +139,15 @@ Confirm report details
                 { text: data['allegation-product-description'] }
               ],
               [
-                { html: "<a href='#'>Edit</a>" },
-                { text: "" }
+                { text: "Image" },
+                { text: data["allegation-product-photo"] }
               ]
             ]
           }) }}
         {% endcall %}
         {% call govukFieldset({
           legend: {
-            text:           "Business details",
+            text:           "Business",
             isPageHeading:  false,
             classes:        "govuk-fieldset__legend--l"
           }
@@ -167,10 +163,6 @@ Confirm report details
               [
                 { text: "Evidence" },
                 { text: data['allegation-business-photo'] }
-              ],
-              [
-                { html: "<a href='#'>Edit</a>" },
-                { text: "" }
               ]
             ]
           }) }}
@@ -189,15 +181,15 @@ Confirm report details
             rows: [
               [
                 { text: "Email subject" },
-                { text: "Legislation question" }
+                { text: data["correspondence-subject"] }
               ],
               [
                 { text: "Email body" },
-                { html: "Hi,<br /><br />Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br /><br />Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br /><br />Thanks, Jeff" }
+                { html: data["correspondence-content"] }
               ],
               [
                 { text: "Attachment" },
-                { text: "product-image.jpg" }
+                { text: data["correspondence-file-upload-1"] }
               ]
             ]
           }) }}

@@ -10,15 +10,15 @@
   }
 }) %}
   {{ govukFileUpload({
-    id: "{{idPrefix}}-file-upload-1",
-    name: "{{idPrefix}}-file-upload-1"
+    id: idPrefix+"-file-upload-1",
+    name: idPrefix+"-file-upload-1"
   }) }}
   {{ govukTextarea({
     label: {
       text: "Attachment description"
     },
-    name: "{{idPrefix}}-file-upload-1-description",
-    id:   "{{idPrefix}}-file-upload-1-description"
+    name: idPrefix+"-file-upload-1-description",
+    id:   idPrefix+"-file-upload-1-description"
   }) }}
 {% endcall %}
 {% endmacro %}
