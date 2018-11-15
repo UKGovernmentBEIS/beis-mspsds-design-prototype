@@ -45,22 +45,22 @@
       }) %}
         {{ govukRadios({
           idPrefix:   "status-reason",
-          name:       "status-reason",
+          name:       "new[status-reason]",
           items: [
             {
-              value:  "Info only",
+              value:  "Report is for information only",
               text:   "Report is for information only",
-              checked: checked("status-reason", "Info only")
+              checked: checked("status-reason", "Report is for information only")
             },
             {
-              value:  "Already resolved",
+              value:  "Enquiry was resolved by initial conversation",
               text:   "Enquiry was resolved by initial conversation",
-              checked: checked("status-reason", "Already resolved")
+              checked: checked("status-reason", "Enquiry was resolved by initial conversation")
             },
             {
-              value:  "No capacity",
+              value:  "No capacity to take further action currently",
               text:   "No capacity to take further action currently",
-              checked: checked("status-reason", "No capacity")
+              checked: checked("status-reason", "No capacity to take further action currently")
             },
             {
               value:  "Other",

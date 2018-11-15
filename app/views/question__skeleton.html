@@ -45,6 +45,21 @@
           ]
         ]
       }) }}
+    {% elif question["status-reason"] %}
+      {{ govukTable({
+        classes: "mspsds-case-status",
+        firstCellIsHeader: true,
+        rows: [
+          [
+            { html: '<span class="govuk-caption-m govuk-!-font-size-16">Status</span>' + "Closed" },
+            { html: '<a href="/flows/add-status/01-add-status" class="govuk-!-font-size-16">Change</a>'  }
+          ],
+          [
+            { html: '<span class="govuk-caption-m govuk-!-font-size-16">Reason</span>' + question["status-reason"] },
+            { html: '<a href="/flows/assign/01-assign" class="govuk-!-font-size-16">Change</a>'  }
+          ]
+        ]
+      }) }}
     {% else %}
       {% include "panels/report-close-or-assign.html" %}
     {% endif %}
