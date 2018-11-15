@@ -39,4 +39,9 @@
       background-color: lighten( $highlight, 25% );
       padding: 2px 0px 0px;
     }
+
+    &--empty {
+        text-align: center;
+        @include govuk-responsive-margin(5, "top");
+    }
 }

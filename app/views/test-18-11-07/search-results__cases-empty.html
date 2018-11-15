@@ -41,7 +41,7 @@
       {{ pageTitle({
         type:       "Case search results",
         title:      data['q'],
-        subTitle:   "4 results"
+        subTitle:   "0 results"
       }) }}
     </div>
   </div>
@@ -206,66 +206,8 @@
 
     </div>
 
-    <div class="govuk-grid-column-three-quarters mspsds-search__results">
-     {{ caseCard({
-        type:   'Case',
-        status: 'Open',
-        id:     '0132-1421',
-
-        product:  'Charge Worx, Travel plug adaptor',
-        hazard:   'Electric shock, fire hazard',
-
-        match:  {
-          key:  'Case reference',
-          value: "01<span class='highlight'>32-142</span>1"
-        }
-
-    }) }}
-
-    {{ caseCard({
-        type:   'Case',
-        status: 'Open',
-        id:     '1534-1287',
-
-        product:  'I-Sonite, Armband Phone Case',
-        hazard:   'Choking hazard',
-
-        match:  {
-          key:  'Assignee',
-          value: "<span class='highlight'>Nick</span> Golding – <span class='highlight'>nick</span>.golding@softwire.com"
-        }
-
-    }) }}
-
-    {{ caseCard({
-        type:   'Case',
-        status: 'Open',
-        id:     '1809-1234',
-
-        product:  'Makita, drill',
-        hazard:   'Electric shock, fire hazard',
-
-        match:  {
-          key:  'Product, model number',
-          value: "Makita Pen, 1/4 x 18 mm, Stainless Steel, F <span class='highlight'>32142</span>"
-        }
-
-    }) }}
-
-    {{ caseCard({
-        type:   'Case',
-        status: 'Open',
-        id:     '1806-1212',
-
-        product:  'Kingfisher Technology, Cable Lead Adaptor',
-        hazard:   'Electric shock hazard',
-
-        match:  {
-          key:  'Product, manufacturer reference',
-          value: "<span class='highlight'>32142</span>-USB-UCE6-90-BLA-D"
-        }
-
-    }) }}
+    <div class="govuk-grid-column-three-quarters mspsds-search__results mspsds-search__results--empty">
+        <span class="govuk-heading-xl">No results</span>
     </div>
   </div
 

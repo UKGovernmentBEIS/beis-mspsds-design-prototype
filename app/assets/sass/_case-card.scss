@@ -133,11 +133,11 @@ $marginIndent: 10px;
     &--Closed {
         
         background-color:   govuk-colour("white");
-        color:              govuk-colour("grey-2"); 
+        color:              govuk-colour("grey-1"); 
 
         & * {
              @include govuk-typography-weight-regular();
-             color:     govuk-colour("grey-2");   
+             color:     govuk-colour("grey-1");   
         }
 
     }
