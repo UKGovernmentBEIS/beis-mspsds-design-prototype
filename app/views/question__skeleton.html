@@ -41,14 +41,14 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h2 class="govuk-heading-m">
-      <span class="govuk-caption-m">{% if issueType=="Question" %} Asked {% else %} Reported {%endif%} by:</span>
-      {{ question.reporter.name }} ({{ question.reporter.emailAddress}})
+      <span class="govuk-caption-m">{% if question["issue-type"]=="Enquiry" %} Asked {% else %} Reported {%endif%} by:</span>
+      {{ question.reporter.name }} {% if question.reporter.emailAddress %}({{ question.reporter.emailAddress}}){% endif %}
     </h2>
   </div>
 </div>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <p class="govuk-body">{{question.description }}
+    <p class="govuk-body">{{question.description}}
   </div>
 </div>
 
@@ -110,7 +110,7 @@
 
   {{ activityTimeline([
     {
-      title: issueType + " logged",
+      title: question["issue-type"] + " logged",
       action: "",
       html: '
         <p class="govuk-body">
