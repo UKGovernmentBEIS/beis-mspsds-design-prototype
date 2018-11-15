@@ -109,21 +109,52 @@
         title:      'Activity'
   }) }}
 
-  {{ activityTimeline([
-    {
-      title: question["issue-type"] + " logged",
-      action: "",
-      html: '
-        <p class="govuk-body">
-          Origin: <span class="govuk-!-font-weight-bold">' + question["origin-type"] + '</span><br />
-          Source type: <span class="govuk-!-font-weight-bold">' + question.reporter.type + '</span><br />
-          Name: <span class="govuk-!-font-weight-bold">' + question.reporter.name + '</span><br />
-          Phone number: <span class="govuk-!-font-weight-bold">' + question.reporter.phoneNumber + '</span><br />
-          Email address: <span class="govuk-!-font-weight-bold">' + question.reporter.emailAddress + '</span>
-        </p>
-        <p class="govuk-body">' + question.reporter.otherDetails + '</p>'
-    }
-  ]) }}
+  {% if question["origin-type"]=="Email" %}
+    {% set activities = [
+      {
+        title: "Initial email report",
+        action: "Email recorded",
+        html: '
+          <p class="govuk-body">
+            Subject: <span class="govuk-!-font-weight-bold">' + data["correspondence-subject"] + '</span><br />
+            Attached: <a href="#">' + data["correspondence-file-upload-1"] + '</a>
+          </p>
+          <p class="govuk-body">' + data["correspondence-content"] + '</p>'
+      },
+      {
+        title: question["issue-type"] + " logged",
+        action: "",
+        html: '
+          <p class="govuk-body">
+            Origin: <span class="govuk-!-font-weight-bold">' + question["origin-type"] + '</span><br />
+            Source type: <span class="govuk-!-font-weight-bold">' + question.reporter.type + '</span><br />
+            Name: <span class="govuk-!-font-weight-bold">' + question.reporter.name + '</span><br />
+            Phone number: <span class="govuk-!-font-weight-bold">' + question.reporter.phoneNumber + '</span><br />
+            Email address: <span class="govuk-!-font-weight-bold">' + question.reporter.emailAddress + '</span>
+          </p>
+          <p class="govuk-body">' + question.reporter.otherDetails + '</p>'
+      }
+    ] %}
+  {% else %}
+    {% set activities = [
+      {
+        title: question["issue-type"] + " logged",
+        action: "",
+        html: '
+          <p class="govuk-body">
+            Origin: <span class="govuk-!-font-weight-bold">' + question["origin-type"] + '</span><br />
+            Source type: <span class="govuk-!-font-weight-bold">' + question.reporter.type + '</span><br />
+            Name: <span class="govuk-!-font-weight-bold">' + question.reporter.name + '</span><br />
+            Phone number: <span class="govuk-!-font-weight-bold">' + question.reporter.phoneNumber + '</span><br />
+            Email address: <span class="govuk-!-font-weight-bold">' + question.reporter.emailAddress + '</span>
+          </p>
+          <p class="govuk-body">' + question.reporter.otherDetails + '</p>'
+      }
+    ] %}
+  {% endif %}
+
+
+  {{ activityTimeline(activities) }}
 {% endset -%}
 
 
