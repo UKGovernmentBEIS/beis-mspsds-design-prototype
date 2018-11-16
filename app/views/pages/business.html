@@ -1,0 +1,21 @@
+
+{% set currentBusiness = false %}
+
+
+{% if data['businessid'] %}
+    
+    {% for business in data['businesses'] %}
+        {% if business.id == data['businessid'] %}
+            {% set currentBusiness = business %}
+        {% endif %}
+    {% endfor %}
+    
+{% endif %}
+
+
+
+{% if currentBusiness %}
+    {% extends "includes/templates/business.html" %}
+{% else %}
+    {% extends "includes/templates/404.html" %}
+{% endif %}

@@ -1,0 +1,35 @@
+
+{% from "includes/components/shared/tab-title.html"     import tabTitle %}
+{% from "includes/components/shared/incident.html"      import incident %}
+{% from "includes/components/case/case-report.html"     import caseReport %}
+
+
+
+
+{{ tabTitle({
+        title:      'Full details',
+        controls:   '<a href="/product/edit">Edit details</a>'
+}) }}
+
+
+{% if currentCase.report %}
+    
+    {{ caseReport(currentCase.report) }}
+
+{% endif %}
+
+
+{% if currentCase.incidents.length > 0 %}
+    
+    {{ incident(currentCase.incidents) }}
+
+{% endif %}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,31 @@
+{% from "includes/components/shared/tab-title.html"         import tabTitle %}
+{% from "includes/components/product/product-panel.html"    import productPanel %}
+
+
+{{ tabTitle({
+        title:      'Products',
+        controls:   '<a href="#" class="mspsds-block-link">Add product</a>'
+}) }}
+
+
+<div class="mspsds-product-list">
+  
+    {% for prod in data['products'] %}
+
+        {% if currentCase.products.indexOf( prod.id ) > -1 %}
+            
+            {% if loop.index > 1 %}
+                <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible" />
+            {% endif %}
+
+            {{ productPanel({
+                product:        prod,
+                controls:       true,
+                fullDetails:    false
+            }) }}
+
+        {% endif %}
+
+    {% endfor %}
+
+</div>

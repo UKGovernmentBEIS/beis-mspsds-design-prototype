@@ -1,0 +1,65 @@
+{% from "includes/components/shared/tab-title.html"           import tabTitle %}
+{% from "table/macro.njk"                                     import govukTable %}
+
+
+
+{{ tabTitle({
+        title:      'Contacts',
+        controls:   '<a href="/product/edit">Add contact</a>'
+}) }}
+
+
+
+
+<div class="mspsds-contact-list">
+
+    {% set contactRows = [] %}
+    
+
+    {% for contact in data['contacts'] %}
+
+
+      {% set matched = false %}
+
+      {% for ciz in currentCase.contacts %}
+          {% if contact.id === ciz.id %}
+              {% set matched = ciz.role %}
+          {% endif %}
+      {% endfor %}
+
+
+      {% if matched %}
+
+        {% set contactRows = ( contactRows.push([
+          {text: matched},
+          {html: contact.name + '<br/>' + contact.title},
+          {html: contact.phone + '<br/>' + contact.email}
+        ]), contactRows ) %}
+
+      {% endif %}
+
+
+    {% endfor %}
+
+
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        {{ govukTable({
+          firstCellIsHeader: true,
+          rows: contactRows
+        }) }}
+      </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+

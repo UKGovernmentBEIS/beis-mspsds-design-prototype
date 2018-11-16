@@ -1,0 +1,735 @@
+{% from "includes/components/case/case-card.html"         import caseCard %}
+
+
+{% macro caseCardList(filters, q1, q2, a1, a2) %}
+  
+
+  {{ caseCard(
+    {
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0803',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      hazard:   'Electric shock, fire hazard',
+
+      assignee:     'Tim Harwood',
+      team:         'Processing',
+      overdue:      'Overdue',
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+    }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0802',
+
+      product:  'Brand, Travel plug adaptor, 7196',
+      hazard:   'Electric shock hazard',
+
+      assignee:     'Ed Smith-Muller',
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+
+  {{ caseCard({
+      type:   'Question',
+      link:   './question-1',
+      status: 'Open',
+      id:     '1811-0801',
+
+      product:  'Spongebob Squarepants Toy scooter',
+      question:   'Shouldn\'t this be categorised as a toy?',
+
+      assignee:     'Tim Harwood',
+      team:         'Processing',
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0800',
+
+      product:  'FLEXA, Children high chair 82-10020-1',
+      hazard:   'Entrapment, Injuries hazard',
+
+      assignee:     'Tim Harwood',
+      team:         'Processing',
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0799',
+
+      product:  'Bieco, Schnullerhalter, Soother holder',
+      hazard:   'Choking hazard',
+
+      assignee:     'Nick Golding',
+      team:         'Processing',
+      overdue:      'Overdue',
+      dateUpdated:  '20/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0798',
+
+      product:  'BabyDan, Cuddle Nest Ergo',
+      hazard:   'Suffocation hazard',
+
+      assignee:     'Christopher Hunter',
+      team:         'Processing',
+      dateUpdated:  '21/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Question',
+      link:   './question-1',
+      status: 'Open',
+      id:     '1811-0797',
+
+      product:  'Zhuzhu Rabbit, Childrens outfit',
+      question:   'Has anyone successfully located the importer for these?',
+
+      assignee:     'Amanda Farrell',
+      team:         'TSC',
+      dateUpdated:  '20/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0796',
+
+      product:  'BOLI Razor, Technology Quality Life, Electric razor',
+      hazard:   'Electric shock hazard',
+
+      assignee:     'Ed Smith-Muller',
+      dateUpdated:  '20/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0795',
+
+      product:  'NO ONE, Your Best Choice, Electric razor',
+      hazard:   'Electric shock hazard',
+
+      assignee:     'Nick Golding',
+      team:         'Processing',
+      overdue:      'Overdue',
+      dateUpdated:  '20/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0794',
+
+      product:  'Aqua Sphere, Beachwalker XP, Water shoes',
+      hazard:   'Chemical hazard',
+
+      assignee:     'Tim Harwood',
+      team:         'Processing',
+      dateUpdated:  '20/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+
+  {{ caseCard({
+      type:   'Question',
+      link:   './question-1',
+      status: 'Open',
+      id:     '1811-0793',
+
+      product:  'CP, 3in 1 LASER & LED LIGHT, Laser pointer',
+      question:   'What legislation applies to importing these?' ,
+
+      assignee:     'Tim Harwood',
+      team:         'Processing',
+      dateUpdated:  '19/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0792',
+
+      product:  'ZK, T2 Function Laser & LED Light with Carabiner Clip, Laser pointer',
+      hazard:   'Damage to sight hazard',
+
+      assignee:     'Ed Smith-Muller',
+      dateUpdated:  '19/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0791',
+
+      product:  'Lovely Cartoon Unisex Quartz Sports Kids Wrist Watch, Children watch',
+      hazard:   'Chemical, Choking hazard',
+
+      assignee:     'Christopher Hunter',
+      team:         'Processing',
+      overdue:      'Overdue',
+      dateUpdated:  '19/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0790',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      hazard:   'Electric shock, fire hazard',
+
+      assignee:     a1,
+      dateUpdated:  '19/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Question',
+      link:   './question-1',
+      status: 'Open',
+      id:     '1811-0789',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      question:   'Haven\'t these been recalled already?',
+
+      assignee:     'Adebola Showemimo',
+      team:         'TSC',
+      dateUpdated:  '19/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-2',
+      status: 'Open',
+      id:     '1811-0788',
+
+      product:  'Multiple: Finger puppets',
+      hazard:   'Poison hazard',
+
+      assignee:     a2,
+      dateUpdated:  '19/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Closed',
+      id:     '1811-0787',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      hazard:   'Electric shock, fire hazard',
+
+      assignee:     'Nick Golding',
+      team:         'Processing',
+      dateUpdated:  '19/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+
+  {{ caseCard({
+      type:   'Question',
+      link:   './question-1',
+      status: 'Closed',
+      id:     '1811-0786',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      question:   'Can anyone think of another question?',
+
+      assignee:     'Adebola Showemimo',
+      team:         'TSC',
+      dateUpdated:  '19/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0785',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      hazard:   'Electric shock, fire hazard',
+
+      assignee:     'Christopher Hunter',
+      team:         'Processing',
+      dateUpdated:  '19/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0784',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      hazard:   'Electric shock, fire hazard',
+
+      assignee:     'Ed Smith-Muller',
+      dateUpdated:  '18/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Closed',
+      id:     '1811-0783',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      hazard:   'Electric shock, fire hazard',
+
+      assignee:     'Christopher Hunter',
+      team:         'Processing',
+      dateUpdated:  '18/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0782',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      hazard:   'Electric shock, fire hazard',
+
+      assignee:     'Nick Golding',
+      team:         'Processing',
+      overdue:      'Overdue',
+      dateUpdated:  '18/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Closed',
+      id:     '1811-0781',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      hazard:   'Electric shock, fire hazard',
+
+      assignee:     'Ed Smith-Muller',
+      dateUpdated:  '18/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0780',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      hazard:   'Electric shock, fire hazard',
+
+      assignee:     'Tim Harwood',
+      team:         'Processing',
+      dateUpdated:  '18/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0779',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      hazard:   'Electric shock, fire hazard',
+
+      assignee:     'Tim Harwood',
+      team:         'Processing',
+      overdue:      'Overdue',
+      dateUpdated:  '18/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Question',
+      link:   './question-1',
+      status: 'Open',
+      id:     '1811-0778',
+
+      product:  'Travel adaptors',
+      question:   'What legislation should I be testing under?',
+
+      assignee:     'Adebola Showemimo',
+      team:         'TSC',
+      dateUpdated:  '18/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0777',
+
+      product:  'Spongebob Squarepants Toy scooter',
+      hazard:   'Injuries hazard',
+
+      assignee:     'Tim Harwood',
+      team:         'Processing',
+      dateUpdated:  '18/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0776',
+
+      product:  'FLEXA, Children high chair 82-10020-1',
+      hazard:   'Entrapment, Injuries hazard',
+
+      assignee:     'Tim Harwood',
+      team:         'Processing',
+      dateUpdated:  '18/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0775',
+
+      product:  'Bieco, Schnullerhalter, Soother holder',
+      hazard:   'Choking hazard',
+
+      assignee:     'Christopher Hunter',
+      team:         'Processing',
+      overdue:      'Overdue',
+      dateUpdated:  '18/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0774',
+
+      product:  'BabyDan, Cuddle Nest Ergo',
+      hazard:   'Suffocation hazard',
+
+      assignee:     'Nick Golding',
+      team:         'Processing',
+      dateUpdated:  '18/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0773',
+
+      product:  'Zhuzhu Rabbit, Childrens outfit',
+      hazard:   'Strangulation hazard',
+
+      assignee:     'Tim Harwood',
+      team:         'Processing',
+      dateUpdated:  '17/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0772',
+
+      product:  'BOLI Razor, Technology Quality Life, Electric razor',
+      hazard:   'Electric shock hazard',
+
+      assignee:     'Ed Smith-Muller',
+      dateUpdated:  '17/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Question',
+      link:   './question-2',
+      status: 'Open',
+      id:     '1811-0771',
+
+      product:    'Toys',
+      question:   'Toys (Safety) Regulations -can you plead guilty in absence?',
+
+      assignee:     q2,
+      team:         'TSC',
+      overdue:      'Overdue',
+      dateUpdated:  '17/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0770',
+
+      product:  'Aqua Sphere, Beachwalker XP, Water shoes',
+      hazard:   'Chemical hazard',
+
+      assignee:     'Tim Harwood',
+      team:         'Processing',
+      dateUpdated:  '17/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0769',
+
+      product:  'CP, 3in 1 LASER & LED LIGHT, Laser pointer',
+      hazard:   'Damage to sight hazard',
+
+      assignee:     'Tim Harwood',
+      team:         'Processing',
+      dateUpdated:  '17/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0768',
+
+      product:  'ZK, T2 Function Laser & LED Light with Carabiner Clip, Laser pointer',
+      hazard:   'Damage to sight hazard',
+
+      assignee:     'Ed Smith-Muller',
+      dateUpdated:  '17/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0767',
+
+      product:  'Lovely Cartoon Unisex Quartz Sports Kids Wrist Watch, Children watch',
+      hazard:   'Chemical, Choking hazard',
+
+      assignee:     'Christopher Hunter',
+      team:         'Processing',
+      overdue:      'Overdue',
+      dateUpdated:  '17/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0766',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      hazard:   'Electric shock, fire hazard',
+
+      assignee:     'Nick Golding',
+      dateUpdated:  '17/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0765',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      hazard:   'Electric shock, fire hazard',
+
+      assignee:     'Tim Harwood',
+      team:         'Processing',
+      dateUpdated:  '17/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0764',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      hazard:   'Electric shock, fire hazard',
+
+      assignee:     'Ed Smith-Muller',
+      dateUpdated:  '17/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Question',
+      link:   './question-1',
+      status: 'Closed',
+      id:     '1811-0763',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      hazard:   'Another question? Really?',
+
+      assignee:     'Amanda Farrell',
+      team:         'TSC',
+      dateUpdated:  '17/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Closed',
+      id:     '1811-0762',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      hazard:   'Electric shock, fire hazard',
+
+      assignee:     'Ed Smith-Muller',
+      dateUpdated:  '16/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0761',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      hazard:   'Electric shock, fire hazard',
+
+      assignee:     'Christopher Hunter',
+      team:         'Processing',
+      dateUpdated:  '16/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0760',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      hazard:   'Electric shock, fire hazard',
+
+      assignee:     'Ed Smith-Muller',
+      dateUpdated:  '16/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Closed',
+      id:     '1811-0759',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      hazard:   'Electric shock, fire hazard',
+
+      assignee:     'Christopher Hunter',
+      team:         'Processing',
+      dateUpdated:  '16/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Question',
+      link:   './question-1',
+      status: 'Open',
+      id:     '1811-0758',
+
+      product:  'Red Zulu, Slap Wrap',
+      question: 'Has anyone recently advised on snap bracelets / slap warps? ',
+
+      assignee:     q1,
+      team:         'TSC',
+      overdue:      'Overdue',
+      dateUpdated:  '16/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Closed',
+      id:     '1811-0757',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      hazard:   'Electric shock, fire hazard',
+
+      assignee:     'Ed Smith-Muller',
+      dateUpdated:  '16/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+  {{ caseCard({
+      type:   'Case',
+      link:   './case-1',
+      status: 'Open',
+      id:     '1811-0756',
+
+      product:  'Charge Worx, Travel plug adaptor',
+      hazard:   'Electric shock, fire hazard',
+
+      assignee:     'Tim Harwood',
+      team:         'Processing',
+      dateUpdated:  '16/10/2018',
+      dateCreated:  '18/10/2018'
+  }, filters) }}
+
+
+{% endmacro %}

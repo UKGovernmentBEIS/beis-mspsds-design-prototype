@@ -1,0 +1,12 @@
+{% from "includes/components/shared/tab-title.html"                 import tabTitle %}
+{% from "includes/components/shared/activity-timeline.html"         import activityTimeline %}
+
+
+  {{ tabTitle({
+          title:      'Activity',
+          controls:   '<a href="/product/edit">Add activity</a>'
+  }) }}
+
+
+
+  {{ activityTimeline( currentCase.activites ) }}

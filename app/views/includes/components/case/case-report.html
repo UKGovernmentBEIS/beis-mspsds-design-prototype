@@ -1,0 +1,51 @@
+{% from "table/macro.njk"     import govukTable %}
+
+
+
+{% macro caseReport(reportData) %}
+
+
+{% set reportRows         = [] %}
+
+{% set prodRows = (reportRows.push([
+    { text: "Date" },
+    { text: reportData.date  }
+]), reportRows) %}
+
+{% set prodRows = (reportRows.push([
+    { text: "Reporter" },
+    { html: reportData.reporter.type + " <br><a href='#'>View details</a>"   }
+]), reportRows) %}
+
+{% set prodRows = (reportRows.push([
+    { text: "Summary" },
+    { text: reportData.summary  }
+]), reportRows) %}
+
+{% set prodRows = (reportRows.push([
+    { text: "Details" },
+    { text: reportData.otherDetails  }
+]), reportRows) %}
+
+{% set prodRows = (reportRows.push([
+    { text: "Correspondence" },
+    { html: reportData.correspondence.type + " <br><a href='#'>View details</a>"   }
+]), reportRows) %}
+
+
+
+<div class="govuk-grid-row govuk-!-margin-bottom-4">
+
+    <div class="govuk-grid-column-full">
+        <h3 class="govuk-heading-m">Report</h3>
+
+        {{ govukTable({
+            firstCellIsHeader: true,      
+            rows: reportRows
+        }) }}
+    </div>
+
+</div>
+
+{% endmacro %}
+

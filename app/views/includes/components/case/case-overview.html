@@ -14,22 +14,21 @@
 	{% endif %}
 
 
-	{% if currentCase.products.length > 0 %}
 
+	{% if currentCase.products.length > 0 %}
 
 		{% for prod in data['products'] %}
 			{% if prod.id == currentCase.products[0] %}
 				
 				{{ productPanel({
 					product: 		prod,
-					controls: 		true,
+					controls: 		false,
 					fullDetails: 	false
 				}) }}
 
 		  	{% endif %}
 		{% endfor %}
 			
-
 	{% endif %}
 
 

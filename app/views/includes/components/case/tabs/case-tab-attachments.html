@@ -1,0 +1,11 @@
+{% from "includes/components/shared/tab-title.html"           import tabTitle %}
+{% from "includes/components/shared/attachment-list.html"     import attachmentList %}
+
+
+    {{ tabTitle({
+        title:      'Attachments',
+        controls:   '<a href="/product/edit">Add attachment</a>'
+    }) }}
+
+
+    {{ attachmentList( currentCase.attachments.length ) }}

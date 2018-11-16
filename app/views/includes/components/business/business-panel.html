@@ -1,0 +1,52 @@
+{% from "table/macro.njk"       import govukTable %}
+
+
+{% macro businessPanel(businessData) %}
+
+  {% set biz             = businessData.business %}
+
+  {% set businessLink    = '/pages/business?businessid=' + biz.id  %}
+
+  {% set bizRows         = [] %}
+  
+
+  {% set bizRows = (bizRows.push([
+        { text: "Brand" },
+        { text: biz.brand  }
+  ]), bizRows) %}
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {{ govukTable({
+        firstCellIsHeader: true,
+        classes: "govuk-!-margin-bottom-4",
+        rows: [
+          [
+            { text: businessData.role },
+            { text: biz.name }
+          ],
+          [
+            { text: 'Main address' },
+            { text: biz.address }
+          ],
+          [
+            { text: 'Main contact'},
+            { text: biz.contact }
+          ],
+          [
+            { text: 'Primary authority' },
+            { text: biz.primaryAuthority }
+          ],
+          [
+            { text: '' },
+            { html: '<a href="' + businessLink + '" >View full business page</a>' }
+          ]
+        ]
+      }) }}
+
+    </div>
+  </div>
+
+{% endmacro %}

@@ -1,0 +1,46 @@
+{% from "table/macro.njk"     import govukTable %}
+
+
+{% macro incident(incidentData) %}
+
+
+<hr class="govuk-section-break govuk-section-break--m" />
+
+<div class="govuk-grid-row govuk-!-margin-bottom-4">
+
+  <div class="govuk-grid-column-full">
+    <h3 class="govuk-heading-m">Incidents</h3>
+
+
+    {% for incident in incidentData %}
+
+        {% set incidentRows         = [] %}
+
+        {% set incidentRows = (incidentRows.push([
+            { text: "Details" },
+            { text: incident.details  }
+        ]), incidentRows) %}
+
+
+        {% set incidentRows = (incidentRows.push([
+            { text: "Attachements" },
+            { html: incident.attachment  }
+        ]), incidentRows) %}
+
+
+        {{ govukTable({
+            firstCellIsHeader: true,      
+            rows: incidentRows
+        }) }}
+
+
+    {% endfor %}
+
+
+  </div>
+
+</div>
+    
+
+
+{% endmacro %}
