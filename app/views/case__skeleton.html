@@ -1,0 +1,185 @@
+{% extends "mspsds-layout.html" %}
+
+{% block pageTitle %}
+  Case Page
+{% endblock %}
+
+{% block beforeContent %}
+
+  {{ govukPhaseBanner({
+    tag: {
+      text: "beta"
+    },
+    html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+  }) }}
+
+  {{ govukBackLink({
+    text: "Back to Case & Questions",
+    href: "/case-list"
+  }) }}
+
+{% endblock %}
+
+
+{% block content %}
+
+
+{% from "includes/mspsds-confirmation.html" import confirmation %}
+
+{% if updated == 'image-added' %}
+  {{ confirmation("confirmation--image-added", "Image \"Image title\" added.", "Undo") }}
+  {% set updated = '' %}
+{% endif %}
+
+{% if updated == 'image-deleted' %}
+  {{ confirmation("confirmation--image-deleted", "Image \"Image title\" deleted.", "Undo") }}
+  {% set updated = '' %}
+{% endif %}
+
+{% if updated == 'product-removed' %}
+  {{ confirmation("confirmation--product-removed", "Product \"Product title\" removed from this case.", "Undo") }}
+  {% set updated = '' %}
+{% endif %}
+
+{% if updated == 'assigned' %}
+  {{ confirmation("confirmation--question--assigned", "Case reassigned.") }}
+  {% set updated = '' %}
+{% endif %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ pageTitle({
+      type:       "Case: " + case.id,
+      title:      case.title
+    }) }}
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    {% from "includes/case-status.html" import caseStatus %}
+    {{ caseStatus(case.status, case.assignee, case.priority) }}
+  </div>
+</div>
+
+<div class="mspsds-overview">
+  {% from "panels/case-why.html" import caseWhy %}
+  {{ caseWhy(case.hazard) }}
+
+  {# TODO - is this meant to be here? different between empty and not #}
+  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+  {% if case.products[0] %}
+    {% include "panels/product-panel.html" %}
+  {% else %}
+    {% from "panels/product-panel__empty.html" import productPanel %}
+    {{ productPanel(case.products[0]) }}
+  {% endif %}
+</div>
+
+<h2 class="govuk-heading-l">Add new activity</h2>
+{% include "panels/record-action.html" %}
+
+<hr class="govuk-section-break govuk-section-break--m" />
+
+{{ govukTabs({
+  items: [
+    {
+      label: "Activity",
+      id: "activity",
+      panel: {
+        html: activityHtml
+      }
+    },
+    {
+      label: "Full details",
+      id: "full-details",
+      panel: {
+        html: fullDetailHtml
+      }
+    },
+    {
+      label: "Products",
+      id: "products",
+      panel: {
+        html: productsHtml
+      }
+    },
+    {
+      label: "Businesses",
+      id: "businesses",
+      panel: {
+        html: businessesHtml
+      }
+    },
+    {
+      label: "Attachments",
+      id: "attachments",
+      panel: {
+        html: attachmentsHtml
+      }
+    }
+  ]
+}) }}
+
+{% endblock %}
+
+
+{% set activityHtml %}
+  {% from "includes/activity-timeline.html"       import activityTimeline %}
+  {% from "includes/tab-title.html"               import tabTitle %}
+
+
+  {{ tabTitle({
+        title:      'Activity'
+  }) }}
+  
+
+  {{ activityTimeline(case.staticActivites, [
+    {
+      title: case.reporter.type + " report",
+      action: "Report details added",
+      html: '
+        <p class="govuk-body">
+          Name: <span class="govuk-!-font-weight-bold">'+case.reporter.name+'</span><br />
+          Phone number: <span class="govuk-!-font-weight-bold">'+case.reporter.phoneNumber+'</span><br />
+          Email address: <span class="govuk-!-font-weight-bold">'+case.reporter.emailAddress+'</span>
+        </p>
+        <p class="govuk-body">'+case.reporter.otherDetails+'</p>'
+    },
+    {
+      title: "Case created",
+      action: ""
+    }
+  ]) }}
+{% endset -%}
+
+{% set attachmentsHtml %}
+  {% from "includes/attachment-list.html" import attachmentList %}
+  {% from "includes/tab-title.html"               import tabTitle %}
+
+  {{ tabTitle({
+        title:      'Attachments',
+        controls:   '<a href="#" class="mspsds-block-link">Add new image</a> <a href="#" class="mspsds-block-link">Add new document</a>'
+  }) }}
+
+
+  {{ attachmentList(case.numAttachments) }}
+
+{% endset -%}
+
+
+
+{% set productsHtml %}
+  {% include "tab-sections/products-list.html" %}
+{% endset -%}
+
+
+
+{% set businessesHtml %}
+  {% include "tab-sections/businesses-list.html" %}
+{% endset -%}
+
+
+
+{% set fullDetailHtml %}
+  {% include "tab-sections/full-detail-case.html" %}
+{% endset -%}
