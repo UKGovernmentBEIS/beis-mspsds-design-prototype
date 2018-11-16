@@ -7,7 +7,6 @@
 
 
 
-
 {% block beforeContent %}
 
 	{% include "includes/components/shared/page-banner.html" %}
@@ -24,8 +23,13 @@
 		{% include "includes/components/case/case-title.html" %}
 	{% endblock %}
 
-	{% include "includes/components/case/case-overview.html" %}
+	{% block caseoverview %}
+		{% include "includes/components/case/case-overview.html" %}
+	{% endblock %}
 
-	{% include "includes/components/case/case-tabs.html" %}
+	{% block casetabs %}
+		{% include "includes/components/case/case-tabs.html" %}
+	{% endblock %}
+	
 
 {% endblock %}
