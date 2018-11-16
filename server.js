@@ -189,6 +189,9 @@ app.locals.promoMode = promoMode
 app.locals.releaseVersion = 'v' + releaseVersion
 app.locals.serviceName = config.serviceName
 
+// Add custom utility functions to the views
+app.locals.utils = utils.utilFunctions
+
 // Session uses service name to avoid clashes with other prototypes
 const sessionName = 'govuk-prototype-kit-' + (Buffer.from(config.serviceName, 'utf8')).toString('hex')
 let sessionOptions = {
