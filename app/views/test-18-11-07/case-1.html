@@ -234,21 +234,6 @@
 
 
 
-{% set oldBusinessesHtml %}
-  <h2 class="govuk-heading-l">Businesses</h2>
-  <a href="#" class="mspsds-block-link">Add business</a>
-
-  {% from "panels/linked-business-panel.html" import linkedBusinessPanel %}
-
-  <div class="mspsds-business-list">
-    {{ linkedBusinessPanel("Manufacturer") }}
-    {{ linkedBusinessPanel("Importer") }}
-    {{ linkedBusinessPanel("Distributor") }}
-  </div>
-
-{% endset -%}
-
-
 
 {% set businessesHtml %}
   {% from "tab-sections/businesses-section.html"  import businessSection %}

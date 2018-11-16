@@ -1,0 +1,146 @@
+{% from "table/macro.njk"     import govukTable %}
+{% from "button/macro.njk"    import govukButton %}
+
+
+{% macro productPanel(productData) %}
+
+  {% set prod             = productData.product %}
+
+  {% set productLink      = '/pages/product?product=' + prod.id  %}
+
+
+
+
+  {% set prodRows         = [] %}
+
+
+  {% if prod.brand %}
+      {% set prodRows = (prodRows.push([
+            { text: "Brand" },
+            { text: prod.brand  }
+      ]), prodRows) %}
+  {% endif %}
+
+  {% if prod.modelName %}
+      {% set prodRows = (prodRows.push([
+                { text: "Model name" },
+                { text: prod.modelName  }
+      ]), prodRows) %}
+  {% endif %}
+
+  {% if prod.modelNumber %}
+    {% set prodRows = (prodRows.push([
+              { text: "Model number" },
+              { text: prod.modelNumber  }
+    ]), prodRows) %}
+  {% endif %}
+
+  {% if prod.type %}
+    {% set prodRows = (prodRows.push([
+              { text: "Type" },
+              { text: prod.type  }
+    ]), prodRows) %}
+  {% endif %}
+
+  {% if prod.category %}
+    {% set prodRows = (prodRows.push([
+              { text: "Category" },
+              { text: prod.category  }
+    ]), prodRows) %}
+  {% endif %}
+
+  {% if prod.description %}
+    {% set prodRows = (prodRows.push([
+              { text: "Description" },
+              { text: prod.description  }
+    ]), prodRows) %}
+  {% endif %}
+
+  {% if prod.manufacturer %}
+    {% set prodRows = (prodRows.push([
+              { text: "Manufacturer" },
+              { text: prod.manufacturer  }
+    ]), prodRows) %}
+  {% endif %}
+
+
+
+
+  {% if productData.fullDetails %}
+
+
+      {% if prod.barcode %}
+        {% set prodRows = (prodRows.push([
+                  { text: "Barcode" },
+                  { text: prod.barcode  }
+        ]), prodRows) %}
+      {% endif %}
+
+      {% if prod.productNumber %}
+        {% set prodRows = (prodRows.push([
+                  { text: "Product / Serial number" },
+                  { text: prod.productNumber  }
+        ]), prodRows) %}
+      {% endif %}
+
+      {% if prod.batchNumber %}
+        {% set prodRows = (prodRows.push([
+                  { text: "Batch number" },
+                  { text: prod.batchNumber  }
+        ]), prodRows) %}
+      {% endif %}
+
+      {% if prod.origin %}
+        {% set prodRows = (prodRows.push([
+                  { text: "Country of origin" },
+                  { text: prod.origin  }
+        ]), prodRows) %}
+      {% endif %}
+
+      {% if prod.dateOnMarket %}
+        {% set prodRows = (prodRows.push([
+                  { text: "Date on the market" },
+                  { text: prod.dateOnMarket  }
+        ]), prodRows) %}
+      {% endif %}
+
+
+  {% endif %}
+
+
+
+
+<div class="govuk-grid-row mspsds-product-panel">
+  
+  <div class="govuk-grid-column-one-third">
+    <img src="{{ prod.posterImage }}" title="Product identifying image" />
+  </div>
+
+  <div class="govuk-grid-column-two-thirds">
+
+    {{ govukTable({
+      firstCellIsHeader: true,
+      rows: prodRows
+    }) }}
+
+
+    {% if productData.controls %}
+
+        <div class="mspsds-controls">
+            <a href="./product" class="mspsds-block-link">View product</a>
+            {{ govukButton({
+              text: "Remove from this case",
+              href: "#",
+              attributes: { "onclick": "document.getElementById('confirmation--product-removed').style.display='block'" }
+            }) }}
+        </div>
+
+    {% endif %}
+
+
+  </div>
+
+</div>
+
+
+{% endmacro %}

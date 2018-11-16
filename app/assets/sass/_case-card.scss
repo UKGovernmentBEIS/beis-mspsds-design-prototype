@@ -80,6 +80,8 @@ $marginIndent: 10px;
         &:hover:before,
         &:focus:before {
             border:  1px solid currentColor;
+            background:         inherit;
+            mix-blend-mode:     darken;
         }
     }
 
