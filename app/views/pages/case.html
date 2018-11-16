@@ -1,18 +1,7 @@
 
-{% set currentCase = false %}
-
-
 {% if data['caseid'] %}
-	
-	{% for case in data['cases'] %}
-		{% if case.id == data['caseid'] %}
-			{% set currentCase = case %}
-	  	{% endif %}
-	{% endfor %}
-	
+	{% set currentCase = utils.findById(data.cases, data['caseid']) %}
 {% endif %}
-
-
 
 {% if currentCase %}
 	{% extends "includes/templates/case.html" %}

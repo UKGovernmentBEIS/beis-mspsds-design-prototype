@@ -19,7 +19,7 @@ Example usage:
 
 module.exports = {
   
-  currentCase: "1810-0001",
+  caseid: "1810-0001",
 
   cases: [
     {
