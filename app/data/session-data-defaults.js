@@ -19,8 +19,11 @@ Example usage:
 
 module.exports = {
   
+  currentCase: "1810-0001",
+
   cases: [
     {
+      type: 'Case',
       id: "1810-0001",
       title: "Untitled case",
       reporter: {
@@ -38,7 +41,7 @@ module.exports = {
       activites: []
     },
     {
-      id: "1810-0001",
+      id: "1810-0002",
       type: "Question",
       title: "Charge Worx, Travel plug adaptor –Electric shock, fire hazard",
       reporter: {
