@@ -35,10 +35,11 @@ module.exports = {
       priority: "Not set",
       numAttachments: 0,
       products: [],
-      staticActivites: []
+      activites: []
     },
     {
       id: "1810-0001",
+      type: "Question",
       title: "Charge Worx, Travel plug adaptor –Electric shock, fire hazard",
       reporter: {
         name: "Mina Harker",
@@ -60,7 +61,7 @@ module.exports = {
         hazardDescription: "Travel adaptor available from high-street store Game has been reported to have caused a fire and severe electric shocks. Has been reported more than 10 times in the last 2 months.",
         riskLevel: "Serious"
       },
-      staticActivites: [
+      activites: [
         {
           title: "Comment: Tim Harwood",
           hideName: true,
@@ -289,47 +290,56 @@ module.exports = {
         }
       ]
     
-    }
-  ]
+    },
+
+    {
+        type:       'Case',
+        status:     'Open',
+        id:         '1811-0803',
+        title:      'ChargeWorx adaptor, Electric shock, fire hazard',
+    assignee:       'Tim Harwood',
+        dateCreated:    '18/10/2018',
 
 
-  'cases': [
-
-  	{
-      	type:   		'Case',
-      	status: 		'Open',
-      	id:     		'1811-0803',
-      	title: 			'ChargeWorx adaptor, Electric shock, fire hazard',
-		assignee:     	'Tim Harwood',
-      	team:         	'Processing',
-      	dateCreated:  	'18/10/2018',
+        reporter: {
+          name: "Mina Harker",
+          type: "Consumer",
+          phoneNumber: "07123 123123",
+          emailAddress: "mina@castledracula.ro",
+          otherDetails: "Other details captured during the report entry"
+        },
 
 
-      	hazard: 		{
-      		type: 			'Electric shock, fire hazard',
-      		details: 		'Travel adaptor available from high-street store Game has been reported to have caused a fire and severe electric shocks. Has been reported more than 10 times in the last 2 months.',
-      		group: 			'Young children',
-      		riskLevel: 		'Serious',
-      		assessment: 	'assessment.pdf'
-      	},
+        hazard:     {
+          type:       'Electric shock, fire hazard',
+          details:    'Travel adaptor available from high-street store Game has been reported to have caused a fire and severe electric shocks. Has been reported more than 10 times in the last 2 months.',
+          group:      'Young children',
+          riskLevel:    'Serious',
+          assessment:   'assessment.pdf'
+        },
 
-      	
+        
 
-      	products: 		['p1'],
+        products:     ['p1'],
 
-      	businesses:  	['b1'],
-      	
-      	contacts: 		[],
-      	attachments: 	[],
-      	related: 		[],
-      	activity: 		[]
+        businesses:   ['b1'],
+        
+        contacts:     [],
+
+        numAttachments: 1,
+        attachments:  [],
+        related:    [],
+        activity:     []
 
     }
 
   ],
 
 
-  'products': [
+
+
+
+  products: [
 
   	{
       	id:     		'p1',
@@ -376,7 +386,7 @@ module.exports = {
 
 
 
-  'businesses': [
+  businesses: [
 
   	{
   		id: 			'b1',
