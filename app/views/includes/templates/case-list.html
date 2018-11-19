@@ -3,13 +3,9 @@
 {% from "select/macro.njk"                import govukSelect %}
 {% set bodyClasses = "mspsds-width-container case-list-3" %}
 
-
-
 {% block pageTitle %}
   Case-list Page
 {% endblock %}
-
-
 
 {% block beforeContent %}
 
@@ -76,15 +72,6 @@
   {% endif %}
 {% endif %}
 
-
-
-
-
-
-
-
-
-
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       {{ pageTitle({
@@ -93,12 +80,9 @@
     </div>
   </div>
 
-
   <div class="govuk-grid-row">
 
-
     <div class="govuk-grid-column-one-quarter govuk-!-margin-bottom-2 mspsds-case-control mspsds-case-filter-controls">
-
 
       <div class="govuk-!-margin-bottom-0">
           {{ headerSearch({
@@ -108,20 +92,14 @@
           }) }}
       </div>
 
-
       <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
-
-
       <form id="case-filters"  method="post">
-
-          {% set assigneeHtml %}
+        {% set assigneeHtml %}
           <label for="case-assignee-autocomplete" class="label govuk-label">Name / Team
             <div id="case-assignee-autocomplete-container"></div>
           </label>
         {% endset -%}
-
-
 
         {{ govukCheckboxes({
 
@@ -153,9 +131,7 @@
           ]
         }) }}
 
-
         {{ govukCheckboxes({
-
           fieldset: {
             legend: {
               text: "Status",
@@ -180,10 +156,7 @@
           ]
         }) }}
 
-
-
         {{ govukRadios({
-
           fieldset: {
             legend: {
               text: "Sort by",
@@ -195,7 +168,6 @@
           idPrefix:   "Sort",
           name:       "Sort",
           items: [
-
             {
               value: "latest",
               text: "Updated: recent",
@@ -211,60 +183,49 @@
               text: "Created: newest",
               checked: checked("Sort", "newest")
             }
-
           ]
         }) }}
-
 
         {{ govukButton({
           text: "Apply filters"
         }) }}
 
+      </form>
 
-    </form>
+      <script type="text/javascript">
 
-    <script type="text/javascript">
+        var assignees = [
+          'Anyone',
+          'Tim Harwood',
+          'Nick Golding',
+          'Ed Smith-Muller',
+          'Amanda Farrell',
+          'Adebola Showemimo',
+          'Christopher Hunter',
+          'Adrian Hanratty'
+        ];
 
-
-      var assignees = [
-        'Anyone',
-        'Tim Harwood',
-        'Nick Golding',
-        'Ed Smith-Muller',
-        'Amanda Farrell',
-        'Adebola Showemimo',
-        'Christopher Hunter',
-        'Adrian Hanratty'
-      ];
-
-      element = document.querySelector('#case-assignee-autocomplete-container');
-      id = 'case-assignee-autocomplete';
-      accessibleAutocomplete({
-        element: element,
-        id: id,
-        name: id,
-        showNoOptionsFound: false,
-        defaultValue: '{{someoneElse}}',
-        showAllValues: true,
-        dropdownArrow: () => '',
-        source: assignees
-      });
-    </script>
-
-
-
-
+        element = document.querySelector('#case-assignee-autocomplete-container');
+        id = 'case-assignee-autocomplete';
+        accessibleAutocomplete({
+          element: element,
+          id: id,
+          name: id,
+          showNoOptionsFound: false,
+          defaultValue: '{{someoneElse}}',
+          showAllValues: true,
+          dropdownArrow: () => '',
+          source: assignees
+        });
+      </script>
+      
     </div>
 
+    {% from "includes/components/case/case-card-list.html"          import caseCardList %}
     <div class="govuk-grid-column-three-quarters mspsds-case-list-tab ">
-      {{ caseCardList(filters, data['q1-assigned'], data['q2-assigned'], data['c1-assigned'], data['c2-assigned']) }}
+      {{ caseCardList(filters, data.cases, data.products, utils) }}
     </div>
-
 
   </div>
-
-
-
-
 
 {% endblock %}

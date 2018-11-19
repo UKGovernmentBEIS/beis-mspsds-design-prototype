@@ -2,7 +2,7 @@
 
 
 
-{% macro caseCard(caseInfo, filters) %}
+{% macro caseCard(caseInfo, filters, products, utils) %}
 
 {% set display = true %}
 
@@ -63,26 +63,24 @@
         </span>
 
 
-        <a class="mspsds-case-card__title" href="{{caseInfo.link}}" >
+        <a class="mspsds-case-card__title" href="case?caseid={{caseInfo.id}}" >
 
-            {% if caseInfo.question %}
-                <span class="mspsds-case-card__product">{{caseInfo.question}}</span>
+            {% if caseInfo.type == "Question" %}
+                <span class="mspsds-case-card__product">{{caseInfo.title}}</span>
             {% endif %}
 
-            {% if caseInfo.product %}
-                <span class="mspsds-case-card__product">{{caseInfo.product}}</span>
+            {% if caseInfo.products | length > 0 %}
+                <span class="mspsds-case-card__product">{{utils.findById(products, caseInfo.products[0]).name}}</span>
             {% else %}
                 <span class="mspsds-case-card__product mspsds-case-card__product--undefined">Undefined product</span>
             {% endif %}
 
-            {% if caseInfo.hazard %}
-                <span class="mspsds-case-card__hazard">{{caseInfo.hazard}}</span>
-            {% else %}
-
-                {% if caseInfo.type == 'Case' %}
+            {% if caseInfo.type == 'Case' %}
+                {% if caseInfo.hazard %}
+                    <span class="mspsds-case-card__hazard">{{caseInfo.hazard.type}}</span>
+                {% else %}
                     <span class="mspsds-case-card__hazard mspsds-case-card__hazard--undefined">Undefined hazard</span>
                 {% endif %}
-
             {% endif %}
 
         </a>
