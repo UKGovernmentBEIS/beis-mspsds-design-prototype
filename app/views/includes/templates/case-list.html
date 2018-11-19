@@ -1,0 +1,270 @@
+{% extends "mspsds-layout.html" %}
+
+{% from "select/macro.njk"                import govukSelect %}
+{% set bodyClasses = "mspsds-width-container case-list-3" %}
+
+
+
+{% block pageTitle %}
+  Case-list Page
+{% endblock %}
+
+
+
+{% block beforeContent %}
+
+    {{ govukPhaseBanner({
+        tag: {
+          text: "beta"
+        },
+        html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+    }) }}
+
+    {{ siteNavV3([
+      {
+        label: 'Home',
+        link: '/pages/'
+      }, {
+        label: 'Cases',
+        link: '/pages/case-list',
+        classes: 'active'
+      }, {
+        label: 'Products',
+        link: '/pages/product-list'
+      }, {
+        label: 'Businesses',
+        link: '/pages/business-list'
+      }
+    ], data['createUrl'] ) }}
+
+{% endblock %}
+
+
+
+
+
+
+{% block content %}
+
+{% set filters          = [] %}
+{% set assigneeFilters  = [] %}
+{% set someoneElse      = '' %}
+
+
+
+{% if data['Status'] %}
+  {% set filters = (filters.push({filterType: 'status', filterValues: data['Status']}), filters) %}
+{% endif %}
+
+
+
+{% if data['Assignee'] %}
+  {% if 'Me' in data['Assignee'] %}
+    {% set assigneeFilters = (assigneeFilters.push( data['testing-name'] ), assigneeFilters) %}
+  {% endif %}
+
+  {% if 'other' in data['Assignee'] %}
+    {% if data['case-assignee-autocomplete'] %}
+      {% set someoneElse = data['case-assignee-autocomplete'] %}
+
+      {% set assigneeFilters = (assigneeFilters.push( data['case-assignee-autocomplete'] ), assigneeFilters) %}
+    {% endif %}
+  {% endif %}
+
+  {% if assigneeFilters.length > 0 %}
+    {% set filters = (filters.push({filterType: 'assignee', filterValues: assigneeFilters }), filters) %}
+  {% endif %}
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {{ pageTitle({
+        title: "Cases"
+      }) }}
+    </div>
+  </div>
+
+
+  <div class="govuk-grid-row">
+
+
+    <div class="govuk-grid-column-one-quarter govuk-!-margin-bottom-2 mspsds-case-control mspsds-case-filter-controls">
+
+
+      <div class="govuk-!-margin-bottom-0">
+          {{ headerSearch({
+            action:"search-results__cases-opt3.html",
+            label: "Keywords",
+            value: ""
+          }) }}
+      </div>
+
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+
+
+      <form id="case-filters"  method="post">
+
+          {% set assigneeHtml %}
+          <label for="case-assignee-autocomplete" class="label govuk-label">Name / Team
+            <div id="case-assignee-autocomplete-container"></div>
+          </label>
+        {% endset -%}
+
+
+
+        {{ govukCheckboxes({
+
+          fieldset: {
+            legend: {
+              text: "Assigned to",
+              isPageHeading: false,
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          classes: "govuk-!-margin-bottom-5",
+          idPrefix:   "Assignee",
+          name:       "Assignee",
+          items: [
+            {
+              value: "Me",
+              text: "Me",
+              checked: checked("Assignee", "Me")
+            },
+            {
+              value: "other",
+              text: "Someone else",
+              checked: checked("Assignee", "other"),
+              conditional: {
+                html: assigneeHtml
+              }
+            }
+
+          ]
+        }) }}
+
+
+        {{ govukCheckboxes({
+
+          fieldset: {
+            legend: {
+              text: "Status",
+              isPageHeading: false,
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          classes: "govuk-!-margin-bottom-5",
+          idPrefix: "Status",
+          name: "Status",
+          items: [
+            {
+              value: "Open",
+              text: "Open",
+              checked: checked("Status", "Open")
+            },
+            {
+              value: "Closed",
+              text: "Closed",
+              checked: checked("Status", "Closed")
+            }
+          ]
+        }) }}
+
+
+
+        {{ govukRadios({
+
+          fieldset: {
+            legend: {
+              text: "Sort by",
+              isPageHeading: false,
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          classes: "govuk-!-margin-bottom-5",
+          idPrefix:   "Sort",
+          name:       "Sort",
+          items: [
+
+            {
+              value: "latest",
+              text: "Updated: recent",
+              checked: checked("Sort", "latest")
+            },
+            {
+              value: "oldest",
+              text: "Updated: oldest",
+              checked: checked("Sort", "oldest")
+            },
+            {
+              value: "newest",
+              text: "Created: newest",
+              checked: checked("Sort", "newest")
+            }
+
+          ]
+        }) }}
+
+
+        {{ govukButton({
+          text: "Apply filters"
+        }) }}
+
+
+    </form>
+
+    <script type="text/javascript">
+
+
+      var assignees = [
+        'Anyone',
+        'Tim Harwood',
+        'Nick Golding',
+        'Ed Smith-Muller',
+        'Amanda Farrell',
+        'Adebola Showemimo',
+        'Christopher Hunter',
+        'Adrian Hanratty'
+      ];
+
+      element = document.querySelector('#case-assignee-autocomplete-container');
+      id = 'case-assignee-autocomplete';
+      accessibleAutocomplete({
+        element: element,
+        id: id,
+        name: id,
+        showNoOptionsFound: false,
+        defaultValue: '{{someoneElse}}',
+        showAllValues: true,
+        dropdownArrow: () => '',
+        source: assignees
+      });
+    </script>
+
+
+
+
+    </div>
+
+    <div class="govuk-grid-column-three-quarters mspsds-case-list-tab ">
+      {{ caseCardList(filters, data['q1-assigned'], data['q2-assigned'], data['c1-assigned'], data['c2-assigned']) }}
+    </div>
+
+
+  </div>
+
+
+
+
+
+{% endblock %}

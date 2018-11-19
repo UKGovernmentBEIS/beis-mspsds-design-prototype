@@ -21,6 +21,9 @@ module.exports = {
   
   caseid: "1811-0803",
 
+  createUrl: "/pages/flows/process-incoming/report-origin-type",
+
+
   cases:        require("./cases.js").cases,
   products:     require("./products.js").products,
   businesses:   require("./businesses.js").businesses,
