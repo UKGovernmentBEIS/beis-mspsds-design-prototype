@@ -65,6 +65,10 @@ $marginIndent: 10px;
         @include govuk-typography-responsive($size: 19);
         @include govuk-typography-weight-bold();
 
+        &:link,
+        &:visited {
+            color: $govuk-link-colour;  
+        }
 
         &:before {
             content: " ";
