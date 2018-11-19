@@ -237,7 +237,15 @@ Confirm report details
       {% endcall %}
 
       {{ govukButton({
-        text: "Save"
+        text: "Assign this case",
+        href: "/flows/report-assign/01-report-assign"
+      }) }}
+      {{ govukButton({
+        text: "Assign to me"
+      }) }}
+      {{ govukButton({
+        text: "Mark as resolved",
+        href: "/flows/report-close/01-report-close"
       }) }}
       <a class="govuk-link mspsds-block-link" href="/flows/process-incoming/report-origin-type">Edit details</a>
     </form>
