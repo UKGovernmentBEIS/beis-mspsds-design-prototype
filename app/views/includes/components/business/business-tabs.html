@@ -18,6 +18,10 @@
   {% include "includes/components/business/tabs/business-tab-contacts.html" %}
 {% endset -%}
 
+{% set locationsHtml %}
+  {% include "includes/components/business/tabs/business-tab-locations.html" %}
+{% endset -%}
+
 
 {% set attachmentsHtml %}
   {% include "includes/components/business/tabs/business-tab-attachments.html" %}
@@ -63,6 +67,13 @@
       id: "contacts",
       panel: {
         html: contactsHtml
+      }
+    },
+    {
+      label: "Locations",
+      id: "locations",
+      panel: {
+        html: locationsHtml
       }
     },
     {

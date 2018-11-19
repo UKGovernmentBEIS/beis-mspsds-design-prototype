@@ -18,6 +18,11 @@
 
 
 
+.govuk-tabs__tab { 
+    @include govuk-font($size: 16);
+}
+
+
 
 .govuk-header nav {
     display: inline-block;

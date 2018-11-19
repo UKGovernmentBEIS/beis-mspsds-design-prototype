@@ -1,0 +1,103 @@
+{% extends "includes/templates/flow.html" %}
+
+{% set displayTitle        = 'New Activity' %}
+
+
+
+{% block flow %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="./02-activity" method="post" class="form">
+
+        {{ govukRadios({
+          idPrefix:   "new-activity",
+          name:       "new-activity",
+          fieldset: {
+            legend: {
+              text: "Record",
+              isPageHeading: false,
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          items: [
+            {
+              value: "comment",
+              text: "Comment"
+            },
+            {
+              value: "correspondance",
+              text: "Correspondance"
+            },
+            {
+              value: "contact",
+              text: "Contact"
+            }
+          ]
+        }) }}
+
+
+        {{ govukRadios({
+          idPrefix:   "new-activity",
+          name:       "new-activity",
+          fieldset: {
+            legend: {
+              text: "Product",
+              isPageHeading: false,
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          items: [
+            {
+              value: "product",
+              text: "Add product to " + currentPage
+            },
+            {
+              value: "incident",
+              text: "Incident"
+            },
+            {
+              value: "hazard",
+              text: "Potential hazard"
+            },
+            {
+              value: "risk",
+              text: "Risk assessment "
+            },
+            {
+              value: "corrective-action",
+              text: "Corrective action"
+            }
+          ]
+        }) }}
+
+
+        {{ govukRadios({
+          idPrefix:   "new-activity",
+          name:       "new-activity",
+          fieldset: {
+            legend: {
+              text: "Business",
+              isPageHeading: false,
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          items: [
+            {
+              value: "business",
+              text: "Add business to " + currentPage
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

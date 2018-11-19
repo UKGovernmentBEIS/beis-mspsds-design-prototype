@@ -1,0 +1,82 @@
+{% from "includes/components/shared/tab-title.html"           import tabTitle %}
+{% from "table/macro.njk"                                     import govukTable %}
+
+
+
+{% if not addLocationLink  %}
+    {% set addLocationLink = '#' %}
+{% endif %}
+
+{% if not locations  %}
+    {% set locations = [] %}
+{% endif %}
+
+{% if not currentLocations  %}
+    {% set currentLocations = [] %}
+{% endif %}
+
+
+
+
+{{ tabTitle({
+        title:      'Locations',
+        controls:   '<a href="'+addLocationLink+'" class="mspsds-block-link">Add location</a>'
+}) }}
+
+
+
+
+<div class="mspsds-contact-list">
+
+    {% set locationRows = [] %}
+    
+
+    {% for location in locations %}
+
+      
+
+      {% set matched = false %}
+
+      {% for liz in currentLocations %}
+          {% if location.id === liz.id %}
+              {% set matched = liz.role %}
+          {% endif %}
+      {% endfor %}
+
+
+
+      {% if matched %}
+
+        {% set locationRows = ( locationRows.push([
+          {text: matched},
+          {html: location.address + ', ' + location.postcode},
+          {html: location.phone}
+        ]), locationRows ) %}
+
+      {% endif %}
+
+
+    {% endfor %}
+
+
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        {{ govukTable({
+          firstCellIsHeader: true,
+          rows: locationRows
+        }) }}
+      </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+

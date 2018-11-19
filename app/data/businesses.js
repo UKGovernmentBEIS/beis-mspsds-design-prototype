@@ -13,7 +13,16 @@ module.exports = {
                   id: 'c1',
                   role: 'Primary contact'
                 }
-              ]
+            ],
+
+            locations: [
+                {
+                  id: 'l1',
+                  role: 'Registered address'
+                }
+            ]
+
+
         },
         {
             id: 'b2',

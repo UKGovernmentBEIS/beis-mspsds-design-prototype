@@ -1,0 +1,96 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% set currentPage   = data['currentPage'] %}
+
+
+{% set backLink      = false %}
+{% set backText      = '' %}
+
+
+{% set titleType    = false %}
+
+{% if not displayTitle %}
+    {% set displayTitle = 'New' %}
+{% endif %}
+
+
+
+
+
+{% if currentPage   ==  'case' %}
+    
+    {% set backLink      = '/pages/case?caseid='+data['caseid']  %}
+    {% set backText      = 'Back to Case '+data['caseid']  %}
+
+{% elif currentPage ==  'product'  %}
+
+    {% set backLink      = '/pages/product?productid='+data['productid']  %}
+    {% set backText      = 'Back to Product' %}
+
+{% elif currentPage ==  'business'  %}
+
+    {% set backLink      = '/pages/business?businessid='+data['businessid']  %}
+    {% set backText      = 'Back to Business' %}
+
+{% endif %}
+
+
+
+
+
+
+{% if currentPage   ==  'case' %}
+    {% set titleType     = 'Case: '+data['caseid']  %}
+
+{% elif currentPage ==  'product'  %}
+    {% set backLink      = 'Product: '+data['productid']  %}
+
+{% elif currentPage ==  'business'  %}
+    {% set backLink      = 'Business '+data['businessid']  %}
+
+{% endif %}
+
+
+
+
+
+
+{% block pageTitle %}
+  {{ titleType }}: {{ displayTitle }}
+{% endblock %}
+
+
+
+
+
+{% block beforeContent %}
+
+    {% include "includes/components/shared/page-banner.html" %}
+
+    {% if backLink  %}
+        {{ govukBackLink({
+            text: backText,
+            href: backLink
+        }) }}
+    {% endif %}
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+  {{ pageTitle({
+    type:   titleType,
+    title:  displayTitle
+  }) }}
+
+
+    {% block flow %}
+    {% endblock %}
+
+
+{% endblock %}

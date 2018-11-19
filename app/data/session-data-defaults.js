@@ -25,4 +25,5 @@ module.exports = {
   products:     require("./products.js").products,
   businesses:   require("./businesses.js").businesses,
   contacts:     require("./contacts.js").contacts,
+  locations:    require("./locations.js").locations,
 };

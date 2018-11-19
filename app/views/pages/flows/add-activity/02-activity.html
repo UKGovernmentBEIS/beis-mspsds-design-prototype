@@ -1,0 +1,48 @@
+
+
+{% set activity = data['new-activity']  %}
+
+
+
+{% if activity == 'comment' %}
+    {% extends "pages/flows/add-comment/01-add-comment" %}
+
+{% elif activity == 'correspondance' %}
+    {% extends "pages/flows/add-correspondence/01-add-correspondence-context.html" %}
+
+{% elif activity == 'contact' %}
+    {% extends "pages/flows/add-contact/01-add-contact.html" %}
+
+
+
+
+{% elif activity == 'product' %}
+    {% extends "pages/flows/add-product/01-add-product.html" %}
+
+{% elif activity == 'incident' %}
+    {% extends "pages/flows/add-incident/01-add-incident.html" %}
+
+{% elif activity == 'hazard' %}
+    {% extends "pages/flows/add-hazard/01-add-hazard.html" %}
+
+{% elif activity == 'risk' %}
+    {% set title        = 'Risk information' %}
+    {% extends "pages/flows/add-risk/01-add-risk.html" %}
+
+{% elif activity == 'corrective-action' %}
+    {% extends "pages/flows/record-corrective-action/01-record-corrective-action.html" %}
+
+
+
+
+{% elif activity == 'business' %}
+    {% extends "pages/flows/add-business/01-add-business.html" %}
+
+
+
+
+{% else %}
+    {% extends "includes/templates/404.html" %}
+{% endif %}
+
+

@@ -1,0 +1,43 @@
+{% extends "includes/templates/flow.html" %}
+
+{% set title        = 'Confirm risk information' %}
+
+
+
+{% block flow %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="{{backLink}}" method="post" class="form">
+
+        {{ govukTable({
+          firstCellIsHeader: true,
+          rows: [
+            [
+              { text: "Risk level" },
+              { text: data['risk-level'] }
+            ],
+            [
+              { text: "Risk assessment" },
+              { text: data['risk-assessment-upload'] }
+            ]
+          ]
+        }) }}
+
+
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+        <a class="govuk-link mspsds-block-link" href="/pages/flows/add-hazard/01-add-hazard">Edit details</a>
+
+      </form>
+
+
+    </div>
+  </div>
+
+
+{% endblock %}

@@ -1,0 +1,180 @@
+{% extends "includes/templates/flow.html" %}
+
+{% set displayTitle        = 'Hazard information' %}
+
+
+
+
+{% block flow %}
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    
+    <form action="/pages/flows/add-hazard/02-add-hazard-confirm" method="post" class="form">
+
+      {% call govukFieldset({
+        legend: {
+          text: "Overview",
+          classes: "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukInput({
+          hint: {
+            text: "What type of hazard is it?"
+          },
+          classes: "govuk-!-width-two-thirds",
+          id:   "hazard-type",
+          name: "hazard-type"
+        }) }}
+
+      {% endcall %}
+
+
+
+      {% call govukFieldset({
+        legend: {
+          text: "Details",
+          classes: "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukTextarea({
+          hint: {
+            text: "Hazard description"
+          },
+          classes: "govuk-!-width-two-thirds",
+          id:   "hazard-description",
+          name: "hazard-description"
+        }) }}
+
+      {% endcall %}
+
+
+
+      {% call govukFieldset({
+        legend: {
+          text: "Who is it a risk to?",
+          classes: "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukInput({
+          hint: {
+            text: "Are there specific groups it might effect? i.e. Young children"
+          },
+          classes: "govuk-!-width-two-thirds",
+          id:   "hazard-to",
+          name: "hazard-to"
+        }) }}
+
+      {% endcall %}
+
+
+
+      {% set riskAssessmentHtml %}
+
+        {% call govukFieldset({
+          legend: {
+            text:           "Risk level",
+            isPageHeading:  false,
+            classes:        "govuk-fieldset__legend--l"
+          }
+        }) %}
+
+          {{ govukRadios({
+            idPrefix:   "risk-level",
+            name:       "risk-level",
+            items: [
+              {
+                value:  "Low",
+                text:   "Low",
+                checked: checked("risk-level", "Low")
+              },
+              {
+                value:  "Medium",
+                text:   "Medium",
+                checked: checked("risk-level", "Medium")
+              },
+              {
+                value:  "Serious",
+                text:   "Serious",
+                checked: checked("risk-level", "Serious")
+              },
+              {
+                value:  "Severe",
+                text:   "Severe",
+                checked: checked("risk-level", "Severe")
+              }
+            ]
+          }) }}
+
+        {% endcall %}
+
+        <hr class="govuk-section-break govuk-section-break--m">
+
+
+        {% call govukFieldset({
+          legend: {
+            text:       "Add risk assessment",
+            classes:    "govuk-fieldset__legend--l"
+          }
+        }) %}
+
+          {{ govukFileUpload({
+            id: "risk-assessment-upload",
+            name: "risk-assessment-upload"
+          }) }}
+
+        {% endcall %}
+
+      {% endset -%}
+
+
+      {% call govukFieldset({
+          legend: {
+            text:           "Can you set a risk level?",
+            isPageHeading:  false,
+            classes:        "govuk-fieldset__legend--l"
+          }
+        }) %}
+
+          {{ govukRadios({
+            idPrefix:   "set-risk-level",
+            name:       "set-risk-level",
+            items: [
+              {
+                value:  "Yes",
+                text:   "Yes",
+                conditional: {
+                  html: riskAssessmentHtml
+                },
+                checked: checked("set-risk-level", "Yes")
+              },
+              {
+                value:  "No",
+                text:   "No",
+                checked: checked("set-risk-level", "No")
+              }
+            ]
+          }) }}
+
+        {% endcall %}
+
+
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}
