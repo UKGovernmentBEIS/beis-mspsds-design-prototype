@@ -1,0 +1,60 @@
+{% from "includes/components/shared/tab-title.html"           import tabTitle %}
+{% from "includes/components/business/business-panel.html"    import businessPanel %}
+
+
+
+{% if not addBusinessLink  %}
+    {% set addBusinessLink = '#' %}
+{% endif %}
+
+{% if not businesses  %}
+    {% set businesses = [] %}
+{% endif %}
+
+{% if not currentBusinesses  %}
+    {% set currentBusinesses = [] %}
+{% endif %}
+
+
+
+
+  {{ tabTitle({
+    title:      'Businesses',
+    controls:   '<a href="'+addBusinessLink+'" class="mspsds-block-link">Add business</a>'
+  }) }}
+
+
+
+  <div class="mspsds-business-list">
+
+
+      {% for biz in businesses %}
+
+
+        {% set matched = false %}
+
+        {% for ciz in currentBusinesses %}
+            {% if biz.id === ciz.id %}
+                {% set matched = ciz.role %}
+            {% endif %}
+        {% endfor %}
+
+
+        {% if matched %}
+
+          {{ businessPanel({
+              business:       biz,
+              role:           matched,
+              controls:       true,
+              fullDetails:    false
+          }) }}
+
+          <hr class="govuk-section-break govuk-section-break--m" />
+
+
+        {% endif %}
+
+      {% endfor %}
+
+  </div>
+

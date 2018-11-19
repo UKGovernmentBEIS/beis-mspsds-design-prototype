@@ -1,0 +1,23 @@
+{% from "includes/components/shared/tab-title.html"                 import tabTitle %}
+{% from "includes/components/shared/activity-timeline.html"         import activityTimeline %}
+
+
+
+{% if not addActivityLink  %}
+    {% set addActivityLink = '#' %}
+{% endif %}
+
+{% if not activites  %}
+    {% set activites = [] %}
+{% endif %}
+
+
+
+  {{ tabTitle({
+        title:      'Activity',
+        controls:   '<a href="'+addActivityLink+'" class="mspsds-block-link">Add activity</a>'
+  }) }}
+
+
+
+  {{ activityTimeline( activites ) }}

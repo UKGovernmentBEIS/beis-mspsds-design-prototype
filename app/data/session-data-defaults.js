@@ -21,8 +21,8 @@ module.exports = {
   
   caseid: "1811-0803",
 
-  cases: require("./cases.js").cases,
-  products: require("./products.js").products,
-  businesses: require("./businesses.js").businesses,
-  contacts: require("./products.js").contacts,
+  cases:        require("./cases.js").cases,
+  products:     require("./products.js").products,
+  businesses:   require("./businesses.js").businesses,
+  contacts:     require("./contacts.js").contacts,
 };

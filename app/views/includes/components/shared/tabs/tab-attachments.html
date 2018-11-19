@@ -1,0 +1,22 @@
+{% from "includes/components/shared/tab-title.html"           import tabTitle %}
+{% from "includes/components/shared/attachment-list.html"     import attachmentList %}
+
+
+{% if not addAttachmentLink  %}
+    {% set addAttachmentLink = '#' %}
+{% endif %}
+
+{% if not attachments  %}
+    {% set attachments = [] %}
+{% endif %}
+
+
+
+
+    {{ tabTitle({
+        title:      'Attachments',
+        controls:   '<a href="'+addAttachmentLink+'" class="mspsds-block-link">Add attachment</a>'
+    }) }}
+
+
+    {{ attachmentList( attachments.length ) }}

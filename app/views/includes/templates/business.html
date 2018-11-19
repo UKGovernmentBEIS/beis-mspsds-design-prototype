@@ -1,0 +1,35 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% block pageTitle %}
+  Business Page: {{ currentBusiness.title }}
+{% endblock %}
+
+
+
+{% block beforeContent %}
+
+    {% include "includes/components/shared/page-banner.html" %}
+
+    {% include "includes/components/business/business-navigation.html" %}
+
+{% endblock %}
+
+
+
+{% block content %}
+
+    {% block casetitle %}
+        {% include "includes/components/business/business-title.html" %}
+    {% endblock %}
+
+    {% block caseoverview %}
+        {% include "includes/components/business/business-overview.html" %}
+    {% endblock %}
+
+    {% block casetabs %}
+        {% include "includes/components/business/business-tabs.html" %}
+    {% endblock %}
+    
+
+{% endblock %}
