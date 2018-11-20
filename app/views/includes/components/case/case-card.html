@@ -1,131 +1,89 @@
 {% from "includes/components/case/case-filter.html"         import caseFilter %}
 
 
+{% macro caseCard(caseInfo, products, utils) %}
 
-{% macro caseCard(caseInfo, filters, products, utils) %}
+<div class="mspsds-case-card 
+            mspsds-case-card--{{caseInfo.type}} 
+            mspsds-case-card--{{caseInfo.status}}
+            mspsds-case-card--{{caseInfo.assignee}} 
+            mspsds-case-card--{{caseInfo.priority}} 
+            mspsds-case-card--{{caseInfo.overdue}}
+            mspsds-case-card--{{caseInfo.team}}
+            govuk-body govuk-!-font-weight-regular">
 
-{% set display = true %}
+    <span class="mspsds-case-card__indentifier">
 
-{% if filters %}
-    
-    {% set filtersCounted = 0 %}
-    {% set filtersMatched = 0 %}
-
-    {% for filter in filters %}
-
-        {% set filtersCounted = filtersCounted + 1 %}
-        {% set filterMatch = 0 %}
-        
-        {% for value in filter.filterValues %}
-
-            {% if caseInfo[filter.filterType] == value %}
-                {% set filterMatch = filterMatch + 1 %}
-            {% endif %}
-        {% endfor %}
-
-        {% if filterMatch > 0 %}
-            {% set filtersMatched = filtersMatched + 1 %}
+        {% if caseInfo.type %}
+            <span class="mspsds-case-card__type">{{caseInfo.type}}</span>
         {% endif %}
 
-    {% endfor %}
+        {% if caseInfo.id %}
+            <span class="mspsds-case-card__id">{{caseInfo.id}}</span>
+        {% endif %}
+
+    </span>
 
 
+    <a class="mspsds-case-card__title" href="case?caseid={{caseInfo.id}}" >
 
-{% if filtersCounted > filtersMatched %}
-    {% set display = false %}
-{% endif %}
+        {% if caseInfo.type == "Question" %}
+            <span class="mspsds-case-card__product">{{caseInfo.title}}</span>
+        {% endif %}
+
+        {% if caseInfo.products | length > 0 %}
+            <span class="mspsds-case-card__product">{{utils.findById(products, caseInfo.products[0]).name}}</span>
+        {% else %}
+            <span class="mspsds-case-card__product mspsds-case-card__product--undefined">Undefined product</span>
+        {% endif %}
+
+        {% if caseInfo.type == 'Case' %}
+            {% if caseInfo.hazard %}
+                <span class="mspsds-case-card__hazard">{{caseInfo.hazard.type}}</span>
+            {% else %}
+                <span class="mspsds-case-card__hazard mspsds-case-card__hazard--undefined">Undefined hazard</span>
+            {% endif %}
+        {% endif %}
+
+    </a>
 
 
-{% endif %}
+    {% if caseInfo.match %}
 
+        <span class="mspsds-case-card__match">
+            {{ caseFilter(caseInfo.match.key,caseInfo.match.value, "mspsds-case-card__match") }}
+        </span>
 
-{% if display %}
+    {% else %}
 
-    <div class="mspsds-case-card 
-                mspsds-case-card--{{caseInfo.type}} 
-                mspsds-case-card--{{caseInfo.status}}
-                mspsds-case-card--{{caseInfo.assignee}} 
-                mspsds-case-card--{{caseInfo.priority}} 
-                mspsds-case-card--{{caseInfo.overdue}}
-                mspsds-case-card--{{caseInfo.team}}
-                govuk-body govuk-!-font-weight-regular">
+        <span class="mspsds-case-card__state">
 
-        <span class="mspsds-case-card__indentifier">
-
-            {% if caseInfo.type %}
-                <span class="mspsds-case-card__type">{{caseInfo.type}}</span>
+            {% if caseInfo.status %}
+                {{ caseFilter("Status",caseInfo.status, "mspsds-case-card__status") }}
             {% endif %}
 
-            {% if caseInfo.id %}
-                <span class="mspsds-case-card__id">{{caseInfo.id}}</span>
+            {% if caseInfo.assignee %}
+                {{ caseFilter("Assigned to",caseInfo.assignee, "mspsds-case-card__assignee") }}
+            {% else %}
+                <div class="mspsds-case-filter mspsds-case-card__assignee">&nbsp;</div>
+            {% endif %}
+
+            {% if caseInfo.xpriority %}
+                {{ caseFilter("Priority",caseInfo.priority, "mspsds-case-card__priority") }}
+            {% endif %}
+
+            {% if caseInfo.dateUpdated %}
+                {{ caseFilter("Updated",caseInfo.dateUpdated, "mspsds-case-card__dateUpdated") }}
+            {% endif %}
+
+            {% if caseInfo.dateCreated %}
+                {{ caseFilter("Created",caseInfo.dateCreated, "mspsds-case-card__dateCreated") }}
             {% endif %}
 
         </span>
 
+    {% endif %}
 
-        <a class="mspsds-case-card__title" href="case?caseid={{caseInfo.id}}" >
-
-            {% if caseInfo.type == "Question" %}
-                <span class="mspsds-case-card__product">{{caseInfo.title}}</span>
-            {% endif %}
-
-            {% if caseInfo.products | length > 0 %}
-                <span class="mspsds-case-card__product">{{utils.findById(products, caseInfo.products[0]).name}}</span>
-            {% else %}
-                <span class="mspsds-case-card__product mspsds-case-card__product--undefined">Undefined product</span>
-            {% endif %}
-
-            {% if caseInfo.type == 'Case' %}
-                {% if caseInfo.hazard %}
-                    <span class="mspsds-case-card__hazard">{{caseInfo.hazard.type}}</span>
-                {% else %}
-                    <span class="mspsds-case-card__hazard mspsds-case-card__hazard--undefined">Undefined hazard</span>
-                {% endif %}
-            {% endif %}
-
-        </a>
-
-
-        {% if caseInfo.match %}
-
-            <span class="mspsds-case-card__match">
-                {{ caseFilter(caseInfo.match.key,caseInfo.match.value, "mspsds-case-card__match") }}
-            </span>
-
-        {% else %}
-
-            <span class="mspsds-case-card__state">
-
-                {% if caseInfo.status %}
-                    {{ caseFilter("Status",caseInfo.status, "mspsds-case-card__status") }}
-                {% endif %}
-
-                {% if caseInfo.assignee %}
-                    {{ caseFilter("Assigned to",caseInfo.assignee, "mspsds-case-card__assignee") }}
-                {% else %}
-                    <div class="mspsds-case-filter mspsds-case-card__assignee">&nbsp;</div>
-                {% endif %}
-
-                {% if caseInfo.xpriority %}
-                    {{ caseFilter("Priority",caseInfo.priority, "mspsds-case-card__priority") }}
-                {% endif %}
-
-                {% if caseInfo.dateUpdated %}
-                    {{ caseFilter("Updated",caseInfo.dateUpdated, "mspsds-case-card__dateUpdated") }}
-                {% endif %}
-
-                {% if caseInfo.dateCreated %}
-                    {{ caseFilter("Created",caseInfo.dateCreated, "mspsds-case-card__dateCreated") }}
-                {% endif %}
-
-            </span>
-
-        {% endif %}
-
-    </div>
-
-
-{% endif %}
-
+</div>
 
 {% endmacro %}

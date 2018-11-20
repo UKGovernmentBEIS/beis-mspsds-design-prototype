@@ -37,6 +37,13 @@ module.exports = function (env) {
     documentation.
 
   ------------------------------------------------------------------ */
+  filters.filterCases = function(cases, filters) {
+    let ret = cases
+    filters.forEach(filter => {
+      ret = ret.filter(filter)
+    });
+    return ret
+  }
 
   /* ------------------------------------------------------------------
     keep the following line to return your filters to the app

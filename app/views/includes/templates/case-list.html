@@ -42,36 +42,6 @@
 
 {% block content %}
 
-{% set filters          = [] %}
-{% set assigneeFilters  = [] %}
-{% set someoneElse      = '' %}
-
-
-
-{% if data['Status'] %}
-  {% set filters = (filters.push({filterType: 'status', filterValues: data['Status']}), filters) %}
-{% endif %}
-
-
-
-{% if data['Assignee'] %}
-  {% if 'Me' in data['Assignee'] %}
-    {% set assigneeFilters = (assigneeFilters.push( data['testing-name'] ), assigneeFilters) %}
-  {% endif %}
-
-  {% if 'other' in data['Assignee'] %}
-    {% if data['case-assignee-autocomplete'] %}
-      {% set someoneElse = data['case-assignee-autocomplete'] %}
-
-      {% set assigneeFilters = (assigneeFilters.push( data['case-assignee-autocomplete'] ), assigneeFilters) %}
-    {% endif %}
-  {% endif %}
-
-  {% if assigneeFilters.length > 0 %}
-    {% set filters = (filters.push({filterType: 'assignee', filterValues: assigneeFilters }), filters) %}
-  {% endif %}
-{% endif %}
-
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       {{ pageTitle({
@@ -112,17 +82,17 @@
           },
           classes: "govuk-!-margin-bottom-5",
           idPrefix:   "Assignee",
-          name:       "Assignee",
+          name:       "caseListSettings[assignee]",
           items: [
             {
               value: "Me",
               text: "Me",
-              checked: checked("Assignee", "Me")
+              checked: checked("caseListSettings['assignee']", "Me")
             },
             {
               value: "other",
               text: "Someone else",
-              checked: checked("Assignee", "other"),
+              checked: checked("caseListSettings['assignee']", "other"),
               conditional: {
                 html: assigneeHtml
               }
@@ -141,17 +111,17 @@
           },
           classes: "govuk-!-margin-bottom-5",
           idPrefix: "Status",
-          name: "Status",
+          name: "caseListSettings[status]",
           items: [
             {
               value: "Open",
               text: "Open",
-              checked: checked("Status", "Open")
+              checked: checked("caseListSettings['status']", "Open")
             },
             {
               value: "Closed",
               text: "Closed",
-              checked: checked("Status", "Closed")
+              checked: checked("caseListSettings['status']", "Closed")
             }
           ]
         }) }}
@@ -166,22 +136,22 @@
           },
           classes: "govuk-!-margin-bottom-5",
           idPrefix:   "Sort",
-          name:       "Sort",
+          name:       "caseListSettings[sort]",
           items: [
             {
               value: "latest",
               text: "Updated: recent",
-              checked: checked("Sort", "latest")
+              checked: checked("caseListSettings['sort']", "latest")
             },
             {
               value: "oldest",
               text: "Updated: oldest",
-              checked: checked("Sort", "oldest")
+              checked: checked("caseListSettings['sort']", "oldest")
             },
             {
               value: "newest",
               text: "Created: newest",
-              checked: checked("Sort", "newest")
+              checked: checked("caseListSettings['sort']", "newest")
             }
           ]
         }) }}
@@ -195,7 +165,7 @@
       <script type="text/javascript">
 
         var assignees = [
-          'Anyone',
+          //'Anyone', TODO - bring this back in?
           'Tim Harwood',
           'Nick Golding',
           'Ed Smith-Muller',
@@ -210,9 +180,9 @@
         accessibleAutocomplete({
           element: element,
           id: id,
-          name: id,
+          name: "caseListSettings[assignee-other]",
           showNoOptionsFound: false,
-          defaultValue: '{{someoneElse}}',
+          defaultValue: '{{data.caseListSettings["assignee-other"]}}',
           showAllValues: true,
           dropdownArrow: () => '',
           source: assignees
@@ -223,7 +193,7 @@
 
     {% from "includes/components/case/case-card-list.html"          import caseCardList %}
     <div class="govuk-grid-column-three-quarters mspsds-case-list-tab ">
-      {{ caseCardList(filters, data.cases, data.products, utils) }}
+      {{ caseCardList(data.caseListSettings, data.cases, data.products, utils, data.currentUser) }}
     </div>
 
   </div>

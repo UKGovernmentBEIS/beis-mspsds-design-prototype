@@ -66,7 +66,7 @@ module.exports = {
       activity: [],
       activites: [],
       dateCreated: '18/10/2018',
-      dateUpdated: '22/10/2018'
+      dateUpdated: '18/10/2018'
     },
     {
       // TODO Remove this case once case__empty.js page is no longer needed
@@ -331,8 +331,6 @@ module.exports = {
       assignee: 'Tim Harwood',
       dateCreated: '18/10/2018',
       dateUpdated: '22/10/2018',
-
-
       reporter: {
         type: "Consumer",
         name: "Mina Harker",
@@ -340,14 +338,11 @@ module.exports = {
         emailAddress: "mina@castledracula.ro",
         otherDetails: "Other details captured during the report entry"
       },
-
-
       report: {
         type: 'Allegation',
         date: '18/10/2018',
         summary: 'Something happened',
         otherDetails: 'Other details captured during the report entry',
-
         reporter: {
           type: "Consumer",
           name: "Mina Harker",
@@ -355,7 +350,6 @@ module.exports = {
           emailAddress: "mina@castledracula.ro",
           otherDetails: "Other details captured during the report entry"
         },
-
         correspondence: {
           type: 'Email',
           subject: '',
@@ -364,8 +358,6 @@ module.exports = {
           attachmentDescription: ''
         }
       },
-
-
       hazard: {
         type: 'Electric shock, fire hazard',
         details: 'Travel adaptor available from high-street store Game has been reported to have caused a fire and severe electric shocks. Has been reported more than 10 times in the last 2 months.',
@@ -373,17 +365,12 @@ module.exports = {
         riskLevel: 'Serious',
         assessment: 'assessment.pdf'
       },
-
-
       incidents: [{
         id: 'i1',
         details: 'There was a fire',
         attachment: '',
       }],
-
-
       products: ['p1', 'p2'],
-
       businesses: [
         {
           id: 'b1',
@@ -394,7 +381,6 @@ module.exports = {
           role: 'Importer'
         }
       ],
-
       contacts: [
         {
           id: 'c3',
@@ -409,13 +395,9 @@ module.exports = {
           role: 'Importer'
         }
       ],
-
       numAttachments: 1,
       attachments: ['a1', 'a2'],
-
       related: [],
-
-
       activites: [
         {
           title: "Comment: Tim Harwood",
