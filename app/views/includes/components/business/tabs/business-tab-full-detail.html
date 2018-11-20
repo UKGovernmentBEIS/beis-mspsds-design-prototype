@@ -1,7 +1,6 @@
 
-{% from "includes/components/shared/tab-title.html"     import tabTitle %}
-{% from "includes/components/shared/incident.html"      import incident %}
-{% from "includes/components/case/case-report.html"     import caseReport %}
+{% from "includes/components/shared/tab-title.html"             import tabTitle %}
+{% from "includes/components/business/business-panel.html"      import businessPanel %}
 
 
 
@@ -12,20 +11,16 @@
 }) }}
 
 
-{% if currentCase.report %}
-    
-    {{ caseReport(currentCase.report) }}
+<div class="mspsds-full-detail">
 
-{% endif %}
+    {{ businessPanel({
+      business:         currentBusiness,
+      controls:         false,
+      displayImage:     false,
+      displayDetails:   'full'
+    }) }}
 
-
-{% if currentCase.incidents.length > 0 %}
-    
-    {{ incident(currentCase.incidents) }}
-
-{% endif %}
-
-
+</div>
 
 
 

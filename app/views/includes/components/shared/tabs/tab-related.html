@@ -19,6 +19,6 @@
 
 <div class="mspsds-related-list">
 
-    {{ caseCardList(filters, data.case) }}
+    {{ caseCardList( {status: ["Open"]}, data.cases, data.products, utils, data.currentUser) }}
 
 </div>

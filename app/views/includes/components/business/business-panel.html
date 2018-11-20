@@ -10,41 +10,168 @@
   {% set bizRows         = [] %}
   
 
-  {% set bizRows = (bizRows.push([
-        { text: "Brand" },
-        { text: biz.brand  }
-  ]), bizRows) %}
+
+  {% if businessData.displayImage %}
+    {% set classInfo = 'govuk-grid-column-two-thirds' %}
+  {% else %}
+    {% set classInfo = 'govuk-grid-column-full' %}
+  {% endif %}
+
+
+  {% if businessData.displayDetails == 'contact' %}
+    
+      {% set bizRows = (bizRows.push([
+            { text: businessData.role },
+            { text: '' }
+      ]), bizRows) %}
+
+      {% set bizRows = (bizRows.push([
+            { text: 'Registered name' },
+            { text: biz.name }
+      ]), bizRows) %}
+
+      {% if biz.address %}
+          {% set bizRows = (bizRows.push([
+                { text: 'Main address' },
+                { text: biz.address }
+          ]), bizRows) %}
+      {% endif %}
+
+      {% if biz.contact %}
+          {% set bizRows = (bizRows.push([
+                { text: 'Main contact'},
+                { text: biz.contact }
+          ]), bizRows) %}
+      {% endif %}
+
+      {% if biz.primaryAuthority %}
+          {% set bizRows = (bizRows.push([
+                { text: 'Primary authority' },
+                { text: biz.primaryAuthority }
+          ]), bizRows) %}
+      {% endif %}
+
+
+
+      {% set bizRows = (bizRows.push([
+            { text: '' },
+            { html: '<a href="' + businessLink + '" >View business page</a>' }
+      ]), bizRows) %}
+
+
+
+  {% else  %}
+
+
+
+      {% set bizRows = (bizRows.push([
+          { text: "Registered name" },
+          { text: biz.name  }
+      ]), bizRows) %}
+
+
+      {% if biz.tradingName %}
+          {% set bizRows = (bizRows.push([
+              { text: "Trading name" },
+              { text: biz.tradingName  }
+          ]), bizRows) %}
+      {% endif %}
+
+      {% if biz.companyNumber %}
+          {% set bizRows = (bizRows.push([
+              { text: "Company number" },
+              { text: biz.companyNumber }
+          ]), bizRows) %}
+      {% endif %}
+
+
+      {% if businessData.displayDetails == 'summary' %}
+
+            {% if biz.primaryAuthority %}
+                {% set bizRows = (bizRows.push([
+                      { text: 'Primary authority' },
+                      { text: biz.primaryAuthority }
+                ]), bizRows) %}
+            {% endif %}
+
+      {% endif %}
+
+
+
+      {% if businessData.displayDetails == 'full' %}
+
+            {% if biz.companyType %}
+                {% set bizRows = (bizRows.push([
+                      { text: 'Company type' },
+                      { text: biz.companyType }
+                ]), bizRows) %}
+            {% endif %}
+
+            {% if biz.address %}
+                {% set bizRows = (bizRows.push([
+                      { text: 'Registered office address' },
+                      { text: biz.address }
+                ]), bizRows) %}
+            {% endif %}
+
+            {% if biz.vatNumber %}
+                {% set bizRows = (bizRows.push([
+                      { text: 'VAT number' },
+                      { text: biz.vatNumber }
+                ]), bizRows) %}
+            {% endif %}
+
+            {% if biz.sicCode %}
+                {% set bizRows = (bizRows.push([
+                      { text: 'Nature of business (SIC)' },
+                      { text: biz.sicCode }
+                ]), bizRows) %}
+            {% endif %}
+
+            {% if biz.primaryAuthority %}
+                {% set bizRows = (bizRows.push([
+                      { text: 'Primary Authority' },
+                      { text: biz.primaryAuthority }
+                ]), bizRows) %}
+            {% endif %}
+
+            {% if biz.additionalInfo %}
+                {% set bizRows = (bizRows.push([
+                      { text: 'Additional information' },
+                      { text: biz.additionalInfo }
+                ]), bizRows) %}
+            {% endif %}
+
+
+      {% endif %}
+
+
+  {% endif %}
+
+
+
 
 
 
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+  
+    {% if businessData.displayImage %}
+      <div class="govuk-grid-column-one-third">
+        {% if biz.posterImage %}
+          <img src="{{ biz.posterImage }}" title="biz image" />
+        {% else %}
+          <img src="/public/images/placeholder.png" title="biz image" />
+        {% endif %}
+      </div>
+    {% endif %}
+
+
+    <div class="{{classInfo}}">
 
       {{ govukTable({
         firstCellIsHeader: true,
         classes: "govuk-!-margin-bottom-4",
-        rows: [
-          [
-            { text: businessData.role },
-            { text: biz.name }
-          ],
-          [
-            { text: 'Main address' },
-            { text: biz.address }
-          ],
-          [
-            { text: 'Main contact'},
-            { text: biz.contact }
-          ],
-          [
-            { text: 'Primary authority' },
-            { text: biz.primaryAuthority }
-          ],
-          [
-            { text: '' },
-            { html: '<a href="' + businessLink + '" >View full business page</a>' }
-          ]
-        ]
+        rows: bizRows
       }) }}
 
     </div>

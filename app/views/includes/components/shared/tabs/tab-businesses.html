@@ -43,10 +43,11 @@
         {% if matched %}
 
           {{ businessPanel({
-              business:       biz,
-              role:           matched,
-              controls:       true,
-              fullDetails:    false
+              business:         biz,
+              role:             matched,
+              controls:         true,
+              displayImage:     true,
+              displayDetails:   'contact'
           }) }}
 
           <hr class="govuk-section-break govuk-section-break--m" />

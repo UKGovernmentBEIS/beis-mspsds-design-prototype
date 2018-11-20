@@ -1,41 +1,14 @@
-{% from "table/macro.njk"       import govukTable %}
-
+{% from "includes/components/business/business-panel.html"    import businessPanel %}
 
 <hr class="govuk-section-break govuk-section-break--l" />
 
-
-    {% set bizRows         = [] %}
-  
-
-    {% set bizRows = (bizRows.push([
-        { text: "Registered name" },
-        { text: currentBusiness.name  }
-    ]), bizRows) %}
-
-
-    {% if currentBusiness.tradingName %}
-        {% set bizRows = (bizRows.push([
-            { text: "Trading name" },
-            { text: currentBusiness.tradingName  }
-        ]), bizRows) %}
-    {% endif %}
-
-    {% if currentBusiness.companyNumber %}
-        {% set bizRows = (bizRows.push([
-            { text: "Company number" },
-            { text: currentBusiness.companyNumber }
-        ]), bizRows) %}
-    {% endif %}
-
-
-
 <section class="mspsds-overview">
 
-      {{ govukTable({
-        firstCellIsHeader: true,
-        classes: "govuk-!-margin-bottom-4",
-        rows: bizRows
+      {{ businessPanel({
+          business:         currentBusiness,
+          controls:         false,
+          displayImage:     true,
+          displayDetails:   'summary'
       }) }}
-
 
 </section>
