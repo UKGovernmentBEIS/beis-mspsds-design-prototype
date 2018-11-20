@@ -45,6 +45,14 @@ module.exports = function (env) {
     return ret
   }
 
+  filters.pick = function(objects, attr) {
+    return objects.map(o => o[attr])
+  }
+
+  filters.jsList = function(objects, attr) {
+    return "[" + objects.map(o => "'" + o + "'") + "]"
+  }
+  
   /* ------------------------------------------------------------------
     keep the following line to return your filters to the app
   ------------------------------------------------------------------ */

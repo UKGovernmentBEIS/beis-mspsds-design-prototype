@@ -163,17 +163,8 @@
       </form>
 
       <script type="text/javascript">
-
-        var assignees = [
-          //'Anyone', TODO - bring this back in?
-          'Tim Harwood',
-          'Nick Golding',
-          'Ed Smith-Muller',
-          'Amanda Farrell',
-          'Adebola Showemimo',
-          'Christopher Hunter',
-          'Adrian Hanratty'
-        ];
+        var existingAssignees = {{data.cases | pick("assignee") | jsList | safe}} // Bit of hackery which gets nunjucks list into a js list
+        var assignees = Array.from(new Set(existingAssignees)).sort();
 
         element = document.querySelector('#case-assignee-autocomplete-container');
         id = 'case-assignee-autocomplete';
