@@ -42,6 +42,10 @@
       attachments: [],
       related: [],
       activites: [],
+      match: { // This is a hack to make some cases show up in test results
+        key:  'Case reference', 
+        value: "01<span class='highlight'>32-142</span>1"
+      }
     }
 */
 module.exports = {
@@ -92,6 +96,10 @@ module.exports = {
         group: "Young children",
         description: "Travel adaptor available from high-street store Game has been reported to have caused a fire and severe electric shocks. Has been reported more than 10 times in the last 2 months.",
         riskLevel: "Serious"
+      },
+      match:  {
+        key:  'Case reference',
+        value: "01<span class='highlight'>32-142</span>1"
       },
       activity: [
         {
@@ -682,6 +690,10 @@ module.exports = {
         type: 'Choking hazard',
       },
       products: ['p6'],
+      match:  {
+        key:  'Assignee',
+        value: "<span class='highlight'>Nick</span> Golding – <span class='highlight'>nick</span>.golding@softwire.com"
+      },
     },
     {
       type: 'Case',
@@ -1175,15 +1187,19 @@ module.exports = {
     {
       id: '1811-0759',
       type: 'Case',
-      status: 'Closed',
+      status: 'Open',
       products: ['p46'],
       hazard: {
         type: 'Electric shock, fire hazard',
       },
-      assignee: 'Christopher Hunter',
+      assignee: 'Tim Harwood',
       team: 'Processing',
       dateUpdated: '16/10/2018',
-      dateCreated: '18/10/2018'
+      dateCreated: '18/10/2018',
+      match:  {
+        key:  'Product, model number',
+        value: "Makita Pen, 1/4 x 18 mm, Stainless Steel, F <span class='highlight'>32142</span>"
+      },
     },
     {
       id: '1811-0758',
@@ -1205,9 +1221,13 @@ module.exports = {
       hazard: {
         type: 'Electric shock, fire hazard',
       },
-      assignee: 'Ed Smith-Muller',
+      assignee: 'Christopher Hunter',
       dateUpdated: '16/10/2018',
-      dateCreated: '18/10/2018'
+      dateCreated: '18/10/2018',
+      match:  {
+        key:  'Product, manufacturer reference',
+        value: "<span class='highlight'>32142</span>-USB-UCE6-90-BLA-D"
+      }
     },
     {
       id: '1811-0756',

@@ -232,7 +232,7 @@ module.exports = {
         },
         {
             id: 'p46',
-            name: 'Charge Worx, Travel plug adaptor',
+            name: 'Makita, drill',
         },
         {
             id: 'p47',
@@ -240,7 +240,7 @@ module.exports = {
         },
         {
             id: 'p48',
-            name: 'Charge Worx, Travel plug adaptor',
+            name: 'Kingfisher Technology, Cable Lead Adaptor',
         },
         {
             id: 'p49',

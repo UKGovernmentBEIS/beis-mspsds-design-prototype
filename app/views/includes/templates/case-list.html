@@ -42,6 +42,7 @@
 
 {% block content %}
 
+  {% block pageHeader %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       {{ pageTitle({
@@ -49,16 +50,16 @@
       }) }}
     </div>
   </div>
+  {% endblock %}
 
   <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-one-quarter govuk-!-margin-bottom-2 mspsds-case-control mspsds-case-filter-controls">
-
       <div class="govuk-!-margin-bottom-0">
           {{ headerSearch({
-            action:"search-results__cases-opt3.html",
+            action: "./case-search",
             label: "Keywords",
-            value: ""
+            value: data.caseListSettings.q
           }) }}
       </div>
 
@@ -183,7 +184,7 @@
     </div>
 
     {% from "includes/components/case/case-card-list.html"          import caseCardList %}
-    <div class="govuk-grid-column-three-quarters mspsds-case-list-tab ">
+    <div class="govuk-grid-column-three-quarters mspsds-case-list-tab {% if data.caseListSettings.q %}mspsds-search__results{% endif %}">
       {{ caseCardList(data.caseListSettings, data.cases, data.products, utils, data.currentUser) }}
     </div>
 

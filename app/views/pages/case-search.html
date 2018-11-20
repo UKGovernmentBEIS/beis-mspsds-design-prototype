@@ -1,0 +1,37 @@
+{% extends "includes/templates/case-list.html" %}
+
+{% from "select/macro.njk"                import govukSelect %}
+{% set bodyClasses = "mspsds-width-container case-list-3" %}
+
+{% block pageTitle %}
+  Search results: Cases
+{% endblock %}
+
+
+{% block beforeContent %}
+
+  {{ govukPhaseBanner({
+    tag: {
+      text: "beta"
+    },
+    html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+  }) }}
+
+  {{ govukBackLink({
+    text: "Back to Cases",
+    href: "./case-list"
+  }) }}
+
+{% endblock %}
+
+{% block pageHeader %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {{ pageTitle({
+        type:       "Case search results",
+        title:      data['q'],
+        subTitle:   "4 results"
+      }) }}
+    </div>
+  </div>
+{% endblock %}

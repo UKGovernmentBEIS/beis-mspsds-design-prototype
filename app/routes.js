@@ -84,3 +84,16 @@ router.post('/flows/assign/save', function (req, res) {
   kase.assignee = newAssignee
   res.redirect('/pages/case')
 })
+
+// Case list and search
+router.get('/pages/case-search', function (req, res) {
+  res.locals.data.caseListSettings.q = "nick 32142"
+  // TODO if we ever stop mocking out the search, then this could be a starting point. As, we're faking it
+  // res.locals.data.caseListSettings.q = req.query.q
+  res.render('pages/case-search.html')
+})
+
+router.get('/pages/case-list', function (req, res) {
+  res.locals.data.caseListSettings.q = undefined
+  res.render('pages/case-list.html')
+})
