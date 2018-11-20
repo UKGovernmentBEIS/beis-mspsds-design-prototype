@@ -22,7 +22,6 @@ module.exports = {
                 }
             ]
 
-
         },
         {
             id: 'b2',
@@ -34,4 +33,4 @@ module.exports = {
             primaryAuthority: 'Suffolk Trading Standards'
         }
     ]
-}
+};

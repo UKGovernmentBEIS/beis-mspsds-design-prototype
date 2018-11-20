@@ -66,6 +66,7 @@ module.exports = {
       activity: [],
       activites: [],
       dateCreated: '18/10/2018',
+      dateUpdated: '22/10/2018'
     },
     {
       // TODO Remove this case once case__empty.js page is no longer needed
@@ -84,6 +85,8 @@ module.exports = {
       priority: "High",
       numAttachments: 6,
       products: ["p1"],
+      dateCreated: '18/10/2018',
+      dateUpdated: '22/10/2018',
       hazard: {
         type: "Electric shock, fire",
         group: "Young children",
@@ -327,6 +330,7 @@ module.exports = {
       title: 'ChargeWorx adaptor, Electric shock, fire hazard',
       assignee: 'Tim Harwood',
       dateCreated: '18/10/2018',
+      dateUpdated: '22/10/2018',
 
 
       reporter: {

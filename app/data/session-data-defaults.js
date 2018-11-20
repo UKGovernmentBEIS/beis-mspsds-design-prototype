@@ -21,6 +21,10 @@ module.exports = {
   
   caseid: "1811-0803",
 
+  Status:           'Open',
+  Assignee:         'Me',
+  'testing-name':   'Tim Harwood',
+
   createUrl: "/pages/flows/process-incoming/report-origin-type",
 
 

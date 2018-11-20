@@ -6,6 +6,22 @@ const router = express.Router()
 module.exports = router
 
 
+
+function getDate() {
+  let today = new Date();
+  let dd    = today.getDate();
+  let mm    = today.getMonth() + 1;
+  let yyyy  = today.getFullYear();
+
+  dd = (dd < 10)?  '0' + dd : dd;
+  mm = (mm < 10)?  '0' + mm : mm;
+
+  return dd + '/' + mm + '/' + yyyy;
+};
+
+
+
+
 // Process incoming report flow endpoints
 router.post('/flows/process-incoming/report-info-endpoint', function (req, res) {
   let type = req.session.data.new['issue-type']
@@ -60,6 +76,9 @@ router.post('/flows/assign/save', function (req, res) {
   let kase = res.locals.data.cases.find(function (c) {
     return c.id === req.session.data.caseid
   });
+
+  kase.dateUpdated = getDate();
+
   let newAssignee = req.body.assignee
   newAssignee = newAssignee === "Other" ? req.body["other-correspondent"] : newAssignee
   kase.assignee = newAssignee
