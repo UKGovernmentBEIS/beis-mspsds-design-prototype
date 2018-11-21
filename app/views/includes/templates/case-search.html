@@ -1,0 +1,34 @@
+{% extends "./case-list.html" %}
+
+{% block pageTitle %}
+  Search results: Cases
+{% endblock %}
+
+
+{% block beforeContent %}
+
+  {{ govukPhaseBanner({
+    tag: {
+      text: "beta"
+    },
+    html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+  }) }}
+
+  {{ govukBackLink({
+    text: "Back to Cases",
+    href: "./case-list"
+  }) }}
+
+{% endblock %}
+
+{% block pageHeader %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {{ pageTitle({
+        type:       "Case search results",
+        title:      data.caseListSettings.q,
+        subTitle:   cases | length + " results"
+      }) }}
+    </div>
+  </div>
+{% endblock %}

@@ -97,10 +97,6 @@ module.exports = {
         description: "Travel adaptor available from high-street store Game has been reported to have caused a fire and severe electric shocks. Has been reported more than 10 times in the last 2 months.",
         riskLevel: "Serious"
       },
-      match:  {
-        key:  'Case reference',
-        value: "01<span class='highlight'>32-142</span>1"
-      },
       activity: [
         {
           title: "Comment: Tim Harwood",
@@ -334,7 +330,7 @@ module.exports = {
     {
       type: 'Case',
       status: 'Open',
-      id: '1811-0803',
+      id: '0132-1421',
       title: 'ChargeWorx adaptor, Electric shock, fire hazard',
       assignee: 'Tim Harwood',
       dateCreated: '18/10/2018',
@@ -345,6 +341,10 @@ module.exports = {
         phoneNumber: "07123 123123",
         emailAddress: "mina@castledracula.ro",
         otherDetails: "Other details captured during the report entry"
+      },
+      match:  {
+        key:  'Case reference',
+        value: "01<span class='highlight'>32-142</span>1"
       },
       report: {
         type: 'Allegation',

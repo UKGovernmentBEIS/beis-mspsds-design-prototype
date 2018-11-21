@@ -1,11 +1,8 @@
 {% from "includes/components/case/case-card.html"         import caseCard %}
 
-{% macro caseCardList(caseListSettings, cases, products, utils, currentUser) %}
-  {% set filters = utils.caseFilters(caseListSettings, currentUser) %}
-  {% set sortAttr = utils.caseSortAttr(caseListSettings) %}
-  {% set sortDir = utils.caseSortDir(caseListSettings) %}
-  {% for case in cases | filterCases(filters) | sort(sortDir, false, sortAttr) %}
-    {{ caseCard(case, products, utils) }}
+{% macro caseCardList(cases, products, utils, searchResult = false) %}
+  {% for case in cases %}
+    {{ caseCard(case, products, utils, searchResult) }}
   {% endfor %}
 
 {% endmacro %}
