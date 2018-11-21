@@ -24,17 +24,17 @@
     {{ siteNavV3([
       {
         label: 'Home',
-        link: '/pages/'
+        link: '/'
       }, {
         label: 'Cases',
-        link: '/pages/case-list',
+        link: '/root/case-list',
         classes: 'active'
       }, {
         label: 'Products',
-        link: '/pages/product-list'
+        link: '/root/product-list'
       }, {
         label: 'Businesses',
-        link: '/pages/business-list'
+        link: '/root/business-list'
       }
     ], data['createUrl'] ) }}
 
@@ -188,16 +188,13 @@
       
     </div>
 
-    {% if cases | length > 0 %}
-      <div class="govuk-grid-column-three-quarters mspsds-case-list-tab {% if data.caseListSettings.q %}mspsds-search__results{% endif %}">
-        {% from "includes/components/case/case-card-list.html"          import caseCardList %}
-        {{ caseCardList(cases, data.products, utils, data.caseListSettings.q) }}
-      </div>
-    {% else %}
-      <div class="govuk-grid-column-three-quarters mspsds-search__results mspsds-search__results--empty">
+    <div class="govuk-grid-column-three-quarters mspsds-case-list-tab {% if search %} mspsds-search__results {% endif %} {% if cases.length > 0 %} mspsds-search__results--empty {% endif %}">
+      {% from "includes/components/case/case-card-list.html"          import caseCardList %}
+      {{ caseCardList(cases, data.products, utils, search) }}
+      {% if cases | length == 0 %}
           <span class="govuk-heading-xl">No results</span>
-      </div>
-    {% endif %}
+      {% endif %}
+    </div>
 
   </div>
 

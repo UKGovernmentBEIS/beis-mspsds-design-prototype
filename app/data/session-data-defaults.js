@@ -19,6 +19,7 @@ Example usage:
 
 module.exports = {
   currentUser:   'Tim Harwood',
+  mode: "pages",
   
   caseid: "1811-0803",
   caseListSettings: {
@@ -27,7 +28,7 @@ module.exports = {
     status: ["Open"]
   },
 
-  createUrl: "/pages/flows/process-incoming/report-origin-type",
+  createUrl: "/root/flows/process-incoming/report-origin-type",
 
   cases:        require("./cases.js").cases,
   products:     require("./products.js").products,
