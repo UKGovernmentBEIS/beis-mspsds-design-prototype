@@ -10,6 +10,15 @@
 
   {% set prodRows         = [] %}
 
+
+  {% if productData.displayImage %}
+    {% set classInfo = 'govuk-grid-column-two-thirds' %}
+  {% else %}
+    {% set classInfo = 'govuk-grid-column-full' %}
+  {% endif %}
+
+
+
   {% if prod.brand %}
       {% set prodRows = (prodRows.push([
             { text: "Brand" },
@@ -63,7 +72,7 @@
 
 
 
-  {% if productData.fullDetails %}
+  {% if productData.displayDetails == 'full' %}
 
 
       {% if prod.barcode %}
@@ -117,7 +126,7 @@
     </div>
   {% endif %}
 
-  <div class="govuk-grid-column-two-thirds">
+  <div class="{{classInfo}}">
 
     {{ govukTable({
       firstCellIsHeader: true,
@@ -129,10 +138,7 @@
 
         <div class="mspsds-controls">
             <a href="{{ productLink }}" class="mspsds-block-link">View product</a>
-            {{ govukButton({
-              text: "Remove from this case",
-              href: "#"
-            }) }}
+            <a href="/pages/flows/manage-product/01" class="mspsds-block-link">Manage product</a>
         </div>
 
     {% endif %}

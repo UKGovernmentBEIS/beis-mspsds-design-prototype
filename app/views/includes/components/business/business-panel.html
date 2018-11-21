@@ -21,8 +21,8 @@
   {% if businessData.displayDetails == 'contact' %}
     
       {% set bizRows = (bizRows.push([
-            { text: businessData.role },
-            { text: '' }
+            { text: 'Role' },
+            { text: businessData.role }
       ]), bizRows) %}
 
       {% set bizRows = (bizRows.push([
@@ -50,13 +50,6 @@
                 { text: biz.primaryAuthority }
           ]), bizRows) %}
       {% endif %}
-
-
-
-      {% set bizRows = (bizRows.push([
-            { text: '' },
-            { html: '<a href="' + businessLink + '" >View business page</a>' }
-      ]), bizRows) %}
 
 
 
@@ -173,6 +166,16 @@
         classes: "govuk-!-margin-bottom-4",
         rows: bizRows
       }) }}
+
+
+      {% if businessData.controls %}
+
+          <div class="mspsds-controls">
+              <a href="{{ businessLink }}" class="mspsds-block-link">View business</a>
+              <a href="/pages/flows/manage-business/01" class="mspsds-block-link">Manage business</a>
+          </div>
+
+      {% endif %}
 
     </div>
   </div>

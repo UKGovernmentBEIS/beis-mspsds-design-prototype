@@ -1,0 +1,98 @@
+
+{% set activityHtml %}
+  {% include "includes/components/product/tabs/product-tab-activity.html" %}
+{% endset -%}
+
+{% set fullDetailHtml %}
+  {% include "includes/components/product/tabs/product-tab-full-detail.html" %}
+{% endset -%}
+
+{% set businessesHtml %}
+  {% include "includes/components/product/tabs/product-tab-businesses.html" %}
+{% endset -%}
+
+
+{% set contactsHtml %}
+  {% include "includes/components/product/tabs/product-tab-contacts.html" %}
+{% endset -%}
+
+
+{% set attachmentsHtml %}
+  {% include "includes/components/product/tabs/product-tab-attachments.html" %}
+{% endset -%}
+
+
+{% set relatedItemsHtml %}
+  {% include "includes/components/product/tabs/product-tab-related.html" %}
+{% endset -%}
+
+
+
+
+<hr class="govuk-section-break govuk-section-break--l" />
+
+
+
+{{ govukTabs({
+  items: [
+    {
+      label: "Activity",
+      id: "activity",
+      panel: {
+        html: activityHtml
+      }
+    },
+    {
+      label: "Full details",
+      id: "full-details",
+      panel: {
+        html: fullDetailHtml
+      }
+    },
+    {
+      label: "Businesses",
+      id: "businesses",
+      panel: {
+        html: businessesHtml
+      }
+    },
+    {
+      label: "Contacts",
+      id: "contacts",
+      panel: {
+        html: contactsHtml
+      }
+    },
+    {
+      label: "Attachments",
+      id: "attachments",
+      panel: {
+        html: attachmentsHtml
+      }
+    },
+    {
+      label: "Related",
+      id: "related",
+      panel: {
+        html: relatedItemsHtml
+      }
+    }
+  ]
+}) }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

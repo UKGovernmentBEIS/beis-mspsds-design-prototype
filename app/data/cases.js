@@ -382,11 +382,11 @@ module.exports = {
       businesses: [
         {
           id: 'b1',
-          role: 'Manufacturer'
+          role: 'Manufacturer – Charge Worx, International Travel Adaptor 931L'
         },
         {
           id: 'b2',
-          role: 'Importer'
+          role: 'Importer – Charge Worx, International Travel Adaptor 931L'
         }
       ],
       contacts: [
