@@ -1,0 +1,41 @@
+
+    <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-grid-column-one-quarter">
+            <img src="/public/images/document-thumbnail.png" alt="" />
+        </div>
+    </div>
+
+
+    <div class="govuk-grid-column-two-thirds">
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+            {% call govukFieldset({
+              legend: {
+                text: "Document details",
+                classes: "govuk-fieldset__legend--l",
+                isPageHeading: false
+              }
+            }) %}
+
+
+              {{ govukInput({
+                label: {
+                  text: "Title"
+                },
+                classes: "govuk-!-width-two-thirds",
+                id:   "attachment-title",
+                name: "attachment-title"
+              }) }}
+
+
+              {{ govukTextarea({
+                name: "attachment-description",
+                id:   "attachment-description",
+                label: {
+                  text: "Description"
+                }
+              }) }}
+
+            {% endcall %}
+
+    </div>

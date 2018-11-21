@@ -2,9 +2,10 @@
 {% from "includes/components/shared/attachment-list.html"     import attachmentList %}
 
 
-{% if not addAttachmentLink  %}
-    {% set addAttachmentLink = '#' %}
+{% if not addLink  %}
+    {% set addLink = '#' %}
 {% endif %}
+
 
 {% if not attachments  %}
     {% set attachments = [] %}
@@ -15,7 +16,7 @@
 
     {{ tabTitle({
         title:      'Attachments',
-        controls:   '<a href="'+addAttachmentLink+'" class="mspsds-block-link">Add attachment</a>'
+        controls:   '<a href="'+addLink+'" class="mspsds-block-link">Add attachment</a>'
     }) }}
 
 

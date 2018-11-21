@@ -1,0 +1,16 @@
+.mspsds-button {
+
+    & + & {
+        margin-left: govuk-spacing(9)
+    }
+
+    &--delete {
+            background-color: govuk-colour("bright-red");
+            box-shadow: 0 2px 0 govuk-colour("red");
+
+        &:hover, 
+        &:focus {
+            background-color: govuk-colour("red");
+        }
+    }
+}

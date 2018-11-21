@@ -1,0 +1,81 @@
+
+    <div class="govuk-grid-column-two-thirds">
+
+            {% call govukFieldset({
+              legend: {
+                text: "Contact details",
+                classes: "govuk-fieldset__legend--l",
+                isPageHeading: false
+              }
+            }) %}
+              
+
+              {{ govukInput({
+                label: {
+                  text: "Name"
+                },
+                classes: "govuk-!-width-two-thirds",
+                id:   "contact-name",
+                name: "contact-name"
+              }) }}
+
+
+
+              {{ govukInput({
+                label: {
+                  text: "Job title"
+                },
+                classes: "govuk-!-width-two-thirds",
+                id:   "contact-title",
+                name: "contact-title"
+              }) }}
+              
+
+
+              {{ govukInput({
+                label: {
+                  text: "Role"
+                },
+                classes: "govuk-!-width-two-thirds",
+                id:   "contact-role",
+                name: "contact-role"
+              }) }}
+
+
+
+              {{ govukInput({
+                label: {
+                  text: "Business"
+                },
+                classes: "govuk-!-width-two-thirds",
+                id:   "contact-business",
+                name: "contact-business"
+              }) }}
+
+
+
+              {{ govukInput({
+                label: {
+                  text: "Phone number"
+                },
+                classes: "govuk-!-width-two-thirds",
+                id:   "contact-phone",
+                name: "contact-phone"
+              }) }}
+
+
+              {{ govukInput({
+                label: {
+                  text: "Email"
+                },
+                classes: "govuk-!-width-two-thirds",
+                id:   "contact-email",
+                name: "contact-email"
+              }) }}
+
+
+            
+
+            {% endcall %}
+
+    </div>
