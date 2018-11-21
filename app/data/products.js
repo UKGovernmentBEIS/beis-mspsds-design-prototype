@@ -26,6 +26,9 @@ module.exports = {
                 }
             ],
             attachments: ['a1', 'a2'],
+
+            cases:      ['1811-0803'],
+            
             related: [],
             activity: []
         },

@@ -1,0 +1,14 @@
+{% from "includes/components/product/product-panel.html"    import productPanel %}
+
+<hr class="govuk-section-break govuk-section-break--l" />
+
+<section class="mspsds-overview">
+
+      {{ productPanel({
+          product:          currentProduct,
+          controls:         false,
+          displayImage:     true,
+          displayDetails:   'summary'
+      }) }}
+
+</section>

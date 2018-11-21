@@ -1,0 +1,35 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% block pageTitle %}
+  Product Page: {{ currentProduct.title }}
+{% endblock %}
+
+
+
+{% block beforeContent %}
+
+    {% include "includes/components/shared/page-banner.html" %}
+
+    {% include "includes/components/product/product-navigation.html" %}
+
+{% endblock %}
+
+
+
+{% block content %}
+
+    {% block casetitle %}
+        {% include "includes/components/product/product-title.html" %}
+    {% endblock %}
+
+    {% block caseoverview %}
+        {% include "includes/components/product/product-overview.html" %}
+    {% endblock %}
+
+    {% block casetabs %}
+        {% include "includes/components/product/product-tabs.html" %}
+    {% endblock %}
+    
+
+{% endblock %}

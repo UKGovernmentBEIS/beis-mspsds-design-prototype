@@ -21,8 +21,8 @@
   {% if businessData.displayDetails == 'contact' %}
     
       {% set bizRows = (bizRows.push([
-            { text: businessData.role },
-            { text: '' }
+            { text: 'Role' },
+            { text: businessData.role }
       ]), bizRows) %}
 
       {% set bizRows = (bizRows.push([

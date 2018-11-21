@@ -1,0 +1,30 @@
+
+{% from "includes/components/shared/tab-title.html"             import tabTitle %}
+{% from "includes/components/product/product-panel.html"      import productPanel %}
+
+
+
+
+{{ tabTitle({
+        title:      'Full details',
+        controls:   '<a href="/product/edit">Edit details</a>'
+}) }}
+
+
+<div class="mspsds-full-detail">
+
+    {{ productPanel({
+      product:          currentProduct,
+      controls:         false,
+      displayImage:     false,
+      displayDetails:   'full'
+    }) }}
+
+</div>
+
+
+
+
+
+
+

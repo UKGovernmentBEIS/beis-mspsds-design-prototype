@@ -10,6 +10,15 @@
 
   {% set prodRows         = [] %}
 
+
+  {% if productData.displayImage %}
+    {% set classInfo = 'govuk-grid-column-two-thirds' %}
+  {% else %}
+    {% set classInfo = 'govuk-grid-column-full' %}
+  {% endif %}
+
+
+
   {% if prod.brand %}
       {% set prodRows = (prodRows.push([
             { text: "Brand" },
@@ -63,7 +72,7 @@
 
 
 
-  {% if productData.fullDetails %}
+  {% if productData.displayDetails == 'full' %}
 
 
       {% if prod.barcode %}
@@ -117,7 +126,7 @@
     </div>
   {% endif %}
 
-  <div class="govuk-grid-column-two-thirds">
+  <div class="{{classInfo}}">
 
     {{ govukTable({
       firstCellIsHeader: true,
