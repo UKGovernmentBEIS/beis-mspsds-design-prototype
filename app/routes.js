@@ -1,11 +1,6 @@
 const express = require('express')
 const router = express.Router()
 
-// Add your routes here - above the module.exports line
-
-module.exports = router
-
-
 // Catch-all for redirecting to the correct mode - MUST BE LAST ROUTE ADDED
 router.all("/root/*", function (req, res) {
   redirectByMode(req, res);
@@ -19,7 +14,6 @@ function redirectByMode(req, res) {
   res.redirect(route);
 }
 
-
 function getDate() {
   let today = new Date();
   let dd = today.getDate();
@@ -31,7 +25,6 @@ function getDate() {
 
   return dd + '/' + mm + '/' + yyyy;
 };
-
 
 // FLOWS ----------------------------------------------------------------------
 
@@ -154,3 +147,8 @@ function continuetoView(res, req) {
   res.render(req.path.substring(1));
 }
 
+
+
+
+// Add your routes here - above the module.exports line
+module.exports = router
