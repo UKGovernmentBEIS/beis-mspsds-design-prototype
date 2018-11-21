@@ -26,15 +26,12 @@
 
 
 
-<div class="mspsds-contact-list">
-
-    {% set contactRows = [] %}
+<div class="mspsds-tablist mspsds-tablist--contact">
     
 
     {% for contact in contacts %}
 
       
-
       {% set matched = false %}
 
       {% for ciz in currentContacts %}
@@ -47,11 +44,28 @@
 
       {% if matched %}
 
+        {% set contactRows = [] %}
+
         {% set contactRows = ( contactRows.push([
           {text: matched},
           {html: contact.name + '<br/>' + contact.title},
           {html: contact.phone + '<br/>' + contact.email}
         ]), contactRows ) %}
+
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-full">
+
+            {{ govukTable({
+              firstCellIsHeader: true,
+              rows: contactRows
+            }) }}
+
+            <div class="mspsds-controls">
+              <a href="/pages/flows/manage-contact/01" class="mspsds-block-link">Manage contact</a>
+            </div>
+
+          </div>
+        </div>
 
       {% endif %}
 
@@ -60,14 +74,7 @@
 
 
 
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-full">
-        {{ govukTable({
-          firstCellIsHeader: true,
-          rows: contactRows
-        }) }}
-      </div>
-    </div>
+    
 
 
 </div>

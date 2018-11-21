@@ -1,0 +1,7 @@
+.mspsds-tablist {
+    
+    .govuk-table {
+        @include govuk-responsive-margin(1, "bottom");
+    }
+
+}

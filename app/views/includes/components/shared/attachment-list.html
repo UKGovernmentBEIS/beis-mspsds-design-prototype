@@ -6,7 +6,7 @@
 
   {% for attachmentNumber in range(0, numberOfAttachments) %}
 
-    <div class="mspsds-attachment-list">
+    <div class="mspsds-tablist mspsds-tablist--attachment">
       
       {% if (loop.index % 2) == 1 %}
         {{ imageAttachment() }}
@@ -38,8 +38,13 @@
     <h3 class="mspsds-attachment-list__image-title govuk-heading-m">Image title</h3>
     <p class="mspsds-attachment-list__image-date govuk-body-s">Updated 12/08/2018</p>
     <p class="govuk-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-    <a href="/public/images/placeholder.png" class="mspsds-block-link">View full-size image</a>
-    <a href="#" class="mspsds-block-link" onclick="document.getElementById('confirmation--image-deleted').style.display='block';">Edit image details or delete</a>
+    
+    <div class="mspsds-controls">
+        <a href="/public/images/placeholder.png" class="mspsds-block-link">View image</a>
+        <a href="/pages/flows/manage-document/01" class="mspsds-block-link">Manage image</a>
+    </div>
+
+
   </div>
 </div>
 
@@ -65,8 +70,12 @@
     <h3 class="mspsds-attachment-list__image-title govuk-heading-m">Document title</h3>
     <p class="mspsds-attachment-list__image-date govuk-body-s">Uploaded 12/08/2018</p>
     <p class="govuk-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-    <a href="#" class="mspsds-block-link">View PDF document</a>
-    <a href="#" class="mspsds-block-link" onclick="document.getElementById('confirmation--image-deleted').style.display='block';">Edit document details or delete</a>
+
+    <div class="mspsds-controls">
+        <a href="#" class="mspsds-block-link">View document</a>
+        <a href="/pages/flows/manage-document/01" class="mspsds-block-link">Manage document</a>
+    </div>
+
   </div>
 </div>
 

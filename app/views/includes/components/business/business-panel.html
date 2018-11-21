@@ -53,13 +53,6 @@
 
 
 
-      {% set bizRows = (bizRows.push([
-            { text: '' },
-            { html: '<a href="' + businessLink + '" >View business page</a>' }
-      ]), bizRows) %}
-
-
-
   {% else  %}
 
 
@@ -173,6 +166,16 @@
         classes: "govuk-!-margin-bottom-4",
         rows: bizRows
       }) }}
+
+
+      {% if businessData.controls %}
+
+          <div class="mspsds-controls">
+              <a href="{{ businessLink }}" class="mspsds-block-link">View business</a>
+              <a href="/pages/flows/manage-business/01" class="mspsds-block-link">Manage business</a>
+          </div>
+
+      {% endif %}
 
     </div>
   </div>

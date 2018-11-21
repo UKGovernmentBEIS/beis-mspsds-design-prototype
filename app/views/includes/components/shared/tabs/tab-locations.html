@@ -26,10 +26,8 @@
 
 
 
-<div class="mspsds-contact-list">
+<div class="mspsds-tablist mspsds-tablist--location">
 
-    {% set locationRows = [] %}
-    
 
     {% for location in locations %}
 
@@ -47,11 +45,29 @@
 
       {% if matched %}
 
+        {% set locationRows = [] %}
+
         {% set locationRows = ( locationRows.push([
           {text: matched},
           {html: location.address + ', ' + location.postcode},
           {html: location.phone}
         ]), locationRows ) %}
+
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          {{ govukTable({
+            firstCellIsHeader: true,
+            rows: locationRows
+          }) }}
+
+          <div class="mspsds-controls">
+            <a href="/pages/flows/manage-location/01" class="mspsds-block-link">Manage location</a>
+          </div>
+
+        </div>
+
+      </div>
 
       {% endif %}
 
@@ -60,14 +76,7 @@
 
 
 
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-full">
-        {{ govukTable({
-          firstCellIsHeader: true,
-          rows: locationRows
-        }) }}
-      </div>
-    </div>
+    
 
 
 </div>
