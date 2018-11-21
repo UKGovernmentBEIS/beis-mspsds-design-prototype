@@ -9,17 +9,17 @@
 
 {% if currentPage   ==  'case' %}
     
-    {% set backLink      = '/pages/case?caseid='+data['caseid']  %}
+    {% set backLink      = '/root/case?caseid='+data['caseid']  %}
     {% set backText      = 'Back to Case '+data['caseid']  %}
 
 {% elif currentPage ==  'product'  %}
 
-    {% set backLink      = '/pages/product?productid='+data['productid']  %}
+    {% set backLink      = '/root/product?productid='+data['productid']  %}
     {% set backText      = 'Back to Product' %}
 
 {% elif currentPage ==  'business'  %}
 
-    {% set backLink      = '/pages/business?businessid='+data['businessid']  %}
+    {% set backLink      = '/root/business?businessid='+data['businessid']  %}
     {% set backText      = 'Back to Business' %}
 
 {% endif %}

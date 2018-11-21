@@ -1,7 +1,7 @@
 {% from "includes/components/case/case-filter.html"         import caseFilter %}
 
 
-{% macro caseCard(caseInfo, products, utils) %}
+{% macro caseCard(caseInfo, products, utils, searchResult) %}
 
 <div class="mspsds-case-card 
             mspsds-case-card--{{caseInfo.type}} 
@@ -48,7 +48,7 @@
     </a>
 
 
-    {% if caseInfo.match %}
+    {% if searchResult %}
 
         <span class="mspsds-case-card__match">
             {{ caseFilter(caseInfo.match.key,caseInfo.match.value, "mspsds-case-card__match") }}

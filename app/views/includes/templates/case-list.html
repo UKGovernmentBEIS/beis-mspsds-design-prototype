@@ -1,5 +1,10 @@
 {% extends "mspsds-layout.html" %}
 
+{% set filters = utils.caseFilters(data.caseListSettings, data.currentUser) %}
+{% set sortAttr = utils.caseSortAttr(data.caseListSettings) %}
+{% set sortDir = utils.caseSortDir(data.caseListSettings) %}
+{% set cases = data.cases | filterCases(filters) | sort(sortDir, false, sortAttr) %}
+
 {% from "select/macro.njk"                import govukSelect %}
 {% set bodyClasses = "mspsds-width-container case-list-3" %}
 
@@ -19,17 +24,17 @@
     {{ siteNavV3([
       {
         label: 'Home',
-        link: '/pages/'
+        link: '/'
       }, {
         label: 'Cases',
-        link: '/pages/case-list',
+        link: '/root/case-list',
         classes: 'active'
       }, {
         label: 'Products',
-        link: '/pages/product-list'
+        link: '/root/product-list'
       }, {
         label: 'Businesses',
-        link: '/pages/business-list'
+        link: '/root/business-list'
       }
     ], data['createUrl'] ) }}
 
@@ -183,9 +188,12 @@
       
     </div>
 
-    {% from "includes/components/case/case-card-list.html"          import caseCardList %}
-    <div class="govuk-grid-column-three-quarters mspsds-case-list-tab {% if data.caseListSettings.q %}mspsds-search__results{% endif %}">
-      {{ caseCardList(data.caseListSettings, data.cases, data.products, utils, data.currentUser) }}
+    <div class="govuk-grid-column-three-quarters mspsds-case-list-tab {% if search %} mspsds-search__results {% endif %} {% if cases.length > 0 %} mspsds-search__results--empty {% endif %}">
+      {% from "includes/components/case/case-card-list.html"          import caseCardList %}
+      {{ caseCardList(cases, data.products, utils, search) }}
+      {% if cases | length == 0 %}
+          <span class="govuk-heading-xl">No results</span>
+      {% endif %}
     </div>
 
   </div>

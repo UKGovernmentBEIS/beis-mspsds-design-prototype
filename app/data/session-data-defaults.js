@@ -19,15 +19,16 @@ Example usage:
 
 module.exports = {
   currentUser:   'Tim Harwood',
+  mode: "pages",
   
-  caseid: "1811-0803",
+  caseid: "0132-1421",
   caseListSettings: {
     sort: "latest",
     assignee: ["Me"],
     status: ["Open"]
   },
 
-  createUrl: "/pages/flows/process-incoming/report-origin-type",
+  createUrl: "/root/flows/process-incoming/report-origin-type",
 
   cases:        require("./cases.js").cases,
   products:     require("./products.js").products,
