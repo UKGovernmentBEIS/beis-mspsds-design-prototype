@@ -15,7 +15,7 @@ module.exports = {
 
             address:            '48 Bush Road,  Welwyn Garden City, Hertfordshire, England, United Kingdom  WG1 1XQ',
 
-            posterImage: '/public/images/ChargeWox_Logo.png',
+            posterImage:        '/public/images/ChargeWox_Logo.png',
 
             contact:        'Paul Jones, 0207 1234 5678, paul.jones@abc.np',
 
@@ -41,7 +41,7 @@ module.exports = {
 
 
 
-        
+
         {
             id: 'b2',
             name:           'Wonderlite Ltd.',

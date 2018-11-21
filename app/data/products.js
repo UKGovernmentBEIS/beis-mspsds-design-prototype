@@ -28,7 +28,18 @@ module.exports = {
             attachments: ['a1', 'a2'],
 
             cases:      ['1811-0803'],
-            
+
+            businesses: [
+                {
+                  id: 'b1',
+                  role: 'Manufacturer'
+                },
+                {
+                  id: 'b2',
+                  role: 'Importer'
+                }
+              ],
+
             related: [],
             activity: []
         },
