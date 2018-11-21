@@ -63,7 +63,7 @@ Record email
   <div class="govuk-grid-column-one-third">
     {% from "./includes/step-flow-map.html" import stepFlowMap %}
     {% set isEmail = (data.new["origin-type"]=="Email") %}
-    {{ stepFlowMap(data.new["issue-type"], isEmail, (5 if data.new["issue-type"]=="Product safety allegation" else 3)) }}
+    {{ stepFlowMap(data.new["type"], isEmail, (5 if data.new["type"]=="Product safety allegation" else 3)) }}
   </div>
 </div>
 {% endblock %}

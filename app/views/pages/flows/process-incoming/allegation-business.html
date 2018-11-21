@@ -29,21 +29,21 @@
   <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    <form action="./allegation-product" method="post" class="form">
+    <form action="./allegation-summary" method="post" class="form">
 
 
         {% call govukFieldset({
           legend: {
-            text:           "Incident details",
+            text:           "Business information",
             isPageHeading:  false,
             classes:        "govuk-fieldset__legend--l"
           }
         }) %}
           {{ govukTextarea({
-            name: "allegation-incident-detail",
-            id:   "allegation-incident-detail",
+            name: "allegation-business-detail",
+            id:   "allegation-business-detail",
             hint: {
-              text: "If a specific event happened, capture as much detail as possible"
+              text: "Record any details about businesses involved: names, locations, etc."
             }
           }) }}
         {% endcall %}
@@ -56,10 +56,10 @@
         }) %}
 
           {{ govukFileUpload({
-            id: "allegation-incident-photo",
-            name: "allegation-incident-photo",
+            id: "allegation-business-photo",
+            name: "allegation-business-photo",
             hint: {
-              text: "Upload any images that give evidence of the incident"
+              text: "Upload any images that give evidence of the business – receipts etc"
             }
           }) }}
 
@@ -77,7 +77,7 @@
   <div class="govuk-grid-column-one-third">
     {% from "./includes/step-flow-map.html" import stepFlowMap %}
     {% set isEmail = (data.new["origin-type"]=="Email") %}
-    {{ stepFlowMap(data.new["issue-type"], isEmail, 2) }}
+    {{ stepFlowMap(data.new["type"], isEmail, 4) }}
   </div>
 
 </div>

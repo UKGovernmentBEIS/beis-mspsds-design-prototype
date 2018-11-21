@@ -34,6 +34,12 @@
         value: "1801-3032",
         type: "hidden"
       }) }}
+      {{ govukInput({
+        id:   "issue-status",
+        name: "new[status]",
+        value: "Open",
+        type: "hidden"
+      }) }}
 
       {{ govukRadios({
         idPrefix:   "origin-type",

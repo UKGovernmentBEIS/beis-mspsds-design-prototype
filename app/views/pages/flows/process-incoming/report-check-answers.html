@@ -57,7 +57,7 @@ Confirm report details
           ]
         }) }}
       {% endcall %}
-      {% if data.new["issue-type"] == "Enquiry" %}
+      {% if data.new["type"] == "Enquiry" %}
         {% call govukFieldset({
           legend: {
             text:           "Enquiry details",
@@ -238,23 +238,23 @@ Confirm report details
 
       {{ govukButton({
         text: "Assign this case",
-        href: "/flows/report-assign/01-report-assign"
+        href: "/pages/flows/report-assign/01-report-assign"
       }) }}
       {{ govukButton({
         text: "Assign to me"
       }) }}
       {{ govukButton({
         text: "Mark as resolved",
-        href: "/flows/report-close/01-report-close"
+        href: "/pages/flows/report-close/01-report-close"
       }) }}
-      <a class="govuk-link mspsds-block-link" href="/flows/process-incoming/report-origin-type">Edit details</a>
+      <a class="govuk-link mspsds-block-link" href="/pages/flows/process-incoming/report-origin-type">Edit details</a>
     </form>
   </div>
 
   <div class="govuk-grid-column-one-third">
     {% from "./includes/step-flow-map.html" import stepFlowMap %}
     {% set isEmail = (data.new["origin-type"]=="Email") %}
-    {{ stepFlowMap(data.new["issue-type"], isEmail, 0) }}
+    {{ stepFlowMap(data.new["type"], isEmail, 0) }}
   </div>
 </div>
 
