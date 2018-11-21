@@ -29,40 +29,40 @@ function getDate() {
 // FLOWS ----------------------------------------------------------------------
 
 // Process incoming report flow endpoints
-router.post('/pages/flows/process-incoming/report-info-endpoint', function (req, res) {
+router.post('/:mode/flows/process-incoming/report-info-endpoint', function (req, res) {
   let type = req.session.data.new['type']
   switch (type) {
     case 'Enquiry':
-      res.redirect('/pages/flows/process-incoming/question-info')
+      res.redirect('/root/flows/process-incoming/question-info')
       break;
     case 'Product safety allegation':
-      res.redirect('/pages/flows/process-incoming/allegation-incident')
+      res.redirect('/root/flows/process-incoming/allegation-incident')
       break;
     case 'Product recall notification':
-      res.redirect('/pages/flows/process-incoming/recall-info')
+      res.redirect('/root/flows/process-incoming/recall-info')
       break;
     case 'Notification from RAPEX':
-      res.redirect('/pages/flows/process-incoming/rapex')
+      res.redirect('/root/flows/process-incoming/rapex')
       break;
     default:
       res.redirect(type)
   }
 })
 
-router.post('/pages/flows/process-incoming/save', function (req, res) {
+router.post('/:mode/flows/process-incoming/save', function (req, res) {
   res.locals.data.cases.push(req.session.data.new);
-  res.redirect('/pages/case?caseid='+req.session.data.new['id']);
+  res.redirect('/root/case?caseid='+req.session.data.new['id']);
 })
 
 // Report flow: Decide whether to show email capture page
-router.post('/pages/flows/process-incoming/email-check-endpoint', function (req, res) {
+router.post('/:mode/flows/process-incoming/email-check-endpoint', function (req, res) {
   let endpoint = req.session.data.new['origin-type']
   switch (endpoint) {
     case 'Phonecall':
-      res.redirect('/pages/flows/process-incoming/report-check-answers')
+      res.redirect('/root/flows/process-incoming/report-check-answers')
       break;
     case 'Email':
-      res.redirect('/pages/flows/process-incoming/email-content')
+      res.redirect('/root/flows/process-incoming/email-content')
       break;
     default:
       res.redirect(endpoint)
