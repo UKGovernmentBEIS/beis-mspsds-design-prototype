@@ -206,7 +206,7 @@
 
     <div class="govuk-grid-column-three-quarters mspsds-case-list-tab {{searchClasses}}">
       {% from "includes/components/case/case-card-list.html"          import caseCardList %}
-      {{ caseCardList(cases, data.products, utils, search) }}
+      {{ caseCardList(cases | attachCaseChildren(data.products, data.businesses), search) }}
       {% if cases | length == 0 %}
           <span class="govuk-heading-xl">No results</span>
       {% endif %}

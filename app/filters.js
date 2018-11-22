@@ -39,7 +39,7 @@ module.exports = function (env) {
   ------------------------------------------------------------------ */
   
   /* ------------------------------------------------------------------
-    COLLECTION FILTERS
+    collection filters
   ------------------------------------------------------------------ */
   filters.filterCollection = function(thigs, filters) {
     let ret = thigs
@@ -64,7 +64,7 @@ module.exports = function (env) {
   }
 
   /* ------------------------------------------------------------------
-    caseListSettings FILTERS
+    caseListSettings filters
   ------------------------------------------------------------------ */
   filters.caseFilters = function (caseListSettings, currentUser) {
     let filters = []
@@ -125,6 +125,17 @@ module.exports = function (env) {
       case "newest": return true
       default: return true
     }
+  }
+
+  /* ------------------------------------------------------------------
+    case filters
+  ------------------------------------------------------------------ */
+  filters.attachCaseChildren = function(cases, products = [], businesses = []) {
+    return cases.map(kase => {
+      kase.products = kase.products.map(productId => products.find(product => product.id === productId))
+      kase.businesses = kase.businesses.map(businessId => businesses.find(business => business.id === businessId))
+      return kase
+    })
   }
   
   /* ------------------------------------------------------------------

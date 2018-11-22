@@ -1,7 +1,7 @@
 {% from "includes/components/case/case-filter.html"         import caseFilter %}
 
 
-{% macro caseCard(caseInfo, products, utils, searchResult) %}
+{% macro caseCard(caseInfo, searchResult) %}
 
 <div class="mspsds-case-card 
             mspsds-case-card--{{caseInfo.type}} 
@@ -32,7 +32,7 @@
         {% endif %}
 
         {% if caseInfo.products | length > 0 %}
-            <span class="mspsds-case-card__product">{{(products | withId(caseInfo.products[0])).name}}</span>
+            <span class="mspsds-case-card__product">{{caseInfo.products[0].name}}</span>
         {% else %}
             <span class="mspsds-case-card__product mspsds-case-card__product--undefined">Undefined product</span>
         {% endif %}
