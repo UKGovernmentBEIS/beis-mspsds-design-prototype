@@ -37,12 +37,22 @@ module.exports = function (env) {
     documentation.
 
   ------------------------------------------------------------------ */
+  
+  /* ------------------------------------------------------------------
+    COLLECTION FILTERS
+  ------------------------------------------------------------------ */
   filters.filterCollection = function(thigs, filters) {
     let ret = thigs
     filters.forEach(filter => {
       ret = ret.filter(filter)
     });
     return ret
+  }
+
+  filters.withId = function (things, id) {
+    return things.find(function (thing) {
+      return thing.id === id
+    })
   }
 
   filters.pick = function(objects, attr) {
@@ -53,6 +63,9 @@ module.exports = function (env) {
     return "[" + objects.map(o => "'" + o + "'") + "]"
   }
 
+  /* ------------------------------------------------------------------
+    caseListSettings FILTERS
+  ------------------------------------------------------------------ */
   filters.caseFilters = function (caseListSettings, currentUser) {
     let filters = []
     if (caseListSettings.status) {

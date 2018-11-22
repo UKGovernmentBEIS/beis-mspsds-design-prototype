@@ -32,7 +32,7 @@
         {% endif %}
 
         {% if caseInfo.products | length > 0 %}
-            <span class="mspsds-case-card__product">{{utils.findById(products, caseInfo.products[0]).name}}</span>
+            <span class="mspsds-case-card__product">{{(products | withId(caseInfo.products[0])).name}}</span>
         {% else %}
             <span class="mspsds-case-card__product mspsds-case-card__product--undefined">Undefined product</span>
         {% endif %}

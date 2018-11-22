@@ -1,7 +1,7 @@
 {% set currentPage      = 'case' %}
 
 {% if data['caseid'] %}
-	{% set currentCase = utils.findById(data.cases, data['caseid']) %}
+	{% set currentCase = data.cases | withId(data['caseid']) %}
 {% endif %}
 
 
