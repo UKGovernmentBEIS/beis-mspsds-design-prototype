@@ -1,9 +1,9 @@
 {% extends "mspsds-layout.html" %}
 
-{% set filters  = utils.caseFilters(data.caseListSettings, data.currentUser) %}
-{% set sortAttr = utils.caseSortAttr(data.caseListSettings) %}
-{% set sortDir  = utils.caseSortDir(data.caseListSettings) %}
-{% set cases    = data.cases | filterCases(filters) | sort(sortDir, false, sortAttr) %}
+{% set filters  = data.caseListSettings | caseFilters(data.currentUser) %}
+{% set sortAttr = data.caseListSettings | caseSortAttr %}
+{% set sortDir  = data.caseListSettings | caseSortDir %}
+{% set cases    = data.cases | filterCollection(filters) | sort(sortDir, false, sortAttr) %}
 
 {% from "select/macro.njk"                import govukSelect %}
 {% set bodyClasses = "mspsds-width-container case-list-3" %}
