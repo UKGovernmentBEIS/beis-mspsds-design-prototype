@@ -1,3 +1,4 @@
+const templates = require("./templates")
 module.exports = {
   activites: [
     {
@@ -6,20 +7,17 @@ module.exports = {
       action: "",
       text: "Needs addressing asap - we're nearly at the end of SLA"
     },
-    {
-      title: "Product recall requested",
-      action: "Corrective action recorded",
-      html: `
-      <p class="govuk-body">
-        Product: <span class="govuk-!-font-weight-bold">Charge Worx 931L</span><br />
-        Legislation: <span class="govuk-!-font-weight-bold">General Product Safety Regulations 2005</span><br />
-        Business responsible: <span class="govuk-!-font-weight-bold">Charge Worx</span><br />
-        Date decided: <span class="govuk-!-font-weight-bold">12/9/2018</span><br />
-        Attached: <a href="#">notice-of-enforcement.pdf</a>
-      </p>
-      <p class="govuk-body">Description supplied by user goes here, in a paragraph</p>
-      <a href="/product" class="mspsds-block-link">View product</a><a href="/product" class="mspsds-block-link">View business</a>`
-    },
+    templates.correctiveAction({
+      summary: "Product recall requested",
+      productid: "p1",
+      businessid: "b1",
+      productName: "Charge Worx 931L",
+      legislation: "General Product Safety Regulations 2005",
+      businessName: "Charge Worx",
+      date: "12/9/2018",
+      attachement: "notice-of-enforcement.pdf",
+      description: "Description supplied by user goes here, in a paragraph"
+    }),
     {
       title: "Failed test: Travel plug adaptor — Charge Worx 931L",
       action: "Test failure recorded",
