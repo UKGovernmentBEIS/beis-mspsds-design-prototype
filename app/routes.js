@@ -31,8 +31,6 @@ function getDate() {
 // Some flows are shared between entities, so they need to know which entity has
 // launched them.
 router.get('/:mode/:entity(case|business|product|case-list)/', function(req, res) {
-  console.log(req.route)
-  console.log(req.params.entity)
   res.locals.data.currentPage = req.params.entity
   continuetoView(req, res)
 })
