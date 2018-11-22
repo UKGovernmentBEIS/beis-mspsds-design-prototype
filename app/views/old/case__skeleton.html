@@ -61,22 +61,22 @@
 </div>
 
 <div class="mspsds-overview">
-  {% from "panels/case-why.html" import caseWhy %}
+  {% from "old/panels/case-why.html" import caseWhy %}
   {{ caseWhy(case.hazard) }}
 
   {# TODO - is this meant to be here? different between empty and not #}
   <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
   {% if case.products[0] %}
-    {% include "panels/product-panel.html" %}
+    {% include "old/panels/product-panel.html" %}
   {% else %}
-    {% from "panels/product-panel__empty.html" import productPanel %}
+    {% from "old/panels/product-panel__empty.html" import productPanel %}
     {{ productPanel(case.products[0]) }}
   {% endif %}
 </div>
 
 <h2 class="govuk-heading-l">Add new activity</h2>
-{% include "panels/record-action.html" %}
+{% include "old/panels/record-action.html" %}
 
 <hr class="govuk-section-break govuk-section-break--m" />
 
@@ -169,17 +169,17 @@
 
 
 {% set productsHtml %}
-  {% include "tab-sections/products-list.html" %}
+  {% include "old/tab-sections/products-list.html" %}
 {% endset -%}
 
 
 
 {% set businessesHtml %}
-  {% include "tab-sections/businesses-list.html" %}
+  {% include "old/tab-sections/businesses-list.html" %}
 {% endset -%}
 
 
 
 {% set fullDetailHtml %}
-  {% include "tab-sections/full-detail-case.html" %}
+  {% include "old/tab-sections/full-detail-case.html" %}
 {% endset -%}

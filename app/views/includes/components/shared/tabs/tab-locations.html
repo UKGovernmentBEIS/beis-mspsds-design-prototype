@@ -3,8 +3,8 @@
 
 
 
-{% if not addLocationLink  %}
-    {% set addLocationLink = '#' %}
+{% if not addLink  %}
+    {% set addLink = '#' %}
 {% endif %}
 
 {% if not locations  %}
@@ -20,7 +20,7 @@
 
 {{ tabTitle({
         title:      'Locations',
-        controls:   '<a href="'+addLocationLink+'" class="mspsds-block-link">Add location</a>'
+        controls:   '<a href="'+addLink+'" class="mspsds-block-link">Add location</a>'
 }) }}
 
 
@@ -62,7 +62,7 @@
           }) }}
 
           <div class="mspsds-controls">
-            <a href="/root/flows/manage-location/01" class="mspsds-block-link">Manage location</a>
+            <a href="/root/flows/location/manage/01" class="mspsds-block-link">Manage location</a>
           </div>
 
         </div>

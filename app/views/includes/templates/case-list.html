@@ -1,9 +1,9 @@
 {% extends "mspsds-layout.html" %}
 
-{% set filters = utils.caseFilters(data.caseListSettings, data.currentUser) %}
+{% set filters  = utils.caseFilters(data.caseListSettings, data.currentUser) %}
 {% set sortAttr = utils.caseSortAttr(data.caseListSettings) %}
-{% set sortDir = utils.caseSortDir(data.caseListSettings) %}
-{% set cases = data.cases | filterCases(filters) | sort(sortDir, false, sortAttr) %}
+{% set sortDir  = utils.caseSortDir(data.caseListSettings) %}
+{% set cases    = data.cases | filterCases(filters) | sort(sortDir, false, sortAttr) %}
 
 {% from "select/macro.njk"                import govukSelect %}
 {% set bodyClasses = "mspsds-width-container case-list-3" %}
@@ -188,7 +188,23 @@
       
     </div>
 
-    <div class="govuk-grid-column-three-quarters mspsds-case-list-tab {% if search %} mspsds-search__results {% endif %} {% if cases.length > 0 %} mspsds-search__results--empty {% endif %}">
+
+
+
+    {% set searchClasses = '' %}
+
+    {% if search == true %}
+      {% set searchClasses = searchClasses + ' mspsds-search__results' %}
+
+      {% if cases.length < 1 %}
+        {% set searchClasses = searchClasses + ' mspsds-search__results--empty' %}
+      {% endif %}
+
+    {% endif %}
+
+
+
+    <div class="govuk-grid-column-three-quarters mspsds-case-list-tab {{searchClasses}}">
       {% from "includes/components/case/case-card-list.html"          import caseCardList %}
       {{ caseCardList(cases, data.products, utils, search) }}
       {% if cases | length == 0 %}

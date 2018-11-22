@@ -18,7 +18,7 @@
 
   {{ govukBackLink({
     text: "Back to Products",
-    href: "/product-list"
+    href: "/old/product-list"
   }) }}
 
 {% endblock %}
@@ -47,7 +47,7 @@
 </div>
 
 <div class="mspsds-overview">
-  {% include "panels/product-panel.html" %}
+  {% include "old/panels/product-panel.html" %}
 </div>
 
 
@@ -160,7 +160,7 @@
 
 
 {% set businessesHtml %}
-  {% include "tab-sections/businesses-list.html" %}
+  {% include "old/tab-sections/businesses-list.html" %}
 {% endset -%}
 
 
@@ -200,7 +200,7 @@
 
 
 {% set fullDetailHtml %}
-  {% include "tab-sections/full-detail-product.html" %}
+  {% include "old/tab-sections/full-detail-product.html" %}
 {% endset -%}
 
 

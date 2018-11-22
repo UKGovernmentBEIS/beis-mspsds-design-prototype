@@ -41,7 +41,7 @@
   
 </div>
 
-{% include "panels/business-panel.html" %}
+{% include "old/panels/business-panel.html" %}
 
 <hr class="govuk-section-break govuk-section-break--m" />
 
@@ -135,7 +135,7 @@
 
 
 {% set contactsHtml %}
-  {% from "tab-sections/contact-section.html" import contactSection %}
+  {% from "old/tab-sections/contact-section.html" import contactSection %}
   
   {{ contactSection({
     hasLocations: true,
@@ -204,7 +204,7 @@
 
 
 {% set productsHtml %}
-  {% include "tab-sections/products-list-business.html" %}
+  {% include "old/tab-sections/products-list-business.html" %}
 {% endset -%}
 
 
@@ -243,7 +243,7 @@
 
 
 {% set fullDetailHtml %}
-  {% include "tab-sections/full-detail-business.html" %}
+  {% include "old/tab-sections/full-detail-business.html" %}
 {% endset -%}
 
 

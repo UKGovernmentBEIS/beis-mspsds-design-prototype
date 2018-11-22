@@ -1,11 +1,38 @@
 {% extends "includes/templates/flow.html" %}
 
-{% set displayTitle        = 'Edit connected product' %}
+{% set displayTitle = 'Manage location' %}
+
+{% set formAction         = '/root/'+ data['currentPage'] %}
 
 
 
 {% block flow %}
 
-TBC
+<form action="{{formAction}}" method="post" class="form">
+    <div class="govuk-grid-row">
+
+          {% include "includes/components/shared/location/details.html" %}
+          
+    </div>
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            {% from "button/macro.njk" import govukButton %}
+          
+            {{ govukButton({
+              text: "Update location" ,
+              classes: "mspsds-button"
+            }) }}
+
+            {{ govukButton({
+              text: "Delete location" ,
+              classes: "mspsds-button mspsds-button--delete"
+            }) }}
+
+        </div>
+      </div>
+    
+</form>
 
 {% endblock %}

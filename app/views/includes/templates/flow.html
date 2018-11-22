@@ -47,10 +47,10 @@
     {% set titleType     = 'Case: '+data['caseid']  %}
 
 {% elif currentPage ==  'product'  %}
-    {% set backLink      = 'Product: '+data['productid']  %}
+    {% set titleType      = 'Product: '+data['productid'] + 'TODO – get name'  %}
 
 {% elif currentPage ==  'business'  %}
-    {% set backLink      = 'Business '+data['businessid']  %}
+    {% set titleType      = 'Business '+data['businessid'] + 'TODO – get name'  %}
 
 {% endif %}
 

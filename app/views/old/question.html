@@ -59,7 +59,7 @@
 <div class="govuk-grid-row ">
   <div class="govuk-grid-column-full mspsds-overview"">
     <h2 class="govuk-heading-m" title="Could also be a business, or...?">Product</h2>
-    {% include "panels/product-panel.html" %}
+    {% include "old/panels/product-panel.html" %}
   </div>
 </div>
 
@@ -170,7 +170,7 @@
 
 {% set contactsHtml %}
 
-  {% from "tab-sections/contact-section.html" import contactSection %}
+  {% from "old/tab-sections/contact-section.html" import contactSection %}
 
   {{ contactSection({
     hasContacts: true,
@@ -213,7 +213,7 @@
 
 
 {% set productsHtml %}
-  {% include "tab-sections/products-list.html" %}
+  {% include "old/tab-sections/products-list.html" %}
 {% endset -%}
 
 
@@ -222,7 +222,7 @@
 
 
 {% set businessesHtml %}
-  {% include "tab-sections/businesses-list.html" %}
+  {% include "old/tab-sections/businesses-list.html" %}
 {% endset -%}
 
 
@@ -262,7 +262,7 @@
 
 
 {% set fullDetailHtml %}
-  {% include "tab-sections/full-detail-question.html" %}
+  {% include "old/tab-sections/full-detail-question.html" %}
 {% endset -%}
 
 

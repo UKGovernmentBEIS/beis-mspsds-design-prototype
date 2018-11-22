@@ -61,7 +61,7 @@
         ]
       }) }}
     {% else %}
-      {% include "panels/report-close-or-assign.html" %}
+      {% include "old/panels/report-close-or-assign.html" %}
     {% endif %}
   </div>
 </div>
@@ -84,7 +84,7 @@
 
 {% if question.assignee %}
   <h2 class="govuk-heading-l">Add new activity</h2>
-  {% include "panels/record-action.html" %}
+  {% include "old/panels/record-action.html" %}
 
   <hr class="govuk-section-break govuk-section-break--m" />
 {% endif %}
@@ -195,21 +195,21 @@
 
 
 {% set attachmentsHtml %}
-  {% include "tab-sections/attachments.html" %}
+  {% include "old/tab-sections/attachments.html" %}
 {% endset -%}
 
 
 
 
 {% set productsHtml %}
-  {% include "tab-sections/products-list.html" %}
+  {% include "old/tab-sections/products-list.html" %}
 {% endset -%}
 
 
 
 
 {% set businessesHtml %}
-  {% include "tab-sections/businesses-list.html" %}
+  {% include "old/tab-sections/businesses-list.html" %}
 {% endset -%}
 
 
