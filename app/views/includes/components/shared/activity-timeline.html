@@ -17,7 +17,9 @@
 
             <h3 class="govuk-heading-s">{{entry.title}}</h3>
             <p class="mspsds-activity-timeline__entry-details govuk-body-s">
-              {{entry.action}}{{ "" if entry.hideName else " by Tim Harwood," }} 16 August 2018
+              {{entry.action}}
+              {{ (" by " + (entry.author | default("Tim Harwood")) + ",") if not entry.hideName }}
+              {{entry.date | default("16 August 2018")}}
             </p>
 
             {% if entry.html %}

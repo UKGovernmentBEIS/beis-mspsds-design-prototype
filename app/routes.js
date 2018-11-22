@@ -79,16 +79,22 @@ router.post('/:mode/flows/process-incoming/email-check-endpoint', function (req,
 })
 
 // Assign flow
-router.post('/flows/assign/save', function (req, res) {
-  let kase = res.locals.data.cases.find(function (c) {
+router.post('/:mode/flows/assign/save', function (req, res) {
+  const kase = res.locals.data.cases.find(function (c) {
     return c.id === req.session.data.caseid
   });
-
-  kase.dateUpdated = getDate();
-
-  let newAssignee = req.body.assignee
+  
+  const newAssignee = req.body.assignee
   newAssignee = newAssignee === "Other" ? req.body["other-correspondent"] : newAssignee
+  
+  const assignedActivityTempalte = require("./data/activities/templates").assigned;
+  //TODO get the proper date format
+  const newActivity = assignedActivityTempalte({ assignee: newAssignee, author: res.locals.data.currentUser, date: getDate() });
+  
+  kase.dateUpdated = getDate();
   kase.assignee = newAssignee
+  kase.activites.unshift(newActivity)
+
   res.redirect('/root/case')
 })
 

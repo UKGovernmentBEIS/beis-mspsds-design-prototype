@@ -31,7 +31,9 @@ module.exports = {
   assigned: function (params) {
     return {
       title: "Assigned to " + params.assignee,
-      action: "Assigned"
+      action: "Assigned",
+      author: params.author,
+      date: params.date
     }
   },
 }
