@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const today = require("./utils/today");
 
 // Catch-all for redirecting to the correct mode - MUST BE LAST ROUTE ADDED
 router.all("/root/*", function (req, res) {
@@ -8,23 +9,10 @@ router.all("/root/*", function (req, res) {
 
 function redirectByMode(req, res) {
   const mode = req.session.data.mode;
-  console.log(req.path);
   const rest = req.path.substring(6);
   const route = `/${mode}/${rest}`;
   res.redirect(route);
 }
-
-function getDate() {
-  let today = new Date();
-  let dd = today.getDate();
-  let mm = today.getMonth() + 1;
-  let yyyy = today.getFullYear();
-
-  dd = (dd < 10) ? '0' + dd : dd;
-  mm = (mm < 10) ? '0' + mm : mm;
-
-  return dd + '/' + mm + '/' + yyyy;
-};
 
 // PAGES ----------------------------------------------------------------------
 
@@ -84,17 +72,19 @@ router.post('/:mode/flows/assign/save', function (req, res) {
     return c.id === req.session.data.caseid
   });
   
-  const newAssignee = req.body.assignee
+  let newAssignee = req.body.assignee
   newAssignee = newAssignee === "Other" ? req.body["other-correspondent"] : newAssignee
   
   const assignedActivityTempalte = require("./data/activities/templates").assigned;
-  //TODO get the proper date format
-  const newActivity = assignedActivityTempalte({ assignee: newAssignee, author: res.locals.data.currentUser, date: getDate() });
+  const newActivity = assignedActivityTempalte({ 
+    assignee: newAssignee, 
+    author: res.locals.data.currentUser, 
+    date: today.long() });
   
-  kase.dateUpdated = getDate();
+  kase.dateUpdated = today.short();
   kase.assignee = newAssignee
   kase.activites.unshift(newActivity)
-
+  
   res.redirect('/root/case')
 })
 
