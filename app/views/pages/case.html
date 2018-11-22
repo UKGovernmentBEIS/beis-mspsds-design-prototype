@@ -1,6 +1,4 @@
 {% set currentPage      = 'case' %}
-{% set pg  = utils.storeDataValue('page', currentPage) %}
-
 
 {% if data['caseid'] %}
 	{% set currentCase = utils.findById(data.cases, data['caseid']) %}

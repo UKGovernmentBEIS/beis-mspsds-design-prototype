@@ -22,6 +22,9 @@ module.exports = {
   mode: "pages",
   
   caseid: "0132-1421",
+  businessid: "b1",
+  productid: "p1",
+
   caseListSettings: {
     sort: "latest",
     assignee: ["Me"],

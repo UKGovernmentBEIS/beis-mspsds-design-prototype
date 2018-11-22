@@ -26,6 +26,17 @@ function getDate() {
   return dd + '/' + mm + '/' + yyyy;
 };
 
+// PAGES ----------------------------------------------------------------------
+
+// Some flows are shared between entities, so they need to know which entity has
+// launched them.
+router.get('/:mode/:entity(case|business|product|case-list)/', function(req, res) {
+  console.log(req.route)
+  console.log(req.params.entity)
+  res.locals.data.currentPage = req.params.entity
+  continuetoView(req, res)
+})
+
 // FLOWS ----------------------------------------------------------------------
 
 // Process incoming report flow endpoints
@@ -126,16 +137,16 @@ router.get('/:mode/case-search', function (req, res) {
   res.locals.data.caseListSettings.q = "nick 32142"
   // TODO if we ever stop mocking out the search, then this could be a starting point. As, we're faking it
   // res.locals.data.caseListSettings.q = req.query.q
-  continuetoView(res, req);
+  continuetoView(req, res);
 })
 
 // Case list and search
 router.get('/:mode/case-list', function (req, res) {
   res.locals.data.caseListSettings.q = undefined
-  continuetoView(res, req)
+  continuetoView(req, res)
 })
 
-function continuetoView(res, req) {
+function continuetoView(req, res) {
   res.render(req.path.substring(1));
 }
 
