@@ -176,10 +176,7 @@ module.exports = {
       action: "",
       text: "Rationale comment goes here"
     },
-    {
-      title: "Assigned to Nick Golding",
-      action: "Assigned"
-    },
+    templates.assigned({assignee: "Tim Harwood"}),
     {
       title: "Laceration injury",
       action: "Incident added",

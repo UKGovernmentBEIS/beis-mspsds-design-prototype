@@ -27,5 +27,11 @@ module.exports = {
       <a href="/root/product?productid=${data.productid}" class="mspsds-block-link">View product</a>
       <a href="/root/business?businessid=${data.businessid}" class="mspsds-block-link">View business</a>`
     }
-  }
+  },
+  assigned: function (params) {
+    return {
+      title: "Assigned to " + params.assignee,
+      action: "Assigned"
+    }
+  },
 }
