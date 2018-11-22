@@ -1,18 +1,5 @@
 {% set currentPage      = 'product' %}
-{% set currentProduct   = false %}
-
-
-{% if data['productid'] %}
-    
-    {% for product in data['products'] %}
-        {% if product.id == data['productid'] %}
-            {% set currentProduct = product %}
-        {% endif %}
-    {% endfor %}
-    
-{% endif %}
-
-
+{% set currentProduct   = data.products | withId(data.productid) %}
 
 {% if currentProduct %}
     {% extends "includes/templates/product.html" %}
