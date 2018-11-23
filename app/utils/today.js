@@ -1,10 +1,10 @@
-const date = require('date-fns')
+const format = require('date-fns/format')
 
 module.exports = {
   short: function() {
-    return date.format(new Date(), "DD/MM/YYYY")
+    return format(new Date(), "DD/MM/YYYY")
   },
   long: function() {
-    return date.format(new Date(), "DD MMMM YYYY")
+    return format(new Date(), "DD MMMM YYYY")
   }
 }

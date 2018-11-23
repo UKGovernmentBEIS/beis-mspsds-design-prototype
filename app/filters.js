@@ -37,11 +37,11 @@ module.exports = function (env) {
     documentation.
 
   ------------------------------------------------------------------ */
-  
+
   /* ------------------------------------------------------------------
     collection filters
   ------------------------------------------------------------------ */
-  filters.filterCollection = function(thigs, filters) {
+  filters.filterCollection = function (thigs, filters) {
     let ret = thigs
     filters.forEach(filter => {
       ret = ret.filter(filter)
@@ -55,11 +55,11 @@ module.exports = function (env) {
     })
   }
 
-  filters.pick = function(objects, attr) {
+  filters.pick = function (objects, attr) {
     return objects.map(o => o[attr])
   }
 
-  filters.jsList = function(objects, attr) {
+  filters.jsList = function (objects, attr) {
     return "[" + objects.map(o => "'" + o + "'") + "]"
   }
 
@@ -86,7 +86,7 @@ module.exports = function (env) {
       })
     }
     if (caseListSettings.q) {
-      filters.push(function(kase) {
+      filters.push(function (kase) {
         return kase.match !== undefined
       })
 
@@ -107,7 +107,7 @@ module.exports = function (env) {
     }
     return filters
   }
-  
+
   filters.caseSortAttr = function (caseListSettings) {
     switch (caseListSettings.sort) {
       case "latest": return "dateUpdated"
@@ -130,14 +130,18 @@ module.exports = function (env) {
   /* ------------------------------------------------------------------
     case filters
   ------------------------------------------------------------------ */
-  filters.attachCaseChildren = function(cases, products = [], businesses = []) {
-    return cases.map(kase => {
-      kase.products = kase.products.map(productId => products.find(product => product.id === productId))
-      kase.businesses = kase.businesses.map(businessId => businesses.find(business => business.id === businessId))
-      return kase
-    })
+  // Make a shallow copy of the cases list with children entity id arrays swapped for copies of the children models
+  filters.attachCaseChildren = function (cases, products = [], businesses = []) {
+    return cases.map(kase =>
+      Object.assign({}, kase, {
+        products: kase.products.map(productId => products.find(product => product.id === productId)),
+        businesses: kase.businesses.map(({ id, role }) =>
+          Object.assign({ role }, businesses.find(business => business.id === id))
+        ),
+      })
+    )
   }
-  
+
   /* ------------------------------------------------------------------
     keep the following line to return your filters to the app
   ------------------------------------------------------------------ */
