@@ -1,5 +1,6 @@
 {% extends "mspsds-layout.html" %}
 
+{% set currentBusiness = currentBusiness | attachBusinessChildren(data) %}
 
 {% block pageTitle %}
   Business Page: {{ currentBusiness.title }}

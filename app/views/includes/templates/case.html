@@ -1,5 +1,6 @@
 {% extends "mspsds-layout.html" %}
 
+{% set currentCase = currentCase | attachCaseChildren(data) %}
 
 {% block pageTitle %}
   Case Page: {{ currentCase.title }}

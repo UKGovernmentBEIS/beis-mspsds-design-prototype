@@ -1,5 +1,6 @@
 {% extends "mspsds-layout.html" %}
 
+{% set currentProduct = currentProduct | attachProductChildren(data) %}
 
 {% block pageTitle %}
   Product Page: {{ currentProduct.title }}
