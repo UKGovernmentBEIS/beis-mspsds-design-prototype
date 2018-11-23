@@ -811,6 +811,9 @@ module.exports = {
         kase[property] = []
       }
     })
+    if (kase.title === undefined) {
+      kase.title = 'Undefined'
+    }
     return kase
   }),
 }

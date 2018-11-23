@@ -50,6 +50,11 @@
         {{ govukButton({text: "Go" }) }}
       </form>
 
+
+      {% if data.mode == 'test' %}
+        <a href="test-setup">Setup</a>
+      {% endif %}
+
       {% include (data.mode or "old") + "/index.html" ignore missing %}
     </div>
 </div>

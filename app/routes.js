@@ -165,6 +165,17 @@ function continuetoView(req, res) {
   res.render(req.path.substring(1));
 }
 
+// TEST SETUP -----------------------------------------------------------------
+router.post('/test-setup', function (req, res) {
+  if (req.body.caseToAssign !== undefined) {
+    const kase = res.locals.data.cases.find(function (c) {
+      return c.id === req.body.caseToAssign
+    });
+    kase.assignee = req.body.assignee
+  }
+  continuetoView(req, res)
+})
+
 
 
 

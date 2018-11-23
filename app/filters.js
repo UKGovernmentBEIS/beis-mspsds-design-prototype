@@ -144,6 +144,15 @@ module.exports = function (env) {
     }
   }
 
+  // Used in setup to pick a case in a dropdown
+  filters.selectChoices = function (cases, selectedByDefault = '0132-1421') {
+    return cases.map(kase => ({
+      value: kase.id,
+      text: `${kase.type} ${kase.id} (assigned to ${kase.assignee})`,
+      selected: kase.id === selectedByDefault
+    }))
+  }
+
   /* ------------------------------------------------------------------
     business filters
   ------------------------------------------------------------------ */
