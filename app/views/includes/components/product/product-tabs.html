@@ -1,7 +1,4 @@
 
-{% set activityHtml %}
-  {% include "includes/components/product/tabs/product-tab-activity.html" %}
-{% endset -%}
 
 {% set fullDetailHtml %}
   {% include "includes/components/product/tabs/product-tab-full-detail.html" %}
@@ -12,18 +9,13 @@
 {% endset -%}
 
 
-{% set contactsHtml %}
-  {% include "includes/components/product/tabs/product-tab-contacts.html" %}
-{% endset -%}
-
-
 {% set attachmentsHtml %}
   {% include "includes/components/product/tabs/product-tab-attachments.html" %}
 {% endset -%}
 
 
-{% set relatedItemsHtml %}
-  {% include "includes/components/product/tabs/product-tab-related.html" %}
+{% set casesHtml %}
+  {% include "includes/components/product/tabs/product-tab-cases.html" %}
 {% endset -%}
 
 
@@ -35,13 +27,6 @@
 
 {{ govukTabs({
   items: [
-    {
-      label: "Activity",
-      id: "activity",
-      panel: {
-        html: activityHtml
-      }
-    },
     {
       label: "Full details",
       id: "full-details",
@@ -57,13 +42,6 @@
       }
     },
     {
-      label: "Contacts",
-      id: "contacts",
-      panel: {
-        html: contactsHtml
-      }
-    },
-    {
       label: "Attachments",
       id: "attachments",
       panel: {
@@ -71,10 +49,10 @@
       }
     },
     {
-      label: "Related",
-      id: "related",
+      label: "Cases",
+      id: "cases",
       panel: {
-        html: relatedItemsHtml
+        html: casesHtml
       }
     }
   ]

@@ -1,0 +1,16 @@
+{% from "includes/components/shared/tab-title.html"           import tabTitle %}
+{% from "includes/components/case/case-card-list.html"        import caseCardList %}
+
+
+
+{{ tabTitle({
+        title:      'Cases'
+}) }}
+
+
+
+<div class="mspsds-tablist mspsds-tablist--related">
+
+    {{ caseCardList( cases, data.products, utils) }}
+
+</div>

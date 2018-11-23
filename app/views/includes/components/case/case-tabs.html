@@ -28,11 +28,6 @@
 {% endset -%}
 
 
-{% set relatedItemsHtml %}
-  {% include "includes/components/case/tabs/case-tab-related.html" %}
-{% endset -%}
-
-
 
 
 <hr class="govuk-section-break govuk-section-break--l" />
@@ -81,13 +76,6 @@
       id: "attachments",
       panel: {
         html: attachmentsHtml
-      }
-    },
-    {
-      label: "Related",
-      id: "related",
-      panel: {
-        html: relatedItemsHtml
       }
     }
   ]
