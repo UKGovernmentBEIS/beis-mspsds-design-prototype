@@ -1,4 +1,4 @@
-  {% from "includes/components/shared/tab-title.html"           import tabTitle %}
+{% from "includes/components/shared/tab-title.html"           import tabTitle %}
 {% from "table/macro.njk"                                     import govukTable %}
 
 
@@ -6,15 +6,9 @@
     {% set addLink = '#' %}
 {% endif %}
 
-{% if not contacts  %}
-    {% set contacts = [] %}
-{% endif %}
-
 {% if not currentContacts  %}
     {% set currentContacts = [] %}
 {% endif %}
-
-
 
 
 {{ tabTitle({
@@ -23,58 +17,33 @@
 }) }}
 
 
-
-
 <div class="mspsds-tablist mspsds-tablist--contact">
     
+  {% for contact in currentContacts %}
+    {% set contactRows = [] %}
 
-    {% for contact in contacts %}
+    {% set contactRows = ( contactRows.push([
+      {text: contact.role},
+      {html: contact.name + '<br/>' + contact.title},
+      {html: contact.phone + '<br/>' + contact.email}
+    ]), contactRows ) %}
 
-      
-      {% set matched = false %}
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
 
-      {% for ciz in currentContacts %}
-          {% if contact.id === ciz.id %}
-              {% set matched = ciz.role %}
-          {% endif %}
-      {% endfor %}
+        {{ govukTable({
+          firstCellIsHeader: true,
+          rows: contactRows
+        }) }}
 
-
-
-      {% if matched %}
-
-        {% set contactRows = [] %}
-
-        {% set contactRows = ( contactRows.push([
-          {text: matched},
-          {html: contact.name + '<br/>' + contact.title},
-          {html: contact.phone + '<br/>' + contact.email}
-        ]), contactRows ) %}
-
-        <div class="govuk-grid-row">
-          <div class="govuk-grid-column-full">
-
-            {{ govukTable({
-              firstCellIsHeader: true,
-              rows: contactRows
-            }) }}
-
-            <div class="mspsds-controls">
-              <a href="/root/flows/contact/manage/01?contact={{contact.id}}" class="mspsds-block-link">Manage contact</a>
-            </div>
-
-          </div>
+        <div class="mspsds-controls">
+          <a href="/root/flows/contact/manage/01?contact={{contact.id}}" class="mspsds-block-link">Manage contact</a>
         </div>
 
-      {% endif %}
+      </div>
+    </div>
 
-
-    {% endfor %}
-
-
-
-    
-
+  {% endfor %}
 
 </div>
 

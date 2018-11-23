@@ -2,13 +2,8 @@
 {% from "includes/components/business/business-panel.html"    import businessPanel %}
 
 
-
 {% if not addBusinessLink  %}
     {% set addBusinessLink = '#' %}
-{% endif %}
-
-{% if not businesses  %}
-    {% set businesses = [] %}
 {% endif %}
 
 {% if not currentBusinesses  %}
@@ -17,45 +12,26 @@
 
 
 
-
-  {{ tabTitle({
-    title:      'Businesses',
-    controls:   '<a href="'+addBusinessLink+'" class="mspsds-block-link">Add business</a>'
-  }) }}
-
+{{ tabTitle({
+title:      'Businesses',
+controls:   '<a href="'+addBusinessLink+'" class="mspsds-block-link">Add business</a>'
+}) }}
 
 
-  <div class="mspsds-tablist mspsds-tablist--business">
+<div class="mspsds-tablist mspsds-tablist--business">
 
+    {% for biz in currentBusinesses %}
 
-      {% for biz in businesses %}
+    {{ businessPanel({
+        business:         biz,
+        role:             biz.role,
+        controls:         true,
+        displayImage:     true,
+        displayDetails:   'contact'
+    }) }}
 
+    <hr class="govuk-section-break govuk-section-break--m" />
 
-        {% set matched = false %}
+    {% endfor %}
 
-        {% for ciz in currentBusinesses %}
-            {% if biz.id === ciz.id %}
-                {% set matched = ciz.role %}
-            {% endif %}
-        {% endfor %}
-
-
-        {% if matched %}
-
-          {{ businessPanel({
-              business:         biz,
-              role:             matched,
-              controls:         true,
-              displayImage:     true,
-              displayDetails:   'contact'
-          }) }}
-
-          <hr class="govuk-section-break govuk-section-break--m" />
-
-
-        {% endif %}
-
-      {% endfor %}
-
-  </div>
-
+</div>
