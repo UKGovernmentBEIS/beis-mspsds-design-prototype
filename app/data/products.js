@@ -1,3 +1,38 @@
+// Blueprint
+// There's a map at the bottom of the file which adds empty lists for
+// all properites which expect it if not present
+/*
+ {
+            id: 'p1',
+            name: 'Travel plug adaptor — Charge Worx 931L',
+            posterImage: '/public/images/charge-worx.jpg',
+            brand: 'Charge Worx',
+            modelName: 'International Travel Adaptor',
+            modelNumber: '931L',
+            description: 'Universal travel USB plug adaptor with surge protector',
+            type: 'Travel adaptor',
+            category: 'Electrical equipment',
+            barcode: '12345678911234',
+            productNumber: '123123131',
+            origin: 'China',
+            manufacturer: 'b1',
+            dateOnMarket: '10/10/2008',
+            businesses: [
+                {
+                    id: 'b1',
+                    role: 'Manufacturer'
+                },
+                {
+                    id: 'b2',
+                    role: 'Importer'
+                }
+            ],
+            attachments: ['a1', 'a2'],
+
+            related: [],
+            activity: []
+        },
+*/
 module.exports = {
     products: [
         {
@@ -17,29 +52,15 @@ module.exports = {
             dateOnMarket: '10/10/2008',
             businesses: [
                 {
-                    business: 'b1',
+                    id: 'b1',
                     role: 'Manufacturer'
                 },
                 {
-                    business: 'b2',
+                    id: 'b2',
                     role: 'Importer'
                 }
             ],
             attachments: ['a1', 'a2'],
-
-            cases:      ['1811-0803'],
-
-            businesses: [
-                {
-                  id: 'b1',
-                  role: 'Manufacturer'
-                },
-                {
-                  id: 'b2',
-                  role: 'Importer'
-                }
-              ],
-
             related: [],
             activity: []
         },
@@ -60,11 +81,11 @@ module.exports = {
             dateOnMarket: '10/10/2008',
             businesses: [
                 {
-                    business: 'b1',
+                    id: 'b1',
                     role: 'Manufacturer'
                 },
                 {
-                    business: 'b2',
+                    id: 'b2',
                     role: 'Importer'
                 }
             ],
@@ -260,5 +281,18 @@ module.exports = {
             id: 'p49',
             name: 'Charge Worx, Travel plug adaptor',
         },
-    ]
+    ].map(product => {
+        const requiredListProperties = [
+            'businesses',
+            'attachments',
+            'related',
+            'activity',
+        ]
+        requiredListProperties.forEach(property => {
+            if (product[property] === undefined) {
+                product[property] = []
+            }
+        })
+        return product
+    })
 }

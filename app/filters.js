@@ -145,6 +145,39 @@ module.exports = function (env) {
   }
 
   /* ------------------------------------------------------------------
+    business filters
+  ------------------------------------------------------------------ */
+  // Make a shallow copy of the cases list with children entity id arrays swapped for copies of the children models
+  filters.attachBusinessChildren = function (businesses, { products = [], cases = [], contacts = [] }) {
+    const attachToCase = business => Object.assign({}, business, {
+      products: business.products.map(productId => products.find(product => product.id === productId)),
+      cases: cases.filter(c => c.businesses.some(b => b.id === business.id)),
+      contacts: business.contacts.map(({ id, role }) => Object.assign({ role }, contacts.find(contact => contact.id === id))),
+    });
+    if (Array.isArray(businesses)) {
+      return businesses.map(attachToCase)
+    } else {
+      return attachToCase(businesses);
+    }
+  }
+
+  /* ------------------------------------------------------------------
+    case filters
+  ------------------------------------------------------------------ */
+  // Make a shallow copy of the cases list with children entity id arrays swapped for copies of the children models
+  filters.attachProductChildren = function (products, { cases = [], businesses = [], contacts = [] }) {
+    const attachToCase = product => Object.assign({}, product, {
+      cases: cases.filter(c => c.products.some(id => id === product.id)),
+      businesses: product.businesses.map(({ id, role }) => Object.assign({ role }, businesses.find(business => business.id === id))),
+    });
+    if (Array.isArray(products)) {
+      return products.map(attachToCase)
+    } else {
+      return attachToCase(products);
+    }
+  }
+
+  /* ------------------------------------------------------------------
     keep the following line to return your filters to the app
   ------------------------------------------------------------------ */
   return filters

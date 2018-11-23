@@ -19,5 +19,5 @@
 
 <div class="mspsds-tablist mspsds-tablist--related">
     {% set cases = data.cases | attachCaseChildren(data)%}
-    {{ caseCardList(cases, utils) }}
+    {{ caseCardList(cases) }}
 </div>
