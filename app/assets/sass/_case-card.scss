@@ -19,7 +19,7 @@ $marginIndent: 10px;
 
 
 
-
+.mspsds-product-card,
 .mspsds-case-card {
     
     position:           relative;
@@ -106,7 +106,16 @@ $marginIndent: 10px;
 
 
 
-    &__assignee {
+    &__type,
+    &__origin {
+        width: grid-width(one-third);
+    }
+
+    &__cases{
+        width: grid-width(one-quarter);
+    }
+
+     &__assignee{
         width: grid-width(one-half);
     }
 

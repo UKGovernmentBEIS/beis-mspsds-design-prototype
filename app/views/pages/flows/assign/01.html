@@ -1,29 +1,12 @@
-{% extends "mspsds-layout.html" %}
+{% extends "includes/templates/flow.html" %}
 
 
-{% block pageTitle %}
-  Assign case
-{% endblock %}
+{% set displayTitle        = 'Assign case' %}
+
+{% set formAction         = 'save' %}
 
 
-{% block beforeContent %}
-
-  {{ govukBackLink({
-    text: "Back to case",
-    href: "/case"
-  }) }}
-
-{% endblock %}
-
-
-{% block content %}
-
-
-  {{ pageTitle({
-    type:   "Case: 1810-0001",
-    title:  "Assign case"
-  }) }}
-
+{% block flow %}
 
 
 <div class="govuk-grid-row">
@@ -33,12 +16,13 @@
   </div>
 </div>
 
+
 <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     
-    <form action="save" method="post" class="form">
+    <form action="{{formAction}}" method="post" class="form">
 
 
       
@@ -101,8 +85,6 @@
 
 
 
-      
-
       {{ govukButton({
         text: "Assign"
       }) }}
@@ -112,8 +94,6 @@
 
   </div>
 </div>
-
-
 
 
 {% endblock %}

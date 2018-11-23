@@ -2,6 +2,8 @@
 
 {% set bodyClasses = "mspsds-width-container case-list-3" %}
 
+{% set products    = data.products %}
+
 
 {% block pageTitle %}
   Product-list Page
@@ -45,18 +47,18 @@
         title: "Products"
       }) }}
     </div>
-  </div>
 
 
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-     {% include "includes/product-list__list__Q1.html" %}
+    <div class="govuk-grid-column-full mspsds-case-list-tab {{searchClasses}}">
+      {% from "includes/components/product/product-card-list.html"          import productCardList %}
+      {{ productCardList(products) }}
+      {% if products | length == 0 %}
+          <span class="govuk-heading-xl">No products</span>
+      {% endif %}
     </div>
+
   </div>
-
-
-
 
 
 {% endblock %}

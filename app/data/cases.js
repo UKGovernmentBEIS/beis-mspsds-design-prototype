@@ -53,6 +53,22 @@
 module.exports = {
   cases: [
     {
+      // EMPTY CASE
+      type: 'Case',
+      id: "1810-0000",
+      title: "Untitled case",
+      reporter: {},
+      status: "Open",
+      assignee: "Tim Harwood",
+      priority: "Not set",
+      numAttachments: 0,
+      products: [],
+      activity: [],
+      activites: [],
+      dateCreated: '18/10/2018',
+      dateUpdated: '18/10/2018'
+    },
+    {
       // TODO Remove this case once case__empty.js page is no longer needed
       type: 'Case',
       id: "1810-0001",

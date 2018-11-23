@@ -2,7 +2,7 @@
 
 {% set displayTitle        = 'Hazard information' %}
 
-
+{% set formAction         = '/root/'+ data['currentPage'] %}
 
 
 {% block flow %}
@@ -11,7 +11,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     
-    <form action="/root/flows/add-hazard/02-add-hazard-confirm" method="post" class="form">
+    <form action="{{formAction}}" method="post" class="form">
 
       {% call govukFieldset({
         legend: {

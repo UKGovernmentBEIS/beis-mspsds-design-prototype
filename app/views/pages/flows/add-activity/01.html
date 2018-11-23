@@ -1,0 +1,13 @@
+{% if activityVersion == 'v2' %}
+
+    {% extends "./01-choose-activity-v2" %}
+
+{% elif activityVersion == 'v3' %}
+    
+    {% extends "./01-choose-activity-v3" %}
+
+{% else %}
+
+    {% extends "./01-choose-activity" %}
+
+{% endif %}

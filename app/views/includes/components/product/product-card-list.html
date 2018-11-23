@@ -1,0 +1,8 @@
+{% from "includes/components/product/product-card.html"         import productCard %}
+
+{% macro productCardList(products, searchResult = false) %}
+  {% for product in products %}
+    {{ productCard(product, searchResult) }}
+  {% endfor %}
+
+{% endmacro %}

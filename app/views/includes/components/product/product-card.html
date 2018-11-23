@@ -1,0 +1,73 @@
+{% from "includes/components/case/case-filter.html"         import caseFilter %}
+
+
+{% macro productCard(productInfo, searchResult) %}
+
+<div class="mspsds-product-card 
+            govuk-body govuk-!-font-weight-regular">
+
+    <span class="mspsds-product-card__indentifier">
+
+        <span class="mspsds-product-card__type">Product</span>
+
+
+        {% if productInfo.id %}
+            <span class="mspsds-product-card__id">{{productInfo.id}}</span>
+        {% endif %}
+
+    </span>
+
+
+    <a class="mspsds-product-card__title" href="product?productid={{productInfo.id}}&currentPage=product" >
+
+        {% if productInfo.name%}
+            <span class="mspsds-product-card__product">{{productInfo.name}}</span>
+        {% endif %}
+
+    </a>
+
+
+    {% if searchResult %}
+
+        <span class="mspsds-product-card__match">
+            
+        </span>
+
+    {% else %}
+
+        <span class="mspsds-product-card__state">
+
+            {% if productInfo.type %}
+                {{ caseFilter("Type",productInfo.type, "mspsds-product-card__type") }}
+
+             {% else %}
+                {{ caseFilter("Type","Unknown", "mspsds-product-card__type") }}
+
+            {% endif %}
+
+
+
+            {% if productInfo.origin %}
+                {{ caseFilter("Origin",productInfo.origin, "mspsds-product-card__origin") }}
+                
+            {% else %}
+                {{ caseFilter("Origin","Unknown", "mspsds-product-card__origin") }}
+
+            {% endif %}
+
+
+
+            {% if productInfo.cases %}
+                {{ caseFilter("Cases",productInfo.cases.length, "mspsds-product-card__cases") }}
+            {% else %}
+                {{ caseFilter("Cases","0", "mspsds-product-card__cases") }}
+
+            {% endif %}
+
+        </span>
+
+    {% endif %}
+
+</div>
+
+{% endmacro %}

@@ -2,9 +2,10 @@
 
 {% set addLink   = '#' %}
 
-
-{% set filter = utils.hasChildId('products', data['productid'] ) %}
-{% set cases = data.cases | filterCases([filter]) %}
+{#
+    {% set filter = utils.hasChildId('products', data['productid'] ) %}
+    {% set cases = data.cases | filterCases([filter]) %}
+#}
 
 {% extends "includes/components/shared/tabs/tab-cases.html" %}
 
