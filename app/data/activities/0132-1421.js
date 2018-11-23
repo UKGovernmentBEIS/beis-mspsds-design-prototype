@@ -7,6 +7,15 @@ module.exports = {
       action: "",
       text: "Needs addressing asap - we're nearly at the end of SLA"
     },
+    templates.changedStatus({ 
+      status: "Open",
+      author: "Tim Harwood",
+      description: "Further evidence came to light."
+    }),
+    templates.changedStatus({ 
+      status: "Closed",
+      author: "Tim Harwood",
+    }),
     templates.correctiveAction({
       summary: "Product recall requested",
       productid: "p1",
