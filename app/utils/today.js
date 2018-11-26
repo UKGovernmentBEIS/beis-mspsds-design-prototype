@@ -6,5 +6,8 @@ module.exports = {
   },
   long: function() {
     return format(new Date(), "DD MMMM YYYY")
+  },
+  id: function() {
+    return format(new Date(), "YYMM-HHmm")
   }
 }

@@ -1,3 +1,4 @@
+const Cases = require("../utils/case")
 // Blueprint
 // There's a map at the bottom of the file which adds empty lists for
 // all properites which expect it if not present
@@ -797,23 +798,5 @@ module.exports = {
 
       dateCreated: '18/10/2018'
     },
-  ].map(kase => {
-    const requiredListProperties = ['incidents',
-      'products',
-      'businesses',
-      'contacts',
-      'attachments',
-      'related',
-      'activites',
-    ]
-    requiredListProperties.forEach(property => {
-      if (kase[property] === undefined) {
-        kase[property] = []
-      }
-    })
-    if (kase.title === undefined) {
-      kase.title = 'Undefined'
-    }
-    return kase
-  }),
+  ].map(Cases.addDefaults),
 }

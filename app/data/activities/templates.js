@@ -44,4 +44,10 @@ module.exports = {
       text: params.description
     }
   },
+  caseCreated: function () {
+    return {
+      title: "Case created",
+      action: ""
+    }
+  }
 }

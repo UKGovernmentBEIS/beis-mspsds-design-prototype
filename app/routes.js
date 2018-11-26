@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const today = require("./utils/today");
+const Cases = require("./utils/case");
 
 // Catch-all for redirecting to the correct mode - MUST BE LAST ROUTE ADDED
 router.all("/root/*", function (req, res) {
@@ -23,7 +24,7 @@ router.all("/:mode(pages|spec|test|old)/*", function (req, res, next) {
 
 // Some flows are shared between entities, so they need to know which entity has
 // launched them.
-router.get('/:mode/:entity(case|business|product|case-list)/', function(req, res) {
+router.get('/:mode/:entity(case|business|product|case-list)/', function (req, res) {
   res.locals.data.currentPage = req.params.entity
   continuetoView(req, res)
 })
@@ -52,26 +53,25 @@ router.post('/:mode/flows/process-incoming/report-info-endpoint', function (req,
 })
 
 router.post('/:mode/flows/process-incoming/save', function (req, res) {
-  let newKase = req.session.data.new
-  newKase.dateCreated = today.short();
-  newKase.dateUpdated = today.short();
+  let newCase = req.session.data.new
+  
+  Cases.addDefaults(newCase);
 
-  const requiredListProperties = ['incidents',
-      'products',
-      'businesses',
-      'contacts',
-      'attachments',
-      'related',
-      'activites',
-    ]
-  requiredListProperties.forEach(property => {
-    if (newKase[property] === undefined) {
-      newKase[property] = []
-    }
-  })
+  newCase.dateCreated = today.short();
+  newCase.dateUpdated = today.short();
+  newCase.id = today.id()
+  switch(newCase.report.type) {
+    case "Allegation": newCase.type = "Case"; break;
+    case "Question": newCase.type = "Question"; break;
+    default: newCase.type = "Case";
+  }
+  newCase.assignee = req.session.data.currentUser
+  const caseCareatedActivity = require("./data/activities/templates").caseCreated;
+  newCase.activites.push(caseCareatedActivity())
 
-  res.locals.data.cases.push(newKase);
-  res.redirect('/root/case?caseid='+newKase['id']);
+  res.locals.data.cases.push(newCase);
+
+  res.redirect('/root/case?caseid=' + newCase.id);
 })
 
 
@@ -95,20 +95,21 @@ router.post('/:mode/flows/assign/save', function (req, res) {
   const kase = res.locals.data.cases.find(function (c) {
     return c.id === req.session.data.caseid
   });
-  
+
   let newAssignee = req.body.assignee
   newAssignee = newAssignee === "Other" ? req.body["other-correspondent"] : newAssignee
-  
+
   const assignedActivityTempalte = require("./data/activities/templates").assigned;
-  const newActivity = assignedActivityTempalte({ 
-    assignee: newAssignee, 
-    author: res.locals.data.currentUser, 
-    date: today.long() });
-  
+  const newActivity = assignedActivityTempalte({
+    assignee: newAssignee,
+    author: res.locals.data.currentUser,
+    date: today.long()
+  });
+
   kase.dateUpdated = today.short();
   kase.assignee = newAssignee
   kase.activites.unshift(newActivity)
-  
+
   res.redirect('/root/case')
 })
 
@@ -177,23 +178,23 @@ router.post('/:mode/flows/location/delete', function (req, res) {
 
 
 // Change Status flow
-router.post(`/:mode/flows/change-status/save`, function(req, res){
+router.post(`/:mode/flows/change-status/save`, function (req, res) {
   const kase = res.locals.data.cases.find(function (c) {
     return c.id === req.session.data.caseid
   });
 
   const changeStatusActivityTempalte = require("./data/activities/templates").changedStatus;
-  const newActivity = changeStatusActivityTempalte({ 
+  const newActivity = changeStatusActivityTempalte({
     status: req.body.status,
     description: req.body['status-description'],
     author: res.locals.data.currentUser,
-    date: today.long() 
+    date: today.long()
   });
-  
+
   kase.dateUpdated = today.short();
   kase.status = req.body.status
   kase.activites.unshift(newActivity)
-  
+
   res.redirect('/root/case')
 })
 
