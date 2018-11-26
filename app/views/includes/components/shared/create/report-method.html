@@ -1,8 +1,8 @@
  <div class="govuk-grid-column-two-thirds">
 
-  {% set label = 'How was the '+data['new']['type']+' reported?' %}
+  {% set label = 'How was the '+data['new']['report']['type']+' reported?' %}
 
-  {% if data['new']['type'] == 'question' %}
+  {% if data['new']['report']['type'] == 'question' %}
     {% set label = 'How was the question asked?' %}
   {% endif %}
 

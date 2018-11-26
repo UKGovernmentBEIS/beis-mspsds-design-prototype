@@ -1,0 +1,48 @@
+{% extends "includes/templates/flow.html" %}
+
+
+{% if currentPage   ==  'case' %}
+    
+    {% set backLink      = '/root/case-list'  %}
+    {% set backText      = 'Back to Cases ' %}
+
+{% elif currentPage ==  'case-list'  %}
+
+    {% set backLink      = '/root/case-list'  %}
+    {% set backText      = 'Back to Cases ' %}
+
+{% elif currentPage ==  'product'  %}
+
+    {% set backLink      = '/root/product-list'  %}
+    {% set backText      = 'Back to Products' %}
+
+{% elif currentPage ==  'product-list'  %}
+
+    {% set backLink      = '/root/product-list'  %}
+    {% set backText      = 'Back to Products' %}
+
+{% elif currentPage ==  'business'  %}
+
+    {% set backLink      = '/root/business-list'  %}
+    {% set backText      = 'Back to Businesses' %}
+
+{% elif currentPage ==  'business-list'  %}
+
+    {% set backLink      = '/root/business-list'  %}
+    {% set backText      = 'Back to Businesses' %}
+
+{% endif %}
+
+
+{% block beforeContent %}
+
+    {% include "includes/components/shared/page-banner.html" %}
+
+    {% if backLink  %}
+        {{ govukBackLink({
+            text: backText,
+            href: backLink
+        }) }}
+    {% endif %}
+
+{% endblock %}
