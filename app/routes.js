@@ -14,6 +14,11 @@ function redirectByMode(req, res) {
   res.redirect(route);
 }
 
+router.all("/:mode(pages|spec|test|old)/*", function (req, res, next) {
+  res.locals.data.mode = req.params.mode
+  next()
+})
+
 // PAGES ----------------------------------------------------------------------
 
 // Some flows are shared between entities, so they need to know which entity has

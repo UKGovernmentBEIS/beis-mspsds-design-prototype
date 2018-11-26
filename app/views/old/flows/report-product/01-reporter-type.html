@@ -1,0 +1,122 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% block pageTitle %}
+  New product safety report – Reporter type
+{% endblock %}
+
+
+{% block beforeContent %}
+
+  {{ govukPhaseBanner({
+    tag: {
+      text: "beta"
+    },
+    html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+  }) }}
+
+
+  {{ govukBackLink({
+    text: "Back to list",
+    href: "/case-list"
+  }) }}
+
+{% endblock %}
+
+
+
+{% block content %}
+
+  {{ pageTitle({
+    type:   "Report an unsafe product",
+    title:  "Who’s reporting?"
+  }) }}
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="./02-reporter-details" method="post" class="form">
+
+      {% set otherReporterHtml %}
+        {{ govukInput({
+          hint: {
+            text:     "Please give details",
+            classes:  "govuk-!-width-two-thirds"
+          },
+          classes:    "govuk-!-width-two-thirds",
+          id:         "other-reporter",
+          name:       "other-reporter"
+        }) }}
+      {% endset -%}
+
+
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Reporter type?",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukRadios({
+          idPrefix:   "reporter-type",
+          name:       "reporter-type",
+          items: [
+            {
+              value: "Consumer",
+              text: "Consumer",
+              checked: checked("reporter-type", "Consumer")
+            },
+            {
+              value: "Business",
+              text: "Business",
+              checked: checked("reporter-type", "Business")
+            },
+            {
+              value: "Local authority (Trading standards)",
+              text: "Local authority (Trading standards)",
+              checked: checked("reporter-type", "Local authority (Trading standards)")
+            },
+            {
+              value: "Trade body",
+              text: "Trade body",
+              checked: checked("reporter-type", "Trade body")
+            },
+            {
+              value: "Other MSA",
+              text: "Other MSA",
+              checked: checked("reporter-type", "Other MSA")
+            },
+            {
+              value: "Other",
+              text: "Other",
+              conditional: {
+                html: otherReporterHtml
+              },
+              checked: checked("reporter-type", "Other")
+            }
+          ]
+        }) }}
+
+
+
+      {% endcall %}
+
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}

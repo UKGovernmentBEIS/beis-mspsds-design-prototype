@@ -1,0 +1,87 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% block pageTitle %}
+  Add Incident
+{% endblock %}
+
+
+{% block beforeContent %}
+
+  {{ govukBackLink({
+    text: "Back to list",
+    href: "/case-list"
+  }) }}
+
+{% endblock %}
+
+
+{% block content %}
+
+  {{ pageTitle({
+    type:   "Case: 1810-0001",
+    title:  "Confirm hazard details"
+  }) }}
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="/case" method="post" class="form">
+
+      {{ govukTable({
+        firstCellIsHeader: true,
+        rows: [
+          [
+            { text: "Hazard type" },
+            { text: data['hazard-type'] }
+          ],
+          [
+            { text: "Description" },
+            { text: data['hazard-description'] }
+          ],
+          [
+            { text: "Affected parties" },
+            { text: data['hazard-to'] }
+          ]
+        ]
+      }) }}
+
+
+      {% if data['set-risk-level'] == 'Yes' %}
+
+        {{ govukTable({
+          firstCellIsHeader: true,
+          rows: [
+            [
+              { text: "Risk level" },
+              { text: data['risk-level'] }
+            ],
+            [
+              { text: "Risk assessment" },
+              { text: data['risk-assessment-upload'] }
+            ]
+          ]
+        }) }}
+
+      {% endif %}
+
+
+
+      {{ govukButton({
+        text: "Continue",
+        href: "/"
+      }) }}
+
+      <a class="govuk-link mspsds-block-link" href="/flows/add-correspondence/01-add-hazard">Edit details</a>
+
+    </form>
+
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}

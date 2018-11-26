@@ -1,0 +1,98 @@
+{% extends "mspsds-layout.html" %}
+
+{% block pageTitle %}
+Record corrective action
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back to case",
+  href: "/case"
+}) }}
+{% endblock %}
+
+{% block content %}
+{{ pageTitle({
+  type:   "Case: 1810-0001",
+  title:  "Record corrective action"
+}) }}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="/flows/record-corrective-action/02-record-corrective-action-confirm" method="post" class="form">
+
+      {% call govukFieldset({
+        legend: {
+          text: "Summary",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--l"
+        }
+      }) %}
+        {{ govukInput({
+          classes: "govuk-!-width-two-thirds",
+          id:   "corrective-action-summary",
+          name: "corrective-action-summary"
+        }) }}
+      {% endcall %}
+
+      {% from "date-input/macro.njk"    import govukDateInput %}
+      {{ govukDateInput({
+        id:         "corrective-action-date",
+        namePrefix: "corrective-action-date",
+        fieldset: {
+          legend: {
+            text: "When was this action decided?",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        hint: {
+          text: "For example, 31 3 2018"
+        }
+      }) }}
+
+      {% from "includes/autocomplete-input.html" import autocompleteInput %}
+      {% set products = [
+        'Travel plug adaptor — Charge Worx 931L',
+        'iPhone charger – unbranded, white',
+        'Travel plug adaptor – Multipower 94998'
+      ] %}
+      {{ autocompleteInput("case-products", "Which product is subject to action?", "Only products already added to the case are listed. <a href='#'>Add a product</a>", products) }}
+
+      {% from "includes/legislation-input.html" import legislationInput %}
+      {{ legislationInput("Under which legislation?") }}
+
+      {% set businesses = [
+        'Charge Worx',
+        'Wonderlite Ltd.',
+        'Trader Joe\'s bargain basement'
+      ] %}
+      {{ autocompleteInput("case-businesses", "Which business is responsible?", "Only businesses already added to the case are listed. <a href='#'>Add a business</a>", businesses) }}
+
+      {% call govukFieldset({
+        legend: {
+          text: "Further details",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--l"
+        }
+      }) %}
+        {{ govukTextarea({
+          name: "corrective-action-details",
+          id:   "corrective-action-details"
+        }) }}
+      {% endcall %}
+
+      {% from "includes/attachment-input.html" import attachmentInput %}
+      {{ attachmentInput("Related attachments", "corrective-action") }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
