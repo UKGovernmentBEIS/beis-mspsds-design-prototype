@@ -1,24 +1,36 @@
- <div class="govuk-grid-column-two-thirds">
+<div class="govuk-grid-column-two-thirds">
+  {% call govukFieldset({
+    legend: {
+      text:           "What is the enquiry?",
+      isPageHeading:  false,
+      classes:        "govuk-fieldset__legend--l"
+    }
+  }) %}
+    {{ govukTextarea({
+      name: "new[report][summary]",
+      id:   "enquiry-detail",
+      hint : {
+        text: "Please give as much detail as possible"
+      }
+    }) }}
+  {% endcall %}
 
-      {% call govukFieldset({
-        legend: {
-          text:           "What's the question?",
-          
-          isPageHeading:  false,
-          classes:        "govuk-fieldset__legend--l"
-        }
-      }) %}
-        {{ govukTextarea({
-          name: "new[report][summary]",
-          id:   "question-detail",
-          hint : {
-            text: "Please give much detail possible"
-          }
-        }) }}
-      {% endcall %}
+  {% call govukFieldset({
+    legend: {
+      text:           "Please provide a title",
+      isPageHeading:  false,
+      classes:        "govuk-fieldset__legend--l"
+    }
+  }) %}
+    {{ govukInput({
+      hint: {
+        text: "This will help other users identify this enquiry"
+      },
+      id: "report-title",
+      name: "new[report][title]"
+    }) }}
+  {% endcall %}
 
-
-      {% from "includes/components/shared/attachment-input.html" import attachmentInput %}
-      {{ attachmentInput("Are there any files or images related to the question?", "question", "false") }}
-
-  </div>
+  {% from "includes/components/shared/attachment-input.html" import attachmentInput %}
+  {{ attachmentInput("Are there any files or images related to the enquiry?", "enquiry", "false") }}
+</div>
