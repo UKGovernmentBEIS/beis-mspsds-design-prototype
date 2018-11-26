@@ -1,0 +1,101 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% block pageTitle %}
+  Priority information
+{% endblock %}
+
+
+{% block beforeContent %}
+
+  {{ govukBackLink({
+    text: "Back to case",
+    href: "/case"
+  }) }}
+
+{% endblock %}
+
+
+{% block content %}
+
+
+  {{ pageTitle({
+    type:   "Case: 1810-0001",
+    title:  "Priority information"
+  }) }}
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    
+    <form action="/case" method="post" class="form">
+
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Priority",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukRadios({
+          idPrefix:   "priority-level",
+          name:       "priority-level",
+          items: [
+            {
+              value:  "Low",
+              text:   "Low",
+              checked: checked("priority-level", "Low")
+            },
+            {
+              value:  "Medium",
+              text:   "Medium",
+              checked: checked("priority-level", "Medium")
+            },
+            {
+              value:  "High",
+              text:   "High",
+              checked: checked("priority-level", "High")
+            }
+          ]
+        }) }}
+        
+
+      {% call govukFieldset({
+        legend: {
+          text: "Comment / rationale",
+          classes: "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukTextarea({
+          hint: {
+            text: "Why are you setting it to this level?"
+          },
+          classes: "govuk-!-width-two-thirds",
+          id:   "priority-description",
+          name: "priority-description"
+        }) }}
+
+      {% endcall %}
+
+
+
+      {% endcall %}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,261 @@
+{% extends "mspsds-layout.html" %}
+
+{% block pageTitle %}
+Confirm report details
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back to case",
+  href: "/case__empty"
+}) }}
+{% endblock %}
+
+{% block content %}
+{{ pageTitle({
+  type:   "Report ref. " + data.new.id,
+  title:  "Confirm report details"
+}) }}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form action="./save" method="post" class="form">
+      {% call govukFieldset({
+        legend: {
+          text:           "Reporter details",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+        {{ govukTable({
+          firstCellIsHeader: true,
+          rows: [
+            [
+              { text: "Type" },
+              { text: data.new["origin-type"] }
+            ],
+            [
+              { text: "Reporter type" },
+              { text: data.new["reporter"]["type"] }
+            ],
+            [
+              { text: "Name" },
+              { text: data.new["reporter"]["name"] }
+            ],
+            [
+              { text: "Phone number" },
+              { text: data.new["reporter"]["phoneNumber"] }
+            ],
+            [
+              { text: "Email address" },
+              { text: data.new["reporter"]["emailAddress"] }
+            ],
+            [
+              { text: "Other contact information" },
+              { text: data.new["reporter"]["otherDetails"] }
+            ]
+          ]
+        }) }}
+      {% endcall %}
+      {% if data.new["issue-type"] == "Enquiry" %}
+        {% call govukFieldset({
+          legend: {
+            text:           "Enquiry details",
+            isPageHeading:  false,
+            classes:        "govuk-fieldset__legend--l"
+          }
+        }) %}
+          {{ govukTable({
+            firstCellIsHeader: true,
+            rows: [
+              [
+                { text: "Summary" },
+                { text: data.new["title"] }
+              ],
+              [
+                { text: "Enquiry in full" },
+                { text: data.new["description"] }
+              ]
+            ]
+          }) }}
+        {% endcall %}
+      {% else %}
+        {% call govukFieldset({
+          legend: {
+            text:           "Allegation summary",
+            isPageHeading:  false,
+            classes:        "govuk-fieldset__legend--l"
+          }
+        }) %}
+          {{ govukTable({
+            firstCellIsHeader: true,
+            rows: [
+              [
+                { text: "Title" },
+                { text: data.new["title"] }
+              ]
+            ]
+          }) }}
+        {% endcall %}
+        {% call govukFieldset({
+          legend: {
+            text:           "Incident",
+            isPageHeading:  false,
+            classes:        "govuk-fieldset__legend--l"
+          }
+        }) %}
+          {{ govukTable({
+            firstCellIsHeader: true,
+            rows: [
+              [
+                { text: "Details" },
+                { text: data['allegation-incident-detail'] }
+              ],
+              [
+                { text: "Evidence" },
+                { text: data['allegation-incident-photo'] }
+              ]
+            ]
+          }) }}
+        {% endcall %}
+        {% call govukFieldset({
+          legend: {
+            text:           "Product details",
+            isPageHeading:  false,
+            classes:        "govuk-fieldset__legend--l"
+          }
+        }) %}
+          {{ govukTable({
+            firstCellIsHeader: true,
+            rows: [
+              [
+                { text: "Barcode" },
+                { text: data['allegation-product-barcode'] }
+              ],
+              [
+                { text: "Link" },
+                { text: data['allegation-product-url'] }
+              ],
+              [
+                { text: "Type" },
+                { text: data['allegation-product-type'] }
+              ],
+              [
+                { text: "Name" },
+                { text: data['allegation-product-name'] }
+              ],
+              [
+                { text: "Description" },
+                { text: data['allegation-product-description'] }
+              ],
+              [
+                { text: "Image" },
+                { text: data["allegation-product-photo"] }
+              ]
+            ]
+          }) }}
+        {% endcall %}
+        {% call govukFieldset({
+          legend: {
+            text:           "Business",
+            isPageHeading:  false,
+            classes:        "govuk-fieldset__legend--l"
+          }
+        }) %}
+          {{ govukTable({
+            firstCellIsHeader: true,
+            classes:  "govuk-!-margin-bottom-5",
+            rows: [
+              [
+                { text: "Details" },
+                { text: data['allegation-business-detail'] }
+              ],
+              [
+                { text: "Evidence" },
+                { text: data['allegation-business-photo'] }
+              ]
+            ]
+          }) }}
+        {% endcall %}
+      {% endif %}
+      {% if data.new["origin-type"] == "Email" %}
+        {% call govukFieldset({
+          legend: {
+            text:           "Email details",
+            isPageHeading:  false,
+            classes:        "govuk-fieldset__legend--l"
+          }
+        }) %}
+          {{ govukTable({
+            firstCellIsHeader: true,
+            rows: [
+              [
+                { text: "Email subject" },
+                { text: data["correspondence-subject"] }
+              ],
+              [
+                { text: "Email body" },
+                { html: data["correspondence-content"] }
+              ],
+              [
+                { text: "Attachment" },
+                { text: data["correspondence-file-upload-1"] }
+              ]
+            ]
+          }) }}
+        {% endcall %}
+      {% endif %}
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Anything else?",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+        {{ govukTextarea({
+          name: "allegation-extra-detail",
+          id:   "allegation-extra-detail",
+          hint: {
+            text: "Record any other information that doesn't fit in the previous screens"
+          }
+        }) }}
+      {% endcall %}
+      {% call govukFieldset({
+        legend: {
+          text:       "Any extra photos / documents?",
+          classes:    "govuk-fieldset__legend--l"
+        }
+      }) %}
+        {{ govukFileUpload({
+          id: "allegation-extra-photo",
+          name: "allegation-extra-photo",
+          hint: {
+            text: "Upload any images or documents that don't fit in the previous screens"
+          }
+        }) }}
+      {% endcall %}
+
+      {{ govukButton({
+        text: "Assign this case",
+        href: "/flows/report-assign/01-report-assign"
+      }) }}
+      {{ govukButton({
+        text: "Assign to me"
+      }) }}
+      {{ govukButton({
+        text: "Mark as resolved",
+        href: "/flows/report-close/01-report-close"
+      }) }}
+      <a class="govuk-link mspsds-block-link" href="/flows/process-incoming/report-origin-type">Edit details</a>
+    </form>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    {% from "./includes/step-flow-map.html" import stepFlowMap %}
+    {% set isEmail = (data.new["origin-type"]=="Email") %}
+    {{ stepFlowMap(data.new["issue-type"], isEmail, 0) }}
+  </div>
+</div>
+
+{% endblock %}

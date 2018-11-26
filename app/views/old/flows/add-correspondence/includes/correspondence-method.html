@@ -1,0 +1,38 @@
+{% set phoneNumberHtml %}
+{% include "./phonenumber-input.html" %}
+{% endset -%}
+
+{% set emailAddressHtml %}
+{% include "./email-input.html" %}
+{% endset -%}
+
+{% call govukFieldset({
+  legend: {
+    text:           "How?",
+    isPageHeading:  false,
+    classes:        "govuk-fieldset__legend--l"
+  }
+}) %}
+{{ govukRadios({
+  idPrefix:   "correspondence-method",
+  name:       "correspondence-method",
+  items: [
+    {
+      value:  "Phone call",
+      text:   "Phone call",
+      conditional: {
+        html: phoneNumberHtml
+      },
+      checked: checked("correspondence-method", "Phone call")
+    },
+    {
+      value:  "Email",
+      text:   "Email",
+      conditional: {
+        html: emailAddressHtml
+      },
+      checked: checked("correspondence-method", "Email")
+    }
+  ]
+}) }}
+{% endcall %}

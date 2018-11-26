@@ -1,0 +1,102 @@
+{% extends "mspsds-layout.html" %}
+
+{% block pageTitle %}
+Record test result
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back to case",
+  href: "/case"
+}) }}
+{% endblock %}
+
+{% block content %}
+{{ pageTitle({
+  type:   "Case: 1810-0001",
+  title:  "Record test result"
+}) }}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="/flows/record-test-result/02-record-test-result-confirm" method="post" class="form">
+
+      {% from "includes/autocomplete-input.html" import autocompleteInput %}
+      {% set products = [
+        'Travel plug adaptor — Charge Worx 931L',
+        'iPhone charger – unbranded, white',
+        'Travel plug adaptor – Multipower 94998'
+      ] %}
+      {{ autocompleteInput("case-products", "Which product was tested?", "Only products already added to the case are listed. <a href='#'>Add a product</a>", products) }}
+
+      {% from "includes/legislation-input.html" import legislationInput %}
+      {{ legislationInput("Against which legislation?") }}
+
+      {% from "date-input/macro.njk"    import govukDateInput %}
+      {{ govukDateInput({
+        id:         "test-result-date",
+        namePrefix: "test-result-date",
+        fieldset: {
+          legend: {
+            text: "When was the test conducted?",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        hint: {
+          text: "For example, 31 3 2018"
+        }
+      }) }}
+
+      {% call govukFieldset({
+        legend: {
+          text:           "What was the test result?",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+      {{ govukRadios({
+        idPrefix:   "test-result-status",
+        name:       "test-result-status",
+        items: [
+          {
+            value:  "Pass",
+            text:   "Pass",
+            checked: checked("test-result-status", "Pass")
+          },
+          {
+            value:  "Fail",
+            text:   "Fail",
+            checked: checked("test-result-status", "Fail")
+          }
+        ]
+      }) }}
+      {% endcall %}
+
+      {% call govukFieldset({
+        legend: {
+          text: "Further details",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--l"
+        }
+      }) %}
+        {{ govukTextarea({
+          name: "test-result-details",
+          id:   "test-result-details"
+        }) }}
+      {% endcall %}
+
+      {% from "includes/attachment-input.html" import attachmentInput %}
+      {{ attachmentInput("Related attachments", "test-result") }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

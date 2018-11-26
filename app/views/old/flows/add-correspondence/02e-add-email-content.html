@@ -1,0 +1,76 @@
+{% extends "mspsds-layout.html" %}
+
+{% block pageTitle %}
+Record email
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back to case",
+  href: "/case"
+}) }}
+{% endblock %}
+
+{% block content %}
+{{ pageTitle({
+  type:   "Case: 1810-0001",
+  title:  "Record email"
+}) }}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="./03e-add-email-confirm" method="post" class="form">
+
+      {% from "./includes/correspondence-summary.html" import correspondenceSummary %}
+      {{ correspondenceSummary("Give an overview of the email") }}
+
+      {% call govukFieldset({
+        legend: {
+          text: "Email content",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukFileUpload({
+          hint: {
+            text:     "Upload the email as a file, or enter the subject and body below",
+            classes:  "govuk-!-width-full"
+          },
+          id: "correspondence-file-upload-1",
+          name: "correspondence-file-upload-1"
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text:     "Subject line",
+            classes:  "govuk-!-width-two-thirds"
+          },
+          classes: "govuk-!-width-two-thirds",
+          id:   "correspondence-subject",
+          name: "correspondence-subject"
+        }) }}
+
+        {{ govukTextarea({
+          label: {
+            text:     "Body",
+            classes:  "govuk-!-width-two-thirds"
+          },
+          name: "correspondence-content",
+          id:   "correspondence-content"
+        }) }}
+      {% endcall %}
+
+      {% from "includes/attachment-input.html" import attachmentInput %}
+      {{ attachmentInput("Attachments", "correspondence") }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% macro stepFlowMap(issueType, isEmail, activeStep) %}
+{% from "includes/step-navigation.html" import stepNavigation %}
+{% if (issueType == "Product safety allegation") %}
+  {% if isEmail %}
+    {% set steps = [
+      {
+        title: 'Reporter details',
+        active: activeStep == 1,
+        description: 'Record details of the person who contacted the office'
+      },
+      {
+        title: 'Incident details',
+        active: activeStep == 2,
+        description: 'Record any specific event that happened'
+      },
+      {
+        title: 'Product information',
+        active: activeStep == 3,
+        description: 'Record anything you can about products involved'
+      },
+      {
+        title: 'Business information',
+        active: activeStep == 4,
+        description: 'Record anything you can about any businesses involved'
+      },
+      {
+        title: 'Email content',
+        active: activeStep == 5,
+        description: 'Record the email'
+      },
+      {
+        title: 'Other information',
+        active: activeStep == 0,
+        description: 'Add any extra details, and summarise'
+      }
+    ] %}
+  {% else %}
+    {% set steps = [
+      {
+        title: 'Reporter details',
+        active: activeStep == 1,
+        description: 'Record details of the person who contacted the office'
+      },
+      {
+        title: 'Incident details',
+        active: activeStep == 2,
+        description: 'Record any specific event that happened'
+      },
+      {
+        title: 'Product information',
+        active: activeStep == 3,
+        description: 'Record anything you can about products involved'
+      },
+      {
+        title: 'Business information',
+        active: activeStep == 4,
+        description: 'Record anything you can about any businesses involved'
+      },
+      {
+        title: 'Other information',
+        active: activeStep == 0,
+        description: 'Add any extra details, and summarise'
+      }
+    ] %}
+  {% endif %}
+{% else %}
+  {% if isEmail %}
+    {% set steps = [
+      {
+        title: 'Reporter details',
+        active: activeStep == 1,
+        description: 'Record details of the person who contacted the office'
+      },
+      {
+        title: 'Enquiry details',
+        active: activeStep == 2,
+        description: 'Record and summarise the question being asked'
+      },
+      {
+        title: 'Email content',
+        active: activeStep == 3,
+        description: 'Record the email'
+      },
+      {
+        title: 'Other information',
+        active: activeStep == 0,
+        description: 'Add any extra details, and summarise'
+      }
+    ] %}
+  {% else %}
+    {% set steps = [
+      {
+        title: 'Reporter details',
+        active: activeStep == 1,
+        description: 'Record details of the person who contacted the office'
+      },
+      {
+        title: 'Enquiry details',
+        active: activeStep == 2,
+        description: 'Record and summarise the question being asked'
+      },
+      {
+        title: 'Other information',
+        active: activeStep == 0,
+        description: 'Add any extra details, and summarise'
+      }
+    ] %}
+  {% endif %}
+{% endif %}
+
+{{ stepNavigation(steps) }}
+
+{% endmacro %}

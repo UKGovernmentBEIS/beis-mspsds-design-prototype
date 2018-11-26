@@ -1,0 +1,104 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% block pageTitle %}
+  Risk information
+{% endblock %}
+
+
+{% block beforeContent %}
+
+  {{ govukBackLink({
+    text: "Back to case",
+    href: "/case"
+  }) }}
+
+{% endblock %}
+
+
+{% block content %}
+
+
+  {{ pageTitle({
+    type:   "Case: 1810-0001",
+    title:  "Risk information"
+  }) }}
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    
+    <form action="./02-add-hazard-confirm" method="post" class="form">
+
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Risk level",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukRadios({
+          idPrefix:   "risk-level",
+          name:       "risk-level",
+          items: [
+            {
+              value:  "Low",
+              text:   "Low",
+              checked: checked("risk-level", "Low")
+            },
+            {
+              value:  "Medium",
+              text:   "Medium",
+              checked: checked("risk-level", "Medium")
+            },
+            {
+              value:  "Serious",
+              text:   "Serious",
+              checked: checked("risk-level", "Serious")
+            },
+            {
+              value:  "Severe",
+              text:   "Severe",
+              checked: checked("risk-level", "Severe")
+            }
+          ]
+        }) }}
+
+      {% endcall %}
+
+      <hr class="govuk-section-break govuk-section-break--m">
+
+
+      {% call govukFieldset({
+        legend: {
+          text:       "Add risk assessment",
+          classes:    "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukFileUpload({
+          id: "risk-assessment-upload",
+          name: "risk-assessment-upload"
+        }) }}
+
+      {% endcall %}
+
+
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}

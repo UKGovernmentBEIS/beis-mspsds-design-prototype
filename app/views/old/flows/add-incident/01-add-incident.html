@@ -1,0 +1,147 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% block pageTitle %}
+  Add Incident
+{% endblock %}
+
+
+{% block beforeContent %}
+
+  {{ govukBackLink({
+    text: "Back to case",
+    href: "/case"
+  }) }}
+
+{% endblock %}
+
+
+{% block content %}
+
+
+  {{ pageTitle({
+    type:   "Case: 1810-0001",
+    title:  "Add incident"
+  }) }}
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    
+    <form action="./02-add-incident-confirm" method="post" class="form">
+
+      {% call govukFieldset({
+        legend: {
+          text: "What happened?",
+          classes: "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukInput({
+          hint: {
+            text: "Incident type"
+          },
+          classes: "govuk-!-width-two-thirds",
+          id:   "incident-type",
+          name: "incident-type"
+        }) }}
+
+      {% endcall %}
+
+
+
+      {% call govukFieldset({
+        legend: {
+          text: "How?",
+          classes: "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukTextarea({
+          hint: {
+            text: "Incident / event description"
+          },
+          classes: "govuk-!-width-two-thirds",
+          id:   "incident-description",
+          name: "incident-description"
+        }) }}
+
+      {% endcall %}
+
+
+
+      {{ govukDateInput({
+        id:         "incident-date",
+        namePrefix: "incident-date",
+        fieldset: {
+          legend: {
+            text: "When did it happen?",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        hint: {
+          text: "For example, 31 3 2018"
+        }
+      }) }}
+
+
+      {% call govukFieldset({
+        legend: {
+          text: "Who to?",
+          classes: "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukInput({
+          hint: {
+            text: "Affected party"
+          },
+          classes: "govuk-!-width-two-thirds",
+          id:   "incident-affected-party",
+          name: "incident-affected-party"
+        }) }}
+
+      {% endcall %}
+
+
+      {% call govukFieldset({
+        legend: {
+          text: "Where did it happen?",
+          classes: "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukInput({
+          hint: {
+            text: "Location"
+          },
+          classes: "govuk-!-width-two-thirds",
+          id:   "incident-location",
+          name: "incident-location"
+        }) }}
+
+      {% endcall %}
+
+
+
+
+
+
+
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% from "input/macro.njk"         import govukInput %}
+
+{% macro nameInput(label) %}
+{{ govukInput({
+  label: {
+    text:     label,
+    classes:  "govuk-!-width-two-thirds"
+  },
+  classes:    "govuk-!-width-two-thirds",
+  id:         "correspondent-name",
+  name:       "correspondent-name"
+}) }}
+{% endmacro %}
