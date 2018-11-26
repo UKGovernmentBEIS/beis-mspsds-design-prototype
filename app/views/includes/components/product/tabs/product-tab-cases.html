@@ -1,11 +1,7 @@
 
 
 {% set addLink   = '#' %}
-
-{#
-    {% set filter = utils.hasChildId('products', data['productid'] ) %}
-    {% set cases = data.cases | filterCases([filter]) %}
-#}
+{% set cases = currentProduct.cases | attachCaseChildren(data) %}
 
 {% extends "includes/components/shared/tabs/tab-cases.html" %}
 

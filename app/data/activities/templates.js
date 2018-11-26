@@ -36,4 +36,12 @@ module.exports = {
       date: params.date
     }
   },
+  changedStatus: function (params) {
+    return {
+      title: params.status == "Open" ? "Reopened" : "Resolved",
+      author: params.author,
+      date: params.date,
+      text: params.description
+    }
+  },
 }
