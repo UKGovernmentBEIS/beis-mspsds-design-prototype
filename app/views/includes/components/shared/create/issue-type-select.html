@@ -1,0 +1,37 @@
+
+  <div class="govuk-grid-column-two-thirds">
+
+    {% call govukFieldset({
+        legend: {
+          text:           "What are you creating?",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+  
+        {{ govukRadios({
+          idPrefix:   "new-type",
+          name:       "new[report][type]",
+          items: [
+            {
+              value: "Allegation",
+              text: "Product safety allegation"
+            },
+            {
+              value: "Question",
+              text: "Question"
+            },
+            {
+              value: "Recall",
+              text: "Product recall notification"
+            },
+            {
+              value: "Notification",
+              text: "Notification from RAPEX"
+            }
+          ]
+        }) }}
+
+    {% endcall %}
+
+</div>

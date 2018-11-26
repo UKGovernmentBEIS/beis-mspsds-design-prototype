@@ -47,8 +47,26 @@ router.post('/:mode/flows/process-incoming/report-info-endpoint', function (req,
 })
 
 router.post('/:mode/flows/process-incoming/save', function (req, res) {
-  res.locals.data.cases.push(req.session.data.new);
-  res.redirect('/root/case?caseid='+req.session.data.new['id']);
+  let newKase = req.session.data.new
+  newKase.dateCreated = today.short();
+  newKase.dateUpdated = today.short();
+
+  const requiredListProperties = ['incidents',
+      'products',
+      'businesses',
+      'contacts',
+      'attachments',
+      'related',
+      'activites',
+    ]
+  requiredListProperties.forEach(property => {
+    if (newKase[property] === undefined) {
+      newKase[property] = []
+    }
+  })
+
+  res.locals.data.cases.push(newKase);
+  res.redirect('/root/case?caseid='+newKase['id']);
 })
 
 // Report flow: Decide whether to show email capture page

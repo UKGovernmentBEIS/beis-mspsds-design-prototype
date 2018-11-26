@@ -1,0 +1,31 @@
+{% from "fieldset/macro.njk"      import govukFieldset %}
+{% from "file-upload/macro.njk"   import govukFileUpload %}
+{% from "textarea/macro.njk"      import govukTextarea %}
+
+{% macro attachmentInput(label, idPrefix, includeDescription) %}
+
+    {% call govukFieldset({
+      legend: {
+        text:       label,
+        classes:    "govuk-fieldset__legend--l"
+      }
+    }) %}
+
+        {{ govukFileUpload({
+          id: idPrefix+"-upload",
+          name: idPrefix+"-upload"
+        }) }}
+
+        {% if includeDescription == 'true' %}
+            {{ govukTextarea({
+              label: {
+                text: "Attachment description"
+              },
+              name: idPrefix+"-upload-description",
+              id:   idPrefix+"-upload-description"
+            }) }}
+        {% endif %}
+
+    {% endcall %}
+
+{% endmacro %}

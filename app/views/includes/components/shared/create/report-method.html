@@ -1,0 +1,34 @@
+ <div class="govuk-grid-column-two-thirds">
+
+  {% set label = 'How was the '+data['new']['type']+' reported?' %}
+
+  {% if data['new']['type'] == 'question' %}
+    {% set label = 'How was the question asked?' %}
+  {% endif %}
+
+      {% call govukFieldset({
+        legend: {
+          text:           label,
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+          {{ govukRadios({
+            idPrefix:   "origin-type",
+            name:       "new[report][correspondence][type]",
+            items: [
+              {
+                value: "phone",
+                text: "On the phone"
+              },
+              {
+                value: "email",
+                text: "By email"
+              }
+            ]
+          }) }}
+
+      {% endcall %}
+
+  </div>

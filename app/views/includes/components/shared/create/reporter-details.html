@@ -1,0 +1,52 @@
+
+  <div class="govuk-grid-column-two-thirds">
+
+    {% call govukFieldset({
+      legend: {
+        text:           reportLabel,
+        isPageHeading:  false,
+        classes:        "govuk-fieldset__legend--l"
+      }
+    }) %}
+
+        {{ govukInput({
+          label: {
+            text: "Name"
+          },
+          classes: "govuk-!-width-two-thirds",
+          id:   "reporter-name",
+          name: "new[reporter][name]"
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Phone number"
+          },
+          classes: "govuk-!-width-two-thirds",
+          id:   "reporter-phone-number",
+          name: "new[reporter][phoneNumber]"
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Email address"
+          },
+          classes: "govuk-!-width-two-thirds",
+          id:   "reporter-email-address",
+          name: "new[reporter][emailAddress]"
+        }) }}
+
+        {{ govukTextarea({
+          name: "new[reporter][otherDetails]",
+          id:   "reporter-other-detail",
+          label: {
+            text: "Other details"
+          },
+          hint: {
+            text: "Location, business/authority name, reference numbers etc"
+          }
+        }) }}
+
+    {% endcall %}
+
+</div>

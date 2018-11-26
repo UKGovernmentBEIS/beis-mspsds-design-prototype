@@ -1,0 +1,26 @@
+ <div class="govuk-grid-column-two-thirds">
+
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Record any additional call details below",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukTextarea({
+          label: {
+            text:     "Call details",
+            classes:  "govuk-!-width-two-thirds"
+          },
+          name: "new[report][correspondence][body]",
+          id:   "call-content"
+        }) }}
+
+      {% endcall %}
+
+
+      
+
+</div>

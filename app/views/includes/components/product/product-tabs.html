@@ -4,10 +4,6 @@
   {% include "includes/components/product/tabs/product-tab-full-detail.html" %}
 {% endset -%}
 
-{% set businessesHtml %}
-  {% include "includes/components/product/tabs/product-tab-businesses.html" %}
-{% endset -%}
-
 
 {% set attachmentsHtml %}
   {% include "includes/components/product/tabs/product-tab-attachments.html" %}
@@ -32,13 +28,6 @@
       id: "full-details",
       panel: {
         html: fullDetailHtml
-      }
-    },
-    {
-      label: "Businesses",
-      id: "businesses",
-      panel: {
-        html: businessesHtml
       }
     },
     {

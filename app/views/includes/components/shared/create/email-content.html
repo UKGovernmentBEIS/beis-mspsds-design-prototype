@@ -1,0 +1,40 @@
+ <div class="govuk-grid-column-two-thirds">
+
+      {% from "includes/components/shared/attachment-input.html" import attachmentInput %}
+      {{ attachmentInput("Upload the email as a file", "email", "false") }}
+
+
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Or, enter the details below",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukInput({
+          label: {
+            text:     "Email subject line",
+            classes:  "govuk-!-width-two-thirds"
+          },
+          classes: "govuk-!-width-two-thirds",
+          id:   "email-subject",
+          name: "new[report][correspondence][subject]"
+        }) }}
+
+        {{ govukTextarea({
+          label: {
+            text:     "Email body",
+            classes:  "govuk-!-width-two-thirds"
+          },
+          name: "new[report][correspondence][body]",
+          id:   "email-body"
+        }) }}
+
+      {% endcall %}
+
+
+      
+
+  </div>

@@ -31,7 +31,7 @@ module.exports = {
     status: ["Open"]
   },
 
-  createUrl: "/root/flows/process-incoming/report-origin-type",
+  createUrl: "/root/flows/create/01",
 
   cases:        require("./cases.js").cases,
   products:     require("./products.js").products,

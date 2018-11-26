@@ -1,0 +1,47 @@
+
+  <div class="govuk-grid-column-two-thirds">
+
+
+
+    {% call govukFieldset({
+      legend: {
+        text:           reportLabel,
+        isPageHeading:  false,
+        classes:        "govuk-fieldset__legend--l"
+      }
+    }) %}
+
+          {{ govukRadios({
+            idPrefix:   "reporter-type",
+            name:       "new[reporter][type]",
+            items: [
+              {
+                value: "consumer",
+                text: "A consumer"
+              },
+              {
+                value: "business",
+                text: "A business"
+              },
+              {
+                value: "local-authority",
+                text: "Local authority (Trading standards)"
+              },
+              {
+                value: "other-government",
+                text: "Other government department"
+              },
+              {
+                value: "emergency-service",
+                text: "Emergency service"
+              },
+              {
+                value: "internal",
+                text: "Internal"
+              }
+            ]
+          }) }}
+
+    {% endcall %}
+
+</div>

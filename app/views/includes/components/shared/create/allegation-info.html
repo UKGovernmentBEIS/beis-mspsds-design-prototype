@@ -1,0 +1,66 @@
+ <div class="govuk-grid-column-two-thirds">
+
+      {% call govukFieldset({
+        legend: {
+          text:           "What is being alleged?",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+        {{ govukTextarea({
+          name: "new[report][summary]",
+          id:   "allegation-detail",
+          hint : {
+            text: "Please give much detail possible"
+          }
+        }) }}
+
+      {% endcall %}
+
+
+
+    {% set incidentHtml %}
+		{{ govukTextarea({
+          name: "new[incident]",
+          id:   "incident-detail",
+          hint : {
+            text: "What happened?"
+          }
+        }) }}
+	{% endset -%}
+
+
+	{% call govukFieldset({
+        legend: {
+          text:           "Did any specific event or accident occur?",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukRadios({
+	        idPrefix:   "incident",
+	        name:       "incident",
+	        items: [
+	          {
+	            value:  "yes",
+	            text:   "Yes",
+	            conditional: {
+	              html: incidentHtml
+	            }
+	          },
+	          {
+	            value: "no",
+	            text: "No"
+	          }
+	        ]
+	      }) }}
+
+      {% endcall %}
+
+
+      {% from "includes/components/shared/attachment-input.html" import attachmentInput %}
+      {{ attachmentInput("Are there any files or images related to the allegation?", "allegation", "false") }}
+
+
+  </div>
