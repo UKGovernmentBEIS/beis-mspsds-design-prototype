@@ -1,10 +1,9 @@
 {% extends "includes/templates/flow.html" %}
 
-{% set displayTitle = 'Add location' %}
+{% set displayTitle = 'Remove location' %}
 
-{% set formAction         = '/root/'+ data['currentPage'] %}
-{% set formAction         = '/pages/flows/location/save' %}
 
+{% set formAction   = '/pages/flows/location/delete' %}
 
 
 {% block flow %}
@@ -16,18 +15,24 @@
           
     </div>
 
-    <div class="govuk-grid-row">
+      <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
 
             {% from "button/macro.njk" import govukButton %}
           
             {{ govukButton({
-              text: "Save"
+              text: "Update location" ,
+              classes: "mspsds-button"
+            }) }}
+
+            {{ govukButton({
+              text: "Delete location" ,
+              classes: "mspsds-button mspsds-button--delete"
             }) }}
 
         </div>
-    </div>
-
+      </div>
+    
 </form>
 
 {% endblock %}

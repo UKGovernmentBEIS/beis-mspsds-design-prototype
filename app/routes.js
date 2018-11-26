@@ -74,6 +74,7 @@ router.post('/:mode/flows/process-incoming/save', function (req, res) {
   res.redirect('/root/case?caseid='+newKase['id']);
 })
 
+
 // Report flow: Decide whether to show email capture page
 router.post('/:mode/flows/process-incoming/email-check-endpoint', function (req, res) {
   let endpoint = req.session.data.new['origin-type']
@@ -110,6 +111,70 @@ router.post('/:mode/flows/assign/save', function (req, res) {
   
   res.redirect('/root/case')
 })
+
+
+
+// Location flow
+router.post('/:mode/flows/location/save', function (req, res) {
+
+  let newLocation   = req.session.data.location;
+  newLocation.id    = 'l' + res.locals.data.locations.length;
+  newLocation.address += ', '+ newLocation.city +', '+ newLocation.country;
+
+  res.locals.data.locations.push(newLocation);
+
+  if (res.locals.data.currentPage === 'business') {
+
+    let biz = res.locals.data.businesses.find(function (b) {
+      return b.id === res.locals.data.businessid
+    });
+
+    if (biz) {
+      biz.locations.push({
+        id:     newLocation.id,
+        role:   req.session.data.location.name
+      })
+    }
+
+    res.redirect('/root/business#locations?businessid='+req.session.data.businessid);
+
+  }
+
+  res.redirect('404');
+
+})
+
+
+// Location flow
+router.post('/:mode/flows/location/delete', function (req, res) {
+
+  let newLocation   = req.session.data.location;
+  newLocation.id    = 'l' + res.locals.data.locations.length;
+  newLocation.address += ', '+ newLocation.city +', '+ newLocation.country;
+
+  res.locals.data.locations.push(newLocation);
+
+  if (res.locals.data.currentPage === 'business') {
+
+    let biz = res.locals.data.businesses.find(function (b) {
+      return b.id === res.locals.data.businessid
+    });
+
+    if (biz) {
+      biz.locations.push({
+        id:     newLocation.id,
+        role:   req.session.data.location.name
+      })
+    }
+
+    res.redirect('/root/business#locations?businessid='+req.session.data.businessid);
+
+  }
+
+  res.redirect('404');
+
+})
+
 
 // Change Status flow
 router.post(`/:mode/flows/change-status/save`, function(req, res){

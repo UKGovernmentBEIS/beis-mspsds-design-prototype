@@ -1,0 +1,50 @@
+{% extends "includes/templates/flow.html" %}
+
+
+
+{% set displayTitle        = 'Remove attachment' %}
+
+{% set formAction         = '/root/'+ data['currentPage'] %}
+
+
+
+
+{% block flow %}
+  <form action="{{formAction}}" method="post" class="form">
+    
+      <div class="govuk-grid-row">
+
+          {% if data['type'] == 'image' %}
+            
+            {% include "includes/components/shared/attachment/image-details.html" %}
+
+          {% else %}
+            
+            {% include "includes/components/shared/attachment/document-details.html" %}
+
+          {% endif %}
+
+      </div>
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            {% from "button/macro.njk" import govukButton %}
+          
+            {{ govukButton({
+              text: "Update " + data['type'] ,
+              classes: "mspsds-button"
+            }) }}
+
+            {{ govukButton({
+              text: "Delete " + data['type'] ,
+              classes: "mspsds-button mspsds-button--delete"
+            }) }}
+
+        </div>
+      </div>
+
+  </form>
+
+
+{% endblock %}

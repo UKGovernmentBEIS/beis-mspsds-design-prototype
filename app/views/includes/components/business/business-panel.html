@@ -11,17 +11,11 @@
   
 
 
-  {% if businessData.displayImage %}
-    {% set classInfo = 'govuk-grid-column-two-thirds' %}
-  {% else %}
-    {% set classInfo = 'govuk-grid-column-full' %}
-  {% endif %}
-
 
   {% if businessData.displayDetails == 'contact' %}
     
       {% set bizRows = (bizRows.push([
-            { text: 'Role' },
+            { text: 'Role'},
             { text: businessData.role }
       ]), bizRows) %}
 
@@ -147,19 +141,10 @@
 
 
   <div class="govuk-grid-row">
-  
-    {% if businessData.displayImage %}
-      <div class="govuk-grid-column-one-third">
-        {% if biz.posterImage %}
-          <img src="{{ biz.posterImage }}" title="biz image" />
-        {% else %}
-          <img src="/public/images/placeholder.png" title="biz image" />
-        {% endif %}
-      </div>
-    {% endif %}
 
 
-    <div class="{{classInfo}}">
+
+    <div class="govuk-grid-column-full ">
 
       {{ govukTable({
         firstCellIsHeader: true,

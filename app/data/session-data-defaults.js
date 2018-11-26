@@ -19,7 +19,8 @@ Example usage:
 
 module.exports = {
   currentUser:   'Tim Harwood',
-  mode: "pages",
+  mode:         "pages",
+  currentPage:  "case",
   
   caseid: "0132-1421",
   businessid: "b1",

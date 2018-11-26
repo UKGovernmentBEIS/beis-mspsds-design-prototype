@@ -1,6 +1,6 @@
 {% extends "includes/templates/flow.html" %}
 
-{% set displayTitle = 'Manage contact' %}
+{% set displayTitle = 'Edit location' %}
 
 {% set formAction         = '/root/'+ data['currentPage'] %}
 
@@ -11,7 +11,7 @@
 <form action="{{formAction}}" method="post" class="form">
     <div class="govuk-grid-row">
 
-          {% include "includes/components/shared/contact/details.html" %}
+          {% include "includes/components/shared/location/details.html" %}
           
     </div>
 
@@ -21,12 +21,12 @@
             {% from "button/macro.njk" import govukButton %}
           
             {{ govukButton({
-              text: "Update contact" ,
+              text: "Update location" ,
               classes: "mspsds-button"
             }) }}
 
             {{ govukButton({
-              text: "Delete contact" ,
+              text: "Delete location" ,
               classes: "mspsds-button mspsds-button--delete"
             }) }}
 
