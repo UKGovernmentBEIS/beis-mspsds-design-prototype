@@ -1,6 +1,10 @@
 
+{% set addLink        = '/root/pages/flows/business/add/01?caseid=' + currentCase.id  %}
+{% set viewLink       = '/root/business?currentPage=business&businessid=BIZID' %}
+{% set editLink       = '' %}
+{% set deleteLink     = '/root/pages/flows/business/delete/01?currentPage=business&caseid=' + currentCase.id + '&businessid=BIZID' %}
 
-{% set addBusinessLink    = '#' %}
+
 {% set currentBusinesses  = currentCase.businesses %}
 
 

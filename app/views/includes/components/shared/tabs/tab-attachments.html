@@ -1,10 +1,10 @@
 {% from "includes/components/shared/tab-title.html"           import tabTitle %}
+
 {% from "includes/components/shared/attachment-list.html"     import attachmentList %}
 
+{% from "includes/components/shared/attachment-list.html"     import imageAttachment %}
+{% from "includes/components/shared/attachment-list.html"     import documentAttachment %}
 
-{% if not addLink  %}
-    {% set addLink = '#' %}
-{% endif %}
 
 
 {% if not attachments  %}
@@ -12,12 +12,69 @@
 {% endif %}
 
 
+{% if addLink  %}
 
-
-    {{ tabTitle({
+    {% set tt = {
         title:      'Attachments',
         controls:   '<a href="'+addLink+'" class="mspsds-block-link">Add attachment</a>'
-    }) }}
+    } %}
+
+{% else %}
+
+    {% set tt = {
+        title: 'Attachments'
+    } %}
+
+{% endif %}
 
 
-    {{ attachmentList( attachments.length ) }}
+
+
+{{ tabTitle(tt) }}
+
+
+
+
+<div class="mspsds-tablist mspsds-tablist--business">
+
+    {% for attachmentNumber in range(0, attachments.length) %}
+        
+        {% set viewLink     = viewLink.replace('AID', loop.index) %}
+        {% set editLink     = editLink.replace('AID', loop.index) %}
+        {% set deleteLink   = deleteLink.replace('AID', loop.index) %}
+
+        <div class="mspsds-tablist mspsds-tablist--attachment">
+      
+          {% if (loop.index % 2) == 1 %}
+            
+            {% set controls  = {
+                label:       'image',
+                view:        viewLink,
+                edit:        editLink,
+                delete:      deleteLink
+            } %}
+
+            {{ imageAttachment(controls) }}
+
+          {% else %}
+            
+            {% set controls  = {
+                label:       'document',
+                view:        viewLink,
+                edit:        editLink,
+                delete:      deleteLink
+            } %}
+
+            {{ documentAttachment(controls) }}
+
+          {% endif %}
+          
+          {% if attachmentNumber != numberOfAttachments-1 %}
+            <hr class="govuk-section-break govuk-section-break--m govuk-section-break govuk-section-break--visible" />
+          {% endif %}
+        </div>
+
+    {% endfor %}
+
+</div>
+

@@ -2,9 +2,22 @@
 {% from "includes/components/business/business-panel.html"    import businessPanel %}
 
 
-{% if not addBusinessLink  %}
-    {% set addBusinessLink = '#' %}
+{% if addLink  %}
+
+    {% set tt = {
+        title:      'Businesses',
+        controls:   '<a href="'+addLink+'" class="mspsds-block-link">Add business</a>'
+    } %}
+
+{% else %}
+
+    {% set tt = {
+        title: 'Businesses'
+    } %}
+
 {% endif %}
+
+
 
 {% if not currentBusinesses  %}
     {% set currentBusinesses = [] %}
@@ -12,25 +25,34 @@
 
 
 
-{{ tabTitle({
-title:      'Businesses',
-controls:   '<a href="'+addBusinessLink+'" class="mspsds-block-link">Add business</a>'
-}) }}
+{{ tabTitle(tt) }}
 
 
 <div class="mspsds-tablist mspsds-tablist--business">
 
     {% for biz in currentBusinesses %}
 
-    {{ businessPanel({
-        business:         biz,
-        role:             biz.role,
-        controls:         true,
-        displayImage:     true,
-        displayDetails:   'contact'
-    }) }}
+        {% set viewLink     = viewLink.replace('BIZID', biz.id) %}
+        {% set editLink     = editLink.replace('BIZID', biz.id) %}
+        {% set deleteLink   = deleteLink.replace('BIZID', biz.id) %}
+    
+        {% set controls  = {
+            label:       'business',
+            view:        viewLink,
+            edit:        editLink,
+            delete:      deleteLink
+        } %}
 
-    <hr class="govuk-section-break govuk-section-break--m" />
+
+        {{ businessPanel({
+            business:         biz,
+            role:             biz.role,
+            controls:         controls,
+            displayImage:     true,
+            displayDetails:   'contact'
+        }) }}
+
+        <hr class="govuk-section-break govuk-section-break--m" />
 
     {% endfor %}
 

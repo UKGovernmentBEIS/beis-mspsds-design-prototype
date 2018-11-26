@@ -1,5 +1,6 @@
 {% from "button/macro.njk" import govukButton %}
 
+{% from "includes/components/shared/tabs/controls.html"           import controls %}
 
 
 {% macro attachmentList(numberOfAttachments) %}
@@ -25,7 +26,7 @@
 
 
 
-{% macro imageAttachment() %}
+{% macro imageAttachment(controlsObj) %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-third">
@@ -39,10 +40,7 @@
     <p class="mspsds-attachment-list__image-date govuk-body-s">Updated 12/08/2018</p>
     <p class="govuk-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
     
-    <div class="mspsds-controls">
-        <a href="/public/images/placeholder.png" class="mspsds-block-link">View image</a>
-        <a href="/root/flows/attachment/manage/01?type=image" class="mspsds-block-link">Manage image</a>
-    </div>
+    {{ controls( controlsObj ) }}
 
 
   </div>
@@ -50,7 +48,7 @@
 
 {% endmacro %}
 
-{% macro documentAttachment() %}
+{% macro documentAttachment(controlsObj) %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-third">
@@ -71,10 +69,7 @@
     <p class="mspsds-attachment-list__image-date govuk-body-s">Uploaded 12/08/2018</p>
     <p class="govuk-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
 
-    <div class="mspsds-controls">
-        <a href="#" class="mspsds-block-link">View document</a>
-        <a href="/root/flows/attachment/manage/01?type=document"  class="mspsds-block-link">Manage document</a>
-    </div>
+    {{ controls( controlsObj ) }}
 
   </div>
 </div>

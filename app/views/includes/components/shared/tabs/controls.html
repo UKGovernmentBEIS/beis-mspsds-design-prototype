@@ -1,0 +1,22 @@
+
+{% macro controls(controlData) %}
+
+
+    <div class="mspsds-controls">
+
+        {% if controlData.view %}
+          <a href="{{ controlData.view }}" class="mspsds-block-link">View {{ controlData.label }}</a>
+        {% endif %}
+
+        {% if controlData.edit %}
+          <a href="{{ controlData.edit }}" class="mspsds-block-link">Edit {{ controlData.label }}</a>
+        {% endif %}
+
+        {% if controlData.delete %}
+          <a href="{{ controlData.delete }}" class="mspsds-block-link">Remove {{ controlData.label }}</a>
+        {% endif %}
+
+    </div>
+
+
+{% endmacro %}

@@ -1,6 +1,9 @@
 
 
-{% set addLink      = '/root/flows/attachment/add/01' %}
+{% set addLink        = '/root/pages/flows/attachment/add/01?currentPage=business&businessid='      + currentBusiness.id  %}
+{% set viewLink       = 'APATH' %}
+{% set editLink       = '/root/pages/flows/attachment/edit/01?currentPage=business&businessid='     + currentBusiness.id + '&attachmentid=AID'  %}
+{% set deleteLink     = '/root/pages/flows/attachment/delete/01?currentPage=business&businessid='   + currentBusiness.id + '&attachmentid=AID' %}
 
 
 {% set attachments  = currentBusiness.attachments %}

@@ -1,10 +1,10 @@
 
-
-{% set addLink      = '/root/flows/attachment/add/01' %}
+{% set addLink        = '/root/pages/flows/attachment/add/01?currentPage=product&productid='      + currentProduct.id  %}
+{% set viewLink       = 'APATH' %}
+{% set editLink       = '/root/pages/flows/attachment/edit/01?currentPage=product&productid='     + currentProduct.id + '&attachmentid=AID'  %}
+{% set deleteLink     = '/root/pages/flows/attachment/delete/01?currentPage=product&productid='   + currentProduct.id + '&attachmentid=AID' %}
 
 
 {% set attachments         = currentProduct.attachments %}
 
-
 {% extends "includes/components/shared/tabs/tab-attachments.html" %}
-

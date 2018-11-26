@@ -1,11 +1,8 @@
 {% from "includes/components/shared/tab-title.html"           import tabTitle %}
 {% from "table/macro.njk"                                     import govukTable %}
 
+{% from "includes/components/shared/tabs/controls.html"       import controls %}
 
-
-{% if not addLink  %}
-    {% set addLink = '#' %}
-{% endif %}
 
 {% if not locations  %}
     {% set locations = [] %}
@@ -17,13 +14,25 @@
 
 
 
+{% if addLink  %}
 
-{{ tabTitle({
+    {% set tt = {
         title:      'Locations',
         controls:   '<a href="'+addLink+'" class="mspsds-block-link">Add location</a>'
-}) }}
+    } %}
+
+{% else %}
+
+    {% set tt = {
+        title: 'Locations'
+    } %}
+
+{% endif %}
 
 
+
+
+{{ tabTitle(tt) }}
 
 
 <div class="mspsds-tablist mspsds-tablist--location">
@@ -45,6 +54,19 @@
 
       {% if matched %}
 
+
+        {% set viewLink     = viewLink.replace('LID', location.id) %}
+        {% set editLink     = editLink.replace('LID', location.id) %}
+        {% set deleteLink   = deleteLink.replace('LID', location.id) %}
+        
+        {% set links  = {
+            label:       'location',
+            view:        viewLink,
+            edit:        editLink,
+            delete:      deleteLink
+        } %}
+
+
         {% set locationRows = [] %}
 
         {% set locationRows = ( locationRows.push([
@@ -61,9 +83,7 @@
             rows: locationRows
           }) }}
 
-          <div class="mspsds-controls">
-            <a href="/root/flows/location/manage/01" class="mspsds-block-link">Manage location</a>
-          </div>
+         {{ controls(links) }}
 
         </div>
 

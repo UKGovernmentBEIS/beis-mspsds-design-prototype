@@ -1,12 +1,12 @@
 {% from "table/macro.njk"     import govukTable %}
 {% from "button/macro.njk"    import govukButton %}
 
+{% from "includes/components/shared/tabs/controls.html"           import controls %}
+
 
 {% macro productPanel(productData) %}
 
   {% set prod             = productData.product %}
-
-  {% set productLink      = '/root/product?currentPage=product&productid=' + prod.id  %}
 
   {% set prodRows         = [] %}
 
@@ -136,10 +136,7 @@
 
     {% if productData.controls %}
 
-        <div class="mspsds-controls">
-            <a href="{{ productLink }}" class="mspsds-block-link">View product</a>
-            <a href="/root/flows/manage-product/01" class="mspsds-block-link">Manage product</a>
-        </div>
+      {{ controls(productData.controls) }}
 
     {% endif %}
 

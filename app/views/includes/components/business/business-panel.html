@@ -1,11 +1,11 @@
 {% from "table/macro.njk"       import govukTable %}
 
+{% from "includes/components/shared/tabs/controls.html"           import controls %}
+
 
 {% macro businessPanel(businessData) %}
 
   {% set biz             = businessData.business %}
-
-  {% set businessLink    = '/root/business?currentPage=business&businessid=' + biz.id  %}
 
   {% set bizRows         = [] %}
   
@@ -170,10 +170,7 @@
 
       {% if businessData.controls %}
 
-          <div class="mspsds-controls">
-              <a href="{{ businessLink }}" class="mspsds-block-link">View business</a>
-              <a href="/root/flows/manage-business/01" class="mspsds-block-link">Manage business</a>
-          </div>
+        {{ controls(businessData.controls) }}
 
       {% endif %}
 

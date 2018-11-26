@@ -1,4 +1,10 @@
-{% set addProductLink   = '#' %}
+
+{% set addLink        = '/root/pages/flows/product/add/01?caseid=' + currentCase.id  %}
+{% set viewLink       = '/root/product?currentPage=product&productid=PRODID' %}
+{% set editLink       = '' %}
+{% set deleteLink     = '/root/pages/flows/product/delete/01?currentPage=case&caseid=' + currentCase.id + '&productid=PRODID' %}
+
+
 {% set currentProducts  = currentCase.products %}
 
 

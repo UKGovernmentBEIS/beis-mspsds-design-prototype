@@ -2,19 +2,30 @@
 {% from "includes/components/product/product-panel.html"    import productPanel %}
 
 
-{% if not addProductLink  %}
-    {% set addProductLink = '#' %}
+
+{% if addLink  %}
+
+    {% set tt = {
+        title:      'Products',
+        controls:   '<a href="'+addLink+'" class="mspsds-block-link">Add product</a>'
+    } %}
+
+{% else %}
+
+    {% set tt = {
+        title: 'Products'
+    } %}
+
 {% endif %}
+
+
 
 {% if not currentProducts  %}
     {% set currentProducts = [] %}
 {% endif %}
 
 
-{{ tabTitle({
-        title:      'Products',
-        controls:   '<a href="'+addProductLink+'" class="mspsds-block-link">Add product</a>'
-}) }}
+{{ tabTitle(tt) }}
 
 
 <div class="mspsds-tablist mspsds-tablist--product">
@@ -24,13 +35,28 @@
         {% if loop.index > 1 %}
             <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible" />
         {% endif %}
+        
+
+        {% set viewLink     = viewLink.replace('PRODID', prod.id) %}
+        {% set editLink     = editLink.replace('PRODID', prod.id) %}
+        {% set deleteLink   = deleteLink.replace('PRODID', prod.id) %}
+    
+        {% set controls  = {
+            label:       'product',
+            view:        viewLink,
+            edit:        editLink,
+            delete:      deleteLink
+        } %}
+
 
         {{ productPanel({
             product:        prod,
             controls:       true,
             displayImage:   true,
-            displayDetails: 'summary'
+            displayDetails: 'summary',
+            controls:       controls
         }) }}
+
 
     {% endfor %}
 

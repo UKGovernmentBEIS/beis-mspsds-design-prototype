@@ -1,5 +1,12 @@
 
-{% set addLink      = '/root/flows/contact/add/01' %}
+
+{% set addLink        = '/root/pages/flows/contact/add/01?currentPage=case&caseid='      + currentCase.id  %}
+{% set viewLink       = '' %}
+{% set editLink       = '/root/pages/flows/contact/edit/01?currentPage=case&caseid='     + currentCase.id + '&contactid=CID'  %}
+{% set deleteLink     = '/root/pages/flows/contact/delete/01?currentPage=case&caseid='   + currentCase.id + '&contactid=CID' %}
+
+
+
 {% set currentContacts  = currentCase.contacts %}
 
 {% extends "includes/components/shared/tabs/tab-contacts.html" %}

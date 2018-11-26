@@ -1,6 +1,8 @@
 {% from "includes/components/shared/tab-title.html"           import tabTitle %}
 {% from "table/macro.njk"                                     import govukTable %}
 
+{% from "includes/components/shared/tabs/controls.html"       import controls %}
+
 
 {% if not addLink  %}
     {% set addLink = '#' %}
@@ -20,6 +22,20 @@
 <div class="mspsds-tablist mspsds-tablist--contact">
     
   {% for contact in currentContacts %}
+
+    {% set viewLink     = viewLink.replace('CID', contact.id) %}
+    {% set editLink     = editLink.replace('CID', contact.id) %}
+    {% set deleteLink   = deleteLink.replace('CID', contact.id) %}
+    
+    {% set links  = {
+        label:       'contact',
+        view:        viewLink,
+        edit:        editLink,
+        delete:      deleteLink
+    } %}
+
+
+
     {% set contactRows = [] %}
 
     {% set contactRows = ( contactRows.push([
@@ -36,9 +52,7 @@
           rows: contactRows
         }) }}
 
-        <div class="mspsds-controls">
-          <a href="/root/flows/contact/manage/01?contact={{contact.id}}" class="mspsds-block-link">Manage contact</a>
-        </div>
+        {{ controls(links) }}
 
       </div>
     </div>
