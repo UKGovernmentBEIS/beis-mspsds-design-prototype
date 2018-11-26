@@ -47,10 +47,12 @@
     {% set titleType     = 'Case: '+data['caseid']  %}
 
 {% elif currentPage ==  'product'  %}
+
     {% set titleType      = 'Product: '+data['productid'] + ' TODO – get name'  %}
 
 {% elif currentPage ==  'business'  %}
-    {% set titleType      = 'Business '+data['businessid'] + ' TODO – get name'  %}
+    {% set currentBusiness = data.businesses | withId(data['businessid']) %}
+    {% set titleType      = 'Business: '+ currentBusiness.name  %}
 
 {% endif %}
 

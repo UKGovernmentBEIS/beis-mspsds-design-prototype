@@ -1,0 +1,89 @@
+{% set currentLocation          = data.locations | withId(data['locationid']) %}
+{% set currentBusiness          = data.businesses | withId(data['businessid']) %}
+
+
+
+
+    <div class="govuk-grid-column-two-thirds">
+
+            {% call govukFieldset({
+              legend: {
+                text: "Locations details",
+                classes: "govuk-fieldset__legend--l",
+                isPageHeading: false
+              }
+            }) %}
+              
+
+              {{ govukInput({
+                label: {
+                  text: "Name"
+                },
+                hint: {
+                  text: "E.g. Main office, Warehouse"
+                },
+                classes: "govuk-!-width-two-thirds",
+                id:   "location-name",
+                name: "location[name]"
+              }) }}
+              N: {{ currentLocation.address }}
+    
+
+              {{ govukTextarea({
+                name: "location[address]",
+                id:   "location-address",
+                classes: "govuk-!-width-two-thirds",
+                label: {
+                  text: "Address"
+                }
+              }) }}
+              
+
+
+              {{ govukInput({
+                label: {
+                  text: "City/Town"
+                },
+                classes: "govuk-!-width-two-thirds",
+                id:   "location-city",
+                name: "location[city]"
+              }) }}
+
+
+
+              {{ govukInput({
+                label: {
+                  text: "Country"
+                },
+                classes: "govuk-!-width-two-thirds",
+                id:   "location-country",
+                name: "location[country]"
+              }) }}
+
+
+
+              {{ govukInput({
+                label: {
+                  text: "Post-code"
+                },
+                classes: "govuk-!-width-two-thirds",
+                id:   "location-postcode",
+                name: "location[postcode]"
+              }) }}
+
+
+              {{ govukInput({
+                label: {
+                  text: "Phone number"
+                },
+                classes: "govuk-!-width-two-thirds",
+                id:   "location-phone",
+                name: "location[phone]"
+              }) }}
+
+
+            
+
+            {% endcall %}
+
+    </div>
