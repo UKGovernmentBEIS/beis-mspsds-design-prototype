@@ -11,9 +11,9 @@
     {% set reportLabel = 'Who\'s making the allegation?' %}
 
 
-{% elif data['new']['report']['type'] == 'Question' %}
+{% elif data['new']['report']['type'] == 'Enquiry' %}
 
-    {% set reportLabel = 'Who\'s asking the question?' %}
+    {% set reportLabel = 'Who\'s making the enquiry?' %}
 
 
 {% elif data['new']['report']['type'] == 'Recall' %}
@@ -33,7 +33,7 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      
+
       <form action="{{formAction}}" method="post" class="form">
 
          <div class="govuk-grid-row">
@@ -46,7 +46,7 @@
               <div class="govuk-grid-column-two-thirds">
 
                   {% from "button/macro.njk" import govukButton %}
-                
+
                   {{ govukButton({
                     text: "Continue"
                   }) }}
