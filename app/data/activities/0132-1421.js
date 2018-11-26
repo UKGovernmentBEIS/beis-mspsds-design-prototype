@@ -235,9 +235,6 @@ module.exports = {
       action: "Report details added",
       html: '<p class="govuk-body"><a href="#">View details</a></p>'
     },
-    {
-      title: "Case created",
-      action: ""
-    }
+    templates.caseCreated()
   ]
 }
