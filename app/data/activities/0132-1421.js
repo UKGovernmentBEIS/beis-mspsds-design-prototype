@@ -23,9 +23,9 @@ module.exports = {
       productName: "Charge Worx 931L",
       legislation: "General Product Safety Regulations 2005",
       businessName: "Charge Worx",
-      date: "12/9/2018",
+      decisionDate: "12/9/2018",
+      date: "16 August 2018",
       attachement: "notice-of-enforcement.pdf",
-      description: "Description supplied by user goes here, in a paragraph"
     }),
     {
       title: "Failed test: Travel plug adaptor — Charge Worx 931L",
