@@ -44,7 +44,7 @@ const Cases = require("../utils/case")
       contacts: [{id: 'c3', role: 'Reporter'}],
       attachments: [],
       related: [],
-      activites: [],
+      activities: [],
       match: { // This is a hack to make some cases show up in test results
         key:  'Case reference', 
         value: "01<span class='highlight'>32-142</span>1"
@@ -64,8 +64,7 @@ module.exports = {
       priority: "Not set",
       numAttachments: 0,
       products: [],
-      activity: [],
-      activites: [],
+      activities: [],
       dateCreated: '18/10/2018',
       dateUpdated: '18/10/2018'
     },
@@ -86,8 +85,7 @@ module.exports = {
       priority: "Not set",
       numAttachments: 0,
       products: [],
-      activity: [],
-      activites: [],
+      activities: [],
       dateCreated: '18/10/2018',
       dateUpdated: '18/10/2018'
     },
@@ -116,7 +114,7 @@ module.exports = {
         description: "Travel adaptor available from high-street store Game has been reported to have caused a fire and severe electric shocks. Has been reported more than 10 times in the last 2 months.",
         riskLevel: "Serious"
       },
-      activity: require("./activities/1810-0002").activites
+      activities: require("./activities/1810-0002").activities
     },
     {
       type: 'Case',
@@ -197,7 +195,7 @@ module.exports = {
       numAttachments: 1,
       attachments: ['a1', 'a2'],
       related: [],
-      activites: require("./activities/0132-1421.js").activites
+      activities: require("./activities/0132-1421.js").activities
     },
     {
       type: 'Case',

@@ -7,7 +7,7 @@ module.exports = {
       'contacts',
       'attachments',
       'related',
-      'activites',
+      'activities',
     ]
     requiredListProperties.forEach(property => {
       if (kase[property] === undefined) {

@@ -1,4 +1,4 @@
-{% macro activityTimeline(eventList1, eventList2) %}
+{% macro activityTimeline(eventList) %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
@@ -7,32 +7,31 @@
 
         {#TODO:Dev Can we use responsive mixins in the SCSS rather than specifying font-size classes? #}
 
-        {# TODO something better than just listing all event lists? sadly concat doesn't work #}
-
-
-        {% for list in [eventList1, eventList2] %}
-          {% for entry in list %}
+        {% for activity in eventList %}
 
           <li class="mspsds-activity-timeline__entry">
 
-            <h3 class="govuk-heading-s">{{entry.title}}</h3>
+            <h3 class="govuk-heading-s">{{activity.title}}</h3>
             <p class="mspsds-activity-timeline__entry-details govuk-body-s">
-              {{entry.action}}
-              {{ (" by " + (entry.author | default("Tim Harwood")) + ",") if not entry.hideName }}
-              {{entry.date | default("16 August 2018")}}
+              {{activity.action}}
+              {{ (" by " + (activity.author | default("Tim Harwood")) + ",") if not activity.hideName }}
+              {{activity.date | default("16 August 2018")}}
             </p>
 
-            {% if entry.html %}
-              {{entry.html | safe}}
+            {% if activity.type %}
+              {% include "./activities/" + activity.type + ".html" %}
             {% endif %}
 
-            {% if entry.text %}
-              <p class="govuk-body">{{entry.text}}</p>
+            {% if activity.html %}
+              {{activity.html | safe}}
+            {% endif %}
+
+            {% if activity.text %}
+              <p class="govuk-body">{{activity.text}}</p>
             {% endif %}
             
           </li>
 
-          {% endfor %}
         {% endfor %}
       </ol>
 

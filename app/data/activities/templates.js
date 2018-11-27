@@ -14,20 +14,18 @@ module.exports = {
       description = "Description supplied by user goes here, in a paragraph"
     }) {
     return {
+      type: 'correctiveAction',
       title: summary,
       action: "Corrective action recorded",
-      date: date,
-      html: `
-      <p class="govuk-body">
-        Product: <span class="govuk-!-font-weight-bold">${productName}</span><br />
-        Legislation: <span class="govuk-!-font-weight-bold">${legislation}</span><br />
-        Business responsible: <span class="govuk-!-font-weight-bold">${businessName}</span><br />
-        Date decided: <span class="govuk-!-font-weight-bold">${decisionDate}</span><br />
-        Attached: <a href="#attachments">${attachement}</a>
-      </p>
-      <p class="govuk-body">${description}</p>
-      <a href="/root/product?productid=${productid}" class="mspsds-block-link">View product</a>
-      <a href="/root/business?businessid=${businessid}" class="mspsds-block-link">View business</a>`
+      date,
+      productName,
+      legislation,
+      businessName,
+      decisionDate,
+      attachement,
+      description,
+      productid,
+      businessid,
     }
   },
   assigned: function (

@@ -1,6 +1,6 @@
 const templates = require("./templates")
 module.exports = {
-  activites: [
+  activities: [
     {
       title: "Comment: Tim Harwood",
       hideName: true,

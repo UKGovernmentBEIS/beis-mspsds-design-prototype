@@ -63,7 +63,7 @@ router.post('/:mode/flows/process-incoming/save', function (req, res) {
   }
   newCase.assignee = req.session.data.currentUser
   const caseCareatedActivity = require("./data/activities/templates").caseCreated;
-  newCase.activites.push(caseCareatedActivity())
+  newCase.activities.push(caseCareatedActivity())
 
   res.locals.data.cases.push(newCase);
 
@@ -104,7 +104,7 @@ router.post('/:mode/flows/assign/save', function (req, res) {
 
   kase.dateUpdated = today.short();
   kase.assignee = newAssignee
-  kase.activites.unshift(newActivity)
+  kase.activities.unshift(newActivity)
 
   res.redirect('/root/case')
 })
@@ -212,7 +212,7 @@ router.post(`/:mode/flows/change-status/save`, function (req, res) {
 
   kase.dateUpdated = today.short();
   kase.status = req.body.status
-  kase.activites.unshift(newActivity)
+  kase.activities.unshift(newActivity)
 
   res.redirect('/root/case')
 })
