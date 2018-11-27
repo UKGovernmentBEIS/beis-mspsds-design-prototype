@@ -9,3 +9,19 @@
         }) }}
     {% endif %}
 {% endblock %}
+
+{% block pageTitle %}
+  {{ displayTitle }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {{ pageTitle({
+        title:  displayTitle
+      }) }}
+    </div>
+  </div>
+  {% block flow %}
+  {% endblock %}
+{% endblock %}
