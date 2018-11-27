@@ -1,7 +1,9 @@
 {% extends "includes/templates/flow.html" %}
 
+
 {% set displayTitle        = 'Risk information' %}
-{% set title        = 'Risk information' %}
+
+{% set formAction         = '/root/'+ data['currentPage'] %}
 
 
 {% block flow %}
@@ -9,7 +11,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       
-      <form action="/root/flows/add-risk/02-add-risk-confirm" method="post" class="form">
+      <form action="{{formAction}}" method="post" class="form">
 
 
         {% call govukFieldset({

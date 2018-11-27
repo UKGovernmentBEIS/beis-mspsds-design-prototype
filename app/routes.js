@@ -55,6 +55,7 @@ router.post('/:mode/flows/process-incoming/save', function (req, res) {
 
   newCase.dateCreated = today.short();
   newCase.dateUpdated = today.short();
+  newCase.report.date = today.short();
   newCase.id = today.id()
   switch(newCase.report.type) {
     case "Allegation": newCase.type = "Case"; break;

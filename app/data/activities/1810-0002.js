@@ -15,10 +15,11 @@ module.exports = {
         Legislation: <span class="govuk-!-font-weight-bold">General Product Safety Regulations 2005</span><br />
         Business responsible: <span class="govuk-!-font-weight-bold">Charge Worx</span><br />
         Date decided: <span class="govuk-!-font-weight-bold">12/9/2018</span><br />
-        Attached: <a href="#">notice-of-enforcement.pdf</a>
+        Attached: <span class="govuk-!-font-weight-bold">notice-of-enforcement.pdf</span>
       </p>
       <p class="govuk-body">Description supplied by user goes here, in a paragraph</p>
-      <a href="/product" class="mspsds-block-link">View product</a><a href="/product" class="mspsds-block-link">View business</a>`
+      <a href="/product" class="mspsds-block-link">View product</a><a href="/product" class="mspsds-block-link">View business</a>
+      <a href='#attachements'>View attachement</a>`
     },
     {
       title: "Failed test: Travel plug adaptor — Charge Worx 931L",
@@ -27,10 +28,11 @@ module.exports = {
       <p class="govuk-body">
         Legislation: <span class="govuk-!-font-weight-bold">General Product Safety Regulations 2005</span><br />
         Test date: <span class="govuk-!-font-weight-bold">12/9/2018</span><br />
-        Attached: <a href="#">test-results.pdf</a>
+        Attached: <span class="govuk-!-font-weight-bold">test-results.pdf</span>
       </p>
       <p class="govuk-body">Description supplied by user goes here, in a paragraph</p>
-      <a href="/product" class="mspsds-block-link">View product</a>`
+      <a href="/product" class="mspsds-block-link">View product</a>
+      <a href='#attachements'>View attachement</a>`
     },
     {
       title: "Test requested: Travel plug adaptor — Charge Worx 931L",
@@ -39,10 +41,11 @@ module.exports = {
       <p class="govuk-body">
         Legislation: <span class="govuk-!-font-weight-bold">General Product Safety Regulations 2005</span><br />
         Date requested: <span class="govuk-!-font-weight-bold">12/9/2018</span><br />
-        Attached: <a href="#">test-request-form.pdf</a>
+        Attached: <span class="govuk-!-font-weight-bold">test-request-form.pdf</span>
       </p>
       <p class="govuk-body">Description supplied by user goes here, in a paragraph</p>
-      <a href="/product" class="mspsds-block-link">View product</a>`
+      <a href="/product" class="mspsds-block-link">View product</a>
+      <a href='#attachements'>View attachement</a>`
     },
     {
       title: "Discussion with Charge Worx brand ambassadors",
@@ -51,9 +54,10 @@ module.exports = {
       <p class="govuk-body">
         Meeting with: <span class="govuk-!-font-weight-bold">Jeff Lebowski, Wilma Flintstone, Terry Crews</span><br />
         Date: <span class="govuk-!-font-weight-bold">12/9/2018</span><br />
-        Attached: <a href="#">transcript.doc</a>
+        Attached: <span class="govuk-!-font-weight-bold">transcript.doc</span>
       </p>
-      <p class="govuk-body">The Charge Worx brand ambassadors wanted to discuss the enforcement procedure with us, and assured us that... <a href="#">View more</a></p>`
+      <p class="govuk-body">The Charge Worx brand ambassadors wanted to discuss the enforcement procedure with us, and assured us that... <a href="#">View more</a></p>
+      <a href='#attachements'>View attachement</a>`
     },
     {
       title: "Jacqui Simmons at Warwickshire TS responds",
@@ -63,8 +67,9 @@ module.exports = {
         From: <span class="govuk-!-font-weight-bold">Jacqui Simmons</span> (jacqui.simmons@warwicks.gov.uk)<br />
         Date sent: <span class="govuk-!-font-weight-bold">12/9/2018</span><br />
         Email: <a href="#">RE: More details about Charge Worx case.html</a><br />
-        Attached: <a href="#">explosion_damage.jpg</a>
-      </p>`
+        Attached: <span class="govuk-!-font-weight-bold">explosion_damage.jpg</span>
+      </p>
+      <a href='#attachements'>View attachement</a>`
     },
     {
       title: "Asked Jacqui Simmons at Warwickshire TS for further details",
@@ -74,9 +79,10 @@ module.exports = {
         To: <span class="govuk-!-font-weight-bold">Jacqui Simmons</span> (jacqui.simmons@warwicks.gov.uk)<br />
         Subject: <span class="govuk-!-font-weight-bold">More details about Charge Worx case</span><br />
         Date sent: <span class="govuk-!-font-weight-bold">12/9/2018</span><br />
-        Attached: <a href="#">not-a-virus.exe</a>
+        Attached: <span class="govuk-!-font-weight-bold">not-a-virus.exe</span>
       </p>
-      <p class="govuk-body">Hi Jacqui, Thanks again for contacting us about the problems with the Charge Worx travel adaptor. I have some... <a href="#">View more</a></p>`
+      <p class="govuk-body">Hi Jacqui, Thanks again for contacting us about the problems with the Charge Worx travel adaptor. I have some... <a href="#">View more</a></p>
+      <a href='#attachements'>View attachement</a>`
     },
     {
       title: "Reporter asking for progress report",
@@ -85,9 +91,10 @@ module.exports = {
       <p class="govuk-body">
         Call with: <span class="govuk-!-font-weight-bold">Mina Harker</span> (07123 123123)<br />
         Date: <span class="govuk-!-font-weight-bold">12/9/2018</span><br />
-        Attached: <a href="#">transcript.doc</a>
+        Attached: <span class="govuk-!-font-weight-bold">transcript.doc</span>
       </p>
-      <p class="govuk-body">Mina was wondering whether there was any update on the Charge Worx case. I assured her that we were looking into it... <a href="#">View more</a></p>`
+      <p class="govuk-body">Mina was wondering whether there was any update on the Charge Worx case. I assured her that we were looking into it... <a href="#">View more</a></p>
+      <a href='#attachements'>View attachement</a>`
     },
     {
       title: "Deleted: Photo ID",

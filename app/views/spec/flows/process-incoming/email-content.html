@@ -1,0 +1,69 @@
+{% extends "mspsds-layout.html" %}
+
+{% block pageTitle %}
+Record email
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back to case",
+  href: "/case"
+}) }}
+{% endblock %}
+
+{% block content %}
+{{ pageTitle({
+  type:   "Report ref. " + data.new.id,
+  title:  "Original email"
+}) }}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="./report-check-answers" method="post" class="form">
+
+      {{ govukFileUpload({
+        hint: {
+          text:     "Upload the email as a file, or enter the subject and body below",
+          classes:  "govuk-!-width-full"
+        },
+        id: "correspondence-file-upload-0",
+        name: "correspondence-file-upload-0"
+      }) }}
+
+      {{ govukInput({
+        label: {
+          text:     "Subject line",
+          classes:  "govuk-!-width-two-thirds"
+        },
+        classes: "govuk-!-width-two-thirds",
+        id:   "correspondence-subject",
+        name: "correspondence-subject"
+      }) }}
+
+      {{ govukTextarea({
+        label: {
+          text:     "Body",
+          classes:  "govuk-!-width-two-thirds"
+        },
+        name: "correspondence-content",
+        id:   "correspondence-content"
+      }) }}
+
+      {% from "includes/attachment-input.html" import attachmentInput %}
+      {{ attachmentInput("Attachments", "correspondence") }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+  <div class="govuk-grid-column-one-third">
+    {% from "./includes/step-flow-map.html" import stepFlowMap %}
+    {% set isEmail = (data.new["origin-type"]=="Email") %}
+    {{ stepFlowMap(data.new["type"], isEmail, (5 if data.new["type"]=="Product safety allegation" else 3)) }}
+  </div>
+</div>
+{% endblock %}

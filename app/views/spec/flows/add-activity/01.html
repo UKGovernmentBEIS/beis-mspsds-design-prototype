@@ -1,0 +1,13 @@
+{% if data['activityVersion'] == 'v2' %}
+
+    {% extends "./01-choose-activity-v2.html" %}
+
+{% elif data['activityVersion'] == 'v3' %}
+    
+    {% extends "./01-choose-activity-v3.html" %}
+
+{% else %}
+
+    {% extends "./01-choose-activity.html" %}
+
+{% endif %}
