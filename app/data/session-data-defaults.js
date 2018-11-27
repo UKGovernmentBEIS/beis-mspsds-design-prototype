@@ -39,4 +39,5 @@ module.exports = {
   businesses:   require("./businesses.js").businesses,
   contacts:     require("./contacts.js").contacts,
   locations:    require("./locations.js").locations,
+  users:        require("./users.js").users,
 };

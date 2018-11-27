@@ -5,15 +5,11 @@ const Cases = require("./utils/case");
 
 // Catch-all for redirecting to the correct mode - MUST BE LAST ROUTE ADDED
 router.all("/root/*", function (req, res) {
-  redirectByMode(req, res);
-})
-
-function redirectByMode(req, res) {
   const mode = req.session.data.mode;
   const rest = req.path.substring(6);
   const route = `/${mode}/${rest}`;
   res.redirect(route);
-}
+})
 
 router.all("/:mode(pages|spec|test|old)/*", function (req, res, next) {
   res.locals.data.mode = req.params.mode
@@ -285,6 +281,10 @@ router.post('/test-setup', function (req, res) {
     });
     kase.assignee = req.body.assignee
   }
+  const newUser = req.body.currentUser
+  if (newUser && !res.locals.data.users.includes(newUser)) {
+    res.locals.data.users.push(newUser)
+  } 
   continuetoView(req, res)
 })
 

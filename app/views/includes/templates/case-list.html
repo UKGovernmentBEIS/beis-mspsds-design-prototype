@@ -169,7 +169,7 @@
       </form>
 
       <script type="text/javascript">
-        var existingAssignees = {{data.cases | pick("assignee") | jsList | safe}} // Bit of hackery which gets nunjucks list into a js list
+        var existingAssignees = {{data.users | jsList | safe}}
         var assignees = Array.from(new Set(existingAssignees)).sort();
 
         element = document.querySelector('#case-assignee-autocomplete-container');
