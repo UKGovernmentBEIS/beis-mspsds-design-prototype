@@ -39,10 +39,10 @@
 
 
     {% for location in locations %}
-
       
-
+      {% set links  = {} %}
       {% set matched = false %}
+
 
       {% for liz in currentLocations %}
           {% if location.id === liz.id %}
@@ -55,29 +55,31 @@
       {% if matched %}
 
 
-        {% set viewLink     = viewLink.replace('LID', location.id) %}
-        {% set editLink     = editLink.replace('LID', location.id) %}
-        {% set deleteLink   = deleteLink.replace('LID', location.id) %}
+        {% set locViewLink     = viewLink.replace('LID', location.id) %}
+        {% set locEditLink     = editLink.replace('LID', location.id) %}
+        {% set locDeleteLink   = deleteLink.replace('LID', location.id) %}
         
         {% set links  = {
             label:       'location',
-            view:        viewLink,
-            edit:        editLink,
-            delete:      deleteLink
+            view:        locViewLink,
+            edit:        locEditLink,
+            delete:      locDeleteLink
         } %}
+
 
 
         {% set locationRows = [] %}
 
         {% set locationRows = ( locationRows.push([
           {text: matched},
-          {html: location.address + ', ' + location.postcode},
+          {html: location.address + ', ' + location.city + ', ' + location.country + ', ' + location.postcode},
           {html: location.phone}
         ]), locationRows ) %}
 
 
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
+
           {{ govukTable({
             firstCellIsHeader: true,
             rows: locationRows

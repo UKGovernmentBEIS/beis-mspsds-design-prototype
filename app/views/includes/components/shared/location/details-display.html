@@ -1,89 +1,53 @@
+
 {% set currentLocation          = data.locations | withId(data['locationid']) %}
-{% set currentBusiness          = data.businesses | withId(data['businessid']) %}
-
-
+{% set currentBusiness          = data.businesses | withId(data['businessid']) | attachBusinessChildren(data) %}
+{% set currentBizLocation       = currentBusiness.locations | withId(data['locationid']) %}
 
 
     <div class="govuk-grid-column-two-thirds">
 
-            {% call govukFieldset({
-              legend: {
-                text: "Locations details",
-                classes: "govuk-fieldset__legend--l",
-                isPageHeading: false
-              }
-            }) %}
-              
+      {# Doesn't get displayed, but sets an id on the model #}
+        {{ govukInput({
+          id:   "locationid",
+          name: "locationid",
+          value: data['locationid'],
+          type: "hidden"
+        }) }}
 
-              {{ govukInput({
-                label: {
-                  text: "Name"
-                },
-                hint: {
-                  text: "E.g. Main office, Warehouse"
-                },
-                classes: "govuk-!-width-two-thirds",
-                id:   "location-name",
-                name: "location[name]"
-              }) }}
-              N: {{ currentLocation.address }}
-    
+        {{ govukInput({
+          id:   "businessid",
+          name: "businessid",
+          value: data['businessid'],
+          type: "hidden"
+        }) }}
 
-              {{ govukTextarea({
-                name: "location[address]",
-                id:   "location-address",
-                classes: "govuk-!-width-two-thirds",
-                label: {
-                  text: "Address"
-                }
-              }) }}
-              
+      
+      {% set locationRows = [] %}
 
+        {% set locationRows = ( locationRows.push([
+          {text: 'Name'},
+          {text: currentBizLocation.role}
+        ]), locationRows ) %}
 
-              {{ govukInput({
-                label: {
-                  text: "City/Town"
-                },
-                classes: "govuk-!-width-two-thirds",
-                id:   "location-city",
-                name: "location[city]"
-              }) }}
+        {% set locationRows = ( locationRows.push([
+          {text: 'Address'},
+          {text: currentBizLocation.address}
+        ]), locationRows ) %}
+
+        {% set locationRows = ( locationRows.push([
+          {text: 'Postcode'},
+          {text: currentBizLocation.postcode}
+        ]), locationRows ) %}
+
+        {% set locationRows = ( locationRows.push([
+          {text: 'Phone'},
+          {text: currentBizLocation.phone}
+        ]), locationRows ) %}
 
 
-
-              {{ govukInput({
-                label: {
-                  text: "Country"
-                },
-                classes: "govuk-!-width-two-thirds",
-                id:   "location-country",
-                name: "location[country]"
-              }) }}
-
-
-
-              {{ govukInput({
-                label: {
-                  text: "Post-code"
-                },
-                classes: "govuk-!-width-two-thirds",
-                id:   "location-postcode",
-                name: "location[postcode]"
-              }) }}
-
-
-              {{ govukInput({
-                label: {
-                  text: "Phone number"
-                },
-                classes: "govuk-!-width-two-thirds",
-                id:   "location-phone",
-                name: "location[phone]"
-              }) }}
-
-
-            
-
-            {% endcall %}
+        {{ govukTable({
+            firstCellIsHeader: true,
+            rows: locationRows
+        }) }}
 
     </div>

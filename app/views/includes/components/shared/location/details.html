@@ -1,5 +1,22 @@
 
+
     <div class="govuk-grid-column-two-thirds">
+
+      {# Doesn't get displayed, but sets an id on the model #}
+        {{ govukInput({
+          id:   "locationid",
+          name: "locationid",
+          value: data['locationid'],
+          type: "hidden"
+        }) }}
+
+        {{ govukInput({
+          id:   "businessid",
+          name: "businessid",
+          value: data['businessid'],
+          type: "hidden"
+        }) }}
+
 
             {% call govukFieldset({
               legend: {
@@ -12,14 +29,15 @@
 
               {{ govukInput({
                 label: {
-                  text: "Name"
+                  text:   "Name"
                 },
                 hint: {
-                  text: "E.g. Main office, Warehouse"
+                  text:   "E.g. Main office, Warehouse"
                 },
-                classes: "govuk-!-width-two-thirds",
-                id:   "location-name",
-                name: "location[name]"
+                classes:  "govuk-!-width-two-thirds",
+                id:       "location-name",
+                name:     "location[name]",
+                value:    currentBizLocation.role
               }) }}
 
 
@@ -30,7 +48,8 @@
                 classes: "govuk-!-width-two-thirds",
                 label: {
                   text: "Address"
-                }
+                },
+                value:    currentBizLocation.address
               }) }}
               
 
@@ -41,7 +60,8 @@
                 },
                 classes: "govuk-!-width-two-thirds",
                 id:   "location-city",
-                name: "location[city]"
+                name: "location[city]",
+                value:    currentBizLocation.city
               }) }}
 
 
@@ -52,7 +72,8 @@
                 },
                 classes: "govuk-!-width-two-thirds",
                 id:   "location-country",
-                name: "location[country]"
+                name: "location[country]",
+                value:    currentBizLocation.country
               }) }}
 
 
@@ -63,7 +84,8 @@
                 },
                 classes: "govuk-!-width-two-thirds",
                 id:   "location-postcode",
-                name: "location[postcode]"
+                name: "location[postcode]",
+                value:    currentBizLocation.postcode
               }) }}
 
 
@@ -73,7 +95,8 @@
                 },
                 classes: "govuk-!-width-two-thirds",
                 id:   "location-phone",
-                name: "location[phone]"
+                name: "location[phone]",
+                value:    currentBizLocation.phone
               }) }}
 
 

@@ -119,8 +119,7 @@ router.post('/:mode/flows/assign/save', function (req, res) {
 router.post('/:mode/flows/location/save', function (req, res) {
 
   let newLocation   = req.session.data.location;
-  newLocation.id    = 'l' + res.locals.data.locations.length;
-  newLocation.address += ', '+ newLocation.city +', '+ newLocation.country;
+  newLocation.id    = 'l' + (res.locals.data.locations.length + 1);
 
   res.locals.data.locations.push(newLocation);
 
@@ -144,37 +143,61 @@ router.post('/:mode/flows/location/save', function (req, res) {
   res.redirect('404');
 
 })
+
+function arrayRemoveByID(arr, value) {
+   return arr.filter(function(ele){
+       return ele.id != value;
+   });
+}
 
 
 // Location flow
 router.post('/:mode/flows/location/delete', function (req, res) {
 
-  let newLocation   = req.session.data.location;
-  newLocation.id    = 'l' + res.locals.data.locations.length;
-  newLocation.address += ', '+ newLocation.city +', '+ newLocation.country;
-
-  res.locals.data.locations.push(newLocation);
-
   if (res.locals.data.currentPage === 'business') {
 
     let biz = res.locals.data.businesses.find(function (b) {
-      return b.id === res.locals.data.businessid
+      return b.id === req.session.data.businessid
     });
 
-    if (biz) {
-      biz.locations.push({
-        id:     newLocation.id,
-        role:   req.session.data.location.name
-      })
+    if (biz && biz.locations) {
+      biz.locations = arrayRemoveByID(biz.locations, req.session.data.locationid)
     }
-
     res.redirect('/root/business#locations?businessid='+req.session.data.businessid);
-
   }
 
   res.redirect('404');
 
 })
+
+
+
+router.post('/:mode/flows/location/update', function (req, res) {
+
+  if (res.locals.data.currentPage === 'business') {
+
+    let newLocation   = req.session.data.location;
+    newLocation.id    = req.session.data.locationid
+
+
+    let loc = res.locals.data.locations.find(function (l) {
+      return l.id === req.session.data.locationid
+    });
+
+    if (loc) {
+      for (var k in loc) {
+        loc[k] = newLocation[k]
+      }
+    }
+
+    res.redirect('/root/business#locations?businessid='+req.session.data.businessid);
+  }
+
+  res.redirect('404');
+
+})
+
+
 
 
 // Change Status flow

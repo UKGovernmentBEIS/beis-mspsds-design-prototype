@@ -2,7 +2,14 @@
 
 {% set displayTitle = 'Edit location' %}
 
-{% set formAction         = '/root/'+ data['currentPage'] %}
+{% set formCancel         = '/pages/'+ data['currentPage'] %}
+
+{% set formAction         = '/pages/flows/location/update' %}
+
+
+{% set currentLocation          = data.locations | withId(data['locationid']) %}
+{% set currentBusiness          = data.businesses | withId(data['businessid']) | attachBusinessChildren(data) %}
+{% set currentBizLocation       = currentBusiness.locations | withId(data['locationid']) %}
 
 
 
@@ -25,10 +32,7 @@
               classes: "mspsds-button"
             }) }}
 
-            {{ govukButton({
-              text: "Delete location" ,
-              classes: "mspsds-button mspsds-button--delete"
-            }) }}
+            <a class="govuk-link mspsds-block-link" href="{{formCancel}}">Cancel</a>
 
         </div>
       </div>

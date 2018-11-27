@@ -23,8 +23,14 @@
 
 
 {% block head %}
-	{% include "includes/head.html" %}
+	{{ super() }}
   	{% include "includes/head__mspsds.html" %}
+
+    {% if data['debug'] == 'true' %}
+        {{ data | dump(4) }}
+    {% endif %}
+
+
 {% endblock %}
 
 {% block headIcons %}

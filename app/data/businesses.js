@@ -66,6 +66,10 @@ module.exports = {
                 {
                     id: 'l1',
                     role: 'Registered address'
+                },
+                {
+                    id: 'l2',
+                    role: 'Another address'
                 }
             ]
 

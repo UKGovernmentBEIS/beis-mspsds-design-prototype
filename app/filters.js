@@ -157,11 +157,12 @@ module.exports = function (env) {
     business filters
   ------------------------------------------------------------------ */
   // Make a shallow copy of the cases list with children entity id arrays swapped for copies of the children models
-  filters.attachBusinessChildren = function (businesses, { products = [], cases = [], contacts = [] }) {
+  filters.attachBusinessChildren = function (businesses, { products = [], cases = [], contacts = [] , locations = [] }) {
     const attachToCase = business => Object.assign({}, business, {
-      products: business.products.map(productId => products.find(product => product.id === productId)),
-      cases: cases.filter(c => c.businesses.some(b => b.id === business.id)),
-      contacts: business.contacts.map(({ id, role }) => Object.assign({ role }, contacts.find(contact => contact.id === id))),
+      products:   business.products.map(productId => products.find(product => product.id === productId)),
+      cases:      cases.filter(c => c.businesses.some(b => b.id === business.id)),
+      contacts:   business.contacts.map(({ id, role }) => Object.assign({ role }, contacts.find(contact => contact.id === id))),
+      locations:  business.locations.map(({ id, role }) => Object.assign({ role }, locations.find(location => location.id === id))),
     });
     if (Array.isArray(businesses)) {
       return businesses.map(attachToCase)

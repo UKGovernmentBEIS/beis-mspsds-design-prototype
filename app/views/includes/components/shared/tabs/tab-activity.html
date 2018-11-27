@@ -3,8 +3,8 @@
 
 
 
-{% if not addActivityLink  %}
-    {% set addActivityLink = '#' %}
+{% if not addLink  %}
+    {% set addLink = '#' %}
 {% endif %}
 
 {% if not activites  %}
@@ -15,7 +15,7 @@
 
   {{ tabTitle({
         title:      'Activity',
-        controls:   '<a href="'+addActivityLink+'" class="mspsds-block-link">Add activity</a>'
+        controls:   '<a href="'+addLink+'" class="mspsds-block-link">Add activity</a>'
   }) }}
 
 
