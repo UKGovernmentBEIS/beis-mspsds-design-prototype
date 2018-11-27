@@ -2,9 +2,10 @@
     Product: <span class="govuk-!-font-weight-bold">{{activity.productName}}</span><br />
     Legislation: <span class="govuk-!-font-weight-bold">{{activity.legislation}}</span><br />
     Business responsible: <span class="govuk-!-font-weight-bold">{{activity.businessName}}</span><br />
-    Date decided: <span class="govuk-!-font-weight-bold">{{activity.decisionDate}}</span><br />
-    Attached: <a href="#attachments">{{activity.attachement}}</a>
+    Date decided: {{activity.decisionDate}}</span><br />
+    Attached: <span class="govuk-!-font-weight-bold">{{activity.attachement}}</span>
   </p>
   <p class="govuk-body">{{activity.description}}</p>
   <a href="/root/product?productid={{activity.productid}}" class="mspsds-block-link">View product</a>
   <a href="/root/business?businessid={{activity.businessid}}" class="mspsds-block-link">View business</a>
+  <a href="#attachments" class="mspsds-block-link">View attachment</a>
