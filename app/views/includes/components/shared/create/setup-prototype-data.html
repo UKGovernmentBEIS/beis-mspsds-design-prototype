@@ -1,3 +1,12 @@
+{% set length = data['cases'].length  %}
+
+{{ govukInput({
+  id:   "caseid",
+  name: "caseid",
+  value: "1800-"+length,
+  type: "hidden"
+}) }}
+
 {{ govukInput({
   id:   "issue-id",
   name: "new[id]",
@@ -16,19 +25,5 @@
   id:   "issue-assignee",
   name: "new[assignee]",
   value: data['currentUser'],
-  type: "hidden"
-}) }}
-
-{{ govukInput({
-  id:   "issue-type",
-  name: "new[type]",
-  value: data['new']['report']['type'],
-  type: "hidden"
-}) }}
-
-{{ govukInput({
-  id:   "issue-type",
-  name: "new[report][reporter][type]",
-  value: data['new']['reporter']['type'],
   type: "hidden"
 }) }}

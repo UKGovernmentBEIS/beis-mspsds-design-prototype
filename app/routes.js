@@ -50,7 +50,7 @@ router.post('/:mode/flows/process-incoming/report-info-endpoint', function (req,
 
 router.post('/:mode/flows/process-incoming/save', function (req, res) {
   let newCase = req.session.data.new
-  
+
   Cases.addDefaults(newCase);
 
   newCase.dateCreated = today.short();
@@ -63,7 +63,7 @@ router.post('/:mode/flows/process-incoming/save', function (req, res) {
   }
   newCase.assignee = req.session.data.currentUser
   const caseCareatedActivity = require("./data/activities/templates").caseCreated;
-  newCase.activites.push(caseCareatedActivity())
+  newCase.activities.push(caseCareatedActivity())
 
   res.locals.data.cases.push(newCase);
 
@@ -287,7 +287,7 @@ router.post('/test-setup', function (req, res) {
   const newUser = req.body.currentUser
   if (newUser && !res.locals.data.users.includes(newUser)) {
     res.locals.data.users.push(newUser)
-  } 
+  }
   continuetoView(req, res)
 })
 
