@@ -1,8 +1,8 @@
 {% extends "mspsds-layout.html" %}
 
-{% set bodyClasses = "mspsds-width-container case-list-3" %}
+{% set bodyClasses = "mspsds-width-container peoduct-list-3" %}
 
-{% set products    = data.products %}
+{% set products    = data.products | attachProductChildren(data) %}
 
 
 {% block pageTitle %}

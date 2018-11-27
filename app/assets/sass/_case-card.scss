@@ -18,7 +18,7 @@ $marginIndent: 10px;
 }
 
 
-
+.mspsds-business-card,
 .mspsds-product-card,
 .mspsds-case-card {
     
@@ -50,7 +50,7 @@ $marginIndent: 10px;
         color: govuk-colour("grey-1");   
     }
 
-
+    &__business,
     &__product,
     &__hazard {
         display: block;

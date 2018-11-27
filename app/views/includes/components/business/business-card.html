@@ -1,0 +1,64 @@
+{% from "includes/components/case/case-filter.html"         import caseFilter %}
+
+
+{% macro businessCard(businessInfo, searchResult) %}
+
+<div class="mspsds-business-card 
+            govuk-body govuk-!-font-weight-regular">
+
+    <span class="mspsds-business-card__indentifier">
+
+        <span class="mspsds-business-card__type">Business</span>
+
+
+        {% if businessInfo.id %}
+            <span class="mspsds-business-card__id">{{businessInfo.id}}</span>
+        {% endif %}
+
+    </span>
+
+
+    <a class="mspsds-business-card__title" href="business?businessid={{businessInfo.id}}&currentPage=business" >
+
+        {% if businessInfo.name%}
+            <span class="mspsds-business-card__business">{{businessInfo.name}}</span>
+        {% endif %}
+
+    </a>
+
+
+    {% if searchResult %}
+
+        <span class="mspsds-business-card__match">
+            
+        </span>
+
+    {% else %}
+
+        <span class="mspsds-business-card__state">
+
+
+            {% if businessInfo.companyNumber %}
+                {{ caseFilter("Company No.",businessInfo.companyNumber, "mspsds-business-card__origin") }}
+                
+            {% else %}
+                {{ caseFilter("Company No.","Unknown", "mspsds-business-card__origin") }}
+
+            {% endif %}
+
+
+
+            {% if businessInfo.cases %}
+                {{ caseFilter("Cases",businessInfo.cases.length, "mspsds-business-card__cases") }}
+            {% else %}
+                {{ caseFilter("Cases","0", "mspsds-business-card__cases") }}
+
+            {% endif %}
+
+        </span>
+
+    {% endif %}
+
+</div>
+
+{% endmacro %}

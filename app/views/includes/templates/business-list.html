@@ -1,6 +1,8 @@
 {% extends "mspsds-layout.html" %}
 
-{% set bodyClasses = "mspsds-width-container case-list-3" %}
+{% set businesses    = data.businesses | attachBusinessChildren(data) %}
+
+{% set bodyClasses = "mspsds-width-container business-list-3" %}
 
 
 {% block pageTitle %}
@@ -46,16 +48,18 @@
         title: "Businesses"
       }) }}
     </div>
+
+    <div class="govuk-grid-column-full mspsds-case-list-tab {{searchClasses}}">
+      {% from "includes/components/business/business-card-list.html"          import businessCardList %}
+      {{ businessCardList(businesses) }}
+      {% if businesses | length == 0 %}
+          <span class="govuk-heading-xl">No businesses</span>
+      {% endif %}
+    </div>
+
+
   </div>
-
-
-
-  <div class="govuk-grid-row">
-      <div class="govuk-grid-column-full">
-          {% include "includes/business-list__list__Q1.html" %}
-      </div>
-  </div>
-
+  
 
 
 

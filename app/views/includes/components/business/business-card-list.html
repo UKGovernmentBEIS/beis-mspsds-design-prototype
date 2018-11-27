@@ -1,0 +1,8 @@
+{% from "includes/components/business/business-card.html"         import businessCard %}
+
+{% macro businessCardList(businesss, searchResult = false) %}
+  {% for business in businesss %}
+    {{ businessCard(business, searchResult) }}
+  {% endfor %}
+
+{% endmacro %}
