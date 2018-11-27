@@ -169,20 +169,17 @@
       </form>
 
       <script type="text/javascript">
-        var existingAssignees = {{data.users | jsList | safe}}
-        var assignees = Array.from(new Set(existingAssignees)).sort();
-
+        var users = {{data.users | jsList | safe}}
         element = document.querySelector('#case-assignee-autocomplete-container');
-        id = 'case-assignee-autocomplete';
         accessibleAutocomplete({
           element: element,
-          id: id,
+          id: 'case-assignee-autocomplete',
           name: "caseListSettings[assignee-other]",
           showNoOptionsFound: false,
           defaultValue: '{{data.caseListSettings["assignee-other"]}}',
           showAllValues: true,
           dropdownArrow: () => '',
-          source: assignees
+          source: users.sort()
         });
       </script>
       
