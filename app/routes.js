@@ -63,7 +63,7 @@ router.post('/:mode/flows/process-incoming/save', function (req, res) {
   }
   newCase.assignee = req.session.data.currentUser
   const caseCareatedActivity = require("./data/activities/templates").caseCreated;
-  newCase.activities.push(caseCareatedActivity())
+  newCase.activites.push(caseCareatedActivity())
 
   res.locals.data.cases.push(newCase);
 
@@ -104,7 +104,7 @@ router.post('/:mode/flows/assign/save', function (req, res) {
 
   kase.dateUpdated = today.short();
   kase.assignee = newAssignee
-  kase.activities.unshift(newActivity)
+  kase.activites.unshift(newActivity)
 
   res.redirect('/root/case')
 })
@@ -212,7 +212,7 @@ router.post(`/:mode/flows/change-status/save`, function (req, res) {
 
   kase.dateUpdated = today.short();
   kase.status = req.body.status
-  kase.activities.unshift(newActivity)
+  kase.activites.unshift(newActivity)
 
   res.redirect('/root/case')
 })
@@ -225,28 +225,31 @@ router.post('/:mode/flows/add-activity/choose', function (req, res) {
       res.redirect("/root/flows/add-comment/01-add-comment")
       break;
     case 'correspondance':
-      res.redirect("/root/flows/add-correspondence/01-add-correspondence-context.html")
+      res.redirect("/flows/add-correspondence/01-add-correspondence-context.html")
       break;
     case 'contact':
-      res.redirect("/root/flows/add-contact/01-add-contact.html")
+      res.redirect("/root/flows/contact/add/01.html")
       break;
     case 'product':
-      res.redirect("/root/flows/add-product/01-add-product.html")
+      res.redirect("/root/flows/product/add/01.html")
       break;
     case 'incident':
-      res.redirect("/root/flows/add-incident/01-add-incident.html")
+      res.redirect("/flows/add-incident/01-add-incident.html")
       break;
     case 'hazard':
-      res.redirect("/root/flows/add-hazard/01-add-hazard.html")
+      res.redirect("/root/flows/add-hazard/01.html")
       break;
     case 'risk':
-      res.redirect("/root/flows/add-risk/01-add-risk.html")
+      res.redirect("/root/flows/add-risk/01.html")
       break;
     case 'corrective-action':
-      res.redirect("/root/flows/record-corrective-action/01-record-corrective-action.html")
+      res.redirect("/flows/record-corrective-action/01-record-corrective-action.html")
       break;
     case 'business':
-      res.redirect("/root/flows/add-business/01-add-business.html")
+      res.redirect("/root/flows/business/add/01.html")
+      break;
+    case 'testing':
+      res.redirect("/flows/record-test-result/01-record-test-result.html")
       break;
     default:
       res.render(path)
