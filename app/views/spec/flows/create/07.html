@@ -1,0 +1,82 @@
+{% extends "includes/templates/flow.html" %}
+
+
+{% set displayTitle        = 'New '+ data['new']['report']['type']%}
+
+{% set formAction         = '/pages/flows/process-incoming/save' %}
+
+{% set length = data['cases'].length  %}
+
+{% block flow %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      
+      <form action="{{formAction}}" method="post" class="form">
+
+              {# Doesn't get displayed, but sets an id on the model #}
+                {{ govukInput({
+                  id:   "issue-id",
+                  name: "new[id]",
+                  value: "1800-"+length,
+                  type: "hidden"
+                }) }}
+
+                {{ govukInput({
+                  id:   "issue-status",
+                  name: "new[status]",
+                  value: "Open",
+                  type: "hidden"
+                }) }}
+
+                {{ govukInput({
+                  id:   "issue-assignee",
+                  name: "new[assignee]",
+                  value: data['currentUser'],
+                  type: "hidden"
+                }) }}
+
+                {{ govukInput({
+                  id:   "issue-type",
+                  name: "new[type]",
+                  value: data['new']['report']['type'],
+                  type: "hidden"
+                }) }}
+
+                {{ govukInput({
+                  id:   "issue-type",
+                  name: "new[report][reporter][type]",
+                  value: data['new']['reporter']['type'],
+                  type: "hidden"
+                }) }}
+
+
+
+         <div class="govuk-grid-row">
+
+
+              {% include "includes/components/shared/create/issue-title.html" %}
+
+
+          </div>
+
+          <div class="govuk-grid-row">
+              <div class="govuk-grid-column-two-thirds">
+
+                  {% from "button/macro.njk" import govukButton %}
+                
+                  {{ govukButton({
+                    text: "Save"
+                  }) }}
+
+              </div>
+          </div>
+
+
+      </form>
+
+    </div>
+  </div>
+
+
+{% endblock %}

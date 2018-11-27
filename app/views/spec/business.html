@@ -1,18 +1,5 @@
 {% set currentPage      = 'business' %}
-{% set currentBusiness  = false %}
-
-
-{% if data['businessid'] %}
-    
-    {% for business in data['businesses'] %}
-        {% if business.id == data['businessid'] %}
-            {% set currentBusiness = business %}
-        {% endif %}
-    {% endfor %}
-    
-{% endif %}
-
-
+{% set currentBusiness = data.businesses | withId(data.businessid) %}
 
 {% if currentBusiness %}
     {% extends "includes/templates/business.html" %}
