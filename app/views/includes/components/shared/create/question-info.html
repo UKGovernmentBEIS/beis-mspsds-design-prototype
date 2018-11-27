@@ -1,14 +1,14 @@
 <div class="govuk-grid-column-two-thirds">
   {% call govukFieldset({
     legend: {
-      text:           "What is the enquiry?",
+      text:           "What is the question?",
       isPageHeading:  false,
       classes:        "govuk-fieldset__legend--l"
     }
   }) %}
     {{ govukTextarea({
       name: "new[report][summary]",
-      id:   "enquiry-detail",
+      id:   "question-detail",
       hint : {
         text: "Please give as much detail as possible"
       }
@@ -24,7 +24,7 @@
   }) %}
     {{ govukInput({
       hint: {
-        text: "This will help other users identify this enquiry"
+        text: "This will help other users identify this question"
       },
       id: "report-title",
       name: "new[report][title]"
@@ -32,5 +32,5 @@
   {% endcall %}
 
   {% from "includes/components/shared/attachment-input.html" import attachmentInput %}
-  {{ attachmentInput("Are there any files or images related to the enquiry?", "enquiry", "false") }}
+  {{ attachmentInput("Are there any files or images related to the question?", "question", "false") }}
 </div>

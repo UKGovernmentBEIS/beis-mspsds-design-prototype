@@ -27,27 +27,6 @@ router.get('/:mode/:entity(case|business|product|case-list)/', function (req, re
 
 // FLOWS ----------------------------------------------------------------------
 
-// Process incoming report flow endpoints
-router.post('/:mode/flows/process-incoming/report-info-endpoint', function (req, res) {
-  let type = req.session.data.new['type']
-  switch (type) {
-    case 'Enquiry':
-      res.redirect('/root/flows/process-incoming/question-info')
-      break;
-    case 'Product safety allegation':
-      res.redirect('/root/flows/process-incoming/allegation-incident')
-      break;
-    case 'Product recall notification':
-      res.redirect('/root/flows/process-incoming/recall-info')
-      break;
-    case 'Notification from RAPEX':
-      res.redirect('/root/flows/process-incoming/rapex')
-      break;
-    default:
-      res.redirect(type)
-  }
-})
-
 router.post('/:mode/flows/process-incoming/save', function (req, res) {
   let newCase = req.session.data.new
 
