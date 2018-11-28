@@ -60,6 +60,7 @@ router.post('/:mode/flows/create/save', function (req, res) {
 
 
 // Report flow: Decide whether to show email capture page
+// TODO: DELETE when this is no longer used by old material
 router.post('/:mode/flows/process-incoming/email-check-endpoint', function (req, res) {
   let endpoint = req.session.data.new['origin-type'];
   switch (endpoint) {
