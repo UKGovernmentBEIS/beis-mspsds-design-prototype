@@ -15,7 +15,8 @@ const Cases = require("../utils/case")
         type: 'Allegation',
         date: '18/10/2018',
         summary: '',
-        otherDetails: '',
+        productType: 'Toy',
+        hazardType: 'Electric shock',
         reporter: {
           type: "Consumer",
           name: "",
@@ -46,7 +47,7 @@ const Cases = require("../utils/case")
       related: [],
       activities: [],
       match: { // This is a hack to make some cases show up in test results
-        key:  'Case reference', 
+        key:  'Case reference',
         value: "01<span class='highlight'>32-142</span>1"
       }
     }
@@ -139,6 +140,8 @@ module.exports = {
         type: 'Allegation',
         date: '18/10/2018',
         summary: 'Something happened',
+        productType: 'Toy',
+        hazardType: 'Electric shock',
         otherDetails: 'Other details captured during the report entry',
         reporter: {
           type: "Consumer",

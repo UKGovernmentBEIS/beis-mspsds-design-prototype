@@ -23,8 +23,13 @@
 ]), reportRows) %}
 
 {% set prodRows = (reportRows.push([
-    { text: "Correspondence" },
-    { html: reportData.correspondence.type + " <br><a href='#'>View details</a>"   }
+    { text: "Product type" },
+    { text: reportData["productType"] }
+]), reportRows) %}
+
+{% set prodRows = (reportRows.push([
+    { text: "Hazard type" },
+    { text: reportData["hazardType"] }
 ]), reportRows) %}
 
 

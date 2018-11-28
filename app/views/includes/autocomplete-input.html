@@ -1,4 +1,4 @@
-{% macro autocompleteInput(idPrefix, legend, hint, values) %}
+{% macro autocompleteInput(idPrefix, name, legend, hint, values) %}
 
 <legend for="{{idPrefix}}-autocomplete" class="govuk-fieldset__legend govuk-fieldset__legend--l">{{legend}}</legend>
 {% if hint %}<span class="govuk-hint">{{hint | safe}}</span>{% endif %}
@@ -13,6 +13,7 @@
   accessibleAutocomplete({
     element: element,
     id: id,
+    name: "{{name}}",
     showAllValues: true,
     source: values
   })

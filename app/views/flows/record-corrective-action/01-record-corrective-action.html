@@ -58,7 +58,7 @@ Record corrective action
         'iPhone charger – unbranded, white',
         'Travel plug adaptor – Multipower 94998'
       ] %}
-      {{ autocompleteInput("case-products", "Which product is subject to action?", "Only products already added to the case are listed. <a href='#'>Add a product</a>", products) }}
+      {{ autocompleteInput("case-products", "TODO-product-input-name", "Which product is subject to action?", "Only products already added to the case are listed. <a href='#'>Add a product</a>", products) }}
 
       {% from "includes/legislation-input.html" import legislationInput %}
       {{ legislationInput("Under which legislation?") }}
@@ -68,7 +68,7 @@ Record corrective action
         'Wonderlite Ltd.',
         'Trader Joe\'s bargain basement'
       ] %}
-      {{ autocompleteInput("case-businesses", "Which business is responsible?", "Only businesses already added to the case are listed. <a href='#'>Add a business</a>", businesses) }}
+      {{ autocompleteInput("case-businesses", "TODO-business-input-name", "Which business is responsible?", "Only businesses already added to the case are listed. <a href='#'>Add a business</a>", businesses) }}
 
       {% call govukFieldset({
         legend: {

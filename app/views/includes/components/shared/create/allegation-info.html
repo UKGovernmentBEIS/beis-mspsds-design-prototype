@@ -17,8 +17,8 @@
     }) }}
   {% endcall %}
 
-  {{ autocompleteInput("product-type", "Product Type", "", data.productTypes) }}
-  {{ autocompleteInput("hazard-type", "Hazard Type", "", data.hazardTypes) }}
+  {{ autocompleteInput("product-type", "new[report][productType]", "Product Type", "", data.productTypes) }}
+  {{ autocompleteInput("hazard-type", "new[report][hazardType]", "Hazard Type", "", data.hazardTypes) }}
 
   {{ attachmentInput("Are there any files or images related to the allegation?", "allegation", "false") }}
 </div>
