@@ -307,18 +307,6 @@ router.post('/:mode/flows/attachment/update', function (req, res) {
 
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
 // Change Status flow
 router.post(`/:mode/flows/change-status/save`, function (req, res) {
   const kase = res.locals.data.cases.find(function (c) {
@@ -414,9 +402,5 @@ router.post('/test-setup', function (req, res) {
   continuetoView(req, res);
 });
 
-// Catch-all so we can use `next` liberally
-router.all("*", function (req, res) {
-  continuetoView(req, res)
-})
 // Add your routes here - above the module.exports line
 module.exports = router;
