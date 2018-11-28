@@ -1,8 +1,17 @@
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-one-third">
-    <img src="/public/images/placeholder.png" style="cursor:pointer" title="click to view full size" />
+{% if activity.isImage %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third">
+      <img src="/public/images/placeholder.png" style="cursor:pointer" title="click to view full size" />
+    </div>
+    <div class="govuk-grid-column-two-thirds">
+      <p class="govuk-body">{{activity.description}}</p>
+    </div>
   </div>
-  <div class="govuk-grid-column-two-thirds">
-    <p class="govuk-body">{{activity.description}}</p>
-  </div>
-</div>
+  
+{% else %}
+
+  <p class="govuk-body">{{activity.description}}</p>
+  <a href="#">View {{activity.fileExtension.toUpperCase()}} document</a>
+
+{% endif %}

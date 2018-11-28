@@ -5,6 +5,7 @@ const router = express.Router();
 const today = require("./utils/today");
 const Cases = require("./utils/case");
 const array = require("./utils/arrayHelpers")
+const attachment = require("./utils/attachment")
 
 // Catch-all for redirecting to the correct mode - MUST BE LAST ROUTE ADDED
 router.all("/root/*", function (req, res) {
@@ -199,6 +200,17 @@ router.post('/:mode/flows/attachment/save', function (req, res) {
       return c.id === res.locals.data.caseid;
     });
 
+    const addAttachmentActivityTemplate = require("./data/activities/templates").addAttachment;
+    const newActivity = addAttachmentActivityTemplate({
+      author: res.locals.data.currentUser,
+      title: req.body.attachment.title,
+      description: req.body.attachment.description,
+      isImage: attachment.isImage(req.body.attachment.url),
+      fileExtension: attachment.fileExtension(req.body.attachment.url)
+    });
+
+    obj.activities.unshift(newActivity);
+
     redirectURL = '/root/case#locations?caseid='+res.locals.data.caseid;
   }
 
@@ -211,15 +223,6 @@ router.post('/:mode/flows/attachment/save', function (req, res) {
 
   if (obj) {
     obj.attachments.push(newAttachment.id);
-
-    const addAttachmentActivityTemplate = require("./data/activities/templates").addAttachment;
-    const newActivity = addAttachmentActivityTemplate({
-      author: res.locals.data.currentUser,
-      title: req.body.attachment.title,
-      description: req.body.attachment.description
-    });
-
-    obj.activities.unshift(newActivity);
   }
 
 

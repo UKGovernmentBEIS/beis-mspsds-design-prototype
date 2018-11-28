@@ -1,4 +1,5 @@
 const templates = require("./templates")
+
 module.exports = {
   activities: [
     {
@@ -128,19 +129,14 @@ module.exports = {
         </div>
       </div>`
     },
-    {
+    templates.addAttachment({
       title: "picture of product in situ",
-      action: "Image added",
-      html: `
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-one-third">
-          <img src="public/images/placeholder.png" style="cursor:pointer" title="click to view full size" />
-        </div>
-        <div class="govuk-grid-column-two-thirds">
-          <p class="govuk-body">Image description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-        </div>
-      </div>`
-    },
+      author: "Tim Harwood",
+      description: "Image description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.",
+      isImage: true,
+      fileExtension: 'jpeg',
+      date: "16 August 2018"
+    }),
     {
       title: "Deleted: Investigation report",
       action: "Document deleted",
@@ -155,13 +151,14 @@ module.exports = {
       <p class="govuk-body">New document description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
       <a href="#">View PDF document</a>`
     },
-    {
+    templates.addAttachment({
       title: "Investigation details",
-      action: "Document added",
-      html: `
-      <p class="govuk-body">Document description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-      <a href="#">View PDF document</a>`
-    },
+      author: "Tim Harwood",
+      description: "Document description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.",
+      isImage: false,
+      fileExtension: 'pdf',
+      date: "16 August 2018"
+    }),
     {
       title: "Removed: Travel plug adaptor — Charge Worx 931L",
       action: "Product removed",
