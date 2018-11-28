@@ -1,12 +1,6 @@
 {% extends "includes/templates/flow--creation.html" %}
-
-
 {% set displayTitle        = 'New '+ data['new']['report']['type']%}
-
 {% set formAction         = './04' %}
-
-{% set reportLabel = 'What are their contact details?' %}
-
 
 {% block flow %}
 <form action="{{formAction}}" method="post" class="form">
