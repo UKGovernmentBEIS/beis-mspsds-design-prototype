@@ -18,13 +18,8 @@
 ]), reportRows) %}
 
 {% set prodRows = (reportRows.push([
-    { text: "Summary" },
+    { text: "Question in full" },
     { text: reportData.summary  }
-]), reportRows) %}
-
-{% set prodRows = (reportRows.push([
-    { text: "Details" },
-    { text: reportData.otherDetails  }
 ]), reportRows) %}
 
 {% set prodRows = (reportRows.push([
@@ -40,7 +35,7 @@
         <h3 class="govuk-heading-m">Report</h3>
 
         {{ govukTable({
-            firstCellIsHeader: true,      
+            firstCellIsHeader: true,
             rows: reportRows
         }) }}
     </div>
@@ -48,4 +43,3 @@
 </div>
 
 {% endmacro %}
-
