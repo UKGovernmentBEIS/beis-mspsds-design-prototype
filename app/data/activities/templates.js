@@ -1,5 +1,15 @@
 const today = require("../../utils/today")
 module.exports = {
+  addAttachment: function({title, description, author, date = today.long()}) {
+    return {
+      type: 'addAttachment',
+      action: "Attachment added",
+      date,
+      author,
+      title,
+      description
+    }
+  },
   correctiveAction: function (
     {
       summary,

@@ -198,6 +198,7 @@ router.post('/:mode/flows/attachment/save', function (req, res) {
     obj = res.locals.data.cases.find(function (c) {
       return c.id === res.locals.data.caseid;
     });
+
     redirectURL = '/root/case#locations?caseid='+res.locals.data.caseid;
   }
 
@@ -210,6 +211,15 @@ router.post('/:mode/flows/attachment/save', function (req, res) {
 
   if (obj) {
     obj.attachments.push(newAttachment.id);
+
+    const addAttachmentActivityTemplate = require("./data/activities/templates").addAttachment;
+    const newActivity = addAttachmentActivityTemplate({
+      author: res.locals.data.currentUser,
+      title: req.body.attachment.title,
+      description: req.body.attachment.description
+    });
+
+    obj.activities.unshift(newActivity);
   }
 
 
