@@ -23,9 +23,9 @@ router.all("/:mode(pages|spec|test|old)/*", function (req, res, next) {
 
 // Some flows are shared between entities, so they need to know which entity has
 // launched them.
-router.get('/:mode/:entity(case|business|product|case-list)/', function (req, res) {
+router.get('/:mode/:entity(case|business|product|case-list)/', function (req, res, next) {
   res.locals.data.currentPage = req.params.entity;
-  continuetoView(req, res);
+  next()
 });
 
 // FLOWS ----------------------------------------------------------------------
@@ -404,8 +404,9 @@ router.post('/test-setup', function (req, res) {
   continuetoView(req, res);
 });
 
-
-
-
+// Catch-all so we can use `next` liberally
+router.all("*", function (req, res) {
+  continuetoView(req, res)
+})
 // Add your routes here - above the module.exports line
 module.exports = router;
