@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const today = require("./utils/today");
 const Cases = require("./utils/case");
+const array = require("./utils/arrayHelpers")
 
 // Catch-all for redirecting to the correct mode - MUST BE LAST ROUTE ADDED
 router.all("/root/*", function (req, res) {
@@ -96,17 +97,6 @@ router.post('/:mode/flows/assign/save', function (req, res) {
 });
 
 
-
-
-
-// CRUD flows
-function arrayRemoveByID(arr, value) {
-   return arr.filter(function(ele){
-       return ele.id != value;
-   });
-}
-
-
 // Location flow
 router.post('/:mode/flows/location/save', function (req, res) {
 
@@ -145,7 +135,7 @@ router.post('/:mode/flows/location/delete', function (req, res) {
     });
 
     if (biz && biz.locations) {
-      biz.locations = arrayRemoveByID(biz.locations, req.session.data.locationid);
+      biz.locations = array.removeByID(biz.locations, req.session.data.locationid);
     }
     res.redirect('/root/business#locations?businessid='+req.session.data.businessid);
   }
@@ -234,15 +224,15 @@ router.post('/:mode/flows/attachment/delete', function (req, res) {
 
   let redirectURL = '404';
 
-  
   if (res.locals.data.currentPage === 'business') {
     let biz = res.locals.data.businesses.find(function (b) {
       return b.id === res.locals.data.businessid;
     });
+
     redirectURL = '/root/business#locations?businessid='+res.locals.data.businessid;
 
     if (biz) {
-      biz.attachments = arrayRemoveByID(biz.attachments, req.session.data.attachmentid);
+      biz.attachments = array.removeByValue(biz.attachments, req.session.data.attachmentid);
     }
   }
 
@@ -252,7 +242,7 @@ router.post('/:mode/flows/attachment/delete', function (req, res) {
     });
 
     if (kase) {
-      kase.attachments = arrayRemoveByID(kase.attachments, req.session.data.attachmentid);
+      kase.attachments = array.removeByValue(kase.attachments, req.session.data.attachmentid);
     }
 
     redirectURL = '/root/case#locations?caseid='+res.locals.data.caseid;
@@ -264,7 +254,7 @@ router.post('/:mode/flows/attachment/delete', function (req, res) {
     });
 
     if (prod) {
-      prod.attachments = arrayRemoveByID(prod.attachments, req.session.data.attachmentid);
+      prod.attachments = array.removeByValue(prod.attachments, req.session.data.attachmentid);
     }
 
     redirectURL = '/root/product#locations?productid='+res.locals.data.productid;
