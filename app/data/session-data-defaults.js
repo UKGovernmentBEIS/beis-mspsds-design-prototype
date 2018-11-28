@@ -21,7 +21,7 @@ module.exports = {
   currentUser:   'Tim Harwood',
   mode:         "pages",
   currentPage:  "case",
-  
+
   caseid: "0132-1421",
   businessid: "b1",
   productid: "p1",
@@ -41,4 +41,6 @@ module.exports = {
   locations:    require("./locations.js").locations,
   users:        require("./users.js").users,
   attachments:  require("./attachments.js").attachments,
+  productTypes: require("./product-types.js").productTypes,
+  hazardTypes:  require("./hazard-types.js").hazardTypes
 };
