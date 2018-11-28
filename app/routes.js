@@ -30,7 +30,7 @@ router.get('/:mode/:entity(case|business|product|case-list)/', function (req, re
 
 // FLOWS ----------------------------------------------------------------------
 
-router.post('/:mode/flows/process-incoming/save', function (req, res) {
+router.post('/:mode/flows/create/save', function (req, res) {
   let newCase = req.session.data.new;
 
   Cases.addDefaults(newCase);
