@@ -370,25 +370,21 @@ router.post('/:mode/flows/add-activity/choose', function (req, res) {
 // LISTS ----------------------------------------------------------------------
 
 // Case list and search
-router.get('/:mode/case-search', function (req, res) {
+router.get('/:mode/case-search', function (req, res, next) {
   res.locals.data.caseListSettings.q = "nick 32142";
   // TODO if we ever stop mocking out the search, then this could be a starting point. As, we're faking it
   // res.locals.data.caseListSettings.q = req.query.q
-  continuetoView(req, res);
+  next();
 });
 
 // Case list and search
-router.get('/:mode/case-list', function (req, res) {
+router.get('/:mode/case-list', function (req, res, next) {
   res.locals.data.caseListSettings.q = undefined;
-  continuetoView(req, res);
+  next();
 });
 
-function continuetoView(req, res) {
-  res.render(req.path.substring(1));
-}
-
 // TEST SETUP -----------------------------------------------------------------
-router.post('/test-setup', function (req, res) {
+router.post('/test-setup', function (req, res, next) {
   if (req.body.caseToAssign !== undefined) {
     const kase = res.locals.data.cases.find(function (c) {
       return c.id === req.body.caseToAssign;
@@ -399,7 +395,7 @@ router.post('/test-setup', function (req, res) {
   if (newUser && !res.locals.data.users.includes(newUser)) {
     res.locals.data.users.push(newUser);
   }
-  continuetoView(req, res);
+  next();
 });
 
 // Add your routes here - above the module.exports line
