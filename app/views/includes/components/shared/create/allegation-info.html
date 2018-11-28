@@ -20,20 +20,5 @@
   {{ autocompleteInput("product-type", "Product Type", "", {}) }}
   {{ autocompleteInput("hazard-type", "Hazard Type", "", {}) }}
 
-  {% call govukFieldset({
-    legend: {
-      text:           "Please provide a report title",
-      isPageHeading:  false,
-      classes:        "govuk-fieldset__legend--l"
-    }
-  }) %}
-    {{ govukInput({
-      hint: {
-        text: "This will help other users identify this report"
-      },
-      id: "report-title",
-      name: "new[title]"
-    }) }}
-  {% endcall %}
   {{ attachmentInput("Are there any files or images related to the allegation?", "allegation", "false") }}
 </div>
