@@ -331,6 +331,25 @@ router.post(`/:mode/flows/change-status/save`, function (req, res) {
   res.redirect('/root/case');
 });
 
+// Add comment flow
+router.post(`/:mode/flows/add-comment/save`, function (req, res) {
+  const kase = res.locals.data.cases.find(function (c) {
+    return c.id === req.session.data.caseid;
+  });
+
+  const activityTemplate = require("./data/activities/templates").commentAdded;
+  const newActivity = activityTemplate({
+    commentText: res.locals.data['new-comment'],
+    author: res.locals.data.currentUser,
+    date: today.long()
+  });
+
+  kase.dateUpdated = today.short();
+  kase.activities.unshift(newActivity);
+
+  res.redirect('/root/case');
+});
+
 // New activity flow
 router.post('/:mode/flows/add-activity/choose', function (req, res) {
   let activity = res.locals.data['new-activity'];

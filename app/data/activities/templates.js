@@ -78,5 +78,14 @@ module.exports = {
       title: "Case created",
       action: ""
     }
+  },
+  commentAdded: function ({commentText, author, date}) {
+    return {
+      title: "Comment: " + author,
+      hideName: true,
+      action: "",
+      date: date,
+      text: commentText
+    }
   }
 }
