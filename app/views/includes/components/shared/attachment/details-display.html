@@ -1,0 +1,48 @@
+
+
+    <div class="govuk-grid-column-two-thirds">
+
+      a: {{ currentAttachment.id }}
+
+      {# Doesn't get displayed, but sets an id on the model #}
+        {{ govukInput({
+          id:   "attachmentid",
+          name: "attachmentid",
+          value: currentAttachment.id,
+          type: "hidden"
+        }) }}
+
+      <img src="{{currentAttachment.thumbnail}}" alt="{{currentAttachment.title}}" />
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+      
+      
+      {% set attachmentRows = [] %}
+
+        {% set attachmentRows = ( attachmentRows.push([
+          {text: 'Title'},
+          {text: currentAttachment.title}
+        ]), attachmentRows ) %}
+
+        {% set attachmentRows = ( attachmentRows.push([
+          {text: 'Type'},
+          {text: currentAttachment.type}
+        ]), attachmentRows ) %}
+
+        {% set attachmentRows = ( attachmentRows.push([
+          {text: 'Description'},
+          {text: currentAttachment.description}
+        ]), attachmentRows ) %}
+
+        {% set attachmentRows = ( attachmentRows.push([
+          {text: 'URL'},
+          {text: currentAttachment.url}
+        ]), attachmentRows ) %}
+
+
+        {{ govukTable({
+            firstCellIsHeader: true,
+            rows: attachmentRows
+        }) }}
+
+    </div>

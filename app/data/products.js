@@ -60,13 +60,13 @@ module.exports = {
                     role: 'Importer'
                 }
             ],
-            attachments: ['a1', 'a2'],
+            attachments: ['at1', 'at2'],
             related: [],
             activity: []
         },
         {
             id: 'p2',
-            name: 'Travel plug adaptor — Charge Worx 931L',
+            name: 'Travel plug adaptor — Charge Worx 960L',
             posterImage: '/public/images/charge-worx.jpg',
             brand: 'Charge Worx',
             modelName: 'International Travel Adaptor',
@@ -89,7 +89,7 @@ module.exports = {
                     role: 'Importer'
                 }
             ],
-            attachments: ['a1', 'a2'],
+            attachments: ['at1', 'at2'],
             related: [],
             activity: []
         },

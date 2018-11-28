@@ -1,0 +1,43 @@
+
+{% from "includes/components/shared/tabs/controls.html"           import controls %}
+
+
+{% macro attachmentPanel(attachmentData) %}
+
+  {% set attachment = attachmentData.attachment %}
+
+
+
+
+
+<div class="govuk-grid-row mspsds-attachment-panel">
+
+
+  <div class="govuk-grid-column-one-third">
+
+    <a href="{{attachment.url}}" >
+      <img src="{{attachment.thumbnail}}" alt="{{attachment.title}}" />
+    </a>
+
+  </div>
+
+
+
+  <div class="govuk-grid-column-two-thirds">
+    <h3 class="mspsds-attachment-panel__title govuk-heading-m">{{attachment.title}}</h3>
+    <p class="mspsds-attachment-panel__date govuk-body-s">Updated {{attachment.date}}</p>
+    <p class="govuk-body">{{attachment.description}}</p>
+    
+    {% if attachmentData.controls %}
+
+      {{ controls(attachmentData.controls) }}
+
+    {% endif %}
+
+  </div>
+
+
+</div>
+
+
+{% endmacro %}

@@ -131,11 +131,12 @@ module.exports = function (env) {
     case filters
   ------------------------------------------------------------------ */
   // Make a shallow copy of the cases list with children entity id arrays swapped for copies of the children models
-  filters.attachCaseChildren = function (cases, { products = [], businesses = [], contacts = [] }) {
+  filters.attachCaseChildren = function (cases, { products = [], businesses = [], contacts = [], attachments = [] }) {
     const attachToCase = kase => Object.assign({}, kase, {
-      products: kase.products.map(productId => products.find(product => product.id === productId)),
-      businesses: kase.businesses.map(({ id, role }) => Object.assign({ role }, businesses.find(business => business.id === id))),
-      contacts: kase.contacts.map(({ id, role }) => Object.assign({ role }, contacts.find(contact => contact.id === id))),
+      products:     kase.products.map(productId => products.find(product => product.id === productId)),
+      attachments:  kase.attachments.map(attachmentId => attachments.find(attachment => attachment.id === attachmentId)),
+      businesses:   kase.businesses.map(({ id, role }) => Object.assign({ role }, businesses.find(business => business.id === id))),
+      contacts:     kase.contacts.map(({ id, role }) => Object.assign({ role }, contacts.find(contact => contact.id === id))),
     });
     if (Array.isArray(cases)) {
       return cases.map(attachToCase)
@@ -157,12 +158,13 @@ module.exports = function (env) {
     business filters
   ------------------------------------------------------------------ */
   // Make a shallow copy of the cases list with children entity id arrays swapped for copies of the children models
-  filters.attachBusinessChildren = function (businesses, { products = [], cases = [], contacts = [] , locations = [] }) {
+  filters.attachBusinessChildren = function (businesses, { products = [], cases = [], contacts = [] , locations = [], attachments = [] }) {
     const attachToCase = business => Object.assign({}, business, {
-      products:   business.products.map(productId => products.find(product => product.id === productId)),
-      cases:      cases.filter(c => c.businesses.some(b => b.id === business.id)),
-      contacts:   business.contacts.map(({ id, role }) => Object.assign({ role }, contacts.find(contact => contact.id === id))),
-      locations:  business.locations.map(({ id, role }) => Object.assign({ role }, locations.find(location => location.id === id))),
+      products:     business.products.map(productId => products.find(product => product.id === productId)),
+      attachments:  business.attachments.map(attachmentId => attachments.find(attachment => attachment.id === attachmentId)),
+      cases:        cases.filter(c => c.businesses.some(b => b.id === business.id)),
+      contacts:     business.contacts.map(({ id, role }) => Object.assign({ role }, contacts.find(contact => contact.id === id))),
+      locations:    business.locations.map(({ id, role }) => Object.assign({ role }, locations.find(location => location.id === id))),
     });
     if (Array.isArray(businesses)) {
       return businesses.map(attachToCase)
@@ -175,10 +177,11 @@ module.exports = function (env) {
     case filters
   ------------------------------------------------------------------ */
   // Make a shallow copy of the cases list with children entity id arrays swapped for copies of the children models
-  filters.attachProductChildren = function (products, { cases = [], businesses = [], contacts = [] }) {
+  filters.attachProductChildren = function (products, { cases = [], businesses = [], contacts = [], attachments = [] }) {
     const attachToCase = product => Object.assign({}, product, {
-      cases: cases.filter(c => c.products.some(id => id === product.id)),
-      businesses: product.businesses.map(({ id, role }) => Object.assign({ role }, businesses.find(business => business.id === id))),
+      cases:        cases.filter(c => c.products.some(id => id === product.id)),
+      attachments:  product.attachments.map(attachmentId => attachments.find(attachment => attachment.id === attachmentId)),
+      businesses:   product.businesses.map(({ id, role }) => Object.assign({ role }, businesses.find(business => business.id === id))),
     });
     if (Array.isArray(products)) {
       return products.map(attachToCase)

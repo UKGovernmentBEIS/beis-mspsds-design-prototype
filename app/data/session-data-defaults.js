@@ -40,4 +40,5 @@ module.exports = {
   contacts:     require("./contacts.js").contacts,
   locations:    require("./locations.js").locations,
   users:        require("./users.js").users,
+  attachments:  require("./attachments.js").attachments,
 };

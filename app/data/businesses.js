@@ -53,7 +53,7 @@ module.exports = {
             contact: 'Paul Jones, 0207 1234 5678, paul.jones@abc.np',
 
             products: ['p1', 'p2'],
-            attachments: ['a1'],
+            attachments: ['at1'],
 
             contacts: [
                 {

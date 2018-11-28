@@ -1,19 +1,26 @@
-.mspsds-attachment-list {
+.mspsds-attachment-list,
+.mspsds-attachment-panel {
   @include govuk-responsive-margin(6, "top");
+
+    &__title, 
+    &__image-title {
+      margin-bottom: govuk-spacing(0);
+    }
+
+    &__date,
+    &__image-date {
+      color: $govuk-secondary-text-colour;
+    }
+
+    &__file-details,
+    &__document-file-details {
+      position: relative;
+    }
+
+    &__delete-button {
+      @include govuk-responsive-margin(2, "bottom");
+    }
+
 }
 
-.mspsds-attachment-list__image-title {
-  margin-bottom: govuk-spacing(0);
-}
 
-.mspsds-attachment-list__image-date {
-  color: $govuk-secondary-text-colour;
-}
-
-.mspsds-attachment-list__document-file-details {
-  position: relative;
-}
-
-.mspsds-attachment-list__delete-button {
-  @include govuk-responsive-margin(2, "bottom");
-}

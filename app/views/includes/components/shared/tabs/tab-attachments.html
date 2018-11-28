@@ -1,9 +1,7 @@
 {% from "includes/components/shared/tab-title.html"           import tabTitle %}
 
-{% from "includes/components/shared/attachment-list.html"     import attachmentList %}
+{% from "includes/components/shared/attachment/attachment-panel.html"     import attachmentPanel %}
 
-{% from "includes/components/shared/attachment-list.html"     import imageAttachment %}
-{% from "includes/components/shared/attachment-list.html"     import documentAttachment %}
 
 
 
@@ -37,44 +35,34 @@
 
 <div class="mspsds-tablist mspsds-tablist--business">
 
-    {% for attachmentNumber in range(0, attachments.length) %}
+    {% for atmnt in attachments %}
+
+        {% if loop.index > 1 %}
+            <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible" />
+        {% endif %}
         
-        {% set viewLink     = viewLink.replace('AID', loop.index) %}
-        {% set editLink     = editLink.replace('AID', loop.index) %}
-        {% set deleteLink   = deleteLink.replace('AID', loop.index) %}
 
-        <div class="mspsds-tablist mspsds-tablist--attachment">
-      
-          {% if (loop.index % 2) == 1 %}
-            
-            {% set controls  = {
-                label:       'image',
-                view:        viewLink,
-                edit:        editLink,
-                delete:      deleteLink
-            } %}
+        {% set viewALink     = viewLink.replace('APATH', atmnt.url) %}
+        {% set editALink     = editLink.replace('AID', atmnt.id) %}
+        {% set deleteALink   = deleteLink.replace('AID', atmnt.id) %}
+    
 
-            {{ imageAttachment(controls) }}
+        {% set controls  = {
+            label:       atmnt.type,
+            view:        viewALink,
+            edit:        editALink,
+            delete:      deleteALink
+        } %}
 
-          {% else %}
-            
-            {% set controls  = {
-                label:       'document',
-                view:        viewLink,
-                edit:        editLink,
-                delete:      deleteLink
-            } %}
 
-            {{ documentAttachment(controls) }}
+        {{ attachmentPanel({
+            attachment:     atmnt,
+            controls:       controls
+        }) }}
 
-          {% endif %}
-          
-          {% if attachmentNumber != numberOfAttachments-1 %}
-            <hr class="govuk-section-break govuk-section-break--m govuk-section-break govuk-section-break--visible" />
-          {% endif %}
-        </div>
 
     {% endfor %}
+
 
 </div>
 

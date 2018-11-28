@@ -193,7 +193,7 @@ module.exports = {
         }
       ],
       numAttachments: 1,
-      attachments: ['a1', 'a2'],
+      attachments: ['at1', 'at2'],
       related: [],
       activities: require("./activities/0132-1421.js").activities
     },

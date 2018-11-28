@@ -1,0 +1,74 @@
+{# Doesn't get displayed, but sets on the model #}
+
+  {{ govukInput({
+    id:   "attachmentid",
+    name: "attachmentid",
+    value: data['attachmentid'],
+    type: "hidden"
+  }) }}
+
+  {{ govukInput({
+    id:   "attachment-type",
+    name: "attachment[type]",
+    value: currentAttachment.type,
+    type: "hidden"
+  }) }}
+
+  {{ govukInput({
+      id:   "attachment-thumbnail",
+      name: "attachment[thumbnail]",
+      value: currentAttachment.thumbnail,
+      type: "hidden"
+    }) }}
+
+    {{ govukInput({
+      id:   "attachment-url",
+      name: "attachment[url]",
+      value: currentAttachment.url,
+      type: "hidden"
+    }) }}
+
+
+
+  <div class="govuk-grid-row">
+
+      <div class="govuk-grid-column-two-thirds">
+
+          <img src="{{currentAttachment.thumbnail}}" alt="New attachment" />
+
+          <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+          {% call govukFieldset({
+            legend: {
+              text: formLabel,
+              classes: "govuk-fieldset__legend--l",
+              isPageHeading: false
+            }
+          }) %}
+
+
+            {{ govukInput({
+              id:   "attachment-title",
+              name: "attachment[title]",
+              value:    currentAttachment.title,
+              label: {
+                text: "Title"
+              },
+              classes: "govuk-!-width-two-thirds"
+            }) }}
+
+
+            {{ govukTextarea({
+              id:   "attachment-description",
+              name: "attachment[description]",
+              value:    currentAttachment.description,
+              label: {
+                text: "Description"
+              }
+            }) }}
+
+          {% endcall %}
+
+      </div>
+
+  </div>
