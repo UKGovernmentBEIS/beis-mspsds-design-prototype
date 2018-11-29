@@ -39,6 +39,8 @@
   <div class="govuk-grid-column-two-thirds">
     
     <form method="post" class="form">
+
+      
       {% call govukFieldset({
         legend: {
           text:           "Who's testing?",
@@ -47,11 +49,40 @@
         }
       }) %}
 
+
         {{ govukInput({
           idPrefix:   "testing-name",
           name:       "currentUser",
           value: data.currentUser
         }) }}
+
+
+        {% set teamRows         = [] %}
+
+        {% for team in data['teams'] %}
+
+          {% set teamRows = (teamRows.push({ 
+              value: team,
+              text: team,
+              checked: checked("currentTeam", team)
+            }), teamRows) %}
+
+        {% endfor %}
+
+        {{ govukRadios({
+          idPrefix:   "currentTeam",
+          name:       "currentTeam",
+          fieldset: {
+            legend: {
+              text:     "What team?",
+              classes:  "govuk-fieldset__legend--s"
+            }
+          },
+          items: teamRows
+        }) }}
+
+
+
 
       {% endcall %}
       

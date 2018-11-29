@@ -1,0 +1,20 @@
+{% extends "includes/templates/flow--creation-ts.html" %}
+
+{% set displayTitle        = 'Report a product' %}
+{% set formAction         = './05' %}
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+  <div class="govuk-grid-row">
+    
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% from "button/macro.njk" import govukButton %}
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </div>
+  </div>
+</form>
+{% endblock %}

@@ -30,13 +30,27 @@
 
 
 
-  <div class="govuk-grid-row">
+{% set extraClass = '' %}
+{% if currentAttachment.type == 'document' %}
+
+  {% set extraClass = 'govuk-grid-column-one-half' %}
+
+{% endif %}
+
+
+
+  <div class="govuk-grid-row blah">
 
       <div class="govuk-grid-column-two-thirds">
 
-          <img src="{{currentAttachment.thumbnail}}" alt="New attachment" />
+          <div class="{{extraClass}}">
+              <img src="{{currentAttachment.thumbnail}}" alt="New attachment" />
+              <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+          </div>
+      </div>
 
-          <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+      <div class="govuk-grid-column-two-thirds">
+          
 
           {% call govukFieldset({
             legend: {

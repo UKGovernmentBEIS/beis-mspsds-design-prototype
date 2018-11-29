@@ -19,6 +19,8 @@ Example usage:
 
 module.exports = {
   currentUser:   'Tim Harwood',
+  currentTeam:   'OPSS - Processing',
+
   mode:         "pages",
   currentPage:  "case",
 
@@ -42,5 +44,6 @@ module.exports = {
   users:        require("./users.js").users,
   attachments:  require("./attachments.js").attachments,
   productTypes: require("./product-types.js").productTypes,
-  hazardTypes:  require("./hazard-types.js").hazardTypes
+  hazardTypes:  require("./hazard-types.js").hazardTypes,
+  teams:        require("./teams.js").teams
 };

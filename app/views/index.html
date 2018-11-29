@@ -56,9 +56,9 @@
       </form>
 
 
-      {% if data.mode == 'test' %}
-        <a href="test-setup">Setup</a>
-      {% endif %}
+      
+      <a href="test-setup">Setup</a>
+      
 
       {% include (data.mode or "old") + "/index.html" ignore missing %}
     </div>

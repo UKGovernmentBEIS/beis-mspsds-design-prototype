@@ -2,6 +2,10 @@
 .mspsds-attachment-panel {
   @include govuk-responsive-margin(6, "top");
 
+    &__image {
+      float: right;
+    }
+
     &__title, 
     &__image-title {
       margin-bottom: govuk-spacing(0);

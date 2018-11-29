@@ -1,9 +1,10 @@
-{% from "includes/components/shared/attachment-input.html" import attachmentInput %}
+
 {% from "includes/components/shared/autocomplete-input.html" import autocompleteInput %}
+
 <div class="govuk-grid-column-two-thirds">
   {% call govukFieldset({
     legend: {
-      text:           "What is being alleged?",
+      text:           "What are you reporting?",
       isPageHeading:  false,
       classes:        "govuk-fieldset__legend--l"
     }
@@ -18,14 +19,6 @@
   {% endcall %}
 
   {{ autocompleteInput({
-    idPrefix: "product-type", 
-    name:     "new[report][productType]", 
-    legend:   "Product type", 
-    hint:     "", 
-    values:   data.productTypes}) 
-  }}
-
-  {{ autocompleteInput({
     idPrefix: "hazard-type", 
     name:     "new[report][hazardType]", 
     legend:   "Hazard type", 
@@ -33,5 +26,4 @@
     values:   data.hazardTypes}) 
   }}
 
-  {{ attachmentInput("Are there any files or images related to the allegation?", "allegation", "false") }}
 </div>

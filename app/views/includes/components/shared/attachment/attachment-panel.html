@@ -4,20 +4,25 @@
 
 {% macro attachmentPanel(attachmentData) %}
 
-  {% set attachment = attachmentData.attachment %}
+{% set attachment = attachmentData.attachment %}
 
+{% set extraClass = 'govuk-grid-column-full' %}
+{% if attachment.type == 'document' %}
 
+  {% set extraClass = 'govuk-grid-column-one-half' %}
 
+{% endif %}
 
 
 <div class="govuk-grid-row mspsds-attachment-panel">
 
 
   <div class="govuk-grid-column-one-third">
-
-    <a href="{{attachment.url}}" >
-      <img src="{{attachment.thumbnail}}" alt="{{attachment.title}}" />
-    </a>
+    <div class="{{extraClass}} mspsds-attachment-panel__image">
+      <a href="{{attachment.url}}" >
+        <img src="{{attachment.thumbnail}}" alt="{{attachment.title}}" />
+      </a>
+    </div>
 
   </div>
 

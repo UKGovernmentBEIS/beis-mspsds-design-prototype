@@ -22,13 +22,21 @@ Record testing request
 
     <form action="/flows/record-testing-request/02-record-testing-request-confirm" method="post" class="form">
 
-      {% from "includes/autocomplete-input.html" import autocompleteInput %}
+      {% from "includes/components/shared/autocomplete-input.html" import autocompleteInput %}
       {% set products = [
         'Travel plug adaptor — Charge Worx 931L',
         'iPhone charger – unbranded, white',
         'Travel plug adaptor – Multipower 94998'
       ] %}
-      {{ autocompleteInput("case-products", "TODO-product-input-name", "Which product should be tested?", "Only products already added to the case are listed. <a href='#'>Add a product</a>", products) }}
+
+      {{ autocompleteInput({
+        idPrefix: "case-products", 
+        name:     "TODO-product-input-name", 
+        legend:   "Which product should be tested?", 
+        hint:     "Only products already added to the case are listed. <a href='#'>Add a product</a>", 
+        values:   products}) 
+      }}
+
 
       {% from "includes/legislation-input.html" import legislationInput %}
       {{ legislationInput("Against which legislation?") }}

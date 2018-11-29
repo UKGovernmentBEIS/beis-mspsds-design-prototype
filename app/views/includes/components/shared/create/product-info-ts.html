@@ -1,0 +1,66 @@
+  {% from "includes/components/shared/autocomplete-input.html" import autocompleteInput %}
+
+<div class="govuk-grid-column-two-thirds">
+
+        {% call govukFieldset({
+          legend: {
+            text:           "What is the product?",
+            isPageHeading:  false,
+            classes:        "govuk-fieldset__legend--l "
+          }
+        }) %}
+
+        {% endcall %}
+
+        {{ autocompleteInput({
+          idPrefix: "product-type", 
+          name:     "new[report][productType]", 
+          legend:   "Product type",
+          class:    "govuk-fieldset__legend--m",
+          hint:     "For example, 'dishwasher, soft toy, chainsaw, etc.'", 
+          values:   data.productTypes}) 
+        }}
+
+
+
+        {% call govukFieldset({
+          legend: {
+            text:           "Product name",
+            isPageHeading:  false,
+            classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+          }
+        }) %}
+
+          {{ govukTextarea({
+            name: "report-product-name",
+            id:   "new[report][product][name]",
+            classes:  "govuk-!-margin-bottom-5",
+            hint: {
+              html: "Brand, model name, model number, etc.<br/> For example, Bosch Serie 2 SMS25EI00G’"
+            }
+          }) }}
+
+        {% endcall %}
+
+
+        {% call govukFieldset({
+          legend: {
+            text:           "Description",
+            isPageHeading:  false,
+            classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+          }
+        }) %}
+
+          {{ govukTextarea({
+            name: "allegation-product-description",
+            id:   "allegation-product-description",
+            classes:  "govuk-!-margin-bottom-5",
+            hint: {
+              text: "For example, ‘Orange, 4 socket extension lead’"
+            }
+          }) }}
+
+        {% endcall %}
+
+</div>
+

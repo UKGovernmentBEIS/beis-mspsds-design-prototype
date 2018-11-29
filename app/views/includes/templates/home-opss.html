@@ -1,0 +1,39 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% block pageTitle %}
+  Home Page
+{% endblock %}
+
+
+
+{% block beforeContent %}
+
+  {% include "includes/components/shared/page-banner.html" %}
+
+  {{ siteNavV3([
+    { 
+      label: 'Home',
+      link: '/root/home',
+      classes: 'active'
+    }, { 
+      label: 'Cases',
+      link: '/root/case-list'
+    }, { 
+      label: 'Products',
+      link: '/root/product-list'
+    }, { 
+      label: 'Businesses',
+      link: '/root/business-list'
+    }
+    ], data['createUrl'] ) }}
+
+{% endblock %}
+
+
+
+{% block content %}
+
+Home OPSS
+
+{% endblock %}

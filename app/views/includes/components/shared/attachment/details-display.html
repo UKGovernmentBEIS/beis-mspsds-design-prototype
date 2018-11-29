@@ -1,8 +1,13 @@
+{% set extraClass = 'govuk-grid-column-full' %}
+{% if currentAttachment.type == 'document' %}
+
+  {% set extraClass = 'govuk-grid-column-one-half' %}
+
+{% endif %}
+
 
 
     <div class="govuk-grid-column-two-thirds">
-
-      a: {{ currentAttachment.id }}
 
       {# Doesn't get displayed, but sets an id on the model #}
         {{ govukInput({
@@ -12,9 +17,12 @@
           type: "hidden"
         }) }}
 
-      <img src="{{currentAttachment.thumbnail}}" alt="{{currentAttachment.title}}" />
+      <div class="{{extraClass}}">
+         <img src="{{currentAttachment.thumbnail}}" alt="{{currentAttachment.title}}" />
+         <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+      </div>
 
-      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+      
       
       
       {% set attachmentRows = [] %}

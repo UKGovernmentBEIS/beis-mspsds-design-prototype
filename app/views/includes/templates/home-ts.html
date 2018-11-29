@@ -1,0 +1,89 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% block pageTitle %}
+  Home Page
+{% endblock %}
+
+
+
+{% block beforeContent %}
+
+	{% include "includes/components/shared/page-banner.html" %}
+
+	{{ siteNavV3([
+    { 
+      label: 'Home',
+      link: '/root/home',
+      classes: 'active'
+    }, { 
+      label: 'Cases',
+      link: '/root/case-list'
+    }, { 
+      label: 'Products',
+      link: '/root/product-list'
+    }, { 
+      label: 'Businesses',
+      link: '/root/business-list'
+    }
+    ]) }}
+
+{% endblock %}
+
+
+
+{% block content %}
+
+<section class="mspsds-pagetitle">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% from "includes/components/shared/page-title.html"        import pageTitle %}
+      {{ pageTitle({
+        title: 'Office for Product Safety & Standards'
+      }) }}
+    </div>
+  </div>
+</section>
+
+
+<section class="mspsds-pagebody">
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h2 class="govuk-heading-m">
+          <a href="/pages/flows/ts-report-product/01">Report a product</a>
+      </h2>
+
+      <p class="govuk-body">
+        Report safety allegations, work and product recalls &ndash;
+        you must report all severe product safety risks.
+      </p>
+
+      <p class="govuk-body">
+        Report  unsafe products to improve the data we have to identify areas of risk to consumers and coordinate action.
+      </p>
+
+      <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--xl govuk-!-margin-top-0">
+    </div>
+  </div>
+
+
+   <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h2 class="govuk-heading-m">
+          <a href="notification/setup/product-name">Ask a question</a>
+      </h2>
+
+      <p class="govuk-body">
+        Advice on legislation or support with product testing.
+      </p>
+
+     
+    </div>
+  </div>
+
+
+</section>
+
+
+{% endblock %}

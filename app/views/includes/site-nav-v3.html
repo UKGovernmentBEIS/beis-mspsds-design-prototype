@@ -20,18 +20,16 @@
       </ul>
 
       {% if createLink %}
-        {% set create = createLink %}
-      {% else %}
-        {% set create = '#' %}
+        <div class="creation" data-create="{{create}}">
+          {{ govukButton({
+            text: "Create new",
+            href: create,
+            classes: "govuk-button--start"
+          }) }}
+        </div>
       {% endif %}
 
-      <div class="creation" data-create="{{create}}">
-        {{ govukButton({
-          text: "Create new",
-          href: create,
-          classes: "govuk-button--start"
-        }) }}
-      </div>
+      
         
     </div>
 

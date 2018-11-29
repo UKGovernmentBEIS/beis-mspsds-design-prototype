@@ -14,17 +14,12 @@
 
 {% block beforeContent %}
 
-    {{ govukPhaseBanner({
-        tag: {
-          text: "beta"
-        },
-        html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
-    }) }}
+    {% include "includes/components/shared/page-banner.html" %}
 
     {{ siteNavV3([
       {
         label: 'Home',
-        link: '/'
+        link: '/root/home'
       }, {
         label: 'Cases',
         link: '/root/case-list',
@@ -63,8 +58,7 @@
       <div class="govuk-!-margin-bottom-0">
           {{ headerSearch({
             action: "./case-search",
-            label: "Keywords",
-            value: data.caseListSettings.q
+            label: "Keywords"
           }) }}
       </div>
 
