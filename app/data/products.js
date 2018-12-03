@@ -272,6 +272,23 @@ module.exports = {
         {
             id: 'p47',
             name: 'Red Zulu, Slap Wrap',
+            posterImage: '/public/images/slapwrap1.jpg',
+            brand: 'Red Zulu',
+            barcode: '93457934',
+            productNumber: '2038475498',
+            origin: 'China',
+            manufacturer: 'b3',
+            dateOnMarket: '10/10/2008',
+            businesses: [{ id: 'b3', role: 'Manufacturer' }],
+            modelName: 'International Travel Adaptor',
+            // the below properties have not been set for this product
+            // modelNumber: '931L',
+            // description: 'Universal travel USB plug adaptor with surge protector',
+            // type: 'Travel adaptor',
+            // category: 'Electrical equipment',
+            // attachments: ['a1', 'a2'],
+            // related: [],
+            // activity: []
         },
         {
             id: 'p48',

@@ -83,7 +83,7 @@ module.exports = {
     return {
       title: "Comment: " + author,
       hideName: true,
-      action: "",
+      action: "Comment added",
       date: date,
       text: commentText
     }
