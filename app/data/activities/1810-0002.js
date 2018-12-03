@@ -1,11 +1,12 @@
+const templates = require("./templates")
+
 module.exports = {
   activities: [
-    {
-      title: "Comment: Tim Harwood",
-      hideName: true,
-      action: "",
-      text: "Needs addressing asap - we're nearly at the end of SLA"
-    },
+    templates.commentAdded({
+      commentText: "Needs addressing asap - we're nearly at the end of SLA",
+      author: "Tim Harwood",
+      date: "16/10/2018"
+    }),
     {
       title: "Product recall requested",
       action: "Corrective action recorded",
