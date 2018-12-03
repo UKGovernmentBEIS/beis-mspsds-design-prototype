@@ -5,6 +5,15 @@
 {% set products    = data.products | attachProductChildren(data) %}
 
 
+{% set currentTeam   = data['currentTeam'] %}
+{% if currentTeam.includes("Trading") %}
+  {% set createLink  = '/root/flows/ts-create/01' %}
+{% else %}
+  {% set createLink  = data['createUrl'] %}
+{% endif %}
+
+
+
 {% block pageTitle %}
   Product-list Page
 {% endblock %}
@@ -13,7 +22,8 @@
 
   {% include "includes/components/shared/page-banner.html" %}
   
-  {{ siteNavV3([
+  {% from "includes/components/shared/site-nav.html"        import siteNav %}
+  {{ siteNav([
     { 
       label: 'Home',
       link: '/root/home'
@@ -28,7 +38,7 @@
       label: 'Businesses',
       link: '/root/business-list'
     }
-    ], data['createUrl'] ) }}
+    ], createLink ) }}
 
 {% endblock %}
 

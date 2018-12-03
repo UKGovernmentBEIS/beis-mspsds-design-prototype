@@ -1,0 +1,25 @@
+
+
+
+<div class="govuk-grid-column-two-thirds">
+  
+
+    {% call govukFieldset({
+        legend: {
+          text:       "Upload test results",
+          classes:    "govuk-fieldset__legend--m"
+        }
+    }) %}
+
+    {{ govukFileUpload({
+      id: "testing-results-upload",
+      name: "new[testing][upload]"
+    }) }}
+
+    {% endcall %}
+
+
+</div>
+
+
+

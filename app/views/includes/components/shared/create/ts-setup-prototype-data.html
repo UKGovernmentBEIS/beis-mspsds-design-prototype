@@ -1,0 +1,43 @@
+{% set length = data['cases'].length  %}
+
+{{ govukInput({
+  id:   "caseid",
+  name: "caseid",
+  value: "1800-"+length,
+  type: "hidden"
+}) }}
+
+{{ govukInput({
+  id:   "issue-id",
+  name: "new[id]",
+  value: "1800-"+length,
+  type: "hidden"
+}) }}
+
+{{ govukInput({
+  id:   "issue-status",
+  name: "new[status]",
+  value: "Open",
+  type: "hidden"
+}) }}
+
+{{ govukInput({
+  id:   "issue-assignee",
+  name: "new[assignee]",
+  value: "OPSS - Processing",
+  type: "hidden"
+}) }}
+
+{{ govukInput({
+  id:   "issue-reporter-type",
+  name: "new[report][reporter][type]",
+  value: "Trading Standards",
+  type: "hidden"
+}) }}
+
+{{ govukInput({
+  id:   "issue-reporter-name",
+  name: "new[report][reporter][name]",
+  value: data['currentUser'],
+  type: "hidden"
+}) }}

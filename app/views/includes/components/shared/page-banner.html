@@ -1,9 +1,27 @@
 {% from "phase-banner/macro.njk"  import govukPhaseBanner %}
 
 
+{% set bannerTag    = 'beta' %}
+{% set bannerHTML   = 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.' %}
+
+{% if data.mode == 'pages'%}
+    {% set bannerTag    = 'working space' %}
+    {% set bannerHTML   = 'This should not be used for testing, or developer specifications' %}
+{% endif %}
+
+{% if data.mode.indexOf('test') > -1 %}
+    {% set bannerTag    = 'prototype' %}
+    {% set bannerHTML   = 'This app is a prototype - it will not store any data entered by users' %}
+{% endif %}
+
+
+
+
+
+
 {{ govukPhaseBanner({
 	tag: {
-	  text: "beta"
+	  text: bannerTag
 	},
-	html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+	html: bannerHTML
 }) }}

@@ -2,27 +2,29 @@
 {% from "file-upload/macro.njk"   import govukFileUpload %}
 {% from "textarea/macro.njk"      import govukTextarea %}
 
-{% macro attachmentInput(label, idPrefix, includeDescription) %}
+{% macro attachmentInput(options) %}
+
+{# label, idPrefix, includeDescription #}
 
     {% call govukFieldset({
       legend: {
-        text:       label,
+        text:       options.label,
         classes:    "govuk-fieldset__legend--l"
       }
     }) %}
 
         {{ govukFileUpload({
-          id: idPrefix+"-upload",
-          name: idPrefix+"-upload"
+          id: options.idPrefix+"-upload",
+          name: options.idPrefix+"-upload"
         }) }}
 
-        {% if includeDescription == 'true' %}
+        {% if options.includeDescription == 'true' %}
             {{ govukTextarea({
               label: {
                 text: "Attachment description"
               },
-              name: idPrefix+"-upload-description",
-              id:   idPrefix+"-upload-description"
+              name: options.idPrefix+"-upload-description",
+              id:   options.idPrefix+"-upload-description"
             }) }}
         {% endif %}
 

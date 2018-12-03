@@ -6,12 +6,21 @@
 {% endblock %}
 
 
+{% set currentTeam   = data['currentTeam'] %}
+{% if currentTeam.includes("Trading") %}
+  {% set createLink  = '/root/flows/ts-create/01' %}
+{% else %}
+  {% set createLink  = data['createUrl'] %}
+{% endif %}
+
+
 
 {% block beforeContent %}
 
 	{% include "includes/components/shared/page-banner.html" %}
 
-	{{ siteNavV3([
+	{% from "includes/components/shared/site-nav.html"        import siteNav %}
+  {{ siteNav([
     { 
       label: 'Home',
       link: '/root/home',
@@ -39,7 +48,7 @@
     <div class="govuk-grid-column-two-thirds">
       {% from "includes/components/shared/page-title.html"        import pageTitle %}
       {{ pageTitle({
-        title: 'Office for Product Safety & Standards'
+        title: 'Market Surveillance and Product Safety Digital Service'
       }) }}
     </div>
   </div>
@@ -50,35 +59,34 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <h2 class="govuk-heading-m">
-          <a href="/pages/flows/ts-report-product/01">Report a product</a>
-      </h2>
 
-      <p class="govuk-body">
-        Report safety allegations, work and product recalls &ndash;
-        you must report all severe product safety risks.
+      <p class="govuk-body-l">
+        Use this service to:
       </p>
 
-      <p class="govuk-body">
-        Report  unsafe products to improve the data we have to identify areas of risk to consumers and coordinate action.
+      <ul class="govuk-list  govuk-!-margin-bottom-9">
+        <li>
+          Report dangerous products and related work
+        </li>
+        <li>
+          Report product recall information
+        </li>
+        <li>
+          Ask questions and support around testing, policy, legislation etc
+        </li>
+      </ul>
+      
+
+      <p class="govuk-body-l">
+        {{ govukButton({
+          text: "Get started",
+          href: createLink,
+          classes: "govuk-button--start"
+        }) }}
       </p>
 
-      <hr class="govuk-section-break govuk-section-break--visible govuk-section-break--xl govuk-!-margin-top-0">
-    </div>
-  </div>
 
 
-   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <h2 class="govuk-heading-m">
-          <a href="notification/setup/product-name">Ask a question</a>
-      </h2>
-
-      <p class="govuk-body">
-        Advice on legislation or support with product testing.
-      </p>
-
-     
     </div>
   </div>
 

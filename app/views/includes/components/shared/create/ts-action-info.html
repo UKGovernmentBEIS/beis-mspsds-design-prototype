@@ -1,0 +1,23 @@
+
+<div class="govuk-grid-column-two-thirds">
+  {% call govukFieldset({
+    legend: {
+      text:           "What actions have been taken so far?",
+      isPageHeading:  false,
+      classes:        "govuk-fieldset__legend--l"
+    }
+  }) %}
+
+    {{ govukTextarea({
+      name: "new[report][actions][summary]",
+      id:   "actions-detail",
+      hint : {
+        text: "Please give as much detail as possible about the actions already taken"
+      }
+    }) }}
+      
+
+  {% endcall %}
+
+
+</div>

@@ -8,6 +8,16 @@
 {% from "select/macro.njk"                import govukSelect %}
 {% set bodyClasses = "mspsds-width-container case-list-3" %}
 
+
+{% set currentTeam   = data['currentTeam'] %}
+{% if currentTeam.includes("Trading") %}
+  {% set createLink  = '/root/flows/ts-create/01' %}
+{% else %}
+  {% set createLink  = data['createUrl'] %}
+{% endif %}
+
+
+
 {% block pageTitle %}
   Case-list Page
 {% endblock %}
@@ -16,7 +26,8 @@
 
     {% include "includes/components/shared/page-banner.html" %}
 
-    {{ siteNavV3([
+    {% from "includes/components/shared/site-nav.html"        import siteNav %}
+    {{ siteNav([
       {
         label: 'Home',
         link: '/root/home'
@@ -31,7 +42,7 @@
         label: 'Businesses',
         link: '/root/business-list'
       }
-    ], data['createUrl'] ) }}
+    ], createLink ) }}
 
 {% endblock %}
 
@@ -71,6 +82,13 @@
           </label>
         {% endset -%}
 
+        {% set creatorHtml %}
+          <label for="case-creator-autocomplete" class="label govuk-label">Name / Team
+            <div id="case-creator-autocomplete-container"></div>
+          </label>
+        {% endset -%}
+
+
         {{ govukCheckboxes({
 
           fieldset: {
@@ -100,6 +118,39 @@
 
           ]
         }) }}
+        
+
+        {% if filterByCreated %}
+          {{ govukCheckboxes({
+
+            fieldset: {
+              legend: {
+                text: "Created by",
+                isPageHeading: false,
+                classes: "govuk-fieldset__legend--s"
+              }
+            },
+            classes: "govuk-!-margin-bottom-5",
+            idPrefix:   "Creator",
+            name:       "caseListSettings[creator]",
+            items: [
+              {
+                value: "Me",
+                text: "Me",
+                checked: checked("caseListSettings['creator']", "Me")
+              },
+              {
+                value: "other",
+                text: "Someone else",
+                checked: checked("caseListSettings['creator']", "other"),
+                conditional: {
+                  html: creatorHtml
+                }
+              }
+
+            ]
+          }) }}
+        {% endif %}
 
         {{ govukCheckboxes({
           fieldset: {
@@ -163,10 +214,11 @@
       </form>
 
       <script type="text/javascript">
-        var users = {{data.users | jsList | safe}}
-        element = document.querySelector('#case-assignee-autocomplete-container');
+        var users = {{ data.users | jsList | safe }}
+        
+        aElement = document.querySelector('#case-assignee-autocomplete-container');
         accessibleAutocomplete({
-          element: element,
+          element: aElement,
           id: 'case-assignee-autocomplete',
           name: "caseListSettings[assignee-other]",
           showNoOptionsFound: false,
@@ -175,6 +227,19 @@
           dropdownArrow: () => '',
           source: users.sort()
         });
+
+        cElement = document.querySelector('#case-creator-autocomplete-container');
+        accessibleAutocomplete({
+          element: cElement,
+          id: 'case-creator-autocomplete',
+          name: "caseListSettings[creator-other]",
+          showNoOptionsFound: false,
+          defaultValue: '{{data.caseListSettings["creator-other"]}}',
+          showAllValues: true,
+          dropdownArrow: () => '',
+          source: users.sort()
+        });
+
       </script>
       
     </div>

@@ -1,0 +1,25 @@
+
+<div class="govuk-grid-column-two-thirds">
+
+    {% call govukFieldset({
+        legend: {
+          text:       "Other related files or images",
+          classes:    "govuk-fieldset__legend--m"
+        }
+    }) %}
+
+        {{ govukFileUpload({
+          id: "related-upload",
+          name: "new[related][upload]"
+        }) }}
+
+    {% endcall %}
+
+</div>
+
+
+
+
+
+
+

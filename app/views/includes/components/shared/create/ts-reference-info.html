@@ -1,0 +1,22 @@
+
+<div class="govuk-grid-column-two-thirds">
+  {% call govukFieldset({
+    legend: {
+      text:           "Your unique reference number",
+      isPageHeading:  false,
+      classes:        "govuk-fieldset__legend--m"
+    }
+  }) %}
+
+   {{ govukInput({
+      hint: {
+        text: "This is the case number from your system, use it to help you find your report in the future."
+      },
+      id: "report-title",
+      name: "new[reference]"
+    }) }}
+
+  {% endcall %}
+
+
+</div>

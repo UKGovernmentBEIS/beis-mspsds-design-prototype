@@ -85,6 +85,31 @@
 
 
       {% endcall %}
+
+
+      {{ govukRadios({
+          idPrefix:   "debugging",
+          name:       "debugging",
+          classes:    "govuk-radios--inline",
+          fieldset: {
+            legend: {
+              text:     "Debugging?",
+              classes:  "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+            {
+              value: "Yes",
+              text: "Yes",
+              checked: checked("debugging", "Yes")
+            },
+            {
+              value: "No",
+              text: "No",
+              checked: checked("debugging", "No")
+            }
+          ]
+        }) }}
       
       {{ govukButton({text: "Save"}) }}
 

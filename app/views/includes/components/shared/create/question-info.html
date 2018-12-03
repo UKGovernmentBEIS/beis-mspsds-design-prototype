@@ -32,5 +32,9 @@
   {% endcall %}
 
   {% from "includes/components/shared/attachment-input.html" import attachmentInput %}
-  {{ attachmentInput("Are there any files or images related to the question?", "question", "false") }}
+  {{ attachmentInput({
+    label:                  "Are there any files or images related to the question?", 
+    idPrefix:               "question", 
+    includeDescription:     "false"
+  }) }}
 </div>

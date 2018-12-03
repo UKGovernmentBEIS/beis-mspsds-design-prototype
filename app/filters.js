@@ -1,3 +1,5 @@
+/* jshint esversion: 6 */
+
 module.exports = function (env) {
   /**
    * Instantiate object used to store the methods registered as a
@@ -42,53 +44,67 @@ module.exports = function (env) {
     collection filters
   ------------------------------------------------------------------ */
   filters.filterCollection = function (thigs, filters) {
-    let ret = thigs
+    let ret = thigs;
     filters.forEach(filter => {
-      ret = ret.filter(filter)
+      ret = ret.filter(filter);
     });
-    return ret
-  }
+    return ret;
+  };
 
   filters.withId = function (things, id) {
     return things.find(function (thing) {
-      return thing.id === id
-    })
-  }
+      return thing.id === id;
+    });
+  };
 
   filters.pick = function (objects, attr) {
-    return objects.map(o => o[attr])
-  }
+    return objects.map(o => o[attr]);
+  };
 
   filters.jsList = function (objects, attr) {
-    return "[" + objects.map(o => "'" + o + "'") + "]"
-  }
+    return "[" + objects.map(o => "'" + o + "'") + "]";
+  };
 
   /* ------------------------------------------------------------------
     caseListSettings filters
   ------------------------------------------------------------------ */
   filters.caseFilters = function (caseListSettings, currentUser) {
-    let filters = []
+    let filters = [];
     if (caseListSettings.status) {
       filters.push(function (kase) {
-        return caseListSettings.status.includes(kase.status)
-      })
+        return caseListSettings.status.includes(kase.status);
+      });
     }
     if (caseListSettings.assignee) {
-      let allowedAssignees = []
+      let allowedAssignees = [];
       if (caseListSettings.assignee.includes("Me")) {
-        allowedAssignees.push(currentUser)
+        allowedAssignees.push(currentUser);
       }
       if (caseListSettings.assignee.includes("other")) {
-        allowedAssignees.push(caseListSettings["assignee-other"])
+        allowedAssignees.push(caseListSettings["assignee-other"]);
       }
       filters.push(function (kase) {
-        return allowedAssignees.includes(kase.assignee)
-      })
+        return allowedAssignees.includes(kase.assignee);
+      });
     }
+
+    if (caseListSettings.creator) {
+      let allowedCreators = [];
+      if (caseListSettings.creator.includes("Me")) {
+        allowedCreators.push(currentUser);
+      }
+      if (caseListSettings.creator.includes("other")) {
+        allowedCreators.push(caseListSettings["creator-other"]);
+      }
+      filters.push(function (kase) {
+        return allowedCreators.includes(kase.creator);
+      });
+    }
+
     if (caseListSettings.q) {
       filters.push(function (kase) {
-        return kase.match !== undefined
-      })
+        return kase.match !== undefined;
+      });
 
       // TODO - this is a close-to working solution, but it doesn't search in related entities, so isn't quite good enough to implement atm
       //        if improved, though, it could complete replace the faked "match" stuff
@@ -105,27 +121,27 @@ module.exports = function (env) {
         return results.length > 0
       })*/
     }
-    return filters
-  }
+    return filters;
+  };
 
   filters.caseSortAttr = function (caseListSettings) {
     switch (caseListSettings.sort) {
-      case "latest": return "dateUpdated"
-      case "oldest": return "dateUpdated"
-      case "newest": return "dateCreated"
-      default: return undefined
+      case "latest": return "dateUpdated";
+      case "oldest": return "dateUpdated";
+      case "newest": return "dateCreated";
+      default: return undefined;
     }
-  }
+  };
 
   filters.caseSortDir = function (caseListSettings) {
     // returns if the sort should be reversed
     switch (caseListSettings.sort) {
-      case "latest": return true
-      case "oldest": return false
-      case "newest": return true
-      default: return true
+      case "latest": return true;
+      case "oldest": return false;
+      case "newest": return true;
+      default: return true;
     }
-  }
+  };
 
   /* ------------------------------------------------------------------
     case filters
@@ -139,7 +155,7 @@ module.exports = function (env) {
       contacts:     kase.contacts.map(({ id, role }) => Object.assign({ role }, contacts.find(contact => contact.id === id))),
     });
     if (Array.isArray(cases)) {
-      return cases.map(attachToCase)
+      return cases.map(attachToCase);
     } else {
       return attachToCase(cases);
     }
@@ -151,8 +167,8 @@ module.exports = function (env) {
       value: kase.id,
       text: `${kase.type} ${kase.id} (assigned to ${kase.assignee})`,
       selected: kase.id === selectedByDefault
-    }))
-  }
+    }));
+  };
 
   /* ------------------------------------------------------------------
     business filters
@@ -167,11 +183,11 @@ module.exports = function (env) {
       locations:    business.locations.map(({ id, role }) => Object.assign({ role }, locations.find(location => location.id === id))),
     });
     if (Array.isArray(businesses)) {
-      return businesses.map(attachToCase)
+      return businesses.map(attachToCase);
     } else {
       return attachToCase(businesses);
     }
-  }
+  };
 
   /* ------------------------------------------------------------------
     case filters
@@ -184,14 +200,14 @@ module.exports = function (env) {
       businesses:   product.businesses.map(({ id, role }) => Object.assign({ role }, businesses.find(business => business.id === id))),
     });
     if (Array.isArray(products)) {
-      return products.map(attachToCase)
+      return products.map(attachToCase);
     } else {
       return attachToCase(products);
     }
-  }
+  };
 
   /* ------------------------------------------------------------------
     keep the following line to return your filters to the app
   ------------------------------------------------------------------ */
-  return filters
-}
+  return filters;
+};

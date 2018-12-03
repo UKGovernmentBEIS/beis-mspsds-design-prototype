@@ -29,7 +29,39 @@ router.get('/:mode/:entity(case|business|product|case-list)/', function (req, re
   next()
 });
 
+
+
+
 // FLOWS ----------------------------------------------------------------------
+
+router.post('/:mode/flows/ts-create/save', function (req, res) {
+  let newCase = req.session.data.new;
+
+  Cases.addDefaults(newCase);
+
+  newCase.dateCreated = today.short();
+  newCase.dateUpdated = today.short();
+  newCase.report.date = today.short();
+
+  newCase.id = today.id();
+
+  switch(newCase.report.type) {
+    case "Allegation":  newCase.type = "Case"; break;
+    case "Question":    newCase.type = "Question"; break;
+    default:            newCase.type = "Case";
+  }
+
+  newCase.assignee = 'OPSS - Processing';
+
+  const caseCareatedActivity = require("./data/activities/templates").caseCreated;
+  newCase.activities.push(caseCareatedActivity());
+
+  res.locals.data.cases.push(newCase);
+
+  res.redirect('/root/case?caseid=' + newCase.id);
+});
+
+
 
 router.post('/:mode/flows/create/save', function (req, res) {
   let newCase = req.session.data.new;

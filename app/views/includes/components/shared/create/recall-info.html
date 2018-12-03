@@ -18,6 +18,10 @@
       {% endcall %}
 
       {% from "includes/components/shared/attachment-input.html" import attachmentInput %}
-      {{ attachmentInput("Are there any files or images related to the recall?", "recall", "false") }}
+      {{ attachmentInput({
+        label:                  "Are there any files or images related to the recall?", 
+        idPrefix:               "recall", 
+        includeDescription:     "false"
+      }) }}
 
   </div>

@@ -1,7 +1,11 @@
  <div class="govuk-grid-column-two-thirds">
 
       {% from "includes/components/shared/attachment-input.html" import attachmentInput %}
-      {{ attachmentInput("Upload the email as a file", "email", "false") }}
+      {{ attachmentInput({
+        label:                  "Upload the email as a file", 
+        idPrefix:               "email", 
+        includeDescription:     "false"
+      }) }}
 
 
 

@@ -2,16 +2,6 @@
 
 <div class="govuk-grid-column-two-thirds">
 
-        {% call govukFieldset({
-          legend: {
-            text:           "What is the product?",
-            isPageHeading:  false,
-            classes:        "govuk-fieldset__legend--l "
-          }
-        }) %}
-
-        {% endcall %}
-
         {{ autocompleteInput({
           idPrefix: "product-type", 
           name:     "new[report][productType]", 
@@ -32,11 +22,11 @@
         }) %}
 
           {{ govukTextarea({
-            name: "report-product-name",
-            id:   "new[report][product][name]",
+            name: "new[report][product][name]",
+            id:   "report-product-name",
             classes:  "govuk-!-margin-bottom-5",
             hint: {
-              html: "Brand, model name, model number, etc.<br/> For example, Bosch Serie 2 SMS25EI00G’"
+              html: "Brand, model name, model number, etc.<br/> For example, Bosch Series 2 SMS25EI00G’"
             }
           }) }}
 
@@ -52,7 +42,7 @@
         }) %}
 
           {{ govukTextarea({
-            name: "allegation-product-description",
+            name: "new[report][product][description]",
             id:   "allegation-product-description",
             classes:  "govuk-!-margin-bottom-5",
             hint: {

@@ -1,11 +1,22 @@
 {% extends "mspsds-layout.html" %}
 
-
 {% set currentPage   = data['currentPage'] %}
-
 
 {% set backLink      = false %}
 {% set backText      = '' %}
+
+
+{% if currentPage   ==  'case' %}
+    {% set titleType     = 'Case: '+data['caseid']  %}
+
+{% elif currentPage ==  'product'  %}
+    {% set titleType      = 'Product: '+data['productid'] + ' TODO – get name'  %}
+
+{% elif currentPage ==  'business'  %}
+    {% set currentBusiness = data.businesses | withId(data['businessid']) %}
+    {% set titleType      = 'Business: '+ currentBusiness.name  %}
+
+{% endif %}
 
 
 
@@ -16,6 +27,8 @@
 {% if not displayTitle %}
     {% set displayTitle = 'New' %}
 {% endif %}
+
+
 
 
 
@@ -48,18 +61,7 @@
 
 
 
-{% if currentPage   ==  'case' %}
-    {% set titleType     = 'Case: '+data['caseid']  %}
 
-{% elif currentPage ==  'product'  %}
-
-    {% set titleType      = 'Product: '+data['productid'] + ' TODO – get name'  %}
-
-{% elif currentPage ==  'business'  %}
-    {% set currentBusiness = data.businesses | withId(data['businessid']) %}
-    {% set titleType      = 'Business: '+ currentBusiness.name  %}
-
-{% endif %}
 
 
 
@@ -109,3 +111,17 @@
 
 
 {% endblock %}
+
+
+
+{% if data['debugging'] == 'Yes'  %}
+    {% block footer %}
+        {{ super() }}
+        <pre>
+            {{ data['new'] | dump(4)  }}
+        </pre>
+    {% endblock %}
+{% endif %}
+
+
+

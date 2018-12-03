@@ -1,0 +1,23 @@
+
+  <div class="govuk-grid-column-two-thirds">
+
+        {{ govukRadios({
+          idPrefix:   "new-type",
+          name:       "new[report][type]",
+          items: [
+            {
+              value: "Report",
+              text: "Report a dangerous product"
+            },
+            {
+              value: "Recall",
+              text: "Report a product recall"
+            },
+            {
+              value: "Question",
+              text: "Ask a question"
+            }
+          ]
+        }) }}
+
+</div>

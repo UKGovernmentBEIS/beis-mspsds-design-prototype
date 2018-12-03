@@ -33,5 +33,10 @@
     values:   data.hazardTypes}) 
   }}
 
-  {{ attachmentInput("Are there any files or images related to the allegation?", "allegation", "false") }}
+  {{ attachmentInput({
+    label:                  "Are there any files or images related to the allegation?", 
+    idPrefix:               "allegation", 
+    includeDescription:     "false"
+  }) }}
+
 </div>
