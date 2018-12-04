@@ -35,10 +35,35 @@ module.exports = {
       date: date
     }
   },
-  caseCreated: function () {
+    caseCreated: function ({
+      caseType,
+      caseTitle,
+      author,
+      dateCreated,
+      reporterName,
+      reporterType,
+      reporterPhoneNumber,
+      reporterEmailAddress,
+      reporterOtherDetails,
+      productType,
+      hazardType,
+      caseSummary
+    }) {
     return {
-      title: "Case created",
-      action: ""
+      type: 'caseCreated',
+      title: caseType + " logged: " + caseTitle,
+      action: "",
+      author: author,
+      date: dateCreated,
+      caseType,
+      reporterName,
+      reporterType,
+      reporterPhoneNumber,
+      reporterEmailAddress,
+      reporterOtherDetails,
+      productType,
+      hazardType,
+      caseSummary
     }
   },
   changedStatus: function ({

@@ -8,12 +8,12 @@ module.exports = {
       action: "",
       text: "Needs addressing asap - we're nearly at the end of SLA"
     },
-    templates.changedStatus({ 
+    templates.changedStatus({
       status: "Open",
       author: "Tim Harwood",
       description: "Further evidence came to light."
     }),
-    templates.changedStatus({ 
+    templates.changedStatus({
       status: "Closed",
       author: "Tim Harwood",
     }),
@@ -195,22 +195,19 @@ module.exports = {
       action: "Set",
       text: `Have flagged as priority due to consumer injuries and potential risks of the product`
     },
-    {
-      title: "Consumer report",
-      action: "Report details added",
-      html: `
-      <p class="govuk-body">
-        Name: <span class="govuk-!-font-weight-bold">Mina Harker</span><br />
-        Phone number: <span class="govuk-!-font-weight-bold">07123 123123</span><br />
-        Email address: <span class="govuk-!-font-weight-bold">mina@castledracula.ro</span>
-      </p>
-      <p class="govuk-body">Other details captured during the report entry</p>`
-    },
-    {
-      title: "Consumer report",
-      action: "Report details added",
-      html: '<p class="govuk-body"><a href="#">View details</a></p>'
-    },
-    templates.caseCreated()
+    templates.caseCreated({
+      caseType: "Allegation",
+      caseTitle: "Electronic device - Fire hazard",
+      author: "Tim Harwood",
+      dateCreated: "16/10/2018",
+      reporterName: "Jacqui Tremayne",
+      reporterType: "Consumer",
+      reporterPhoneNumber: "07987654321",
+      reporterEmailAddress: "jacqui@tremayne.com",
+      reporterOtherDetails: "other contact details here",
+      productType: "Electronic device",
+      hazardType: "Fire hazard",
+      caseSummary: "Case summary details here"
+    })
   ]
 }

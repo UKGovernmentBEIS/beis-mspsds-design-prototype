@@ -1,0 +1,19 @@
+<h3 class="govuk-heading-m">{{activity.caseType}} details</h3>
+<p class="govuk-body">
+  {% if activity.caseType == "Allegation" %}
+  Product type: <span class="govuk-!-font-weight-bold">{{activity.productType}}</span><br />
+  Hazard type: <span class="govuk-!-font-weight-bold">{{activity.hazardType}}</span><br />
+  {% endif %}
+  {% if activity.attachment %}
+  Attachment: <span class="govuk-!-font-weight-bold">{{activity.attachment}}</span><br />
+  {% endif %}
+</p>
+<p class="govuk-body">{{activity.caseSummary}}</p>
+<h3 class="govuk-heading-m">Reporter</h3>
+<p class="govuk-body">
+  Name: <span class="govuk-!-font-weight-bold">{{activity.reporterName}}</span><br />
+  Type: <span class="govuk-!-font-weight-bold">{{activity.reporterType}}</span><br />
+  Phone number: <span class="govuk-!-font-weight-bold">{{activity.reporterPhoneNumber}}</span><br />
+  Email address: <span class="govuk-!-font-weight-bold">{{activity.reporterEmailAddress}}</span><br />
+</p>
+<p class="govuk-body">{{activity.reporterOtherDetails}}</p>

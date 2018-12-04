@@ -54,7 +54,20 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
   newCase.assignee = 'OPSS - Processing';
 
   const caseCreatedActivity = require("./data/activities/templates").caseCreated;
-  newCase.activities.push(caseCreatedActivity());
+  newCase.activities.push(caseCreatedActivity({
+    caseType: newCase.report.type,
+    caseTitle: newCase.title,
+    author: newCase.assignee,
+    dateCreated: newCase.dateCreated,
+    reporterName: newCase.report.reporter.name,
+    reporterType: newCase.report.reporter.type,
+    reporterPhoneNumber: newCase.report.reporter.phoneNumber,
+    reporterEmailAddress: newCase.report.reporter.emailAddress,
+    reporterOtherDetails: newCase.report.reporter.otherDetails,
+    productType: newCase.report.productType,
+    hazardType: newCase.report.hazardType,
+    caseSummary: newCase.report.summary
+  }));
 
   res.locals.data.cases.push(newCase);
 
@@ -80,10 +93,27 @@ router.post('/:mode/flows/create/save', function (req, res) {
     default:            newCase.type = "Case";
   }
 
+  if (newCase.report.type == "Allegation") {
+    newCase.title = newCase.report.productType + " - " + newCase.report.hazardType;
+  }
+
   newCase.assignee = req.session.data.currentUser;
 
   const caseCreatedActivity = require("./data/activities/templates").caseCreated;
-  newCase.activities.push(caseCreatedActivity());
+  newCase.activities.push(caseCreatedActivity({
+    caseType: newCase.report.type,
+    caseTitle: newCase.title,
+    author: newCase.assignee,
+    dateCreated: newCase.dateCreated,
+    reporterName: newCase.report.reporter.name,
+    reporterType: newCase.report.reporter.type,
+    reporterPhoneNumber: newCase.report.reporter.phoneNumber,
+    reporterEmailAddress: newCase.report.reporter.emailAddress,
+    reporterOtherDetails: newCase.report.reporter.otherDetails,
+    productType: newCase.report.productType,
+    hazardType: newCase.report.hazardType,
+    caseSummary: newCase.report.summary
+  }));
 
   res.locals.data.cases.push(newCase);
 
