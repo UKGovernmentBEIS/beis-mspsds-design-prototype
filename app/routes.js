@@ -390,7 +390,7 @@ router.post('/:mode/flows/add-activity/choose', function (req, res) {
     case 'comment':
       res.redirect("/root/flows/add-comment/01-add-comment");
       break;
-    case 'correspondance':
+    case 'correspondence':
       res.redirect("/flows/add-correspondence/01-add-correspondence-context.html");
       break;
     case 'contact':
@@ -414,7 +414,10 @@ router.post('/:mode/flows/add-activity/choose', function (req, res) {
     case 'business':
       res.redirect("/root/flows/business/add/01.html");
       break;
-    case 'testing':
+    case 'testing-request':
+      res.redirect("/flows/record-testing-request/01-record-testing-request.html");
+      break;
+    case 'test-result':
       res.redirect("/flows/record-test-result/01-record-test-result.html");
       break;
     default:
