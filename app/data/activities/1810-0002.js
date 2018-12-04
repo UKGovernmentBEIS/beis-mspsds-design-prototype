@@ -62,31 +62,14 @@ module.exports = {
       attachment: "not-a-virus.exe",
       description: `Hi Jacqui, Thanks again for contacting us about the problems with the Charge Worx travel adaptor. I have some... <a href="#">View more</a>`
     }),
-    {
-      title: "Asked Jacqui Simmons at Warwickshire TS for further details",
-      action: "Email recorded",
-      html: `
-      <p class="govuk-body">
-        To: <span class="govuk-!-font-weight-bold">Jacqui Simmons</span> (jacqui.simmons@warwicks.gov.uk)<br />
-        Subject: <span class="govuk-!-font-weight-bold">More details about Charge Worx case</span><br />
-        Date sent: <span class="govuk-!-font-weight-bold">12/9/2018</span><br />
-        Attached: <span class="govuk-!-font-weight-bold">not-a-virus.exe</span>
-      </p>
-      <p class="govuk-body">Hi Jacqui, Thanks again for contacting us about the problems with the Charge Worx travel adaptor. I have some... <a href="#">View more</a></p>
-      <a href='#attachements'>View attachement</a>`
-    },
-    {
-      title: "Reporter asking for progress report",
-      action: "Phonecall recorded",
-      html: `
-      <p class="govuk-body">
-        Call with: <span class="govuk-!-font-weight-bold">Mina Harker</span> (07123 123123)<br />
-        Date: <span class="govuk-!-font-weight-bold">12/9/2018</span><br />
-        Attached: <span class="govuk-!-font-weight-bold">transcript.doc</span>
-      </p>
-      <p class="govuk-body">Mina was wondering whether there was any update on the Charge Worx case. I assured her that we were looking into it... <a href="#">View more</a></p>
-      <a href='#attachements'>View attachement</a>`
-    },
+    templates.phoneCall({
+      summary: "Reporter asking for progress report",
+      correspondentName: "Mina Harker",
+      phoneNumber: "07123 123123",
+      phoneCallDate: "12/9/2018",
+      transcript: "transcript.doc",
+      description: `Mina was wondering whether there was any update on the Charge Worx case. I assured her that we were looking into it... <a href="#">View more</a>`
+    }),
     {
       title: "Deleted: Photo ID",
       action: "Image deleted",

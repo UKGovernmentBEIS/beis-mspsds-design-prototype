@@ -108,7 +108,7 @@ module.exports = {
       title: summary,
       action: "Email recorded",
       direction,
-      correspondent: buildEmailCorrespondent(correspondentName, correspondentEmailAddress),
+      correspondent: buildCorrespondent(correspondentName, correspondentEmailAddress),
       subject: buildEmailSubject(subject, emailFile),
       date,
       emailDate,
@@ -132,6 +132,26 @@ module.exports = {
       date,
       meetingDate,
       attachment,
+      description
+    }
+  },
+  phoneCall: function({
+    summary,
+    correspondentName,
+    phoneNumber,
+    date = today.long(),
+    phoneCallDate = today.short(),
+    transcript,
+    description
+  }) {
+    return {
+      type: "phonecall",
+      title: summary,
+      action: "Phone call recorded",
+      correspondent: buildCorrespondent(correspondentName, phoneNumber),
+      date,
+      phoneCallDate,
+      attachment: transcript,
       description
     }
   },
@@ -183,15 +203,15 @@ const commonTestTemplate = function ({
   }
 }
 
-function buildEmailCorrespondent(name, email) {
+function buildCorrespondent(name, detail) {
   output = ""
   if (name && name.length > 0) {
     output += `<span class="govuk-!-font-weight-bold">${name}</span>`
-    if (email && email.length > 0) {
-      output += ` (${email})`
+    if (detail && detail.length > 0) {
+      output += ` (${detail})`
     }
-  } else if (email && email.length > 0) {
-    output += email
+  } else if (detail && detail.length > 0) {
+    output += detail
   }
   return output
 }

@@ -25,12 +25,10 @@ module.exports = {
       legislation: "General Product Safety Regulations 2005",
       businessName: "Charge Worx",
       decisionDate: "12/9/2018",
-      date: "16 August 2018",
       attachement: "notice-of-enforcement.pdf",
     }),
     templates.testFailed({
       legislation: "General Product Safety Regulations 2005",
-      date: "10 October 2018",
       testDate: "12/9/2018",
       description: "Description supplied by user goes here, in a paragraph",
       productId: 'p1',
@@ -38,7 +36,6 @@ module.exports = {
     }),
     templates.testRequested({
       legislation: "General Product Safety Regulations 2005",
-      date: "10 October 2018",
       testDate: "12/9/2018",
       description: "Description supplied by user goes here, in a paragraph",
       productId: 'p1',
@@ -71,18 +68,14 @@ module.exports = {
       attachment: "not-a-virus.exe",
       description: `Hi Jacqui, Thanks again for contacting us about the problems with the Charge Worx travel adaptor. I have some... <a href="#">View more</a>`
     }),
-    {
-      title: "Reporter asking for progress report",
-      action: "Phonecall recorded",
-      html: `
-      <p class="govuk-body">
-        Call with: <span class="govuk-!-font-weight-bold">Mina Harker</span> (07123 123123)<br />
-        Date: <span class="govuk-!-font-weight-bold">12/9/2018</span><br />
-        Attached: <span class="govuk-!-font-weight-bold">transcript.doc</span>
-      </p>
-      <p class="govuk-body">Mina was wondering whether there was any update on the Charge Worx case. I assured her that we were looking into it... <a href="#">View more</a></p>
-      <a href='#attachements'>View attachement</a>`
-    },
+    templates.phoneCall({
+      summary: "Reporter asking for progress report",
+      correspondentName: "Mina Harker",
+      phoneNumber: "07123 123123",
+      phoneCallDate: "12/9/2018",
+      transcript: "transcript.doc",
+      description: `Mina was wondering whether there was any update on the Charge Worx case. I assured her that we were looking into it... <a href="#">View more</a>`
+    }),
     {
       title: "Deleted: Photo ID",
       action: "Image deleted",
