@@ -53,8 +53,8 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
 
   newCase.assignee = 'OPSS - Processing';
 
-  const caseCareatedActivity = require("./data/activities/templates").caseCreated;
-  newCase.activities.push(caseCareatedActivity());
+  const caseCreatedActivity = require("./data/activities/templates").caseCreated;
+  newCase.activities.push(caseCreatedActivity());
 
   res.locals.data.cases.push(newCase);
 
@@ -82,8 +82,8 @@ router.post('/:mode/flows/create/save', function (req, res) {
 
   newCase.assignee = req.session.data.currentUser;
 
-  const caseCareatedActivity = require("./data/activities/templates").caseCreated;
-  newCase.activities.push(caseCareatedActivity());
+  const caseCreatedActivity = require("./data/activities/templates").caseCreated;
+  newCase.activities.push(caseCreatedActivity());
 
   res.locals.data.cases.push(newCase);
 
@@ -116,8 +116,8 @@ router.post('/:mode/flows/assign/save', function (req, res) {
   let newAssignee = req.body.assignee;
   newAssignee = newAssignee === "Other" ? req.body["other-assignee"] : newAssignee;
 
-  const assignedActivityTempalte = require("./data/activities/templates").assigned;
-  const newActivity = assignedActivityTempalte({
+  const assignedActivityTemplate = require("./data/activities/templates").assigned;
+  const newActivity = assignedActivityTemplate({
     assignee: newAssignee,
     author: res.locals.data.currentUser,
     date: today.long()
