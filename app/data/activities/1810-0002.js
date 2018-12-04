@@ -5,49 +5,36 @@ module.exports = {
     templates.commentAdded({
       commentText: "Needs addressing asap - we're nearly at the end of SLA",
       author: "Tim Harwood",
-      date: "16/10/2018"
+      date: "16 OCtober 2018"
     }),
-    {
-      title: "Product recall requested",
-      action: "Corrective action recorded",
-      html: `
-      <p class="govuk-body">
-        Product: <span class="govuk-!-font-weight-bold">Charge Worx 931L</span><br />
-        Legislation: <span class="govuk-!-font-weight-bold">General Product Safety Regulations 2005</span><br />
-        Business responsible: <span class="govuk-!-font-weight-bold">Charge Worx</span><br />
-        Date decided: <span class="govuk-!-font-weight-bold">12/9/2018</span><br />
-        Attached: <span class="govuk-!-font-weight-bold">notice-of-enforcement.pdf</span>
-      </p>
-      <p class="govuk-body">Description supplied by user goes here, in a paragraph</p>
-      <a href="/product" class="mspsds-block-link">View product</a><a href="/product" class="mspsds-block-link">View business</a>
-      <a href='#attachements'>View attachement</a>`
-    },
-    {
-      title: "Failed test: Travel plug adaptor — Charge Worx 931L",
-      action: "Test failure recorded",
-      html: `
-      <p class="govuk-body">
-        Legislation: <span class="govuk-!-font-weight-bold">General Product Safety Regulations 2005</span><br />
-        Test date: <span class="govuk-!-font-weight-bold">12/9/2018</span><br />
-        Attached: <span class="govuk-!-font-weight-bold">test-results.pdf</span>
-      </p>
-      <p class="govuk-body">Description supplied by user goes here, in a paragraph</p>
-      <a href="/product" class="mspsds-block-link">View product</a>
-      <a href='#attachements'>View attachement</a>`
-    },
-    {
-      title: "Test requested: Travel plug adaptor — Charge Worx 931L",
-      action: "Testing requested",
-      html: `
-      <p class="govuk-body">
-        Legislation: <span class="govuk-!-font-weight-bold">General Product Safety Regulations 2005</span><br />
-        Date requested: <span class="govuk-!-font-weight-bold">12/9/2018</span><br />
-        Attached: <span class="govuk-!-font-weight-bold">test-request-form.pdf</span>
-      </p>
-      <p class="govuk-body">Description supplied by user goes here, in a paragraph</p>
-      <a href="/product" class="mspsds-block-link">View product</a>
-      <a href='#attachements'>View attachement</a>`
-    },
+    templates.correctiveAction({
+      summary: "Product recall requested",
+      productid: 'p1',
+      businessid: 'b1',
+      productName: "Charge Worx 931L",
+      legislation: "General Product Safety Regulations 2005",
+      businessName: "Charge Worx",
+      date: "16 August 2018",
+      decisionDate: "12/9/2018",
+      attachement: "notice-of-enforcement.pdf",
+      description: "Description supplied by user goes here, in a paragraph"
+    }),
+    templates.testFailed({
+      legislation: "General Product Safety Regulations 2005",
+      date: "10 October 2018",
+      testDate: "12/9/2018",
+      description: "Description supplied by user goes here, in a paragraph",
+      productId: 'p1',
+      attachment: "test-results.pdf"
+    }),
+    templates.testRequested({
+      legislation: "General Product Safety Regulations 2005",
+      date: "10 October 2018",
+      testDate: "12/9/2018",
+      description: "Description supplied by user goes here, in a paragraph",
+      productId: 'p1',
+      attachment: "test-request-form.pdf"
+    }),
     {
       title: "Discussion with Charge Worx brand ambassadors",
       action: "Meeting recorded",
