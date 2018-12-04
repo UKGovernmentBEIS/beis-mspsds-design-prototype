@@ -393,6 +393,15 @@ router.post('/:mode/flows/add-activity/choose', function (req, res) {
     case 'correspondence':
       res.redirect("/flows/add-correspondence/01-add-correspondence-context.html");
       break;
+    case 'email':
+      res.redirect("/flows/add-correspondence/01e-add-email-context.html");
+      break;
+    case 'phoneCall':
+      res.redirect("/flows/add-correspondence/01p-add-phonecall-context.html");
+      break;
+    case 'meeting':
+      res.redirect("/flows/add-correspondence/01m-add-meeting-context.html");
+      break;
     case 'contact':
       res.redirect("/root/flows/contact/add/01.html");
       break;
