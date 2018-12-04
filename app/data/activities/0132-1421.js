@@ -28,32 +28,22 @@ module.exports = {
       date: "16 August 2018",
       attachement: "notice-of-enforcement.pdf",
     }),
-    {
-      title: "Failed test: Travel plug adaptor — Charge Worx 931L",
-      action: "Test failure recorded",
-      html: `
-      <p class="govuk-body">
-        Legislation: <span class="govuk-!-font-weight-bold">General Product Safety Regulations 2005</span><br />
-        Test date: <span class="govuk-!-font-weight-bold">12/9/2018</span><br />
-        Attached: <span class="govuk-!-font-weight-bold">test-results.pdf</span>
-      </p>
-      <p class="govuk-body">Description supplied by user goes here, in a paragraph</p>
-      <a href="/product" class="mspsds-block-link">View product</a>
-      <a href='#attachements'>View attachement</a>`
-    },
-    {
-      title: "Test requested: Travel plug adaptor — Charge Worx 931L",
-      action: "Testing requested",
-      html: `
-      <p class="govuk-body">
-        Legislation: <span class="govuk-!-font-weight-bold">General Product Safety Regulations 2005</span><br />
-        Date requested: <span class="govuk-!-font-weight-bold">12/9/2018</span><br />
-        Attached: <span class="govuk-!-font-weight-bold">test-request-form.pdf</span>
-      </p>
-      <p class="govuk-body">Description supplied by user goes here, in a paragraph</p>
-      <a href="/product" class="mspsds-block-link">View product</a>
-      <a href='#attachements'>View attachement</a>`
-    },
+    templates.testFailed({
+      legislation: "General Product Safety Regulations 2005",
+      date: "10 October 2018",
+      testDate: "12/9/2018",
+      description: "Description supplied by user goes here, in a paragraph",
+      productId: 'p1',
+      attachment: "test-results.pdf"
+    }),
+    templates.testRequested({
+      legislation: "General Product Safety Regulations 2005",
+      date: "10 October 2018",
+      testDate: "12/9/2018",
+      description: "Description supplied by user goes here, in a paragraph",
+      productId: 'p1',
+      attachment: "test-request-form.pdf"
+    }),
     {
       title: "Discussion with Charge Worx brand ambassadors",
       action: "Meeting recorded",
