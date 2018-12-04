@@ -35,30 +35,33 @@ module.exports = {
       productId: 'p1',
       attachment: "test-request-form.pdf"
     }),
-    {
-      title: "Discussion with Charge Worx brand ambassadors",
-      action: "Meeting recorded",
-      html: `
-      <p class="govuk-body">
-        Meeting with: <span class="govuk-!-font-weight-bold">Jeff Lebowski, Wilma Flintstone, Terry Crews</span><br />
-        Date: <span class="govuk-!-font-weight-bold">12/9/2018</span><br />
-        Attached: <span class="govuk-!-font-weight-bold">transcript.doc</span>
-      </p>
-      <p class="govuk-body">The Charge Worx brand ambassadors wanted to discuss the enforcement procedure with us, and assured us that... <a href="#">View more</a></p>
-      <a href='#attachements'>View attachement</a>`
-    },
-    {
-      title: "Jacqui Simmons at Warwickshire TS responds",
-      action: "Email recorded",
-      html: `
-      <p class="govuk-body">
-        From: <span class="govuk-!-font-weight-bold">Jacqui Simmons</span> (jacqui.simmons@warwicks.gov.uk)<br />
-        Date sent: <span class="govuk-!-font-weight-bold">12/9/2018</span><br />
-        Email: <a href="#">RE: More details about Charge Worx case.html</a><br />
-        Attached: <span class="govuk-!-font-weight-bold">explosion_damage.jpg</span>
-      </p>
-      <a href='#attachements'>View attachement</a>`
-    },
+    templates.meeting({
+      summary: "Discussion with Charge Worx brand ambassadors",
+      correspondents: "Jeff Lebowski, Wilma Flintstone, Terry Crews",
+      meetingDate: "2/9/2018",
+      attachment: "transcript.doc",
+      description: 'The Charge Worx brand ambassadors wanted to discuss the enforcement procedure with us, and assured us that... <a href="#">View more</a>'
+    }),
+    templates.email({
+      summary: "Jacqui Simmons at Warwickshire TS responds",
+      direction: "From",
+      correspondentName: "Jacqui Simmons",
+      correspondentEmailAddress: "jacqui.simmons@warwicks.gov.uk",
+      subject: "RE: More details about Charge Worx case.html",
+      emailDate: "12/9/2018",
+      emailFile: "email.txt",
+      attachment: "explosion_damage.jpg"
+    }),
+    templates.email({
+      summary: "Asked Jacqui Simmons at Warwickshire TS for further details",
+      direction: "To",
+      correspondentName: "Jacqui Simmons",
+      correspondentEmailAddress: "jacqui.simmons@warwicks.gov.uk",
+      subject: "More details about Charge Worx case",
+      emailDate: "12/9/2018",
+      attachment: "not-a-virus.exe",
+      description: `Hi Jacqui, Thanks again for contacting us about the problems with the Charge Worx travel adaptor. I have some... <a href="#">View more</a>`
+    }),
     {
       title: "Asked Jacqui Simmons at Warwickshire TS for further details",
       action: "Email recorded",

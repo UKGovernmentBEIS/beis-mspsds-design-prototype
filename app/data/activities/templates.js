@@ -91,6 +91,50 @@ module.exports = {
       businessid,
     }
   },
+  email: function({
+    summary,
+    direction,
+    correspondentName,
+    correspondentEmailAddress,
+    subject,
+    date = today.long(),
+    emailDate = today.short(),
+    emailFile,
+    attachment,
+    description
+  }) {
+    return {
+      type: 'email',
+      title: summary,
+      action: "Email recorded",
+      direction,
+      correspondent: buildEmailCorrespondent(correspondentName, correspondentEmailAddress),
+      subject: buildEmailSubject(subject, emailFile),
+      date,
+      emailDate,
+      attachment,
+      description
+    }
+  },
+  meeting: function({
+    summary,
+    correspondents,
+    date = today.long(),
+    meetingDate,
+    attachment,
+    description
+  }) {
+    return {
+      type: "meeting",
+      action: "Meeting recorded",
+      title: summary,
+      correspondents,
+      date,
+      meetingDate,
+      attachment,
+      description
+    }
+  },
   testFailed: function ({
     legislation = "General Product Safety Regulations 2005",
     date = today.long(),
@@ -137,4 +181,23 @@ const commonTestTemplate = function ({
     productId,
     attachment
   }
+}
+
+function buildEmailCorrespondent(name, email) {
+  output = ""
+  if (name && name.length > 0) {
+    output += `<span class="govuk-!-font-weight-bold">${name}</span>`
+    if (email && email.length > 0) {
+      output += ` (${email})`
+    }
+  } else if (email && email.length > 0) {
+    output += email
+  }
+  return output
+}
+
+function buildEmailSubject(subject, file) {
+  preTag = file ? `<a href="#">` :  `<span class="govuk-!-font-weight-bold">`
+  postTag = file ? `</a>` : `</span>`
+  return `${preTag}${subject}${postTag}`
 }
