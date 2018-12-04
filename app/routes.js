@@ -87,7 +87,7 @@ router.post('/:mode/flows/create/save', function (req, res) {
 
   res.locals.data.cases.push(newCase);
 
-  res.redirect('/root/case?caseid=' + newCase.id);
+  res.redirect('/root/case--created?caseid=' + newCase.id);
 });
 
 
