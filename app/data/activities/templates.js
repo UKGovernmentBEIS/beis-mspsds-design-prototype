@@ -1,8 +1,19 @@
 const today = require("../../utils/today")
 const products = require("../products")
+const attachments = require("../attachments")
+const attachmentUtils = require("../../utils/attachment")
 
-// templates listed in alphabetical order
 module.exports = {
+  deleteAttachment: function ({ attachmentId }) {
+    const attachment = attachments.attachments.find(element => element.id === attachmentId)
+    return {
+      type: "deleteAttachment",
+      title: "Deleted: " + attachment.title,
+      action: `${capitalizeFirstLetter(attachment.type)} deleted`,
+      fileExtension: attachmentUtils.fileExtension(attachment.filename),
+      attachment
+    }
+  },
   addAttachment: function({
     title,
     description,
@@ -13,7 +24,7 @@ module.exports = {
   }) {
     return {
       type: 'addAttachment',
-      action: "Attachment added",
+      action: `${isImage ? 'Image' : 'Document'} added`,
       isImage,
       date,
       author,
@@ -220,4 +231,8 @@ function buildEmailSubject(subject, file) {
   preTag = file ? `<a href="#">` :  `<span class="govuk-!-font-weight-bold">`
   postTag = file ? `</a>` : `</span>`
   return `${preTag}${subject}${postTag}`
+}
+
+function capitalizeFirstLetter(string) {
+  return string[0].toUpperCase() + string.substring(1)
 }

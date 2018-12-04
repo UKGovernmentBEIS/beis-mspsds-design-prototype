@@ -76,19 +76,9 @@ module.exports = {
       transcript: "transcript.doc",
       description: `Mina was wondering whether there was any update on the Charge Worx case. I assured her that we were looking into it... <a href="#">View more</a>`
     }),
-    {
-      title: "Deleted: Photo ID",
-      action: "Image deleted",
-      html: `
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-one-third">
-          <img src="public/images/placeholder.png" style="cursor:pointer" title="click to view full size" />
-        </div>
-        <div class="govuk-grid-column-two-thirds">
-          <p class="govuk-body">Image description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-        </div>
-      </div>`
-    },
+    templates.deleteAttachment({
+      attachmentId: 'at3'
+    }),
     {
       title: "Updated: Photo ID (was: picture of product in situ)",
       action: "Image details updated",
@@ -110,13 +100,9 @@ module.exports = {
       fileExtension: 'jpeg',
       date: "16 August 2018"
     }),
-    {
-      title: "Deleted: Investigation report",
-      action: "Document deleted",
-      html: `
-      <p class="govuk-body">New document description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-      <a href="#">View PDF document</a>`
-    },
+    templates.deleteAttachment({
+      attachmentId: 'at4'
+    }),
     {
       title: "Updated: Investigation report (was: Investigation details)",
       action: "Document details updated",
