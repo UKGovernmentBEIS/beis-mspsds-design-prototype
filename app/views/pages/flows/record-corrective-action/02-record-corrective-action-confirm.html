@@ -17,6 +17,8 @@ Confirm corrective action details
   title:  "Confirm corrective action details"
 }) }}
 
+{%set dateString = data['corrective-action-date-year'] | buildDateString(data['corrective-action-date-month'], data['corrective-action-date-day']) %}
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <form action="save" method="post" class="form">
@@ -26,35 +28,35 @@ Confirm corrective action details
         rows: [
           [
             { text: "Summary" },
-            { text: "Product recall requested" }
+            { text: data['corrective-action-summary']}
           ],
           [
             { text: "Date decided" },
-            { text: "25/9/2018" }
+            { text: dateString}
           ],
           [
             { text: "Product involved" },
-            { text: "Travel plug adaptor — Charge Worx 931L" }
+            { text: data['TODO-product-input-name'] }
           ],
           [
             { text: "Legislation" },
-            { text: "General Product Safety Regulations 2005" }
+            { text: data['input-autocomplete'] }
           ],
           [
             { text: "Business" },
-            { text: "Charge Worx" }
+            { text: data['TODO-business-input-name'] }
           ],
           [
             { text: "Details" },
-            { text: "User's description details in here" }
+            { text: data['corrective-action-details'] }
           ],
           [
             { text: "Attachment" },
-            { text: "enforcement-notice.pdf" }
+            { text: data['corrective-action-file-upload-1'] }
           ],
           [
             { text: "Attachment description" },
-            { text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt." }
+            { text: data['corrective-action-file-upload-1-description'] }
           ]
         ]
       }) }}

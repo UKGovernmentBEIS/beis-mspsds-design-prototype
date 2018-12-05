@@ -448,7 +448,7 @@ router.post(`/:mode/flows/record-corrective-action/save`, function(req, res) {
     businessName: data['TODO-business-input-name'],
     decisionDate: date.shortFromInput(data["corrective-action-date-year"], data['corrective-action-date-month'], data['corrective-action-date-day']),
     attachment: data['corrective-action-file-upload-1'],
-    description:data['corrective-action-details']
+    description: data['corrective-action-details']
   })
   kase.activities.unshift(newActivity)
   kase.updated = today.short()
