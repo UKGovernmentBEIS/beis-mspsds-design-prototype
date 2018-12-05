@@ -38,6 +38,7 @@ router.get('/:mode/:entity(case|business|product|case-list)/', function (req, re
 router.post('/:mode/flows/ts-create/save', function (req, res) {
   const data = req.session.data
   let newCase = data.new;
+
   Cases.addDefaults(newCase);
 
   newCase.dateCreated = today.short();
@@ -65,6 +66,12 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
     newCase.title = newCase.report.productType + " - " + newCase.report.hazardType;
   }
 
+  const testFile = attachment.build({ title: "Test results", filename: data.new.testing.upload })
+  const riskFile = attachment.build({ title: "Risk assessment", filename: data.new.risk.upload })
+  const relatedFile = attachment.build({ title: "Related file", filename: data.new.related.upload })
+  newCase.attachments.unshift(testFile.id, riskFile.id, relatedFile.id)
+  data.attachments.push(testFile, riskFile, relatedFile)
+
   const caseCreatedActivity = require("./data/activities/templates").caseCreated;
   newCase.activities.push(caseCreatedActivity({
     caseType: newCase.report.type,
@@ -78,14 +85,10 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
     reporterOtherDetails: newCase.report.reporter.otherDetails,
     productType: newCase.report.productType,
     hazardType: newCase.report.hazardType,
-    caseSummary: newCase.report.summary
+    caseSummary: newCase.report.summary,
+    attachments: [testFile.id, riskFile.id, relatedFile.id]
   }));
 
-  const testFile = attachment.build({ title: "Test results", filename: data.new.testing.upload })
-  const riskFile = attachment.build({ title: "Risk assessment", filename: data.new.risk.upload })
-  const relatedFile = attachment.build({ title: "Related file", filename: data.new.related.upload })
-  newCase.attachments.unshift(testFile.id, riskFile.id, relatedFile.id)
-  data.attachments.push(testFile, riskFile, relatedFile)
   res.locals.data.cases.push(newCase);
 
   res.redirect('/root/case?caseid=' + newCase.id);
@@ -94,7 +97,8 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
 
 
 router.post('/:mode/flows/create/save', function (req, res) {
-  let newCase = req.session.data.new;
+  const data = req.session.data;
+  let newCase = data.new;
 
   Cases.addDefaults(newCase);
 
@@ -113,11 +117,11 @@ router.post('/:mode/flows/create/save', function (req, res) {
 
 
   if ( !newCase.assignee ) {
-    newCase.assignee = req.session.data.currentUser;
+    newCase.assignee = data.currentUser;
   }
 
   if ( !newCase.creator ) {
-    newCase.creator = req.session.data.currentUser;
+    newCase.creator = data.currentUser;
   }
 
   if (newCase.type == "Case") {

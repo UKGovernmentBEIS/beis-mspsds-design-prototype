@@ -17,3 +17,11 @@
   Email address: <span class="govuk-!-font-weight-bold">{{activity.reporterEmailAddress}}</span><br />
 </p>
 <p class="govuk-body">{{activity.reporterOtherDetails}}</p>
+
+{% if activity.attachments | length  > 0 %}
+<p class="govuk-body">
+  {% for file in activity.attachments %}
+  <p> {{file['filename']}}</p>
+  {% endfor %}
+</p>
+{% endif %}

@@ -58,7 +58,8 @@ module.exports = {
       reporterOtherDetails,
       productType,
       hazardType,
-      caseSummary
+      caseSummary,
+      attachments = []
     }) {
     return {
       type: 'caseCreated',
@@ -74,7 +75,8 @@ module.exports = {
       reporterOtherDetails,
       productType,
       hazardType,
-      caseSummary
+      caseSummary,
+      attachments
     }
   },
   changedStatus: function ({
