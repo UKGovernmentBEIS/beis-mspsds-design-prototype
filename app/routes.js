@@ -2,7 +2,8 @@
 
 const express = require('express');
 const router = express.Router();
-const today = require("./utils/today");
+const today = require("./utils/date").today;
+const date = require("./utils/date").date;
 const Cases = require("./utils/case");
 const array = require("./utils/arrayHelpers")
 const attachment = require("./utils/attachment")
@@ -383,6 +384,27 @@ router.post(`/:mode/flows/add-comment/save`, function (req, res) {
   res.redirect('/root/case');
 });
 
+// Add Corrective Action flow
+router.post(`/:mode/flows/record-corrective-action/save`, function(req, res) {
+  const kase = res.locals.data.cases.find(function (c) {
+    return c.id === req.session.data.caseid;
+  });
+  activityTemplate = require('./data/activities/templates').correctiveAction
+  const data = res.locals.data;
+  const newActivity = activityTemplate({
+    summary: data['corrective-action-summary'],
+    productName: data['TODO-product-input-name'],
+    legislation: data['input-autocomplete'],
+    businessName: data['TODO-business-input-name'],
+    decisionDate: date.shortFromInput(data["corrective-action-date-year"], data['corrective-action-date-month'], data['corrective-action-date-day']),
+    attachment: data['corrective-action-file-upload-1'],
+    description:data['corrective-action-details']
+  })
+  kase.activities.unshift(newActivity)
+  kase.updated = today.short()
+  res.redirect('/root/case')
+})
+
 // New activity flow
 router.post('/:mode/flows/add-activity/choose', function (req, res) {
   let activity = res.locals.data['new-activity'];
@@ -409,7 +431,7 @@ router.post('/:mode/flows/add-activity/choose', function (req, res) {
       res.redirect("/root/flows/add-risk/01.html");
       break;
     case 'corrective-action':
-      res.redirect("/flows/record-corrective-action/01-record-corrective-action.html");
+      res.redirect("../record-corrective-action/01-record-corrective-action.html");
       break;
     case 'business':
       res.redirect("/root/flows/business/add/01.html");

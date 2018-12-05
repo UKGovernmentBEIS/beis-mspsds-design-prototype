@@ -3,6 +3,7 @@ module.exports = {
         {
             id: 'at1',
             title:          'attachments 1 title',
+            filename:       'attachment_1.png',
             date:           '01/01/1970',
             type:           'image',
             description:    'this is a description of image at1',
@@ -12,6 +13,7 @@ module.exports = {
         {
             id: 'at2',
             title:          'attachments 2 title',
+            filename:       'attachment_2.pdf',
             date:           '01/01/1971',
             type:           'document',
             description:    'this is a description of document at2',

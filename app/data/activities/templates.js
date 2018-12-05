@@ -1,4 +1,4 @@
-const today = require("../../utils/today")
+const today = require("../../utils/date").today
 const products = require("../products")
 const attachments = require("../attachments")
 const attachmentUtils = require("../../utils/attachment")
@@ -77,14 +77,14 @@ module.exports = {
   correctiveAction: function (
     {
       summary,
-      productid,
-      businessid,
+      businessId,
+      productId,
       productName,
       legislation = "General Product Safety Regulations 2005",
       businessName,
       date = today.long(),
       decisionDate = today.short(),
-      attachement = "notice-of-enforcement.pdf",
+      attachment = "notice-of-enforcement.pdf",
       description = "Description supplied by user goes here, in a paragraph"
     }) {
     return {
@@ -93,13 +93,13 @@ module.exports = {
       action: "Corrective action recorded",
       date,
       productName,
+      businessId,
+      productId,
       legislation,
       businessName,
       decisionDate,
-      attachement,
-      description,
-      productid,
-      businessid,
+      attachment,
+      description
     }
   },
   email: function({

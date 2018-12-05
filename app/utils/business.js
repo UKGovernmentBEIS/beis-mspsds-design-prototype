@@ -1,0 +1,1 @@
+const businesses = require('../data/businesses')
