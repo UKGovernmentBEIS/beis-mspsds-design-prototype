@@ -170,7 +170,7 @@ module.exports = {
     description
   }) {
     return {
-      type: "phonecall",
+      type: "phoneCall",
       title: summary,
       action: "Phone call recorded",
       correspondent: buildCorrespondent(correspondentName, phoneNumber),
