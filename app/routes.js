@@ -36,8 +36,8 @@ router.get('/:mode/:entity(case|business|product|case-list)/', function (req, re
 // FLOWS ----------------------------------------------------------------------
 
 router.post('/:mode/flows/ts-create/save', function (req, res) {
-  let newCase = req.session.data.new;
-
+  const data = req.session.data
+  let newCase = data.new;
   Cases.addDefaults(newCase);
 
   newCase.dateCreated = today.short();
@@ -54,11 +54,11 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
   }
 
   if ( !newCase.assignee ) {
-    newCase.assignee = req.session.data.currentUser;
+    newCase.assignee = data.currentUser;
   }
 
   if ( !newCase.creator ) {
-    newCase.creator = req.session.data.currentUser;
+    newCase.creator = data.currentUser;
   }
 
   if (newCase.type == "Case") {
@@ -81,6 +81,11 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
     caseSummary: newCase.report.summary
   }));
 
+  const testFile = attachment.build({ title: "Test results", filename: data.new.testing.upload })
+  const riskFile = attachment.build({ title: "Risk assessment", filename: data.new.risk.upload })
+  const relatedFile = attachment.build({ title: "Related file", filename: data.new.related.upload })
+  newCase.attachments.unshift(testFile.id, riskFile.id, relatedFile.id)
+  data.attachments.push(testFile, riskFile, relatedFile)
   res.locals.data.cases.push(newCase);
 
   res.redirect('/root/case?caseid=' + newCase.id);
