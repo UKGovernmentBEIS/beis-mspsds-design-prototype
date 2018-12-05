@@ -114,14 +114,5 @@
 
 
 
-{% if data['debugging'] == 'Yes'  %}
-    {% block footer %}
-        {{ super() }}
-        <pre>
-            {{ data['new'] | dump(4)  }}
-        </pre>
-    {% endblock %}
-{% endif %}
-
 
 

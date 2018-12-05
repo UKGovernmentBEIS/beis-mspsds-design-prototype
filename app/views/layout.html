@@ -33,6 +33,21 @@
   GOV.UK Prototype Kit
 {% endblock %}
 
+{% if data['signedIn'] == 'Yes' %} 
+  {% set headerNav = [
+    {
+      href: "/",
+      text: "Account"
+    },
+    {
+      href: "/pages/home?signedIn=No",
+      text: "Sign out"
+    }
+  ] %}
+{% else %}
+  {% set headerNav = [] %}
+{% endif %}
+
 
 {% block header %}
   {% include "includes/cookie-banner.html" %}
@@ -42,16 +57,7 @@
     serviceName: serviceName,
     serviceUrl: "/",
     containerClasses: "govuk-width-container",
-    navigation: [
-    {
-      href: "/",
-      text: "Account"
-    },
-    {
-      href: "/",
-      text: "Sign out"
-    }
-  ]
+    navigation: headerNav
   }) }}
 {% endblock %}
 

@@ -4,8 +4,8 @@ const express = require('express');
 const router = express.Router();
 const today = require("./utils/today");
 const Cases = require("./utils/case");
-const array = require("./utils/arrayHelpers")
-const attachment = require("./utils/attachment")
+const array = require("./utils/arrayHelpers");
+const attachment = require("./utils/attachment");
 
 // Catch-all for redirecting to the correct mode - MUST BE LAST ROUTE ADDED
 router.all("/root/*", function (req, res) {
@@ -26,7 +26,7 @@ router.all("/:mode(pages|spec|test|old)/*", function (req, res, next) {
 // launched them.
 router.get('/:mode/:entity(case|business|product|case-list)/', function (req, res, next) {
   res.locals.data.currentPage = req.params.entity;
-  next()
+  next();
 });
 
 
@@ -80,7 +80,14 @@ router.post('/:mode/flows/create/save', function (req, res) {
     default:            newCase.type = "Case";
   }
 
-  newCase.assignee = req.session.data.currentUser;
+  if ( !newCase.assignee ) {
+    newCase.assignee = req.session.data.currentUser;
+  }
+
+  if ( !newCase.creator ) {
+    newCase.creator = req.session.data.currentUser;
+  }
+
 
   const caseCareatedActivity = require("./data/activities/templates").caseCreated;
   newCase.activities.push(caseCareatedActivity());
