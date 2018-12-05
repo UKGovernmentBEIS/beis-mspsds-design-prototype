@@ -5,8 +5,8 @@ const router = express.Router();
 const today = require("./utils/date").today;
 const date = require("./utils/date").date;
 const Cases = require("./utils/case");
-const array = require("./utils/arrayHelpers")
-const attachment = require("./utils/attachment")
+const array = require("./utils/arrayHelpers");
+const attachment = require("./utils/attachment");
 
 // Catch-all for redirecting to the correct mode - MUST BE LAST ROUTE ADDED
 router.all("/root/*", function (req, res) {
@@ -27,7 +27,7 @@ router.all("/:mode(pages|spec|test|old)/*", function (req, res, next) {
 // launched them.
 router.get('/:mode/:entity(case|business|product|case-list)/', function (req, res, next) {
   res.locals.data.currentPage = req.params.entity;
-  next()
+  next();
 });
 
 
@@ -48,14 +48,38 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
 
   switch(newCase.report.type) {
     case "Allegation":  newCase.type = "Case"; break;
+    case "Report":      newCase.type = "Case"; break;
     case "Question":    newCase.type = "Question"; break;
     default:            newCase.type = "Case";
   }
 
-  newCase.assignee = 'OPSS - Processing';
+  if ( !newCase.assignee ) {
+    newCase.assignee = req.session.data.currentUser;
+  }
+
+  if ( !newCase.creator ) {
+    newCase.creator = req.session.data.currentUser;
+  }
+
+  if (newCase.type == "Case") {
+    newCase.title = newCase.report.productType + " - " + newCase.report.hazardType;
+  }
 
   const caseCreatedActivity = require("./data/activities/templates").caseCreated;
-  newCase.activities.push(caseCreatedActivity());
+  newCase.activities.push(caseCreatedActivity({
+    caseType: newCase.report.type,
+    caseTitle: newCase.title,
+    author: newCase.assignee,
+    dateCreated: newCase.dateCreated,
+    reporterName: newCase.report.reporter.name,
+    reporterType: newCase.report.reporter.type,
+    reporterPhoneNumber: newCase.report.reporter.phoneNumber,
+    reporterEmailAddress: newCase.report.reporter.emailAddress,
+    reporterOtherDetails: newCase.report.reporter.otherDetails,
+    productType: newCase.report.productType,
+    hazardType: newCase.report.hazardType,
+    caseSummary: newCase.report.summary
+  }));
 
   res.locals.data.cases.push(newCase);
 
@@ -77,14 +101,40 @@ router.post('/:mode/flows/create/save', function (req, res) {
 
   switch(newCase.report.type) {
     case "Allegation":  newCase.type = "Case"; break;
+    case "Report":      newCase.type = "Case"; break;
     case "Question":    newCase.type = "Question"; break;
     default:            newCase.type = "Case";
   }
 
-  newCase.assignee = req.session.data.currentUser;
+
+  if ( !newCase.assignee ) {
+    newCase.assignee = req.session.data.currentUser;
+  }
+
+  if ( !newCase.creator ) {
+    newCase.creator = req.session.data.currentUser;
+  }
+
+  if (newCase.type == "Case") {
+    newCase.title = newCase.report.productType + " - " + newCase.report.hazardType;
+  }
+
 
   const caseCreatedActivity = require("./data/activities/templates").caseCreated;
-  newCase.activities.push(caseCreatedActivity());
+  newCase.activities.push(caseCreatedActivity({
+    caseType: newCase.report.type,
+    caseTitle: newCase.title,
+    author: newCase.assignee,
+    dateCreated: newCase.dateCreated,
+    reporterName: newCase.report.reporter.name,
+    reporterType: newCase.report.reporter.type,
+    reporterPhoneNumber: newCase.report.reporter.phoneNumber,
+    reporterEmailAddress: newCase.report.reporter.emailAddress,
+    reporterOtherDetails: newCase.report.reporter.otherDetails,
+    productType: newCase.report.productType,
+    hazardType: newCase.report.hazardType,
+    caseSummary: newCase.report.summary
+  }));
 
   res.locals.data.cases.push(newCase);
 
@@ -414,6 +464,15 @@ router.post('/:mode/flows/add-activity/choose', function (req, res) {
       break;
     case 'correspondence':
       res.redirect("/flows/add-correspondence/01-add-correspondence-context.html");
+      break;
+    case 'email':
+      res.redirect("/flows/add-correspondence/01e-add-email-context.html");
+      break;
+    case 'phoneCall':
+      res.redirect("/flows/add-correspondence/01p-add-phonecall-context.html");
+      break;
+    case 'meeting':
+      res.redirect("/flows/add-correspondence/01m-add-meeting-context.html");
       break;
     case 'contact':
       res.redirect("/root/flows/contact/add/01.html");

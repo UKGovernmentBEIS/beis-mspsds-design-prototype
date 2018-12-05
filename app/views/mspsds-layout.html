@@ -24,15 +24,22 @@
 
 {% block head %}
 	{{ super() }}
+    
   	{% include "includes/head__mspsds.html" %}
-
-    {% if data['debug'] == 'true' %}
-        {{ data | dump(4) }}
-    {% endif %}
-
 
 {% endblock %}
 
 {% block headIcons %}
   <link rel="shortcut icon" href="/public/images/favicon.ico" type="image/x-icon" />
+{% endblock %}
+
+
+
+
+
+{% block footer %}
+    {{ super() }}
+    {% if data['debugging'] == 'Yes'  %}
+        <pre>{{ data | dump(4)  }}</pre>
+    {% endif %}
 {% endblock %}

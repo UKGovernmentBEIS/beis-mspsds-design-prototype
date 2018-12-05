@@ -87,40 +87,9 @@
             <div id="case-creator-autocomplete-container"></div>
           </label>
         {% endset -%}
-
-
-        {{ govukCheckboxes({
-
-          fieldset: {
-            legend: {
-              text: "Assigned to",
-              isPageHeading: false,
-              classes: "govuk-fieldset__legend--s"
-            }
-          },
-          classes: "govuk-!-margin-bottom-5",
-          idPrefix:   "Assignee",
-          name:       "caseListSettings[assignee]",
-          items: [
-            {
-              value: "Me",
-              text: "Me",
-              checked: checked("caseListSettings['assignee']", "Me")
-            },
-            {
-              value: "other",
-              text: "Someone else",
-              checked: checked("caseListSettings['assignee']", "other"),
-              conditional: {
-                html: assigneeHtml
-              }
-            }
-
-          ]
-        }) }}
         
 
-        {% if filterByCreated %}
+        {% if data['currentTeam'] == 'Trading Standards' %}
           {{ govukCheckboxes({
 
             fieldset: {
@@ -150,6 +119,39 @@
 
             ]
           }) }}
+        
+        {% else %}
+        
+          {{ govukCheckboxes({
+
+            fieldset: {
+              legend: {
+                text: "Assigned to",
+                isPageHeading: false,
+                classes: "govuk-fieldset__legend--s"
+              }
+            },
+            classes: "govuk-!-margin-bottom-5",
+            idPrefix:   "Assignee",
+            name:       "caseListSettings[assignee]",
+            items: [
+              {
+                value: "Me",
+                text: "Me",
+                checked: checked("caseListSettings['assignee']", "Me")
+              },
+              {
+                value: "other",
+                text: "Someone else",
+                checked: checked("caseListSettings['assignee']", "other"),
+                conditional: {
+                  html: assigneeHtml
+                }
+              }
+
+            ]
+          }) }}
+
         {% endif %}
 
         {{ govukCheckboxes({

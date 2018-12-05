@@ -1,18 +1,5 @@
 {% set length = data['cases'].length  %}
 
-{{ govukInput({
-  id:   "caseid",
-  name: "caseid",
-  value: "1800-"+length,
-  type: "hidden"
-}) }}
-
-{{ govukInput({
-  id:   "issue-id",
-  name: "new[id]",
-  value: "1800-"+length,
-  type: "hidden"
-}) }}
 
 {{ govukInput({
   id:   "issue-status",
@@ -29,6 +16,13 @@
 }) }}
 
 {{ govukInput({
+  id:   "issue-assignee",
+  name: "new[creator]",
+  value: data['currentUser'],
+  type: "hidden"
+}) }}
+
+{{ govukInput({
   id:   "issue-reporter-type",
   name: "new[report][reporter][type]",
   value: "Trading Standards",
@@ -39,5 +33,27 @@
   id:   "issue-reporter-name",
   name: "new[report][reporter][name]",
   value: data['currentUser'],
+  type: "hidden"
+}) }}
+
+{{ govukInput({
+  id:   "issue-reporter-name",
+  name: "new[report][reporter][phoneNumber]",
+  value: "01234 567 8910",
+  type: "hidden"
+}) }}
+
+{{ govukInput({
+  id:   "issue-reporter-name",
+  name: "new[report][reporter][emailAddress]",
+  value: "someone@tradingstandards.xyz",
+  type: "hidden"
+}) }}
+
+
+{{ govukInput({
+  id:   "issue-reporter-name",
+  name: "new[report][reporter][otherDetails]",
+  value: "Some details about the TS / LA would potentially go here",
   type: "hidden"
 }) }}

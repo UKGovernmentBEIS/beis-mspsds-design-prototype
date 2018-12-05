@@ -21,6 +21,8 @@ module.exports = {
   currentUser:   'Tim Harwood',
   currentTeam:   'OPSS - Processing',
 
+  signedIn:       'No',
+
   debugging:     'No',
 
   mode:         "pages",

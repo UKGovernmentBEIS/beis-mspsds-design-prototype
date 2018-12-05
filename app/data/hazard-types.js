@@ -1,6 +1,10 @@
 module.exports = {
     hazardTypes: [
-      'Electric shock',
-      'Fire hazard'
+      'Asphyxiation',
+      'Blunt force',
+      'Chemical exposure',
+      'Fire/burn',
+      'Penetrating force',
+      'Other hazard type'
     ]
 };

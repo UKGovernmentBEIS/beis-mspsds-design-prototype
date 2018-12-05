@@ -81,10 +81,32 @@
           items: teamRows
         }) }}
 
-
-
-
       {% endcall %}
+
+
+      {{ govukRadios({
+          idPrefix:   "signedIn",
+          name:       "signedIn",
+          classes:    "govuk-radios--inline",
+          fieldset: {
+            legend: {
+              text:     "Start signed in?",
+              classes:  "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+            {
+              value: "Yes",
+              text: "Yes",
+              checked: checked("signedIn", "Yes")
+            },
+            {
+              value: "No",
+              text: "No",
+              checked: checked("signedIn", "No")
+            }
+          ]
+        }) }}
 
 
       {{ govukRadios({
