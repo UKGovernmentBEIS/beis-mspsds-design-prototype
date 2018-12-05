@@ -1,0 +1,12 @@
+<p class="govuk-body">
+    Call with: {{activity.correspondent | safe}}<br />
+    Date: <span class="govuk-!-font-weight-bold">{{activity.phoneCallDate}}</span><br />
+    Attached: <span class="govuk-!-font-weight-bold">{{activity.attachment}}</span>
+</p>
+
+{% if activity.description %}
+    <p class="govuk-body"> {{activity.description | safe}} </p>
+{% endif %}
+{% if activity.transcript %}
+    <a href='#attachements'>View attachment</a>
+{% endif %}

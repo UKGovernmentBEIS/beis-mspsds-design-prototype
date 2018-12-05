@@ -47,14 +47,38 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
 
   switch(newCase.report.type) {
     case "Allegation":  newCase.type = "Case"; break;
+    case "Report":      newCase.type = "Case"; break;
     case "Question":    newCase.type = "Question"; break;
     default:            newCase.type = "Case";
   }
 
-  newCase.assignee = 'OPSS - Processing';
+  if ( !newCase.assignee ) {
+    newCase.assignee = req.session.data.currentUser;
+  }
 
-  const caseCareatedActivity = require("./data/activities/templates").caseCreated;
-  newCase.activities.push(caseCareatedActivity());
+  if ( !newCase.creator ) {
+    newCase.creator = req.session.data.currentUser;
+  }
+
+  if (newCase.type == "Case") {
+    newCase.title = newCase.report.productType + " - " + newCase.report.hazardType;
+  }
+
+  const caseCreatedActivity = require("./data/activities/templates").caseCreated;
+  newCase.activities.push(caseCreatedActivity({
+    caseType: newCase.report.type,
+    caseTitle: newCase.title,
+    author: newCase.assignee,
+    dateCreated: newCase.dateCreated,
+    reporterName: newCase.report.reporter.name,
+    reporterType: newCase.report.reporter.type,
+    reporterPhoneNumber: newCase.report.reporter.phoneNumber,
+    reporterEmailAddress: newCase.report.reporter.emailAddress,
+    reporterOtherDetails: newCase.report.reporter.otherDetails,
+    productType: newCase.report.productType,
+    hazardType: newCase.report.hazardType,
+    caseSummary: newCase.report.summary
+  }));
 
   res.locals.data.cases.push(newCase);
 
@@ -76,9 +100,11 @@ router.post('/:mode/flows/create/save', function (req, res) {
 
   switch(newCase.report.type) {
     case "Allegation":  newCase.type = "Case"; break;
+    case "Report":      newCase.type = "Case"; break;
     case "Question":    newCase.type = "Question"; break;
     default:            newCase.type = "Case";
   }
+
 
   if ( !newCase.assignee ) {
     newCase.assignee = req.session.data.currentUser;
@@ -88,13 +114,30 @@ router.post('/:mode/flows/create/save', function (req, res) {
     newCase.creator = req.session.data.currentUser;
   }
 
+  if (newCase.type == "Case") {
+    newCase.title = newCase.report.productType + " - " + newCase.report.hazardType;
+  }
 
-  const caseCareatedActivity = require("./data/activities/templates").caseCreated;
-  newCase.activities.push(caseCareatedActivity());
+
+  const caseCreatedActivity = require("./data/activities/templates").caseCreated;
+  newCase.activities.push(caseCreatedActivity({
+    caseType: newCase.report.type,
+    caseTitle: newCase.title,
+    author: newCase.assignee,
+    dateCreated: newCase.dateCreated,
+    reporterName: newCase.report.reporter.name,
+    reporterType: newCase.report.reporter.type,
+    reporterPhoneNumber: newCase.report.reporter.phoneNumber,
+    reporterEmailAddress: newCase.report.reporter.emailAddress,
+    reporterOtherDetails: newCase.report.reporter.otherDetails,
+    productType: newCase.report.productType,
+    hazardType: newCase.report.hazardType,
+    caseSummary: newCase.report.summary
+  }));
 
   res.locals.data.cases.push(newCase);
 
-  res.redirect('/root/case?caseid=' + newCase.id);
+  res.redirect('/root/case--created?caseid=' + newCase.id);
 });
 
 
@@ -123,8 +166,8 @@ router.post('/:mode/flows/assign/save', function (req, res) {
   let newAssignee = req.body.assignee;
   newAssignee = newAssignee === "Other" ? req.body["other-assignee"] : newAssignee;
 
-  const assignedActivityTempalte = require("./data/activities/templates").assigned;
-  const newActivity = assignedActivityTempalte({
+  const assignedActivityTemplate = require("./data/activities/templates").assigned;
+  const newActivity = assignedActivityTemplate({
     assignee: newAssignee,
     author: res.locals.data.currentUser,
     date: today.long()
@@ -397,8 +440,17 @@ router.post('/:mode/flows/add-activity/choose', function (req, res) {
     case 'comment':
       res.redirect("/root/flows/add-comment/01-add-comment");
       break;
-    case 'correspondance':
+    case 'correspondence':
       res.redirect("/flows/add-correspondence/01-add-correspondence-context.html");
+      break;
+    case 'email':
+      res.redirect("/flows/add-correspondence/01e-add-email-context.html");
+      break;
+    case 'phoneCall':
+      res.redirect("/flows/add-correspondence/01p-add-phonecall-context.html");
+      break;
+    case 'meeting':
+      res.redirect("/flows/add-correspondence/01m-add-meeting-context.html");
       break;
     case 'contact':
       res.redirect("/root/flows/contact/add/01.html");
@@ -421,7 +473,10 @@ router.post('/:mode/flows/add-activity/choose', function (req, res) {
     case 'business':
       res.redirect("/root/flows/business/add/01.html");
       break;
-    case 'testing':
+    case 'testing-request':
+      res.redirect("/flows/record-testing-request/01-record-testing-request.html");
+      break;
+    case 'test-result':
       res.redirect("/flows/record-test-result/01-record-test-result.html");
       break;
     default:

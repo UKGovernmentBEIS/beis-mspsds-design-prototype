@@ -1,13 +1,68 @@
-{% if data['activityVersion'] == 'v2' %}
+{% extends "includes/templates/flow.html" %}
 
-    {% extends "./01-choose-activity-v2.html" %}
+{% set displayTitle        = 'New activity' %}
 
-{% elif data['activityVersion'] == 'v3' %}
-    
-    {% extends "./01-choose-activity-v3.html" %}
 
-{% else %}
 
-    {% extends "./01-choose-activity.html" %}
+{% block flow %}
 
-{% endif %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="./choose" method="post" class="form">
+
+        {{ govukRadios({
+          idPrefix:   "new-activity",
+          name:       "new-activity",
+
+          items: [
+            {
+              value: "comment",
+              text: "Add a comment"
+            },
+            {
+              value: "email",
+              text: "Record email"
+            },
+            {
+              value: "phoneCall",
+              text: "Record phone call"
+            },
+            {
+              value: "meeting",
+              text: "Record meeting"
+            },
+            {
+              value: "product",
+              text: "Add a product to the " + currentPage
+            },
+            {
+              value: "testing-request",
+              text: "Record testing request"
+            },
+            {
+              value: "test-result",
+              text: "Record test result"
+            },
+            {
+              value: "corrective-action",
+              text: "Record corrective action"
+            },
+            {
+              value: "business",
+              text: "Add a business to the " + currentPage
+            }
+          ]
+        }) }}
+
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

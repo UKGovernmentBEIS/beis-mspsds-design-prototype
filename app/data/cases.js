@@ -55,6 +55,60 @@ const Cases = require("../utils/case")
 module.exports = {
   cases: [
     {
+      id: '1811-0758',
+      type: 'Question',
+      status: 'Open',
+      products: ['p47'],
+      title: 'Has anyone recently advised on snap bracelets / slap wraps?',
+      assignee: "Tim Harwood",
+      team: 'TSC',
+      overdue: 'Overdue',
+      dateUpdated: '21/10/2018',
+      dateCreated: '18/10/2018',
+      report: {
+        type: 'Allegation',
+        date: '18/10/2018',
+        summary: '',
+        productType: 'Toy',
+        hazardType: '',
+        reporter: {
+          type: "Consumer",
+          name: "Jenny Patterson",
+          phoneNumber: "",
+          emailAddress: "",
+          otherDetails: ""
+        },
+      },
+      businesses: [{id: 'b3', role: 'Manufacturer'}],
+      contacts: [
+        {
+          id: 'c1',
+          role: 'Main contact'
+        },
+        {
+          id: 'c2',
+          role: 'Head of procurement'
+        }
+      ],
+      activities: require("./activities/1811-0758").activities,
+      attachments: ['at1', 'at2'],
+      // the below properties have not been set for this case
+      // hazard: {
+      //     type: '',
+      //     details: '',
+      //     group: '',
+      //     riskLevel: '',
+      //     assessment: ''
+      // },
+      // incidents: [],
+      // related: [],
+      // match: { // This is a hack to make some cases show up in test results
+      //   key:  'Case reference',
+      //   value: "01<span class='highlight'>32-142</span>1"
+      // }
+    },
+
+    {
       // EMPTY CASE
       type: 'Case',
       id: "1810-0000",
@@ -758,18 +812,6 @@ module.exports = {
         key: 'Product, model number',
         value: "Makita Pen, 1/4 x 18 mm, Stainless Steel, F <span class='highlight'>32142</span>"
       },
-    },
-    {
-      id: '1811-0758',
-      type: 'Question',
-      status: 'Open',
-      products: ['p47'],
-      title: 'Has anyone recently advised on snap bracelets / slap warps? ',
-      assignee: "Jan Mikolajczak",
-      team: 'TSC',
-      overdue: 'Overdue',
-      dateUpdated: '16/10/2018',
-      dateCreated: '18/10/2018'
     },
     {
       id: '1811-0757',

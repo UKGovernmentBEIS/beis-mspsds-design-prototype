@@ -1,0 +1,12 @@
+<p class="govuk-body">
+    {{activity.direction}}: {{activity.correspondent | safe}}<br />
+    Date sent: <span class="govuk-!-font-weight-bold">{{activity.emailDate}}</span><br />
+    Email: {{activity.subject | safe}}<br />
+    Attached: <span class="govuk-!-font-weight-bold">{{activity.attachment}}</span>
+</p>
+{% if activity.description %}
+    <p class="govuk-body"> {{activity.description | safe}} </p>
+{% endif %}
+{% if activity.attachment %}
+    <a href='#attachements'>View attachment</a>
+{% endif %}

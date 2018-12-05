@@ -27,7 +27,7 @@
             {% endif %}
 
             {% if activity.text %}
-              <p class="govuk-body">{{activity.text}}</p>
+              <p class="govuk-body">{{activity.text | safe}}</p>
             {% endif %}
             
           </li>
