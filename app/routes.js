@@ -5,6 +5,7 @@ const router = express.Router();
 const today = require("./utils/date").today;
 const date = require("./utils/date").date;
 const Cases = require("./utils/case");
+const Activities = require("./utils/activity");
 const array = require("./utils/arrayHelpers");
 const attachment = require("./utils/attachment");
 
@@ -37,59 +38,19 @@ router.get('/:mode/:entity(case|business|product|case-list)/', function (req, re
 
 router.post('/:mode/flows/ts-create/save', function (req, res) {
   const data = req.session.data
-  let newCase = data.new;
 
-  Cases.addDefaults(newCase);
+  let newCase = Cases.buildFromData(data);
+  res.locals.data.cases.push(newCase);
 
-  newCase.dateCreated = today.short();
-  newCase.dateUpdated = today.short();
-  newCase.report.date = today.short();
-
-  newCase.id = today.id();
-
-  switch(newCase.report.type) {
-    case "Allegation":  newCase.type = "Case"; break;
-    case "Report":      newCase.type = "Case"; break;
-    case "Question":    newCase.type = "Question"; break;
-    default:            newCase.type = "Case";
-  }
-
-  if ( !newCase.assignee ) {
-    newCase.assignee = data.currentUser;
-  }
-
-  if ( !newCase.creator ) {
-    newCase.creator = data.currentUser;
-  }
-
-  if (newCase.type == "Case") {
-    newCase.title = newCase.report.productType + " - " + newCase.report.hazardType;
-  }
-
+  let activity = Activities.buildCreateCase(newCase)
+  newCase.activities.unshift(activity)
+  
   const testFile = attachment.build({ title: "Test Results", filename: data.new.files.testing.upload })
   const riskFile = attachment.build({ title: "Risk Assessment", filename: data.new.files.risk.upload })
-  const relatedFile = attachment.build({ title: "Related attachment", filename: data.new.files.related.upload })
-  newCase.attachments.unshift(testFile.id, riskFile.id, relatedFile.id)
+  const relatedFile = attachment.build({ title: "Related Attachment", filename: data.new.files.related.upload })
+  activity.attachments.unshift(testFile, riskFile, relatedFile)
+  
   data.attachments.push(testFile, riskFile, relatedFile)
-
-  const caseCreatedActivity = require("./data/activities/templates").caseCreated;
-  newCase.activities.push(caseCreatedActivity({
-    caseType: newCase.report.type,
-    caseTitle: newCase.title,
-    author: newCase.assignee,
-    dateCreated: newCase.dateCreated,
-    reporterName: newCase.report.reporter.name,
-    reporterType: newCase.report.reporter.type,
-    reporterPhoneNumber: newCase.report.reporter.phoneNumber,
-    reporterEmailAddress: newCase.report.reporter.emailAddress,
-    reporterOtherDetails: newCase.report.reporter.otherDetails,
-    productType: newCase.report.productType,
-    hazardType: newCase.report.hazardType,
-    caseSummary: newCase.report.summary,
-    attachments: [testFile, riskFile, relatedFile]
-  }));
-
-  res.locals.data.cases.push(newCase);
 
   res.redirect('/root/case?caseid=' + newCase.id);
 });
@@ -98,54 +59,12 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
 
 router.post('/:mode/flows/create/save', function (req, res) {
   const data = req.session.data;
-  let newCase = data.new;
-
-  Cases.addDefaults(newCase);
-
-  newCase.dateCreated = today.short();
-  newCase.dateUpdated = today.short();
-  newCase.report.date = today.short();
-
-  newCase.id = today.id();
-
-  switch(newCase.report.type) {
-    case "Allegation":  newCase.type = "Case"; break;
-    case "Report":      newCase.type = "Case"; break;
-    case "Question":    newCase.type = "Question"; break;
-    default:            newCase.type = "Case";
-  }
-
-
-  if ( !newCase.assignee ) {
-    newCase.assignee = data.currentUser;
-  }
-
-  if ( !newCase.creator ) {
-    newCase.creator = data.currentUser;
-  }
-
-  if (newCase.type == "Case") {
-    newCase.title = newCase.report.productType + " - " + newCase.report.hazardType;
-  }
-
-
-  const caseCreatedActivity = require("./data/activities/templates").caseCreated;
-  newCase.activities.push(caseCreatedActivity({
-    caseType: newCase.report.type,
-    caseTitle: newCase.title,
-    author: newCase.assignee,
-    dateCreated: newCase.dateCreated,
-    reporterName: newCase.report.reporter.name,
-    reporterType: newCase.report.reporter.type,
-    reporterPhoneNumber: newCase.report.reporter.phoneNumber,
-    reporterEmailAddress: newCase.report.reporter.emailAddress,
-    reporterOtherDetails: newCase.report.reporter.otherDetails,
-    productType: newCase.report.productType,
-    hazardType: newCase.report.hazardType,
-    caseSummary: newCase.report.summary
-  }));
-
+  
+  let newCase = Cases.buildFromData(data);
   res.locals.data.cases.push(newCase);
+
+  let activity = Activities.buildCreateCase(newCase)
+  newCase.activities.unshift(activity);
 
   res.redirect('/root/case--created?caseid=' + newCase.id);
 });
@@ -548,3 +467,21 @@ router.post('/test-setup', function (req, res, next) {
 
 // Add your routes here - above the module.exports line
 module.exports = router;
+
+function buildCreateCaseActivity(newCase) {
+  const caseCreatedActivity = require("./data/activities/templates").caseCreated;
+  return caseCreatedActivity({
+    caseType: newCase.report.type,
+    caseTitle: newCase.title,
+    author: newCase.assignee,
+    dateCreated: newCase.dateCreated,
+    reporterName: newCase.report.reporter.name,
+    reporterType: newCase.report.reporter.type,
+    reporterPhoneNumber: newCase.report.reporter.phoneNumber,
+    reporterEmailAddress: newCase.report.reporter.emailAddress,
+    reporterOtherDetails: newCase.report.reporter.otherDetails,
+    productType: newCase.report.productType,
+    hazardType: newCase.report.hazardType,
+    caseSummary: newCase.report.summary
+  });
+}

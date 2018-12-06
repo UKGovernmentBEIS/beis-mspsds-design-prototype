@@ -1,8 +1,8 @@
 <h3 class="govuk-heading-m">{{activity.caseType}} details</h3>
 <p class="govuk-body">
   {% if activity.caseType == "Allegation" %}
-  Product type: <span class="govuk-!-font-weight-bold">{{activity.productType}}</span><br />
-  Hazard type: <span class="govuk-!-font-weight-bold">{{activity.hazardType}}</span><br />
+    Product type: <span class="govuk-!-font-weight-bold">{{activity.productType}}</span><br />
+    Hazard type: <span class="govuk-!-font-weight-bold">{{activity.hazardType}}</span><br />
   {% endif %}
   {% if activity.attachments | length  > 0 %}
     {% for file in activity.attachments %}
