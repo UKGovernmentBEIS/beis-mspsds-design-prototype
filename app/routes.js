@@ -69,7 +69,7 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
   const testFile = attachment.build({ title: "Test results", filename: data.new.testing.upload })
   const riskFile = attachment.build({ title: "Risk assessment", filename: data.new.risk.upload })
   const relatedFile = attachment.build({ title: "Related file", filename: data.new.related.upload })
-  newCase.attachments.unshift(testFile, riskFile, relatedFile)
+  newCase.attachments.unshift(testFile.id, riskFile.id, relatedFile.id)
   data.attachments.push(testFile, riskFile, relatedFile)
 
   const caseCreatedActivity = require("./data/activities/templates").caseCreated;
