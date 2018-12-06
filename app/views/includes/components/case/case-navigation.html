@@ -1,7 +1,18 @@
 {% from "back-link/macro.njk"     import govukBackLink %}
 
 
-{{ govukBackLink({
-	text: "Back to Cases",
-	href: "/root/case-list"
-}) }}
+{% if data['currentTeam'] == 'Trading Standards' %}
+
+	{{ govukBackLink({
+		text: "Back to Home",
+		href: "/root/home"
+	}) }}
+
+{% else %}
+
+	{{ govukBackLink({
+		text: "Back to Cases",
+		href: "/root/case-list"
+	}) }}
+
+{% endif %}
