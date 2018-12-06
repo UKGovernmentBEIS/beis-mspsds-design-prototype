@@ -49,7 +49,7 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
   activity.attachments.unshift(...files);
   data.attachments.push(...files);
 
-  res.redirect('/root/case?caseid=' + newCase.id);
+  res.redirect('/root/case--created?caseid=' + newCase.id);
 });
 
 
