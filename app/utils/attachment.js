@@ -11,7 +11,7 @@ module.exports = {
     },
     build: function({
         title,
-        filename,
+        filename = "",
         date = today.short(),
         description
     }) {

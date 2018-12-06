@@ -49,5 +49,12 @@ module.exports = {
   attachments:  require("./attachments.js").attachments,
   productTypes: require("./product-types.js").productTypes,
   hazardTypes:  require("./hazard-types.js").hazardTypes,
-  teams:        require("./teams.js").teams
+  teams:        require("./teams.js").teams,
+  new: {
+    files: {
+      testing: {},
+      risk: {},
+      related: {}
+    }
+  }
 };
