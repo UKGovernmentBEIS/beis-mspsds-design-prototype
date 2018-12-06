@@ -1,0 +1,42 @@
+{% extends "includes/templates/flow--creation-ts.html" %}
+
+
+{% if data['new']['report']['type'] == 'Report' %}
+  {% set titleType           = 'Reporting a dangerous product' %}
+  {% set displayTitle        = 'Prior to this report' %}
+  {% set formAction         = './05' %}
+{% endif %}
+
+
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+
+  <div class="govuk-grid-row govuk-!-margin-bottom-3">
+    {% include "includes/components/shared/create/ts-action-info.html" %}
+  </div>
+
+
+  <div class="govuk-grid-row govuk-!-margin-bottom-3">
+    {% include "includes/components/shared/create/ts-testing-info.html" %}
+  </div>
+
+  <div class="govuk-grid-row govuk-!-margin-bottom-3">
+    {% include "includes/components/shared/create/ts-risk-info.html" %}
+  </div>
+
+  <div class="govuk-grid-row govuk-!-margin-bottom-3">
+    {% include "includes/components/shared/create/ts-action-info-future.html" %}
+  </div>
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% from "button/macro.njk" import govukButton %}
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </div>
+  </div>
+</form>
+{% endblock %}

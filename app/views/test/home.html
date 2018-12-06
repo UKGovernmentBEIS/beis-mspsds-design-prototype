@@ -1,0 +1,23 @@
+{% set currentPage      = 'home' %}
+{% set currentTeam      = data['currentTeam'] %}
+
+{% if data['signedIn'] != 'Yes' %} 
+    {% extends "includes/templates/start.html" %}
+{% else %}
+
+    {% if currentTeam.includes("Trading") %}
+        {% extends "includes/templates/home-ts.html" %}
+
+    {% elif currentTeam.includes("OPSS") %}
+        {% extends "includes/templates/home-opss.html" %}
+
+    {% else %}
+        {% extends "includes/templates/404.html" %}
+
+    {% endif %}
+
+
+{% endif %}
+
+
+

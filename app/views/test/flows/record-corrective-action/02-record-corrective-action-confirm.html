@@ -1,0 +1,74 @@
+{% extends "mspsds-layout.html" %}
+
+{% block pageTitle %}
+Confirm corrective action details
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back to case",
+  href: "/case"
+}) }}
+{% endblock %}
+
+{% block content %}
+{{ pageTitle({
+  type:   "Case: 1810-0001",
+  title:  "Confirm corrective action details"
+}) }}
+
+{%set dateString = data['corrective-action-date-year'] | buildDateString(data['corrective-action-date-month'], data['corrective-action-date-day']) %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form action="save" method="post" class="form">
+
+      {{ govukTable({
+        firstCellIsHeader: true,
+        rows: [
+          [
+            { text: "Summary" },
+            { text: data['corrective-action-summary']}
+          ],
+          [
+            { text: "Date decided" },
+            { text: dateString}
+          ],
+          [
+            { text: "Product involved" },
+            { text: data['TODO-product-input-name'] }
+          ],
+          [
+            { text: "Legislation" },
+            { text: data['input-autocomplete'] }
+          ],
+          [
+            { text: "Business" },
+            { text: data['TODO-business-input-name'] }
+          ],
+          [
+            { text: "Details" },
+            { text: data['corrective-action-details'] }
+          ],
+          [
+            { text: "Attachment" },
+            { text: data['corrective-action-file-upload-1'] }
+          ],
+          [
+            { text: "Attachment description" },
+            { text: data['corrective-action-file-upload-1-description'] }
+          ]
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+      <a class="govuk-link mspsds-block-link" href="/flows/record-corrective-action/01-record-corrective-action">Edit details</a>
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

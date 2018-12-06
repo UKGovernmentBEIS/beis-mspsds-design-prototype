@@ -1,0 +1,40 @@
+{% extends "includes/templates/flow.html" %}
+
+{% set displayTitle = 'Add attachment' %}
+
+
+
+{% block flow %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    
+    <form action="02" method="post" class="form">
+
+
+      {% call govukFieldset({
+        legend: {
+          text:       "Browse for file",
+          classes:    "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+        {{ govukFileUpload({
+          id:   "attachment-upload",
+          name: "attachment[upload]"
+        }) }}
+
+      {% endcall %}
+
+
+      {{ govukButton({
+        text: "Upload"
+      }) }}
+
+    </form>
+
+
+  </div>
+</div>
+
+{% endblock %}

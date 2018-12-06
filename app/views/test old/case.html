@@ -1,5 +1,9 @@
 {% set currentPage      = 'case' %}
-{% set currentCase = data.cases | withId(data['caseid']) %}
+
+{% if data['caseid'] %}
+	{% set currentCase = data.cases | withId(data['caseid']) %}
+{% endif %}
+
 
 {% if currentCase %}
 	{% extends "includes/templates/case.html" %}

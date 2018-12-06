@@ -1,0 +1,26 @@
+
+{% if data['new']['report']['type'] == 'Report' %}
+
+  {% set displayTitle        = 'Reporting a dangerous product' %}
+  {% set formAction         = './03' %}
+  {% extends "./02a.html" %}
+
+
+
+{% elif data['new']['report']['type'] == 'Question' %}
+
+  {% set titleType           = 'Asking a question' %}
+  {% set displayTitle        = 'What\’s your question?' %}
+  {% set formAction         = './03' %}
+  {% extends "./02b.html" %}
+
+
+
+{% elif data['new']['report']['type'] == 'Recall' %}
+
+  {% set titleType           = 'Reporting a product recall' %}
+  {% set displayTitle        = 'What product is being recalled?' %}
+  {% set formAction         = './03' %}
+  {% extends "./02c.html" %}
+
+{% endif %}

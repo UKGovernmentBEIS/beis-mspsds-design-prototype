@@ -1,0 +1,38 @@
+{% extends "includes/templates/flow.html" %}
+
+
+
+{% set displayTitle        = 'Remove attachment' %}
+
+{% set formAction           = '/pages/flows/attachment/delete' %}
+
+{% set currentAttachment  = data.attachments | withId(data['attachmentid']) %}
+
+
+{% block flow %}
+  <form action="{{formAction}}" method="post" class="form">
+    
+      <div class="govuk-grid-row">
+            
+        {% include "includes/components/shared/attachment/details-display.html" %}
+
+      </div>
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            {% from "button/macro.njk" import govukButton %}
+          
+
+            {{ govukButton({
+              text: "Delete " + currentAttachment.type ,
+              classes: "mspsds-button mspsds-button--delete"
+            }) }}
+
+        </div>
+      </div>
+
+  </form>
+
+
+{% endblock %}
