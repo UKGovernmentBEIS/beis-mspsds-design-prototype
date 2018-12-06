@@ -7,13 +7,13 @@
     {% call govukFieldset({
         legend: {
           text:       "Upload test results",
-          classes:    "govuk-fieldset__legend--m"
+          classes:    "govuk-fieldset__legend--s"
         }
     }) %}
 
     {{ govukFileUpload({
       id: "testing-results-upload",
-      name: "new[testing][upload]"
+      name: "new[files][testing][upload]"
     }) }}
 
     {% endcall %}

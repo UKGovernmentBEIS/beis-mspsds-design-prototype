@@ -5,13 +5,13 @@
     {% call govukFieldset({
         legend: {
           text:       "Upload risk assessment files",
-          classes:    "govuk-fieldset__legend--m"
+          classes:    "govuk-fieldset__legend--s"
         }
     }) %}
 
     {{ govukFileUpload({
       id: "risk-assessment-upload",
-      name: "new[risk][upload]"
+      name: "new[files][risk][upload]"
     }) }}
 
     {% endcall %}
