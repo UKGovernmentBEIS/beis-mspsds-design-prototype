@@ -191,6 +191,36 @@ router.post('/:mode/flows/assign/save', function (req, res) {
 });
 
 
+// Add product flow
+router.post('/:mode/flows/product/add', function (req, res) {
+  const kase = res.locals.data.cases.find(function (c) {
+    return c.id === req.session.data.caseid;
+  });
+
+  let productDetails = req.body["product-details"];
+
+  // const activityTemplate = require("./data/activities/templates").addProduct;
+  // const newActivity = activityTemplate({
+  //   author: res.locals.data.currentUser,
+  //   date: today.long(),
+  //   productDescription: productDetails
+  // });
+
+  let productId = "p"+today.id();
+
+  kase.dateUpdated = today.short();
+  req.session.data.products.push({
+    id: productId,
+    description: productDetails
+  });
+  kase.products.push(productId);
+//  kase.activities.unshift(newActivity);
+
+  res.redirect('/root/case#activity');
+});
+
+
+
 // Location flow
 router.post('/:mode/flows/location/save', function (req, res) {
 
