@@ -66,9 +66,9 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
     newCase.title = newCase.report.productType + " - " + newCase.report.hazardType;
   }
 
-  const testFile = attachment.build({ title: "Test results", filename: data.new.files.testing.upload })
-  const riskFile = attachment.build({ title: "Risk assessment", filename: data.new.files.risk.upload })
-  const relatedFile = attachment.build({ title: "Related file", filename: data.new.files.related.upload })
+  const testFile = attachment.build({ title: "Test Results", filename: data.new.files.testing.upload })
+  const riskFile = attachment.build({ title: "Risk Assessment", filename: data.new.files.risk.upload })
+  const relatedFile = attachment.build({ title: "Related attachment", filename: data.new.files.related.upload })
   newCase.attachments.unshift(testFile.id, riskFile.id, relatedFile.id)
   data.attachments.push(testFile, riskFile, relatedFile)
 
