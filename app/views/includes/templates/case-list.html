@@ -1,20 +1,29 @@
 {% extends "mspsds-layout.html" %}
 
-{% set filters  = data.caseListSettings | caseFilters(data.currentUser) %}
-{% set sortAttr = data.caseListSettings | caseSortAttr %}
-{% set sortDir  = data.caseListSettings | caseSortDir %}
+{% set currentTeam   = data['currentTeam'] %}
+
+{% if currentTeam.includes("Trading") %}
+  {% set createLink   = '/root/flows/ts-create/01' %}
+  {% set settings     = data.tsCaseListSettings  %}
+
+{% else %}
+  {% set createLink  = data['createUrl'] %}
+  {% set settings     = data.caseListSettings  %}
+
+{% endif %}
+
+
+{% set filters  = settings | caseFilters(data.currentUser) %}
+{% set sortAttr = settings | caseSortAttr %}
+{% set sortDir  = settings | caseSortDir %}
 {% set cases    = data.cases | filterCollection(filters) | sort(sortDir, false, sortAttr) %}
 
 {% from "select/macro.njk"                import govukSelect %}
 {% set bodyClasses = "mspsds-width-container case-list-3" %}
 
 
-{% set currentTeam   = data['currentTeam'] %}
-{% if currentTeam.includes("Trading") %}
-  {% set createLink  = '/root/flows/ts-create/01' %}
-{% else %}
-  {% set createLink  = data['createUrl'] %}
-{% endif %}
+
+
 
 
 
@@ -101,17 +110,17 @@
             },
             classes: "govuk-!-margin-bottom-5",
             idPrefix:   "Creator",
-            name:       "caseListSettings[creator]",
+            name:       "tsCaseListSettings[creator]",
             items: [
               {
                 value: "Me",
                 text: "Me",
-                checked: checked("caseListSettings['creator']", "Me")
+                checked: checked("tsCaseListSettings['creator']", "Me")
               },
               {
                 value: "other",
                 text: "Someone else",
-                checked: checked("caseListSettings['creator']", "other"),
+                checked: checked("tsCaseListSettings['creator']", "other"),
                 conditional: {
                   html: creatorHtml
                 }

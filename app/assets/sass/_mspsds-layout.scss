@@ -17,6 +17,10 @@
 }
 
 
+.mspsds-pagetitle {
+    text-transform: capitalize;
+}
+
 
 .govuk-tabs__tab { 
     @include govuk-font($size: 16);

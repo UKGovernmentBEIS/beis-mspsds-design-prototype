@@ -38,6 +38,12 @@ module.exports = {
     status: ["Open"]
   },
 
+  tsCaseListSettings: {
+    sort: "latest",
+    creator: ["Me"],
+    status: ["Open"]
+  },
+
   createUrl: "/root/flows/create/01",
 
   cases:        require("./cases.js").cases,

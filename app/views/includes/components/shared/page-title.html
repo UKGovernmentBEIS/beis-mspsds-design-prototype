@@ -1,14 +1,14 @@
 {% macro pageTitle(titleData) %}
 
-<h1 class="govuk-heading-xl">
+<h1 class="govuk-heading-xl mspsds-pagetitle">
   {% if titleData.type %}
-    <span class="govuk-caption-xl">{{titleData.type}}</span>
+    <span class="govuk-caption-xl mspsds-pagetitle__type">{{titleData.type}}</span>
   {% endif %}
   
   {{titleData.title}}
 
   {% if titleData.subTitle %}
-    <span class="govuk-caption-m">{{titleData.subTitle}}</span>
+    <span class="govuk-caption-m mspsds-pagetitle__subtitle">{{titleData.subTitle}}</span>
   {% endif %}
 
 </h1>
