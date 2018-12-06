@@ -5,17 +5,6 @@
   {% set titleType           = 'Reporting a dangerous product' %}
   {% set displayTitle        = 'Your details' %}
   {% set formAction          = 'save' %}
-
-{% elif data['new']['report']['type'] == 'Question' %}
-  {% set titleType           = 'Asking a question' %}
-  {% set displayTitle        = 'What\’s your question?' %}
-  {% set formAction          = 'save' %}
-
-{% elif data['new']['report']['type'] == 'Recall' %}
-  {% set titleType           = 'Reporting a product recall' %}
-  {% set displayTitle        = 'What product is being recalled?' %}
-  {% set formAction          = 'save' %}
-
 {% endif %}
 
 

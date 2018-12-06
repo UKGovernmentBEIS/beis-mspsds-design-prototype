@@ -11,7 +11,7 @@
 
           <li class="mspsds-activity-timeline__entry">
 
-            <h3 class="govuk-heading-s">{{activity.title}}</h3>
+            <h3 class="govuk-heading-s mspsds-activity-heading">{{activity.title}}</h3>
             <p class="mspsds-activity-timeline__entry-details govuk-body-s">
               {{activity.action}}
               {{ (" by " + (activity.author | default("Tim Harwood")) + ",") if not activity.hideName }}
@@ -29,7 +29,7 @@
             {% if activity.text %}
               <p class="govuk-body">{{activity.text | safe}}</p>
             {% endif %}
-            
+
           </li>
 
         {% endfor %}

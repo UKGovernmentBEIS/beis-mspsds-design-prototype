@@ -1,4 +1,4 @@
-<h3 class="govuk-heading-m">{{activity.caseType}} details</h3>
+<h4 class="govuk-heading-s">{{activity.caseType}} details</h4>
 <p class="govuk-body">
   {% if activity.caseType == "Allegation" %}
     Product type: <span class="govuk-!-font-weight-bold">{{activity.productType}}</span><br />
@@ -20,7 +20,7 @@
   {% endif %}
 </p>
 
-<h3 class="govuk-heading-m">Reporter</h3>
+<h4 class="govuk-heading-s">Reporter</h4>
 <p class="govuk-body">
   Name: <span class="govuk-!-font-weight-bold">{{activity.reporterName}}</span><br />
   Type: <span class="govuk-!-font-weight-bold">{{activity.reporterType}}</span><br />

@@ -19,6 +19,14 @@
 
 
 
+  {% if prod.name %}
+      {% set prodRows = (prodRows.push([
+            { text: "Product name" },
+            { text: prod.name  }
+      ]), prodRows) %}
+  {% endif %}
+
+  {# TODO Remove redundant stuff here, and fix in default data #}
   {% if prod.brand %}
       {% set prodRows = (prodRows.push([
             { text: "Brand" },
@@ -30,6 +38,13 @@
       {% set prodRows = (prodRows.push([
                 { text: "Model name" },
                 { text: prod.modelName  }
+      ]), prodRows) %}
+  {% endif %}
+
+  {% if prod.code %}
+      {% set prodRows = (prodRows.push([
+                { html: "Barcode /<br /> serial number" },
+                { text: prod.code  }
       ]), prodRows) %}
   {% endif %}
 
@@ -119,10 +134,14 @@
 
 
 <div class="govuk-grid-row mspsds-product-panel">
-  
+
   {% if productData.displayImage %}
     <div class="govuk-grid-column-one-third">
+      {% if prod.posterImage %}
       <img src="{{ prod.posterImage }}" title="Product identifying image" />
+      {% else %}
+      &nbsp;
+      {% endif %}
     </div>
   {% endif %}
 

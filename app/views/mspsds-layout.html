@@ -39,7 +39,11 @@
 
 {% block footer %}
     {{ super() }}
+
+    {% block debugging %}
     {% if data['debugging'] == 'Yes'  %}
         <pre>{{ data | dump(4)  }}</pre>
     {% endif %}
+    {% endblock %}
+
 {% endblock %}

@@ -33,6 +33,27 @@ module.exports = {
       fileExtension
     }
   },
+  addProduct: function({
+    author,
+    date = today.long(),
+    productName,
+    productType,
+    productCategory,
+    productCode,
+    productDescription
+  }) {
+    return {
+      type: 'addProduct',
+      title: productName,
+      action: "Product information added",
+      date,
+      author,
+      productType,
+      productCategory,
+      productCode,
+      productDescription
+    }
+  },
   assigned: function (
     {
       assignee,
