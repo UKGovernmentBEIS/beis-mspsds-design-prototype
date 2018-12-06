@@ -119,10 +119,14 @@
 
 
 <div class="govuk-grid-row mspsds-product-panel">
-  
+
   {% if productData.displayImage %}
     <div class="govuk-grid-column-one-third">
+      {% if prod.posterImage %}
       <img src="{{ prod.posterImage }}" title="Product identifying image" />
+      {% else %}
+      &nbsp;
+      {% endif %}
     </div>
   {% endif %}
 
