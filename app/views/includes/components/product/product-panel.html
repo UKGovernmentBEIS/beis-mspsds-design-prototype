@@ -19,6 +19,13 @@
 
 
 
+  {% if prod.name %}
+      {% set prodRows = (prodRows.push([
+            { text: "Product name" },
+            { text: prod.name  }
+      ]), prodRows) %}
+  {% endif %}
+
   {% if prod.brand %}
       {% set prodRows = (prodRows.push([
             { text: "Brand" },

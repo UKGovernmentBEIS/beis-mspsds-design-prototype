@@ -7,11 +7,17 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <form action="{{formAction}}" method="post" class="form">
+      {{ govukInput({
+        label: {
+          text: "Product name / identifier"
+        },
+        name: "product-name"
+      }) }}
       {{ govukTextarea({
         label: {
-          text: "Product details"
+          text: "Description"
         },
-        name: "product-details"
+        name: "product-description"
       }) }}
       {{ govukButton({
         text: "Add to case"

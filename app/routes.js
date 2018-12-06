@@ -197,23 +197,23 @@ router.post('/:mode/flows/product/add', function (req, res) {
     return c.id === req.session.data.caseid;
   });
 
-  let productDetails = req.body["product-details"];
+  let product = {
+    id: "p"+today.id(),
+    name: req.body["product-name"],
+    description: req.body["product-description"]
+  }
+
+  kase.dateUpdated = today.short();
+  req.session.data.products.push(product);
+  kase.products.push(product.id);
 
   const activityTemplate = require("./data/activities/templates").addProduct;
   const newActivity = activityTemplate({
     author: res.locals.data.currentUser,
     date: today.long(),
-    productDescription: productDetails
+    productDescription: product.description
   });
 
-  let productId = "p"+today.id();
-
-  kase.dateUpdated = today.short();
-  req.session.data.products.push({
-    id: productId,
-    description: productDetails
-  });
-  kase.products.push(productId);
   kase.activities.unshift(newActivity);
 
   res.redirect('/root/case#activity');
