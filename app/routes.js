@@ -199,12 +199,12 @@ router.post('/:mode/flows/product/add', function (req, res) {
 
   let productDetails = req.body["product-details"];
 
-  // const activityTemplate = require("./data/activities/templates").addProduct;
-  // const newActivity = activityTemplate({
-  //   author: res.locals.data.currentUser,
-  //   date: today.long(),
-  //   productDescription: productDetails
-  // });
+  const activityTemplate = require("./data/activities/templates").addProduct;
+  const newActivity = activityTemplate({
+    author: res.locals.data.currentUser,
+    date: today.long(),
+    productDescription: productDetails
+  });
 
   let productId = "p"+today.id();
 
@@ -214,7 +214,7 @@ router.post('/:mode/flows/product/add', function (req, res) {
     description: productDetails
   });
   kase.products.push(productId);
-//  kase.activities.unshift(newActivity);
+  kase.activities.unshift(newActivity);
 
   res.redirect('/root/case#activity');
 });
