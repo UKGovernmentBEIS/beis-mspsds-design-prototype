@@ -7,7 +7,7 @@ const date = require("./utils/date").date;
 const Cases = require("./utils/case");
 const Activities = require("./utils/activity");
 const array = require("./utils/arrayHelpers");
-const attachment = require("./utils/attachment");
+const Attachments = require("./utils/attachment");
 
 // Catch-all for redirecting to the correct mode - MUST BE LAST ROUTE ADDED
 router.all("/root/*", function (req, res) {
@@ -45,12 +45,9 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
   let activity = Activities.buildCreateCase(newCase)
   newCase.activities.unshift(activity)
   
-  const testFile = attachment.build({ title: "Test Results", filename: data.new.files.testing.upload })
-  const riskFile = attachment.build({ title: "Risk Assessment", filename: data.new.files.risk.upload })
-  const relatedFile = attachment.build({ title: "Related Attachment", filename: data.new.files.related.upload })
-  activity.attachments.unshift(testFile, riskFile, relatedFile)
-  
-  data.attachments.push(testFile, riskFile, relatedFile)
+  const files = buildAttachments(data);
+  activity.attachments.unshift(...files);
+  data.attachments.push(...files);
 
   res.redirect('/root/case?caseid=' + newCase.id);
 });
@@ -254,8 +251,8 @@ router.post('/:mode/flows/attachment/save', function (req, res) {
       author: res.locals.data.currentUser,
       title: req.body.attachment.title,
       description: req.body.attachment.description,
-      isImage: attachment.isImage(req.body.attachment.url),
-      fileExtension: attachment.fileExtension(req.body.attachment.url)
+      isImage: Attachments.isImage(req.body.attachment.url),
+      fileExtension: Attachments.fileExtension(req.body.attachment.url)
     });
 
     obj.activities.unshift(newActivity);
@@ -505,20 +502,9 @@ router.post('/test-setup', function (req, res, next) {
 // Add your routes here - above the module.exports line
 module.exports = router;
 
-function buildCreateCaseActivity(newCase) {
-  const caseCreatedActivity = require("./data/activities/templates").caseCreated;
-  return caseCreatedActivity({
-    caseType: newCase.report.type,
-    caseTitle: newCase.title,
-    author: newCase.assignee,
-    dateCreated: newCase.dateCreated,
-    reporterName: newCase.report.reporter.name,
-    reporterType: newCase.report.reporter.type,
-    reporterPhoneNumber: newCase.report.reporter.phoneNumber,
-    reporterEmailAddress: newCase.report.reporter.emailAddress,
-    reporterOtherDetails: newCase.report.reporter.otherDetails,
-    productType: newCase.report.productType,
-    hazardType: newCase.report.hazardType,
-    caseSummary: newCase.report.summary
-  });
+function buildAttachments(data) {
+  const testFile = Attachments.build({ title: "Test Results", filename: data.new.files.testing.upload });
+  const riskFile = Attachments.build({ title: "Risk Assessment", filename: data.new.files.risk.upload });
+  const relatedFile = Attachments.build({ title: "Related Attachment", filename: data.new.files.related.upload });
+  return [testFile, riskFile, relatedFile ].filter(file => file.filename.length > 0)
 }
