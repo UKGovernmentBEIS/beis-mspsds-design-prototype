@@ -8,6 +8,7 @@ const Cases = require("./utils/case");
 const Activities = require("./utils/activity");
 const array = require("./utils/arrayHelpers");
 const Attachments = require("./utils/attachment");
+const Reset = require("./utils/reset");
 
 // Catch-all for redirecting to the correct mode - MUST BE LAST ROUTE ADDED
 router.all("/root/*", function (req, res) {
@@ -49,6 +50,7 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
   activity.attachments.unshift(...files);
   data.attachments.push(...files);
 
+  Reset.resetNew(req)
   res.redirect('/root/case--created?caseid=' + newCase.id);
 });
 
@@ -63,6 +65,7 @@ router.post('/:mode/flows/create/save', function (req, res) {
   let activity = Activities.buildCreateCase(newCase)
   newCase.activities.unshift(activity);
 
+  Reset.resetNew(req)
   res.redirect('/root/case--created?caseid=' + newCase.id);
 });
 
