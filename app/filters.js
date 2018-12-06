@@ -1,4 +1,5 @@
 /* jshint esversion: 6 */
+const date = require("./utils/date").date;
 
 module.exports = function (env) {
   /**
@@ -205,6 +206,14 @@ module.exports = function (env) {
       return attachToCase(products);
     }
   };
+
+  /* ------------------------------------------------------------------
+    Date Filters
+  ------------------------------------------------------------------ */
+
+  filters.buildDateString = function (year, month, day) {
+    return date.shortFromInput(year, month, day)
+  }
 
   /* ------------------------------------------------------------------
     keep the following line to return your filters to the app

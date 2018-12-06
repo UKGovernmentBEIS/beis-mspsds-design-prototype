@@ -3,11 +3,6 @@
   {% include "includes/components/case/tabs/case-tab-activity.html" %}
 {% endset -%}
 
-{% set fullDetailHtml %}
-  {% include "includes/components/case/tabs/case-tab-full-detail.html" %}
-{% endset -%}
-
-
 {% set productsHtml %}
   {% include "includes/components/case/tabs/case-tab-products.html" %}
 {% endset -%}
@@ -40,13 +35,6 @@
       id: "activity",
       panel: {
         html: activityHtml
-      }
-    },
-    {
-      label: "Full details",
-      id: "full-details",
-      panel: {
-        html: fullDetailHtml
       }
     },
     {
