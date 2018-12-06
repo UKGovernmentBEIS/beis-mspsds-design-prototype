@@ -199,8 +199,11 @@ router.post('/:mode/flows/product/add', function (req, res) {
 
   let product = {
     id: "p"+today.id(),
-    name: req.body["product-name"],
-    description: req.body["product-description"]
+    name: res.locals.data.new["report"]["product"]["name"],
+    type: res.locals.data.new["report"]["productType"],
+    category: res.locals.data.new["report"]["product"]["category"],
+    code: res.locals.data.new["report"]["product"]["code"],
+    description: res.locals.data.new["report"]["product"]["description"]
   }
 
   kase.dateUpdated = today.short();

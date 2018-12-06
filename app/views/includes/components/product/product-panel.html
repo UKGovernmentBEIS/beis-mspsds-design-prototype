@@ -40,6 +40,13 @@
       ]), prodRows) %}
   {% endif %}
 
+  {% if prod.code %}
+      {% set prodRows = (prodRows.push([
+                { html: "Barcode /<br /> serial number" },
+                { text: prod.code  }
+      ]), prodRows) %}
+  {% endif %}
+
   {% if prod.modelNumber %}
     {% set prodRows = (prodRows.push([
               { text: "Model number" },

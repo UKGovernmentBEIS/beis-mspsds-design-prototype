@@ -4,25 +4,16 @@
 {% set formAction = '.' %}
 
 {% block flow %}
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <form action="{{formAction}}" method="post" class="form">
-      {{ govukInput({
-        label: {
-          text: "Product name / identifier"
-        },
-        name: "product-name"
-      }) }}
-      {{ govukTextarea({
-        label: {
-          text: "Description"
-        },
-        name: "product-description"
-      }) }}
+<form action="{{formAction}}" method="post" class="form">
+  <div class="govuk-grid-row">
+    {% include "includes/components/shared/create/ts-product-info.html" %}
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
       {{ govukButton({
         text: "Add to case"
       }) }}
-    </form>
+    </div>
   </div>
-</div>
+</form>
 {% endblock %}
