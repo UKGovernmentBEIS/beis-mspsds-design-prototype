@@ -214,6 +214,10 @@ router.post('/:mode/flows/product/add', function (req, res) {
   const newActivity = activityTemplate({
     author: res.locals.data.currentUser,
     date: today.long(),
+    productName: product.name,
+    productType: product.type,
+    productCategory: product.category,
+    productCode: product.code,
     productDescription: product.description
   });
 

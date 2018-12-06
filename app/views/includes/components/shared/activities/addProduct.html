@@ -1,1 +1,15 @@
-<p class="govuk-body">{{activity.productDescription}}</p>
+{% from "includes/components/product/product-panel.html" import productPanel %}
+
+{% set productData = {
+  product: {
+    type: activity.productType,
+    category: activity.productCategory,
+    code: activity.productCode,
+    description: activity.productDescription
+  },
+  displayImage:   true,
+  controls:       false,
+  displayDetails: "summary"
+} %}
+
+{{ productPanel(productData) }}

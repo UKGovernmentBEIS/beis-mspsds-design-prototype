@@ -36,14 +36,21 @@ module.exports = {
   addProduct: function({
     author,
     date = today.long(),
+    productName,
+    productType,
+    productCategory,
+    productCode,
     productDescription
   }) {
     return {
       type: 'addProduct',
-      title: "Product information added",
-      action: "",
+      title: productName,
+      action: "Product information added",
       date,
       author,
+      productType,
+      productCategory,
+      productCode,
       productDescription
     }
   },
