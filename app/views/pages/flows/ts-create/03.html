@@ -6,15 +6,6 @@
 {% if data['new']['report']['type'] == 'Report' %}
   {% set titleType           = 'Reporting a dangerous product' %}
   {% set displayTitle        = 'Why is it unsafe?' %}
-
-{% elif data['new']['report']['type'] == 'Question' %}
-  {% set titleType           = 'Asking a question' %}
-  {% set displayTitle        = 'What\’s your question?' %}
-
-{% elif data['new']['report']['type'] == 'Recall' %}
-  {% set titleType           = 'Reporting a product recall' %}
-  {% set displayTitle        = 'Why is it being recalled?' %}
-
 {% endif %}
 
 {% block flow %}

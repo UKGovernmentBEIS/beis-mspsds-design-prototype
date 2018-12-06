@@ -10,12 +10,7 @@
 {% elif data['new']['report']['type'] == 'Question' %}
   {% set titleType           = 'Asking a question' %}
   {% set displayTitle        = 'What\’s your question?' %}
-  {% set formAction         = './03' %}
-
-{% elif data['new']['report']['type'] == 'Recall' %}
-  {% set titleType           = 'Reporting a product recall' %}
-  {% set displayTitle        = 'What product is being recalled?' %}
-  {% set formAction         = './03' %}
+  {% set formAction          = 'save' %}
 
 {% endif %}
 
@@ -25,7 +20,14 @@
   <form action="{{formAction}}" method="post" class="form">
 
     <div class="govuk-grid-row  govuk-!-margin-bottom-3">
-       {% include "includes/components/shared/create/ts-product-info.html" %}
+       
+
+      {% if data['new']['report']['type'] == 'Report' %}
+        {% include "includes/components/shared/create/ts-product-info.html" %}
+
+      {% elif data['new']['report']['type'] == 'Question' %}
+        {% include "includes/components/shared/create/question-info.html" %}
+      {% endif %}
     </div>
 
     <div class="govuk-grid-row">
