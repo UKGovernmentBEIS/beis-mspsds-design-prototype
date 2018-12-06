@@ -4,20 +4,18 @@
     legend: {
       text:           "What actions have been taken so far?",
       isPageHeading:  false,
-      classes:        "govuk-fieldset__legend--l"
+      classes:        "govuk-fieldset__legend--m"
     }
   }) %}
 
     {{ govukTextarea({
       name: "new[report][actions][summary]",
-      id:   "actions-detail",
+      id:   "actions-actions-summary",
       hint : {
-        text: "Please give as much detail as possible about the actions already taken"
+        text: "Please give as much detail as possible about the actions already taken, including investigation activity, corrective actions etc"
       }
     }) }}
       
-
   {% endcall %}
-
 
 </div>

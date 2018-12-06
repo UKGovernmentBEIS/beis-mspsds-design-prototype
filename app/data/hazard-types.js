@@ -22,5 +22,11 @@ module.exports = {
 		'Strangulation',
 		'Suffocation',
 		'Other'
+//      'Asphyxiation',
+//      'Blunt force',
+//      'Chemical exposure',
+//      'Fire/burn',
+//      'Penetrating force',
+//      'Other hazard type'
     ]
 };

@@ -2,12 +2,33 @@
 
 <div class="govuk-grid-column-two-thirds">
 
+        {% call govukFieldset({
+          legend: {
+            text:           "Product type ",
+            isPageHeading:  false,
+            classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+          }
+        }) %}
+
+            {{ govukInput({
+              hint: {
+                text: "For example, 'dishwasher, soft toy, chainsaw...'"
+              },
+              id: "report-product-type",
+              name: "new[report][productType]"
+            }) }}
+
+
+        {% endcall %}
+
+
+
         {{ autocompleteInput({
-          idPrefix: "report-product-type", 
-          name:     "new[report][productType]", 
-          legend:   "Product type",
+          idPrefix: "report-product-category", 
+          name:     "new[report][product][category]", 
+          legend:   "Product category",
           class:    "govuk-fieldset__legend--m",
-          hint:     "For example, 'dishwasher, soft toy, chainsaw, etc.'", 
+          hint:     "Category, for reporting purposes", 
           values:   data.productTypes}) 
         }}
 
@@ -31,6 +52,29 @@
           }) }}
 
         {% endcall %}
+
+
+
+        {% call govukFieldset({
+          legend: {
+            text:           "Barcode / serial number ",
+            isPageHeading:  false,
+            classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+          }
+        }) %}
+
+            {{ govukInput({
+              hint: {
+                text: "If you have this data, it makes it easier to correctly identify the product"
+              },
+              id: "report-product-code",
+              name: "new[report][product][code]"
+            }) }}
+
+
+        {% endcall %}
+
+
 
 
         {% call govukFieldset({

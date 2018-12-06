@@ -1,0 +1,53 @@
+
+<div class="govuk-grid-column-two-thirds">
+
+  {% call govukFieldset({
+    legend: {
+      text: "Do you expect further action to be taken?",
+      hint : {
+        text: "Either by you, or by OPSS"
+      },
+      isPageHeading:  false,
+      classes:        "govuk-fieldset__legend--m"
+    }
+  }) %}
+
+
+      {% set actionHtml %}
+          {{ govukInput({
+            id: "actions-actions-future-summary",
+            name: "new[report][actions][futureSummary]",
+            type: "text",
+            label: {
+              text: "What action?"
+            }
+          }) }}
+      {% endset -%}
+
+
+    {{ govukRadios({
+      idPrefix:   "actions-actions-future",
+      name:       "new[report][actions][future]",
+      hint : {
+          text: "Either by you, or by OPSS"
+        },
+      items: [
+        {
+          value: "Yes",
+          text: "Yes",
+          conditional: {
+            html: actionHtml
+          }
+        },
+        {
+          value: "No",
+          text: "No"
+        }
+      ]
+    }) }}
+      
+
+  {% endcall %}
+
+
+</div>
