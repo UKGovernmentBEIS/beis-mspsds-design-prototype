@@ -32,15 +32,15 @@
 
     {% for biz in currentBusinesses %}
 
-        {% set viewLink     = viewLink.replace('BIZID', biz.id) %}
-        {% set editLink     = editLink.replace('BIZID', biz.id) %}
-        {% set deleteLink   = deleteLink.replace('BIZID', biz.id) %}
+        {% set bviewLink     = viewLink.replace('BIZID', biz.id) %}
+        {% set beditLink     = editLink.replace('BIZID', biz.id) %}
+        {% set bdeleteLink   = deleteLink.replace('BIZID', biz.id) %}
     
         {% set controls  = {
             label:       'business',
-            view:        viewLink,
-            edit:        editLink,
-            delete:      deleteLink
+            view:        bviewLink,
+            edit:        beditLink,
+            delete:      bdeleteLink
         } %}
 
 

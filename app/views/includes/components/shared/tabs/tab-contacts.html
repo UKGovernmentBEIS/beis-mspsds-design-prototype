@@ -23,15 +23,15 @@
     
   {% for contact in currentContacts %}
 
-    {% set viewLink     = viewLink.replace('CID', contact.id) %}
-    {% set editLink     = editLink.replace('CID', contact.id) %}
-    {% set deleteLink   = deleteLink.replace('CID', contact.id) %}
+    {% set cviewLink     = viewLink.replace('CID', contact.id) %}
+    {% set ceditLink     = editLink.replace('CID', contact.id) %}
+    {% set cdeleteLink   = deleteLink.replace('CID', contact.id) %}
     
     {% set links  = {
         label:       'contact',
-        view:        viewLink,
-        edit:        editLink,
-        delete:      deleteLink
+        view:        cviewLink,
+        edit:        ceditLink,
+        delete:      cdeleteLink
     } %}
 
 

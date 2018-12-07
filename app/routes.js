@@ -38,21 +38,50 @@ router.get('/:mode/:entity(case|business|product|case-list)/', function (req, re
 // FLOWS ----------------------------------------------------------------------
 
 router.post('/:mode/flows/ts-create/save', function (req, res) {
-  const data = req.session.data
+  const data = req.session.data;
 
   let newCase = Cases.buildFromData(data);
   res.locals.data.cases.push(newCase);
 
-  let activity = Activities.buildCreateCase(newCase)
-  newCase.activities.unshift(activity)
+  let activity = Activities.buildCreateCase(newCase);
+  newCase.activities.unshift(activity);
   
   const files = buildAttachments(data);
-  newCase.attachments.unshift(...files.map(f => f.id))
+  newCase.attachments.unshift(...files.map(f => f.id));
   activity.attachments.unshift(...files);
 
   data.attachments.push(...files);
 
-  Reset.resetNew(req)
+  let product = {
+    id: "p"+today.id(),
+    name: res.locals.data.new["report"]["product"]["name"],
+    type: res.locals.data.new["report"]["productType"],
+    category: res.locals.data.new["report"]["product"]["category"],
+    code: res.locals.data.new["report"]["product"]["code"],
+    description: res.locals.data.new["report"]["product"]["description"],
+    attachments: [],
+    businesses: []
+  };
+
+  newCase.dateUpdated = today.short();
+  req.session.data.products.push(product);
+  newCase.products.push(product.id);
+
+  const activityTemplate = require("./data/activities/templates").addProduct;
+  const newActivity = activityTemplate({
+    author: res.locals.data.currentUser,
+    date: today.long(),
+    productName: product.name,
+    productType: product.type,
+    productCategory: product.category,
+    productCode: product.code,
+    productDescription: product.description
+  });
+
+  newCase.activities.unshift(newActivity);
+
+
+  Reset.resetNew(req);
   res.redirect('/root/case--created?caseid=' + newCase.id);
 });
 
@@ -124,8 +153,10 @@ router.post('/:mode/flows/product/add', function (req, res) {
     type: res.locals.data.new["report"]["productType"],
     category: res.locals.data.new["report"]["product"]["category"],
     code: res.locals.data.new["report"]["product"]["code"],
-    description: res.locals.data.new["report"]["product"]["description"]
-  }
+    description: res.locals.data.new["report"]["product"]["description"],
+    attachments: [],
+    businesses: []
+  };
 
   kase.dateUpdated = today.short();
   req.session.data.products.push(product);

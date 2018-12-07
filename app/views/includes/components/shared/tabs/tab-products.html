@@ -37,15 +37,15 @@
         {% endif %}
         
 
-        {% set viewLink     = viewLink.replace('PRODID', prod.id) %}
-        {% set editLink     = editLink.replace('PRODID', prod.id) %}
-        {% set deleteLink   = deleteLink.replace('PRODID', prod.id) %}
+        {% set pViewLink     = viewLink.replace('PRODID', prod.id) %}
+        {% set pEditLink     = editLink.replace('PRODID', prod.id) %}
+        {% set pDeleteLink   = deleteLink.replace('PRODID', prod.id) %}
     
         {% set controls  = {
             label:       'product',
-            view:        viewLink,
-            edit:        editLink,
-            delete:      deleteLink
+            view:        pViewLink,
+            edit:        pEditLink,
+            delete:      pDeleteLink
         } %}
 
 
