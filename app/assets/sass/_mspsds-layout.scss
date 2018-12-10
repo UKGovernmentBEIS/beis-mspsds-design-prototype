@@ -3,6 +3,14 @@
 }
 
 
+.product,
+.business {
+    //background: govuk-colour("grey-3");
+
+    .govuk-tabs__panel {
+        background: govuk-colour("white");
+    }
+}
 
 .mspsds-controls {
     

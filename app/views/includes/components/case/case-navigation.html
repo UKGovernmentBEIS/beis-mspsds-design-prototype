@@ -1,18 +1,43 @@
-{% from "back-link/macro.njk"     import govukBackLink %}
+{% from "back-link/macro.njk"     	import govukBackLink %}
+{% from "breadcrumbs/macro.njk" 	import govukBreadcrumbs %}
 
 
-{% if data['currentTeam'] == 'Trading Standards' %}
+<div class="govuk-grid-row">
 
-	{{ govukBackLink({
-		text: "Back to Home",
-		href: "/root/home"
-	}) }}
+	{% if data['currentTeam'] == 'Trading Standards' %}
 
-{% else %}
+		<div class="govuk-grid-column-three-quarters">
+			{{ govukBreadcrumbs({
+			  items: [
+			    {
+			      text: "Home",
+			      href: "/root/home"
+			    },
+			    {
+			      text: currentCase.id
+			    }
+			  ]
+			}) }}
+		</div>
 
-	{{ govukBackLink({
-		text: "Back to Cases",
-		href: "/root/case-list"
-	}) }}
 
-{% endif %}
+	{% else %}
+
+
+		<div class="govuk-grid-column-three-quarters">
+			{{ govukBreadcrumbs({
+			  items: [
+			    {
+			      text: "Cases",
+			      href: "/root/case-list"
+			    },
+			    {
+			      text: "Case " + currentCase.id
+			    }
+			  ]
+			}) }}
+		</div>
+
+	{% endif %}
+
+</div>

@@ -1,9 +1,10 @@
 {% extends "mspsds-layout.html" %}
 
 {% set currentProduct = currentProduct | attachProductChildren(data) %}
+{% set bodyClasses = "mspsds-width-container product" %}
 
 {% block pageTitle %}
-  Product Page: {{ currentProduct.title }}
+  Product Page: {{ currentProduct.name }}
 {% endblock %}
 
 
