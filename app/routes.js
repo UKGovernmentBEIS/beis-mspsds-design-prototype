@@ -223,47 +223,37 @@ router.post('/:mode/flows/attachment/save', function (req, res) {
   let newAttachment   = data.attachment;
   newAttachment.id    = 'at' + (data.attachments.length + 1);
 
-  data.attachments.push(newAttachment);
-
+  
   let obj = null;
   let redirectURL = '404';
-
-  if (data.currentPage === 'business') {
-    obj = array.findById(data.businesses, data.businessid)
+  
+  switch (data.currentPage) {
+    case 'business':
+      obj = array.findById(data.businesses, data.businessid)
+      redirectURL = '/root/business#locations?businessid='+data.businessid;
+      break;
     
-    redirectURL = '/root/business#locations?businessid='+data.businessid;
+    case 'case':
+      obj = array.findById(data.cases, data.caseid)
+      redirectURL = '/root/case#locations?caseid='+data.caseid;
+      
+      const newActivity = Activities.buildAddAttachment(newAttachment, data.currentUser)
+      obj.activities.unshift(newActivity);
+      break;
+
+    case 'product':
+      obj = array.findById(data.products, data.productid)
+      redirectURL = '/root/product#locations?productid='+data.productid;
+      break;
+
+    default:
+      console.log("data.currentPage not set to appropriate value in flows/attachment/save route")
   }
-
-  if (data.currentPage === 'case') {
-    obj = array.findById(data.cases, caseid)
-
-    const addAttachmentActivityTemplate = require("./data/activities/templates").addAttachment;
-    const newActivity = addAttachmentActivityTemplate({
-      author: data.currentUser,
-      title: req.body.attachment.title,
-      description: req.body.attachment.description,
-      isImage: Attachments.isImage(req.body.attachment.url),
-      fileExtension: Attachments.fileExtension(req.body.attachment.url)
-    });
-
-    obj.activities.unshift(newActivity);
-
-    redirectURL = '/root/case#locations?caseid='+data.caseid;
-  }
-
-  if (data.currentPage === 'product') {
-    const obj = array.findById(data.products, data.productid)
-
-    redirectURL = '/root/product#locations?productid='+data.productid;
-  }
-
-  if (obj) {
-    obj.attachments.push(newAttachment.id);
-  }
-
-
+  
+  obj.attachments.push(newAttachment.id)
+  data.attachments.push(newAttachment)
+  
   res.redirect(redirectURL);
-
 });
 
 router.post('/:mode/flows/attachment/delete', function (req, res) {
