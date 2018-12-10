@@ -1,3 +1,5 @@
+const today = require('./date').today
+
 module.exports = {
     buildCreateCase: function (kase) {
         const caseCreatedActivity = require("../data/activities/templates").caseCreated;
@@ -14,6 +16,18 @@ module.exports = {
             productType: kase.report.productType,
             hazardType: kase.report.hazardType,
             caseSummary: kase.report.summary
+        });   
+    },
+    buildAddProduct: function (product, user) {
+        const activityTemplate = require("../data/activities/templates").addProduct;
+        return activityTemplate({
+            author: user,
+            date: today.long(),
+            productName: product.name,
+            productType: product.type,
+            productCategory: product.category,
+            productCode: product.code,
+            productDescription: product.description
         });   
     }
 }

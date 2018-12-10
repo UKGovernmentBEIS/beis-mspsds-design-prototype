@@ -7,6 +7,7 @@ const date = require("./utils/date").date;
 const Cases = require("./utils/case");
 const Activities = require("./utils/activity");
 const array = require("./utils/arrayHelpers");
+const Products = require("./utils/product")
 const Attachments = require("./utils/attachment");
 const Reset = require("./utils/reset");
 
@@ -46,42 +47,22 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
   let activity = Activities.buildCreateCase(newCase);
   newCase.activities.unshift(activity);
   
-  const files = buildAttachments(data);
+  const files = buildTsCreateAttachments(data);
   newCase.attachments.unshift(...files.map(f => f.id));
   activity.attachments.unshift(...files);
-
   data.attachments.push(...files);
-
-  let product = {
-    id: "p"+today.id(),
-    name: res.locals.data.new["report"]["product"]["name"],
-    type: res.locals.data.new["report"]["productType"],
-    category: res.locals.data.new["report"]["product"]["category"],
-    code: res.locals.data.new["report"]["product"]["code"],
-    description: res.locals.data.new["report"]["product"]["description"],
-    attachments: [],
-    businesses: []
-  };
-
+  
   newCase.dateUpdated = today.short();
+
+  let product = Products.buildFromData(data)
   req.session.data.products.push(product);
   newCase.products.push(product.id);
 
-  const activityTemplate = require("./data/activities/templates").addProduct;
-  const newActivity = activityTemplate({
-    author: res.locals.data.currentUser,
-    date: today.long(),
-    productName: product.name,
-    productType: product.type,
-    productCategory: product.category,
-    productCode: product.code,
-    productDescription: product.description
-  });
-
-  newCase.activities.unshift(newActivity);
-
+  const addProductActivity = Activities.buildAddProduct(product, data.currentUser)
+  newCase.activities.unshift(addProductActivity);
 
   Reset.resetNew(req);
+
   res.redirect('/root/case--created?caseid=' + newCase.id);
 });
 
@@ -157,7 +138,6 @@ router.post('/:mode/flows/product/add', function (req, res) {
     attachments: [],
     businesses: []
   };
-
   kase.dateUpdated = today.short();
   req.session.data.products.push(product);
   kase.products.push(product.id);
@@ -538,7 +518,7 @@ router.post('/test-setup', function (req, res, next) {
 // Add your routes here - above the module.exports line
 module.exports = router;
 
-function buildAttachments(data) {
+function buildTsCreateAttachments(data) {
   const testFile = Attachments.build({ title: "Test Results", filename: data.new.files.testing.upload });
   const riskFile = Attachments.build({ title: "Risk Assessment", filename: data.new.files.risk.upload });
   const relatedFile = Attachments.build({ title: "Related Attachment", filename: data.new.files.related.upload });
