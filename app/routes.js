@@ -72,7 +72,7 @@ router.post('/:mode/flows/create/save', function (req, res) {
   const data = req.session.data;
   
   let newCase = Cases.buildFromData(data);
-  res.locals.data.cases.push(newCase);
+  data.cases.push(newCase);
 
   let activity = Activities.buildCreateCase(newCase)
   newCase.activities.unshift(activity);
@@ -100,8 +100,10 @@ router.post('/:mode/flows/process-incoming/email-check-endpoint', function (req,
 
 // Assign flow
 router.post('/:mode/flows/assign/save', function (req, res) {
-  const kase = res.locals.data.cases.find(function (c) {
-    return c.id === req.session.data.caseid;
+  const data = req.session.data;
+
+  const kase = data.cases.find(function (c) {
+    return c.id === data.caseid;
   });
 
   let newAssignee = req.body.assignee;
@@ -126,12 +128,12 @@ router.post('/:mode/flows/assign/save', function (req, res) {
 router.post('/:mode/flows/product/add', function (req, res) {
   const data = req.session.data;
 
-  const kase = res.locals.data.cases.find(function (c) {
+  const kase = data.cases.find(function (c) {
     return c.id === data.caseid;
   });
 
   const product = Products.buildFromData(data)
-  req.session.data.products.push(product);
+  data.products.push(product);
   kase.products.push(product.id);
 
   kase.dateUpdated = today.short();
@@ -146,22 +148,23 @@ router.post('/:mode/flows/product/add', function (req, res) {
 
 // Location flow
 router.post('/:mode/flows/location/save', function (req, res) {
+  const data = req.session.data;
 
-  let newLocation   = req.session.data.location;
-  newLocation.id    = 'l' + (res.locals.data.locations.length + 1);
+  let newLocation   = data.location;
+  newLocation.id    = 'l' + (data.locations.length + 1);
 
-  res.locals.data.locations.push(newLocation);
+  data.locations.push(newLocation);
 
-  if (res.locals.data.currentPage === 'business') {
+  if (data.currentPage === 'business') {
 
-    let biz = res.locals.data.businesses.find(function (b) {
-      return b.id === res.locals.data.businessid;
+    let biz = data.businesses.find(function (b) {
+      return b.id === data.businessid;
     });
 
     if (biz) {
       biz.locations.push({
         id:     newLocation.id,
-        role:   req.session.data.location.name
+        role:   data.location.name
       });
     }
 
@@ -174,17 +177,18 @@ router.post('/:mode/flows/location/save', function (req, res) {
 });
 
 router.post('/:mode/flows/location/delete', function (req, res) {
+  const data = req.session.data;
 
-  if (res.locals.data.currentPage === 'business') {
+  if (data.currentPage === 'business') {
 
-    let biz = res.locals.data.businesses.find(function (b) {
-      return b.id === req.session.data.businessid;
+    let biz = data.businesses.find(function (b) {
+      return b.id === data.businessid;
     });
 
     if (biz && biz.locations) {
-      biz.locations = array.removeByID(biz.locations, req.session.data.locationid);
+      biz.locations = array.removeByID(biz.locations, data.locationid);
     }
-    res.redirect('/root/business#locations?businessid='+req.session.data.businessid);
+    res.redirect('/root/business#locations?businessid='+data.businessid);
   }
 
   res.redirect('404');
@@ -194,15 +198,16 @@ router.post('/:mode/flows/location/delete', function (req, res) {
 
 
 router.post('/:mode/flows/location/update', function (req, res) {
+  const data = req.session.data;
 
-  if (res.locals.data.currentPage === 'business') {
+  if (data.currentPage === 'business') {
 
-    let newLocation   = req.session.data.location;
-    newLocation.id    = req.session.data.locationid;
+    let newLocation   = data.location;
+    newLocation.id    = data.locationid;
 
 
-    let loc = res.locals.data.locations.find(function (l) {
-      return l.id === req.session.data.locationid;
+    let loc = data.locations.find(function (l) {
+      return l.id === data.locationid;
     });
 
     if (loc) {
@@ -211,7 +216,7 @@ router.post('/:mode/flows/location/update', function (req, res) {
       }
     }
 
-    res.redirect('/root/business#locations?businessid='+req.session.data.businessid);
+    res.redirect('/root/business#locations?businessid=' + data.businessid);
   }
 
   res.redirect('404');
@@ -225,30 +230,31 @@ router.post('/:mode/flows/location/update', function (req, res) {
 
 // Attachment flow
 router.post('/:mode/flows/attachment/save', function (req, res) {
+  const data = req.session.data;
 
-  let newAttachment   = req.session.data.attachment;
-  newAttachment.id    = 'at' + (res.locals.data.attachments.length + 1);
+  let newAttachment   = data.attachment;
+  newAttachment.id    = 'at' + (data.attachments.length + 1);
 
-  res.locals.data.attachments.push(newAttachment);
+  data.attachments.push(newAttachment);
 
   let obj = null;
   let redirectURL = '404';
 
-  if (res.locals.data.currentPage === 'business') {
-    obj = res.locals.data.businesses.find(function (b) {
-      return b.id === res.locals.data.businessid;
+  if (data.currentPage === 'business') {
+    obj = data.businesses.find(function (b) {
+      return b.id === data.businessid;
     });
-    redirectURL = '/root/business#locations?businessid='+res.locals.data.businessid;
+    redirectURL = '/root/business#locations?businessid='+data.businessid;
   }
 
-  if (res.locals.data.currentPage === 'case') {
-    obj = res.locals.data.cases.find(function (c) {
-      return c.id === res.locals.data.caseid;
+  if (data.currentPage === 'case') {
+    obj = data.cases.find(function (c) {
+      return c.id === data.caseid;
     });
 
     const addAttachmentActivityTemplate = require("./data/activities/templates").addAttachment;
     const newActivity = addAttachmentActivityTemplate({
-      author: res.locals.data.currentUser,
+      author: data.currentUser,
       title: req.body.attachment.title,
       description: req.body.attachment.description,
       isImage: Attachments.isImage(req.body.attachment.url),
@@ -257,14 +263,14 @@ router.post('/:mode/flows/attachment/save', function (req, res) {
 
     obj.activities.unshift(newActivity);
 
-    redirectURL = '/root/case#locations?caseid='+res.locals.data.caseid;
+    redirectURL = '/root/case#locations?caseid='+data.caseid;
   }
 
-  if (res.locals.data.currentPage === 'product') {
-    obj = res.locals.data.products.find(function (p) {
-      return p.id === res.locals.data.productid;
+  if (data.currentPage === 'product') {
+    obj = data.products.find(function (p) {
+      return p.id === data.productid;
     });
-    redirectURL = '/root/product#locations?productid='+res.locals.data.productid;
+    redirectURL = '/root/product#locations?productid='+data.productid;
   }
 
   if (obj) {
@@ -276,47 +282,45 @@ router.post('/:mode/flows/attachment/save', function (req, res) {
 
 });
 
-
-
-
 router.post('/:mode/flows/attachment/delete', function (req, res) {
+  const data = req.session.data;
 
   let redirectURL = '404';
 
-  if (res.locals.data.currentPage === 'business') {
-    let biz = res.locals.data.businesses.find(function (b) {
-      return b.id === res.locals.data.businessid;
+  if (data.currentPage === 'business') {
+    let biz = data.businesses.find(function (b) {
+      return b.id === data.businessid;
     });
 
-    redirectURL = '/root/business#locations?businessid='+res.locals.data.businessid;
+    redirectURL = '/root/business#locations?businessid='+data.businessid;
 
     if (biz) {
-      biz.attachments = array.removeByValue(biz.attachments, req.session.data.attachmentid);
+      biz.attachments = array.removeByValue(biz.attachments, data.attachmentid);
     }
   }
 
-  if (res.locals.data.currentPage === 'case') {
-    let kase = res.locals.data.cases.find(function (c) {
-      return c.id === res.locals.data.caseid;
+  if (data.currentPage === 'case') {
+    let kase = data.cases.find(function (c) {
+      return c.id === data.caseid;
     });
 
     if (kase) {
-      kase.attachments = array.removeByValue(kase.attachments, req.session.data.attachmentid);
+      kase.attachments = array.removeByValue(kase.attachments, data.attachmentid);
     }
 
-    redirectURL = '/root/case#locations?caseid='+res.locals.data.caseid;
+    redirectURL = '/root/case#locations?caseid='+data.caseid;
   }
 
-  if (res.locals.data.currentPage === 'product') {
-    let prod = res.locals.data.products.find(function (p) {
-      return p.id === res.locals.data.productid;
+  if (data.currentPage === 'product') {
+    let prod = data.products.find(function (p) {
+      return p.id === data.productid;
     });
 
     if (prod) {
-      prod.attachments = array.removeByValue(prod.attachments, req.session.data.attachmentid);
+      prod.attachments = array.removeByValue(prod.attachments, data.attachmentid);
     }
 
-    redirectURL = '/root/product#locations?productid='+res.locals.data.productid;
+    redirectURL = '/root/product#locations?productid='+data.productid;
   }
 
    res.redirect(redirectURL);
@@ -325,13 +329,14 @@ router.post('/:mode/flows/attachment/delete', function (req, res) {
 
 
 router.post('/:mode/flows/attachment/update', function (req, res) {
+  const data = req.session.data;
 
-  let newAttachment   = req.session.data.attachment;
-  newAttachment.id    = req.session.data.attachmentid;
+  let newAttachment   = data.attachment;
+  newAttachment.id    = data.attachmentid;
   newAttachment.date  = today.short();
 
-  let att = res.locals.data.attachments.find(function (a) {
-    return a.id === req.session.data.attachmentid;
+  let att = data.attachments.find(function (a) {
+    return a.id === data.attachmentid;
   });
 
   if (att) {
@@ -342,14 +347,14 @@ router.post('/:mode/flows/attachment/update', function (req, res) {
 
   let redirectURL = '404';
 
-  if (res.locals.data.currentPage === 'business') {
-    redirectURL = '/root/business#locations?businessid='+res.locals.data.businessid;
+  if (data.currentPage === 'business') {
+    redirectURL = '/root/business#locations?businessid='+data.businessid;
   }
-  if (res.locals.data.currentPage === 'case') {
-    redirectURL = '/root/case#locations?caseid='+res.locals.data.caseid;
+  if (data.currentPage === 'case') {
+    redirectURL = '/root/case#locations?caseid='+data.caseid;
   }
-  if (res.locals.data.currentPage === 'business') {
-    redirectURL = '/root/product#locations?productid='+res.locals.data.productid;
+  if (data.currentPage === 'business') {
+    redirectURL = '/root/product#locations?productid='+data.productid;
   }
 
   res.redirect(redirectURL);
@@ -358,15 +363,17 @@ router.post('/:mode/flows/attachment/update', function (req, res) {
 
 // Change Status flow
 router.post(`/:mode/flows/change-status/save`, function (req, res) {
-  const kase = res.locals.data.cases.find(function (c) {
-    return c.id === req.session.data.caseid;
+  const data = req.session.data;
+
+  const kase = data.cases.find(function (c) {
+    return c.id === data.caseid;
   });
 
   const changeStatusActivityTempalte = require("./data/activities/templates").changedStatus;
   const newActivity = changeStatusActivityTempalte({
     status: req.body.status,
     description: req.body['status-description'],
-    author: res.locals.data.currentUser,
+    author: data.currentUser,
     date: today.long()
   });
 
@@ -379,14 +386,16 @@ router.post(`/:mode/flows/change-status/save`, function (req, res) {
 
 // Add comment flow
 router.post(`/:mode/flows/add-comment/save`, function (req, res) {
-  const kase = res.locals.data.cases.find(function (c) {
-    return c.id === req.session.data.caseid;
+  const data = req.session.data;
+
+  const kase = data.cases.find(function (c) {
+    return c.id === data.caseid;
   });
 
   const activityTemplate = require("./data/activities/templates").commentAdded;
   const newActivity = activityTemplate({
-    commentText: res.locals.data['new-comment'],
-    author: res.locals.data.currentUser,
+    commentText: data['new-comment'],
+    author: data.currentUser,
     date: today.long()
   });
 
@@ -398,11 +407,12 @@ router.post(`/:mode/flows/add-comment/save`, function (req, res) {
 
 // Add Corrective Action flow
 router.post(`/:mode/flows/record-corrective-action/save`, function(req, res) {
-  const kase = res.locals.data.cases.find(function (c) {
-    return c.id === req.session.data.caseid;
+  const data = req.session.data;
+  
+  const kase = data.cases.find(function (c) {
+    return c.id === data.caseid;
   });
   activityTemplate = require('./data/activities/templates').correctiveAction
-  const data = res.locals.data;
   const newActivity = activityTemplate({
     summary: data['corrective-action-summary'],
     productName: data['TODO-product-input-name'],
@@ -486,15 +496,17 @@ router.get('/:mode/case-list', function (req, res, next) {
 
 // TEST SETUP -----------------------------------------------------------------
 router.post('/test-setup', function (req, res, next) {
+  const data = req.session.data;
+
   if (req.body.caseToAssign !== undefined) {
-    const kase = res.locals.data.cases.find(function (c) {
+    const kase = data.cases.find(function (c) {
       return c.id === req.body.caseToAssign;
     });
     kase.assignee = req.body.assignee;
   }
   const newUser = req.body.currentUser;
-  if (newUser && !res.locals.data.users.includes(newUser)) {
-    res.locals.data.users.push(newUser);
+  if (newUser && !data.users.includes(newUser)) {
+    data.users.push(newUser);
   }
   next();
 });
