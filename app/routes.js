@@ -42,7 +42,7 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
   const data = req.session.data;
 
   let newCase = Cases.buildFromData(data);
-  res.locals.data.cases.push(newCase);
+  data.cases.push(newCase);
 
   let activity = Activities.buildCreateCase(newCase);
   newCase.activities.unshift(activity);
@@ -55,7 +55,7 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
   newCase.dateUpdated = today.short();
 
   let product = Products.buildFromData(data)
-  req.session.data.products.push(product);
+  data.products.push(product);
   newCase.products.push(product.id);
 
   const addProductActivity = Activities.buildAddProduct(product, data.currentUser)
@@ -124,36 +124,20 @@ router.post('/:mode/flows/assign/save', function (req, res) {
 
 // Add product flow
 router.post('/:mode/flows/product/add', function (req, res) {
+  const data = req.session.data;
+
   const kase = res.locals.data.cases.find(function (c) {
-    return c.id === req.session.data.caseid;
+    return c.id === data.caseid;
   });
 
-  let product = {
-    id: "p"+today.id(),
-    name: res.locals.data.new["report"]["product"]["name"],
-    type: res.locals.data.new["report"]["productType"],
-    category: res.locals.data.new["report"]["product"]["category"],
-    code: res.locals.data.new["report"]["product"]["code"],
-    description: res.locals.data.new["report"]["product"]["description"],
-    attachments: [],
-    businesses: []
-  };
-  kase.dateUpdated = today.short();
+  const product = Products.buildFromData(data)
   req.session.data.products.push(product);
   kase.products.push(product.id);
 
-  const activityTemplate = require("./data/activities/templates").addProduct;
-  const newActivity = activityTemplate({
-    author: res.locals.data.currentUser,
-    date: today.long(),
-    productName: product.name,
-    productType: product.type,
-    productCategory: product.category,
-    productCode: product.code,
-    productDescription: product.description
-  });
+  kase.dateUpdated = today.short();
 
-  kase.activities.unshift(newActivity);
+  const addProductActivity = Activities.buildAddProduct(product, data.currentUser)
+  kase.activities.unshift(addProductActivity);
 
   res.redirect('/root/case#activity');
 });
