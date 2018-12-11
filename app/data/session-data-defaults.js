@@ -23,6 +23,8 @@ module.exports = {
 
   signedIn:       'No',
 
+  alwaysDisplayCrumbs: 'No', 
+
   debugging:     'No',
 
   mode:         "pages",

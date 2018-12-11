@@ -9,6 +9,7 @@ module.exports = {
             category: data.new.report.product.category,
             code: data.new.report.product.code,
             description: data.new.report.product.description,
+            posterImage: '/public/images/placeholder.png',
             attachments: [],
             businesses: []
         }

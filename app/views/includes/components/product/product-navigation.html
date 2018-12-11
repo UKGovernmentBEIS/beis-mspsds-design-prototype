@@ -1,37 +1,42 @@
 {% from "back-link/macro.njk"     	import govukBackLink %}
 {% from "breadcrumbs/macro.njk" 	import govukBreadcrumbs %}
 
-<div class="govuk-grid-row">
+<div class="govuk-grid-row mspsds-crumbs">
+
+	<div class="govuk-grid-column-three-quarters">
+
+		{% if data['caseid'] %}
+
+			<span class="mspsds-crumbs__item">
+			    {% set backLink      = '/root/case?caseid='+data['caseid']  %}
+			    {% set backText      = 'Back to Case '+data['caseid']  %}
+
+				{{ govukBackLink({
+					text: backText,
+					href: backLink
+				}) }}
+			</span>
+		{% endif %}
 
 
-	{% if data['caseid'] %}
+		{%  if (not data['caseid']) or (data['alwaysDisplayCrumbs'] == 'Yes') %}
 
-		<div class="govuk-grid-column-one-quarter">
-		    {% set backLink      = '/root/case?caseid='+data['caseid']  %}
-		    {% set backText      = 'Back to Case '+data['caseid']  %}
+			<span class="mspsds-crumbs__item">
+				{{ govukBreadcrumbs({
+				  items: [
+				    {
+				      text: "Products",
+				      href: "/root/product-list"
+				    },
+				    {
+				      text: currentProduct.name
+				    }
+				  ]
+				}) }}
+			</span>
 
-			{{ govukBackLink({
-				text: backText,
-				href: backLink
-			}) }}
-		</div>
+		{% endif %}
 
-	{% else %}
-
-		<div class="govuk-grid-column-three-quarters">
-			{{ govukBreadcrumbs({
-			  items: [
-			    {
-			      text: "Products",
-			      href: "/root/product-list"
-			    },
-			    {
-			      text: currentProduct.name
-			    }
-			  ]
-			}) }}
-		</div>
-
-	{% endif %}
+	</div>
 
 </div>

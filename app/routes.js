@@ -56,7 +56,7 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
 
   let product = Products.buildFromData(data)
   data.products.push(product);
-  newCase.products.push(product.id);
+  newCase.products.unshift(product.id);
 
   const addProductActivity = Activities.buildAddProduct(product, data.currentUser)
   newCase.activities.unshift(addProductActivity);
@@ -120,7 +120,7 @@ router.post('/:mode/flows/assign/save', function (req, res) {
   kase.assignee = newAssignee;
   kase.activities.unshift(newActivity);
 
-  res.redirect('/root/case');
+  res.redirect('/root/case--confirmation?confirmation=Case%20assigned');
 });
 
 
@@ -134,14 +134,14 @@ router.post('/:mode/flows/product/add', function (req, res) {
 
   const product = Products.buildFromData(data)
   data.products.push(product);
-  kase.products.push(product.id);
+  kase.products.unshift(product.id);
 
   kase.dateUpdated = today.short();
 
   const addProductActivity = Activities.buildAddProduct(product, data.currentUser)
   kase.activities.unshift(addProductActivity);
 
-  res.redirect('/root/case#activity');
+  res.redirect('/root/case--confirmation?confirmation=Product%20added#product');
 });
 
 
@@ -168,7 +168,7 @@ router.post('/:mode/flows/location/save', function (req, res) {
       });
     }
 
-    res.redirect('/root/business#locations?businessid='+req.session.data.businessid);
+    res.redirect('/root/business?businessid=' + data.businessid +'#locations');
 
   }
 
@@ -188,7 +188,7 @@ router.post('/:mode/flows/location/delete', function (req, res) {
     if (biz && biz.locations) {
       biz.locations = array.removeByID(biz.locations, data.locationid);
     }
-    res.redirect('/root/business#locations?businessid='+data.businessid);
+    res.redirect('/root/business?businessid=' + data.businessid +'#locations');
   }
 
   res.redirect('404');
@@ -216,7 +216,7 @@ router.post('/:mode/flows/location/update', function (req, res) {
       }
     }
 
-    res.redirect('/root/business#locations?businessid=' + data.businessid);
+    res.redirect('/root/business?businessid=' + data.businessid +'#locations');
   }
 
   res.redirect('404');
@@ -244,7 +244,7 @@ router.post('/:mode/flows/attachment/save', function (req, res) {
     obj = data.businesses.find(function (b) {
       return b.id === data.businessid;
     });
-    redirectURL = '/root/business#locations?businessid='+data.businessid;
+    redirectURL = '/root/business?businessid=' + data.businessid +'#attachments';
   }
 
   if (data.currentPage === 'case') {
@@ -263,14 +263,14 @@ router.post('/:mode/flows/attachment/save', function (req, res) {
 
     obj.activities.unshift(newActivity);
 
-    redirectURL = '/root/case#locations?caseid='+data.caseid;
+    redirectURL = '/root/case?caseid=' + data.caseid + '#attachments';
   }
 
   if (data.currentPage === 'product') {
     obj = data.products.find(function (p) {
       return p.id === data.productid;
     });
-    redirectURL = '/root/product#locations?productid='+data.productid;
+    redirectURL = '/root/product?productid=' + data.productid + '#attachments';
   }
 
   if (obj) {
@@ -292,7 +292,7 @@ router.post('/:mode/flows/attachment/delete', function (req, res) {
       return b.id === data.businessid;
     });
 
-    redirectURL = '/root/business#locations?businessid='+data.businessid;
+    redirectURL = '/root/business?businessid=' + data.businessid + '#attachments';
 
     if (biz) {
       biz.attachments = array.removeByValue(biz.attachments, data.attachmentid);
@@ -308,7 +308,7 @@ router.post('/:mode/flows/attachment/delete', function (req, res) {
       kase.attachments = array.removeByValue(kase.attachments, data.attachmentid);
     }
 
-    redirectURL = '/root/case#locations?caseid='+data.caseid;
+    redirectURL = '/root/case?caseid=' + data.caseid + '#attachments';
   }
 
   if (data.currentPage === 'product') {
@@ -320,7 +320,7 @@ router.post('/:mode/flows/attachment/delete', function (req, res) {
       prod.attachments = array.removeByValue(prod.attachments, data.attachmentid);
     }
 
-    redirectURL = '/root/product#locations?productid='+data.productid;
+    redirectURL = '/root/product?productid=' + data.productid + '#attachments';
   }
 
    res.redirect(redirectURL);
@@ -348,13 +348,13 @@ router.post('/:mode/flows/attachment/update', function (req, res) {
   let redirectURL = '404';
 
   if (data.currentPage === 'business') {
-    redirectURL = '/root/business#locations?businessid='+data.businessid;
+    redirectURL = '/root/business?businessid=' + data.businessid + '#attachments';
   }
   if (data.currentPage === 'case') {
-    redirectURL = '/root/case#locations?caseid='+data.caseid;
+    redirectURL = '/root/case?caseid=' + data.caseid + '#attachments';
   }
   if (data.currentPage === 'business') {
-    redirectURL = '/root/product#locations?productid='+data.productid;
+    redirectURL = '/root/product?productid=' + data.productid + '#attachments';
   }
 
   res.redirect(redirectURL);

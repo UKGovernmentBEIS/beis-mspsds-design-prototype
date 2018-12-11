@@ -10,7 +10,8 @@
     {% set titleType     = 'Case: '+data['caseid']  %}
 
 {% elif currentPage ==  'product'  %}
-    {% set titleType      = 'Product: '+data['productid'] + ' TODO – get name'  %}
+    {% set currentProduct   = data.products | withId(data.productid) %}
+    {% set titleType        = 'Product: ' + currentProduct.name  %}
 
 {% elif currentPage ==  'business'  %}
     {% set currentBusiness = data.businesses | withId(data['businessid']) %}
