@@ -161,22 +161,6 @@ module.exports = {
     <p class="govuk-body"><a href="#">View risk assessment document</a></p>`
     },
     {
-      title: "Danger of electric shock",
-      action: "Hazard added",
-      text: "Hazard description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    },
-    {
-      title: "Danger of electric shock",
-      action: "Hazard added",
-      html: `
-      <p class="govuk-body">Hazard description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      <p class="govuk-body">
-        Risk level: <span class="govuk-!-font-weight-bold">Medium</span><br />
-        Vulnerable group: <span class="govuk-!-font-weight-bold">Young children</span>
-      </p>
-      <p class="govuk-body"><a href="#">View risk assessment document</a></p>`
-    },
-    {
       title: "Priority: High",
       action: "Set",
       text: `Have flagged as priority due to consumer injuries and potential risks of the product`
