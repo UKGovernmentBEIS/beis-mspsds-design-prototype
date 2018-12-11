@@ -1,7 +1,37 @@
-{% from "back-link/macro.njk"     import govukBackLink %}
+{% from "back-link/macro.njk"     	import govukBackLink %}
+{% from "breadcrumbs/macro.njk" 	import govukBreadcrumbs %}
+
+<div class="govuk-grid-row">
 
 
-{{ govukBackLink({
-	text: "Back to Products",
-	href: "./product-list"
-}) }}
+	{% if data['caseid'] %}
+
+		<div class="govuk-grid-column-one-quarter">
+		    {% set backLink      = '/root/case?caseid='+data['caseid']  %}
+		    {% set backText      = 'Back to Case '+data['caseid']  %}
+
+			{{ govukBackLink({
+				text: backText,
+				href: backLink
+			}) }}
+		</div>
+
+	{% else %}
+
+		<div class="govuk-grid-column-three-quarters">
+			{{ govukBreadcrumbs({
+			  items: [
+			    {
+			      text: "Products",
+			      href: "/root/product-list"
+			    },
+			    {
+			      text: currentProduct.name
+			    }
+			  ]
+			}) }}
+		</div>
+
+	{% endif %}
+
+</div>

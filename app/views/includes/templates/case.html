@@ -1,6 +1,7 @@
 {% extends "mspsds-layout.html" %}
 
 {% set currentCase = currentCase | attachCaseChildren(data) %}
+{% set bodyClasses = "mspsds-width-container case" %}
 
 {% block pageTitle %}
   Case Page: {{ currentCase.title }}
