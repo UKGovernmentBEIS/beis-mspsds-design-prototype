@@ -40,5 +40,14 @@ module.exports = {
           isImage: Attachments.isImage(attachment.upload),
           fileExtension: Attachments.fileExtension(attachment.upload)
         });
+    },
+    buildChangeStatus : function(reqBody, user) {
+        const changeStatusActivityTemplate = require("../data/activities/templates").changedStatus;
+        return changeStatusActivityTemplate({
+          status: reqBody.status,
+          description: reqBody['status-description'],
+          author: user,
+          date: today.long()
+        });
     }
 }

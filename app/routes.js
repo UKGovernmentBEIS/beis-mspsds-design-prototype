@@ -292,7 +292,6 @@ router.post('/:mode/flows/attachment/delete', function (req, res) {
   }
 
    res.redirect(redirectURL);
-
 });
 
 
@@ -333,13 +332,7 @@ router.post(`/:mode/flows/change-status/save`, function (req, res) {
 
   const kase = array.findById(data.cases, data.caseid)
 
-  const changeStatusActivityTempalte = require("./data/activities/templates").changedStatus;
-  const newActivity = changeStatusActivityTempalte({
-    status: req.body.status,
-    description: req.body['status-description'],
-    author: data.currentUser,
-    date: today.long()
-  });
+  const newActivity = Activities.buildChangeStatus(req.body, data.currentUser)
 
   kase.dateUpdated = today.short();
   kase.status = req.body.status;
