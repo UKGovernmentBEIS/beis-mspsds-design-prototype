@@ -47,7 +47,7 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
   let activity = Activities.buildCreateCase(newCase);
   newCase.activities.unshift(activity);
   
-  const files = buildTsCreateAttachments(data);
+  const files = require("./utils/attachment").buildTsCreateAttachments(data);
   newCase.attachments.unshift(...files.map(f => f.id));
   activity.attachments.unshift(...files);
   data.attachments.push(...files);
