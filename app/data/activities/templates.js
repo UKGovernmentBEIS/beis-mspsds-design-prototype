@@ -40,7 +40,8 @@ module.exports = {
     productType,
     productCategory,
     productCode,
-    productDescription
+    productDescription,
+    productImage
   }) {
     return {
       type: 'addProduct',
@@ -51,7 +52,8 @@ module.exports = {
       productType,
       productCategory,
       productCode,
-      productDescription
+      productDescription,
+      productImage
     }
   },
   assigned: function (

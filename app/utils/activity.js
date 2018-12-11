@@ -27,7 +27,8 @@ module.exports = {
             productType: product.type,
             productCategory: product.category,
             productCode: product.code,
-            productDescription: product.description
+            productDescription: product.description,
+            productImage: product.posterImage
         });   
     },
     buildAddAttachment: function (attachment, user) {

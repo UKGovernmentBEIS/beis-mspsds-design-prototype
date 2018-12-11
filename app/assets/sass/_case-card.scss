@@ -43,6 +43,7 @@ $marginIndent: 10px;
         display: inline-block;
         width: grid-width( one-half);
         position: absolute;
+        z-index: 1;
 
         @include govuk-typography-responsive($size: 14);
         
@@ -54,6 +55,7 @@ $marginIndent: 10px;
     &__product,
     &__hazard {
         display: block;
+        position: relative;
     }
     
     &__title {
@@ -205,9 +207,11 @@ $marginIndent: 10px;
             top: 60%;
         }
     }
-
-
-
-
-
 }
+
+.mspsds-product-card__id,
+.mspsds-business-card__id {
+    display: none;
+}
+
+

@@ -1,4 +1,5 @@
 .mspsds-confirmation {
+
   border-left: solid 8px govuk-colour("turquoise");
   background-color: mix(white, govuk-colour("turquoise"), 90%);
   @include govuk-responsive-padding(3);
@@ -6,6 +7,10 @@
 
   font-family: "nta", Arial, sans-serif;
   font-size: 19px;
+
+  opacity: 0;
+  max-height: 0;
+  animation: new-item-animation 1s linear forwards;
 
   span {
     display: inline-block;
@@ -16,4 +21,22 @@
     @include govuk-responsive-margin(3, "left");
     margin-bottom: 0;
   }
+}
+
+
+@keyframes new-item-animation {
+    25% {
+        opacity: 0;
+        max-height: 0;
+    }
+
+    50% {
+        opacity: 0;
+        max-height: 500px;
+    }
+
+    100% {
+        opacity: 1;
+        max-height: 500px;
+    }
 }

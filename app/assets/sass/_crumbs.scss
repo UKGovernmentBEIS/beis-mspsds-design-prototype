@@ -1,0 +1,15 @@
+ .mspsds-crumbs {
+
+    &__item {
+        display: inline-block;
+        float: left;
+        margin-right: 1em;
+        padding-right: 1em;
+        border-right: 1px solid govuk-colour("grey-2");
+    }
+
+    &__item + &__item {
+        border-right: 0;
+    }
+
+ }

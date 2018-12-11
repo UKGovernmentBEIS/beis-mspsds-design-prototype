@@ -2,7 +2,7 @@
   
   position: relative;
 
-  background-color: govuk-colour("grey-4");
+  //background-color: govuk-colour("grey-4");
   
   /*
   &:before {
@@ -28,18 +28,28 @@
     margin-block-start: 0;
     margin-block-end: 0;
     padding-inline-start: 0;
+    font-size: 0;
 
     li {
       display: inline-block;
 
       a {
-        //@include bold-19;
-        //@extend .bold-small;
-        color:    $govuk-text-colour;
+
+        color:    $govuk-link-colour;
         display:  inline-block;
-        padding:  15px 5px 10px 5px;
+        padding:  15px 10px 10px 10px;
         margin-right: 0;
         text-decoration: none;
+
+        font-size: 1rem;
+        line-height: 1.25;
+
+        @media (min-width: 40.0625em) {
+          padding:  15px;
+          font-size: 1.1875rem;
+          line-height: 1.31579;
+          font-weight: 700;
+        }
 
         &:hover {
           -webkit-box-shadow: inset 0px -5px 0px 0px $govuk-link-hover-colour;
@@ -66,8 +76,11 @@
 
   .creation {
     position: absolute;
-    right: 4px;
-    top: 4px;
+    right:  6px;
+    top:    50%;
+    margin-top: -1px;
+
+    transform: translateY(-50%);
     
     z-index: 1;
     
