@@ -47,18 +47,18 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
   let activity = Activities.buildCreateCase(newCase);
   newCase.activities.unshift(activity);
   
-  const files = buildTsCreateAttachments(data);
+  const files = require("./utils/attachment").buildTsCreateAttachments(data);
   newCase.attachments.unshift(...files.map(f => f.id));
   activity.attachments.unshift(...files);
   data.attachments.push(...files);
   
   newCase.dateUpdated = today.short();
 
-  let product = Products.buildFromData(data)
+  let product = Products.buildFromData(data);
   data.products.push(product);
   newCase.products.unshift(product.id);
 
-  const addProductActivity = Activities.buildAddProduct(product, data.currentUser)
+  const addProductActivity = Activities.buildAddProduct(product, data.currentUser);
   newCase.activities.unshift(addProductActivity);
 
   Reset.resetNew(req);
@@ -74,10 +74,10 @@ router.post('/:mode/flows/create/save', function (req, res) {
   let newCase = Cases.buildFromData(data);
   data.cases.push(newCase);
 
-  let activity = Activities.buildCreateCase(newCase)
+  let activity = Activities.buildCreateCase(newCase);
   newCase.activities.unshift(activity);
 
-  Reset.resetNew(req)
+  Reset.resetNew(req);
   res.redirect('/root/case--created?caseid=' + newCase.id);
 });
 
@@ -102,17 +102,15 @@ router.post('/:mode/flows/process-incoming/email-check-endpoint', function (req,
 router.post('/:mode/flows/assign/save', function (req, res) {
   const data = req.session.data;
 
-  const kase = data.cases.find(function (c) {
-    return c.id === data.caseid;
-  });
-
+  const kase = array.findById(data.cases, data.caseid);
+  
   let newAssignee = req.body.assignee;
   newAssignee = newAssignee === "Other" ? req.body["other-assignee"] : newAssignee;
 
   const assignedActivityTemplate = require("./data/activities/templates").assigned;
   const newActivity = assignedActivityTemplate({
     assignee: newAssignee,
-    author: res.locals.data.currentUser,
+    author: data.currentUser,
     date: today.long()
   });
 
@@ -128,20 +126,18 @@ router.post('/:mode/flows/assign/save', function (req, res) {
 router.post('/:mode/flows/product/add', function (req, res) {
   const data = req.session.data;
 
-  const kase = data.cases.find(function (c) {
-    return c.id === data.caseid;
-  });
+  const kase = array.findById(data.cases, data.caseid);
 
-  const product = Products.buildFromData(data)
+  const product = Products.buildFromData(data);
   data.products.push(product);
   kase.products.unshift(product.id);
 
   kase.dateUpdated = today.short();
 
-  const addProductActivity = Activities.buildAddProduct(product, data.currentUser)
+  const addProductActivity = Activities.buildAddProduct(product, data.currentUser);
   kase.activities.unshift(addProductActivity);
 
-  res.redirect('/root/case--confirmation?confirmation=Product%20added#product');
+  res.redirect('/root/case--confirmation?confirmation=Product%20added#products');
 });
 
 
@@ -156,11 +152,8 @@ router.post('/:mode/flows/location/save', function (req, res) {
   data.locations.push(newLocation);
 
   if (data.currentPage === 'business') {
-
-    let biz = data.businesses.find(function (b) {
-      return b.id === data.businessid;
-    });
-
+    const biz = array.findById(data.businesses, data.businessid);
+    
     if (biz) {
       biz.locations.push({
         id:     newLocation.id,
@@ -181,12 +174,10 @@ router.post('/:mode/flows/location/delete', function (req, res) {
 
   if (data.currentPage === 'business') {
 
-    let biz = data.businesses.find(function (b) {
-      return b.id === data.businessid;
-    });
-
+    const biz = data.businesses(data.businesses, data.businessid);
+    
     if (biz && biz.locations) {
-      biz.locations = array.removeByID(biz.locations, data.locationid);
+      biz.locations = array.removeById(biz.locations, data.locationid);
     }
     res.redirect('/root/business?businessid=' + data.businessid +'#locations');
   }
@@ -205,10 +196,7 @@ router.post('/:mode/flows/location/update', function (req, res) {
     let newLocation   = data.location;
     newLocation.id    = data.locationid;
 
-
-    let loc = data.locations.find(function (l) {
-      return l.id === data.locationid;
-    });
+    const loc = array.findById(data.locations, data.locationid);
 
     if (loc) {
       for (var k in loc) {
@@ -235,51 +223,37 @@ router.post('/:mode/flows/attachment/save', function (req, res) {
   let newAttachment   = data.attachment;
   newAttachment.id    = 'at' + (data.attachments.length + 1);
 
-  data.attachments.push(newAttachment);
-
+  
   let obj = null;
   let redirectURL = '404';
+  
+  switch (data.currentPage) {
+    case 'business':
+      obj = array.findById(data.businesses, data.businessid);
+      redirectURL = '/root/business?businessid=' + data.businessid +'&confirmation=Attachment%20added#attachments';
+      break;
+    
+    case 'case':
+      obj = array.findById(data.cases, data.caseid);
+      redirectURL = '/root/case--confirmation?caseid=' + data.caseid + '&confirmation=Attachment%20added#attachments';
+      
+      const newActivity = Activities.buildAddAttachment(newAttachment, data.currentUser);
+      obj.activities.unshift(newActivity);
+      break;
 
-  if (data.currentPage === 'business') {
-    obj = data.businesses.find(function (b) {
-      return b.id === data.businessid;
-    });
-    redirectURL = '/root/business?businessid=' + data.businessid +'#attachments';
+    case 'product':
+      obj = array.findById(data.products, data.productid);
+      redirectURL = '/root/product?productid=' + data.productid + '&confirmation=Attachment%20added#attachments';
+      break;
+
+    default:
+      console.log("data.currentPage not set to appropriate value in flows/attachment/save route");
   }
-
-  if (data.currentPage === 'case') {
-    obj = data.cases.find(function (c) {
-      return c.id === data.caseid;
-    });
-
-    const addAttachmentActivityTemplate = require("./data/activities/templates").addAttachment;
-    const newActivity = addAttachmentActivityTemplate({
-      author: data.currentUser,
-      title: req.body.attachment.title,
-      description: req.body.attachment.description,
-      isImage: Attachments.isImage(req.body.attachment.url),
-      fileExtension: Attachments.fileExtension(req.body.attachment.url)
-    });
-
-    obj.activities.unshift(newActivity);
-
-    redirectURL = '/root/case?caseid=' + data.caseid + '#attachments';
-  }
-
-  if (data.currentPage === 'product') {
-    obj = data.products.find(function (p) {
-      return p.id === data.productid;
-    });
-    redirectURL = '/root/product?productid=' + data.productid + '#attachments';
-  }
-
-  if (obj) {
-    obj.attachments.push(newAttachment.id);
-  }
-
-
+  
+  obj.attachments.push(newAttachment.id);
+  data.attachments.push(newAttachment);
+  
   res.redirect(redirectURL);
-
 });
 
 router.post('/:mode/flows/attachment/delete', function (req, res) {
@@ -288,11 +262,10 @@ router.post('/:mode/flows/attachment/delete', function (req, res) {
   let redirectURL = '404';
 
   if (data.currentPage === 'business') {
-    let biz = data.businesses.find(function (b) {
-      return b.id === data.businessid;
-    });
 
-    redirectURL = '/root/business?businessid=' + data.businessid + '#attachments';
+    const biz = array.findById(data.businesses, data.businessid);
+    
+    redirectURL = '/root/business?businessid=' + data.businessid + '&confirmation=Attachment%20deleted#attachments';
 
     if (biz) {
       biz.attachments = array.removeByValue(biz.attachments, data.attachmentid);
@@ -300,31 +273,26 @@ router.post('/:mode/flows/attachment/delete', function (req, res) {
   }
 
   if (data.currentPage === 'case') {
-    let kase = data.cases.find(function (c) {
-      return c.id === data.caseid;
-    });
+    const kase = array.findById(data.cases, data.caseid);
 
     if (kase) {
       kase.attachments = array.removeByValue(kase.attachments, data.attachmentid);
     }
 
-    redirectURL = '/root/case?caseid=' + data.caseid + '#attachments';
+    redirectURL = '/root/case--confirmation?caseid=' + data.caseid + '&confirmation=Attachment%20deleted#attachments';
   }
 
   if (data.currentPage === 'product') {
-    let prod = data.products.find(function (p) {
-      return p.id === data.productid;
-    });
+    const prod = array.findById(data.products, data.productid);
 
     if (prod) {
       prod.attachments = array.removeByValue(prod.attachments, data.attachmentid);
     }
 
-    redirectURL = '/root/product?productid=' + data.productid + '#attachments';
+    redirectURL = '/root/product?productid=' + data.productid + '&confirmation=Attachment%20deleted#attachments';
   }
 
    res.redirect(redirectURL);
-
 });
 
 
@@ -335,9 +303,7 @@ router.post('/:mode/flows/attachment/update', function (req, res) {
   newAttachment.id    = data.attachmentid;
   newAttachment.date  = today.short();
 
-  let att = data.attachments.find(function (a) {
-    return a.id === data.attachmentid;
-  });
+  const att = array.findById(data.attachments, data.attachmentid);
 
   if (att) {
     for (var k in att) {
@@ -348,13 +314,13 @@ router.post('/:mode/flows/attachment/update', function (req, res) {
   let redirectURL = '404';
 
   if (data.currentPage === 'business') {
-    redirectURL = '/root/business?businessid=' + data.businessid + '#attachments';
+    redirectURL = '/root/business?businessid=' + data.businessid + '&confirmation=Attachment%20updated#attachments';
   }
   if (data.currentPage === 'case') {
-    redirectURL = '/root/case?caseid=' + data.caseid + '#attachments';
+    redirectURL = '/root/case--confirmation?caseid=' + data.caseid + '&confirmation=Attachment%20updated#attachments';
   }
-  if (data.currentPage === 'business') {
-    redirectURL = '/root/product?productid=' + data.productid + '#attachments';
+  if (data.currentPage === 'product') {
+    redirectURL = '/root/product?productid=' + data.productid + '&confirmation=Attachment%20updated#attachments';
   }
 
   res.redirect(redirectURL);
@@ -365,32 +331,23 @@ router.post('/:mode/flows/attachment/update', function (req, res) {
 router.post(`/:mode/flows/change-status/save`, function (req, res) {
   const data = req.session.data;
 
-  const kase = data.cases.find(function (c) {
-    return c.id === data.caseid;
-  });
+  const kase = array.findById(data.cases, data.caseid);
 
-  const changeStatusActivityTempalte = require("./data/activities/templates").changedStatus;
-  const newActivity = changeStatusActivityTempalte({
-    status: req.body.status,
-    description: req.body['status-description'],
-    author: data.currentUser,
-    date: today.long()
-  });
+  const newActivity = Activities.buildChangeStatus(req.body, data.currentUser);
 
   kase.dateUpdated = today.short();
   kase.status = req.body.status;
   kase.activities.unshift(newActivity);
 
-  res.redirect('/root/case');
+  let redirectURL = '/root/case--confirmation?caseid=' + data.caseid + '&confirmation=Status%20updated';
+  res.redirect(redirectURL);
 });
 
 // Add comment flow
 router.post(`/:mode/flows/add-comment/save`, function (req, res) {
   const data = req.session.data;
 
-  const kase = data.cases.find(function (c) {
-    return c.id === data.caseid;
-  });
+  const kase = array.findById(data.cases, data.caseid);
 
   const activityTemplate = require("./data/activities/templates").commentAdded;
   const newActivity = activityTemplate({
@@ -402,17 +359,18 @@ router.post(`/:mode/flows/add-comment/save`, function (req, res) {
   kase.dateUpdated = today.short();
   kase.activities.unshift(newActivity);
 
-  res.redirect('/root/case');
+  let redirectURL = '/root/case--confirmation?caseid=' + data.caseid + '&confirmation=Commment%20added';
+  res.redirect(redirectURL);
+
 });
 
 // Add Corrective Action flow
 router.post(`/:mode/flows/record-corrective-action/save`, function(req, res) {
   const data = req.session.data;
   
-  const kase = data.cases.find(function (c) {
-    return c.id === data.caseid;
-  });
-  activityTemplate = require('./data/activities/templates').correctiveAction
+  const kase = array.findById(data.cases, data.caseid);
+
+  activityTemplate = require('./data/activities/templates').correctiveAction;
   const newActivity = activityTemplate({
     summary: data['corrective-action-summary'],
     productName: data['TODO-product-input-name'],
@@ -421,11 +379,14 @@ router.post(`/:mode/flows/record-corrective-action/save`, function(req, res) {
     decisionDate: date.shortFromInput(data["corrective-action-date-year"], data['corrective-action-date-month'], data['corrective-action-date-day']),
     attachment: data['corrective-action-file-upload-1'],
     description: data['corrective-action-details']
-  })
-  kase.activities.unshift(newActivity)
-  kase.updated = today.short()
-  res.redirect('/root/case')
-})
+  });
+  kase.activities.unshift(newActivity);
+  kase.updated = today.short();
+
+  let redirectURL = '/root/case--confirmation?caseid=' + data.caseid + '&confirmation=Corrective%20action%20recorded';
+  res.redirect(redirectURL);
+
+});
 
 // New activity flow
 router.post('/:mode/flows/add-activity/choose', function (req, res) {
@@ -499,9 +460,8 @@ router.post('/test-setup', function (req, res, next) {
   const data = req.session.data;
 
   if (req.body.caseToAssign !== undefined) {
-    const kase = data.cases.find(function (c) {
-      return c.id === req.body.caseToAssign;
-    });
+    const kase = array.findById(data.cases, req.body.caseToAssign);
+
     kase.assignee = req.body.assignee;
   }
   const newUser = req.body.currentUser;

@@ -30,5 +30,25 @@ module.exports = {
             productDescription: product.description,
             productImage: product.posterImage
         });   
+    },
+    buildAddAttachment: function (attachment, user) {
+        const Attachments = require("./attachment")
+        const addAttachmentActivityTemplate = require("../data/activities/templates").addAttachment;
+        return addAttachmentActivityTemplate({
+          author: user,
+          title: attachment.title,
+          description: attachment.description,  
+          isImage: Attachments.isImage(attachment.upload),
+          fileExtension: Attachments.fileExtension(attachment.upload)
+        });
+    },
+    buildChangeStatus : function(reqBody, user) {
+        const changeStatusActivityTemplate = require("../data/activities/templates").changedStatus;
+        return changeStatusActivityTemplate({
+          status: reqBody.status,
+          description: reqBody['status-description'],
+          author: user,
+          date: today.long()
+        });
     }
 }
