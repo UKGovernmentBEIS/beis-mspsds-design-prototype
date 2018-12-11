@@ -409,12 +409,6 @@ router.post('/:mode/flows/add-activity/choose', function (req, res) {
     case 'incident':
       res.redirect("/flows/add-incident/01-add-incident.html");
       break;
-    case 'hazard':
-      res.redirect("/root/flows/add-hazard/01.html");
-      break;
-    case 'risk':
-      res.redirect("/root/flows/add-risk/01.html");
-      break;
     case 'corrective-action':
       res.redirect("../record-corrective-action/01-record-corrective-action.html");
       break;
