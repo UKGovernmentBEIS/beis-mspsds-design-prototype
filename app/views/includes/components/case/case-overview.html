@@ -7,9 +7,9 @@
 
 <section class="mspsds-overview">
 
-	{% if currentCase.hazard %}
+	{% if currentCase.report.hazardType %}
 
-		{{ caseHazard(currentCase.hazard) }}
+		{{ caseHazard(currentCase.report.hazardType) }}
 
 	{% endif %}
 

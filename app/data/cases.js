@@ -32,13 +32,6 @@ const Cases = require("../utils/case")
           attachmentDescription: ''
         }
       },
-      hazard: {
-        type: '',
-        details: '',
-        group: '',
-        riskLevel: '',
-        assessment: ''
-      },
       incidents: [],
       products: [],
       businesses: [{id: 'b1', role: 'Manufacturer'}],
@@ -93,13 +86,6 @@ module.exports = {
       activities: require("./activities/1811-0758").activities,
       attachments: ['at1', 'at2'],
       // the below properties have not been set for this case
-      // hazard: {
-      //     type: '',
-      //     details: '',
-      //     group: '',
-      //     riskLevel: '',
-      //     assessment: ''
-      // },
       // incidents: [],
       // related: [],
       // match: { // This is a hack to make some cases show up in test results
@@ -165,12 +151,6 @@ module.exports = {
       products: ["p1"],
       dateCreated: '18/10/2018',
       dateUpdated: '22/10/2018',
-      hazard: {
-        type: "Electric shock, fire",
-        group: "Young children",
-        description: "Travel adaptor available from high-street store Game has been reported to have caused a fire and severe electric shocks. Has been reported more than 10 times in the last 2 months.",
-        riskLevel: "Serious"
-      },
       activities: require("./activities/1810-0002").activities
     },
     {
@@ -213,13 +193,6 @@ module.exports = {
           attachment: '',
           attachmentDescription: ''
         }
-      },
-      hazard: {
-        type: 'Electric shock, fire hazard',
-        details: 'Travel adaptor available from high-street store Game has been reported to have caused a fire and severe electric shocks. Has been reported more than 10 times in the last 2 months.',
-        group: 'Young children',
-        riskLevel: 'Serious',
-        assessment: 'assessment.pdf'
       },
       incidents: [{
         id: 'i1',
@@ -264,8 +237,8 @@ module.exports = {
       assignee: 'Ed Smith-Muller',
       dateCreated: '18/10/2018',
       dateUpdated: '21/10/2018',
-      hazard: {
-        type: 'Electric shock, fire hazard',
+      report: {
+        hazardType: 'Electric shock, fire hazard',
       },
       products: ['p2'],
     },
@@ -286,8 +259,8 @@ module.exports = {
       assignee: 'Tim Harwood',
       dateCreated: '18/10/2018',
       dateUpdated: '21/10/2018',
-      hazard: {
-        type: 'Entrapment, Injuries hazard',
+      report: {
+        hazardType: 'Entrapment, Injuries hazard',
       },
       products: ['p5'],
     },
@@ -298,8 +271,8 @@ module.exports = {
       assignee: 'Nick Golding',
       dateCreated: '18/10/2018',
       dateUpdated: '20/10/2018',
-      hazard: {
-        type: 'Choking hazard',
+      report: {
+        hazardType: 'Choking hazard',
       },
       products: ['p6'],
       match: {
@@ -314,8 +287,8 @@ module.exports = {
       assignee: 'Christopher Hunter',
       dateCreated: '18/10/2018',
       dateUpdated: '21/10/2018',
-      hazard: {
-        type: 'Suffocation hazard',
+      report: {
+        hazardType: 'Suffocation hazard',
       },
       products: ['p7'],
     },
@@ -337,8 +310,8 @@ module.exports = {
       title: 'Has anyone successfully located the importer for these?',
       dateCreated: '18/10/2018',
       dateUpdated: '20/10/2018',
-      hazard: {
-        type: 'Electric shock hazard',
+      report: {
+        hazardType: 'Electric shock hazard',
       },
       products: ['p9'],
     },
@@ -347,8 +320,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p10'],
-      hazard: {
-        type: 'Electric shock hazard',
+      report: {
+        hazardType: 'Electric shock hazard',
       },
       assignee: 'Nick Golding',
       team: 'Processing',
@@ -361,8 +334,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p11'],
-      hazard: {
-        type: 'Chemical hazard',
+      report: {
+        hazardType: 'Chemical hazard',
       },
       assignee: 'Tim Harwood',
       team: 'Processing',
@@ -385,8 +358,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p13'],
-      hazard: {
-        type: 'Damage to sight hazard',
+      report: {
+        hazardType: 'Damage to sight hazard',
       },
       assignee: 'Ed Smith-Muller',
       dateUpdated: '19/10/2018',
@@ -397,8 +370,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p14'],
-      hazard: {
-        type: 'Chemical, Choking hazard',
+      report: {
+        hazardType: 'Chemical, Choking hazard',
       },
       assignee: 'Christopher Hunter',
       team: 'Processing',
@@ -411,8 +384,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p15'],
-      hazard: {
-        type: 'Electric shock, fire hazard',
+      report: {
+        hazardType: 'Electric shock, fire hazard',
       },
       assignee: 'Garry Oldboy',
       dateUpdated: '19/10/2018',
@@ -434,8 +407,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p17'],
-      hazard: {
-        type: 'Poison hazard',
+      report: {
+        hazardType: 'Poison hazard',
       },
       assignee: 'Tim Harwood',
       dateUpdated: '19/10/2018',
@@ -446,8 +419,8 @@ module.exports = {
       type: 'Case',
       status: 'Closed',
       products: ['p18'],
-      hazard: {
-        type: 'Electric shock, fire hazard',
+      report: {
+        hazardType: 'Electric shock, fire hazard',
       },
       assignee: 'Nick Golding',
       team: 'Processing',
@@ -470,8 +443,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p20'],
-      hazard: {
-        type: 'Electric shock, fire hazard',
+      report: {
+        hazardType: 'Electric shock, fire hazard',
       },
       assignee: 'Christopher Hunter',
       team: 'Processing',
@@ -483,8 +456,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p21'],
-      hazard: {
-        type: 'Electric shock, fire hazard',
+      report: {
+        hazardType: 'Electric shock, fire hazard',
       },
       assignee: 'Ed Smith-Muller',
       dateUpdated: '18/10/2018',
@@ -495,8 +468,8 @@ module.exports = {
       type: 'Case',
       status: 'Closed',
       products: ['p22'],
-      hazard: {
-        type: 'Electric shock, fire hazard',
+      report: {
+        hazardType: 'Electric shock, fire hazard',
       },
       assignee: 'Christopher Hunter',
       team: 'Processing',
@@ -508,8 +481,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p23'],
-      hazard: {
-        type: 'Electric shock, fire hazard',
+      report: {
+        hazardType: 'Electric shock, fire hazard',
       },
       assignee: 'Nick Golding',
       team: 'Processing',
@@ -522,8 +495,8 @@ module.exports = {
       type: 'Case',
       status: 'Closed',
       products: ['p24'],
-      hazard: {
-        type: 'Electric shock, fire hazard',
+      report: {
+        hazardType: 'Electric shock, fire hazard',
       },
       assignee: 'Ed Smith-Muller',
       dateUpdated: '18/10/2018',
@@ -534,8 +507,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p25'],
-      hazard: {
-        type: 'Electric shock, fire hazard',
+      report: {
+        hazardType: 'Electric shock, fire hazard',
       },
       assignee: 'Tim Harwood',
       team: 'Processing',
@@ -547,8 +520,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p26'],
-      hazard: {
-        type: 'Electric shock, fire hazard',
+      report: {
+        hazardType: 'Electric shock, fire hazard',
       },
       assignee: 'Tim Harwood',
       team: 'Processing',
@@ -572,8 +545,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p28'],
-      hazard: {
-        type: 'Injuries hazard',
+      report: {
+        hazardType: 'Injuries hazard',
       },
       assignee: 'Tim Harwood',
       team: 'Processing',
@@ -585,8 +558,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p29'],
-      hazard: {
-        type: 'Entrapment, Injuries hazard',
+      report: {
+        hazardType: 'Entrapment, Injuries hazard',
       },
       assignee: 'Tim Harwood',
       team: 'Processing',
@@ -598,8 +571,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p30'],
-      hazard: {
-        type: 'Choking hazard',
+      report: {
+        hazardType: 'Choking hazard',
       },
       assignee: 'Christopher Hunter',
       team: 'Processing',
@@ -612,8 +585,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p31'],
-      hazard: {
-        type: 'Suffocation hazard',
+      report: {
+        hazardType: 'Suffocation hazard',
       },
       assignee: 'Nick Golding',
       team: 'Processing',
@@ -625,8 +598,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p32'],
-      hazard: {
-        type: 'Strangulation hazard',
+      report: {
+        hazardType: 'Strangulation hazard',
       },
       assignee: 'Tim Harwood',
       team: 'Processing',
@@ -638,8 +611,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p33'],
-      hazard: {
-        type: 'Electric shock hazard',
+      report: {
+        hazardType: 'Electric shock hazard',
       },
       assignee: 'Ed Smith-Muller',
       dateUpdated: '17/10/2018',
@@ -662,8 +635,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p35'],
-      hazard: {
-        type: 'Chemical hazard',
+      report: {
+        hazardType: 'Chemical hazard',
       },
       assignee: 'Tim Harwood',
       team: 'Processing',
@@ -675,8 +648,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p36'],
-      hazard: {
-        type: 'Damage to sight hazard',
+      report: {
+        hazardType: 'Damage to sight hazard',
       },
       assignee: 'Tim Harwood',
       team: 'Processing',
@@ -688,8 +661,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p37'],
-      hazard: {
-        type: 'Damage to sight hazard',
+      report: {
+        hazardType: 'Damage to sight hazard',
       },
       assignee: 'Ed Smith-Muller',
       dateUpdated: '17/10/2018',
@@ -700,8 +673,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p38'],
-      hazard: {
-        type: 'Chemical, Choking hazard',
+      report: {
+        hazardType: 'Chemical, Choking hazard',
       },
       assignee: 'Christopher Hunter',
       team: 'Processing',
@@ -714,8 +687,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p39'],
-      hazard: {
-        type: 'Electric shock, fire hazard',
+      report: {
+        hazardType: 'Electric shock, fire hazard',
       },
       assignee: 'Nick Golding',
       dateUpdated: '17/10/2018',
@@ -726,8 +699,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p40'],
-      hazard: {
-        type: 'Electric shock, fire hazard',
+      report: {
+        hazardType: 'Electric shock, fire hazard',
       },
       assignee: 'Tim Harwood',
       team: 'Processing',
@@ -739,8 +712,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p41'],
-      hazard: {
-        type: 'Electric shock, fire hazard',
+      report: {
+        hazardType: 'Electric shock, fire hazard',
       },
       assignee: 'Ed Smith-Muller',
       dateUpdated: '17/10/2018',
@@ -751,9 +724,6 @@ module.exports = {
       type: 'Question',
       status: 'Closed',
       products: ['p42'],
-      hazard: {
-        type: 'Another title? Really?',
-      },
       assignee: 'Amanda Farrell',
       team: 'TSC',
       dateUpdated: '17/10/2018',
@@ -764,8 +734,8 @@ module.exports = {
       type: 'Case',
       status: 'Closed',
       products: ['p43'],
-      hazard: {
-        type: 'Electric shock, fire hazard',
+      report: {
+        hazardType: 'Electric shock, fire hazard',
       },
       assignee: 'Ed Smith-Muller',
       dateUpdated: '16/10/2018',
@@ -776,8 +746,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p44'],
-      hazard: {
-        type: 'Electric shock, fire hazard',
+      report: {
+        hazardType: 'Electric shock, fire hazard',
       },
       assignee: 'Christopher Hunter',
       team: 'Processing',
@@ -789,8 +759,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p45'],
-      hazard: {
-        type: 'Electric shock, fire hazard',
+      report: {
+        hazardType: 'Electric shock, fire hazard',
       },
       assignee: 'Ed Smith-Muller',
       dateUpdated: '16/10/2018',
@@ -801,8 +771,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p46'],
-      hazard: {
-        type: 'Electric shock, fire hazard',
+      report: {
+        hazardType: 'Electric shock, fire hazard',
       },
       assignee: 'Tim Harwood',
       team: 'Processing',
@@ -818,8 +788,8 @@ module.exports = {
       type: 'Case',
       status: 'Closed',
       products: ['p48'],
-      hazard: {
-        type: 'Electric shock, fire hazard',
+      report: {
+        hazardType: 'Electric shock, fire hazard',
       },
       assignee: 'Christopher Hunter',
       dateUpdated: '16/10/2018',
@@ -834,8 +804,8 @@ module.exports = {
       type: 'Case',
       status: 'Open',
       products: ['p49'],
-      hazard: {
-        type: 'Electric shock, fire hazard',
+      report: {
+        hazardType: 'Electric shock, fire hazard',
       },
       assignee: 'Tim Harwood',
       team: 'Processing',

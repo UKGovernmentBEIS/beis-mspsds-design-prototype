@@ -38,8 +38,8 @@
         {% endif %}
 
         {% if caseInfo.type == 'Case' %}
-            {% if caseInfo.hazard %}
-                <span class="mspsds-case-card__hazard">{{caseInfo.hazard.type}}</span>
+            {% if caseInfo.report.hazardType %}
+                <span class="mspsds-case-card__hazard">{{caseInfo.report.hazardType}}</span>
             {% else %}
                 <span class="mspsds-case-card__hazard mspsds-case-card__hazard--undefined">Undefined hazard</span>
             {% endif %}

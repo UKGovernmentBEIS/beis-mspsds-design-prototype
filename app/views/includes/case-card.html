@@ -74,8 +74,8 @@
                 <span class="mspsds-case-card__product mspsds-case-card__product--undefined">Undefined product</span>
             {% endif %}
 
-            {% if caseInfo.hazard %}
-                <span class="mspsds-case-card__hazard">{{caseInfo.hazard}}</span>
+            {% if caseInfo.report.hazardType %}
+                <span class="mspsds-case-card__hazard">{{caseInfo.report.hazardType}}</span>
             {% else %}
 
                 {% if caseInfo.type == 'Case' %}
