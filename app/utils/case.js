@@ -3,7 +3,6 @@ const today = require('./date').today
 module.exports = {
   addDefaults: function (kase) {
     const requiredListProperties = [
-      'incidents',
       'products',
       'businesses',
       'contacts',

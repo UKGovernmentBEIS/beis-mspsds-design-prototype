@@ -32,7 +32,6 @@ const Cases = require("../utils/case")
           attachmentDescription: ''
         }
       },
-      incidents: [],
       products: [],
       businesses: [{id: 'b1', role: 'Manufacturer'}],
       contacts: [{id: 'c3', role: 'Reporter'}],
@@ -86,7 +85,6 @@ module.exports = {
       activities: require("./activities/1811-0758").activities,
       attachments: ['at1', 'at2'],
       // the below properties have not been set for this case
-      // incidents: [],
       // related: [],
       // match: { // This is a hack to make some cases show up in test results
       //   key:  'Case reference',
@@ -194,11 +192,6 @@ module.exports = {
           attachmentDescription: ''
         }
       },
-      incidents: [{
-        id: 'i1',
-        details: 'There was a fire',
-        attachment: '',
-      }],
       products: ['p1', 'p2'],
       businesses: [
         {

@@ -413,9 +413,6 @@ router.post('/:mode/flows/add-activity/choose', function (req, res) {
     case 'product':
       res.redirect("/root/flows/product/add/01.html");
       break;
-    case 'incident':
-      res.redirect("/flows/add-incident/01-add-incident.html");
-      break;
     case 'corrective-action':
       res.redirect("../record-corrective-action/01-record-corrective-action.html");
       break;

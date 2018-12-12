@@ -164,18 +164,6 @@ module.exports = {
       action: "Assigned"
     },
     {
-      title: "Laceration injury",
-      action: "Incident added",
-      html: `
-    <p class="govuk-body">Incident description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    <p class="govuk-body">
-      Occurred: <span class="govuk-!-font-weight-bold">24/9/2018</span><br />
-      Affected party: <span class="govuk-!-font-weight-bold">36-year old woman</span><br />
-      Location: <span class="govuk-!-font-weight-bold">Rotherham</span>
-    </p>
-    <p class="govuk-body"><a href="#">View risk assessment document</a></p>`
-    },
-    {
       title: "Priority: High",
       action: "Set",
       text: `Have flagged as priority due to consumer injuries and potential risks of the product`
