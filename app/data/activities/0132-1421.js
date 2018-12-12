@@ -148,11 +148,6 @@ module.exports = {
       text: "Rationale comment goes here"
     },
     templates.assigned({assignee: "Tim Harwood", author: "Nick Golding"}),
-    {
-      title: "Priority: High",
-      action: "Set",
-      text: `Have flagged as priority due to consumer injuries and potential risks of the product`
-    },
     templates.caseCreated({
       caseType: "Allegation",
       caseTitle: "Electronic device - Fire hazard",

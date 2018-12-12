@@ -44,7 +44,6 @@
                 mspsds-case-card--{{caseInfo.type}} 
                 mspsds-case-card--{{caseInfo.status}}
                 mspsds-case-card--{{caseInfo.assignee}} 
-                mspsds-case-card--{{caseInfo.priority}} 
                 mspsds-case-card--{{caseInfo.overdue}}
                 mspsds-case-card--{{caseInfo.team}}
                 govuk-body govuk-!-font-weight-regular">
@@ -105,10 +104,6 @@
                     {{ caseFilter("Assigned to",caseInfo.assignee, "mspsds-case-card__assignee") }}
                 {% else %}
                     <div class="mspsds-case-filter mspsds-case-card__assignee">&nbsp;</div>
-                {% endif %}
-
-                {% if caseInfo.xpriority %}
-                    {{ caseFilter("Priority",caseInfo.priority, "mspsds-case-card__priority") }}
                 {% endif %}
 
                 {% if caseInfo.dateUpdated %}

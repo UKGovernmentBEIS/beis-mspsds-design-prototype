@@ -164,11 +164,6 @@ module.exports = {
       action: "Assigned"
     },
     {
-      title: "Priority: High",
-      action: "Set",
-      text: `Have flagged as priority due to consumer injuries and potential risks of the product`
-    },
-    {
       title: "Consumer report",
       action: "Report details added",
       html: `
