@@ -1,1 +1,19 @@
-TODO
+{% extends "includes/templates/flow.html" %}
+{% set currentCase = data.cases | withId(data['caseid']) %}
+{% set displayTitle = 'Add product details' %}
+{% set formAction = '.' %}
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+  <div class="govuk-grid-row">
+    {% include "includes/components/shared/create/ts-product-info.html" %}
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {{ govukButton({
+        text: "Add to case"
+      }) }}
+    </div>
+  </div>
+</form>
+{% endblock %}
