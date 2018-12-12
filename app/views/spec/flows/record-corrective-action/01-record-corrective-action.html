@@ -19,8 +19,7 @@ Record corrective action
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-
-    <form action="/flows/record-corrective-action/02-record-corrective-action-confirm" method="post" class="form">
+    <form action="./02-record-corrective-action-confirm" method="post" class="form">
 
       {% call govukFieldset({
         legend: {
@@ -79,11 +78,9 @@ Record corrective action
         idPrefix: "case-businesses", 
         name:     "TODO-business-input-name", 
         legend:   "Which business is responsible?", 
-        hint:     "Only products already added to the case are listed. <a href='#'>Add a product</a>", 
-        values:   products}) 
+        hint:     "Only businesses already added to the case are listed. <a href='#'>Add a business</a>", 
+        values:   businesses}) 
       }}
-
-      {{ autocompleteInput("case-businesses", "TODO-business-input-name", "Which business is responsible?", "Only businesses already added to the case are listed. <a href='#'>Add a business</a>", businesses) }}
 
       {% call govukFieldset({
         legend: {
