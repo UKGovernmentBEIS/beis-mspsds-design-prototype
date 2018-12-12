@@ -45,9 +45,9 @@ $marginIndent: 10px;
         position: absolute;
         z-index: 1;
 
-        @include govuk-typography-responsive($size: 14);
+        @include govuk-typography-responsive($size: 16);
         
-        text-transform: uppercase;
+        text-transform: capitalize;
         color: govuk-colour("grey-1");   
     }
 
