@@ -22,6 +22,10 @@
   {% include "includes/components/case/tabs/case-tab-attachments.html" %}
 {% endset -%}
 
+{% set fullDetailHtml %}
+  {% include "includes/components/case/tabs/case-tab-full-detail.html" %}
+{% endset -%}
+
 
 
 <hr class="govuk-section-break govuk-section-break--l" />
@@ -56,6 +60,13 @@
       id: "attachments",
       panel: {
         html: attachmentsHtml
+      }
+    },
+    {
+      label: "Full details",
+      id: "full-details",
+      panel: {
+        html: fullDetailHtml
       }
     }
   ]

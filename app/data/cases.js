@@ -114,7 +114,6 @@ module.exports = {
       dateUpdated: '18/10/2018'
     },
     {
-      // TODO Remove this case once case__empty.js page is no longer needed
       type: 'Case',
       id: "1810-0001",
       title: "Untitled case",
@@ -134,7 +133,6 @@ module.exports = {
       dateUpdated: '18/10/2018'
     },
     {
-      // TODO Remove this case once case__empty.js page is no longer needed
       id: "1810-0002",
       type: "Question",
       title: "Charge Worx, Travel plug adaptor –Electric shock, fire hazard",

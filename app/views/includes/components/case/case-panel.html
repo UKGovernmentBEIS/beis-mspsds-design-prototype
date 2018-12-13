@@ -1,0 +1,26 @@
+{% from "table/macro.njk"       import govukTable %}
+
+{% from "includes/components/shared/tabs/controls.html"           import controls %}
+
+
+{% macro casePanel(caseData) %}
+
+    {% set kase             = caseData.case %}
+    {% set kaseRows         = [] %}
+    {% set kaseRows = (kaseRows.push([
+        { text: "Visibility" },
+        { text: "Public - visible to anyone" if kase.visible else "Private - visible only to your organisation" }
+    ]), kaseRows) %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full ">
+      {{ govukTable({
+        firstCellIsHeader: true,
+        classes: "govuk-!-margin-bottom-4",
+        rows: kaseRows
+      }) }}
+
+    </div>
+  </div>
+
+{% endmacro %}
