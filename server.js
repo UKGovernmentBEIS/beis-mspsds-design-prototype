@@ -232,6 +232,18 @@ app.get('/prototype-admin/clear-data', function (req, res) {
   res.render('prototype-admin/clear-data')
 })
 
+// Save url to redirect to after changing team
+app.get('/prototype-admin/change-team', function (req, res) {
+  req.session.data.referrer = req.header("Referer")
+  res.render('prototype-admin/change-team')
+});
+
+// Redirect back to relevant url after changing team
+app.post('/prototype-admin/change-team', function (req, res) {
+  res.redirect(req.session.data.referrer);
+  req.session.data.referrer = nil;
+});
+
 // Redirect root to /docs when in promo mode.
 if (promoMode === 'true') {
   console.log('Prototype Kit running in promo mode')

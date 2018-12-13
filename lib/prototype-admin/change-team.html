@@ -1,0 +1,63 @@
+{% extends "mspsds-layout.html" %}
+{% block content %}
+<script>
+  function goBack() {
+      window.history.back();
+  }
+</script>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    
+    <form id="change_team_form" method="post" class="form">
+
+      
+      {% call govukFieldset({
+        legend: {
+          text:           "Who's testing?",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+
+
+        {{ govukInput({
+          idPrefix:   "testing-name",
+          name:       "currentUser",
+          value: data.currentUser
+        }) }}
+
+
+        {% set teamRows         = [] %}
+
+        {% for team in data['teams'] %}
+
+          {% set teamRows = (teamRows.push({ 
+              value: team,
+              text: team,
+              checked: checked("currentTeam", team)
+            }), teamRows) %}
+
+        {% endfor %}
+
+        {{ govukRadios({
+          idPrefix:   "currentTeam",
+          name:       "currentTeam",
+          fieldset: {
+            legend: {
+              text:     "What team?",
+              classes:  "govuk-fieldset__legend--s"
+            }
+          },
+          items: teamRows
+        }) }}
+
+      {% endcall %}
+      {{ 
+        govukButton({ text: "Save" }) 
+      }}
+
+    </form>
+  </div>
+</div>
+
+{% endblock %}
