@@ -46,12 +46,12 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
 
   let activity = Activities.buildCreateCase(newCase);
   newCase.activities.unshift(activity);
-  
+
   const files = require("./utils/attachment").buildTsCreateAttachments(data);
   newCase.attachments.unshift(...files.map(f => f.id));
   activity.attachments.unshift(...files);
   data.attachments.push(...files);
-  
+
   newCase.dateUpdated = today.short();
 
   let product = Products.buildFromData(data);
@@ -66,11 +66,17 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
   res.redirect('/root/case--created?caseid=' + newCase.id);
 });
 
+router.post('/:mode/flows/create/issue-type', function (req, res) {
+  let issueType = req.session.data.new['report']['type'];
 
+  let nextPage = (issueType == "Investigation") ? "04" : "02";
+
+  res.redirect('/root/flows/create/' + nextPage);
+});
 
 router.post('/:mode/flows/create/save', function (req, res) {
   const data = req.session.data;
-  
+
   let newCase = Cases.buildFromData(data);
   data.cases.push(newCase);
 
@@ -103,7 +109,7 @@ router.post('/:mode/flows/assign/save', function (req, res) {
   const data = req.session.data;
 
   const kase = array.findById(data.cases, data.caseid);
-  
+
   let newAssignee = req.body.assignee;
   newAssignee = newAssignee === "Other" ? req.body["other-assignee"] : newAssignee;
 
@@ -153,7 +159,7 @@ router.post('/:mode/flows/location/save', function (req, res) {
 
   if (data.currentPage === 'business') {
     const biz = array.findById(data.businesses, data.businessid);
-    
+
     if (biz) {
       biz.locations.push({
         id:     newLocation.id,
@@ -175,7 +181,7 @@ router.post('/:mode/flows/location/delete', function (req, res) {
   if (data.currentPage === 'business') {
 
     const biz = data.businesses(data.businesses, data.businessid);
-    
+
     if (biz && biz.locations) {
       biz.locations = array.removeById(biz.locations, data.locationid);
     }
@@ -223,20 +229,20 @@ router.post('/:mode/flows/attachment/save', function (req, res) {
   let newAttachment   = data.attachment;
   newAttachment.id    = 'at' + (data.attachments.length + 1);
 
-  
+
   let obj = null;
   let redirectURL = '404';
-  
+
   switch (data.currentPage) {
     case 'business':
       obj = array.findById(data.businesses, data.businessid);
       redirectURL = '/root/business?businessid=' + data.businessid +'&confirmation=Attachment%20added#attachments';
       break;
-    
+
     case 'case':
       obj = array.findById(data.cases, data.caseid);
       redirectURL = '/root/case--confirmation?caseid=' + data.caseid + '&confirmation=Attachment%20added#attachments';
-      
+
       const newActivity = Activities.buildAddAttachment(newAttachment, data.currentUser);
       obj.activities.unshift(newActivity);
       break;
@@ -249,10 +255,10 @@ router.post('/:mode/flows/attachment/save', function (req, res) {
     default:
       console.log("data.currentPage not set to appropriate value in flows/attachment/save route");
   }
-  
+
   obj.attachments.push(newAttachment.id);
   data.attachments.push(newAttachment);
-  
+
   res.redirect(redirectURL);
 });
 
@@ -264,7 +270,7 @@ router.post('/:mode/flows/attachment/delete', function (req, res) {
   if (data.currentPage === 'business') {
 
     const biz = array.findById(data.businesses, data.businessid);
-    
+
     redirectURL = '/root/business?businessid=' + data.businessid + '&confirmation=Attachment%20deleted#attachments';
 
     if (biz) {
@@ -367,7 +373,7 @@ router.post(`/:mode/flows/add-comment/save`, function (req, res) {
 // Add Corrective Action flow
 router.post(`/:mode/flows/record-corrective-action/save`, function(req, res) {
   const data = req.session.data;
-  
+
   const kase = array.findById(data.cases, data.caseid);
 
   activityTemplate = require('./data/activities/templates').correctiveAction;

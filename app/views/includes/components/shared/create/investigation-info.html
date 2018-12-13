@@ -1,0 +1,30 @@
+<div class="govuk-grid-column-two-thirds">
+  {% call govukFieldset({
+    legend: {
+      text:           "Please provide a title",
+      isPageHeading:  false,
+      classes:        "govuk-fieldset__legend--l"
+    }
+  }) %}
+    {{ govukInput({
+      hint: {
+        text: "This will help other users identify this investigation"
+      },
+      id: "report-title",
+      name: "new[title]"
+    }) }}
+  {% endcall %}
+
+  {% call govukFieldset({
+    legend: {
+      text:           "Investigation summary",
+      isPageHeading:  false,
+      classes:        "govuk-fieldset__legend--l"
+    }
+  }) %}
+    {{ govukTextarea({
+      name: "new[report][summary]",
+      id:   "investigation-detail"
+    }) }}
+  {% endcall %}
+</div>

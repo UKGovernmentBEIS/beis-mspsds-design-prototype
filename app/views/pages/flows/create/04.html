@@ -12,6 +12,9 @@
     {% elif data['new']['report']['type'] == 'Question' %}
       {% include "includes/components/shared/create/question-info.html" %}
 
+    {% elif data['new']['report']['type'] == 'Investigation' %}
+      {% include "includes/components/shared/create/investigation-info.html" %}
+
     {% elif data['new']['report']['type'] == 'Recall' %}
       {% include "includes/components/shared/create/recall-info.html" %}
 
@@ -20,7 +23,7 @@
 
     {% endif %}
   </div>
-  
+
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       {% from "button/macro.njk" import govukButton %}
