@@ -1,0 +1,49 @@
+{% extends "mspsds-layout.html" %}
+
+{% block pageTitle %}
+Record phonecall
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back to case",
+  href: "/case"
+}) }}
+{% endblock %}
+
+{% block content %}
+{{ pageTitle({
+  type:   "Case: 1810-0001",
+  title:  "Record phonecall"
+}) }}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="./02p-add-phonecall-content" method="post" class="form">
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Who was the call with?",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+        {% from "includes/components/correspondence/name-input.html" import nameInput %}
+        {{ nameInput("Name") }}
+        {% include "includes/components/correspondence/phonenumber-input.html" %}
+      {% endcall %}
+
+      {% from "includes/components/correspondence/date-input.html" import correspondenceDate %}
+      {{ correspondenceDate("Date of call") }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "mspsds-layout.html" %}
+
+{% block pageTitle %}
+Confirm email details
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back to case",
+  href: "/case"
+}) }}
+{% endblock %}
+
+{% block content %}
+{{ pageTitle({
+  type:   "Case: 1810-0001",
+  title:  "Confirm email details"
+}) }}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="/root/case" method="post" class="form">
+
+      {{ govukTable({
+        firstCellIsHeader: true,
+        rows: [
+          [
+            { text: "To" },
+            { text: "correspondent@email.to" }
+          ],
+          [
+            { text: "Summary" },
+            { text: "Asked Jacqui Simmons at Warwickshire TS for further details" }
+          ],
+          [
+            { text: "Date sent" },
+            { text: "12/9/2018" }
+          ],
+          [
+            { text: "Subject" },
+            { text: "More details about Charge Worx case" }
+          ],
+          [
+            { text: "Content" },
+            { html: "Hi Jacqui,<br /><br />Thanks again for contacting us about the problems with the Charge Worx travel adaptor. I have some further questions if you don't mind - please see below.<br /><br />Regards,<br /><br />Tim" }
+          ],
+          [
+            { text: "Attachments" },
+            { text: "not-a-virus.exe" }
+          ],
+          [
+            { text: "Attachment description" },
+            { text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt." }
+          ]
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+      <a class="govuk-link mspsds-block-link" href="./01e-add-email-context">Edit details</a>
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
