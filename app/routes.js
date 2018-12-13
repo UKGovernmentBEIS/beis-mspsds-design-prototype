@@ -414,16 +414,16 @@ router.post('/:mode/flows/add-activity/choose', function (req, res) {
       res.redirect("/root/flows/product/add/01.html");
       break;
     case 'corrective-action':
-      res.redirect("../record-corrective-action/01-record-corrective-action.html");
+      res.redirect("/root/flows/record-corrective-action/01-record-corrective-action.html");
       break;
     case 'business':
       res.redirect("/root/flows/business/add/01.html");
       break;
     case 'testing-request':
-      res.redirect("../record-testing-request/01-record-testing-request.html");
+      res.redirect("/root/flows/record-testing-request/01-record-testing-request.html");
       break;
     case 'test-result':
-      res.redirect("/flows/record-test-result/01-record-test-result.html");
+      res.redirect("/root/flows/record-test-result/01-record-test-result.html");
       break;
     default:
       res.render(path);
