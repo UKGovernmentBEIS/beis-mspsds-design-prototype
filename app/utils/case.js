@@ -21,6 +21,9 @@ module.exports = {
     if (kase.status === undefined) {
       kase.status = 'Open'
     }
+    if (kase.visible === undefined) {
+      kase.visible = true
+    }
     return kase
   },
   buildFromData: function(data) {
