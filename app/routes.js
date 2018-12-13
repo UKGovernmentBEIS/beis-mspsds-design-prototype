@@ -396,13 +396,13 @@ router.post('/:mode/flows/add-activity/choose', function (req, res) {
       res.redirect("/root/flows/add-comment/01-add-comment");
       break;
     case 'email':
-      res.redirect("/root/flows/add-correspondence/01e-add-email-context.html");
+      res.redirect("/root/flows/add-email/01e-add-email-context.html");
       break;
     case 'phoneCall':
-      res.redirect("/root/flows/add-correspondence/01p-add-phonecall-context.html");
+      res.redirect("/root/flows/add-phonecall/01p-add-phonecall-context.html");
       break;
     case 'meeting':
-      res.redirect("/root/flows/add-correspondence/01m-add-meeting-context.html");
+      res.redirect("/root/flows/add-meeting/01m-add-meeting-context.html");
       break;
     case 'contact':
       res.redirect("/root/flows/contact/add/01.html");
