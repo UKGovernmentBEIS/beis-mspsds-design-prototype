@@ -15,16 +15,6 @@
     &__image-date {
       color: $govuk-secondary-text-colour;
     }
-
-    &__file-details,
-    &__document-file-details {
-      position: relative;
-    }
-
-    &__delete-button {
-      @include govuk-responsive-margin(2, "bottom");
-    }
-
 }
 
 

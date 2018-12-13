@@ -34,47 +34,6 @@
 
 }
 
-.mspsds-case-filter-display {
-      display: none;
-    }
-
-.mspsds-case-filters {
-
-    position: relative;
-
-
-    .mspsds-case-filter-display:checked ~ & {
-      display: none;
-    }
-
-
-    &--open {
-        display: none;
-        background-color:   govuk-colour("grey-3");
-        @include govuk-responsive-padding(4);
-
-        .mspsds-case-filter-display:checked ~ & {
-          display: block;
-        }
-
-
-    }
-
-    &--inline {
-        margin-top: 30px;
-    }
-
-	.mspsds-case-filter {
-		padding-right: govuk-spacing(0);
-	}
-
-  .mspsds-case-filter + .mspsds-case-filter,
-  .mspsds-case-filter + .mspsds-block-link {
-      margin-left: govuk-spacing(2);
-  }
-
-}
-
 .mspsds-case-filter-controls {
   
   .govuk-form-group {

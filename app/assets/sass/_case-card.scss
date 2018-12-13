@@ -7,9 +7,6 @@ $marginIndent: 10px;
 }
 
 .mspsds-case-control {
-    //background-color:   govuk-colour("grey-3");
-    //@include govuk-responsive-padding(4);
-
     &:after {
         content: "";
         display: block;
@@ -22,7 +19,7 @@ $marginIndent: 10px;
 .mspsds-product-card,
 .mspsds-case-card {
     
-    position:           relative;
+    position: relative;
     display: flex;
 
     box-sizing: border-box;
@@ -96,10 +93,6 @@ $marginIndent: 10px;
         justify-content: flex-end;
 
         width: grid-width(one-half);
-
-        .mspsds-case-filter {
-            //float: left;
-        }
     }
 
     &__match {
