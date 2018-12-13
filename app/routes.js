@@ -420,7 +420,7 @@ router.post('/:mode/flows/add-activity/choose', function (req, res) {
       res.redirect("/root/flows/business/add/01.html");
       break;
     case 'testing-request':
-      res.redirect("/flows/record-testing-request/01-record-testing-request.html");
+      res.redirect("../record-testing-request/01-record-testing-request.html");
       break;
     case 'test-result':
       res.redirect("/flows/record-test-result/01-record-test-result.html");
