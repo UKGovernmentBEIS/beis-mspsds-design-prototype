@@ -31,10 +31,11 @@ module.exports = {
     newCase.report.date = today.short();
     newCase.id = today.id();
     switch (newCase.report.type) {
-      case "Allegation": newCase.type = "Case"; break;
-      case "Report":     newCase.type = "Case"; break;
-      case "Question":   newCase.type = "Question"; break;
-      default:           newCase.type = "Case";
+      case "Allegation":    newCase.type = "Case"; break;
+      case "Report":        newCase.type = "Case"; break;
+      case "Question":      newCase.type = "Question"; break;
+      case "Investigation": newCase.type = "Investigation"; break;
+      default:              newCase.type = "Case";
     }
     if (!newCase.assignee) {
       newCase.assignee = data.currentUser;

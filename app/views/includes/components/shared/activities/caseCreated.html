@@ -1,4 +1,6 @@
+{% if activity.caseType != "Investigation" %}
 <h4 class="govuk-heading-s">{{activity.caseType}} details</h4>
+{% endif %}
 <p class="govuk-body">
   {% if activity.caseType == "Allegation" %}
     Product type: <span class="govuk-!-font-weight-bold">{{activity.productType}}</span><br />
@@ -19,7 +21,7 @@
     {% endfor %}
   {% endif %}
 </p>
-
+{% if activity.caseType != "Investigation" %}
 <h4 class="govuk-heading-s">Reporter</h4>
 <p class="govuk-body">
   Name: <span class="govuk-!-font-weight-bold">{{activity.reporterName}}</span><br />
@@ -28,3 +30,4 @@
   Email address: <span class="govuk-!-font-weight-bold">{{activity.reporterEmailAddress}}</span><br />
 </p>
 <p class="govuk-body">{{activity.reporterOtherDetails}}</p>
+{% endif %}

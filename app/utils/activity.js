@@ -8,15 +8,15 @@ module.exports = {
             caseTitle: kase.title,
             author: kase.assignee,
             dateCreated: kase.dateCreated,
-            reporterName: kase.report.reporter.name,
-            reporterType: kase.report.reporter.type,
-            reporterPhoneNumber: kase.report.reporter.phoneNumber,
-            reporterEmailAddress: kase.report.reporter.emailAddress,
-            reporterOtherDetails: kase.report.reporter.otherDetails,
+            reporterName: (kase.report.reporter) ? kase.report.reporter.name : "",
+            reporterType: (kase.report.reporter) ? kase.report.reporter.type : "",
+            reporterPhoneNumber: (kase.report.reporter) ? kase.report.reporter.phoneNumber : "",
+            reporterEmailAddress: (kase.report.reporter) ? kase.report.reporter.emailAddress : "",
+            reporterOtherDetails: (kase.report.reporter) ? kase.report.reporter.otherDetails : "",
             productType: kase.report.productType,
             hazardType: kase.report.hazardType,
             caseSummary: kase.report.summary
-        });   
+        });
     },
     buildAddProduct: function (product, user) {
         const activityTemplate = require("../data/activities/templates").addProduct;
@@ -29,7 +29,7 @@ module.exports = {
             productCode: product.code,
             productDescription: product.description,
             productImage: product.posterImage
-        });   
+        });
     },
     buildAddAttachment: function (attachment, user) {
         const Attachments = require("./attachment")
@@ -37,7 +37,7 @@ module.exports = {
         return addAttachmentActivityTemplate({
           author: user,
           title: attachment.title,
-          description: attachment.description,  
+          description: attachment.description,
           isImage: Attachments.isImage(attachment.upload),
           fileExtension: Attachments.fileExtension(attachment.upload)
         });
