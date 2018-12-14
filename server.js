@@ -241,7 +241,7 @@ app.get('/prototype-admin/change-team', function (req, res) {
 // Redirect back to relevant url after changing team
 app.post('/prototype-admin/change-team', function (req, res) {
   res.redirect(req.session.data.referrer);
-  req.session.data.referrer = nil;
+  req.session.data.referrer = null;
 });
 
 // Redirect root to /docs when in promo mode.
