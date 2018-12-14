@@ -51,7 +51,6 @@ module.exports = {
       type: 'Question',
       products: ['p47'],
       title: 'Has anyone recently advised on snap bracelets / slap wraps?',
-      assignee: "Tim Harwood",
       team: 'TSC',
       overdue: 'Overdue',
       dateUpdated: '21/10/2018',
@@ -102,7 +101,6 @@ module.exports = {
       id: "1810-0000",
       title: "Untitled case",
       reporter: {},
-      assignee: "Tim Harwood",
       creator:  "Tim Harwood",
       numAttachments: 0,
       products: [],
@@ -120,7 +118,6 @@ module.exports = {
         emailAddress: "mina@castledracula.ro",
         otherDetails: "Other details captured during the report entry"
       },
-      assignee: "Tim Harwood",
       numAttachments: 0,
       products: [],
       activities: [],
@@ -150,7 +147,6 @@ module.exports = {
     Cases.buildDefaultWithDifferences({
       id: '0132-1421',
       title: 'ChargeWorx adaptor, Electric shock, fire hazard',
-      assignee: 'Tim Harwood',
       dateCreated: '18/10/2018',
       dateUpdated: '22/10/2018',
       reporter: {
@@ -228,14 +224,12 @@ module.exports = {
       type: 'Question',
       id: '1811-0801',
       title: "Shouldn't this be categorised as a toy?",
-      assignee: 'Tim Harwood',
       dateCreated: '18/10/2018',
       dateUpdated: '21/10/2018',
       products: ['p4'],
     }),
     Cases.buildHazardCase('Entrapment, Injuries hazard', {
       id: '1811-0800',
-      assignee: 'Tim Harwood',
       dateCreated: '18/10/2018',
       dateUpdated: '21/10/2018',
       products: ['p5'],
@@ -287,7 +281,6 @@ module.exports = {
     Cases.buildHazardCase('Chemical hazard', {
       id: '1811-0794',
       products: ['p11'],
-      assignee: 'Tim Harwood',
       team: 'Processing',
       dateUpdated: '20/10/2018',
       dateCreated: '18/10/2018'
@@ -297,7 +290,6 @@ module.exports = {
       type: 'Question',
       products: ['p12'],
       title: 'What legislation applies to importing these?',
-      assignee: 'Tim Harwood',
       team: 'Processing',
       dateUpdated: '19/10/2018',
       dateCreated: '18/10/2018'
@@ -338,7 +330,6 @@ module.exports = {
     Cases.buildHazardCase('Poison hazard', {
       id: '1811-0788',
       products: ['p17'],
-      assignee: 'Tim Harwood',
       dateUpdated: '19/10/2018',
       dateCreated: '18/10/2018'
     }),
@@ -405,7 +396,6 @@ module.exports = {
     Cases.buildHazardCase('Electric shock, fire hazard', {
       id: '1811-0780',
       products: ['p25'],
-      assignee: 'Tim Harwood',
       team: 'Processing',
       dateUpdated: '18/10/2018',
       dateCreated: '18/10/2018'
@@ -413,7 +403,6 @@ module.exports = {
     Cases.buildHazardCase('Electric shock, fire hazard', {
       id: '1811-0779',
       products: ['p26'],
-      assignee: 'Tim Harwood',
       team: 'Processing',
       overdue: 'Overdue',
       dateUpdated: '18/10/2018',
@@ -432,7 +421,6 @@ module.exports = {
     Cases.buildHazardCase('Injuries hazard', {
       id: '1811-0777',
       products: ['p28'],
-      assignee: 'Tim Harwood',
       team: 'Processing',
       dateUpdated: '18/10/2018',
       dateCreated: '18/10/2018'
@@ -440,7 +428,6 @@ module.exports = {
     Cases.buildHazardCase('Entrapment, Injuries hazard', {
       id: '1811-0776',
       products: ['p29'],
-      assignee: 'Tim Harwood',
       team: 'Processing',
       dateUpdated: '18/10/2018',
       dateCreated: '18/10/2018'
@@ -465,7 +452,6 @@ module.exports = {
     Cases.buildDefaultWithDifferences('Strangulation hazard', {
       id: '1811-0773',
       products: ['p32'],
-      assignee: 'Tim Harwood',
       team: 'Processing',
       dateUpdated: '17/10/2018',
       dateCreated: '18/10/2018'
@@ -496,7 +482,6 @@ module.exports = {
     Cases.buildHazardCase('Chemical hazard', {
       id: '1811-0770',
       products: ['p35'],
-      assignee: 'Tim Harwood',
       team: 'Processing',
       dateUpdated: '17/10/2018',
       dateCreated: '18/10/2018'
@@ -504,7 +489,6 @@ module.exports = {
     Cases.buildHazardCase('Damage to sight hazard', {
       id: '1811-0769',
       products: ['p36'],
-      assignee: 'Tim Harwood',
       team: 'Processing',
       dateUpdated: '17/10/2018',
       dateCreated: '18/10/2018'
@@ -535,7 +519,6 @@ module.exports = {
     Cases.buildHazardCase('Electric shock, fire hazard', {
       id: '1811-0765',
       products: ['p40'],
-      assignee: 'Tim Harwood',
       team: 'Processing',
       dateUpdated: '17/10/2018',
       dateCreated: '18/10/2018'
