@@ -1,6 +1,13 @@
 const today = require('./date').today
 const dateFactory = require('./date').date.shortFromInput
 
+let lastCaseNumber = 18110802
+const giveNextId = () => {
+  prettyId = lastCaseNumber.toString().substring(0, 4) + '-' + lastCaseNumber.toString().substring(4, 8)
+  lastCaseNumber = lastCaseNumber - 1
+  return prettyId;
+}
+
 const buildDefaultWithDifferences = (nonDefaultFields) => {
   const reporterData = nonDefaultFields.report && nonDefaultFields.report.reporter
   const reporter = reporterData ? {
@@ -22,7 +29,7 @@ const buildDefaultWithDifferences = (nonDefaultFields) => {
   } : null;
 
   return {
-    id: nonDefaultFields.id,
+    id: nonDefaultFields.id || giveNextId(),
     type: nonDefaultFields.type || 'Case',
     status: nonDefaultFields.status || 'Open',
     title: nonDefaultFields.title || 'Undefined',
