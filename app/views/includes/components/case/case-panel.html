@@ -9,7 +9,7 @@
     {% set kaseRows         = [] %}
     {% set kaseRows = (kaseRows.push([
         { text: "Visibility" },
-        { text: "Public - visible to anyone" if kase.visible else "Private - visible only to your organisation" }
+        { text: "Public - Visible to all" if kase.visible else "Private - My organisation only" }
     ]), kaseRows) %}
 
   <div class="govuk-grid-row">

@@ -349,6 +349,19 @@ router.post(`/:mode/flows/change-status/save`, function (req, res) {
   res.redirect(redirectURL);
 });
 
+// Change Visibility flow
+router.post(`/:mode/flows/change-visibility/save`, function (req, res) {
+  // TODO: Add activity when it's designed
+  const data = req.session.data;
+  const kase = array.findById(data.cases, data.caseid);
+
+  kase.dateUpdated = today.short();
+  kase.visible = req.body.visible === 'true';
+
+  let redirectURL = '/root/case--confirmation?caseid=' + data.caseid + '&confirmation=Visibility%20updated#full-details';
+  res.redirect(redirectURL);
+});
+
 // Add comment flow
 router.post(`/:mode/flows/add-comment/save`, function (req, res) {
   const data = req.session.data;
