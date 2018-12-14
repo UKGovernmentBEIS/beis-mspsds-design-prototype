@@ -233,38 +233,29 @@ module.exports = {
       dateUpdated: '21/10/2018',
       products: ['p4'],
     }),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildHazardCase('Entrapment, Injuries hazard', {
       id: '1811-0800',
       assignee: 'Tim Harwood',
       dateCreated: '18/10/2018',
       dateUpdated: '21/10/2018',
-      report: {
-        hazardType: 'Entrapment, Injuries hazard',
-      },
       products: ['p5'],
     }),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildHazardCase('Choking hazard', {
       id: '1811-0799',
       assignee: 'Nick Golding',
       dateCreated: '18/10/2018',
       dateUpdated: '20/10/2018',
-      report: {
-        hazardType: 'Choking hazard',
-      },
       products: ['p6'],
       match: {
         key: 'Assignee',
         value: "<span class='highlight'>Nick</span> Golding – <span class='highlight'>nick</span>.golding@softwire.com"
       },
     }),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildHazardCase('Suffocation hazard', {
       id: '1811-0798',
       assignee: 'Christopher Hunter',
       dateCreated: '18/10/2018',
       dateUpdated: '21/10/2018',
-      report: {
-        hazardType: 'Suffocation hazard',
-      },
       products: ['p7'],
     }),
     Cases.buildDefaultWithDifferences({
@@ -276,35 +267,26 @@ module.exports = {
       dateUpdated: '20/10/2018',
       products: ['p8'],
     }),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildHazardCase('Electric shock hazard', {
       id: '1811-0796',
       assignee: 'Ed Smith-Muller',
       title: 'Has anyone successfully located the importer for these?',
       dateCreated: '18/10/2018',
       dateUpdated: '20/10/2018',
-      report: {
-        hazardType: 'Electric shock hazard',
-      },
       products: ['p9'],
     }),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildHazardCase('Electric shock hazard', {
       id: '1811-0795',
       products: ['p10'],
-      report: {
-        hazardType: 'Electric shock hazard',
-      },
       assignee: 'Nick Golding',
       team: 'Processing',
       overdue: 'Overdue',
       dateUpdated: '20/10/2018',
       dateCreated: '18/10/2018'
     }),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildHazardCase('Chemical hazard', {
       id: '1811-0794',
       products: ['p11'],
-      report: {
-        hazardType: 'Chemical hazard',
-      },
       assignee: 'Tim Harwood',
       team: 'Processing',
       dateUpdated: '20/10/2018',
@@ -320,22 +302,16 @@ module.exports = {
       dateUpdated: '19/10/2018',
       dateCreated: '18/10/2018'
     }),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildHazardCase('Damage to sight hazard', {
       id: '1811-0792',
       products: ['p13'],
-      report: {
-        hazardType: 'Damage to sight hazard',
-      },
       assignee: 'Ed Smith-Muller',
       dateUpdated: '19/10/2018',
       dateCreated: '18/10/2018'
     }),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildHazardCase('Chemical, Choking hazard', {
       id: '1811-0791',
       products: ['p14'],
-      report: {
-        hazardType: 'Chemical, Choking hazard',
-      },
       assignee: 'Christopher Hunter',
       team: 'Processing',
       overdue: 'Overdue',
@@ -359,12 +335,9 @@ module.exports = {
       dateUpdated: '19/10/2018',
       dateCreated: '18/10/2018'
     }),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildHazardCase('Poison hazard', {
       id: '1811-0788',
       products: ['p17'],
-      report: {
-        hazardType: 'Poison hazard',
-      },
       assignee: 'Tim Harwood',
       dateUpdated: '19/10/2018',
       dateCreated: '18/10/2018'
@@ -456,68 +429,50 @@ module.exports = {
       dateUpdated: '18/10/2018',
       dateCreated: '18/10/2018'
     }),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildHazardCase('Injuries hazard', {
       id: '1811-0777',
       products: ['p28'],
-      report: {
-        hazardType: 'Injuries hazard',
-      },
       assignee: 'Tim Harwood',
       team: 'Processing',
       dateUpdated: '18/10/2018',
       dateCreated: '18/10/2018'
     }),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildHazardCase('Entrapment, Injuries hazard', {
       id: '1811-0776',
       products: ['p29'],
-      report: {
-        hazardType: 'Entrapment, Injuries hazard',
-      },
       assignee: 'Tim Harwood',
       team: 'Processing',
       dateUpdated: '18/10/2018',
       dateCreated: '18/10/2018'
     }),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildHazardCase('Choking hazard', {
       id: '1811-0775',
       products: ['p30'],
-      report: {
-        hazardType: 'Choking hazard',
-      },
       assignee: 'Christopher Hunter',
       team: 'Processing',
       overdue: 'Overdue',
       dateUpdated: '18/10/2018',
       dateCreated: '18/10/2018'
     }),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildHazardCase('Suffocation hazard', {
       id: '1811-0774',
       products: ['p31'],
-      report: {
-        hazardType: 'Suffocation hazard',
-      },
       assignee: 'Nick Golding',
       team: 'Processing',
       dateUpdated: '18/10/2018',
       dateCreated: '18/10/2018'
     }),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildDefaultWithDifferences('Strangulation hazard', {
       id: '1811-0773',
       products: ['p32'],
-      report: {
-        hazardType: 'Strangulation hazard',
-      },
       assignee: 'Tim Harwood',
       team: 'Processing',
       dateUpdated: '17/10/2018',
       dateCreated: '18/10/2018'
     }),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildDefaultWithDifferences('Electric shock hazard', {
       id: '1811-0772',
       products: ['p33'],
-      report: {
-        hazardType: 'Electric shock hazard',
-      },
       assignee: 'Ed Smith-Muller',
       dateUpdated: '17/10/2018',
       dateCreated: '18/10/2018'
@@ -538,44 +493,32 @@ module.exports = {
         I can't find anything in the Criminal Procedure Rules which assists.`
       }
     }),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildHazardCase('Chemical hazard', {
       id: '1811-0770',
       products: ['p35'],
-      report: {
-        hazardType: 'Chemical hazard',
-      },
       assignee: 'Tim Harwood',
       team: 'Processing',
       dateUpdated: '17/10/2018',
       dateCreated: '18/10/2018'
     }),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildHazardCase('Damage to sight hazard', {
       id: '1811-0769',
       products: ['p36'],
-      report: {
-        hazardType: 'Damage to sight hazard',
-      },
       assignee: 'Tim Harwood',
       team: 'Processing',
       dateUpdated: '17/10/2018',
       dateCreated: '18/10/2018'
     }),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildHazardCase('Damage to sight hazard', {
       id: '1811-0768',
       products: ['p37'],
-      report: {
-        hazardType: 'Damage to sight hazard',
-      },
       assignee: 'Ed Smith-Muller',
       dateUpdated: '17/10/2018',
       dateCreated: '18/10/2018'
     }),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildHazardCase('Chemical, Choking hazard', {
       id: '1811-0767',
       products: ['p38'],
-      report: {
-        hazardType: 'Chemical, Choking hazard',
-      },
       assignee: 'Christopher Hunter',
       team: 'Processing',
       overdue: 'Overdue',
