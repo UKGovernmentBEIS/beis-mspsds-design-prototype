@@ -75,9 +75,11 @@ module.exports = {
           otherDetails: ""
         },
       },
-      businesses: [{id: 'b3', role: 'Manufacturer'}],
-      contacts: [
-        {
+      businesses: [{
+        id: 'b3',
+        role: 'Manufacturer'
+      }],
+      contacts: [{
           id: 'c1',
           role: 'Main contact'
         },
@@ -101,7 +103,7 @@ module.exports = {
       id: "1810-0000",
       title: "Untitled case",
       reporter: {},
-      creator:  "Tim Harwood",
+      creator: "Tim Harwood",
       numAttachments: 0,
       products: [],
       activities: [],
@@ -137,7 +139,7 @@ module.exports = {
       },
       status: "Open",
       assignee: "Nick Golding",
-      creator:  "Tim Harwood",
+      creator: "Tim Harwood",
       numAttachments: 6,
       products: ["p1"],
       dateCreated: '18/10/2018',
@@ -183,8 +185,7 @@ module.exports = {
         }
       },
       products: ['p1', 'p2'],
-      businesses: [
-        {
+      businesses: [{
           id: 'b1',
           role: 'Manufacturer – Charge Worx, International Travel Adaptor 931L'
         },
@@ -193,8 +194,7 @@ module.exports = {
           role: 'Importer – Charge Worx, International Travel Adaptor 931L'
         }
       ],
-      contacts: [
-        {
+      contacts: [{
           id: 'c3',
           role: 'Reporter'
         },
@@ -212,14 +212,12 @@ module.exports = {
       related: [],
       activities: require("./activities/0132-1421.js").activities
     }),
-    Cases.buildHazardCase('Electric shock, fire hazard', {
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(3, {
       id: '1811-0802',
       title: 'Untitled case',
       assignee: 'Ed Smith-Muller',
-      dateCreated: '18/10/2018',
-      dateUpdated: '21/10/2018',
       products: ['p2'],
-    }),
+    }))),
     Cases.buildDefaultWithDifferences({
       type: 'Question',
       id: '1811-0801',
@@ -228,63 +226,51 @@ module.exports = {
       dateUpdated: '21/10/2018',
       products: ['p4'],
     }),
-    Cases.buildHazardCase('Entrapment, Injuries hazard', {
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Entrapment, Injuries hazard', Cases.setDateArguments(3, {
       id: '1811-0800',
-      dateCreated: '18/10/2018',
-      dateUpdated: '21/10/2018',
       products: ['p5'],
-    }),
-    Cases.buildHazardCase('Choking hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Choking hazard', Cases.setDateArguments(2, {
       id: '1811-0799',
       assignee: 'Nick Golding',
-      dateCreated: '18/10/2018',
-      dateUpdated: '20/10/2018',
       products: ['p6'],
       match: {
         key: 'Assignee',
         value: "<span class='highlight'>Nick</span> Golding – <span class='highlight'>nick</span>.golding@softwire.com"
       },
-    }),
-    Cases.buildHazardCase('Suffocation hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Suffocation hazard', Cases.setDateArguments(2, {
       id: '1811-0798',
       assignee: 'Christopher Hunter',
       dateCreated: '18/10/2018',
       dateUpdated: '21/10/2018',
       products: ['p7'],
-    }),
+    }))),
     Cases.buildDefaultWithDifferences({
       type: 'Question',
       id: '1811-0797',
       assignee: 'Amanda Farrell',
       title: 'Has anyone successfully located the importer for these?',
-      dateCreated: '18/10/2018',
-      dateUpdated: '20/10/2018',
       products: ['p8'],
     }),
-    Cases.buildHazardCase('Electric shock hazard', {
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock hazard', Cases.setDateArguments(2, {
       id: '1811-0796',
       assignee: 'Ed Smith-Muller',
       title: 'Has anyone successfully located the importer for these?',
-      dateCreated: '18/10/2018',
-      dateUpdated: '20/10/2018',
       products: ['p9'],
-    }),
-    Cases.buildHazardCase('Electric shock hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock hazard', Cases.setDateArguments(2, {
       id: '1811-0795',
       products: ['p10'],
       assignee: 'Nick Golding',
       team: 'Processing',
       overdue: 'Overdue',
-      dateUpdated: '20/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Chemical hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Chemical hazard', Cases.setDateArguments(2, {
       id: '1811-0794',
       products: ['p11'],
       team: 'Processing',
-      dateUpdated: '20/10/2018',
-      dateCreated: '18/10/2018'
-    }),
+    }))),
     Cases.buildDefaultWithDifferences({
       id: '1811-0793',
       type: 'Question',
@@ -294,29 +280,23 @@ module.exports = {
       dateUpdated: '19/10/2018',
       dateCreated: '18/10/2018'
     }),
-    Cases.buildHazardCase('Damage to sight hazard', {
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Damage to sight hazard', Cases.setDateArguments(1, {
       id: '1811-0792',
       products: ['p13'],
       assignee: 'Ed Smith-Muller',
-      dateUpdated: '19/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Chemical, Choking hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Chemical, choking hazard', Cases.setDateArguments(1, {
       id: '1811-0791',
       products: ['p14'],
       assignee: 'Christopher Hunter',
       team: 'Processing',
       overdue: 'Overdue',
-      dateUpdated: '19/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Electric shock, fire hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(1, {
       id: '1811-0790',
       products: ['p15'],
       assignee: 'Garry Oldboy',
-      dateUpdated: '19/10/2018',
-      dateCreated: '18/10/2018'
-    }),
+    }))),
     Cases.buildDefaultWithDifferences({
       id: '1811-0789',
       type: 'Question',
@@ -327,21 +307,17 @@ module.exports = {
       dateUpdated: '19/10/2018',
       dateCreated: '18/10/2018'
     }),
-    Cases.buildHazardCase('Poison hazard', {
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Poison hazard', Cases.setDateArguments(1, {
       id: '1811-0788',
       products: ['p17'],
-      dateUpdated: '19/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Electric shock, fire hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(1, {
       id: '1811-0787',
       status: 'Closed',
       products: ['p18'],
       assignee: 'Nick Golding',
       team: 'Processing',
-      dateUpdated: '19/10/2018',
-      dateCreated: '18/10/2018'
-    }),
+    }))),
     Cases.buildDefaultWithDifferences({
       id: '1811-0786',
       type: 'Question',
@@ -353,61 +329,46 @@ module.exports = {
       dateUpdated: '19/10/2018',
       dateCreated: '18/10/2018'
     }),
-    Cases.buildHazardCase('Electric shock, fire hazard', {
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(1, {
       id: '1811-0785',
       products: ['p20'],
       assignee: 'Christopher Hunter',
       team: 'Processing',
-      dateUpdated: '19/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Electric shock, fire hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(0, {
       id: '1811-0784',
       products: ['p21'],
       assignee: 'Ed Smith-Muller',
-      dateUpdated: '18/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Electric shock, fire hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(0, {
       id: '1811-0783',
       products: ['p22'],
       assignee: 'Christopher Hunter',
       team: 'Processing',
-      dateUpdated: '18/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Electric shock, fire hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(0, {
       id: '1811-0782',
       products: ['p23'],
       assignee: 'Nick Golding',
       team: 'Processing',
-      overdue: 'Overdue',
-      dateUpdated: '18/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Electric shock, fire hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(0, {
       id: '1811-0781',
       status: 'Closed',
       products: ['p24'],
       assignee: 'Ed Smith-Muller',
-      dateUpdated: '18/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Electric shock, fire hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(0, {
       id: '1811-0780',
       products: ['p25'],
       team: 'Processing',
-      dateUpdated: '18/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Electric shock, fire hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(0, {
       id: '1811-0779',
       products: ['p26'],
       team: 'Processing',
       overdue: 'Overdue',
-      dateUpdated: '18/10/2018',
-      dateCreated: '18/10/2018'
-    }),
+    }))),
     Cases.buildDefaultWithDifferences({
       id: '1811-0778',
       type: 'Question',
@@ -418,51 +379,39 @@ module.exports = {
       dateUpdated: '18/10/2018',
       dateCreated: '18/10/2018'
     }),
-    Cases.buildHazardCase('Injuries hazard', {
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Injuries hazard', Cases.setDateArguments(0, {
       id: '1811-0777',
       products: ['p28'],
       team: 'Processing',
-      dateUpdated: '18/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Entrapment, Injuries hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Entrapment, Injuries hazard', Cases.setDateArguments(0, {
       id: '1811-0776',
       products: ['p29'],
       team: 'Processing',
-      dateUpdated: '18/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Choking hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Choking hazard', Cases.setDateArguments(0, {
       id: '1811-0775',
       products: ['p30'],
       assignee: 'Christopher Hunter',
       team: 'Processing',
       overdue: 'Overdue',
-      dateUpdated: '18/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Suffocation hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Suffocation hazard', Cases.setDateArguments(0, {
       id: '1811-0774',
       products: ['p31'],
       assignee: 'Nick Golding',
       team: 'Processing',
-      dateUpdated: '18/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildDefaultWithDifferences('Strangulation hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Strangulation hazard', Cases.setDateArguments(-1, {
       id: '1811-0773',
       products: ['p32'],
       team: 'Processing',
-      dateUpdated: '17/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildDefaultWithDifferences('Electric shock hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock hazard', Cases.setDateArguments(-1, {
       id: '1811-0772',
       products: ['p33'],
       assignee: 'Ed Smith-Muller',
-      dateUpdated: '17/10/2018',
-      dateCreated: '18/10/2018'
-    }),
+    }))),
     Cases.buildDefaultWithDifferences({
       id: '1811-0771',
       type: 'Question',
@@ -479,57 +428,43 @@ module.exports = {
         I can't find anything in the Criminal Procedure Rules which assists.`
       }
     }),
-    Cases.buildHazardCase('Chemical hazard', {
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Chemical hazard', Cases.setDateArguments(-1, {
       id: '1811-0770',
       products: ['p35'],
       team: 'Processing',
-      dateUpdated: '17/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Damage to sight hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Damage to sight hazard', Cases.setDateArguments(-1, {
       id: '1811-0769',
       products: ['p36'],
       team: 'Processing',
-      dateUpdated: '17/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Damage to sight hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Damage to sight hazard', Cases.setDateArguments(-1, {
       id: '1811-0768',
       products: ['p37'],
       assignee: 'Ed Smith-Muller',
-      dateUpdated: '17/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Chemical, Choking hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Chemical, Choking hazard', Cases.setDateArguments(-1, {
       id: '1811-0767',
       products: ['p38'],
       assignee: 'Christopher Hunter',
       team: 'Processing',
       overdue: 'Overdue',
-      dateUpdated: '17/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Electric shock, fire hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-1, {
       id: '1811-0766',
       products: ['p39'],
       assignee: 'Nick Golding',
-      dateUpdated: '17/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Electric shock, fire hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-1, {
       id: '1811-0765',
       products: ['p40'],
       team: 'Processing',
-      dateUpdated: '17/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Electric shock, fire hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-1, {
       id: '1811-0764',
       products: ['p41'],
       assignee: 'Ed Smith-Muller',
-      dateUpdated: '17/10/2018',
-      dateCreated: '18/10/2018'
-    }),
+    }))),
     Cases.buildDefaultWithDifferences({
       id: '1811-0763',
       type: 'Question',
@@ -540,41 +475,33 @@ module.exports = {
       dateUpdated: '17/10/2018',
       dateCreated: '18/10/2018'
     }),
-    Cases.buildHazardCase('Electric shock, fire hazard', {
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-2, {
       id: '1811-0762',
       status: 'Closed',
       products: ['p43'],
       assignee: 'Ed Smith-Muller',
-      dateUpdated: '16/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Electric shock, fire hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-2, {
       id: '1811-0761',
       products: ['p44'],
       assignee: 'Christopher Hunter',
       team: 'Processing',
-      dateUpdated: '16/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Electric shock, fire hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-2, {
       id: '1811-0760',
       products: ['p45'],
       assignee: 'Ed Smith-Muller',
-      dateUpdated: '16/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Electric shock, fire hazard', {
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-2, {
       id: '1811-0759',
       products: ['p46'],
       team: 'Processing',
       match: {
         key: 'Product, model number',
         value: "Makita Pen, 1/4 x 18 mm, Stainless Steel, F <span class='highlight'>32142</span>"
-      },
-      dateUpdated: '16/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Electric shock, fire hazard', {
+      }
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-2, {
       id: '1811-0757',
       status: 'Closed',
       products: ['p48'],
@@ -582,16 +509,12 @@ module.exports = {
       match: {
         key: 'Product, manufacturer reference',
         value: "<span class='highlight'>32142</span>-USB-UCE6-90-BLA-D"
-      },
-      dateUpdated: '16/10/2018',
-      dateCreated: '18/10/2018'
-    }),
-    Cases.buildHazardCase('Electric shock, fire hazard', {
+      }
+    }))),
+    Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-2, {
       id: '1811-0756',
       products: ['p49'],
       team: 'Processing',
-      dateUpdated: '16/10/2018',
-      dateCreated: '18/10/2018'
-    })
+    })))
   ],
 }

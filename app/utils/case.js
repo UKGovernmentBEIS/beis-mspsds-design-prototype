@@ -1,36 +1,37 @@
 const today = require('./date').today
+const dateFactory = require('./date').date.shortFromInput
 
 const buildDefaultWithDifferences = (nonDefaultFields) => {
   const reporterData = nonDefaultFields.report && nonDefaultFields.report.reporter
   const reporter = reporterData ? {
-    type: reporterData.type || "Consumer",
-    name: reporterData.name || "Jenny Patterson",
-    phoneNumber: reporterData.phoneNumber || "",
-    emailAddress: reporterData.emailAddress || "",
-    otherDetails: reporterData.otherDetails || ""
+    type: reporterData.type,
+    name: reporterData.name,
+    phoneNumber: reporterData.phoneNumber,
+    emailAddress: reporterData.emailAddress,
+    otherDetails: reporterData.otherDetails
   } : null;
 
   const reportData = nonDefaultFields.report;
   const report = reportData ? {
-    type: reportData.type || 'Allegation',
-    date: reportData.date || '18/10/2018',
-    summary: reportData.summary || '',
-    productType: reportData.productType || 'Toy',
-    hazardType: reportData.hazardType || '',
+    type: reportData.type,
+    date: reportData.date,
+    summary: reportData.summary,
+    productType: reportData.productType,
+    hazardType: reportData.hazardType,
     reporter: reporter
   } : null;
 
   return {
-    id: nonDefaultFields.id || '1811-0758',
+    id: nonDefaultFields.id,
     type: nonDefaultFields.type || 'Case',
     status: nonDefaultFields.status || 'Open',
     title: nonDefaultFields.title || 'Undefined',
     visible: nonDefaultFields.visible || true,
     assignee: nonDefaultFields.assignee || 'Tim Harwood',
     team: nonDefaultFields.team || '',
-    overdue: nonDefaultFields.overdue || 'Overdue',
-    dateUpdated: nonDefaultFields.dateUpdated || '16/10/2018',
-    dateCreated: nonDefaultFields.dateCreated || '18/10/2018',
+    overdue: nonDefaultFields.overdue,
+    dateUpdated: nonDefaultFields.dateUpdated,
+    dateCreated: nonDefaultFields.dateCreated,
     report: report,
     products: nonDefaultFields.products || [],
     businesses: nonDefaultFields.businesses || [],
@@ -40,6 +41,16 @@ const buildDefaultWithDifferences = (nonDefaultFields) => {
     related: nonDefaultFields.related || [],
     match: nonDefaultFields.match || null
   }
+}
+
+const setDateArguments = (daysApart, nonDefaultFields) => {
+  nonDefaultFields.dateCreated = dateFactory(2018, 10, 18);
+  nonDefaultFields.dateUpdated = dateFactory(2018, 10, 18 + daysApart);
+  return nonDefaultFields;
+}
+const setHazardArguments = (hazard, nonDefaultFields) => {
+  nonDefaultFields.report = { hazardType: hazard };
+  return nonDefaultFields;
 }
 
 module.exports = {
@@ -69,6 +80,8 @@ module.exports = {
     return newCase;
   }, 
   buildDefaultWithDifferences: buildDefaultWithDifferences,
+  setDateArguments: setDateArguments,
+  setHazardArguments: setHazardArguments,
   buildHazardCase: (hazard, nonDefaultFields) => {
     nonDefaultFields.report = { hazardType: hazard };
     return buildDefaultWithDifferences(nonDefaultFields)
