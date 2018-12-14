@@ -98,19 +98,14 @@ module.exports = {
       // }
     }),
 
-    Cases.buildDefaultWithDifferences({
+    Cases.buildDefaultWithDifferences(Cases.setDateArguments(0, {
       // EMPTY CASE
       id: "1810-0000",
       title: "Untitled case",
-      reporter: {},
       creator: "Tim Harwood",
       numAttachments: 0,
-      products: [],
-      activities: [],
-      dateCreated: '18/10/2018',
-      dateUpdated: '18/10/2018'
-    }),
-    Cases.buildDefaultWithDifferences({
+    })),
+    Cases.buildDefaultWithDifferences(Cases.setDateArguments(0, {
       id: "1810-0001",
       title: "Untitled case",
       reporter: {
@@ -123,10 +118,8 @@ module.exports = {
       numAttachments: 0,
       products: [],
       activities: [],
-      dateCreated: '18/10/2018',
-      dateUpdated: '18/10/2018'
-    }),
-    Cases.buildDefaultWithDifferences({
+    })),
+    Cases.buildDefaultWithDifferences(Cases.setDateArguments(4, {
       id: "1810-0002",
       type: "Question",
       title: "Charge Worx, Travel plug adaptor –Electric shock, fire hazard",
@@ -142,15 +135,11 @@ module.exports = {
       creator: "Tim Harwood",
       numAttachments: 6,
       products: ["p1"],
-      dateCreated: '18/10/2018',
-      dateUpdated: '22/10/2018',
       activities: require("./activities/1810-0002").activities
-    }),
-    Cases.buildDefaultWithDifferences({
+    })),
+    Cases.buildDefaultWithDifferences(Cases.setDateArguments(4, {
       id: '0132-1421',
       title: 'ChargeWorx adaptor, Electric shock, fire hazard',
-      dateCreated: '18/10/2018',
-      dateUpdated: '22/10/2018',
       reporter: {
         type: "Consumer",
         name: "Mina Harker",
@@ -211,21 +200,19 @@ module.exports = {
       attachments: ['at1', 'at2'],
       related: [],
       activities: require("./activities/0132-1421.js").activities
-    }),
+    })),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(3, {
       id: '1811-0802',
       title: 'Untitled case',
       assignee: 'Ed Smith-Muller',
       products: ['p2'],
     }))),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildDefaultWithDifferences(Cases.setDateArguments(3, {
       type: 'Question',
       id: '1811-0801',
       title: "Shouldn't this be categorised as a toy?",
-      dateCreated: '18/10/2018',
-      dateUpdated: '21/10/2018',
       products: ['p4'],
-    }),
+    })),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Entrapment, Injuries hazard', Cases.setDateArguments(3, {
       id: '1811-0800',
       products: ['p5'],
@@ -246,13 +233,13 @@ module.exports = {
       dateUpdated: '21/10/2018',
       products: ['p7'],
     }))),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildDefaultWithDifferences(Cases.setDateArguments(2, {
       type: 'Question',
       id: '1811-0797',
       assignee: 'Amanda Farrell',
       title: 'Has anyone successfully located the importer for these?',
       products: ['p8'],
-    }),
+    })),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock hazard', Cases.setDateArguments(2, {
       id: '1811-0796',
       assignee: 'Ed Smith-Muller',
@@ -271,15 +258,13 @@ module.exports = {
       products: ['p11'],
       team: 'Processing',
     }))),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildDefaultWithDifferences(Cases.setDateArguments(1, {
       id: '1811-0793',
       type: 'Question',
       products: ['p12'],
       title: 'What legislation applies to importing these?',
       team: 'Processing',
-      dateUpdated: '19/10/2018',
-      dateCreated: '18/10/2018'
-    }),
+    })),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Damage to sight hazard', Cases.setDateArguments(1, {
       id: '1811-0792',
       products: ['p13'],
@@ -297,16 +282,14 @@ module.exports = {
       products: ['p15'],
       assignee: 'Garry Oldboy',
     }))),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildDefaultWithDifferences(Cases.setDateArguments(1, {
       id: '1811-0789',
       type: 'Question',
       products: ['p16'],
       title: 'Haven\'t these been recalled already?',
       assignee: 'Adebola Showemimo',
       team: 'TSC',
-      dateUpdated: '19/10/2018',
-      dateCreated: '18/10/2018'
-    }),
+    })),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Poison hazard', Cases.setDateArguments(1, {
       id: '1811-0788',
       products: ['p17'],
@@ -318,7 +301,7 @@ module.exports = {
       assignee: 'Nick Golding',
       team: 'Processing',
     }))),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildDefaultWithDifferences(Cases.setDateArguments(1, {
       id: '1811-0786',
       type: 'Question',
       status: 'Closed',
@@ -328,7 +311,7 @@ module.exports = {
       team: 'TSC',
       dateUpdated: '19/10/2018',
       dateCreated: '18/10/2018'
-    }),
+    })),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(1, {
       id: '1811-0785',
       products: ['p20'],
@@ -369,16 +352,14 @@ module.exports = {
       team: 'Processing',
       overdue: 'Overdue',
     }))),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildDefaultWithDifferences(Cases.setDateArguments(0, {
       id: '1811-0778',
       type: 'Question',
       products: ['p27'],
       title: 'What legislation should I be testing under?',
       assignee: 'Adebola Showemimo',
       team: 'TSC',
-      dateUpdated: '18/10/2018',
-      dateCreated: '18/10/2018'
-    }),
+    })),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Injuries hazard', Cases.setDateArguments(0, {
       id: '1811-0777',
       products: ['p28'],
@@ -412,7 +393,7 @@ module.exports = {
       products: ['p33'],
       assignee: 'Ed Smith-Muller',
     }))),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildDefaultWithDifferences(Cases.setDateArguments(-1, {
       id: '1811-0771',
       type: 'Question',
       products: ['p34'],
@@ -420,14 +401,12 @@ module.exports = {
       assignee: 'Nick Golding',
       team: 'TSC',
       overdue: 'Overdue',
-      dateUpdated: '17/10/2018',
-      dateCreated: '18/10/2018',
       report: {
         summary: `I am about to serve summons on a toy safety issue, which is something we have not done for a while. I have established that these are Summary only offences, via S12(5) CPA and time limit is 12 months (reg 56). So, question is, can the defendant enter a plea of guilty in absence, hence requiring relevant pape work for such a plea to be served?
         Section 12 Magistrates Courts Act 1980 seems to say a plea of guilty can be made in absence, but my logic circuits question how someone can plead guilty by letter to an offence with a possible prison sentence.
         I can't find anything in the Criminal Procedure Rules which assists.`
       }
-    }),
+    })),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Chemical hazard', Cases.setDateArguments(-1, {
       id: '1811-0770',
       products: ['p35'],
@@ -465,16 +444,14 @@ module.exports = {
       products: ['p41'],
       assignee: 'Ed Smith-Muller',
     }))),
-    Cases.buildDefaultWithDifferences({
+    Cases.buildDefaultWithDifferences(Cases.setDateArguments(-1, {
       id: '1811-0763',
       type: 'Question',
       status: 'Closed',
       products: ['p42'],
       assignee: 'Amanda Farrell',
       team: 'TSC',
-      dateUpdated: '17/10/2018',
-      dateCreated: '18/10/2018'
-    }),
+    })),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-2, {
       id: '1811-0762',
       status: 'Closed',
