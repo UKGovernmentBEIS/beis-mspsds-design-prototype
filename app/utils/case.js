@@ -1,31 +1,48 @@
 const today = require('./date').today
 
+const buildDefaultWithDifferences = (nonDefaultFields) => {
+  const reporterData = nonDefaultFields.report && nonDefaultFields.report.reporter
+  const reporter = reporterData ? {
+    type: reporterData.type || "Consumer",
+    name: reporterData.name || "Jenny Patterson",
+    phoneNumber: reporterData.phoneNumber || "",
+    emailAddress: reporterData.emailAddress || "",
+    otherDetails: reporterData.otherDetails || ""
+  } : null;
+
+  const reportData = nonDefaultFields.report;
+  const report = reportData ? {
+    type: reportData.type || 'Allegation',
+    date: reportData.date || '18/10/2018',
+    summary: reportData.summary || '',
+    productType: reportData.productType || 'Toy',
+    hazardType: reportData.hazardType || '',
+    reporter: reporter
+  } : null;
+
+  return {
+    id: nonDefaultFields.id || '1811-0758',
+    type: nonDefaultFields.type || 'Case',
+    status: nonDefaultFields.status || 'Open',
+    title: nonDefaultFields.title || 'Undefined',
+    visible: nonDefaultFields.visible || true,
+    assignee: nonDefaultFields.assignee || 'Tim Harwood',
+    team: nonDefaultFields.team || '',
+    overdue: nonDefaultFields.overdue || 'Overdue',
+    dateUpdated: nonDefaultFields.dateUpdated || '16/10/2018',
+    dateCreated: nonDefaultFields.dateCreated || '18/10/2018',
+    report: report,
+    products: nonDefaultFields.products || [],
+    businesses: nonDefaultFields.businesses || [],
+    contacts: nonDefaultFields.contacts || [],
+    activities: nonDefaultFields.activities || [],
+    attachments: nonDefaultFields.attachments || [],
+    related: nonDefaultFields.related || [],
+    match: nonDefaultFields.match || null
+  }
+}
+
 module.exports = {
-  addDefaults: function (kase) {
-    const requiredListProperties = [
-      'products',
-      'businesses',
-      'contacts',
-      'attachments',
-      'related',
-      'activities',
-    ]
-    requiredListProperties.forEach(property => {
-      if (kase[property] === undefined) {
-        kase[property] = []
-      }
-    })
-    if (kase.title === undefined) {
-      kase.title = 'Undefined'
-    }
-    if (kase.status === undefined) {
-      kase.status = 'Open'
-    }
-    if (kase.visible === undefined) {
-      kase.visible = true
-    }
-    return kase
-  },
   buildFromData: function(data) {
     let newCase = data.new;
     this.addDefaults(newCase);
@@ -50,5 +67,10 @@ module.exports = {
       newCase.title = newCase.report.productType + " - " + newCase.report.hazardType;
     }
     return newCase;
+  }, 
+  buildDefaultWithDifferences: buildDefaultWithDifferences,
+  buildHazardCase: (hazard, nonDefaultFields) => {
+    nonDefaultFields.report = { hazardType: hazard };
+    return buildDefaultWithDifferences(nonDefaultFields)
   }
 }
