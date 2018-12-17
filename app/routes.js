@@ -7,7 +7,6 @@ const date = require("./utils/date").date;
 const Cases = require("./utils/case");
 const Activities = require("./utils/activity");
 const array = require("./utils/arrayHelpers");
-const Products = require("./utils/product")
 const Attachments = require("./utils/attachment");
 const Reset = require("./utils/reset");
 
@@ -61,114 +60,78 @@ router.post('/:mode/flows/create/save', function (req, res) {
 // Assign flow
 router.post('/:mode/flows/assign/save', function (req, res) {
   const data = req.session.data;
-
-  const kase = array.findById(data.cases, data.caseid);
-
-  let newAssignee = req.body.assignee;
-  newAssignee = newAssignee === "Other" ? req.body["other-assignee"] : newAssignee;
-
-  const assignedActivityTemplate = require("./data/activities/templates").assigned;
-  const newActivity = assignedActivityTemplate({
-    assignee: newAssignee,
-    author: data.currentUser,
-    date: today.long()
-  });
-
-  kase.dateUpdated = today.short();
-  kase.assignee = newAssignee;
-  kase.activities.unshift(newActivity);
-
+  const newAssignee = req.body.assignee;
+  Cases.assignCase(data, newAssignee);
   res.redirect('/root/case--confirmation?confirmation=Case%20assigned');
 });
-
 
 // Add product flow
 router.post('/:mode/flows/product/add', function (req, res) {
   const data = req.session.data;
-
   const kase = array.findById(data.cases, data.caseid);
-
-  const product = Products.buildFromData(data);
-  data.products.push(product);
-  kase.products.unshift(product.id);
-
-  kase.dateUpdated = today.short();
-
-  const addProductActivity = Activities.buildAddProduct(product, data.currentUser);
-  kase.activities.unshift(addProductActivity);
-
+  Cases.addProduct(data, kase)
   res.redirect('/root/case--confirmation?confirmation=Product%20added#products');
 });
-
-
 
 // Location flow
 router.post('/:mode/flows/location/save', function (req, res) {
   const data = req.session.data;
+  if (data.currentPage !== 'business') {
+    res.redirect('404');
+    return
+  }
 
-  let newLocation   = data.location;
-  newLocation.id    = 'l' + (data.locations.length + 1);
+  let newLocation = data.location;
+  newLocation.id = 'l' + (data.locations.length + 1);
 
   data.locations.push(newLocation);
 
-  if (data.currentPage === 'business') {
-    const biz = array.findById(data.businesses, data.businessid);
+  const biz = array.findById(data.businesses, data.businessid);
 
-    if (biz) {
-      biz.locations.push({
-        id:     newLocation.id,
-        role:   data.location.name
-      });
-    }
-
-    res.redirect('/root/business?businessid=' + data.businessid +'#locations');
-
+  if (biz) {
+    biz.locations.push({
+      id: newLocation.id,
+      role: data.location.name
+    });
   }
 
-  res.redirect('404');
+  res.redirect('/root/business?businessid=' + data.businessid + '#locations');
 
 });
 
 router.post('/:mode/flows/location/delete', function (req, res) {
   const data = req.session.data;
-
-  if (data.currentPage === 'business') {
-
-    const biz = data.businesses(data.businesses, data.businessid);
-
-    if (biz && biz.locations) {
-      biz.locations = array.removeById(biz.locations, data.locationid);
-    }
-    res.redirect('/root/business?businessid=' + data.businessid +'#locations');
+  if (data.currentPage !== 'business') {
+    res.redirect('404');
+    return
   }
 
-  res.redirect('404');
-
+  const biz = data.businesses(data.businesses, data.businessid);
+  if (biz && biz.locations) {
+    biz.locations = array.removeById(biz.locations, data.locationid);
+  }
+  res.redirect('/root/business?businessid=' + data.businessid + '#locations');
 });
 
 
 
 router.post('/:mode/flows/location/update', function (req, res) {
   const data = req.session.data;
-
-  if (data.currentPage === 'business') {
-
-    let newLocation   = data.location;
-    newLocation.id    = data.locationid;
-
-    const loc = array.findById(data.locations, data.locationid);
-
-    if (loc) {
-      for (var k in loc) {
-        loc[k] = newLocation[k];
-      }
-    }
-
-    res.redirect('/root/business?businessid=' + data.businessid +'#locations');
+  if (data.currentPage !== 'business') {
+    res.redirect('404');
+    return
   }
 
-  res.redirect('404');
+  let newLocation = data.location;
+  newLocation.id = data.locationid;
 
+  const loc = array.findById(data.locations, data.locationid);
+  if (loc) {
+    for (var k in loc) {
+      loc[k] = newLocation[k];
+    }
+  }
+  res.redirect('/root/business?businessid=' + data.businessid + '#locations');
 });
 
 // Attachment flow
@@ -196,16 +159,8 @@ router.post('/:mode/flows/attachment/update', function (req, res) {
 // Change Status flow
 router.post(`/:mode/flows/change-status/save`, function (req, res) {
   const data = req.session.data;
-
-  const kase = array.findById(data.cases, data.caseid);
-
-  const newActivity = Activities.buildChangeStatus(req.body, data.currentUser);
-
-  kase.dateUpdated = today.short();
-  kase.status = req.body.status;
-  kase.activities.unshift(newActivity);
-
-  let redirectURL = '/root/case--confirmation?caseid=' + data.caseid + '&confirmation=Status%20updated';
+  Cases.changeStatus(data, req.body);
+  const redirectURL = '/root/case--confirmation?caseid=' + data.caseid + '&confirmation=Status%20updated';
   res.redirect(redirectURL);
 });
 
@@ -213,11 +168,7 @@ router.post(`/:mode/flows/change-status/save`, function (req, res) {
 router.post(`/:mode/flows/change-visibility/save`, function (req, res) {
   // TODO: Add activity when it's designed
   const data = req.session.data;
-  const kase = array.findById(data.cases, data.caseid);
-
-  kase.dateUpdated = today.short();
-  kase.visible = req.body.visible === 'true';
-
+  Cases.changeVisibility(data, req.body.visible)
   let redirectURL = '/root/case--confirmation?caseid=' + data.caseid + '&confirmation=Visibility%20updated#full-details';
   res.redirect(redirectURL);
 });
@@ -225,46 +176,18 @@ router.post(`/:mode/flows/change-visibility/save`, function (req, res) {
 // Add comment flow
 router.post(`/:mode/flows/add-comment/save`, function (req, res) {
   const data = req.session.data;
-
-  const kase = array.findById(data.cases, data.caseid);
-
-  const activityTemplate = require("./data/activities/templates").commentAdded;
-  const newActivity = activityTemplate({
-    commentText: data['new-comment'],
-    author: data.currentUser,
-    date: today.long()
-  });
-
-  kase.dateUpdated = today.short();
-  kase.activities.unshift(newActivity);
-
+  Cases.addComment(data)
   let redirectURL = '/root/case--confirmation?caseid=' + data.caseid + '&confirmation=Commment%20added';
   res.redirect(redirectURL);
 
 });
 
 // Add Corrective Action flow
-router.post(`/:mode/flows/record-corrective-action/save`, function(req, res) {
+router.post(`/:mode/flows/record-corrective-action/save`, function (req, res) {
   const data = req.session.data;
-
-  const kase = array.findById(data.cases, data.caseid);
-
-  activityTemplate = require('./data/activities/templates').correctiveAction;
-  const newActivity = activityTemplate({
-    summary: data['corrective-action-summary'],
-    productName: data['TODO-product-input-name'],
-    legislation: data['input-autocomplete'],
-    businessName: data['TODO-business-input-name'],
-    decisionDate: date.shortFromInput(data["corrective-action-date-year"], data['corrective-action-date-month'], data['corrective-action-date-day']),
-    attachment: data['corrective-action-file-upload-1'],
-    description: data['corrective-action-details']
-  });
-  kase.activities.unshift(newActivity);
-  kase.updated = today.short();
-
+  Cases.addCorrectiveAction(data);
   let redirectURL = '/root/case--confirmation?caseid=' + data.caseid + '&confirmation=Corrective%20action%20recorded';
   res.redirect(redirectURL);
-
 });
 
 // New activity flow
@@ -340,10 +263,3 @@ router.post('/test-setup', function (req, res, next) {
 
 // Add your routes here - above the module.exports line
 module.exports = router;
-
-function buildTsCreateAttachments(data) {
-  const testFile = Attachments.build({ title: "Test Results", filename: data.new.files.testing.upload });
-  const riskFile = Attachments.build({ title: "Risk Assessment", filename: data.new.files.risk.upload });
-  const relatedFile = Attachments.build({ title: "Related Attachment", filename: data.new.files.related.upload });
-  return [testFile, riskFile, relatedFile ].filter(file => file.filename.length > 0)
-}

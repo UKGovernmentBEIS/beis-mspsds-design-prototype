@@ -1,8 +1,10 @@
-const today = require('./date').today
-const dateFactory = require('./date').date.shortFromInput
+const today = require('./date').today;
+const dateFactory = require('./date').date.shortFromInput;
 const Activities = require("./activity");
-const Products = require("./product")
+const ActivityTemplates = require("../data/activities/templates");
+const Products = require("./product");
 const Attachments = require("./attachment");
+const array = require("./arrayHelpers");
 
 let lastCaseNumber = 18110802
 const giveNextId = () => {
@@ -94,34 +96,94 @@ const buildFromData = (data) => {
 }
 
 const addCreatedActivity = (newCase) => {
-  let activity = Activities.buildCreateCase(newCase);
+  const activity = Activities.buildCreateCase(newCase);
   newCase.activities.unshift(activity);
-} 
-
-const addAttachments = (data, newCase) => {
-  const files = Attachments.buildTsCreateAttachments(data);
-  if(files.length === 0){ return }
-  newCase.attachments.unshift(...files.map(f => f.id));
-  newCase.activities[0].attachments.unshift(...files);
-  data.attachments.push(...files);
 }
 
-const addProduct = (data, newCase) => {
+const addAttachments = (data, kase) => {
+  const files = Attachments.buildTsCreateAttachments(data);
+  if(files.length === 0){ return }
+  kase.attachments.unshift(...files.map(f => f.id));
+  kase.activities[0].attachments.unshift(...files);
+  data.attachments.push(...files);
+  kase.dateUpdated = today.short();
+}
+
+const addProduct = (data, kase) => {
   if(!data.new.report.product){ return }
-  let product = Products.buildFromData(data);
+  const product = Products.buildFromData(data);
   data.products.push(product);
-  newCase.products.unshift(product.id);
+  kase.products.unshift(product.id);
   const addProductActivity = Activities.buildAddProduct(product, data.currentUser);
-  newCase.activities.unshift(addProductActivity);
+  kase.activities.unshift(addProductActivity);
+  kase.dateUpdated = today.short();
 }
 
 const addCase = (data) => {
-  let newCase = buildFromData(data);
+  const newCase = buildFromData(data);
   data.cases.push(newCase);
   addCreatedActivity(newCase);
   addAttachments(data, newCase);
   addProduct(data, newCase);
   return newCase;
+}
+
+const assignCase = (data, newAssignee) => {
+  const kase = array.findById(data.cases, data.caseid);
+  newAssignee = newAssignee === "Other" ? req.body["other-assignee"] : newAssignee;
+
+  const newActivity = ActivityTemplates.assigned({
+    assignee: newAssignee,
+    author: data.currentUser,
+    date: today.long()
+  });
+
+  kase.dateUpdated = today.short();
+  kase.assignee = newAssignee;
+  kase.activities.unshift(newActivity);
+}
+
+const changeStatus = (data, body) => {
+  const kase = array.findById(data.cases, data.caseid);
+  const newActivity = Activities.buildChangeStatus(body, data.currentUser);
+
+  kase.dateUpdated = today.short();
+  kase.status = body.status;
+  kase.activities.unshift(newActivity);
+}
+
+const changeVisibility = (data, visibility) => {
+  const kase = array.findById(data.cases, data.caseid);
+  kase.dateUpdated = today.short();
+  kase.visible = visibility === 'true';
+}
+
+const addComment = (data) => {
+  const kase = array.findById(data.cases, data.caseid);
+  const newActivity = ActivityTemplates.commentAdded({
+    commentText: data['new-comment'],
+    author: data.currentUser,
+    date: today.long()
+  });
+
+  kase.dateUpdated = today.short();
+  kase.activities.unshift(newActivity);
+}
+
+const addCorrectiveAction = (data) => {
+  const kase = array.findById(data.cases, data.caseid);
+  const newActivity = ActivityTemplates.correctiveAction({
+    summary: data['corrective-action-summary'],
+    productName: data['TODO-product-input-name'],
+    legislation: data['input-autocomplete'],
+    businessName: data['TODO-business-input-name'],
+    decisionDate: date.shortFromInput(data["corrective-action-date-year"], data['corrective-action-date-month'], data['corrective-action-date-day']),
+    attachment: data['corrective-action-file-upload-1'],
+    description: data['corrective-action-details']
+  });
+
+  kase.activities.unshift(newActivity);
+  kase.updated = today.short();
 }
 
 module.exports = {
@@ -130,5 +192,12 @@ module.exports = {
   setDateArguments: setDateArguments,
   setHazardArguments: setHazardArguments,
   addCase: addCase,
+  assignCase: assignCase,
   addDefaults: addDefaults,
+  addProduct: addProduct,
+  addAttachments: addAttachments,
+  changeStatus: changeStatus,
+  changeVisibility: changeVisibility,
+  addComment: addComment,
+  addCorrectiveAction: addCorrectiveAction,
 }
