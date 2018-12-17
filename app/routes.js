@@ -58,23 +58,6 @@ router.post('/:mode/flows/create/save', function (req, res) {
   res.redirect('/root/case--created?caseid=' + newCase.id);
 });
 
-
-// Report flow: Decide whether to show email capture page
-// TODO: DELETE when this is no longer used by old material
-router.post('/:mode/flows/process-incoming/email-check-endpoint', function (req, res) {
-  let endpoint = req.session.data.new['origin-type'];
-  switch (endpoint) {
-    case 'Phonecall':
-      res.redirect('/root/flows/process-incoming/report-check-answers');
-      break;
-    case 'Email':
-      res.redirect('/root/flows/process-incoming/email-content');
-      break;
-    default:
-      res.redirect(endpoint);
-  }
-});
-
 // Assign flow
 router.post('/:mode/flows/assign/save', function (req, res) {
   const data = req.session.data;
@@ -188,120 +171,26 @@ router.post('/:mode/flows/location/update', function (req, res) {
 
 });
 
-
-
-
-
-
 // Attachment flow
 router.post('/:mode/flows/attachment/save', function (req, res) {
   const data = req.session.data;
-
-  let newAttachment   = data.attachment;
-  newAttachment.id    = 'at' + (data.attachments.length + 1);
-
-
-  let obj = null;
-  let redirectURL = '404';
-
-  switch (data.currentPage) {
-    case 'business':
-      obj = array.findById(data.businesses, data.businessid);
-      redirectURL = '/root/business?businessid=' + data.businessid +'&confirmation=Attachment%20added#attachments';
-      break;
-
-    case 'case':
-      obj = array.findById(data.cases, data.caseid);
-      redirectURL = '/root/case--confirmation?caseid=' + data.caseid + '&confirmation=Attachment%20added#attachments';
-
-      const newActivity = Activities.buildAddAttachment(newAttachment, data.currentUser);
-      obj.activities.unshift(newActivity);
-      break;
-
-    case 'product':
-      obj = array.findById(data.products, data.productid);
-      redirectURL = '/root/product?productid=' + data.productid + '&confirmation=Attachment%20added#attachments';
-      break;
-
-    default:
-      console.log("data.currentPage not set to appropriate value in flows/attachment/save route");
-  }
-
-  obj.attachments.push(newAttachment.id);
-  data.attachments.push(newAttachment);
-
+  Attachments.addAttachment(data);
+  const redirectURL = Attachments.beginningUrl(data) + '&confirmation=Attachment%20added#attachments'
   res.redirect(redirectURL);
 });
 
 router.post('/:mode/flows/attachment/delete', function (req, res) {
   const data = req.session.data;
-
-  let redirectURL = '404';
-
-  if (data.currentPage === 'business') {
-
-    const biz = array.findById(data.businesses, data.businessid);
-
-    redirectURL = '/root/business?businessid=' + data.businessid + '&confirmation=Attachment%20deleted#attachments';
-
-    if (biz) {
-      biz.attachments = array.removeByValue(biz.attachments, data.attachmentid);
-    }
-  }
-
-  if (data.currentPage === 'case') {
-    const kase = array.findById(data.cases, data.caseid);
-
-    if (kase) {
-      kase.attachments = array.removeByValue(kase.attachments, data.attachmentid);
-    }
-
-    redirectURL = '/root/case--confirmation?caseid=' + data.caseid + '&confirmation=Attachment%20deleted#attachments';
-  }
-
-  if (data.currentPage === 'product') {
-    const prod = array.findById(data.products, data.productid);
-
-    if (prod) {
-      prod.attachments = array.removeByValue(prod.attachments, data.attachmentid);
-    }
-
-    redirectURL = '/root/product?productid=' + data.productid + '&confirmation=Attachment%20deleted#attachments';
-  }
-
-   res.redirect(redirectURL);
+  Attachments.deleteAttachment(data);
+  const redirectURL = beginningUrl(data) + '&confirmation=Attachment%20deleted#attachments';
+  res.redirect(redirectURL);
 });
-
 
 router.post('/:mode/flows/attachment/update', function (req, res) {
   const data = req.session.data;
-
-  let newAttachment   = data.attachment;
-  newAttachment.id    = data.attachmentid;
-  newAttachment.date  = today.short();
-
-  const att = array.findById(data.attachments, data.attachmentid);
-
-  if (att) {
-    for (var k in att) {
-      att[k] = newAttachment[k];
-    }
-  }
-
-  let redirectURL = '404';
-
-  if (data.currentPage === 'business') {
-    redirectURL = '/root/business?businessid=' + data.businessid + '&confirmation=Attachment%20updated#attachments';
-  }
-  if (data.currentPage === 'case') {
-    redirectURL = '/root/case--confirmation?caseid=' + data.caseid + '&confirmation=Attachment%20updated#attachments';
-  }
-  if (data.currentPage === 'product') {
-    redirectURL = '/root/product?productid=' + data.productid + '&confirmation=Attachment%20updated#attachments';
-  }
-
+  Attachments.editAttachment(data);
+  const redirectURL = beginningUrl(data) + '&confirmation=Attachment%20updated#attachments';
   res.redirect(redirectURL);
-
 });
 
 // Change Status flow
