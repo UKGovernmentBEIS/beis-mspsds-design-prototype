@@ -40,49 +40,20 @@ router.get('/:mode/:entity(case|business|product|case-list)/', function (req, re
 
 router.post('/:mode/flows/ts-create/save', function (req, res) {
   const data = req.session.data;
-
-  let newCase = Cases.buildFromData(data);
-  data.cases.push(newCase);
-
-  let activity = Activities.buildCreateCase(newCase);
-  newCase.activities.unshift(activity);
-
-  const files = require("./utils/attachment").buildTsCreateAttachments(data);
-  newCase.attachments.unshift(...files.map(f => f.id));
-  activity.attachments.unshift(...files);
-  data.attachments.push(...files);
-
-  newCase.dateUpdated = today.short();
-
-  let product = Products.buildFromData(data);
-  data.products.push(product);
-  newCase.products.unshift(product.id);
-
-  const addProductActivity = Activities.buildAddProduct(product, data.currentUser);
-  newCase.activities.unshift(addProductActivity);
-
+  newCase = Cases.addCase(data);
   Reset.resetNew(req);
-
   res.redirect('/root/case--created?caseid=' + newCase.id);
 });
 
 router.post('/:mode/flows/create/issue-type', function (req, res) {
   let issueType = req.session.data.new['report']['type'];
-
   let nextPage = (issueType == "Investigation") ? "04" : "02";
-
   res.redirect('/root/flows/create/' + nextPage);
 });
 
 router.post('/:mode/flows/create/save', function (req, res) {
   const data = req.session.data;
-
-  let newCase = Cases.buildFromData(data);
-  data.cases.push(newCase);
-
-  let activity = Activities.buildCreateCase(newCase);
-  newCase.activities.unshift(activity);
-
+  newCase = Cases.addCase(data);
   Reset.resetNew(req);
   res.redirect('/root/case--created?caseid=' + newCase.id);
 });

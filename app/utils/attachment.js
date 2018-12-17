@@ -33,6 +33,6 @@ module.exports = {
         const testFile = this.build({ title: "Test Results", filename: data.new.files.testing.upload });
         const riskFile = this.build({ title: "Risk Assessment", filename: data.new.files.risk.upload });
         const relatedFile = this.build({ title: "Related Attachment", filename: data.new.files.related.upload });
-        return [testFile, riskFile, relatedFile ].filter(file => file.filename.length > 0)
+        return [testFile, riskFile, relatedFile].filter(file => file.filename.length > 0)
       }
 }
