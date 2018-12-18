@@ -43,7 +43,6 @@ buildDefaultWithDifferences = (nonDefaultFields) => {
     visible: nonDefaultFields.visible || true,
     assignee: nonDefaultFields.assignee || 'Tim Harwood',
     team: nonDefaultFields.team || '',
-    overdue: nonDefaultFields.overdue,
     dateUpdated: nonDefaultFields.dateUpdated,
     dateCreated: nonDefaultFields.dateCreated,
     report: report,
