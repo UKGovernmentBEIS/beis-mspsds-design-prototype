@@ -9,13 +9,13 @@ const Attachments   = require("./attachment");
 
 // Creation from initial files
 let lastCaseNumber = 18110802
-const giveNextId = () => {
+giveNextId = () => {
   prettyId = lastCaseNumber.toString().substring(0, 4) + '-' + lastCaseNumber.toString().substring(4, 8)
   lastCaseNumber = lastCaseNumber - 1
   return prettyId;
 }
 
-const addDefaults = (kase) => {
+addDefaults = (kase) => {
   const requiredListProperties = [
     'products',
     'businesses',
@@ -33,7 +33,7 @@ const addDefaults = (kase) => {
   return kase
 }
 
-const buildDefaultWithDifferences = (nonDefaultFields) => {
+buildDefaultWithDifferences = (nonDefaultFields) => {
   const reporterData = nonDefaultFields.report && nonDefaultFields.report.reporter
   const reporter = reporterData ? {
     type: reporterData.type,
@@ -66,19 +66,19 @@ const buildDefaultWithDifferences = (nonDefaultFields) => {
   })
 }
 
-const setDateArguments = (daysApart, nonDefaultFields) => {
+setDateArguments = (daysApart, nonDefaultFields) => {
   nonDefaultFields.dateCreated = dateFactory(2018, 10, 18);
   nonDefaultFields.dateUpdated = dateFactory(2018, 10, 18 + daysApart);
   return nonDefaultFields;
 }
 
-const setHazardArguments = (hazard, nonDefaultFields) => {
+setHazardArguments = (hazard, nonDefaultFields) => {
   nonDefaultFields.report = { hazardType: hazard };
   return nonDefaultFields;
 }
 
 // Creation or change from flows
-const buildFromData = (data) => {
+buildFromData = (data) => {
   let newCase = data.new;
   addDefaults(newCase);
   newCase.dateCreated = today.short();
@@ -101,12 +101,12 @@ const buildFromData = (data) => {
   return newCase;
 }
 
-const addCreatedActivity = (newCase) => {
+addCreatedActivity = (newCase) => {
   const activity = Activities.buildCreateCase(newCase);
   newCase.activities.unshift(activity);
 }
 
-const addAttachments = (data, kase) => {
+addAttachments = (data, kase) => {
   const files = Attachments.buildTsCreateAttachments(data);
   if(files.length === 0){ return }
   kase.attachments.unshift(...files.map(f => f.id));
@@ -115,7 +115,7 @@ const addAttachments = (data, kase) => {
   kase.dateUpdated = today.short();
 }
 
-const addProduct = (data, kase) => {
+addProduct = (data, kase) => {
   if(!data.new.report.product){ return }
   const product = Products.buildFromData(data);
   data.products.push(product);
@@ -126,7 +126,7 @@ const addProduct = (data, kase) => {
 }
 
 
-const addBusiness = (data, kase) => {
+addBusiness = (data, kase) => {
   if(!data.new.report.business){ return }
   const business = Businesses.buildFromData(data);
   data.businesses.push(business);
@@ -141,7 +141,7 @@ const addBusiness = (data, kase) => {
 }
 
 
-const addCase = (data) => {
+addCase = (data) => {
   const newCase = buildFromData(data);
   data.cases.push(newCase);
   addCreatedActivity(newCase);
@@ -151,7 +151,7 @@ const addCase = (data) => {
   return newCase;
 }
 
-const assignCase = (data, newAssignee) => {
+assignCase = (data, newAssignee) => {
   const kase = array.findById(data.cases, data.caseid);
   newAssignee = newAssignee === "Other" ? req.body["other-assignee"] : newAssignee;
 
@@ -166,7 +166,7 @@ const assignCase = (data, newAssignee) => {
   kase.activities.unshift(newActivity);
 }
 
-const changeStatus = (data, body) => {
+changeStatus = (data, body) => {
   const kase = array.findById(data.cases, data.caseid);
   const newActivity = Activities.buildChangeStatus(body, data.currentUser);
 
@@ -175,13 +175,13 @@ const changeStatus = (data, body) => {
   kase.activities.unshift(newActivity);
 }
 
-const changeVisibility = (data, visibility) => {
+changeVisibility = (data, visibility) => {
   const kase = array.findById(data.cases, data.caseid);
   kase.dateUpdated = today.short();
   kase.visible = visibility === 'true';
 }
 
-const addComment = (data) => {
+addComment = (data) => {
   const kase = array.findById(data.cases, data.caseid);
   const newActivity = ActivityTemplates.commentAdded({
     commentText: data['new-comment'],
@@ -193,7 +193,7 @@ const addComment = (data) => {
   kase.activities.unshift(newActivity);
 }
 
-const addCorrectiveAction = (data) => {
+addCorrectiveAction = (data) => {
   const kase = array.findById(data.cases, data.caseid);
   const newActivity = ActivityTemplates.correctiveAction({
     summary: data['corrective-action-summary'],
