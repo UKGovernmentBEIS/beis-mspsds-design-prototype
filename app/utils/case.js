@@ -7,6 +7,7 @@ const Products      = require("./product")
 const Businesses    = require("./business")
 const Attachments   = require("./attachment");
 
+// Creation from initial files
 let lastCaseNumber = 18110802
 const giveNextId = () => {
   prettyId = lastCaseNumber.toString().substring(0, 4) + '-' + lastCaseNumber.toString().substring(4, 8)
@@ -76,6 +77,7 @@ const setHazardArguments = (hazard, nonDefaultFields) => {
   return nonDefaultFields;
 }
 
+// Creation or change from flows
 const buildFromData = (data) => {
   let newCase = data.new;
   addDefaults(newCase);

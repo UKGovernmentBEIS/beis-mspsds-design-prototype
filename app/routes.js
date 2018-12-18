@@ -1,14 +1,9 @@
 /* jshint esversion: 6 */
 
-
 const express     = require('express');
 const router      = express.Router();
-const today       = require("./utils/date").today;
-const date        = require("./utils/date").date;
 const Cases       = require("./utils/case");
-const Activities  = require("./utils/activity");
 const array       = require("./utils/arrayHelpers");
-const Products    = require("./utils/product")
 const Businesses  = require("./utils/business")
 const Attachments = require("./utils/attachment");
 const Reset       = require("./utils/reset");
@@ -34,8 +29,6 @@ router.get('/:mode/:entity(case|business|product|case-list)/', function (req, re
   res.locals.data.currentPage = req.params.entity;
   next();
 });
-
-
 
 
 // FLOWS ----------------------------------------------------------------------
@@ -81,62 +74,23 @@ router.post('/:mode/flows/product/add', function (req, res) {
 // Location flow
 router.post('/:mode/flows/location/save', function (req, res) {
   const data = req.session.data;
-  if (data.currentPage !== 'business') {
-    res.redirect('404');
-    return
-  }
-
-  let newLocation = data.location;
-  newLocation.id = 'l' + (data.locations.length + 1);
-
-  data.locations.push(newLocation);
-
-  const biz = array.findById(data.businesses, data.businessid);
-
-  if (biz) {
-    biz.locations.push({
-      id: newLocation.id,
-      role: data.location.name
-    });
-  }
-
-  res.redirect('/root/business?businessid=' + data.businessid + '#locations');
-
+  Businesses.addLocation(data);
+  const targetURL = '/root/business?businessid=' + data.businessid + '#locations'
+  res.redirect(data.currentPage === 'business' ? targetURL : '404');
 });
 
 router.post('/:mode/flows/location/delete', function (req, res) {
   const data = req.session.data;
-  if (data.currentPage !== 'business') {
-    res.redirect('404');
-    return
-  }
-
-  const biz = data.businesses(data.businesses, data.businessid);
-  if (biz && biz.locations) {
-    biz.locations = array.removeById(biz.locations, data.locationid);
-  }
-  res.redirect('/root/business?businessid=' + data.businessid + '#locations');
+  Businesses.deleteLocation(data);
+  const targetURL = '/root/business?businessid=' + data.businessid + '#locations'
+  res.redirect(data.currentPage === 'business' ? targetURL : '404');
 });
-
-
 
 router.post('/:mode/flows/location/update', function (req, res) {
   const data = req.session.data;
-  if (data.currentPage !== 'business') {
-    res.redirect('404');
-    return
-  }
-
-  let newLocation = data.location;
-  newLocation.id = data.locationid;
-
-  const loc = array.findById(data.locations, data.locationid);
-  if (loc) {
-    for (var k in loc) {
-      loc[k] = newLocation[k];
-    }
-  }
-  res.redirect('/root/business?businessid=' + data.businessid + '#locations');
+  Businesses.updateLocation(data);
+  const targetURL = '/root/business?businessid=' + data.businessid + '#locations'
+  res.redirect(data.currentPage === 'business' ? targetURL : '404');
 });
 
 // Attachment flow
