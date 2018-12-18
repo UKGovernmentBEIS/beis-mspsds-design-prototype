@@ -1,14 +1,17 @@
 /* jshint esversion: 6 */
 
-const express = require('express');
-const router = express.Router();
-const today = require("./utils/date").today;
-const date = require("./utils/date").date;
-const Cases = require("./utils/case");
-const Activities = require("./utils/activity");
-const array = require("./utils/arrayHelpers");
+
+const express     = require('express');
+const router      = express.Router();
+const today       = require("./utils/date").today;
+const date        = require("./utils/date").date;
+const Cases       = require("./utils/case");
+const Activities  = require("./utils/activity");
+const array       = require("./utils/arrayHelpers");
+const Products    = require("./utils/product")
+const Businesses  = require("./utils/business")
 const Attachments = require("./utils/attachment");
-const Reset = require("./utils/reset");
+const Reset       = require("./utils/reset");
 
 // Catch-all for redirecting to the correct mode - MUST BE LAST ROUTE ADDED
 router.all("/root/*", function (req, res) {
@@ -39,8 +42,10 @@ router.get('/:mode/:entity(case|business|product|case-list)/', function (req, re
 
 router.post('/:mode/flows/ts-create/save', function (req, res) {
   const data = req.session.data;
+
   newCase = Cases.addCase(data);
-  Reset.resetNew(req);
+
+  //Reset.resetNew(req);
   res.redirect('/root/case--created?caseid=' + newCase.id);
 });
 

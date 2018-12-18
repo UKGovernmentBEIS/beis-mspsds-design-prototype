@@ -1,11 +1,12 @@
 {% extends "includes/templates/flow--creation-ts.html" %}
 
-
-{% set formAction         = './04' %}
+{% set backLink      = './02' %}
+{% set backText      = 'Back'  %}
 
 {% if data['new']['report']['type'] == 'Report' %}
-  {% set titleType           = 'Reporting a dangerous product' %}
+  {% set titleType           = 'Reporting an unsafe product' %}
   {% set displayTitle        = 'Why is it unsafe?' %}
+  {% set formAction          = './04' %}
 {% endif %}
 
 {% block flow %}

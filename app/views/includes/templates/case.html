@@ -2,12 +2,14 @@
 
 {% set currentCase = currentCase | attachCaseChildren(data) %}
 
-
 {% if bodyClasses %}
     {% set bodyClasses = bodyClasses + " mspsds-width-container case" %}
 {% else %}
     {% set bodyClasses = " mspsds-width-container case" %}
 {% endif %}
+
+
+
 
 {% block pageTitle %}
   Case Page: {{ currentCase.title }}

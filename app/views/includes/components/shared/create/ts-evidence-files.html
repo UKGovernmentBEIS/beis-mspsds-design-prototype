@@ -3,19 +3,26 @@
 
     {% call govukFieldset({
         legend: {
-          text:       "Any other files or images",
+          text:       "Other evidence",
           classes:    "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
         }
     }) %}
 
         {{ govukFileUpload({
           hint: {
-            text: "For example product specs, or exports from your system"
+            text: "Images of an incident, or other evidence"
           },
           id: "related-upload",
-          name: "new[files][related][upload]"
+          name: "new[files][evidence][upload]"
         }) }}
 
     {% endcall %}
 
 </div>
+
+
+
+
+
+
+

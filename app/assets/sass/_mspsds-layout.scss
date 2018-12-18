@@ -10,6 +10,16 @@
 
 }
 
+.mspsds-input {
+    @include govuk-clearfix;
+    clear: left;
+}
+
+
+.mspsds-autocomplete {
+    @include govuk-font($size: 16);
+}
+
 
 .mspsds-pagetitle {
     text-transform: capitalize;

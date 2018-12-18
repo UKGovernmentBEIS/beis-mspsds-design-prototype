@@ -24,14 +24,6 @@
 {% from "warning-text/macro.njk"  import govukWarningText %}
 
 
-{% block head %}
-  {% include "includes/head.html" %}
-{% endblock %}
-
-
-{% block pageTitle %}
-  GOV.UK Prototype Kit
-{% endblock %}
 
 {% if data['signedIn'] == 'Yes' %} 
   {% set headerNav = [
@@ -47,6 +39,21 @@
 {% else %}
   {% set headerNav = [] %}
 {% endif %}
+
+
+
+
+
+{% block head %}
+  {% include "includes/head.html" %}
+{% endblock %}
+
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+
 
 
 {% block header %}

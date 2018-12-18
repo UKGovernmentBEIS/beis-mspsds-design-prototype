@@ -5,10 +5,13 @@ const Activities = require("./activity");
 const isImage = (filename) => {
   return !!filename.match(/[\/.](gif|jpg|jpeg|tiff|png)$/i);
 }
+
+
 const fileExtension = (filename) => {
   const fullStopIdx = filename.lastIndexOf(".")
   return filename.substring(fullStopIdx + 1)
 }
+
 
 const build = ({
   title,
@@ -16,9 +19,9 @@ const build = ({
   date = today.short(),
   description
 }) => {
-  const id = filename + Math.random()
-  const type = this.isImage(filename) ? 'image' : 'document'
-  const url = type === 'image' ? '/public/images/placeholder.png' : '/public/images/document-thumbnail.png'
+  const id    = filename + Math.random()
+  const type  = isImage(filename) ? 'image' : 'document'
+  const url   = type === 'image' ? '/public/images/placeholder.png' : '/public/images/document-thumbnail.png'
   return {
     id,
     title,
@@ -30,6 +33,7 @@ const build = ({
     url
   }
 }
+
 
 const findObject = (data) => {
   switch (data.currentPage) {
@@ -43,6 +47,7 @@ const findObject = (data) => {
       console.log("data.currentPage not set to appropriate value in flows/attachment/save route");
   }
 }
+
 
 const beginningUrl = (data) => {
   switch (data.currentPage) {
@@ -103,19 +108,27 @@ const editAttachment = (data) => {
 }
 
 buildTsCreateAttachments = (data) => {
-  const testFile = this.build({
+  const testFile = build({
     title: "Test Results",
     filename: data.new.files.testing.upload
   });
-  const riskFile = this.build({
+  const riskFile = build({
     title: "Risk Assessment",
     filename: data.new.files.risk.upload
   });
-  const relatedFile = this.build({
+  const relatedFile = build({
     title: "Related Attachment",
     filename: data.new.files.related.upload
   });
-  return [testFile, riskFile, relatedFile].filter(file => file.filename.length > 0)
+  const productFile = build({
+    title: "Product Attachment",
+    filename: data.new.files.product.upload
+  });
+  const evidenceFile = build({
+    title: "Evidence Attachment",
+    filename: data.new.files.evidence.upload
+  });
+  return [testFile, riskFile, productFile, evidenceFile,  relatedFile].filter(file => file.filename.length > 0)
 }
 
 module.exports = {

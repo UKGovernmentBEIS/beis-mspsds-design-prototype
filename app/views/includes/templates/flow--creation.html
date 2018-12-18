@@ -1,14 +1,15 @@
 {% extends "includes/templates/flow.html" %}
 
-{% block beforeContent %}
-    {% include "includes/components/shared/page-banner.html" %}
-    {% if backLink  %}
-        {{ govukBackLink({
-            text: "Back to Cases",
-            href: "/root/case-list"
-        }) }}
-    {% endif %}
+
+
+{% block navigation %}
+    {{ govukBackLink({
+        text: "Back to Cases",
+        href: "/root/case-list"
+    }) }}
 {% endblock %}
+
+
 
 {% block pageTitle %}
   {{ displayTitle }}

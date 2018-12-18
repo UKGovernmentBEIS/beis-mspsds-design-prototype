@@ -31,6 +31,17 @@ module.exports = {
             productImage: product.posterImage
         });
     },
+    buildAddBusiness: function (business, user) {
+        const activityTemplate = require("../data/activities/templates").addBusiness;
+        return activityTemplate({
+            author: user,
+            date: today.long(),
+            businessName:           business.name,
+            businessType:           business.type,
+            businessAddress:        business.address,
+            businessCompanyNumber:  business.companyNumber
+        });   
+    },
     buildAddAttachment: function (attachment, user) {
         const Attachments = require("./attachment")
         const addAttachmentActivityTemplate = require("../data/activities/templates").addAttachment;

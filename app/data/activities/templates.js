@@ -4,6 +4,8 @@ const attachments = require("../attachments")
 const attachmentUtils = require("../../utils/attachment")
 
 module.exports = {
+
+
   deleteAttachment: function ({ attachmentId }) {
     const attachment = attachments.attachments.find(element => element.id === attachmentId)
     return {
@@ -14,6 +16,8 @@ module.exports = {
       attachment
     }
   },
+
+
   addAttachment: function({
     title,
     description,
@@ -33,6 +37,8 @@ module.exports = {
       fileExtension
     }
   },
+
+
   addProduct: function({
     author,
     date = today.long(),
@@ -56,6 +62,30 @@ module.exports = {
       productImage
     }
   },
+
+
+  addBusiness: function({
+    author,
+    date = today.long(),
+    businessName,
+    businessType,
+    businessAddress,
+    businessCompanyNumber
+  }) {
+    return {
+      type: 'addBusiness',
+      title: businessType + ': ' + businessName,
+      action: "Business information added",
+      date,
+      author,
+      businessName,
+      businessType,
+      businessAddress,
+      businessCompanyNumber
+    }
+  },
+
+
   assigned: function (
     {
       assignee,
@@ -69,7 +99,10 @@ module.exports = {
       date: date
     }
   },
-    caseCreated: function ({
+
+
+  caseCreated: function (
+    {
       caseType,
       caseTitle,
       author,
@@ -102,6 +135,8 @@ module.exports = {
       attachments
     }
   },
+
+
   changedStatus: function ({
     status = "Closed",
     author,
@@ -115,6 +150,8 @@ module.exports = {
       text: description
     }
   },
+
+
   commentAdded: function ({commentText, author, date}) {
     return {
       title: "Comment: " + author,
@@ -124,6 +161,8 @@ module.exports = {
       text: commentText
     }
   },
+
+
   correctiveAction: function (
     {
       summary,
@@ -152,6 +191,8 @@ module.exports = {
       description
     }
   },
+
+
   email: function({
     summary,
     direction,
@@ -177,6 +218,8 @@ module.exports = {
       description
     }
   },
+
+
   meeting: function({
     summary,
     correspondents,
@@ -196,6 +239,8 @@ module.exports = {
       description
     }
   },
+
+
   phoneCall: function({
     summary,
     correspondentName,
@@ -216,6 +261,8 @@ module.exports = {
       description
     }
   },
+
+
   testFailed: function ({
     legislation = "General Product Safety Regulations 2005",
     date = today.long(),
@@ -229,6 +276,8 @@ module.exports = {
       action: "Test failure recorded"
     })
   },
+
+
   testRequested: function({
     legislation = "General Product Safety Regulations 2005",
     date = today.long(),
@@ -242,7 +291,11 @@ module.exports = {
       action: "Test requested",
     })
   }
+
+
 }
+
+
 
 
 const commonTestTemplate = function ({

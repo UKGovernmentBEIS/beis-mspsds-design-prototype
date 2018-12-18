@@ -1,0 +1,15 @@
+{% from "includes/components/business/business-panel.html" import businessPanel %}
+
+{% set businessData = {
+  business: {
+    role:             activity.businessType,
+    name:             activity.businessName,
+    companyNumber:    activity.businessCompanyNumber,
+    address:          activity.businessAddress
+  },
+  displayImage:   true,
+  controls:       false,
+  displayDetails: "summary"
+} %}
+
+{{ businessPanel(businessData) }}

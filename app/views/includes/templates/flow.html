@@ -2,30 +2,37 @@
 
 {% set currentPage   = data['currentPage'] %}
 
-{% set backLink      = false %}
-{% set backText      = '' %}
 
 
 {% if currentPage   ==  'case' %}
-    {% set titleType     = 'Case: '+data['caseid']  %}
+
+    {% if not titleType %}
+        {% set titleType     = 'Case: '+data['caseid']  %}
+    {% endif %}
 
 {% elif currentPage ==  'product'  %}
+
     {% set currentProduct   = data.products | withId(data.productid) %}
-    {% set titleType        = 'Product: ' + currentProduct.name  %}
+    {% if not titleType %}
+        {% set titleType = 'Product: ' + currentProduct.name  %}
+    {% endif %}
 
 {% elif currentPage ==  'business'  %}
-    {% set currentBusiness = data.businesses | withId(data['businessid']) %}
-    {% set titleType      = 'Business: '+ currentBusiness.name  %}
 
+    {% set currentBusiness = data.businesses | withId(data['businessid']) %}
+    {% if not titleType %}
+        {% set titleType      = 'Business: '+ currentBusiness.name  %}
+    {% endif %}
+    
 {% endif %}
 
 
 
-{% if not titleType %}
+{% if titleType == 'false' %}
     {% set titleType = '' %}
 {% endif %}
 
-{% if not displayTitle %}
+{% if (displayTitle == 'false') or (displayTitle == '') %}
     {% set displayTitle = 'New' %}
 {% endif %}
 
@@ -33,28 +40,51 @@
 
 
 
-
-
 {% if currentPage   ==  'case' %}
-    
-    {% set backLink      = '/root/case?caseid='+data['caseid']  %}
-    {% set backText      = 'Back to Case '+data['caseid']  %}
 
+    {% if not backLink %}
+        {% set backLink      = '/root/case?caseid='+data['caseid']  %}
+    {% endif %}
+    {% if not backText %}
+        {% set backText      = 'Back to Case '+data['caseid']  %}
+    {% endif %}
+    
 {% elif currentPage ==  'product'  %}
 
-    {% set backLink      = '/root/product?productid='+data['productid']  %}
-    {% set backText      = 'Back to Product' %}
-
+    {% if not backLink %}
+        {% set backLink      = '/root/product?productid='+data['productid']  %}
+    {% endif %}
+    {% if not backText %}
+        {% set backText      = 'Back to Product' %}
+    {% endif %}
+    
 {% elif currentPage ==  'business'  %}
 
-    {% set backLink      = '/root/business?businessid='+data['businessid']  %}
-    {% set backText      = 'Back to Business' %}
+    {% if not backLink %}
+        {% set backLink      = '/root/business?businessid='+data['businessid']  %}
+    {% endif %}
+    {% if not backText %}
+        {% set backText      = 'Back to Business' %}
+    {% endif %}
 
 {% elif currentPage ==  'home'  %}
 
-    {% set backLink      = '/root/home'  %}
-    {% set backText      = 'Back home' %}
+    {% if not backLink %}
+        {% set backLink      = '/root/home'  %}
+    {% endif %}
+    {% if not backText %}
+        {% set backText      = 'Back home' %}
+    {% endif %}
 
+{% endif %}
+
+
+{% if backLink == 'false' %}
+    {% set backLink = false %}
+{% endif %}
+
+{% if backText == 'false' %}
+    {% set backText = '' %}
 {% endif %}
 
 
@@ -62,15 +92,8 @@
 
 
 
-
-
-
-
-
-
-
 {% block pageTitle %}
-  {{ titleType }}: {{ displayTitle }}
+  {{ titleType }} {{ displayTitle }}
 {% endblock %}
 
 
@@ -81,12 +104,15 @@
 
     {% include "includes/components/shared/page-banner.html" %}
 
-    {% if backLink  %}
-        {{ govukBackLink({
-            text: backText,
-            href: backLink
-        }) }}
-    {% endif %}
+    {% block navigation %}
+
+        {% if backLink %}
+            {{ govukBackLink({
+                text: backText,
+                href: backLink
+            }) }}
+        {% endif %}
+    {% endblock %}
 
 {% endblock %}
 

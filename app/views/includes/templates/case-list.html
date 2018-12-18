@@ -1,5 +1,10 @@
 {% extends "mspsds-layout.html" %}
 
+{% from "select/macro.njk"                import govukSelect %}
+{% from "includes/header-search.html"     import headerSearch %}
+
+
+
 {% set currentTeam   = data['currentTeam'] %}
 
 {% if currentTeam.includes("Trading") %}
@@ -18,10 +23,10 @@
 {% set sortDir  = settings | caseSortDir %}
 {% set cases    = data.cases | filterCollection(filters) | sort(sortDir, false, sortAttr) %}
 
-{% from "select/macro.njk"                import govukSelect %}
+
 {% set bodyClasses = "mspsds-width-container case-list-3" %}
 
-{% from "includes/header-search.html"      import headerSearch %}
+
 
 
 
@@ -30,6 +35,7 @@
 {% block pageTitle %}
   Case-list Page
 {% endblock %}
+
 
 {% block beforeContent %}
 

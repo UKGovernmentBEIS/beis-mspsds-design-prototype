@@ -1,0 +1,199 @@
+{% if not currentNewBizVar %}
+  {% set currentNewBizVar  = 'new[report][business]' %}
+{% endif %}
+
+{% if not currentNewBizIDVar %}
+  {% set currentNewBizIDVar  = 'new-business-' %}
+{% endif %}
+
+
+  <div class="govuk-grid-column-one-half">
+    {% call govukFieldset({
+      legend: {
+        text:           "Business type ",
+        isPageHeading:  false,
+        classes:        "govuk-fieldset__legend--m  govuk-!-margin-bottom-1"
+      }
+    }) %}
+
+         {% set otherBusinessTypeHtml %}
+
+          {{ govukInput({
+            id:         currentNewBizIDVar  + 'other-type',
+            name:       currentNewBizVar    + '[otherType]'
+          }) }}
+
+        {% endset %}
+
+        {{ govukRadios({
+          idPrefix:   currentNewBizIDVar  + 'type',
+          name:       currentNewBizVar    + '[type]',
+          items: [
+            {
+              value: "Retailer",
+              text: "Retailer"
+            },
+            {
+              value: "Distributor",
+              text: "Distributor"
+            },
+            {
+              value: "Importer",
+              text: "Importer"
+            },
+            {
+              value: "Manufacturer",
+              text: "Manufacturer"
+            },
+            {
+              value: "Other",
+              text: "Other",
+              conditional: {
+                html: otherBusinessTypeHtml
+              }
+            }
+          ]
+        }) }}
+
+    {% endcall %}
+
+  </div>
+
+
+  <div class="mspsds-input govuk-grid-column-one-half">
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Business name",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+        }
+      }) %}
+
+            {{ govukInput({
+              hint: {
+                text: "The registered name, trading name or any other way of identifying"
+              },
+              id:         currentNewBizIDVar  + 'name',
+              name:       currentNewBizVar    + '[name]'
+            }) }}
+
+      {% endcall %}
+
+  </div>
+
+
+
+  <div class="mspsds-input govuk-grid-column-one-half govuk-!-margin-bottom-5">
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Company number",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+        }
+      }) %}
+
+            {{ govukInput({
+              hint: {
+                text: "If you have this information"
+              },
+              id:         currentNewBizIDVar  + 'number',
+              name:       currentNewBizVar    + '[number]'
+            }) }}
+
+      {% endcall %}
+
+  </div>
+
+  <div class="mspsds-input govuk-grid-column-one-half govuk-!-margin-bottom-5">
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Address",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+        }
+      }) %}
+
+          {{ govukInput({
+            label: {
+              html: 'Building and street <span class="govuk-visually-hidden">line 1 of 2</span>'
+            },
+            id:         currentNewBizIDVar  + 'address-1',
+            name:       currentNewBizVar    + '[address][1]'
+          }) }}
+
+          {{ govukInput({
+            label: {
+              html: '<span class="govuk-visually-hidden">Building and street line 2 of 2</span>'
+            },
+            id:         currentNewBizIDVar  + 'address-2',
+            name:       currentNewBizVar    + '[address][2]'
+          }) }}
+
+
+          {{ govukInput({
+              label: {
+                html: 'Town or city'
+              },
+              classes:    "govuk-!-margin-bottom-0",
+              id:         currentNewBizIDVar  + 'town',
+              name:       currentNewBizVar + '[town]'
+            }) }}
+
+
+          {{ govukInput({
+            label: {
+              html: 'County'
+            },
+            classes:    "govuk-!-margin-bottom-0",
+            id:         currentNewBizIDVar  + 'county',
+            name:       currentNewBizVar + '[county]'
+          }) }}
+
+
+          {{ govukInput({
+            label: {
+              html: 'Postcode'
+            },
+            classes:    "govuk-!-margin-bottom-0 govuk-input--width-10",
+            id:         currentNewBizIDVar  + 'postcode',
+            name:       currentNewBizVar + '[postcode]'
+          }) }}
+
+
+          {{ govukInput({
+            label: {
+              html: 'Country'
+            },
+            classes:    "govuk-!-margin-bottom-0",
+            id:         currentNewBizIDVar  + 'country',
+            name:       currentNewBizVar + '[country]'
+          }) }}
+
+      {% endcall %}
+
+  </div>
+
+
+
+  <div class="mspsds-input govuk-grid-column-one-half">
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Contact name",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+        }
+      }) %}
+
+            {{ govukInput({
+              id:         currentNewBizIDVar  + 'contact',
+              name:       currentNewBizVar + '[contact]'
+            }) }}
+
+      {% endcall %}
+
+  </div>
+

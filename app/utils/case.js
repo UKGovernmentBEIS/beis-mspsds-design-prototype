@@ -1,10 +1,11 @@
-const today = require('./date').today;
-const dateFactory = require('./date').date.shortFromInput;
-const Activities = require("./activity");
+const today         = require('./date').today;
+const dateFactory   = require('./date').date.shortFromInput;
+const Activities    = require("./activity");
 const ActivityTemplates = require("../data/activities/templates");
-const Products = require("./product");
-const Attachments = require("./attachment");
-const array = require("./arrayHelpers");
+const array         = require("./arrayHelpers");
+const Products      = require("./product")
+const Businesses    = require("./business")
+const Attachments   = require("./attachment");
 
 let lastCaseNumber = 18110802
 const giveNextId = () => {
@@ -80,7 +81,10 @@ const buildFromData = (data) => {
   addDefaults(newCase);
   newCase.dateCreated = today.short();
   newCase.dateUpdated = today.short();
-  newCase.report.date = today.short();
+  if (newCase.report) {
+    newCase.report.date = today.short();
+  }
+  
   newCase.id = today.id();
   switch (newCase.report.type) {
     case "Allegation":    newCase.type = "Case"; break;
@@ -119,12 +123,29 @@ const addProduct = (data, kase) => {
   kase.dateUpdated = today.short();
 }
 
+
+const addBusiness = (data, kase) => {
+  if(!data.new.report.business){ return }
+  const business = Businesses.buildFromData(data);
+  data.businesses.push(business);
+
+  kase.businesses.unshift({
+    id:   business.id,
+    role: business.type
+  });
+  const addBusinessActivity = Activities.buildAddBusiness(business, data.currentUser);
+  kase.activities.unshift(addBusinessActivity);
+  kase.dateUpdated = today.short();
+}
+
+
 const addCase = (data) => {
   const newCase = buildFromData(data);
   data.cases.push(newCase);
   addCreatedActivity(newCase);
   addAttachments(data, newCase);
   addProduct(data, newCase);
+  addBusiness(data, newCase);
   return newCase;
 }
 
