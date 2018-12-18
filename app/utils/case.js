@@ -257,21 +257,32 @@ findMatches = (kase, q, data) => {
   if(kase.report){
     results = results.concat(findMatchesInObject({ ...kase.report, label: "Report" }, firstTerm))
   }
+  if(kase.report && kase.report.reporter){
+    results = results.concat(findMatchesInObject({ ...kase.report.reporter, label: "Reporter" }, firstTerm))
+  }
   if(kase.products.length > 0){
     kase.products.forEach((productId) => {
       let product = array.findById(data.products, productId)
       results = results.concat(findMatchesInObject({ ...product, label: "Product" }, firstTerm))
     })
   }
+  if(kase.businesses.length > 0){
+    kase.businesses.forEach((businessReference) => {
+      let business = array.findById(data.businesses, businessReference.id)
+      results = results.concat(findMatchesInObject({ ...business, label: "Business" }, firstTerm))
+    })
+  }
+  console.log(results)
   return results;
 }
 
 findMatchesInObject = (object, query) =>{
   let results = []
   Object.keys(object).forEach(function (key) {
-    if (typeof object[key] !== "string") return;
+    if (typeof object[key] !== "string") return [];
     const value = object[key].toLowerCase()
     if (value.indexOf(query) !== -1) {
+      // TODO: Cut out long unhighlighted text
       const highlight = "<span class='highlight'>" + query + "</span>"
       const highlightedText = value.replace(new RegExp(query, 'g'), highlight)
       const highlightLabel = object.label.toString() + " " + key.toString()

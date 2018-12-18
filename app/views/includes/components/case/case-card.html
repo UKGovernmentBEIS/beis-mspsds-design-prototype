@@ -1,4 +1,5 @@
 {% from "includes/components/case/case-filter.html"         import caseFilter %}
+{% from "includes/components/case/case-with-matches.html"         import caseWithMatches %}
 
 
 {% macro caseCard(caseInfo, searchResult) %}
@@ -45,7 +46,7 @@
     {% if searchResult %}
         {% set display = caseInfo.matches %}
         <span class="mspsds-case-card__match">
-            {{ caseFilter(display, "")}}
+            {{ caseWithMatches(display, "")}}
         </span>
 
     {% else %}

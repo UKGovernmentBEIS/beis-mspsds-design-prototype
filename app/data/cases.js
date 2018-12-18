@@ -37,11 +37,7 @@ const Cases = require("../utils/case")
       contacts: [{id: 'c3', role: 'Reporter'}],
       attachments: [],
       related: [],
-      activities: [],
-      match: { // This is a hack to make some cases show up in test results
-        key:  'Case reference',
-        value: "01<span class='highlight'>32-142</span>1"
-      }
+      activities: []
     }
 */
 module.exports = {
@@ -92,10 +88,6 @@ module.exports = {
       attachments: ['at1', 'at2'],
       // the below properties have not been set for this case
       // related: [],
-      // match: { // This is a hack to make some cases show up in test results
-      //   key:  'Case reference',
-      //   value: "01<span class='highlight'>32-142</span>1"
-      // }
     }),
 
     Cases.buildDefaultWithDifferences(Cases.setDateArguments(0, {
@@ -146,10 +138,6 @@ module.exports = {
         phoneNumber: "07123 123123",
         emailAddress: "mina@castledracula.ro",
         otherDetails: "Other details captured during the report entry"
-      },
-      match: {
-        key: 'Case reference',
-        value: "01<span class='highlight'>32-142</span>1"
       },
       report: {
         type: 'Allegation',
@@ -217,10 +205,6 @@ module.exports = {
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Choking hazard', Cases.setDateArguments(2, {
       assignee: 'Nick Golding',
       products: ['p6'],
-      match: {
-        key: 'Assignee',
-        value: "<span class='highlight'>Nick</span> Golding – <span class='highlight'>nick</span>.golding@softwire.com"
-      },
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Suffocation hazard', Cases.setDateArguments(3, {
       assignee: 'Christopher Hunter',
@@ -425,19 +409,11 @@ module.exports = {
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-2, {
       products: ['p46'],
       team: 'Processing',
-      match: {
-        key: 'Product, model number',
-        value: "Makita Pen, 1/4 x 18 mm, Stainless Steel, F <span class='highlight'>32142</span>"
-      }
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-2, {
       status: 'Closed',
       products: ['p48'],
       assignee: 'Christopher Hunter',
-      match: {
-        key: 'Product, manufacturer reference',
-        value: "<span class='highlight'>32142</span>-USB-UCE6-90-BLA-D"
-      }
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-2, {
       products: ['p49'],
