@@ -195,7 +195,7 @@ router.post('/:mode/flows/add-activity/choose', function (req, res) {
 
 // Case list and search
 router.get('/:mode/case-search', function (req, res, next) {
-  res.locals.data.caseListSettings.q = req.query.q
+  res.locals.data.caseListSettings.q = req.query.q || res.locals.data.caseListSettings.q
   next();
 });
 
