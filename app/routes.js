@@ -143,21 +143,24 @@ router.post('/:mode/flows/location/update', function (req, res) {
 router.post('/:mode/flows/attachment/save', function (req, res) {
   const data = req.session.data;
   Attachments.addAttachment(data);
-  const redirectURL = Attachments.beginningUrl(data) + '&confirmation=Attachment%20added#attachments'
+  const targetURL = Attachments.beginningUrl(data) + '&confirmation=Attachment%20added#attachments';
+  const redirectURL = Attachments.shouldReturn404(data) ? '404' : targetURL;
   res.redirect(redirectURL);
 });
 
 router.post('/:mode/flows/attachment/delete', function (req, res) {
   const data = req.session.data;
   Attachments.deleteAttachment(data);
-  const redirectURL = beginningUrl(data) + '&confirmation=Attachment%20deleted#attachments';
+  const targetURL = Attachments.beginningUrl(data) + '&confirmation=Attachment%20deleted#attachments';
+  const redirectURL = Attachments.shouldReturn404(data) ? '404' : targetURL;
   res.redirect(redirectURL);
 });
 
 router.post('/:mode/flows/attachment/update', function (req, res) {
   const data = req.session.data;
   Attachments.editAttachment(data);
-  const redirectURL = beginningUrl(data) + '&confirmation=Attachment%20updated#attachments';
+  const targetURL = Attachments.beginningUrl(data) + '&confirmation=Attachment%20updated#attachments';
+  const redirectURL = Attachments.shouldReturn404(data) ? '404' : targetURL;
   res.redirect(redirectURL);
 });
 

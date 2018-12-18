@@ -66,9 +66,6 @@ const shouldReturn404 = (data) => {
 }
 
 const addAttachment = (data) => {
-  if (shouldReturn404(data)) {
-    return '404'
-  }
   let newAttachment = data.attachment;
   const obj = findObject(data);
   newAttachment.id = 'at' + (data.attachments.length + 1);
@@ -82,9 +79,6 @@ const addAttachment = (data) => {
 }
 
 const deleteAttachment = (data) => {
-  if (shouldReturn404(data)) {
-    return '404'
-  }
   const obj = findObject(data);
   if (obj) {
     obj.attachments = array.removeByValue(obj.attachments, data.attachmentid);
@@ -92,9 +86,6 @@ const deleteAttachment = (data) => {
 }
 
 const editAttachment = (data) => {
-  if (shouldReturn404(data)) {
-    return '404'
-  }
   let newAttachment = data.attachment;
   newAttachment.id = data.attachmentid;
   newAttachment.date = today.short();
@@ -140,4 +131,5 @@ module.exports = {
   editAttachment: editAttachment,
   beginningUrl: beginningUrl,
   buildTsCreateAttachments: buildTsCreateAttachments, 
+  shouldReturn404: shouldReturn404,
 }
