@@ -195,9 +195,7 @@ router.post('/:mode/flows/add-activity/choose', function (req, res) {
 
 // Case list and search
 router.get('/:mode/case-search', function (req, res, next) {
-  res.locals.data.caseListSettings.q = "nick 32142";
-  // TODO if we ever stop mocking out the search, then this could be a starting point. As, we're faking it
-  // res.locals.data.caseListSettings.q = req.query.q
+  res.locals.data.caseListSettings.q = req.query.q
   next();
 });
 

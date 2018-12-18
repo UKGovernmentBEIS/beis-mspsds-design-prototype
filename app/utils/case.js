@@ -1,11 +1,11 @@
-const today         = require('./date').today;
-const dateFactory   = require('./date').date.shortFromInput;
-const Activities    = require("./activity");
+const today = require('./date').today;
+const dateFactory = require('./date').date.shortFromInput;
+const Activities = require("./activity");
 const ActivityTemplates = require("../data/activities/templates");
-const array         = require("./arrayHelpers");
-const Products      = require("./product")
-const Businesses    = require("./business")
-const Attachments   = require("./attachment");
+const array = require("./arrayHelpers");
+const Products = require("./product")
+const Businesses = require("./business")
+const Attachments = require("./attachment");
 
 // Creation from initial files
 let lastCaseNumber = 18110802
@@ -13,24 +13,6 @@ giveNextId = () => {
   prettyId = lastCaseNumber.toString().substring(0, 4) + '-' + lastCaseNumber.toString().substring(4, 8)
   lastCaseNumber = lastCaseNumber - 1
   return prettyId;
-}
-
-addDefaults = (kase) => {
-  const requiredListProperties = [
-    'products',
-    'businesses',
-    'contacts',
-    'attachments',
-    'related',
-    'activities',
-  ]
-  requiredListProperties.forEach(property => {
-    if (kase[property] === undefined) { kase[property] = [] }
-  })
-  if (kase.title === undefined) { kase.title = 'Undefined' }
-  if (kase.status === undefined) { kase.status = 'Open' }
-  if (kase.visible === undefined) { kase.visible = true }
-  return kase
 }
 
 buildDefaultWithDifferences = (nonDefaultFields) => {
@@ -53,17 +35,26 @@ buildDefaultWithDifferences = (nonDefaultFields) => {
     reporter: reporter
   } : null;
 
-  return addDefaults({
+  return {
     id: nonDefaultFields.id || giveNextId(),
     type: nonDefaultFields.type || 'Case',
+    status: nonDefaultFields.status || 'Open',
+    title: nonDefaultFields.title || 'Undefined',
+    visible: nonDefaultFields.visible || true,
     assignee: nonDefaultFields.assignee || 'Tim Harwood',
     team: nonDefaultFields.team || '',
     overdue: nonDefaultFields.overdue,
     dateUpdated: nonDefaultFields.dateUpdated,
     dateCreated: nonDefaultFields.dateCreated,
     report: report,
+    products: nonDefaultFields.products || [],
+    businesses: nonDefaultFields.businesses || [],
+    contacts: nonDefaultFields.contacts || [],
+    activities: nonDefaultFields.activities || [],
+    attachments: nonDefaultFields.attachments || [],
+    related: nonDefaultFields.related || [],
     match: nonDefaultFields.match || null
-  })
+  }
 }
 
 setDateArguments = (daysApart, nonDefaultFields) => {
@@ -73,7 +64,9 @@ setDateArguments = (daysApart, nonDefaultFields) => {
 }
 
 setHazardArguments = (hazard, nonDefaultFields) => {
-  nonDefaultFields.report = { hazardType: hazard };
+  nonDefaultFields.report = {
+    hazardType: hazard
+  };
   return nonDefaultFields;
 }
 
@@ -86,18 +79,33 @@ buildFromData = (data) => {
   if (newCase.report) {
     newCase.report.date = today.short();
   }
-  
+
   newCase.id = today.id();
   switch (newCase.report.type) {
-    case "Allegation":    newCase.type = "Case"; break;
-    case "Report":        newCase.type = "Case"; break;
-    case "Question":      newCase.type = "Question"; break;
-    case "Investigation": newCase.type = "Investigation"; break;
-    default:              newCase.type = "Case";
+    case "Allegation":
+      newCase.type = "Case";
+      break;
+    case "Report":
+      newCase.type = "Case";
+      break;
+    case "Question":
+      newCase.type = "Question";
+      break;
+    case "Investigation":
+      newCase.type = "Investigation";
+      break;
+    default:
+      newCase.type = "Case";
   }
-  if (!newCase.assignee) { newCase.assignee = data.currentUser; }
-  if (!newCase.creator) { newCase.creator = data.currentUser; }
-  if (newCase.type == "Case") { newCase.title = newCase.report.productType + " - " + newCase.report.hazardType; }
+  if (!newCase.assignee) {
+    newCase.assignee = data.currentUser;
+  }
+  if (!newCase.creator) {
+    newCase.creator = data.currentUser;
+  }
+  if (newCase.type == "Case") {
+    newCase.title = newCase.report.productType + " - " + newCase.report.hazardType;
+  }
   return newCase;
 }
 
@@ -108,7 +116,9 @@ addCreatedActivity = (newCase) => {
 
 addAttachments = (data, kase) => {
   const files = Attachments.buildTsCreateAttachments(data);
-  if(files.length === 0){ return }
+  if (files.length === 0) {
+    return
+  }
   kase.attachments.unshift(...files.map(f => f.id));
   kase.activities[0].attachments.unshift(...files);
   data.attachments.push(...files);
@@ -116,7 +126,9 @@ addAttachments = (data, kase) => {
 }
 
 addProduct = (data, kase) => {
-  if(!data.new.report.product){ return }
+  if (!data.new.report.product) {
+    return
+  }
   const product = Products.buildFromData(data);
   data.products.push(product);
   kase.products.unshift(product.id);
@@ -127,12 +139,14 @@ addProduct = (data, kase) => {
 
 
 addBusiness = (data, kase) => {
-  if(!data.new.report.business){ return }
+  if (!data.new.report.business) {
+    return
+  }
   const business = Businesses.buildFromData(data);
   data.businesses.push(business);
 
   kase.businesses.unshift({
-    id:   business.id,
+    id: business.id,
     role: business.type
   });
   const addBusinessActivity = Activities.buildAddBusiness(business, data.currentUser);
@@ -140,6 +154,31 @@ addBusiness = (data, kase) => {
   kase.dateUpdated = today.short();
 }
 
+addDefaults = (kase) => {
+  const requiredListProperties = [
+    'products',
+    'businesses',
+    'contacts',
+    'attachments',
+    'related',
+    'activities',
+  ]
+  requiredListProperties.forEach(property => {
+    if (kase[property] === undefined) {
+      kase[property] = []
+    }
+  })
+  if (kase.title === undefined) {
+    kase.title = 'Undefined'
+  }
+  if (kase.status === undefined) {
+    kase.status = 'Open'
+  }
+  if (kase.visible === undefined) {
+    kase.visible = true
+  }
+  return kase
+}
 
 addCase = (data) => {
   const newCase = buildFromData(data);
@@ -209,8 +248,41 @@ addCorrectiveAction = (data) => {
   kase.updated = today.short();
 }
 
+// Search
+
+findMatches = (kase, q, data) => {
+  const firstTerm = q.split(" ")[0].toLowerCase()
+  let results = []
+  results = results.concat(findMatchesInObject({ ...kase, label: kase.type}, firstTerm))
+  if(kase.report){
+    results = results.concat(findMatchesInObject({ ...kase.report, label: "Report" }, firstTerm))
+  }
+  if(kase.products.length > 0){
+    kase.products.forEach((productId) => {
+      let product = array.findById(data.products, productId)
+      results = results.concat(findMatchesInObject({ ...product, label: "Product" }, firstTerm))
+    })
+  }
+  return results;
+}
+
+findMatchesInObject = (object, query) =>{
+  let results = []
+  Object.keys(object).forEach(function (key) {
+    if (typeof object[key] !== "string") return;
+    const value = object[key].toLowerCase()
+    if (value.indexOf(query) !== -1) {
+      const highlight = "<span class='highlight'>" + query + "</span>"
+      const highlightedText = value.replace(new RegExp(query, 'g'), highlight)
+      const highlightLabel = object.label.toString() + " " + key.toString()
+      results.push({label: highlightLabel, text: highlightedText})
+    }
+  })
+  return results;
+}
+
 module.exports = {
-  buildFromData: buildFromData, 
+  buildFromData: buildFromData,
   buildDefaultWithDifferences: buildDefaultWithDifferences,
   setDateArguments: setDateArguments,
   setHazardArguments: setHazardArguments,
@@ -223,4 +295,5 @@ module.exports = {
   changeVisibility: changeVisibility,
   addComment: addComment,
   addCorrectiveAction: addCorrectiveAction,
+  findMatches: findMatches,
 }

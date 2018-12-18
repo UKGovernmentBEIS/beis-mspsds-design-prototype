@@ -1,10 +1,16 @@
 {% from "table/macro.njk"         import govukTable %}
 
-{% macro caseFilter(key, value, classes) %}
+{% macro caseFilter(matches, classes) %}
 
   <span class="mspsds-case-filter {{classes}}">
-    <span class="govuk-caption-m govuk-!-font-size-16 mspsds-case-filter__key">{{key}}</span>
-    <span class="mspsds-case-filter__value">{{value | safe }}</span>
+    {% for match in matches %}
+    {% if loop.first %}
+      <span class="govuk-caption-m govuk-!-font-size-16 mspsds-case-filter__key">{{match.label}}</span>
+    {% else %}
+      <span class="govuk-caption-m govuk-!-font-size-16 mspsds-case-filter__key govuk-!-margin-top-1">{{match.label}}</span>
+    {% endif %}
+      <span class="mspsds-case-filter__value">{{match.text | safe }}</span>
+    {% endfor %}
   </span>
 
 {% endmacro %}

@@ -43,9 +43,9 @@
 
 
     {% if searchResult %}
-
+        {% set display = caseInfo.matches %}
         <span class="mspsds-case-card__match">
-            {{ caseFilter(caseInfo.match.key,caseInfo.match.value, "mspsds-case-card__match") }}
+            {{ caseFilter(display, "")}}
         </span>
 
     {% else %}
