@@ -1,8 +1,9 @@
 const today = require('./date').today
+const activityTemplates = require("../data/activities/templates")
 
 module.exports = {
     buildCreateCase: function (kase) {
-        const caseCreatedActivity = require("../data/activities/templates").caseCreated;
+        const caseCreatedActivity = activityTemplates.caseCreated;
         return caseCreatedActivity({
             caseType: kase.report.type,
             caseTitle: kase.title,
@@ -19,7 +20,7 @@ module.exports = {
         });
     },
     buildAddProduct: function (product, user) {
-        const activityTemplate = require("../data/activities/templates").addProduct;
+        const activityTemplate = activityTemplates.addProduct;
         return activityTemplate({
             author: user,
             date: today.long(),
@@ -32,7 +33,7 @@ module.exports = {
         });
     },
     buildAddBusiness: function (business, user) {
-        const activityTemplate = require("../data/activities/templates").addBusiness;
+        const activityTemplate = activityTemplates.addBusiness;
         return activityTemplate({
             author: user,
             date: today.long(),
@@ -44,7 +45,7 @@ module.exports = {
     },
     buildAddAttachment: function (attachment, user) {
         const Attachments = require("./attachment")
-        const addAttachmentActivityTemplate = require("../data/activities/templates").addAttachment;
+        const addAttachmentActivityTemplate = activityTemplates.addAttachment;
         return addAttachmentActivityTemplate({
           author: user,
           title: attachment.title,
@@ -54,7 +55,7 @@ module.exports = {
         });
     },
     buildChangeStatus : function(reqBody, user) {
-        const changeStatusActivityTemplate = require("../data/activities/templates").changedStatus;
+        const changeStatusActivityTemplate = activityTemplates.changedStatus;
         return changeStatusActivityTemplate({
           status: reqBody.status,
           description: reqBody['status-description'],
