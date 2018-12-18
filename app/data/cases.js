@@ -100,12 +100,14 @@ module.exports = {
     Cases.buildDefaultWithDifferences(Cases.setDateArguments(0, {
       id: "1810-0001",
       title: "Untitled case",
-      reporter: {
-        name: "Mina Harker",
-        type: "Consumer",
-        phoneNumber: "07123 123123",
-        emailAddress: "mina@castledracula.ro",
-        otherDetails: "Other details captured during the report entry"
+      report: {
+        reporter: {
+          name: "Mina Harker",
+          type: "Consumer",
+          phoneNumber: "07123 123123",
+          emailAddress: "mina@castledracula.ro",
+          otherDetails: "Other details captured during the report entry"
+        },
       },
       numAttachments: 0,
       products: [],
@@ -115,12 +117,14 @@ module.exports = {
       id: "1810-0002",
       type: "Question",
       title: "Charge Worx, Travel plug adaptor –Electric shock, fire hazard",
-      reporter: {
-        name: "Mina Harker",
-        type: "Consumer",
-        phoneNumber: "07123 123123",
-        emailAddress: "mina@castledracula.ro",
-        otherDetails: "Other details captured during the report entry"
+      report: {
+        reporter: {
+          name: "Mina Harker",
+          type: "Consumer",
+          phoneNumber: "07123 123123",
+          emailAddress: "mina@castledracula.ro",
+          otherDetails: "Other details captured during the report entry"
+        },
       },
       status: "Open",
       assignee: "Nick Golding",
@@ -132,13 +136,6 @@ module.exports = {
     Cases.buildDefaultWithDifferences(Cases.setDateArguments(4, {
       id: '0132-1421',
       title: 'ChargeWorx adaptor, Electric shock, fire hazard',
-      reporter: {
-        type: "Consumer",
-        name: "Mina Harker",
-        phoneNumber: "07123 123123",
-        emailAddress: "mina@castledracula.ro",
-        otherDetails: "Other details captured during the report entry"
-      },
       report: {
         type: 'Allegation',
         date: '18/10/2018',
