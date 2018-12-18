@@ -4,7 +4,9 @@ module.exports = {
             files: {
                 risk: {},
                 testing: {},
-                related: {}
+                related: {},
+                product: {},
+                evidence: {},
             }
         }
     }
