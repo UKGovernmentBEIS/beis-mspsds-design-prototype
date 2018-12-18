@@ -1,6 +1,16 @@
 const today = require('./date').today
 const activityTemplates = require("../data/activities/templates")
 
+buildAddAttachment = function (attachment, user) {
+    return activityTemplates.addAttachment({
+      author: user,
+      title: attachment.title,
+      description: attachment.description,
+      isImage: attachment.isImage,
+      fileExtension: attachment.fileExtension
+    });
+}
+
 module.exports = {
     buildCreateCase: function (kase) {
         const caseCreatedActivity = activityTemplates.caseCreated;
@@ -43,17 +53,7 @@ module.exports = {
             businessCompanyNumber:  business.companyNumber
         });   
     },
-    buildAddAttachment: function (attachment, user) {
-        const Attachments = require("./attachment")
-        const addAttachmentActivityTemplate = activityTemplates.addAttachment;
-        return addAttachmentActivityTemplate({
-          author: user,
-          title: attachment.title,
-          description: attachment.description,
-          isImage: Attachments.isImage(attachment.upload),
-          fileExtension: Attachments.fileExtension(attachment.upload)
-        });
-    },
+    buildAddAttachment: buildAddAttachment,
     buildChangeStatus : function(reqBody, user) {
         const changeStatusActivityTemplate = activityTemplates.changedStatus;
         return changeStatusActivityTemplate({

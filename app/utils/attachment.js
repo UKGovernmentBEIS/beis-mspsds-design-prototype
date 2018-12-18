@@ -1,17 +1,7 @@
 const today = require("./date").today;
 const array = require("./arrayHelpers");
 const Activities = require("./activity");
-
-isImage = (filename) => {
-  return !!filename.match(/[\/.](gif|jpg|jpeg|tiff|png)$/i);
-}
-
-
-fileExtension = (filename) => {
-  const fullStopIdx = filename.lastIndexOf(".")
-  return filename.substring(fullStopIdx + 1)
-}
-
+const attachments = require("../data/attachments");
 
 build = ({
   title,
@@ -20,7 +10,7 @@ build = ({
   description
 }) => {
   const id    = filename + Math.random()
-  const type  = isImage(filename) ? 'image' : 'document'
+  const type  = attachments.isImage(filename) ? 'image' : 'document'
   const url   = type === 'image' ? '/public/images/placeholder.png' : '/public/images/document-thumbnail.png'
   return {
     id,
@@ -123,8 +113,6 @@ buildTsCreateAttachments = (data) => {
 }
 
 module.exports = {
-  isImage: isImage,
-  fileExtension: fileExtension,
   build: build,
   addAttachment: addAttachment,
   deleteAttachment: deleteAttachment,
