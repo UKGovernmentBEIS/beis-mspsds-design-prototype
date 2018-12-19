@@ -38,7 +38,7 @@
 </div>
 
 
-<div class="mspsds-input govuk-grid-column-two-thirds">
+<div class="mspsds-input govuk-grid-column-one-half">
 
     {% call govukFieldset({
       legend: {
@@ -48,14 +48,15 @@
       }
     }) %}
 
-        {{ govukTextarea({
-          name: "new[report][product][name]",
-          id:   "report-product-name",
-          classes:  "govuk-!-margin-bottom-5",
-          hint: {
-            html: "Brand, model name, model number, etc.<br/> For example, ‘Bosch Series 2 SMS25EI00G’"
-          }
-        }) }}
+          {{ govukInput({
+            hint: {
+              html: "Brand, model name, model number, etc.<br/> For example, ‘Bosch Series 2 SMS25EI00G’"
+            },
+            classes:  "govuk-!-margin-bottom-5",
+            id: "report-product-name",
+            name: "new[report][product][name]"
+          }) }}
+
 
     {% endcall %}
 

@@ -1,5 +1,8 @@
 /* jshint esversion: 6 */
-const date = require("./utils/date").date;
+
+const date    = require("./utils/date").date;
+const today   = require("./utils/date").today;
+
 
 module.exports = function (env) {
   /**
@@ -8,7 +11,7 @@ module.exports = function (env) {
    * gov.uk core filters by creating filter methods of the same name.
    * @type {Object}
    */
-  var filters = {}
+  var filters = {};
 
   /* ------------------------------------------------------------------
     add your methods to the filters obj below this comment block:
@@ -212,8 +215,14 @@ module.exports = function (env) {
   ------------------------------------------------------------------ */
 
   filters.buildDateString = function (year, month, day) {
-    return date.shortFromInput(year, month, day)
-  }
+    return date.shortFromInput(year, month, day);
+  };
+
+  filters.getID = function (thing, formatString = "YYMM-HHmm") {
+    return thing + today.id(formatString);
+  };
+
+
 
   /* ------------------------------------------------------------------
     keep the following line to return your filters to the app

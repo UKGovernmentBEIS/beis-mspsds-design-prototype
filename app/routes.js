@@ -45,7 +45,7 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
 
   newCase = Cases.addCase(data);
 
-  //Reset.resetNew(req);
+  Reset.resetNew(req);
   res.redirect('/root/case--created?caseid=' + newCase.id);
 });
 
@@ -263,6 +263,9 @@ router.post('/test-setup', function (req, res, next) {
   if (newUser && !data.users.includes(newUser)) {
     data.users.push(newUser);
   }
+
+  Reset.resetNew(req);
+  
   next();
 });
 

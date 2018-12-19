@@ -1,21 +1,44 @@
 {% extends "includes/templates/flow--creation-ts.html" %}
 
-{% set backLink      = './05' %}
+{% set backLink      = './07' %}
 {% set backText      = 'Back'  %}
 
 {% if data['new']['report']['type'] == 'Report' %}
   {% set titleType           = 'Reporting an unsafe product' %}
-  {% set displayTitle        = 'Find this in your system' %}
-  {% set formAction          = 'save' %}
+  {% set displayTitle        = 'Files and attachments' %}
+  {% set formAction         = './08' %}
 {% endif %}
 
 
 
 {% block flow %}
+
 <form action="{{formAction}}" method="post" class="form">
-  
+
+	<div class="govuk-grid-row govuk-!-margin-bottom-3">
+   		<div class="mspsds-input govuk-grid-column-two-thirds">
+   			<p>Upload any files you have that relate your report</p>
+   		</div>
+  	</div>
+
   <div class="govuk-grid-row govuk-!-margin-bottom-3">
-    {% include "includes/components/shared/create/ts-reference-info.html" %}
+    {% include "includes/components/shared/create/ts-testing-info.html" %}
+  </div>
+
+  <div class="govuk-grid-row govuk-!-margin-bottom-3">
+    {% include "includes/components/shared/create/ts-risk-info.html" %}
+  </div>
+
+  <div class="govuk-grid-row govuk-!-margin-bottom-3">
+    {% include "includes/components/shared/create/ts-product-files.html" %}
+  </div>
+
+  <div class="govuk-grid-row govuk-!-margin-bottom-3">
+    {% include "includes/components/shared/create/ts-evidence-files.html" %}
+  </div>
+
+   <div class="govuk-grid-row govuk-!-margin-bottom-3">
+    {% include "includes/components/shared/create/ts-files-info.html" %}
   </div>
 
 
@@ -23,12 +46,11 @@
     <div class="govuk-grid-column-two-thirds">
       {% from "button/macro.njk" import govukButton %}
       {{ govukButton({
-        text: "Save"
+        text: "Continue"
       }) }}
     </div>
   </div>
 </form>
 
-
-
 {% endblock %}
+

@@ -6,58 +6,23 @@
   {% set currentNewBizIDVar  = 'new-business-' %}
 {% endif %}
 
+{% set businessID = 'b-' | getID("YYMM-HHmm-sss") %}
 
-  <div class="govuk-grid-column-one-half">
-    {% call govukFieldset({
-      legend: {
-        text:           "Business type ",
-        isPageHeading:  false,
-        classes:        "govuk-fieldset__legend--m  govuk-!-margin-bottom-1"
-      }
-    }) %}
 
-         {% set otherBusinessTypeHtml %}
 
-          {{ govukInput({
-            id:         currentNewBizIDVar  + 'other-type',
-            name:       currentNewBizVar    + '[otherType]'
-          }) }}
+{{ govukInput({
+  id:     currentNewBizIDVar  + 'type',
+  name:   currentNewBizVar    + '[type]',
+  value:  businessType,
+  type:   "hidden"
+}) }}
 
-        {% endset %}
-
-        {{ govukRadios({
-          idPrefix:   currentNewBizIDVar  + 'type',
-          name:       currentNewBizVar    + '[type]',
-          items: [
-            {
-              value: "Retailer",
-              text: "Retailer"
-            },
-            {
-              value: "Distributor",
-              text: "Distributor"
-            },
-            {
-              value: "Importer",
-              text: "Importer"
-            },
-            {
-              value: "Manufacturer",
-              text: "Manufacturer"
-            },
-            {
-              value: "Other",
-              text: "Other",
-              conditional: {
-                html: otherBusinessTypeHtml
-              }
-            }
-          ]
-        }) }}
-
-    {% endcall %}
-
-  </div>
+{{ govukInput({
+  id:     currentNewBizIDVar  + 'id',
+  name:   currentNewBizVar    + '[id]',
+  value:  businessID,
+  type:   "hidden"
+}) }}
 
 
   <div class="mspsds-input govuk-grid-column-one-half">

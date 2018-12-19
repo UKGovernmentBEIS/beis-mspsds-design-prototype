@@ -5,13 +5,8 @@
 
 {% if data['new']['report']['type'] == 'Report' %}
   {% set titleType           = 'Reporting an unsafe product' %}
-  {% set displayTitle        = 'Do you know any businesses involved?' %}
+  {% set displayTitle        = 'Supply chain information' %}
   {% set formAction         = './05' %}
-{% endif %}
-
-
-{% if data['addMultipleBiz'] == 'Yes' %}
-  {% set currentNewBizVar  = 'new[report][business][' +  data[new][report][business].length  + ']' %}
 {% endif %}
 
 
@@ -19,7 +14,7 @@
 <form action="{{formAction}}" method="post" class="form">
 
   <div class="govuk-grid-row govuk-!-margin-bottom-3">
-    {% include "includes/components/shared/create/ts-business.html" %}
+    {% include "includes/components/shared/create/ts-business-type.html" %}
   </div>
 
 
