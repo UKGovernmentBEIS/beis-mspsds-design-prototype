@@ -3,7 +3,7 @@
 
 const date    = require("./utils/date").date;
 const today   = require("./utils/date").today;
-const Cases   = require("./utils/case");
+const CaseSearch   = require("./utils/case-search");
 
 
 module.exports = function (env) {
@@ -109,7 +109,7 @@ module.exports = function (env) {
 
     if (caseListSettings.q) {
       filters.push(function(kase) {
-        results = Cases.findMatches(kase, caseListSettings.q, data);
+        results = CaseSearch.findMatches(kase, caseListSettings.q, data);
         kase.matches = results;
         return results.length > 0
       });
