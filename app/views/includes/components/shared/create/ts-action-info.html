@@ -1,42 +1,18 @@
 
 <div class="govuk-grid-column-two-thirds">
-  {% call govukFieldset({
-    legend: {
-      text:           "What have you done?",
-      isPageHeading:  false,
-      classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
-    }
-  }) %}
-
-    {{ govukTextarea({
-      name: "new[report][actions][ts][summary]",
-      id:   "report-actions-ts-summary",
-      hint : {
-        text: "Including investigation activity, visits, corrective actions etc"
+  {{ govukRadios({
+    idPrefix:   "new-report-action",
+    name:       "new[report][action][",
+    items: [
+      {
+        value: "Yes",
+        text: "Yes"
+      },
+      {
+        value: "No",
+        text: "No"
       }
-    }) }}
-      
-  {% endcall %}
-
-</div>
-
-<div class="govuk-grid-column-two-thirds">
-  {% call govukFieldset({
-    legend: {
-      text:           "What have the business or others done?",
-      isPageHeading:  false,
-      classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
-    }
-  }) %}
-
-    {{ govukTextarea({
-      name: "new[report][actions][other][summary]",
-      id:   "report-actions-other-summary",
-      hint : {
-        text: "Please give detail about any actions taken by any businesses or other parties "
-      }
-    }) }}
-      
-  {% endcall %}
+    ]
+  }) }}
 
 </div>

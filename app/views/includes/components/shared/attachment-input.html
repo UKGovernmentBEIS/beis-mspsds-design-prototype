@@ -4,18 +4,36 @@
 
 {% macro attachmentInput(options) %}
 
+    {% if options.class %}
+      {% set class = options.class %}
+    {% else %}
+      {% set class = 'govuk-fieldset__legend govuk-fieldset__legend--l' %}
+    {% endif %}
+
+    {% set idPrefix = "attachment" %}
+    {% if options.idPrefix %}
+      {% set idPrefix = options.idPrefix %}
+    {% endif %}
+
+    {% set namePrefix = idPrefix %}
+    {% if options.namePrefix %}
+      {% set namePrefix = options.namePrefix %}
+    {% endif %}
+
+
+
 {# label, idPrefix, includeDescription #}
 
     {% call govukFieldset({
       legend: {
         text:       options.label,
-        classes:    "govuk-fieldset__legend--l"
+        classes:    class
       }
     }) %}
 
         {{ govukFileUpload({
-          id: options.idPrefix+"-upload",
-          name: options.idPrefix+"-upload"
+          id:     idPrefix    + "-upload",
+          name:   namePrefix  + "[upload]"
         }) }}
 
         {% if options.includeDescription == 'true' %}
@@ -23,8 +41,8 @@
               label: {
                 text: "Attachment description"
               },
-              name: options.idPrefix+"-upload-description",
-              id:   options.idPrefix+"-upload-description"
+              name: namePrefix  + "[description]",
+              id:   idPrefix    + "-description"
             }) }}
         {% endif %}
 

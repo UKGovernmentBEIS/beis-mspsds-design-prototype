@@ -1,0 +1,214 @@
+{% if not currentNewActionVar %}
+  {% set currentNewActionVar  = 'corrective-action-' %}
+{% endif %}
+
+{% if not currentNewActionIDVar %}
+  {% set currentNewActionIDVar   = 'corrective-action-' %}
+{% endif %}
+
+
+{% if not currentNewActionIDVar %}
+  {% set currentNewActionIDVar   = 'corrective-action-' %}
+{% endif %}
+
+
+
+
+<div class="mspsds-input govuk-grid-column-one-half  govuk-!-margin-bottom-5">
+
+      {% call govukFieldset({
+        legend: {
+          text: "Summary",
+          isPageHeading: false,
+          classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+        }
+      }) %}
+        {{ govukInput({
+          id:         currentNewActionIDVar  + 'summary',
+          name:       currentNewActionVar    + '[summary]'
+        }) }}
+      {% endcall %}
+
+</div>
+
+
+
+
+
+<div class="mspsds-input govuk-grid-column-one-half  govuk-!-margin-bottom-5">
+
+      {% from "date-input/macro.njk"    import govukDateInput %}
+
+      {{ govukDateInput({
+          id:          currentNewActionIDVar  + 'date',
+          namePrefix:  currentNewActionVar    + '[date]',
+          fieldset: {
+            legend: {
+              text: "When was this action decided?",
+              isPageHeading: false,
+              classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+            }
+          },
+          hint: {
+            text: "For example, 31 3 2018"
+          }
+      }) }}
+
+</div>
+
+
+
+
+{% if currentActionProducts.length > 1 %}
+
+        <div class="mspsds-input govuk-grid-column-one-half govuk-!-margin-bottom-5">
+
+              {% from "includes/components/shared/autocomplete-input.html" import autocompleteInput %}
+
+              {{ autocompleteInput({
+                idPrefix:   currentNewActionIDVar  + 'product',
+                name:       currentNewActionVar    + '[product]',
+                class:      "govuk-fieldset__legend--m govuk-!-margin-bottom-1",
+                legend:     "Which product is subject to action?", 
+                hint:       currentActionProductsHint, 
+                values:     currentActionProducts 
+              }) }}
+        </div>
+
+{% elif currentActionProducts.length == 1 %}
+
+        {{ govukInput({
+          id:         currentNewActionIDVar  + 'product',
+          name:       currentNewActionVar    + '[product]',
+          value:      currentActionProducts[0],
+          type:       "hidden"
+        }) }}
+
+{% endif %}
+
+
+
+
+{% if data['legislation'].length > 1 %}
+
+        <div class="mspsds-input govuk-grid-column-one-half govuk-!-margin-bottom-5">
+
+              {% from "includes/components/shared/autocomplete-input.html" import autocompleteInput %}
+
+              {{ autocompleteInput({
+                idPrefix:   currentNewActionIDVar  + 'legislation',
+                name:       currentNewActionVar    + '[legislation]',
+                class:      "govuk-fieldset__legend--m govuk-!-margin-bottom-1",
+                legend:     "Under which legislation?", 
+                hint:       "Select the relevant legislation from the list, or enter a different one.", 
+                values:     data['legislation'] 
+              }) }}
+
+        </div>
+
+{% endif %}
+
+
+
+
+
+
+{% if currentActionBusinesses.length > 1 %}
+
+        <div class="mspsds-input govuk-grid-column-one-half govuk-!-margin-bottom-5">
+
+              {% from "includes/components/shared/autocomplete-input.html" import autocompleteInput %}
+
+              {{ autocompleteInput({
+                idPrefix:   currentNewActionIDVar  + 'business',
+                name:       currentNewActionVar    + '[business]',
+                class:      "govuk-fieldset__legend--m govuk-!-margin-bottom-1",
+                legend:     "Which business is responsible?", 
+                hint:       currentActionBusinessesHint, 
+                values:     currentActionBusinesses 
+              }) }}
+
+        </div>
+
+{% elif currentActionBusinesses.length == 1 %}
+
+        {{ govukInput({
+          idPrefix:   currentNewActionIDVar  + 'business',
+          name:       currentNewActionVar    + '[business]',
+          value:      currentActionBusinesses[0],
+          type:       "hidden"
+        }) }}
+
+{% endif %}
+
+
+
+
+
+
+<div class="mspsds-input govuk-grid-column-two-thirds  govuk-!-margin-bottom-5">
+
+      {% call govukFieldset({
+        legend: {
+          text: "Further details",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+        }
+      }) %}
+        {{ govukTextarea({
+            id:         currentNewActionIDVar  + 'details',
+            name:       currentNewActionVar    + '[details]'
+        }) }}
+      {% endcall %}
+
+</div>
+
+
+
+
+
+
+<div class="mspsds-input govuk-grid-column-two-thirds ">
+
+      {% set attachmentHtml %}
+
+          {% from "includes/components/shared/attachment-input.html" import attachmentInput %}
+          {{ attachmentInput({
+            idPrefix:               currentNewActionIDVar  + 'attachment',
+            namePrefix:             currentNewActionVar    + '[attachment]',
+            includeDescription:     "true"
+          }) }}
+
+      {% endset %}
+
+
+      {% call govukFieldset({
+        legend: {
+          text: "Are there any files related to the action?",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+        }
+      }) %}
+        {{ govukRadios({
+          idPrefix:         currentNewActionIDVar  + 'has-attachment',
+          name:             currentNewActionVar    + '[hasAttachment]',
+          items: [
+            {
+              value: "Yes",
+              text: "Yes",
+              conditional: {
+                html: attachmentHtml
+              }
+            },
+            {
+              value: "No",
+              text: "No"
+            }
+          ]
+      }) }}
+      {% endcall %}
+      
+
+</div>
+
+

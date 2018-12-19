@@ -202,6 +202,7 @@ addCase = (data) => {
   addAttachments(data, newCase);
   addProduct(data, newCase);
   addBusinesses(data, newCase);
+  addActions(data, newCase);
   return newCase;
 };
 
@@ -246,6 +247,46 @@ addComment = (data) => {
   kase.dateUpdated = today.short();
   kase.activities.unshift(newActivity);
 };
+
+const addActions = (data, kase) => {
+  if(!data.new.report.actions){ return; }
+
+  const actions = Object.values (data.new.report.actions);
+
+  for (const act of actions) {
+    addAction(data, act, kase);
+  }
+
+};
+
+
+
+addAction = (data, act, kase) => {
+
+  let action = {
+      summary:        act.summary,
+      productName:    act.product,
+      legislation:    act.legislation,
+      businessName:   act.business,
+      decisionDate:   dateFactory( act.date[2], act.date[1], act.date[0] ),
+      description:    act.details,
+      attachment:     {}
+  };
+
+  if (act.hasAttachment && act.attachment.upload  ) {
+    action.attachment.upload = act.attachment.upload;
+  }
+
+  if (act.hasAttachment && act.attachment.description  ) {
+    action.attachment.description = act.attachment.description;
+  }
+
+  const newActivity = ActivityTemplates.correctiveAction(action);
+
+  kase.activities.unshift(newActivity);
+  kase.updated = today.short();
+};
+
 
 addCorrectiveAction = (data) => {
   const kase = array.findById(data.cases, data.caseid);

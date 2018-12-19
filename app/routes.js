@@ -32,6 +32,10 @@ router.get('/:mode/:entity(case|business|product|case-list)/', function (req, re
 
 
 // FLOWS ----------------------------------------------------------------------
+router.post('/:mode/flows/ts-create/01', function (req, res, next) {
+  Reset.resetNew(req);
+  next();
+});
 
 router.post('/:mode/flows/ts-create/save', function (req, res) {
   const data = req.session.data;

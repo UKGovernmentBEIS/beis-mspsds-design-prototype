@@ -1,3 +1,6 @@
+/* jshint esversion: 6 */
+
+
 const today = require("./date").today;
 const array = require("./arrayHelpers");
 const Activities = require("./activity");
