@@ -45,31 +45,44 @@ findObject = (data) => {
 beginningUrl = (data) => {
   switch (data.currentPage) {
     case 'business':
-      return '/root/business?businessid=' + data.businessid
+      return '/root/business?businessid=' + data.businessid;
     case 'case':
-      return '/root/case--confirmation?caseid=' + data.caseid
+      return '/root/case--confirmation?caseid=' + data.caseid;
     case 'product':
-      return '/root/product?productid=' + data.productid
+      return '/root/product?productid=' + data.productid;
     default:
   }
-}
+};
 
 shouldReturn404 = (data) => {
-  return !(data.currentPage === 'case' || data.currentPage === 'business' || data.currentPage === 'product')
-}
+  return !(data.currentPage === 'case' || data.currentPage === 'business' || data.currentPage === 'product');
+};
 
 addAttachment = (data) => {
+
   let newAttachment = data.attachment;
   const obj = findObject(data);
+  
+  addAttachmentToObj(data, newAttachment, obj);
+
+};
+
+addAttachmentToObj = (data, att, obj) => {
+
+  console.log('addAttachmentToObj', att);
+
+  let newAttachment = att;
+
   newAttachment.id = 'at' + (data.attachments.length + 1);
-  obj.attachments.push(newAttachment.id);
+  obj.attachments.unshift(newAttachment.id);
   data.attachments.push(newAttachment);
 
   if (data.currentPage === 'case') {
     const newActivity = Activities.buildAddAttachment(newAttachment, data.currentUser);
     obj.activities.unshift(newActivity);
   }
-}
+};
+
 
 deleteAttachment = (data) => {
   const obj = findObject(data);
@@ -118,6 +131,7 @@ buildTsCreateAttachments = (data) => {
 module.exports = {
   build: build,
   addAttachment: addAttachment,
+  addAttachmentToObj: addAttachmentToObj,
   deleteAttachment: deleteAttachment,
   editAttachment: editAttachment,
   beginningUrl: beginningUrl,

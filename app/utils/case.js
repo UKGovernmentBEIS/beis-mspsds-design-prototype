@@ -209,13 +209,27 @@ addAction = (data, act, kase) => {
       attachment:     {}
   };
 
-  if (act.hasAttachment && act.attachment.upload  ) {
-    action.attachment.upload = act.attachment.upload;
+  if (act.hasAttachment && act.attachment.upload) {
+
+      let attachment = {
+        title:      'Corrective action evidence',
+        thumbnail:  '/public/images/document-thumbnail.png',
+        url:        '/public/images/document-thumbnail.png',
+        type:       'document'
+      };
+
+      attachment.upload = act.attachment.upload;
+      action.attachment.upload = act.attachment.upload;
+
+      if (act.attachment.description  ) {
+        action.attachment.description = act.attachment.description;
+        attachment.description = act.attachment.description;
+      }
+
+      Attachments.addAttachmentToObj(data, attachment, kase);
+
   }
 
-  if (act.hasAttachment && act.attachment.description  ) {
-    action.attachment.description = act.attachment.description;
-  }
 
   const newActivity = ActivityTemplates.correctiveAction(action);
 
@@ -231,7 +245,7 @@ addCorrectiveAction = (data) => {
     productName: data['TODO-product-input-name'],
     legislation: data['input-autocomplete'],
     businessName: data['TODO-business-input-name'],
-    decisionDate: date.shortFromInput(data["corrective-action-date-year"], data['corrective-action-date-month'], data['corrective-action-date-day']),
+    decisionDate: dateFactory(data["corrective-action-date-year"], data['corrective-action-date-month'], data['corrective-action-date-day']),
     attachment: data['corrective-action-file-upload-1'],
     description: data['corrective-action-details']
   });

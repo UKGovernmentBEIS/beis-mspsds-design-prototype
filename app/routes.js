@@ -67,6 +67,7 @@ router.post('/:mode/flows/assign/save', function (req, res) {
   res.redirect('/root/case--confirmation?confirmation=Case%20assigned');
 });
 
+
 // Add product flow
 router.post('/:mode/flows/product/add', function (req, res) {
   const data = req.session.data;
@@ -74,6 +75,8 @@ router.post('/:mode/flows/product/add', function (req, res) {
   Cases.addProduct(data, kase)
   res.redirect('/root/case--confirmation?confirmation=Product%20added#products');
 });
+
+
 
 // Location flow
 router.post('/:mode/flows/location/save', function (req, res) {
@@ -96,6 +99,7 @@ router.post('/:mode/flows/location/update', function (req, res) {
   const targetURL = '/root/business?businessid=' + data.businessid + '#locations'
   res.redirect(data.currentPage === 'business' ? targetURL : '404');
 });
+
 
 // Attachment flow
 router.post('/:mode/flows/attachment/save', function (req, res) {
@@ -121,6 +125,8 @@ router.post('/:mode/flows/attachment/update', function (req, res) {
   const redirectURL = Attachments.shouldReturn404(data) ? '404' : targetURL;
   res.redirect(redirectURL);
 });
+
+
 
 // Change Status flow
 router.post(`/:mode/flows/change-status/save`, function (req, res) {
