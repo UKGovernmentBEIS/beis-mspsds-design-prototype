@@ -18,7 +18,7 @@
 {% endif %}
 
 
-{% set filters  = settings | caseFilters(data.currentUser) %}
+{% set filters  = settings | caseFilters(data) %}
 {% set sortAttr = settings | caseSortAttr %}
 {% set sortDir  = settings | caseSortDir %}
 {% set cases    = data.cases | filterCollection(filters) | sort(sortDir, false, sortAttr) %}
@@ -84,7 +84,8 @@
       <div class="govuk-!-margin-bottom-0">
           {{ headerSearch({
             action: "./case-search",
-            label: "Keywords"
+            label: "Keywords",
+            value: settings.q
           }) }}
       </div>
 
@@ -279,7 +280,7 @@
 
     <div class="govuk-grid-column-three-quarters mspsds-case-list-tab {{searchClasses}}">
       {% from "includes/components/case/case-card-list.html"          import caseCardList %}
-      {{ caseCardList(cases | attachCaseChildren(data), search) }}
+      {{ caseCardList(cases | attachCaseChildren(data), search, data) }}
       {% if cases | length == 0 %}
           <span class="govuk-heading-xl">No results</span>
       {% endif %}

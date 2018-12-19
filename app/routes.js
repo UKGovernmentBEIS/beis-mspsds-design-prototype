@@ -1,14 +1,9 @@
 /* jshint esversion: 6 */
 
-
 const express     = require('express');
 const router      = express.Router();
-const today       = require("./utils/date").today;
-const date        = require("./utils/date").date;
 const Cases       = require("./utils/case");
-const Activities  = require("./utils/activity");
 const array       = require("./utils/arrayHelpers");
-const Products    = require("./utils/product")
 const Businesses  = require("./utils/business")
 const Attachments = require("./utils/attachment");
 const Reset       = require("./utils/reset");
@@ -34,8 +29,6 @@ router.get('/:mode/:entity(case|business|product|case-list)/', function (req, re
   res.locals.data.currentPage = req.params.entity;
   next();
 });
-
-
 
 
 // FLOWS ----------------------------------------------------------------------
@@ -81,83 +74,47 @@ router.post('/:mode/flows/product/add', function (req, res) {
 // Location flow
 router.post('/:mode/flows/location/save', function (req, res) {
   const data = req.session.data;
-  if (data.currentPage !== 'business') {
-    res.redirect('404');
-    return
-  }
-
-  let newLocation = data.location;
-  newLocation.id = 'l' + (data.locations.length + 1);
-
-  data.locations.push(newLocation);
-
-  const biz = array.findById(data.businesses, data.businessid);
-
-  if (biz) {
-    biz.locations.push({
-      id: newLocation.id,
-      role: data.location.name
-    });
-  }
-
-  res.redirect('/root/business?businessid=' + data.businessid + '#locations');
-
+  Businesses.addLocation(data);
+  const targetURL = '/root/business?businessid=' + data.businessid + '#locations'
+  res.redirect(data.currentPage === 'business' ? targetURL : '404');
 });
 
 router.post('/:mode/flows/location/delete', function (req, res) {
   const data = req.session.data;
-  if (data.currentPage !== 'business') {
-    res.redirect('404');
-    return
-  }
-
-  const biz = data.businesses(data.businesses, data.businessid);
-  if (biz && biz.locations) {
-    biz.locations = array.removeById(biz.locations, data.locationid);
-  }
-  res.redirect('/root/business?businessid=' + data.businessid + '#locations');
+  Businesses.deleteLocation(data);
+  const targetURL = '/root/business?businessid=' + data.businessid + '#locations'
+  res.redirect(data.currentPage === 'business' ? targetURL : '404');
 });
-
-
 
 router.post('/:mode/flows/location/update', function (req, res) {
   const data = req.session.data;
-  if (data.currentPage !== 'business') {
-    res.redirect('404');
-    return
-  }
-
-  let newLocation = data.location;
-  newLocation.id = data.locationid;
-
-  const loc = array.findById(data.locations, data.locationid);
-  if (loc) {
-    for (var k in loc) {
-      loc[k] = newLocation[k];
-    }
-  }
-  res.redirect('/root/business?businessid=' + data.businessid + '#locations');
+  Businesses.updateLocation(data);
+  const targetURL = '/root/business?businessid=' + data.businessid + '#locations'
+  res.redirect(data.currentPage === 'business' ? targetURL : '404');
 });
 
 // Attachment flow
 router.post('/:mode/flows/attachment/save', function (req, res) {
   const data = req.session.data;
   Attachments.addAttachment(data);
-  const redirectURL = Attachments.beginningUrl(data) + '&confirmation=Attachment%20added#attachments'
+  const targetURL = Attachments.beginningUrl(data) + '&confirmation=Attachment%20added#attachments';
+  const redirectURL = Attachments.shouldReturn404(data) ? '404' : targetURL;
   res.redirect(redirectURL);
 });
 
 router.post('/:mode/flows/attachment/delete', function (req, res) {
   const data = req.session.data;
   Attachments.deleteAttachment(data);
-  const redirectURL = beginningUrl(data) + '&confirmation=Attachment%20deleted#attachments';
+  const targetURL = Attachments.beginningUrl(data) + '&confirmation=Attachment%20deleted#attachments';
+  const redirectURL = Attachments.shouldReturn404(data) ? '404' : targetURL;
   res.redirect(redirectURL);
 });
 
 router.post('/:mode/flows/attachment/update', function (req, res) {
   const data = req.session.data;
   Attachments.editAttachment(data);
-  const redirectURL = beginningUrl(data) + '&confirmation=Attachment%20updated#attachments';
+  const targetURL = Attachments.beginningUrl(data) + '&confirmation=Attachment%20updated#attachments';
+  const redirectURL = Attachments.shouldReturn404(data) ? '404' : targetURL;
   res.redirect(redirectURL);
 });
 
@@ -238,9 +195,7 @@ router.post('/:mode/flows/add-activity/choose', function (req, res) {
 
 // Case list and search
 router.get('/:mode/case-search', function (req, res, next) {
-  res.locals.data.caseListSettings.q = "nick 32142";
-  // TODO if we ever stop mocking out the search, then this could be a starting point. As, we're faking it
-  // res.locals.data.caseListSettings.q = req.query.q
+  res.locals.data.caseListSettings.q = req.query.q || res.locals.data.caseListSettings.q
   next();
 });
 

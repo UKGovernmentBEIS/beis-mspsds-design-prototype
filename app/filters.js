@@ -1,7 +1,9 @@
 /* jshint esversion: 6 */
 
+
 const date    = require("./utils/date").date;
 const today   = require("./utils/date").today;
+const Cases   = require("./utils/case");
 
 
 module.exports = function (env) {
@@ -47,8 +49,8 @@ module.exports = function (env) {
   /* ------------------------------------------------------------------
     collection filters
   ------------------------------------------------------------------ */
-  filters.filterCollection = function (thigs, filters) {
-    let ret = thigs;
+  filters.filterCollection = function (things, filters) {
+    let ret = things;
     filters.forEach(filter => {
       ret = ret.filter(filter);
     });
@@ -72,7 +74,7 @@ module.exports = function (env) {
   /* ------------------------------------------------------------------
     caseListSettings filters
   ------------------------------------------------------------------ */
-  filters.caseFilters = function (caseListSettings, currentUser) {
+  filters.caseFilters = function (caseListSettings, data) {
     let filters = [];
     if (caseListSettings.status) {
       filters.push(function (kase) {
@@ -82,7 +84,7 @@ module.exports = function (env) {
     if (caseListSettings.assignee) {
       let allowedAssignees = [];
       if (caseListSettings.assignee.includes("Me")) {
-        allowedAssignees.push(currentUser);
+        allowedAssignees.push(data.currentUser);
       }
       if (caseListSettings.assignee.includes("other")) {
         allowedAssignees.push(caseListSettings["assignee-other"]);
@@ -95,7 +97,7 @@ module.exports = function (env) {
     if (caseListSettings.creator) {
       let allowedCreators = [];
       if (caseListSettings.creator.includes("Me")) {
-        allowedCreators.push(currentUser);
+        allowedCreators.push(data.currentUser);
       }
       if (caseListSettings.creator.includes("other")) {
         allowedCreators.push(caseListSettings["creator-other"]);
@@ -106,24 +108,11 @@ module.exports = function (env) {
     }
 
     if (caseListSettings.q) {
-      filters.push(function (kase) {
-        return kase.match !== undefined;
-      });
-
-      // TODO - this is a close-to working solution, but it doesn't search in related entities, so isn't quite good enough to implement atm
-      //        if improved, though, it could complete replace the faked "match" stuff
-      /*filters.push(function(kase) {
-        const firstTerm = caseListSettings.q.split(" ")[0].toLowerCase()
-        const results = []
-        Object.keys(kase).forEach(function(key) {
-          if (typeof kase[key] !== "string") return;
-          const value = kase[key].toLowerCase()
-          if (value.indexOf(firstTerm) !== -1) {
-            results.push(["case", key, value.indexOf(firstTerm), firstTerm])
-          }
-        })
+      filters.push(function(kase) {
+        results = Cases.findMatches(kase, caseListSettings.q, data);
+        kase.matches = results;
         return results.length > 0
-      })*/
+      });
     }
     return filters;
   };
@@ -163,7 +152,7 @@ module.exports = function (env) {
     } else {
       return attachToCase(cases);
     }
-  }
+  };
 
   // Used in setup to pick a case in a dropdown
   filters.selectChoices = function (cases, selectedByDefault = '0132-1421') {

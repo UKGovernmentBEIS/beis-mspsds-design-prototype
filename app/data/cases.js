@@ -1,7 +1,6 @@
 const Cases = require("../utils/case")
 // Blueprint
-// There's a map at the bottom of the file which adds empty lists for
-// all properites which expect it if not present
+// Cases.buildDefaultWithDifferences provides default values for all necessary fields
 /*
     {
       type: 'Case',
@@ -37,11 +36,7 @@ const Cases = require("../utils/case")
       contacts: [{id: 'c3', role: 'Reporter'}],
       attachments: [],
       related: [],
-      activities: [],
-      match: { // This is a hack to make some cases show up in test results
-        key:  'Case reference',
-        value: "01<span class='highlight'>32-142</span>1"
-      }
+      activities: []
     }
 */
 module.exports = {
@@ -52,7 +47,6 @@ module.exports = {
       products: ['p47'],
       title: 'Has anyone recently advised on snap bracelets / slap wraps?',
       team: 'TSC',
-      overdue: 'Overdue',
       dateUpdated: '21/10/2018',
       dateCreated: '18/10/2018',
       report: {
@@ -92,10 +86,6 @@ module.exports = {
       attachments: ['at1', 'at2'],
       // the below properties have not been set for this case
       // related: [],
-      // match: { // This is a hack to make some cases show up in test results
-      //   key:  'Case reference',
-      //   value: "01<span class='highlight'>32-142</span>1"
-      // }
     }),
 
     Cases.buildDefaultWithDifferences(Cases.setDateArguments(0, {
@@ -103,19 +93,19 @@ module.exports = {
       id: "1810-0000",
       title: "Untitled case",
       creator: "Tim Harwood",
-      numAttachments: 0,
     })),
     Cases.buildDefaultWithDifferences(Cases.setDateArguments(0, {
       id: "1810-0001",
       title: "Untitled case",
-      reporter: {
-        name: "Mina Harker",
-        type: "Consumer",
-        phoneNumber: "07123 123123",
-        emailAddress: "mina@castledracula.ro",
-        otherDetails: "Other details captured during the report entry"
+      report: {
+        reporter: {
+          name: "Mina Harker",
+          type: "Consumer",
+          phoneNumber: "07123 123123",
+          emailAddress: "mina@castledracula.ro",
+          otherDetails: "Other details captured during the report entry"
+        },
       },
-      numAttachments: 0,
       products: [],
       activities: [],
     })),
@@ -123,34 +113,24 @@ module.exports = {
       id: "1810-0002",
       type: "Question",
       title: "Charge Worx, Travel plug adaptor –Electric shock, fire hazard",
-      reporter: {
-        name: "Mina Harker",
-        type: "Consumer",
-        phoneNumber: "07123 123123",
-        emailAddress: "mina@castledracula.ro",
-        otherDetails: "Other details captured during the report entry"
+      report: {
+        reporter: {
+          name: "Mina Harker",
+          type: "Consumer",
+          phoneNumber: "07123 123123",
+          emailAddress: "mina@castledracula.ro",
+          otherDetails: "Other details captured during the report entry"
+        },
       },
       status: "Open",
       assignee: "Nick Golding",
       creator: "Tim Harwood",
-      numAttachments: 6,
       products: ["p1"],
       activities: require("./activities/1810-0002").activities
     })),
     Cases.buildDefaultWithDifferences(Cases.setDateArguments(4, {
       id: '0132-1421',
       title: 'ChargeWorx adaptor, Electric shock, fire hazard',
-      reporter: {
-        type: "Consumer",
-        name: "Mina Harker",
-        phoneNumber: "07123 123123",
-        emailAddress: "mina@castledracula.ro",
-        otherDetails: "Other details captured during the report entry"
-      },
-      match: {
-        key: 'Case reference',
-        value: "01<span class='highlight'>32-142</span>1"
-      },
       report: {
         type: 'Allegation',
         date: '18/10/2018',
@@ -196,7 +176,6 @@ module.exports = {
           role: 'Importer'
         }
       ],
-      numAttachments: 1,
       attachments: ['at1', 'at2'],
       related: [],
       activities: require("./activities/0132-1421.js").activities
@@ -217,10 +196,6 @@ module.exports = {
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Choking hazard', Cases.setDateArguments(2, {
       assignee: 'Nick Golding',
       products: ['p6'],
-      match: {
-        key: 'Assignee',
-        value: "<span class='highlight'>Nick</span> Golding – <span class='highlight'>nick</span>.golding@softwire.com"
-      },
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Suffocation hazard', Cases.setDateArguments(3, {
       assignee: 'Christopher Hunter',
@@ -241,7 +216,6 @@ module.exports = {
       products: ['p10'],
       assignee: 'Nick Golding',
       team: 'Processing',
-      overdue: 'Overdue',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Chemical hazard', Cases.setDateArguments(2, {
       products: ['p11'],
@@ -261,7 +235,6 @@ module.exports = {
       products: ['p14'],
       assignee: 'Christopher Hunter',
       team: 'Processing',
-      overdue: 'Overdue',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(1, {
       products: ['p15'],
@@ -322,7 +295,6 @@ module.exports = {
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(0, {
       products: ['p26'],
       team: 'Processing',
-      overdue: 'Overdue',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setDateArguments(0, {
       type: 'Question',
@@ -343,7 +315,6 @@ module.exports = {
       products: ['p30'],
       assignee: 'Christopher Hunter',
       team: 'Processing',
-      overdue: 'Overdue',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Suffocation hazard', Cases.setDateArguments(0, {
       products: ['p31'],
@@ -364,7 +335,6 @@ module.exports = {
       title: 'Toys (Safety) Regulations -can you plead guilty in absence?',
       assignee: 'Nick Golding',
       team: 'TSC',
-      overdue: 'Overdue',
       report: {
         summary: `I am about to serve summons on a toy safety issue, which is something we have not done for a while. I have established that these are Summary only offences, via S12(5) CPA and time limit is 12 months (reg 56). So, question is, can the defendant enter a plea of guilty in absence, hence requiring relevant pape work for such a plea to be served?
         Section 12 Magistrates Courts Act 1980 seems to say a plea of guilty can be made in absence, but my logic circuits question how someone can plead guilty by letter to an offence with a possible prison sentence.
@@ -387,7 +357,6 @@ module.exports = {
       products: ['p38'],
       assignee: 'Christopher Hunter',
       team: 'Processing',
-      overdue: 'Overdue',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-1, {
       products: ['p39'],
@@ -425,19 +394,11 @@ module.exports = {
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-2, {
       products: ['p46'],
       team: 'Processing',
-      match: {
-        key: 'Product, model number',
-        value: "Makita Pen, 1/4 x 18 mm, Stainless Steel, F <span class='highlight'>32142</span>"
-      }
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-2, {
       status: 'Closed',
       products: ['p48'],
       assignee: 'Christopher Hunter',
-      match: {
-        key: 'Product, manufacturer reference',
-        value: "<span class='highlight'>32142</span>-USB-UCE6-90-BLA-D"
-      }
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-2, {
       products: ['p49'],

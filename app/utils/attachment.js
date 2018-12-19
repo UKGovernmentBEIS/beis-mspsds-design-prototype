@@ -1,26 +1,16 @@
 const today = require("./date").today;
 const array = require("./arrayHelpers");
 const Activities = require("./activity");
+const attachments = require("../data/attachments");
 
-const isImage = (filename) => {
-  return !!filename.match(/[\/.](gif|jpg|jpeg|tiff|png)$/i);
-}
-
-
-const fileExtension = (filename) => {
-  const fullStopIdx = filename.lastIndexOf(".")
-  return filename.substring(fullStopIdx + 1)
-}
-
-
-const build = ({
+build = ({
   title,
   filename = "",
   date = today.short(),
   description
 }) => {
   const id    = filename + Math.random()
-  const type  = isImage(filename) ? 'image' : 'document'
+  const type  = attachments.isImage(filename) ? 'image' : 'document'
   const url   = type === 'image' ? '/public/images/placeholder.png' : '/public/images/document-thumbnail.png'
   return {
     id,
@@ -35,7 +25,7 @@ const build = ({
 }
 
 
-const findObject = (data) => {
+findObject = (data) => {
   switch (data.currentPage) {
     case 'business':
       return array.findById(data.businesses, data.businessid);
@@ -49,7 +39,7 @@ const findObject = (data) => {
 }
 
 
-const beginningUrl = (data) => {
+beginningUrl = (data) => {
   switch (data.currentPage) {
     case 'business':
       return '/root/business?businessid=' + data.businessid
@@ -61,14 +51,11 @@ const beginningUrl = (data) => {
   }
 }
 
-const shouldReturn404 = (data) => {
+shouldReturn404 = (data) => {
   return !(data.currentPage === 'case' || data.currentPage === 'business' || data.currentPage === 'product')
 }
 
-const addAttachment = (data) => {
-  if (shouldReturn404(data)) {
-    return '404'
-  }
+addAttachment = (data) => {
   let newAttachment = data.attachment;
   const obj = findObject(data);
   newAttachment.id = 'at' + (data.attachments.length + 1);
@@ -81,20 +68,14 @@ const addAttachment = (data) => {
   }
 }
 
-const deleteAttachment = (data) => {
-  if (shouldReturn404(data)) {
-    return '404'
-  }
+deleteAttachment = (data) => {
   const obj = findObject(data);
   if (obj) {
     obj.attachments = array.removeByValue(obj.attachments, data.attachmentid);
   }
 }
 
-const editAttachment = (data) => {
-  if (shouldReturn404(data)) {
-    return '404'
-  }
+editAttachment = (data) => {
   let newAttachment = data.attachment;
   newAttachment.id = data.attachmentid;
   newAttachment.date = today.short();
@@ -132,12 +113,11 @@ buildTsCreateAttachments = (data) => {
 }
 
 module.exports = {
-  isImage: isImage,
-  fileExtension: fileExtension,
   build: build,
   addAttachment: addAttachment,
   deleteAttachment: deleteAttachment,
   editAttachment: editAttachment,
   beginningUrl: beginningUrl,
   buildTsCreateAttachments: buildTsCreateAttachments, 
+  shouldReturn404: shouldReturn404,
 }

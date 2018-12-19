@@ -1,18 +1,15 @@
 const today = require("../../utils/date").today
 const products = require("../products")
 const attachments = require("../attachments")
-const attachmentUtils = require("../../utils/attachment")
 
 module.exports = {
-
-
   deleteAttachment: function ({ attachmentId }) {
     const attachment = attachments.attachments.find(element => element.id === attachmentId)
     return {
       type: "deleteAttachment",
       title: "Deleted: " + attachment.title,
       action: `${capitalizeFirstLetter(attachment.type)} deleted`,
-      fileExtension: attachmentUtils.fileExtension(attachment.filename),
+      fileExtension: attachments.fileExtension(attachment.filename),
       attachment
     }
   },

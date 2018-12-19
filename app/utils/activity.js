@@ -1,8 +1,19 @@
 const today = require('./date').today
+const activityTemplates = require("../data/activities/templates")
+
+buildAddAttachment = function (attachment, user) {
+    return activityTemplates.addAttachment({
+      author: user,
+      title: attachment.title,
+      description: attachment.description,
+      isImage: attachment.isImage,
+      fileExtension: attachment.fileExtension
+    });
+}
 
 module.exports = {
     buildCreateCase: function (kase) {
-        const caseCreatedActivity = require("../data/activities/templates").caseCreated;
+        const caseCreatedActivity = activityTemplates.caseCreated;
         return caseCreatedActivity({
             caseType: kase.report.type,
             caseTitle: kase.title,
@@ -19,7 +30,7 @@ module.exports = {
         });
     },
     buildAddProduct: function (product, user) {
-        const activityTemplate = require("../data/activities/templates").addProduct;
+        const activityTemplate = activityTemplates.addProduct;
         return activityTemplate({
             author: user,
             date: today.long(),
@@ -32,7 +43,7 @@ module.exports = {
         });
     },
     buildAddBusiness: function (business, user) {
-        const activityTemplate = require("../data/activities/templates").addBusiness;
+        const activityTemplate = activityTemplates.addBusiness;
         return activityTemplate({
             author: user,
             date: today.long(),
@@ -42,19 +53,9 @@ module.exports = {
             businessCompanyNumber:  business.companyNumber
         });   
     },
-    buildAddAttachment: function (attachment, user) {
-        const Attachments = require("./attachment")
-        const addAttachmentActivityTemplate = require("../data/activities/templates").addAttachment;
-        return addAttachmentActivityTemplate({
-          author: user,
-          title: attachment.title,
-          description: attachment.description,
-          isImage: Attachments.isImage(attachment.upload),
-          fileExtension: Attachments.fileExtension(attachment.upload)
-        });
-    },
+    buildAddAttachment: buildAddAttachment,
     buildChangeStatus : function(reqBody, user) {
-        const changeStatusActivityTemplate = require("../data/activities/templates").changedStatus;
+        const changeStatusActivityTemplate = activityTemplates.changedStatus;
         return changeStatusActivityTemplate({
           status: reqBody.status,
           description: reqBody['status-description'],
