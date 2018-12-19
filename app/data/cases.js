@@ -1,4 +1,4 @@
-const Cases = require("../utils/case")
+const Cases = require("./case-templates")
 // Blueprint
 // Cases.buildDefaultWithDifferences provides default values for all necessary fields
 /*
