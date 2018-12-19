@@ -57,6 +57,7 @@ module.exports = {
   attachments:  require("./attachments.js").attachments,
   productTypes: require("./product-types.js").productTypes,
   hazardTypes:  require("./hazard-types.js").hazardTypes,
+  businessTypes: require("./business-types").businessTypes,
   teams:        require("./teams.js").teams,
   new: {
     files: {

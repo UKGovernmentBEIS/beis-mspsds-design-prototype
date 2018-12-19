@@ -25,35 +25,22 @@
 
         {% endset %}
 
+        {% set types = [] %}
+        {% for type in data.businessTypes | list %}
+          {% set types = (types.push({value: type, text: type}), types) %}
+        {% endfor %}
+        {% set types = (types.push({
+          value: "Other",
+          text: "Other",
+          conditional: {
+            html: otherBusinessTypeHtml
+          }
+        }), types) %}
 
         {{ govukCheckboxes({
           idPrefix:   currentNewBizIDVar  + 'type',
           name:       currentNewBizVar    + '[type]',
-          items: [
-            {
-              value: "Retailer",
-              text: "Retailer"
-            },
-            {
-              value: "Distributor",
-              text: "Distributor"
-            },
-            {
-              value: "Importer",
-              text: "Importer"
-            },
-            {
-              value: "Manufacturer",
-              text: "Manufacturer"
-            },
-            {
-              value: "Other",
-              text: "Other",
-              conditional: {
-                html: otherBusinessTypeHtml
-              }
-            }
-          ]
+          items: types
         }) }}
 
         {{ govukCheckboxes({
