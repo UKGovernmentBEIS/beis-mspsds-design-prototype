@@ -1,0 +1,8 @@
+{% extends "./case.html" %}
+
+{% if data['confirmation'] %}
+    {% block confirmation %}
+        {% from "includes/mspsds-confirmation.html" import confirmation %}
+        {{ confirmation("confirmation", data['confirmation']) }}
+    {% endblock %}
+{% endif %}

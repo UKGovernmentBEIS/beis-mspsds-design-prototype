@@ -1,7 +1,11 @@
 
-{% if data['new']['report']['type'] == 'Report' %}
+{% set backLink      = './01' %}
+{% set backText      = 'Back'  %}
 
-  {% set displayTitle        = 'Reporting a dangerous product' %}
+{% if data['new']['report']['type'] == 'Report' %}
+  
+  {% set titleType           = ' ' %}
+  {% set displayTitle        = 'Report an unsafe product' %}
   {% set formAction         = './03' %}
   {% extends "./02a.html" %}
 

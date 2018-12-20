@@ -45,7 +45,10 @@ buildFromData = (data) => {
     newCase.creator = data.currentUser;
   }
   if (newCase.type == "Case") {
-    newCase.title = newCase.report.productType + " - " + newCase.report.hazardType;
+    newCase.title = newCase.report.productType + ", " + newCase.report.hazardType;
+    if ( newCase.report.product && newCase.report.product.name ) {
+        newCase.title = newCase.report.product.name +', '+ newCase.title;
+    }
   }
   return newCase;
 };

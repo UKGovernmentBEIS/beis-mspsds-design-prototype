@@ -1,20 +1,34 @@
 {% extends "includes/templates/flow--creation-ts.html" %}
 
-{% set backLink      = './02' %}
+{% set backLink      = './04' %}
 {% set backText      = 'Back'  %}
+
+{% set businessType  = data['new']['report']['business']['type'][businessesCount] %}
+{% if businessType == "Other" %}
+    {% set businessType  = data['new']['report']['business']['typeOther']  %}
+{% endif %}
+
 
 {% if data['new']['report']['type'] == 'Report' %}
   {% set titleType           = 'Reporting an unsafe product' %}
-  {% set displayTitle        = 'Why is it unsafe?' %}
-  {% set formAction          = './04' %}
+  {% set displayTitle        = businessType + ' details?' %}
+  {% set formAction         = './05' %}
 {% endif %}
 
+
+{% set currentNewBizVar  = 'new[report][businesses][' +  businessType + ']' %}
+
+
+
 {% block flow %}
+
+
 <form action="{{formAction}}" method="post" class="form">
 
   <div class="govuk-grid-row govuk-!-margin-bottom-3">
-    {% include "includes/components/shared/create/ts-allegation-info.html" %}
+    {% include "includes/components/shared/create/ts-business.html" %}
   </div>
+
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -24,6 +38,5 @@
       }) }}
     </div>
   </div>
-  
 </form>
 {% endblock %}

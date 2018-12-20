@@ -9,13 +9,12 @@
       <div class="govuk-grid-column-two-thirds">
 
         <h2 class="govuk-heading-m  govuk-!-margin-bottom-1">
-          Product information
+          What product?
         </h2>
         
-        
 
-        {% if new[report][product][type] %}
-            {% set productDetails       = 'detials here' %}
+        {% if data['new']['report']['productType'] %}
+            {% set productDetails       = data['new']['report']['productType'] + '<br>' + data['new']['report']['product']['name'] %}
             {% set productDetailsLink   = 'Edit' %}
         {% else %}
             {% set productDetails       = 'Required' %}
@@ -24,20 +23,20 @@
 
 
         {% if new[report][product][files][tech] %}
-            {% set techDetails       = 'detials here' %}
+            {% set techDetails       = 'details here' %}
             {% set techDetailsLink   = 'Edit' %}
         {% else %}
             {% set techDetails       = '<span class="govuk-caption-m"> Optional</span>' %}
-            {% set techDetailsLink   = 'Add' %}
+            {% set techDetailsLink   = 'Upload' %}
         {% endif %}
 
 
         {% if new[report][product][files][testing] %}
-            {% set testDetails       = 'detials here' %}
+            {% set testDetails       = 'details here' %}
             {% set testDetailsLink   = 'Edit' %}
         {% else %}
             {% set testDetails       = '<span class="govuk-caption-m"> Optional</span>' %}
-            {% set testDetailsLink   = 'Add' %}
+            {% set testDetailsLink   = 'Upload' %}
         {% endif %}
 
 
@@ -58,7 +57,7 @@
             ],
             [
               {
-                text: 'Technical file'
+                text: 'Tech specs'
               },
               {
                 html: techDetails
@@ -70,7 +69,7 @@
             ],
             [
               {
-                text: 'Testing file'
+                text: 'Testing results'
               },
               {
                 html: testDetails
@@ -104,7 +103,7 @@
       <div class="govuk-grid-column-two-thirds">
 
         <h2 class="govuk-heading-m  govuk-!-margin-bottom-1">
-          Hazard information
+          Why is it unsafe?
         </h2>
 
         {{ govukTable({
@@ -119,7 +118,7 @@
               },
               {
                 format: 'numeric',
-                html: '<a href="#">Edit</a><span class="govuk-visually-hidden"> hazard details</span>'
+                html: '<a href="#">Add</a><span class="govuk-visually-hidden"> hazard details</span>'
               }
             ],
             [
@@ -131,7 +130,19 @@
               },
               {
                 format: 'numeric',
-                html: '<a href="#">Edit</a><span class="govuk-visually-hidden"> product details</span>'
+                html: '<a href="#">Upload</a><span class="govuk-visually-hidden"> risk assessment</span>'
+              }
+            ],
+            [
+              {
+                text: 'Evidence images'
+              },
+              {
+                html: testDetails
+              },
+              {
+                format: 'numeric',
+                html: '<a href="#">'+ testDetailsLink +'</a><span class="govuk-visually-hidden"> testing file</span>'
               }
             ]
           ]
@@ -145,7 +156,7 @@
       <div class="govuk-grid-column-two-thirds">
 
         <h2 class="govuk-heading-m  govuk-!-margin-bottom-1">
-          Business information
+          Supply chain information
         </h2>
 
         {{ govukTable({
@@ -183,19 +194,31 @@
           rows: [
             [
               {
-                text: 'Actions details'
+                text: 'What have you done?'
               },
               {
                 text: 'Required'
               },
               {
                 format: 'numeric',
-                html: '<a href="#">Edit</a><span class="govuk-visually-hidden"> hazard details</span>'
+                html: '<a href="#">Add</a><span class="govuk-visually-hidden"> TS action details</span>'
               }
             ],
             [
               {
-                text: 'Your unique reference number (case number)'
+                text: 'What have others done?'
+              },
+              {
+                html: '<span class="govuk-caption-m"> Optional</span>'
+              },
+              {
+                format: 'numeric',
+                html: '<a href="#">Add</a><span class="govuk-visually-hidden"> other\'s actions details</span>'
+              }
+            ],
+            [
+              {
+                text: 'Your case reference number'
               },
               {
                 html: '<span class="govuk-caption-m"> Optional</span>'
@@ -214,7 +237,7 @@
               },
               {
                 format: 'numeric',
-                html: '<a href="#">Edit</a><span class="govuk-visually-hidden"> hazard details</span>'
+                html: '<a href="#">Upload</a><span class="govuk-visually-hidden"> hazard details</span>'
               }
             ],
             [
