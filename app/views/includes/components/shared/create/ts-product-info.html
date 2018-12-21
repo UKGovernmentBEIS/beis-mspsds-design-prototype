@@ -7,7 +7,7 @@
       name:     "new[report][product][category]", 
       legend:   "Product category",
       class:    "govuk-fieldset__legend--m govuk-!-margin-bottom-1",
-      hint:     "The high-level category (for reporting purposes)", 
+      hint:     "The high-level category (for reporting purposes)",
       values:   data.productTypes}) 
     }}
 
@@ -29,7 +29,8 @@
             html: "In plain English, what is it?<br/>For example, ‘dishwasher, soft toy, chainsaw...’"
           },
           id: "report-product-type",
-          name: "new[report][productType]"
+          name: "new[report][productType]",
+          value: data['new']['report']['productType']
         }) }}
 
 
@@ -54,7 +55,8 @@
             },
             classes:  "govuk-!-margin-bottom-5",
             id: "report-product-name",
-            name: "new[report][product][name]"
+            name: "new[report][product][name]",
+            value: data['new']['report']['product']['name']
           }) }}
 
 
@@ -79,7 +81,8 @@
               text: "If you have this data, it makes it easier to correctly identify the product"
             },
             id: "report-product-code",
-            name: "new[report][product][code]"
+            name: "new[report][product][code]",
+            value: data['new']['report']['product']['code']
           }) }}
 
 
@@ -103,9 +106,9 @@
               text: "A link to the manufacturer\’s page for this product, or webpage where it can be bought"
             },
             id: "report-product-code",
-            name: "new[report][product][url]"
+            name: "new[report][product][url]",
+            value: data['new']['report']['product']['url']
           }) }}
-
 
     {% endcall %}
 
@@ -129,7 +132,8 @@
             classes:  "govuk-!-margin-bottom-5",
             hint: {
               text: "For example, ‘Orange, 4 socket extension lead’"
-            }
+            },
+            value: data['new']['report']['product']['description']
           }) }}
 
       {% endcall %}

@@ -7,11 +7,13 @@
           items: [
             {
               value: "Report",
-              text: "Report an unsafe product"
+              text: "Report an unsafe product",
+              checked: checked("new['report']['type']", "Report")
             },
             {
               value: "Question",
-              text: "Ask a question"
+              text: "Ask a question",
+              checked: checked("new['report']['type']", "Question")
             }
           ]
         }) }}

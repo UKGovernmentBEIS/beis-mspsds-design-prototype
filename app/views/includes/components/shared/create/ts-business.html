@@ -40,7 +40,8 @@
                 text: "The registered name, trading name or any other way of identifying"
               },
               id:         currentNewBizIDVar  + 'name',
-              name:       currentNewBizVar    + '[name]'
+              name:       currentNewBizVar    + '[name]',
+              value: data['new']['report']['businesses'][businessType]['name']
             }) }}
 
       {% endcall %}
@@ -64,7 +65,8 @@
                 text: "If you have this information"
               },
               id:         currentNewBizIDVar  + 'number',
-              name:       currentNewBizVar    + '[number]'
+              name:       currentNewBizVar    + '[number]',
+              value: data['new']['report']['businesses'][businessType]['number']
             }) }}
 
       {% endcall %}
@@ -86,7 +88,8 @@
               html: 'Building and street <span class="govuk-visually-hidden">line 1 of 2</span>'
             },
             id:         currentNewBizIDVar  + 'address-1',
-            name:       currentNewBizVar    + '[address][1]'
+            name:       currentNewBizVar    + '[address][1]',
+            value: data['new']['report']['businesses'][businessType]['address'][0]
           }) }}
 
           {{ govukInput({
@@ -94,18 +97,20 @@
               html: '<span class="govuk-visually-hidden">Building and street line 2 of 2</span>'
             },
             id:         currentNewBizIDVar  + 'address-2',
-            name:       currentNewBizVar    + '[address][2]'
+            name:       currentNewBizVar    + '[address][2]',
+            value: data['new']['report']['businesses'][businessType]['address'][1]
           }) }}
 
 
           {{ govukInput({
-              label: {
-                html: 'Town or city'
-              },
-              classes:    "govuk-!-margin-bottom-0",
-              id:         currentNewBizIDVar  + 'town',
-              name:       currentNewBizVar + '[town]'
-            }) }}
+            label: {
+              html: 'Town or city'
+            },
+            classes:    "govuk-!-margin-bottom-0",
+            id:         currentNewBizIDVar  + 'town',
+            name:       currentNewBizVar + '[town]',
+            value: data['new']['report']['businesses'][businessType]['town']
+          }) }}
 
 
           {{ govukInput({
@@ -114,7 +119,8 @@
             },
             classes:    "govuk-!-margin-bottom-0",
             id:         currentNewBizIDVar  + 'county',
-            name:       currentNewBizVar + '[county]'
+            name:       currentNewBizVar + '[county]',
+            value: data['new']['report']['businesses'][businessType]['county']
           }) }}
 
 
@@ -124,7 +130,8 @@
             },
             classes:    "govuk-!-margin-bottom-0 govuk-input--width-10",
             id:         currentNewBizIDVar  + 'postcode',
-            name:       currentNewBizVar + '[postcode]'
+            name:       currentNewBizVar + '[postcode]',
+            value: data['new']['report']['businesses'][businessType]['postcode']
           }) }}
 
 
@@ -134,7 +141,8 @@
             },
             classes:    "govuk-!-margin-bottom-0",
             id:         currentNewBizIDVar  + 'country',
-            name:       currentNewBizVar + '[country]'
+            name:       currentNewBizVar + '[country]',
+            value: data['new']['report']['businesses'][businessType]['country']
           }) }}
 
       {% endcall %}
@@ -155,7 +163,8 @@
 
             {{ govukInput({
               id:         currentNewBizIDVar  + 'contact',
-              name:       currentNewBizVar + '[contact]'
+              name:       currentNewBizVar + '[contact]',
+              value: data['new']['report']['businesses'][businessType]['contact']
             }) }}
 
       {% endcall %}

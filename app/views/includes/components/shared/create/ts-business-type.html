@@ -20,21 +20,27 @@
 
           {{ govukInput({
             id:         currentNewBizIDVar  + 'type-other',
-            name:       currentNewBizVar    + '[typeOther]'
+            name:       currentNewBizVar    + '[typeOther]',
+            value: data['new']['report']['business']['typeOther']
           }) }}
 
         {% endset %}
 
         {% set types = [] %}
         {% for type in data.businessTypes | list %}
-          {% set types = (types.push({value: type, text: type}), types) %}
+          {% set types = (types.push({
+            value: type,
+            text: type,
+            checked: checked("new['report']['business']['type']", type)
+            }), types) %}
         {% endfor %}
         {% set types = (types.push({
           value: "Other",
           text: "Other",
           conditional: {
             html: otherBusinessTypeHtml
-          }
+          },
+          checked: checked("new['report']['business']['type']", "Other")
         }), types) %}
 
         {{ govukCheckboxes({
@@ -49,7 +55,8 @@
           items: [
             {
               value: "None",
-              text: "None"
+              text: "None",
+              checked: checked("new['report']['business']['typeNone']", "None")
             }
           ]
         }) }}
