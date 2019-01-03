@@ -1,6 +1,14 @@
 {% extends "./case.html" %}
 
 {% block confirmation %}
-	{% from "includes/mspsds-confirmation.html" import confirmation %}
-	{{ confirmation("confirmation--case-created", currentCase.report.type+" created.") }}
+    {% from "includes/components/shared/confirmation.html" import confirmation %}
+    {{ confirmation({
+        id:     'confirmation--case-created', 
+        title:  currentCase.report.type + ' created.',
+        messages: [{
+            text: 'The reference is ' + currentCase.id
+        },{
+            text: 'Details were emailed to someone@somewhere.com'
+        }]
+    }) }}
 {% endblock %}

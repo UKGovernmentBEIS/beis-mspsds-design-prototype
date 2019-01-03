@@ -1,0 +1,28 @@
+{% from "button/macro.njk" import govukButton %}
+
+
+{% macro confirmation(data) %}
+
+    <div class="govuk-grid-column-full mspsds-confirmation {{data.classes}}" id="{{data.id}}">
+
+        {% if data.title %}
+            <span class="mspsds-confirmation__title">{{data.title}}</span>
+        {% endif %}
+
+        
+        {% for message in data.messages %}
+            <span class="mspsds-confirmation__message">{{message.text}}</span>
+        {% endfor %}
+
+        {% for action in data.actions %}
+            <span class="mspsds-confirmation__action">
+                {{ govukButton({
+                    text: action.text,
+                    href: action.href
+                }) }}
+            </span>
+        {% endfor %}
+
+    </div>
+
+{% endmacro %}
