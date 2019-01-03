@@ -46,6 +46,8 @@ module.exports = {
     status: ["Open"]
   },
 
+  confirmation: {},
+
   createUrl: "/root/flows/create/01",
 
   cases:        require("./cases.js").cases,

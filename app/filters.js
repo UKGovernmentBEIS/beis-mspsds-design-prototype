@@ -213,6 +213,11 @@ module.exports = function (env) {
 
 
 
+  filters.isString = function (obj) {
+    return typeof obj == 'string';
+  };
+
+
   /* ------------------------------------------------------------------
     keep the following line to return your filters to the app
   ------------------------------------------------------------------ */

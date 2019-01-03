@@ -20,6 +20,10 @@
 {% endset -%}
 
 
+{% set contactsHtml %}
+  {% include "includes/components/business/tabs/business-tab-contacts.html" %}
+{% endset -%}
+
 
 
 <hr class="govuk-section-break govuk-section-break--l" />
@@ -40,6 +44,13 @@
       id: "locations",
       panel: {
         html: locationsHtml
+      }
+    },
+    {
+      label: "Contacts",
+      id: "contacts",
+      panel: {
+        html: contactsHtml
       }
     },
     {

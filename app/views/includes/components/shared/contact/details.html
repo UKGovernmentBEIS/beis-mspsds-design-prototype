@@ -1,81 +1,84 @@
 
-    <div class="govuk-grid-column-two-thirds">
 
-            {% call govukFieldset({
-              legend: {
-                text: "Contact details",
-                classes: "govuk-fieldset__legend--l",
-                isPageHeading: false
-              }
-            }) %}
-              
+  {# Doesn't get displayed, but sets an id on the model #}
+    {{ govukInput({
+      id:   "contactid",
+      name: "contactid",
+      value: data['contactid'],
+      type: "hidden"
+    }) }}
 
-              {{ govukInput({
-                label: {
-                  text: "Name"
-                },
-                classes: "govuk-!-width-two-thirds",
-                id:   "contact-name",
-                name: "contact-name"
-              }) }}
+    {{ govukInput({
+      id:   "businessid",
+      name: "businessid",
+      value: data['businessid'],
+      type: "hidden"
+    }) }}
 
 
+<div class="mspsds-input govuk-grid-column-one-half">
 
-              {{ govukInput({
-                label: {
-                  text: "Job title"
-                },
-                classes: "govuk-!-width-two-thirds",
-                id:   "contact-title",
-                name: "contact-title"
-              }) }}
-              
+    {{ govukInput({
+      label: {
+        text: "Name"
+      },
+      classes: "govuk-!-margin-bottom-1",
+      id:   "contact-name",
+      name: "contact[name]",
+      value:    currentBizContact.name
+    }) }}
 
+</div>
 
-              {{ govukInput({
-                label: {
-                  text: "Role"
-                },
-                classes: "govuk-!-width-two-thirds",
-                id:   "contact-role",
-                name: "contact-role"
-              }) }}
+<div class="mspsds-input govuk-grid-column-one-half">
 
+    {{ govukInput({
+      label: {
+        text: "Email"
+      },
+      classes: "govuk-!-margin-bottom-1",
+      id:   "contact-email",
+      name: "contact[email]",
+      value:    currentBizContact.email
+    }) }}
 
+</div>
 
-              {{ govukInput({
-                label: {
-                  text: "Business"
-                },
-                classes: "govuk-!-width-two-thirds",
-                id:   "contact-business",
-                name: "contact-business"
-              }) }}
+<div class="mspsds-input govuk-grid-column-one-half">
 
+    {{ govukInput({
+      label: {
+        text: "Phone number"
+      },
+      classes: "govuk-!-margin-bottom-1",
+      id:   "contact-phone",
+      name: "contact[phone]",
+      value:    currentBizContact.phone
+    }) }}
 
+</div>
 
-              {{ govukInput({
-                label: {
-                  text: "Phone number"
-                },
-                classes: "govuk-!-width-two-thirds",
-                id:   "contact-phone",
-                name: "contact-phone"
-              }) }}
+<div class="mspsds-input govuk-grid-column-one-half">
 
+    {{ govukInput({
+      label: {
+        text: "Job title / description"
+      },
+      classes: "govuk-!-margin-bottom-1",
+      id:   "contact-title",
+      name: "contact[title]",
+      value:    currentBizContact.title
+    }) }}
 
-              {{ govukInput({
-                label: {
-                  text: "Email"
-                },
-                classes: "govuk-!-width-two-thirds",
-                id:   "contact-email",
-                name: "contact-email"
-              }) }}
+</div>
 
-
-            
-
-            {% endcall %}
-
-    </div>
+{#
+    {{ govukInput({
+      label: {
+        text: "Role"
+      },
+      classes: "govuk-!-margin-bottom-1",
+      id:   "contact-role",
+      name: "contact[role]"
+    }) }}
+#}

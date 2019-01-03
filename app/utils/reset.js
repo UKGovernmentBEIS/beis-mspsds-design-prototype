@@ -9,5 +9,8 @@ module.exports = {
                 evidence: {},
             }
         }
+    },
+    resetConfirmation: function(req) {
+        req.session.data.confirmation = {}
     }
 }

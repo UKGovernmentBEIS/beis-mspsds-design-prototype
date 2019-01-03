@@ -1,0 +1,53 @@
+
+{% set currentContact           = data.contacts | withId(data['contactid']) %}
+{% set currentBusiness          = data.businesses | withId(data['businessid']) | attachBusinessChildren(data) %}
+{% set currentBizContact        = currentBusiness.contacts | withId(data['contactid']) %}
+
+
+    <div class="govuk-grid-column-two-thirds">
+
+      {# Doesn't get displayed, but sets an id on the model #}
+        {{ govukInput({
+          id:   "contactid",
+          name: "contactid",
+          value: data['contactid'],
+          type: "hidden"
+        }) }}
+
+        {{ govukInput({
+          id:   "businessid",
+          name: "businessid",
+          value: data['businessid'],
+          type: "hidden"
+        }) }}
+
+      
+      {% set contactRows = [] %}
+
+        {% set contactRows = ( contactRows.push([
+          {text: 'Name'},
+          {text: currentBizContact.name}
+        ]), contactRows ) %}
+
+        {% set contactRows = ( contactRows.push([
+          {text: 'Email'},
+          {text: currentBizContact.email}
+        ]), contactRows ) %}
+
+        {% set contactRows = ( contactRows.push([
+          {text: 'Phone'},
+          {text: currentBizContact.phone}
+        ]), contactRows ) %}
+
+        {% set contactRows = ( contactRows.push([
+          {text: 'Title'},
+          {text: currentBizContact.title}
+        ]), contactRows ) %}
+
+
+        {{ govukTable({
+            firstCellIsHeader: true,
+            rows: contactRows
+        }) }}
+
+    </div>

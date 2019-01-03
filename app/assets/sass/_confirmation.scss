@@ -48,7 +48,7 @@ $background-warning:    mix(white, govuk-colour("red"), 90%);
   span {
     display: inline-block;
     @include govuk-responsive-margin(2, "top");
-    &:last-of-type {
+    &:last-child {
       @include govuk-responsive-margin(2, "bottom");
     }
   }
@@ -56,7 +56,12 @@ $background-warning:    mix(white, govuk-colour("red"), 90%);
   & &__title {
     display:      block;
     @include govuk-responsive-margin(0, "top");
+    
     font-weight:  bold;
+
+    &:last-child {
+      @include govuk-responsive-margin(0, "bottom");
+    }
   }
 
   & &__message {

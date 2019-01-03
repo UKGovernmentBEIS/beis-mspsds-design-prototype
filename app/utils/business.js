@@ -36,10 +36,54 @@ updateLocation = (data) => {
   }
 };
 
+
+
+
+addContact = (data) => {
+  let newContact = data.contact;
+  newContact.id = 'c' + (data.contacts.length + 1);
+  const biz = array.findById(data.businesses, data.businessid);
+
+  if (biz) {
+    data.contacts.push(newContact);
+    biz.contacts.push({
+      id: newContact.id,
+      role: data.contact.title
+    });
+  }
+};
+
+
+deleteContact = (data) => {
+  const biz = array.findById(data.businesses, data.businessid);
+  if (biz && biz.contacts) {
+    biz.contacts = array.removeById(biz.contacts, data.contactid);
+  }
+};
+
+
+updateContact = (data) => {
+  let newContact = data.contact;
+  newContact.id  = data.contactid;
+
+  const con = array.findById(data.contacts, data.contactid);
+  if (con) {
+    for (var k in con) {
+      con[k] = newContact[k];
+    }
+  }
+};
+
+
 module.exports = {
-  addLocation: addLocation,
+  addLocation:    addLocation,
   deleteLocation: deleteLocation,
   updateLocation: updateLocation,
+
+  addContact:     addContact,
+  deleteContact:  deleteContact,
+  updateContact:  updateContact,
+
   buildFromData: function(data) {
 
       if (!data.id) {

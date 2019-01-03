@@ -1,0 +1,12 @@
+
+
+{% set addLink        = '/root/flows/contact/add/01?currentPage=business&businessid='      + currentBusiness.id  %}
+{% set viewLink       = '' %}
+{% set editLink       = '/root/flows/contact/edit/01?currentPage=business&businessid='     + currentBusiness.id + '&contactid=CID'  %}
+{% set deleteLink     = '/root/flows/contact/delete/01?currentPage=business&businessid='   + currentBusiness.id + '&contactid=CID' %}
+
+
+
+{% set currentContacts  = currentBusiness.contacts %}
+
+{% extends "includes/components/shared/tabs/tab-contacts.html" %}

@@ -101,6 +101,51 @@ router.post('/:mode/flows/location/update', function (req, res) {
 });
 
 
+
+// Contact flow
+router.post('/:mode/flows/contact/save', function (req, res) {
+  const data = req.session.data;
+  Businesses.addContact(data);
+
+  Reset.resetConfirmation(req);
+  data.confirmation.id    = 'contact-saved';
+  data.confirmation.type  = 'success';
+  data.confirmation.title = 'Contact added.';
+  
+
+  const targetURL = '/root/business--confirmation?businessid=' + data.businessid + '#contacts';
+  res.redirect(data.currentPage === 'business' ? targetURL : '404');
+});
+
+router.post('/:mode/flows/contact/delete', function (req, res) {
+  const data = req.session.data;
+  Businesses.deleteContact(data);
+
+
+  Reset.resetConfirmation(req);
+  data.confirmation.id    = 'contact-removed';
+  data.confirmation.type  = 'success';
+  data.confirmation.title = 'Contact removed.';
+
+  const targetURL = '/root/business--confirmation?businessid=' + data.businessid + '#contacts';
+  res.redirect(data.currentPage === 'business' ? targetURL : '404');
+});
+
+router.post('/:mode/flows/contact/update', function (req, res) {
+  const data = req.session.data;
+  Businesses.updateContact(data);
+
+  Reset.resetConfirmation(req);
+  data.confirmation.id    = 'contact-updated';
+  data.confirmation.type  = 'success';
+  data.confirmation.title = 'Contact updated.';
+
+  const targetURL = '/root/business--confirmation?businessid=' + data.businessid + '#contacts';
+  res.redirect(data.currentPage === 'business' ? targetURL : '404');
+});
+
+
+
 // Attachment flow
 router.post('/:mode/flows/attachment/save', function (req, res) {
   const data = req.session.data;
