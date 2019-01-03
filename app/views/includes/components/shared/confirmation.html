@@ -2,8 +2,19 @@
 
 
 {% macro confirmation(data) %}
+    
+    {% set typeclass="alert-default" %}
 
-    <div class="govuk-grid-column-full mspsds-confirmation {{data.classes}}" id="{{data.id}}">
+    {% if data.type == "success" %}
+        {% set typeclass="alert-success" %}
+    {% endif %}
+
+    {% if data.type == "warning" %}
+        {% set typeclass="alert-warning" %}
+    {% endif %}
+
+
+    <div class="govuk-grid-column-full mspsds-confirmation {{typeclass}} {{data.classes}}" id="{{data.id}}">
 
         {% if data.title %}
             <span class="mspsds-confirmation__title">{{data.title}}</span>

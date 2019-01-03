@@ -1,15 +1,42 @@
+
+$border-default:        govuk-colour("light-blue");
+$background-default:    mix(white, govuk-colour("light-blue"), 90%);
+
+$border-success:        govuk-colour("turquoise");
+$background-success:    mix(white, govuk-colour("turquoise"), 90%);
+
+$border-warning:        govuk-colour("red");
+$background-warning:    mix(white, govuk-colour("red"), 90%);
+
+
 .mspsds-confirmation {
 
-  border-left: solid 8px govuk-colour("turquoise");
-  background-color: mix(white, govuk-colour("turquoise"), 90%);
-  @include govuk-responsive-padding(3);
-  @include govuk-responsive-margin(8, "bottom");
-  @include govuk-responsive-margin(2, "top");
+  border-left-style: solid;
+  border-left-width: 8px;
+  border-color: $govuk-border-colour;
+
 
   &--alt {
-    border: solid 8px govuk-colour("turquoise");
-    background-color: govuk-colour("white");
+    border-style: solid;
+    border-width: 8px;
+
+    &,
+    &.alert-default,
+    &.alert-warning,
+    &.alert-success {
+      background-color:  govuk-colour("white");
+    }
+    
   }
+
+
+  @include govuk-responsive-padding(3);
+  @include govuk-responsive-margin(9, "bottom");
+  @include govuk-responsive-margin(1, "top");
+
+
+
+
 
   font-family: "nta", Arial, sans-serif;
   font-size: 19px;
@@ -20,12 +47,15 @@
 
   span {
     display: inline-block;
-    margin-top: 8px;
+    @include govuk-responsive-margin(2, "top");
+    &:last-of-type {
+      @include govuk-responsive-margin(2, "bottom");
+    }
   }
 
   & &__title {
     display:      block;
-    margin-top:   0px;
+    @include govuk-responsive-margin(0, "top");
     font-weight:  bold;
   }
 
@@ -39,9 +69,29 @@
 
   button {
     @include govuk-responsive-margin(3, "left");
-    margin-bottom: 0;
+    @include govuk-responsive-margin(0, "bottom");
   }
 }
+
+
+// adapted from DWP alerts
+// https://dwp-patterns.herokuapp.com/alerts
+
+.alert-default {
+  border-color:     $border-default;
+  background-color: $background-default;
+}
+
+.alert-warning {
+  border-color:     $border-warning;
+  background-color: $background-warning;
+}
+
+.alert-success {
+  border-color:     $border-success;
+  background-color: $background-success;
+}
+
 
 
 @keyframes new-item-animation {
