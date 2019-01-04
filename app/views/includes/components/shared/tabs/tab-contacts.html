@@ -37,19 +37,31 @@
 
 
     {% set contactRows = [] %}
+    
+
+    {#
+      {% set contactRows = ( contactRows.push([
+        {text: contact.role},
+        {html: contact.name + '<br/>' + contact.title},
+        {html: contact.phone + '<br/>' + contact.email}
+      ]), contactRows ) %}
+    #}
+    
 
     {% set contactRows = ( contactRows.push([
-      {text: contact.role},
-      {html: contact.name + '<br/>' + contact.title},
-      {html: contact.phone + '<br/>' + contact.email}
+      {text: contact.name},
+      {text: contact.title},
+      {text: contact.phone},
+      {text: contact.email}
     ]), contactRows ) %}
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">
 
         {{ govukTable({
-          firstCellIsHeader: true,
-          rows: contactRows
+          firstCellIsHeader:  true,
+          classes:            "mspsds-contacts",
+          rows:               contactRows
         }) }}
 
         {{ controls(links) }}
