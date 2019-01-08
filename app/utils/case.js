@@ -188,10 +188,10 @@ changeStatus = (data, body) => {
   kase.activities.unshift(newActivity);
 };
 
-changeVisibility = (data, visibility) => {
+changeVisibility = (data, restricted) => {
   const kase = array.findById(data.cases, data.caseid);
   kase.dateUpdated = new Date(Date.now());
-  kase.visible = visibility === 'true';
+  kase.restricted = restricted;
 };
 
 addComment = (data) => {
