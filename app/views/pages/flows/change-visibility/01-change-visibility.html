@@ -1,18 +1,14 @@
 {% extends "mspsds-layout.html" %}
 
-
 {% block pageTitle %}
-  Visibility information
+  Case visibility
 {% endblock %}
 
-
 {% block beforeContent %}
-
   {{ govukBackLink({
     text: "Back to case",
     href: "/root/case"
   }) }}
-
 {% endblock %}
 
 
@@ -20,44 +16,52 @@
 
   {{ pageTitle({
     type:   "Case: " + data.caseid,
-    title:  "Visibility information"
+    title:  "Visibility"
   }) }}
 
   {% set currentCase = data.cases | withId(data.caseid) %}
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      
+
       <form action="save" method="post" class="form">
+
+        {{ govukRadios({
+          idPrefix:   "restricted",
+          name:       "restricted",
+          items: [
+            {
+              value:  false,
+              text:   "Visible to all",
+              checked: not currentCase.restricted
+            },
+            {
+              value:  true,
+              text:   "My organisation only",
+              checked: currentCase.restricted
+            }
+          ]
+        }) }}
 
         {% call govukFieldset({
           legend: {
-            text:           "Visibility",
-            isPageHeading:  false,
-            classes:        "govuk-fieldset__legend--l"
+            text: "Comment / rationale",
+            classes: "govuk-fieldset__legend--l"
           }
         }) %}
 
-          {{ govukRadios({
-            idPrefix:   "visible",
-            name:       "visible",
-            items: [
-              {
-                value:  true,
-                text:   "Visible to all",
-                checked: currentCase.visible
-              },
-              {
-                value:  false,
-                text:   "My organisation only",
-                checked: not currentCase.visible
-              }
-            ]
+          {{ govukTextarea({
+            hint: {
+              text: "Visibility should only be restricted where there are legal privilege concerns that mean businesses under investigation should not be exposed. If that applies here, please outline the details."
+            },
+            classes: "govuk-!-width-two-thirds",
+            id:   "status-description",
+            name: "status-description"
           }) }}
-        
-        {{ govukButton({text: "Continue"}) }}
 
         {% endcall %}
+
+        {{ govukButton({text: "Continue"}) }}
 
       </form>
 

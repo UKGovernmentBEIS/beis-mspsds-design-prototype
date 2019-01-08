@@ -1,0 +1,29 @@
+{% from "includes/components/shared/tab-title.html"             import tabTitle %}
+
+{{ tabTitle({
+        title:      'Visibility'
+}) }}
+
+{# QQQQ set creatingOrganisation = currentCase.creator.organisation #}{% set creatingOrganisation = "Org Name" %}
+{# QQQQ set assignedOrganisation = currentCase.assignee.organisation #}{% set assignedOrganisation = "Org Name" %}
+
+{% if currentCase.restricted %}
+<p class="govuk-body">The visibility of this case is restricted to members of the organisation that created it ({{creatingOrganisation}}) or the assigned organisation ({{assignedOrganisation}}).</p>
+{# QQQQ These form posts aren't working for some reason #}
+<form action="/root/flows/change-visibility/save" method="post">
+  <input type="hidden" name="restricted" value="false" />
+  <button type="submit" class="govuk-button">Make visible to all users</button>
+</form>
+{% else %}
+<p class="govuk-body">This case is visible to all users of this system.</p>
+
+{# QQQQ if currentCase.canBeRestrictedBy(currentUser) #}
+{# QQQQ These form posts aren't working for some reason #}
+<form action="/root/flows/change-visibility/save" method="post">
+  <input type="hidden" name="restricted" value="true" />
+  <button type="button" name="button" class="govuk-button">Restrict visibility</button>
+</form>
+{# else #}
+<p class="govuk-body">The visibility of this case can only be edited by members of the organisation that created it ({{creatingOrganisation}}) or the assigned organisation ({{assignedOrganisation}}).</p>
+{# endif #}
+{% endif %}

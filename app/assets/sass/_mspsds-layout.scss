@@ -1,9 +1,9 @@
 .mspsds-controls {
-    
+
     .mspsds-block-link {
         line-height: 2.2em;
     }
-    
+
     .mspsds-overview & {
         display: none;
     }
@@ -21,12 +21,12 @@
 }
 
 
-.mspsds-pagetitle {
+.mspsds-pagetitle h1 {
     text-transform: capitalize;
 }
 
 
-.govuk-tabs__tab { 
+.govuk-tabs__tab {
     @include govuk-font($size: 16);
 }
 

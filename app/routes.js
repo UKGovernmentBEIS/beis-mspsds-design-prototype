@@ -184,8 +184,8 @@ router.post(`/:mode/flows/change-status/save`, function (req, res) {
 router.post(`/:mode/flows/change-visibility/save`, function (req, res) {
   // TODO: Add activity when it's designed
   const data = req.session.data;
-  Cases.changeVisibility(data, req.body.visible)
-  let redirectURL = '/root/case--confirmation?caseid=' + data.caseid + '&confirmation=Visibility%20updated#full-details';
+  Cases.changeVisibility(data, req.body.restricted)
+  let redirectURL = '/root/case--confirmation?caseid=' + data.caseid + '&confirmation=Visibility%20updated';
   res.redirect(redirectURL);
 });
 
