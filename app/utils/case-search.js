@@ -44,9 +44,11 @@ findMatchesInObject = (object, query) => {
     if (value.indexOf(query) !== -1) {
       const highlightedText = getHighlightedText(query, value);
       const highlightLabel = object.label.toString() + " " + key.toString()
+      const gdprApplies = object.label === "Reporter"
       results.push({
         label: highlightLabel,
-        text: highlightedText
+        text: highlightedText,
+        gdprApplies: gdprApplies
       })
     }
   });

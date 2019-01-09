@@ -211,7 +211,9 @@ module.exports = function (env) {
     return thing + today.id(formatString);
   };
 
-
+  filters.canBeSeenGDPR = function(object, currentTeam) {
+    return object.creatorTeam ? object.creatorTeam === currentTeam : true;
+  }
 
   filters.isString = function (obj) {
     return typeof obj == 'string';

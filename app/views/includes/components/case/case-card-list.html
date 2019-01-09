@@ -1,8 +1,8 @@
 {% from "includes/components/case/case-card.html"         import caseCard %}
 
-{% macro caseCardList(cases, searchResult = false) %}
+{% macro caseCardList(cases, currentTeam = "", searchResult = false) %}
   {% for case in cases %}
-    {{ caseCard(case, searchResult) }}
+    {{ caseCard(case, searchResult, currentTeam) }}
   {% endfor %}
 
 {% endmacro %}

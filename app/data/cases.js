@@ -46,7 +46,7 @@ module.exports = {
       type: 'Question',
       products: ['p47'],
       title: 'Has anyone recently advised on snap bracelets / slap wraps?',
-      team: 'TSC',
+      creatorTeam: 'OPSS - TSC',
       dateUpdated: '21/10/2018',
       dateCreated: '18/10/2018',
       report: {
@@ -215,17 +215,17 @@ module.exports = {
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock hazard', Cases.setDateArguments(2, {
       products: ['p10'],
       assignee: 'Nick Golding',
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Chemical hazard', Cases.setDateArguments(2, {
       products: ['p11'],
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setDateArguments(1, {
       type: 'Question',
       products: ['p12'],
       title: 'What legislation applies to importing these?',
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     })),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Damage to sight hazard', Cases.setDateArguments(1, {
       products: ['p13'],
@@ -234,7 +234,7 @@ module.exports = {
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Chemical, choking hazard', Cases.setDateArguments(1, {
       products: ['p14'],
       assignee: 'Christopher Hunter',
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(1, {
       products: ['p15'],
@@ -245,7 +245,7 @@ module.exports = {
       products: ['p16'],
       title: 'Haven\'t these been recalled already?',
       assignee: 'Adebola Showemimo',
-      team: 'TSC',
+      creatorTeam: 'OPSS - TSC',
     })),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Poison hazard', Cases.setDateArguments(1, {
       products: ['p17'],
@@ -254,7 +254,7 @@ module.exports = {
       status: 'Closed',
       products: ['p18'],
       assignee: 'Nick Golding',
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setDateArguments(1, {
       type: 'Question',
@@ -262,12 +262,12 @@ module.exports = {
       products: ['p19'],
       title: 'Can anyone think of another title?',
       assignee: 'Adebola Showemimo',
-      team: 'TSC',
+      creatorTeam: 'OPSS - TSC',
     })),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(1, {
       products: ['p20'],
       assignee: 'Christopher Hunter',
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(0, {
       products: ['p21'],
@@ -276,12 +276,12 @@ module.exports = {
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(0, {
       products: ['p22'],
       assignee: 'Christopher Hunter',
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(0, {
       products: ['p23'],
       assignee: 'Nick Golding',
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(0, {
       status: 'Closed',
@@ -290,40 +290,40 @@ module.exports = {
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(0, {
       products: ['p25'],
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(0, {
       products: ['p26'],
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setDateArguments(0, {
       type: 'Question',
       products: ['p27'],
       title: 'What legislation should I be testing under?',
       assignee: 'Adebola Showemimo',
-      team: 'TSC',
+      creatorTeam: 'OPSS - TSC',
     })),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Injuries hazard', Cases.setDateArguments(0, {
       products: ['p28'],
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Entrapment, Injuries hazard', Cases.setDateArguments(0, {
       products: ['p29'],
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Choking hazard', Cases.setDateArguments(0, {
       products: ['p30'],
       assignee: 'Christopher Hunter',
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Suffocation hazard', Cases.setDateArguments(0, {
       products: ['p31'],
       assignee: 'Nick Golding',
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Strangulation hazard', Cases.setDateArguments(-1, {
       products: ['p32'],
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock hazard', Cases.setDateArguments(-1, {
       products: ['p33'],
@@ -334,7 +334,7 @@ module.exports = {
       products: ['p34'],
       title: 'Toys (Safety) Regulations -can you plead guilty in absence?',
       assignee: 'Nick Golding',
-      team: 'TSC',
+      creatorTeam: 'OPSS - TSC',
       report: {
         summary: `I am about to serve summons on a toy safety issue, which is something we have not done for a while. I have established that these are Summary only offences, via S12(5) CPA and time limit is 12 months (reg 56). So, question is, can the defendant enter a plea of guilty in absence, hence requiring relevant pape work for such a plea to be served?
         Section 12 Magistrates Courts Act 1980 seems to say a plea of guilty can be made in absence, but my logic circuits question how someone can plead guilty by letter to an offence with a possible prison sentence.
@@ -343,11 +343,11 @@ module.exports = {
     })),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Chemical hazard', Cases.setDateArguments(-1, {
       products: ['p35'],
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Damage to sight hazard', Cases.setDateArguments(-1, {
       products: ['p36'],
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Damage to sight hazard', Cases.setDateArguments(-1, {
       products: ['p37'],
@@ -356,7 +356,7 @@ module.exports = {
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Chemical, Choking hazard', Cases.setDateArguments(-1, {
       products: ['p38'],
       assignee: 'Christopher Hunter',
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-1, {
       products: ['p39'],
@@ -364,7 +364,7 @@ module.exports = {
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-1, {
       products: ['p40'],
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-1, {
       products: ['p41'],
@@ -375,7 +375,7 @@ module.exports = {
       status: 'Closed',
       products: ['p42'],
       assignee: 'Amanda Farrell',
-      team: 'TSC',
+      creatorTeam: 'OPSS - TSC',
     })),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-2, {
       status: 'Closed',
@@ -385,7 +385,7 @@ module.exports = {
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-2, {
       products: ['p44'],
       assignee: 'Christopher Hunter',
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-2, {
       products: ['p45'],
@@ -393,7 +393,7 @@ module.exports = {
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-2, {
       products: ['p46'],
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-2, {
       status: 'Closed',
@@ -402,7 +402,7 @@ module.exports = {
     }))),
     Cases.buildDefaultWithDifferences(Cases.setHazardArguments('Electric shock, fire hazard', Cases.setDateArguments(-2, {
       products: ['p49'],
-      team: 'Processing',
+      creatorTeam: 'OPSS - Processing',
     })))
   ],
 }

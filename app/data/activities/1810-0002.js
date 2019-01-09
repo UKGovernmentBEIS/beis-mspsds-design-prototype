@@ -64,11 +64,11 @@ module.exports = {
     }),
     templates.phoneCall({
       summary: "Reporter asking for progress report",
-      correspondentName: "Mina Harker",
-      phoneNumber: "07123 123123",
+      correspondentName: "Consumer",
+      phoneNumber: "",
       phoneCallDate: "12/9/2018",
       transcript: "transcript.doc",
-      description: `Mina was wondering whether there was any update on the Charge Worx case. I assured her that we were looking into it... <a href="#">View more</a>`
+      description: `<p class="mspsds-parenthesis-text">Consumer contact details hidden to comply with GDPR legislation. Ask OPSS (who created this case) for contact details if needed.</p><p>Mina was wondering whether there was any update on the Charge Worx case. I assured her that we were looking into it... <a href="#">View more</a></p>`
     }),
     {
       title: "Deleted: Photo ID",
@@ -163,16 +163,16 @@ module.exports = {
       title: "Assigned to Nick Golding",
       action: "Assigned"
     },
-    {
-      title: "Consumer report",
-      action: "Report details added",
-      html: `
-      <p class="govuk-body">
-        Name: <span class="govuk-!-font-weight-bold">Mina Harker</span><br />
-        Phone number: <span class="govuk-!-font-weight-bold">07123 123123</span><br />
-        Email address: <span class="govuk-!-font-weight-bold">mina@castledracula.ro</span>
-      </p>
-      <p class="govuk-body">Other details captured during the report entry</p>`
-    }
+    templates.caseCreated({
+      caseType: "Allegation",
+      productType: "Furniture & Furnishings",
+      hazardType: "Entrapment",
+      caseSummary: "Case summary details captured during report entry",
+      reporterType: "Consumer",
+      reporterName: "Mina Harker",
+      reporterPhoneNumber: "07123 123123",
+      reporterEmailAddress: "mina@castledracula.ro",
+      reporterOtherDetails: "Other details captured during the report entry"
+    })
   ]
 }

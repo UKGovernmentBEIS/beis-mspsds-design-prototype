@@ -1,0 +1,25 @@
+{{ govukRadios({
+  idPrefix:   "correspondence-is-consumer",
+  name:       "correspondence-is-consumer",
+  classes:    "govuk-radios--inline",
+  fieldset: {
+    legend: {
+      text: "Are these consumer contact details?"
+    }
+  },
+  hint: {
+    text: "Consumer contact details are protected by GDPR legislation."
+  },
+  items: [
+    {
+      value:  "true",
+      text:   "Yes",
+      checked: checked("correspondence-is-consumer", "true")
+    },
+    {
+      value:  "false",
+      text:   "No",
+      checked: checked("correspondence-is-consumer", "false")
+    }
+  ]
+}) }}

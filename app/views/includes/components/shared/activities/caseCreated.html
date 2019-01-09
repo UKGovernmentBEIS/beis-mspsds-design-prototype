@@ -22,12 +22,17 @@
   {% endif %}
 </p>
 {% if activity.caseType != "Investigation" %}
-<h4 class="govuk-heading-s">Reporter</h4>
-<p class="govuk-body">
-  Name: <span class="govuk-!-font-weight-bold">{{activity.reporterName}}</span><br />
-  Type: <span class="govuk-!-font-weight-bold">{{activity.reporterType}}</span><br />
-  Phone number: <span class="govuk-!-font-weight-bold">{{activity.reporterPhoneNumber}}</span><br />
-  Email address: <span class="govuk-!-font-weight-bold">{{activity.reporterEmailAddress}}</span><br />
-</p>
-<p class="govuk-body">{{activity.reporterOtherDetails}}</p>
+  <h4 class="govuk-heading-s">Reporter</h4>
+  {% if activity.reporterType == "Consumer" and not (currentCase | canBeSeenGDPR(currentTeam) )%}
+    <p class="govuk-body">Consumer contact details hidden to comply with GDPR legislation.</p>
+    <p class="govuk-body">Contact {{currentCase.creatorTeam}}, who created this case, to obtain these details if required.</p>
+  {% else %}
+    <p class="govuk-body">
+      Name: <span class="govuk-!-font-weight-bold">{{activity.reporterName}}</span><br />
+      Type: <span class="govuk-!-font-weight-bold">{{activity.reporterType}}</span><br />
+      Phone number: <span class="govuk-!-font-weight-bold">{{activity.reporterPhoneNumber}}</span><br />
+      Email address: <span class="govuk-!-font-weight-bold">{{activity.reporterEmailAddress}}</span><br />
+    </p>
+    <p class="govuk-body">{{activity.reporterOtherDetails}}</p>
+  {% endif %}
 {% endif %}

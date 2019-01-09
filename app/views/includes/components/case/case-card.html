@@ -2,7 +2,7 @@
 {% from "includes/components/case/case-with-matches.html"         import caseWithMatches %}
 
 
-{% macro caseCard(caseInfo, searchResult) %}
+{% macro caseCard(caseInfo, searchResult, currentTeam) %}
 
 <div class="mspsds-case-card 
             govuk-body govuk-!-font-weight-regular">
@@ -46,7 +46,7 @@
     {% if searchResult %}
         {% set display = caseInfo.matches %}
         <span class="mspsds-case-card__match">
-            {{ caseWithMatches(display, "")}}
+            {{ caseWithMatches(display, "", currentTeam, caseInfo)}}
         </span>
 
     {% else %}
