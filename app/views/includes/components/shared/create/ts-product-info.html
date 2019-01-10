@@ -1,5 +1,6 @@
 {% from "includes/components/shared/autocomplete-input.html" import autocompleteInput %}
 
+
 <div class="mspsds-input govuk-grid-column-one-half">
 
     {{ autocompleteInput({
@@ -95,6 +96,31 @@
 
     {% call govukFieldset({
       legend: {
+        text:           "Batch number",
+        isPageHeading:  false,
+        classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+      }
+    }) %}
+
+          {{ govukInput({
+            hint: {
+              text: "Particularly important if only a specific batch of a product is being reported"
+            },
+            id: "report-product-batch",
+            name: "new[report][product][batch]",
+            value: data['new']['report']['product']['batch']
+          }) }}
+
+
+    {% endcall %}
+
+</div>
+
+
+<div class="mspsds-input govuk-grid-column-one-half">
+
+    {% call govukFieldset({
+      legend: {
         text:           "Webpage",
         isPageHeading:  false,
         classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
@@ -114,6 +140,44 @@
 
 </div>
 
+<div class="mspsds-input govuk-grid-column-one-half">
+
+    {% call govukFieldset({
+      legend: {
+        text:           "Country of origin",
+        isPageHeading:  false,
+        classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+      }
+    }) %}
+
+          {{ govukSelect({
+            id: "report-product-origin",
+            name: "new[report][product][origin]",
+            formGroup: {
+              classes: "mspsds-autocomplete"
+            },
+            hint: {
+              text: "Where was this product made?"
+            },
+            items: [{
+              value: "opt1",
+              text: ""
+            },{
+              value: "opt2",
+              text: ""
+            }]
+          }) }}
+
+    {% endcall %}
+
+    <script type="text/javascript">
+      openregisterLocationPicker({
+        selectElement: document.getElementById('report-product-origin'),
+        url: '/public/javascripts/location-autocomplete-graph.json'
+      })
+    </script>
+
+</div>
 
 
 <div class="mspsds-input govuk-grid-column-two-thirds">
