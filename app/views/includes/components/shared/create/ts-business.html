@@ -6,6 +6,8 @@
   {% set currentNewBizIDVar  = 'new-business-' %}
 {% endif %}
 
+
+
 {% set businessID = 'b-' | getID("YYMM-HHmm-sss") %}
 
 
@@ -29,7 +31,7 @@
 
       {% call govukFieldset({
         legend: {
-          text:           "Business name",
+          text:           "Legal name",
           isPageHeading:  false,
           classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
         }
@@ -37,11 +39,34 @@
 
             {{ govukInput({
               hint: {
-                text: "The registered name, trading name or any other way of identifying"
+                text: "The registered name of the company"
               },
-              id:         currentNewBizIDVar  + 'name',
-              name:       currentNewBizVar    + '[name]',
-              value: data['new']['report']['businesses'][businessType]['name']
+              id:         currentNewBizIDVar  + 'name-legal',
+              name:       currentNewBizVar    + '[name][legal]',
+              value:      data['new']['report']['businesses'][businessType]['name']['legal']
+            }) }}
+
+      {% endcall %}
+
+  </div>
+
+  <div class="mspsds-input govuk-grid-column-one-half">
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Trading name",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+        }
+      }) %}
+
+            {{ govukInput({
+              hint: {
+                text: "If different from the legal name"
+              },
+              id:         currentNewBizIDVar  + 'name-trading',
+              name:       currentNewBizVar    + '[name][trading]',
+              value:      data['new']['report']['businesses'][businessType]['name']['trading']
             }) }}
 
       {% endcall %}
@@ -161,13 +186,51 @@
         }
       }) %}
 
-            {{ govukInput({
-              id:         currentNewBizIDVar  + 'contact',
-              name:       currentNewBizVar + '[contact]',
-              value: data['new']['report']['businesses'][businessType]['contact']
-            }) }}
+              {{ govukInput({
+                label: {
+                  text: "Name"
+                },
+                classes: "govuk-!-margin-bottom-1",
+                id:       currentNewBizIDVar  + 'contact-name',
+                name:     currentNewBizVar + '[contact][name]',
+                value:    data['new']['report']['businesses'][businessType]['contact']['name']
+              }) }}
+
+
+              {{ govukInput({
+                label: {
+                  text: "Email"
+                },
+                classes: "govuk-!-margin-bottom-1",
+                id:       currentNewBizIDVar  + 'contact-email',
+                name:     currentNewBizVar + '[contact][email]',
+                value:    data['new']['report']['businesses'][businessType]['contact']['email']
+              }) }}
+
+
+              {{ govukInput({
+                label: {
+                  text: "Phone number"
+                },
+                classes: "govuk-!-margin-bottom-1",
+                id:       currentNewBizIDVar  + 'contact-phone',
+                name:     currentNewBizVar + '[contact][phone]',
+                value:    data['new']['report']['businesses'][businessType]['contact']['phone']
+              }) }}
+
+
+              {{ govukInput({
+                label: {
+                  text: "Job title / description"
+                },
+                classes: "govuk-!-margin-bottom-1",
+                id:       currentNewBizIDVar  + 'contact-title',
+                name:     currentNewBizVar + '[contact][title]',
+                value:    data['new']['report']['businesses'][businessType]['contact']['title']
+              }) }}
 
       {% endcall %}
 
   </div>
+
 
