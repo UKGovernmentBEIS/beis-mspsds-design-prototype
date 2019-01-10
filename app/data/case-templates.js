@@ -35,7 +35,7 @@ buildDefaultWithDifferences = (nonDefaultFields) => {
     title: nonDefaultFields.title || 'Undefined',
     visible: nonDefaultFields.visible || true,
     assignee: nonDefaultFields.assignee || 'Tim Harwood',
-    creator_team: nonDefaultFields.creator_team || 'OPSS - IMU',
+    creatorTeam: nonDefaultFields.creatorTeam || 'OPSS - IMU',
     dateUpdated: nonDefaultFields.dateUpdated,
     dateCreated: nonDefaultFields.dateCreated,
     report: report,
