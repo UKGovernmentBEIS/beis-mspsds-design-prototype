@@ -23,9 +23,9 @@
 </p>
 {% if activity.caseType != "Investigation" %}
   <h4 class="govuk-heading-s">Reporter</h4>
-  {% if activity.reporterType == "Consumer" and true %}{# QQQQ if activity.reporterType == "Consumer" and !case.wasCreatedByOrganisation(currentUser.organisation) #}
+  {% if activity.reporterType == "Consumer" and currentCase.creator_team !== currentTeam %}
     <p class="govuk-body">Consumer contact details hidden to comply with GDPR legislation.</p>
-    <p class="govuk-body">Contact QQQQ_org_name, who created this case, to obtain these details if required.</p>
+    <p class="govuk-body">Contact {{currentCase.creator_team}}, who created this case, to obtain these details if required.</p>
   {% else %}
     <p class="govuk-body">
       Name: <span class="govuk-!-font-weight-bold">{{activity.reporterName}}</span><br />

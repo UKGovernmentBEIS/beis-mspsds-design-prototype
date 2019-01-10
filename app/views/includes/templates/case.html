@@ -1,6 +1,7 @@
 {% extends "mspsds-layout.html" %}
 
 {% set currentCase = currentCase | attachCaseChildren(data) %}
+{% set currentTeam = data.currentTeam %}
 
 {% if bodyClasses %}
     {% set bodyClasses = bodyClasses + " mspsds-width-container case" %}
