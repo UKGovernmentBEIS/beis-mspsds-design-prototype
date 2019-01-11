@@ -1,0 +1,275 @@
+{% extends "includes/templates/flow--creation-ts.html" %}
+
+
+
+{% block flow %}
+  <form action="{{formAction}}" method="post" class="form">
+    
+    <div class="govuk-grid-row govuk-!-margin-bottom-4">
+      <div class="govuk-grid-column-two-thirds">
+
+        <h2 class="govuk-heading-m  govuk-!-margin-bottom-1">
+          What product?
+        </h2>
+        
+
+        {% if data['new']['report']['productType'] %}
+            {% set productDetails       = data['new']['report']['productType'] + '<br>' + data['new']['report']['product']['name'] %}
+            {% set productDetailsLink   = 'Edit' %}
+        {% else %}
+            {% set productDetails       = 'Required' %}
+            {% set productDetailsLink   = 'Add' %}
+        {% endif %}
+
+
+        {% if new[report][product][files][tech] %}
+            {% set techDetails       = 'details here' %}
+            {% set techDetailsLink   = 'Edit' %}
+        {% else %}
+            {% set techDetails       = '<span class="govuk-caption-m"> Optional</span>' %}
+            {% set techDetailsLink   = 'Upload' %}
+        {% endif %}
+
+
+        {% if new[report][product][files][testing] %}
+            {% set testDetails       = 'details here' %}
+            {% set testDetailsLink   = 'Edit' %}
+        {% else %}
+            {% set testDetails       = '<span class="govuk-caption-m"> Optional</span>' %}
+            {% set testDetailsLink   = 'Upload' %}
+        {% endif %}
+
+
+        {{ govukTable({
+          firstCellIsHeader: true,
+          rows: [
+            [
+              {
+                text: 'Product Details'
+              },
+              {
+                html: productDetails
+              },
+              {
+                format: 'numeric',
+                html: '<a href="#">'+ productDetailsLink +'</a><span class="govuk-visually-hidden"> product details</span>'
+              }
+            ],
+            [
+              {
+                text: 'Tech specs'
+              },
+              {
+                html: techDetails
+              },
+              {
+                format: 'numeric',
+                html: '<a href="#">'+ techDetailsLink +'</a><span class="govuk-visually-hidden"> technical file</span>'
+              }
+            ],
+            [
+              {
+                text: 'Testing results'
+              },
+              {
+                html: testDetails
+              },
+              {
+                format: 'numeric',
+                html: '<a href="#">'+ testDetailsLink +'</a><span class="govuk-visually-hidden"> testing file</span>'
+              }
+            ],
+            [
+              {
+                text: 'Product images'
+              },
+              {
+                html: testDetails
+              },
+              {
+                format: 'numeric',
+                html: '<a href="#">'+ testDetailsLink +'</a><span class="govuk-visually-hidden"> testing file</span>'
+              }
+            ]
+          ]
+        }) }}
+
+
+      </div>
+    </div>
+
+
+    <div class="govuk-grid-row govuk-!-margin-bottom-4">
+      <div class="govuk-grid-column-two-thirds">
+
+        <h2 class="govuk-heading-m  govuk-!-margin-bottom-1">
+          Why is it unsafe?
+        </h2>
+
+        {{ govukTable({
+          firstCellIsHeader: true,
+          rows: [
+            [
+              {
+                text: 'Hazard details'
+              },
+              {
+                text: 'Required'
+              },
+              {
+                format: 'numeric',
+                html: '<a href="#">Add</a><span class="govuk-visually-hidden"> hazard details</span>'
+              }
+            ],
+            [
+              {
+                text: 'Risk assessment'
+              },
+              {
+                text: 'Required'
+              },
+              {
+                format: 'numeric',
+                html: '<a href="#">Upload</a><span class="govuk-visually-hidden"> risk assessment</span>'
+              }
+            ],
+            [
+              {
+                text: 'Evidence images'
+              },
+              {
+                html: testDetails
+              },
+              {
+                format: 'numeric',
+                html: '<a href="#">'+ testDetailsLink +'</a><span class="govuk-visually-hidden"> testing file</span>'
+              }
+            ]
+          ]
+        }) }}
+
+      </div>
+    </div>
+
+
+    <div class="govuk-grid-row govuk-!-margin-bottom-4">
+      <div class="govuk-grid-column-two-thirds">
+
+        <h2 class="govuk-heading-m  govuk-!-margin-bottom-1">
+          Supply chain information
+        </h2>
+
+        {{ govukTable({
+          firstCellIsHeader: true,
+          rows: [
+            [
+              {
+                text: 'Business details'
+              },
+              {
+                html: '<span class="govuk-caption-m"> Optional</span>'
+              },
+              {
+                format: 'numeric',
+                html: '<a href="#">Edit</a><span class="govuk-visually-hidden"> hazard details</span>'
+              }
+            ]
+          ]
+        }) }}
+
+      </div>
+    </div>
+
+
+
+    <div class="govuk-grid-row govuk-!-margin-bottom-4">
+      <div class="govuk-grid-column-two-thirds">
+
+        <h2 class="govuk-heading-m  govuk-!-margin-bottom-1">
+          Action taken
+        </h2>
+
+        {{ govukTable({
+          firstCellIsHeader: true,
+          rows: [
+            [
+              {
+                text: 'What have you done?'
+              },
+              {
+                text: 'Required'
+              },
+              {
+                format: 'numeric',
+                html: '<a href="#">Add</a><span class="govuk-visually-hidden"> TS action details</span>'
+              }
+            ],
+            [
+              {
+                text: 'What have others done?'
+              },
+              {
+                html: '<span class="govuk-caption-m"> Optional</span>'
+              },
+              {
+                format: 'numeric',
+                html: '<a href="#">Add</a><span class="govuk-visually-hidden"> other\'s actions details</span>'
+              }
+            ],
+            [
+              {
+                text: 'Your case reference number'
+              },
+              {
+                html: '<span class="govuk-caption-m"> Optional</span>'
+              },
+              {
+                format: 'numeric',
+                html: '<a href="#">Edit</a><span class="govuk-visually-hidden"> hazard details</span>'
+              }
+            ],
+            [
+              {
+                text: 'Case files'
+              },
+              {
+                html: '<span class="govuk-caption-m"> Optional</span>'
+              },
+              {
+                format: 'numeric',
+                html: '<a href="#">Upload</a><span class="govuk-visually-hidden"> hazard details</span>'
+              }
+            ],
+            [
+              {
+                text: 'Corrective action website'
+              },
+              {
+                html: '<span class="govuk-caption-m"> Optional</span>'
+              },
+              {
+                format: 'numeric',
+                html: '<a href="#">Edit</a><span class="govuk-visually-hidden"> hazard details</span>'
+              }
+            ]
+          ]
+        }) }}
+
+      </div>
+    </div>
+
+
+
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {% from "button/macro.njk" import govukButton %}
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </div>
+    </div>
+
+  </form>
+
+{% endblock %}

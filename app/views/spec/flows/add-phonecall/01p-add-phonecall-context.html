@@ -7,7 +7,7 @@ Record phonecall
 {% block beforeContent %}
 {{ govukBackLink({
   text: "Back to case",
-  href: "/case"
+  href: "/root/case"
 }) }}
 {% endblock %}
 
@@ -32,6 +32,7 @@ Record phonecall
         {% from "includes/components/correspondence/name-input.html" import nameInput %}
         {{ nameInput("Name") }}
         {% include "includes/components/correspondence/phonenumber-input.html" %}
+        {% include "includes/components/correspondence/consumer-details-check-input.html" %}
       {% endcall %}
 
       {% from "includes/components/correspondence/date-input.html" import correspondenceDate %}

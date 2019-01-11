@@ -1,32 +1,20 @@
 {% extends "includes/templates/flow--creation-ts.html" %}
 
-{% set backLink      = './04' %}
+{% set backLink      = './03' %}
 {% set backText      = 'Back'  %}
-
-{% set businessType  = data['new']['report']['business']['type'][businessesCount] %}
-{% if businessType == "Other" %}
-    {% set businessType  = data['new']['report']['business']['typeOther']  %}
-{% endif %}
-
 
 {% if data['new']['report']['type'] == 'Report' %}
   {% set titleType           = 'Reporting an unsafe product' %}
-  {% set displayTitle        = businessType + ' details' %}
+  {% set displayTitle        = 'Supply chain information' %}
   {% set formAction         = './05' %}
 {% endif %}
 
 
-{% set currentNewBizVar  = 'new[report][businesses][' +  businessType + ']' %}
-
-
-
 {% block flow %}
-
-
 <form action="{{formAction}}" method="post" class="form">
 
   <div class="govuk-grid-row govuk-!-margin-bottom-3">
-    {% include "includes/components/shared/create/ts-business.html" %}
+    {% include "includes/components/shared/create/ts-business-type.html" %}
   </div>
 
 

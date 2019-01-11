@@ -1,32 +1,22 @@
 {% extends "includes/templates/flow--creation.html" %}
 
-
 {% set displayTitle        = 'New '+ data['new']['report']['type'] %}
-
 {% set formAction         = './03' %}
 
 
 {% if data['new']['report']['type'] == 'Allegation' %}
-
-    {% set reportLabel = 'Who\'s making the allegation?' %}
-
+  {% set reportLabel = 'Who\'s making the allegation?' %}
 
 {% elif data['new']['report']['type'] == 'Question' %}
-
-    {% set reportLabel = 'Who did the question come from?' %}
-
+  {% set reportLabel = 'Who did the question come from?' %}
 
 {% elif data['new']['report']['type'] == 'Recall' %}
-
-    {% set reportLabel = 'Who\'s reporting the recall?' %}
-
+  {% set reportLabel = 'Who\'s reporting the recall?' %}
 
 {% elif data['new']['report']['type'] == 'Notification' %}
-
-    {% set reportLabel = 'Who\'s making the notification?' %}
+  {% set reportLabel = 'Who\'s making the notification?' %}
 
 {% endif %}
-
 
 
 {% block flow %}

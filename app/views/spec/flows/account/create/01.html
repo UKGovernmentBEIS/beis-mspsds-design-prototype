@@ -1,0 +1,74 @@
+{% extends "includes/templates/flow--creation-ts.html" %}
+
+
+
+{% set displayTitle        = 'Create account' %}
+{% set formAction         = './02' %}
+
+
+
+
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+                {% from "input/macro.njk" import govukInput %}
+
+                {{ govukInput({
+                    label: {
+                        text: "Full name"
+                    },
+                    id: "account-name",
+                    name: "account[name]"
+                }) }}
+
+                {{ govukInput({
+                    label: {
+                        text: "Work email address"
+                    },
+                    hint: {
+                        text: "We only accept emails from a .gov.uk domain"
+                    },
+                    id: "account-email",
+                    name: "account[email]",
+                    type: "email"
+                }) }}
+
+                {{ govukInput({
+                    label: {
+                        text: "Phone number"
+                    },
+                    hint: {
+                        text: "We’ll send you a security code by text message"
+                    },
+                    id: "account-phone",
+                    name: "account[phone]"
+                }) }}
+
+                {{ govukInput({
+                    label: {
+                        text: "Password"
+                    },
+                    hint: {
+                        text: "At least 8 characters"
+                    },
+                    id: "account-password",
+                    name: "account[password]",
+                    type: "password"
+                }) }}
+
+        </div>
+    </div>
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          {% from "button/macro.njk" import govukButton %}
+          {{ govukButton({
+            text: "Continue"
+          }) }}
+        </div>
+    </div>
+</form>
+{% endblock %}

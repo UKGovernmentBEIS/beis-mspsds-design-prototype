@@ -1,0 +1,17 @@
+{% set anotherAction    = data['new']['report']['action'] %}
+{% set actions          = data['new']['report']['actions'] %}
+
+
+{% set actionCount       = 0 %}
+{% if actions %}
+    {% for action, obj in actions %}
+        {% set actionCount = actionCount + 1%}
+    {% endfor %}
+{% endif %}
+
+
+{% if anotherAction == "Yes" %}
+    {% extends "./07a.html" %}
+{% else %}
+    {% extends "./08.html" %}
+{% endif %}

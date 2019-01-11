@@ -1,5 +1,6 @@
 {% extends "includes/templates/flow.html" %}
 
+{% set currentCase = data.cases | withId(data['caseid']) %}
 
 {% set displayTitle        = 'Assign case' %}
 
@@ -12,7 +13,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h2 class="govuk-heading-l">Current assignee</h2>
-    <p class="govuk-body govuk-body-l">Tim Harwood – tim.harwood@softwire.com</p>
+    <p class="govuk-body govuk-body-l">{{currentCase.assignee}}</p>
   </div>
 </div>
 
@@ -34,11 +35,11 @@
             classes:  "govuk-!-width-two-thirds"
           },
           classes:    "govuk-!-width-two-thirds",
-          id:         "other-correspondent",
-          name:       "other-correspondent"
+          id:         "other-assignee",
+          name:       "other-assignee"
         }) }}
 
-      {% endset -%}
+      {% endset %}
 
 
 
@@ -50,6 +51,40 @@
         }
       }) %}
 
+        {% set userRows         = [] %}
+
+        {% for user in data['users'] %}
+
+          {% if user != currentCase.assignee %}
+
+            {% set userRows = (userRows.push({ 
+                value: user,
+                text: user  
+              }), userRows) %}
+
+          {% endif %}
+
+        {% endfor %}
+
+
+        {% if userRows.length > 0 %}
+
+          {% set userRows = (userRows.push({ 
+              divider: "or" 
+          }), userRows) %}
+          
+          {% set userRows = (userRows.push({ 
+              value: "Other",
+              text: "Other",
+              conditional: {
+                html: otherAssigneeHtml
+              }
+          }), userRows) %}
+
+        {% endif %}
+
+
+
         {{ govukRadios({
           idPrefix:   "assignee",
           name:       "assignee",
@@ -59,26 +94,7 @@
               classes:  "govuk-fieldset__legend--s"
             }
           },
-          items: [
-            {
-              value:  "Nick Golding",
-              text:   "Nick Golding – nick.golding@softwire.com"
-            },
-            {
-              value:  "Ralph Hawkins",
-              text:   "Ralph Hawkins – ralph.hawkins@digital.cabinet-office.gov.uk"
-            },
-            {
-              divider: "or"
-            },
-            {
-              value: "Other",
-              text: "Other",
-              conditional: {
-                html: otherAssigneeHtml
-              }
-            }
-          ]
+          items: userRows
         }) }}
 
       {% endcall %}

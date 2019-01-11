@@ -1,32 +1,21 @@
 {% extends "includes/templates/flow--creation-ts.html" %}
 
-{% set backLink      = './04' %}
+{% set backLink      = './08' %}
 {% set backText      = 'Back'  %}
-
-{% set businessType  = data['new']['report']['business']['type'][businessesCount] %}
-{% if businessType == "Other" %}
-    {% set businessType  = data['new']['report']['business']['typeOther']  %}
-{% endif %}
-
 
 {% if data['new']['report']['type'] == 'Report' %}
   {% set titleType           = 'Reporting an unsafe product' %}
-  {% set displayTitle        = businessType + ' details' %}
-  {% set formAction         = './05' %}
+  {% set displayTitle        = 'Find this in your system' %}
+  {% set formAction          = 'save' %}
 {% endif %}
-
-
-{% set currentNewBizVar  = 'new[report][businesses][' +  businessType + ']' %}
 
 
 
 {% block flow %}
-
-
 <form action="{{formAction}}" method="post" class="form">
-
+  
   <div class="govuk-grid-row govuk-!-margin-bottom-3">
-    {% include "includes/components/shared/create/ts-business.html" %}
+    {% include "includes/components/shared/create/ts-reference-info.html" %}
   </div>
 
 
@@ -34,9 +23,12 @@
     <div class="govuk-grid-column-two-thirds">
       {% from "button/macro.njk" import govukButton %}
       {{ govukButton({
-        text: "Continue"
+        text: "Save"
       }) }}
     </div>
   </div>
 </form>
+
+
+
 {% endblock %}

@@ -7,7 +7,7 @@ Confirm phonecall details
 {% block beforeContent %}
 {{ govukBackLink({
   text: "Back to case",
-  href: "/case"
+  href: "/root/case"
 }) }}
 {% endblock %}
 
@@ -27,11 +27,11 @@ Confirm phonecall details
         rows: [
           [
             { text: "Call with" },
-            { text: "Mina Harker (07123 123123)" }
+            { text: "Mina Harker (07123 123123) - consumer, details will be hidden from other organisations in accordance with GDPR" }
           ],
           [
             { text: "Summary" },
-            { text: "Reporter asking for progress report" }
+            { text: "Reporter asking for progress update" }
           ],
           [
             { text: "Date" },

@@ -17,94 +17,52 @@ Record corrective action
   title:  "Record corrective action"
 }) }}
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <form action="./02-record-corrective-action-confirm" method="post" class="form">
+{% set currentCase = data.cases | withId(data['caseid']) %}
 
-      {% call govukFieldset({
-        legend: {
-          text: "Summary",
-          isPageHeading: false,
-          classes: "govuk-fieldset__legend--l"
-        }
-      }) %}
-        {{ govukInput({
-          classes: "govuk-!-width-two-thirds",
-          id:   "corrective-action-summary",
-          name: "corrective-action-summary"
-        }) }}
-      {% endcall %}
+{% set currentActionProducts = [] %}
 
-      {% from "date-input/macro.njk"    import govukDateInput %}
-      {{ govukDateInput({
-        id:         "corrective-action-date",
-        namePrefix: "corrective-action-date",
-        fieldset: {
-          legend: {
-            text: "When was this action decided?",
-            isPageHeading: false,
-            classes: "govuk-fieldset__legend--l"
-          }
-        },
-        hint: {
-          text: "For example, 31 3 2018"
-        }
-      }) }}
+{% if currentCase.products %}
 
-      {% from "includes/components/shared/autocomplete-input.html" import autocompleteInput %}
-      {% set products = [
-        'Travel plug adaptor — Charge Worx 931L',
-        'iPhone charger – unbranded, white',
-        'Travel plug adaptor – Multipower 94998'
-      ] %}
+  {% for product in currentCase.products %}
+    {% set productData = data['products'] | withId(product) %}
+    {% set productName = "" %}
+    {% if productData.category %}
+      {% set productName =  productName + productData.category %}
+    {% endif %}
 
-      {{ autocompleteInput({
-        idPrefix: "case-products", 
-        name:     "TODO-product-input-name", 
-        legend:   "Which product is subject to action?", 
-        hint:     "Only products already added to the case are listed. <a href='#'>Add a product</a>", 
-        values:   products}) }}
+    {% if productData.name %}
+      {% set productName =  productName + ' - ' + productData.name %}
+    {% endif %}
 
-      {% from "includes/legislation-input.html" import legislationInput %}
-      {{ legislationInput("Under which legislation?") }}
+    {% set currentActionProducts = (currentActionProducts.push(productName), currentActionProducts) %}
+  {% endfor %}  
+{% endif %}
 
-      {% set businesses = [
-        'Charge Worx',
-        'Wonderlite Ltd.',
-        'Trader Joe\'s bargain basement'
-      ] %}
+{% set currentActionBusinesses = [] %}
 
-      {{ autocompleteInput({
-        idPrefix: "case-businesses", 
-        name:     "TODO-business-input-name", 
-        legend:   "Which business is responsible?", 
-        hint:     "Only businesses already added to the case are listed. <a href='#'>Add a business</a>", 
-        values:   businesses}) 
-      }}
+{% if currentCase.businesses %}
+  {% for business in currentCase.businesses %}
+      {% set businessName = business.role %}
+      {% set currentActionBusinesses = (currentActionBusinesses.push(businessName), currentActionBusinesses) %}
+  {% endfor %}
 
-      {% call govukFieldset({
-        legend: {
-          text: "Further details",
-          isPageHeading: false,
-          classes: "govuk-fieldset__legend--l"
-        }
-      }) %}
-        {{ govukTextarea({
-          name: "corrective-action-details",
-          id:   "corrective-action-details"
-        }) }}
-      {% endcall %}
+{% endif %}
 
-      {% from "includes/attachment-input.html" import attachmentInput %}
-      {{ attachmentInput("Related attachments", "corrective-action") }}
+<form action="{{formAction}}" method="post" class="form">
 
+  <div class="govuk-grid-row govuk-!-margin-bottom-3">
+    {% include "includes/components/shared/corrective-action/record-action.html" %}
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% from "button/macro.njk" import govukButton %}
       {{ govukButton({
         text: "Continue"
       }) }}
-
-    </form>
-
+    </div>
   </div>
-</div>
+  
+</form>
 
 {% endblock %}
