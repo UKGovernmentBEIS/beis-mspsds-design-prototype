@@ -13,44 +13,22 @@
 
 {% block flow %}
 
-<form action="{{formAction}}" method="post" class="form">
+  <form action="{{formAction}}" method="post" class="form">
 
-	<div class="govuk-grid-row govuk-!-margin-bottom-3">
-   		<div class="mspsds-input govuk-grid-column-two-thirds">
-   			<p>Upload any files you have that relate your report</p>
-   		</div>
-  	</div>
-
-  <div class="govuk-grid-row govuk-!-margin-bottom-3">
-    {% include "includes/components/shared/create/ts-testing-info.html" %}
-  </div>
-
-  <div class="govuk-grid-row govuk-!-margin-bottom-3">
-    {% include "includes/components/shared/create/ts-risk-info.html" %}
-  </div>
-
-  <div class="govuk-grid-row govuk-!-margin-bottom-3">
-    {% include "includes/components/shared/create/ts-product-files.html" %}
-  </div>
-
-  <div class="govuk-grid-row govuk-!-margin-bottom-3">
-    {% include "includes/components/shared/create/ts-evidence-files.html" %}
-  </div>
-
-   <div class="govuk-grid-row govuk-!-margin-bottom-3">
-    {% include "includes/components/shared/create/ts-files-info.html" %}
-  </div>
-
-
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      {% from "button/macro.njk" import govukButton %}
-      {{ govukButton({
-        text: "Continue"
-      }) }}
+    <div class="govuk-grid-row govuk-!-margin-bottom-3">
+      {% include "includes/components/shared/create/ts-files-type.html" %}
     </div>
-  </div>
-</form>
+
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {% from "button/macro.njk" import govukButton %}
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </div>
+    </div>
+  </form>
 
 {% endblock %}
 

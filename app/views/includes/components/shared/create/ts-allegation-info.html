@@ -1,29 +1,99 @@
 
 {% from "includes/components/shared/autocomplete-input.html" import autocompleteInput %}
 
-<div class="mspsds-input govuk-grid-column-two-thirds">
-
-        {{ govukTextarea({
-          name: "new[report][summary]",
-          id:   "allegation-detail",
-          hint : {
-            text: "Please give details about the issues or incidents which resulted in this report"
-          },
-          value: data['new']['report']['summary']
-        }) }}
-
-</div>
-
-
-<div class="mspsds-input govuk-grid-column-one-half">
+{% set unsafeHtml %}
 
     {{ autocompleteInput({
       idPrefix: "hazard-type", 
       name:     "new[report][hazardType]", 
       legend:   "Hazard type",
       class:    "govuk-fieldset__legend--m govuk-!-margin-bottom-1",
-      hint:     "What danger does the product present?", 
+      hint:     "What kind of danger does the product present?", 
       values:   data.hazardTypes}) 
     }}
 
+
+    {{ govukTextarea({
+      name: "new[report][hazardSummary]",
+      id:   "allegation-hazard–detail",
+      hint : {
+        text: "Please give details about the hazard"
+      },
+      value: data['new']['report']['summary']
+    }) }}
+
+
+
+{% endset -%}
+
+
+
+{% set complianceHtml %}
+    
+    {{ govukTextarea({
+      name: "new[report][complianceSummary]",
+      id:   "allegation-compliance-detail",
+      hint : {
+        text: "Please give details of its non-compliance"
+      },
+      value: data['new']['report']['summary']
+    }) }}
+
+{% endset -%}
+
+
+
+
+<div class="mspsds-input govuk-grid-column-two-thirds  govuk-!-margin-bottom-9">
+
+    {{ govukCheckboxes({
+      idPrefix: "report-report-type",
+      name: "new[report][reportType]",
+      items: [
+        {
+          value: "unsafe",
+          text: "It’s unsafe",
+          conditional: {
+            html: unsafeHtml
+          }
+        },
+        {
+          value: "noncompliant",
+          text: "It’s non-compliant",
+          conditional: {
+            html: complianceHtml
+          }
+        }
+      ]
+    }) }}
+
+
 </div>
+
+
+<div class="mspsds-input govuk-grid-column-two-thirds">
+
+    {% call govukFieldset({
+      legend: {
+        text:           "How did you find out about it?",
+        isPageHeading:  false,
+        classes:        "govuk-fieldset__legend--m  govuk-!-margin-bottom-1"
+      }
+    }) %}
+
+        {{ govukTextarea({
+          name: "new[report][catalyst]",
+          id:   "report-catalyst",
+          hint : {
+            text: "What brought this product to your attention?"
+          },
+          value: data['new']['report']['catalyst']
+        }) }}
+
+    {% endcall %}
+
+
+</div>
+
+
+

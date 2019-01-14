@@ -50,18 +50,23 @@ module.exports = {
 
   createUrl: "/root/flows/create/01",
 
-  cases:        require("./cases.js").cases,
-  products:     require("./products.js").products,
-  businesses:   require("./businesses.js").businesses,
-  contacts:     require("./contacts.js").contacts,
-  locations:    require("./locations.js").locations,
-  users:        require("./users.js").users,
-  attachments:  require("./attachments.js").attachments,
-  productTypes: require("./product-types.js").productTypes,
-  hazardTypes:  require("./hazard-types.js").hazardTypes,
-  businessTypes: require("./business-types").businessTypes,
-  teams:        require("./teams.js").teams,
-  legislation:  require("./legislation.js").legislation,
+  cases:          require("./cases.js").cases,
+  products:       require("./products.js").products,
+  businesses:     require("./businesses.js").businesses,
+  contacts:       require("./contacts.js").contacts,
+  locations:      require("./locations.js").locations,
+  users:          require("./users.js").users,
+  attachments:    require("./attachments.js").attachments,
+
+  productTypes:   require("./product-types.js").productTypes,
+  hazardTypes:    require("./hazard-types.js").hazardTypes,
+  businessTypes:  require("./business-types").businessTypes,
+
+  teams:          require("./teams.js").teams,
+  legislation:    require("./legislation.js").legislation,
+
+  fileTypes:      require("./file-types").fileTypes,
+  
   new: {
     files: {
       testing: {},

@@ -1,0 +1,46 @@
+{% if not currentNewFileVar %}
+  {% set currentNewFileVar  = 'new[report][files]' %}
+{% endif %}
+
+{% if not currentNewFileIDVar %}
+  {% set currentNewFileIDVar  = 'new-files-' %}
+{% endif %}
+
+
+  <div class="govuk-grid-column-one-half  govuk-!-margin-bottom-9">
+    {% call govukFieldset({
+      legend: {
+        text:           "What other files can you give us?",
+        isPageHeading:  false,
+        classes:        "govuk-fieldset__legend--m  govuk-!-margin-bottom-1"
+      }
+    }) %}
+
+        {% if data.fileTypes %}
+
+            {% set types = [] %}
+
+            {% for type in data.fileTypes | list %}
+              {% set types = (types.push({
+                value:    type.name,
+                text:     type.name,
+                hint: {
+                  text:   type.hint
+                },
+                checked:  checked("new['report']['files']['type']", type.name)
+                }), types) %}
+            {% endfor %}
+
+            {{ govukCheckboxes({
+              idPrefix:   currentNewFileIDVar  + 'type',
+              name:       currentNewFileVar    + '[type]',
+              items: types
+            }) }}
+
+        {% endif %}
+   
+    {% endcall %}
+
+  </div>
+
+
