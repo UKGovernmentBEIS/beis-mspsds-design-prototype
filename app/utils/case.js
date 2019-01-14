@@ -60,6 +60,24 @@ addCreatedActivity = (newCase) => {
 
 addAttachments = (data, kase) => {
   const files = Attachments.buildTsCreateAttachments(data);
+  if (files.length === 0) { 
+    return;
+  }
+
+  files.forEach( function (file) {
+    Attachments.addAttachmentToObj(data, file, kase);
+  } );
+
+  /*
+  kase.attachments.unshift(...files.map(f => f.id));
+  kase.activities[0].attachments.unshift(...files);
+  data.attachments.push(...files);
+  */
+  kase.dateUpdated = today.short();
+};
+
+oldAddAttachments = (data, kase) => {
+  const files = Attachments.buildTsCreateAttachments(data);
   if (files.length === 0) {
     return;
   }

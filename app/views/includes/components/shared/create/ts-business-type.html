@@ -7,6 +7,15 @@
 {% endif %}
 
 
+{{ govukInput({
+  id:   "report-businesses",
+  name: "new[report][businesses]",
+  value: "",
+  type: "hidden"
+}) }}
+
+
+
   <div class="govuk-grid-column-one-half  govuk-!-margin-bottom-9">
     {% call govukFieldset({
       legend: {
@@ -16,15 +25,18 @@
       }
     }) %}
 
+
          {% set otherBusinessTypeHtml %}
 
-          {{ govukInput({
-            id:         currentNewBizIDVar  + 'type-other',
-            name:       currentNewBizVar    + '[typeOther]',
-            value: data['new']['report']['business']['typeOther']
-          }) }}
+            {{ govukInput({
+              id:         currentNewBizIDVar  + 'type-other',
+              name:       currentNewBizVar    + '[typeOther]',
+              value: data['new']['report']['business']['typeOther']
+            }) }}
 
         {% endset %}
+
+
 
         {% set types = [] %}
         {% for type in data.businessTypes | list %}

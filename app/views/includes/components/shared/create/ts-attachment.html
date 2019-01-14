@@ -1,0 +1,77 @@
+{% if not currentUploadVar %}
+  {% set currentUploadVar  = 'attachment' %}
+{% endif %}
+
+{% if not currentUploadIDVar %}
+  {% set currentUploadIDVar  = 'attachment-' %}
+{% endif %}
+
+
+
+<div class="govuk-grid-row govuk-!-margin-bottom-3">
+	<div class="govuk-grid-column-two-thirds">
+
+		{% call govukFieldset({
+		    legend: {
+		      text:       "Browse for file",
+		      classes:    "govuk-fieldset__legend--l"
+		    }
+	  	}) %}
+
+		    {{ govukFileUpload({
+		      id:   currentUploadIDVar + "filename",
+		      name: currentUploadVar + "[filename]"
+		    }) }}
+
+	  	{% endcall %}
+
+
+	  <div >
+	      <img class="govuk-visually-hidden" src="" alt="New attachment" />
+	      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+	  </div>
+
+	</div>
+
+</div>
+ 
+<div class="govuk-grid-row govuk-!-margin-bottom-3">
+
+	<div class="govuk-grid-column-two-thirds">
+          
+
+        {% call govukFieldset({
+            legend: {
+              text: formLabel,
+              classes: "govuk-fieldset__legend--l",
+              isPageHeading: false
+            }
+        }) %}
+
+
+            {{ govukInput({
+              id:   currentUploadIDVar + "title",
+              name: currentUploadVar + "[title]",
+              value:    currentAttachment.title,
+              label: {
+                text: "Title"
+              },
+              classes: "govuk-!-width-two-thirds"
+            }) }}
+
+
+            {{ govukTextarea({
+              id:   currentUploadIDVar + "description",
+              name: currentUploadVar + "[description]",
+              value:    currentAttachment.description,
+              label: {
+                text: "Description"
+              }
+            }) }}
+
+        {% endcall %}
+
+	</div>
+
+
+</div>	

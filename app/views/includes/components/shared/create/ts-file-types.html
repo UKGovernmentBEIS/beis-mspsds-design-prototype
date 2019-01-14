@@ -1,16 +1,32 @@
 {% if not currentNewFileVar %}
-  {% set currentNewFileVar  = 'new[report][files]' %}
+  {% set currentNewFileVar  = 'new[report][file]' %}
 {% endif %}
 
 {% if not currentNewFileIDVar %}
-  {% set currentNewFileIDVar  = 'new-files-' %}
+  {% set currentNewFileIDVar  = 'new-file-' %}
 {% endif %}
 
 
-  <div class="govuk-grid-column-one-half  govuk-!-margin-bottom-9">
+{{ govukInput({
+  id:   "report-files",
+  name: "new[report][files]",
+  value: "",
+  type: "hidden"
+}) }}
+
+{{ govukInput({
+  id:   "more-files",
+  name: "moreFiles",
+  value: "",
+  type: "hidden"
+}) }}
+
+
+<div class="govuk-grid-column-one-half  govuk-!-margin-bottom-9">
+
     {% call govukFieldset({
       legend: {
-        text:           "What other files do you have?",
+        text:           "What files do you have?",
         isPageHeading:  false,
         classes:        "govuk-fieldset__legend--m  govuk-!-margin-bottom-1"
       }
@@ -27,13 +43,13 @@
                 hint: {
                   text:   type.hint
                 },
-                checked:  checked("new['report']['files']['type']", type.name)
+                checked:  checked("new['report']['file']['types']", type.name)
                 }), types) %}
             {% endfor %}
 
             {{ govukCheckboxes({
-              idPrefix:   currentNewFileIDVar  + 'type',
-              name:       currentNewFileVar    + '[type]',
+              idPrefix:   currentNewFileIDVar  + 'types',
+              name:       currentNewFileVar    + '[types]',
               items: types
             }) }}
 
@@ -41,6 +57,6 @@
    
     {% endcall %}
 
-  </div>
+</div>
 
 

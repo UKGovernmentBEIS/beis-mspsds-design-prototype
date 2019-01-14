@@ -69,8 +69,6 @@ addAttachment = (data) => {
 
 addAttachmentToObj = (data, att, obj) => {
 
-  console.log('addAttachmentToObj', att);
-
   let newAttachment = att;
 
   newAttachment.id = 'at' + (data.attachments.length + 1);
@@ -105,6 +103,24 @@ editAttachment = (data) => {
 }
 
 buildTsCreateAttachments = (data) => {
+  let attachments = [];
+  let files = data.new.report.files;
+
+  Object.entries(files).forEach(
+    ([key, value]) => {
+        Object.entries(value).forEach(
+          ([key2, value2]) => {
+              attachments.push( build(value2) );
+          }
+        );
+    }
+  );
+
+  return attachments;
+}
+
+
+oldBuildTsCreateAttachments = (data) => {
   const testFile = build({
     title: "Test Results",
     filename: data.new.files.testing.upload

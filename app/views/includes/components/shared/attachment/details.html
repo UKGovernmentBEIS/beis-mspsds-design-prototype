@@ -1,4 +1,4 @@
-{# Doesn't get displayed, but sets on the model #}
+ {# Doesn't get displayed, but sets on the model #}
 
   {{ govukInput({
     id:   "attachmentid",
@@ -32,14 +32,12 @@
 
 {% set extraClass = '' %}
 {% if currentAttachment.type == 'document' %}
-
   {% set extraClass = 'govuk-grid-column-one-half' %}
-
 {% endif %}
 
 
 
-  <div class="govuk-grid-row blah">
+  <div class="govuk-grid-row">
 
       <div class="govuk-grid-column-two-thirds">
 
