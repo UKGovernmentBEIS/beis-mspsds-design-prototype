@@ -18,7 +18,7 @@ module.exports = {
         },
         {
             name:   'Other files',
-            hint:   'Any other relevant files, such as purchase reciepts, case-file downloads etc'
+            hint:   'Any other relevant files, such as purchase receipts, case-file downloads etc'
         }
 
     ]
