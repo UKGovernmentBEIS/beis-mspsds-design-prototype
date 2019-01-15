@@ -25,16 +25,81 @@
 
 	  	{% endcall %}
 
-
-	  <div >
-	      <img class="govuk-visually-hidden" src="" alt="New attachment" />
-	      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-	  </div>
-
-	</div>
+  </div>
 
 </div>
- 
+
+<div class="govuk-grid-row govuk-!-margin-bottom-3">
+
+  <div id="{{currentUploadIDVar}}preview-container" class="govuk-grid-column-one-half" >
+      <img id="{{currentUploadIDVar}}preview" class="govuk-visually-hidden" src="" alt="New attachment" />
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+  </div>
+
+    <script type="text/javascript">
+
+
+    var imageTypes          = ['jpg','png','gif','svg'],
+        documentPlaceholder = '/public/images/document-thumbnail.png';
+
+
+    function updatePreview(data) {
+        data.image.setAttribute('src',  data.imgSrc);
+        data.image.setAttribute('class', data.imageClass );
+        data.container.setAttribute('class', data.containerClass );
+    }
+      
+    function readURL(input, previewImage, previewContainer) {
+
+        if (input.files && input.files[0] && previewImage && previewContainer) {
+
+            var fileType = input.files[0].name.split('.')[1];
+
+            if (imageTypes.includes( fileType )) {
+
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    updatePreview({
+                      image:          previewImage, 
+                      imgSrc:         e.target.result,
+                      imageClass:     '',
+                      container:      previewContainer,
+                      containerClass: 'govuk-grid-column-one-half'
+                    });
+                };
+
+                reader.readAsDataURL(input.files[0]);
+
+            } else {
+
+               updatePreview({
+                      image:          previewImage, 
+                      imgSrc:         documentPlaceholder,
+                      imageClass:     '',
+                      container:      previewContainer,
+                      containerClass: 'govuk-grid-column-one-quarter'
+                });
+
+            }
+
+            
+        }
+    }
+
+      var fileBrowse              = document.getElementById('{{currentUploadIDVar}}filename'),
+          filePreview             = document.getElementById('{{currentUploadIDVar}}preview'),
+          filePreviewContainer    = document.getElementById('{{currentUploadIDVar}}preview-container');
+
+      fileBrowse.addEventListener('change',function(evt) {
+        console.log('this',this);
+        readURL(fileBrowse, filePreview, filePreviewContainer);
+      });
+
+    </script>
+
+</div>
+
 <div class="govuk-grid-row govuk-!-margin-bottom-3">
 
 	<div class="govuk-grid-column-two-thirds">
