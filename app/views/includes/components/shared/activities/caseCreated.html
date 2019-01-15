@@ -1,4 +1,4 @@
-{% if activity.caseType != "Investigation" %}
+{% if activity.caseType != "Project" %}
 <h4 class="govuk-heading-s">{{activity.caseType}} details</h4>
 {% endif %}
 <p class="govuk-body">
@@ -21,7 +21,7 @@
     {% endfor %}
   {% endif %}
 </p>
-{% if activity.caseType != "Investigation" %}
+{% if activity.caseType != "Project" %}
   <h4 class="govuk-heading-s">Reporter</h4>
   {% if activity.reporterType == "Consumer" and not (currentCase | canBeSeenGDPR(currentTeam) )%}
     <p class="govuk-body">Consumer contact details hidden to comply with GDPR legislation.</p>

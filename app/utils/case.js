@@ -32,8 +32,8 @@ buildFromData = (data) => {
     case "Question":
       newCase.type = "Question";
       break;
-    case "Investigation":
-      newCase.type = "Investigation";
+    case "Project":
+      newCase.type = "Project";
       break;
     default:
       newCase.type = "Case";

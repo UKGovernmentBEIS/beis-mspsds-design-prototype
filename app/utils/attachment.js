@@ -104,7 +104,7 @@ editAttachment = (data) => {
 
 buildTsCreateAttachments = (data) => {
   let attachments = [];
-  let files = data.new.report.files;
+  let files = data.new.report.files || [];
 
   Object.entries(files).forEach(
     ([key, value]) => {
