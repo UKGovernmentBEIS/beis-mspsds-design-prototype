@@ -1,0 +1,170 @@
+{% if not currentUploadVar %}
+  {% set currentUploadVar  = 'testResult' %}
+{% endif %}
+
+{% if not currentUploadIDVar %}
+  {% set currentUploadIDVar  = 'test-result-' %}
+{% endif %}
+
+
+
+
+
+{% if currentTestProducts.length > 1 %}
+
+<div class="govuk-grid-row">
+        <div class="mspsds-input govuk-grid-column-one-half govuk-!-margin-bottom-3">
+
+              {% from "includes/components/shared/autocomplete-input.html" import autocompleteInput %}
+
+              {{ autocompleteInput({
+                idPrefix:   currentUploadIDVar  + 'product',
+                name:       currentUploadVar    + '[product]',
+                class:      "govuk-fieldset__legend--m govuk-!-margin-bottom-1",
+                legend:     "Which product is subject to action?", 
+                values:     currentTestProducts 
+              }) }}
+        </div>
+ </div>
+
+{% elif currentTestProducts.length == 1 %}
+
+        {{ govukInput({
+          id:         currentUploadIDVar  + 'product',
+          name:       currentUploadVar    + '[product]',
+          value:      currentTestProducts[0],
+          type:       "hidden"
+        }) }}
+
+{% endif %}
+
+
+
+
+
+{% if data['legislation'].length > 1 %}
+    <div class="govuk-grid-row">
+        <div class="mspsds-input govuk-grid-column-one-half govuk-!-margin-bottom-3">
+
+              {% from "includes/components/shared/autocomplete-input.html" import autocompleteInput %}
+
+
+              {{ autocompleteInput({
+                idPrefix:   currentUploadIDVar  + 'legislation',
+                name:       currentUploadVar    + '[legislation]',
+                class:      "govuk-fieldset__legend--m govuk-!-margin-bottom-1",
+                legend:     "Which legislation was tested against?", 
+                hint:       "Select the relevant legislation from the list, or enter a different one.", 
+                values:     data['legislation'] 
+              }) }}
+
+        </div>
+    </div>
+{% endif %}
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds  govuk-!-margin-bottom-3">
+
+
+      {% from "date-input/macro.njk"    import govukDateInput %}
+      {{ govukDateInput({
+        id:         currentUploadIDVar  + "date",
+        namePrefix: currentUploadVar    + "[date]",
+        fieldset: {
+          legend: {
+            text: "When was the test conducted?",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        hint: {
+          text: "For example, 31 3 2018"
+        }
+      }) }}
+
+      {% call govukFieldset({
+        legend: {
+          text:           "What was the test result?",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--m"
+        }
+      }) %}
+      {{ govukRadios({
+        idPrefix:   currentUploadIDVar  + "status",
+        name:       currentUploadVar    + "[status]",
+        items: [
+          {
+            value:  "Pass",
+            text:   "Pass"
+          },
+          {
+            value:  "Fail",
+            text:   "Fail"
+          }
+        ]
+      }) }}
+      {% endcall %}
+
+      {% call govukFieldset({
+        legend: {
+          text: "Further details",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--m"
+        }
+      }) %}
+        {{ govukTextarea({
+          name: currentUploadVar    + "[details]",
+          id:   currentUploadIDVar  + "details"
+        }) }}
+      {% endcall %}
+
+
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="mspsds-input govuk-grid-column-two-thirds  govuk-!-margin-bottom-3">
+
+          {% set attachmentHtml %}
+
+              {% from "includes/components/shared/attachment-input.html" import attachmentInput %}
+              {{ attachmentInput({
+                idPrefix:               currentUploadIDVar  + 'attachment',
+                namePrefix:             currentUploadVar    + '[attachment]',
+                includeDescription:     "true"
+              }) }}
+
+          {% endset %}
+
+
+          {% call govukFieldset({
+            legend: {
+              text: "Do you have a report or results file?",
+              isPageHeading: false,
+              classes: "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+            }
+          }) %}
+            {{ govukRadios({
+              idPrefix:         currentUploadIDVar  + 'has-attachment',
+              name:             currentUploadVar    + '[hasAttachment]',
+              items: [
+                {
+                  value: "Yes",
+                  text: "Yes",
+                  conditional: {
+                    html: attachmentHtml
+                  }
+                },
+                {
+                  value: "No",
+                  text: "No"
+                }
+              ]
+          }) }}
+          {% endcall %}
+        
+    </div>
+
+</div>

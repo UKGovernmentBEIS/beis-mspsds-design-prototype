@@ -2,7 +2,7 @@ module.exports = {
     fileTypes: [
         {
             name:   'Test results',
-            hint:   'Upload any test results'
+            hint:   'Record test results and upload files'
         },
         {
             name:   'Risk assesments',

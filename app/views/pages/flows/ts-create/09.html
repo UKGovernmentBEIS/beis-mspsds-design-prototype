@@ -6,6 +6,9 @@
     {% for file, obj in files %}
         {% set filesCount = filesCount + 1%}
     {% endfor %}
+    {% if data['moreFiles'] == "Yes" %}
+        {% set filesCount = filesCount - 1 %}
+    {% endif %}
 {% endif %}
 
 
