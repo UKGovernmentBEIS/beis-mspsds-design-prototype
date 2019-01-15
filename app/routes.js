@@ -48,7 +48,7 @@ router.post('/:mode/flows/ts-create/save', function (req, res) {
 
 router.post('/:mode/flows/create/issue-type', function (req, res) {
   let issueType = req.session.data.new['report']['type'];
-  let nextPage = (issueType == "Investigation") ? "04" : "02";
+  let nextPage = (issueType == "Project") ? "04" : "02";
   res.redirect('/root/flows/create/' + nextPage);
 });
 
@@ -111,7 +111,7 @@ router.post('/:mode/flows/contact/save', function (req, res) {
   data.confirmation.id    = 'contact-saved';
   data.confirmation.type  = 'success';
   data.confirmation.title = 'Contact added.';
-  
+
 
   const targetURL = '/root/business--confirmation?businessid=' + data.businessid + '#contacts';
   res.redirect(data.currentPage === 'business' ? targetURL : '404');
@@ -275,7 +275,7 @@ router.post('/test-setup', function (req, res, next) {
   }
 
   Reset.resetNew(req);
-  
+
   next();
 });
 

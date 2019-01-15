@@ -8,7 +8,7 @@
   }) %}
     {{ govukInput({
       hint: {
-        text: "This will help other users identify this investigation"
+        text: "This will help other users identify this project"
       },
       id: "report-title",
       name: "new[title]"
@@ -17,14 +17,14 @@
 
   {% call govukFieldset({
     legend: {
-      text:           "Investigation summary",
+      text:           "Project summary",
       isPageHeading:  false,
       classes:        "govuk-fieldset__legend--l"
     }
   }) %}
     {{ govukTextarea({
       name: "new[report][summary]",
-      id:   "investigation-detail"
+      id:   "project-detail"
     }) }}
   {% endcall %}
 </div>
