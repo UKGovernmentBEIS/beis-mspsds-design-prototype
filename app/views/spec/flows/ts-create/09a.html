@@ -1,0 +1,120 @@
+{% extends "includes/templates/flow--creation-ts.html" %}
+
+{% set backLink      = './08' %}
+{% set backText      = 'Back'  %}
+
+
+
+{% set fileType               = data['new']['report']['file']['types'][filesCount] %}
+{% set fileTypeID             = fileType | replace(' ','-')  %}
+{% set currentFileType        = data['new']['report']['files'][fileTypeID] %}
+
+
+{% set currentFileTypeCount   = 0 %}
+{% if currentFileType %}
+    {% for file, obj in currentFileType %}
+        {% set currentFileTypeCount = currentFileTypeCount + 1%}
+    {% endfor %}
+{% endif %}
+
+
+
+{% if data['new']['report']['type'] == 'Report' %}
+  {% set titleType      = 'Report an unsafe or non-compliant product' %}
+  {% set displayTitle   = fileType + ' details' %}
+  {% set formAction     = './09' %}
+{% endif %}
+
+
+
+{% set includePath          = 'includes/components/shared/create/ts-attachment.html' %}
+{% set currentUploadVar     = 'new[report][files][' +  fileTypeID + '][f' +currentFileTypeCount+ ']' %}
+{% set currentUploadIDVar   = 'new-report-files-' +  fileTypeID + '-f' + currentFileTypeCount + '-' %}
+
+
+
+
+{% set testingFileType  = 'Test results' %}
+{% if fileType == testingFileType %}
+
+    {% set includePath          = 'includes/components/shared/create/ts-test-result.html' %}
+
+
+    {% set currentTestProducts = [] %}
+    {% if data['new']['report']['product'] %}
+
+        {% set productName = '' %}
+
+        {% if data['new']['report']['product']['category'] %}
+          {% set productName =  productName + data['new']['report']['product']['category'] %}
+        {% endif %}
+
+        {% if data['new']['report']['product']['name'] %}
+          {% set productName =  productName + ' - ' + data['new']['report']['product']['name'] %}
+        {% endif %}
+        
+        {% set currentTestProducts = (currentTestProducts.push(productName), currentTestProducts) %}
+
+    {% endif %}
+
+
+{% endif %}
+
+
+
+{% block flow %}
+
+
+    <form action="{{formAction}}" method="post" class="form">
+
+      
+      {% include includePath%}
+
+
+      <div class="govuk-grid-row govuk-!-margin-bottom-3 govuk-!-margin-top-3">
+    
+          <div class="mspsds-input govuk-grid-column-two-thirds  govuk-!-margin-bottom-5">
+
+                {% call govukFieldset({
+                  legend: {
+                    text: "Are there other "+fileType.toLowerCase()+" to report",
+                    isPageHeading: false,
+                    classes: "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+                  }
+                }) %}
+                    {{ govukRadios({
+                      idPrefix:   "more-files",
+                      name:       "moreFiles",
+                      items: [
+                        {
+                          value: "Yes",
+                          text: "Yes"
+                        },
+                        {
+                          value: "No",
+                          text: "No",
+                          checked: true
+                        }
+                      ]
+                    }) }}
+                {% endcall %}
+
+          </div>
+
+      </div>
+
+
+
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          {% from "button/macro.njk" import govukButton %}
+          {{ govukButton({
+            text: "Continue"
+          }) }}
+        </div>
+      </div>
+    </form>
+
+
+{% endblock %}
