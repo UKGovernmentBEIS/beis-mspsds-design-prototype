@@ -37,7 +37,9 @@ buildDefaultWithDifferences = (nonDefaultFields) => {
     assignee: nonDefaultFields.assignee || 'Tim Harwood',
     creatorTeam: nonDefaultFields.creatorTeam || 'OPSS - IMU',
     dateUpdated: nonDefaultFields.dateUpdated,
+    dateUpdatedActual: nonDefaultFields.dateUpdatedActual,
     dateCreated: nonDefaultFields.dateCreated,
+    dateCreatedActual: nonDefaultFields.dateCreatedActual,
     report: report,
     products: nonDefaultFields.products || [],
     businesses: nonDefaultFields.businesses || [],
@@ -52,7 +54,9 @@ buildDefaultWithDifferences = (nonDefaultFields) => {
 
 setDateArguments = (daysApart, nonDefaultFields) => {
   nonDefaultFields.dateCreated = dateFactory(2018, 10, 18);
+  nonDefaultFields.dateCreatedActual = new Date(2018, 10 - 1, 18);
   nonDefaultFields.dateUpdated = dateFactory(2018, 10, 18 + daysApart);
+  nonDefaultFields.dateUpdatedActual = new Date(2018, 10 - 1, 18 + daysApart);
   return nonDefaultFields;
 };
 

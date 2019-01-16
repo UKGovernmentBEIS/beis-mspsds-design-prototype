@@ -13,7 +13,7 @@
 
     {% set titleType           = 'Asking a question' %}
     {% set displayTitle        = 'Question details' %}
-    {% set formAction         = './04' %}
+    {% set formAction         = './04-Q' %}
 
 {% endif %}
 
@@ -30,7 +30,7 @@
 
     {% elif data['new']['report']['type'] == 'Question' %}
 
-        {% include "includes/components/shared/create/question-info.html" %}
+        {% include "includes/components/shared/create/ts-question-info.html" %}
 
     {% endif %}
 

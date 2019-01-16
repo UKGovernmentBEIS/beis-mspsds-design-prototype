@@ -33,12 +33,14 @@
 
 
 
+
 {% set testingFileType  = 'Test results' %}
 {% if fileType == testingFileType %}
+
     {% set includePath          = 'includes/components/shared/create/ts-test-result.html' %}
 
-    {% set currentTestProducts = [] %}
 
+    {% set currentTestProducts = [] %}
     {% if data['new']['report']['product'] %}
 
         {% set productName = '' %}
@@ -54,6 +56,7 @@
         {% set currentTestProducts = (currentTestProducts.push(productName), currentTestProducts) %}
 
     {% endif %}
+
 
 {% endif %}
 

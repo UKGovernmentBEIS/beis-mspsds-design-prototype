@@ -17,6 +17,8 @@ buildFromData = (data) => {
   addDefaults(newCase);
   newCase.dateCreated = today.short();
   newCase.dateUpdated = today.short();
+  newCase.dateCreatedActual = new Date(Date.now());
+  newCase.dateUpdatedActual = new Date(Date.now());
   if (newCase.report) {
     newCase.report.date = today.short();
   }
@@ -74,6 +76,7 @@ addAttachments = (data, kase) => {
   data.attachments.push(...files);
   */
   kase.dateUpdated = today.short();
+  kase.dateUpdatedActual = new Date(Date.now());
 };
 
 oldAddAttachments = (data, kase) => {
@@ -85,6 +88,7 @@ oldAddAttachments = (data, kase) => {
   kase.activities[0].attachments.unshift(...files);
   data.attachments.push(...files);
   kase.dateUpdated = today.short();
+  kase.dateUpdatedActual = new Date(Date.now());
 };
 
 addProduct = (data, kase) => {
@@ -97,6 +101,7 @@ addProduct = (data, kase) => {
   const addProductActivity = Activities.buildAddProduct(product, data.currentUser);
   kase.activities.unshift(addProductActivity);
   kase.dateUpdated = today.short();
+  kase.dateUpdatedActual = new Date(Date.now());
 };
 
 
@@ -124,6 +129,7 @@ const addBusiness = (data, biz, kase) => {
   const addBusinessActivity = Activities.buildAddBusiness(business, data.currentUser);
   kase.activities.unshift(addBusinessActivity);
   kase.dateUpdated = today.short();
+  kase.dateUpdatedActual = new Date(Date.now());
 };
 
 addDefaults = (kase) => {
@@ -175,6 +181,7 @@ assignCase = (data, newAssignee) => {
   });
 
   kase.dateUpdated = today.short();
+  kase.dateUpdatedActual = new Date(Date.now());
   kase.assignee = newAssignee;
   kase.activities.unshift(newActivity);
 };
@@ -184,6 +191,7 @@ changeStatus = (data, body) => {
   const newActivity = Activities.buildChangeStatus(body, data.currentUser);
 
   kase.dateUpdated = today.short();
+  kase.dateUpdatedActual = new Date(Date.now());
   kase.status = body.status;
   kase.activities.unshift(newActivity);
 };
@@ -191,6 +199,7 @@ changeStatus = (data, body) => {
 changeVisibility = (data, visibility) => {
   const kase = array.findById(data.cases, data.caseid);
   kase.dateUpdated = today.short();
+  kase.dateUpdatedActual = new Date(Date.now());
   kase.visible = visibility === 'true';
 };
 
@@ -203,6 +212,7 @@ addComment = (data) => {
   });
 
   kase.dateUpdated = today.short();
+  kase.dateUpdatedActual = new Date(Date.now());
   kase.activities.unshift(newActivity);
 };
 
@@ -257,23 +267,25 @@ addAction = (data, act, kase) => {
 
   kase.activities.unshift(newActivity);
   kase.updated = today.short();
+  kase.dateUpdatedActual = new Date(Date.now());
 };
 
 
 addCorrectiveAction = (data) => {
   const kase = array.findById(data.cases, data.caseid);
   const newActivity = ActivityTemplates.correctiveAction({
-    summary: data['corrective-action-summary'],
-    productName: data['TODO-product-input-name'],
-    legislation: data['input-autocomplete'],
+    summary:      data['corrective-action-summary'],
+    productName:  data['TODO-product-input-name'],
+    legislation:  data['input-autocomplete'],
     businessName: data['TODO-business-input-name'],
     decisionDate: dateFactory(data["corrective-action-date-year"], data['corrective-action-date-month'], data['corrective-action-date-day']),
-    attachment: data['corrective-action-file-upload-1'],
-    description: data['corrective-action-details']
+    attachment:   data['corrective-action-file-upload-1'],
+    description:  data['corrective-action-details']
   });
 
   kase.activities.unshift(newActivity);
   kase.updated = today.short();
+  kase.dateUpdatedActual = new Date(Date.now());
 };
 
 addTestResults = (data, kase) => {
