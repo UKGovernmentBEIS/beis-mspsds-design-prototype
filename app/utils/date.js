@@ -18,6 +18,9 @@ module.exports = {
   date: {
     shortFromInput: function(year, month, day) {
       return format(new Date(year, month - 1, day), "DD/MM/YYYY");
+    },
+    longFromInput: function(year, month, day) {
+      return format(new Date(year, month - 1, day), "DD MMMM YYYY");
     }
   }
 };

@@ -1,6 +1,6 @@
 /* jshint esversion: 6 */
-
-const today         = require('./date').today;
+const date          = require('./date')
+const today         = date.today;
 const dateFactory   = require('./date').date.shortFromInput;
 const Activities    = require("./activity");
 const ActivityTemplates = require("../data/activities/templates");
@@ -166,6 +166,7 @@ addCase = (data) => {
   addProduct(data, newCase);
   addBusinesses(data, newCase);
   addActions(data, newCase);
+  addTestResults(data, newCase);
   return newCase;
 };
 
@@ -286,6 +287,23 @@ addCorrectiveAction = (data) => {
   kase.updated = today.short();
   kase.dateUpdatedActual = new Date(Date.now());
 };
+
+addTestResults = (data, kase) => {
+  const testResults = data.new.report.files['Test-results'];
+  const products = data.products
+  Object.entries(testResults).forEach(([_, result]) => {
+    const resultPreparedForActivity = {
+      ...result, 
+      productId: kase.products[0], 
+      attachment: result.attachment.upload,
+      date: date.date.longFromInput(...result.date.reverse())
+    }
+    const newActivity = resultPreparedForActivity.status === "Pass" ? 
+      ActivityTemplates.testPassed(resultPreparedForActivity, products) :
+      ActivityTemplates.testFailed(resultPreparedForActivity, products)
+    kase.activities.unshift(newActivity)
+  })
+}
 
 module.exports = {
   buildFromData: buildFromData,

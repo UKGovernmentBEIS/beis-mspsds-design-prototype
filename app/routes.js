@@ -39,7 +39,6 @@ router.post('/:mode/flows/ts-create/01', function (req, res, next) {
 
 router.post('/:mode/flows/ts-create/save', function (req, res) {
   const data = req.session.data;
-
   newCase = Cases.addCase(data);
 
   Reset.resetNew(req);
