@@ -22,23 +22,17 @@
   {% include "includes/components/case/tabs/case-tab-attachments.html" %}
 {% endset -%}
 
-{% set fullDetailHtml %}
-  {% include "includes/components/case/tabs/case-tab-full-detail.html" %}
+{% set overviewHtml %}
+  {% include "includes/components/case/tabs/case-tab-overview.html" %}
 {% endset -%}
-
-
-
-<hr class="govuk-section-break govuk-section-break--l" />
-
-
 
 {{ govukTabs({
   items: [
     {
-      label: "Activity",
-      id: "activity",
+      label: "Overview",
+      id: "overview",
       panel: {
-        html: activityHtml
+        html: overviewHtml
       }
     },
     {
@@ -60,6 +54,13 @@
       id: "attachments",
       panel: {
         html: attachmentsHtml
+      }
+    },
+    {
+      label: "Activity",
+      id: "activity",
+      panel: {
+        html: activityHtml
       }
     }
   ]
