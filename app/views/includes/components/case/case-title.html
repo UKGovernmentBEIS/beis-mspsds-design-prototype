@@ -1,63 +1,13 @@
 {% from "table/macro.njk"                                   import govukTable %}
 {% from "includes/components/shared/page-title.html"        import pageTitle %}
 
-
-
-
-
 <section class="mspsds-pagetitle">
-
-
   <div class="govuk-grid-row">
-
     <div class="govuk-grid-column-two-thirds">
       {{ pageTitle({
         type:       currentCase.type + ' ' + currentCase.id,
-        title:      currentCase.title
+        title:      currentCase.title | safe
       }) }}
     </div>
-
-    {% if data['currentTeam'] == 'Trading Standards' %}
-
-        <div class="govuk-grid-column-one-third">
-            {{ govukTable({
-              classes: "mspsds-case-status",
-              firstCellIsHeader: true,
-              rows: [
-                [
-                  { html: '<span class="govuk-caption-m govuk-!-font-size-16">Status</span> ' + currentCase.status  }
-                ],
-                [
-                  { html: '<span class="govuk-caption-m govuk-!-font-size-16">Assigned to</span>' + currentCase.assignee }
-                ]
-              ]
-            }) }}
-        </div>
-
-    {% else %}
-        
-        <div class="govuk-grid-column-one-third">
-            {{ govukTable({
-              classes: "mspsds-case-status",
-              firstCellIsHeader: true,
-              rows: [
-                [
-                  { html: '<span class="govuk-caption-m govuk-!-font-size-16">Status</span> ' + currentCase.status  },
-                  { html: '<a href="/root/flows/change-status/01" class="govuk-!-font-size-16">Change</a>'}
-                ],
-                [
-                  { html: '<span class="govuk-caption-m govuk-!-font-size-16">Assigned to</span>' + currentCase.assignee },
-                  { html: '<a href="/root/flows/assign/01" class="govuk-!-font-size-16">Change</a>' }
-                ]
-              ]
-            }) }}
-        </div>
-
-    {% endif %}
-
-    
-
   </div>
-
-
 </section>
