@@ -4,12 +4,12 @@
     {% from "includes/components/shared/confirmation.html" import confirmation %}
     {{ confirmation({
         id:     'confirmation--case-created', 
-        title:  currentCase.report.type + ' created.',
+        title:  currentCase.report.type + ' published.',
         type:   'success',
         messages: [{
             text: 'The reference is ' + currentCase.id
         },{
-            text: 'Details were emailed to someone@somewhere.com'
+            text: 'Details were emailed to you (someone@somewhere.com)'
         }]
     }) }}
 {% endblock %}

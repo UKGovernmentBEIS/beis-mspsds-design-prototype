@@ -1,0 +1,18 @@
+{% set questionProduct        = data['new']['report']['questionProduct'] %}
+{% set hasFiles               = data['new']['report']['hasFiles'] %}
+
+{% set hasQuestionProduct     = false %}
+{% if (questionProduct == 'specific') or (questionProduct == 'category') %}
+    {% set hasQuestionProduct = true %}
+{% endif %}
+
+
+
+
+{% if hasQuestionProduct %}
+    {% extends "./05-Q.html" %}
+{% elif hasFiles == 'Yes' %}
+    {% extends "./06-Q.html" %}
+{% else %}
+    {% extends "./10.html" %}
+{% endif %}
