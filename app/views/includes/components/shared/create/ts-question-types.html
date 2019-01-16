@@ -1,0 +1,53 @@
+{% if not currentNewVar %}
+  {% set currentNewVar  = 'new[report][type]' %}
+{% endif %}
+
+{% if not currentNewIDVar %}
+  {% set currentNewIDVar  = 'new-type-' %}
+{% endif %}
+
+
+ {% set otherTypeHtml %}
+
+    {{ govukInput({
+      id:         currentNewIDVar  + 'type-other',
+      name:       currentNewVar    + '[typeOther]'
+    }) }}
+
+{% endset %}
+
+
+<div class="govuk-grid-column-one-half  govuk-!-margin-bottom-9">
+
+
+      {% if data.questionTypes %}
+
+          {% set types = [] %}
+
+          {% for type in data.questionTypes | list %}
+            {% set types = (types.push({
+              value:    type.name,
+              text:     type.name
+              }), types) %}
+          {% endfor %}
+
+          {% set types = (types.push({
+            value: "Other",
+            text: "Other",
+            conditional: {
+              html: otherTypeHtml
+            }
+          }), types) %}
+
+          {{ govukCheckboxes({
+            idPrefix:   currentNewIDVar  + 'types',
+            name:       currentNewVar    + '[types]',
+            items: types
+          }) }}
+
+      {% endif %}
+   
+
+</div>
+
+

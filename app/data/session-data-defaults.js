@@ -66,6 +66,9 @@ module.exports = {
   legislation:    require("./legislation.js").legislation,
 
   fileTypes:      require("./file-types").fileTypes,
+  questionTypes:  require("./question-types").questionTypes,
+
+  
   
   new: {
     files: {
