@@ -262,13 +262,13 @@ addAction = (data, act, kase) => {
 addCorrectiveAction = (data) => {
   const kase = array.findById(data.cases, data.caseid);
   const newActivity = ActivityTemplates.correctiveAction({
-    summary: data['corrective-action-summary'],
-    productName: data['TODO-product-input-name'],
-    legislation: data['input-autocomplete'],
+    summary:      data['corrective-action-summary'],
+    productName:  data['TODO-product-input-name'],
+    legislation:  data['input-autocomplete'],
     businessName: data['TODO-business-input-name'],
     decisionDate: dateFactory(data["corrective-action-date-year"], data['corrective-action-date-month'], data['corrective-action-date-day']),
-    attachment: data['corrective-action-file-upload-1'],
-    description: data['corrective-action-details']
+    attachment:   data['corrective-action-file-upload-1'],
+    description:  data['corrective-action-details']
   });
 
   kase.activities.unshift(newActivity);

@@ -7,6 +7,13 @@
   {% set titleType           = 'Reporting an unsafe product' %}
   {% set displayTitle        = 'Find this in your system' %}
   {% set formAction          = 'save' %}
+
+{% elif data['new']['report']['type'] == 'Question' %}
+
+  {% set titleType           = 'Asking a question' %}
+  {% set displayTitle        = 'Find this in your system' %}
+  {% set formAction          = 'save' %}
+
 {% endif %}
 
 

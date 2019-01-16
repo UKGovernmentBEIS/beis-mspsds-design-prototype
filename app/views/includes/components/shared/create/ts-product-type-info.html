@@ -1,0 +1,40 @@
+{% from "includes/components/shared/autocomplete-input.html" import autocompleteInput %}
+
+
+<div class="mspsds-input govuk-grid-column-one-half">
+
+    {{ autocompleteInput({
+      idPrefix: "report-product-category", 
+      name:     "new[report][product][category]", 
+      legend:   "Product category",
+      class:    "govuk-fieldset__legend--m govuk-!-margin-bottom-1",
+      hint:     "The high-level category (for reporting purposes)",
+      values:   data.productTypes}) 
+    }}
+
+</div>
+
+
+<div class="mspsds-input govuk-grid-column-one-half">
+
+    {% call govukFieldset({
+      legend: {
+        text:           "Product type ",
+        isPageHeading:  false,
+        classes:        "govuk-fieldset__legend--m  govuk-!-margin-bottom-1"
+      }
+    }) %}
+
+        {{ govukInput({
+          hint: {
+            html: "In plain English, what is it?<br/>For example, ‘dishwasher, soft toy, chainsaw...’"
+          },
+          id: "report-product-type",
+          name: "new[report][productType]",
+          value: data['new']['report']['productType']
+        }) }}
+
+
+    {% endcall %}
+
+</div>
