@@ -1,17 +1,17 @@
 {% if not currentNewVar %}
-  {% set currentNewVar  = 'new[report][type]' %}
+  {% set currentNewVar  = 'new' %}
 {% endif %}
 
 {% if not currentNewIDVar %}
-  {% set currentNewIDVar  = 'new-type-' %}
+  {% set currentNewIDVar  = 'new' %}
 {% endif %}
 
 
  {% set otherTypeHtml %}
 
     {{ govukInput({
-      id:         currentNewIDVar  + 'type-other',
-      name:       currentNewVar    + '[typeOther]'
+      id:         currentNewIDVar  + 'question-type',
+      name:       currentNewVar    + '[questionTypeOther]'
     }) }}
 
 {% endset %}
@@ -40,8 +40,8 @@
           }), types) %}
 
           {{ govukCheckboxes({
-            idPrefix:   currentNewIDVar  + 'types',
-            name:       currentNewVar    + '[types]',
+            idPrefix:   currentNewIDVar  + 'question-type',
+            name:       currentNewVar    + '[questionType]',
             items: types
           }) }}
 
