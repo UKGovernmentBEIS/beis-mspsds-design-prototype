@@ -119,9 +119,9 @@ module.exports = function (env) {
 
   filters.caseSortAttr = function (caseListSettings) {
     switch (caseListSettings.sort) {
-      case "latest": return "dateUpdated";
-      case "oldest": return "dateUpdated";
-      case "newest": return "dateCreated";
+      case "latest": return "dateUpdatedActual";
+      case "oldest": return "dateUpdatedActual";
+      case "newest": return "dateCreatedActual";
       default: return undefined;
     }
   };
