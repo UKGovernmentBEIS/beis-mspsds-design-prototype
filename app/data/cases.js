@@ -48,7 +48,9 @@ module.exports = {
       title: 'Has anyone recently advised on snap bracelets / slap wraps?',
       creatorTeam: 'OPSS - TSC',
       dateUpdated: '21/10/2018',
+      dateUpdatedActual: new Date(2018, 10 - 1, 21),
       dateCreated: '18/10/2018',
+      dateCreatedActual: new Date(2018, 10 - 1, 18),
       report: {
         type: 'Allegation',
         date: '18/10/2018',
