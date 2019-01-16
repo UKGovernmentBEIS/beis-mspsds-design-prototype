@@ -259,22 +259,38 @@ module.exports = {
     }
   },
 
-
-  testFailed: function ({
-    legislation = "General Product Safety Regulations 2005",
-    date = today.long(),
-    testDate = today.short(),
-    description = "Description supplied by user goes here, in a paragraph",
-    productId,
-    attachment = "test-results.pdf"
-  }) {
+  testFailed: function (
+    {
+      legislation = "General Product Safety Regulations 2005",
+      date = today.long(),
+      testDate = today.short(),
+      description = "Description supplied by user goes here, in a paragraph",
+      productId,
+      attachment = "test-results.pdf"
+    },
+    prod = products.products) {
     return Object.assign(commonTestTemplate(...arguments),{
-      title: "Failed test: " + products.products.find(e => e.id === productId).name,
-      action: "Test failure recorded"
+      title: "Failed test: " + prod.find(e => e.id === productId).name,
+      action: "Recorded"
     })
   },
 
-
+  testPassed: function (
+    {
+      legislation = "General Product Safety Regulations 2005",
+      date = today.long(),
+      testDate = today.short(),
+      description = "Description supplied by user goes here, in a paragraph",
+      productId,
+      attachment = "test-results.pdf"
+    }, 
+    prod = products.products,) {
+    return Object.assign(commonTestTemplate(...arguments),{
+      title: "Passed test: " + prod.find(e => e.id === productId).name,
+      action: "Recorded"
+    })
+  },
+  
   testRequested: function({
     legislation = "General Product Safety Regulations 2005",
     date = today.long(),

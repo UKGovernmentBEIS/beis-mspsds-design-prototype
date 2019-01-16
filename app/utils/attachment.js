@@ -106,11 +106,11 @@ buildTsCreateAttachments = (data) => {
   let attachments = [];
   let files = data.new.report.files || [];
 
-  Object.entries(files).forEach(
-    ([key, value]) => {
-        Object.entries(value).forEach(
-          ([key2, value2]) => {
-              attachments.push( build(value2) );
+   Object.entries(files).forEach(
+    ([_, attachmentType]) => {
+        Object.entries(attachmentType).forEach(
+          ([_, attachment]) => {
+              attachments.push( build(attachment) );
           }
         );
     }
