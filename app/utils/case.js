@@ -60,7 +60,7 @@ addCreatedActivity = (newCase) => {
 
 addAttachments = (data, kase) => {
   const files = Attachments.buildTsCreateAttachments(data);
-  if (files.length === 0) { 
+  if (files.length === 0) {
     return;
   }
 
@@ -286,12 +286,12 @@ addTestResults = (data, kase) => {
 
   Object.entries(testResults).forEach(([_, result]) => {
     const resultPreparedForActivity = {
-      ...result, 
-      productId: kase.products[0], 
+      ...result,
+      productId: kase.products[0],
       attachment: result.attachment.upload,
       date: date.date.longFromInput(...result.date.reverse())
     }
-    const newActivity = resultPreparedForActivity.status === "Pass" ? 
+    const newActivity = resultPreparedForActivity.status === "Pass" ?
       ActivityTemplates.testPassed(resultPreparedForActivity, products) :
       ActivityTemplates.testFailed(resultPreparedForActivity, products)
     kase.activities.unshift(newActivity)
