@@ -9,7 +9,7 @@
     rows: [
       [
         { text: "Date recorded" },
-        { text: currentCase.dateCreated }
+        { text: currentCase.dateCreated | prettifyDate }
       ],
       [
         { text: "Product type" },
@@ -98,7 +98,7 @@
           { html: '<span class="govuk-caption-m govuk-!-font-size-16">Assigned to</span>' + currentCase.assignee }
         ],
         [
-          { html: '<span class="govuk-caption-m govuk-!-font-size-16">'+significantDateLabel+'</span>' + currentCase.dateUpdated }
+          { html: '<span class="govuk-caption-m govuk-!-font-size-16">'+significantDateLabel+'</span>' + currentCase.dateUpdated | prettifyDate }
         ]
       ]
     }) }}
@@ -120,7 +120,7 @@
               { html: '<a href="/root/flows/assign/01" class="govuk-!-font-size-16">Change</a>' }
             ],
             [
-              { html: '<span class="govuk-caption-m govuk-!-font-size-16">Last updated</span>' + currentCase.dateUpdated },
+              { html: '<span class="govuk-caption-m govuk-!-font-size-16">Last updated</span>' + currentCase.dateUpdated | prettifyDate },
               { html: '<a href="/root/flows/add-activity/01?currentPage=case&caseid='+currentCase.id+'" class="govuk-!-font-size-16">Add activity</a>' }
             ]
           ]
