@@ -289,8 +289,13 @@ addCorrectiveAction = (data) => {
 };
 
 addTestResults = (data, kase) => {
+  if (!data.new.report.files || data.new.report.files.length < 1 || !data.new.report.files['Test-results']) {
+    return
+  }
+
   const testResults = data.new.report.files['Test-results'];
   const products = data.products
+
   Object.entries(testResults).forEach(([_, result]) => {
     const resultPreparedForActivity = {
       ...result, 
