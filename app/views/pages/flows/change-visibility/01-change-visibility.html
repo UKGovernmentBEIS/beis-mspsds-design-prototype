@@ -16,7 +16,7 @@
 
   {{ pageTitle({
     type:   "Case: " + data.caseid,
-    title:  "Visibility"
+    title:  "Legal privilege"
   }) }}
 
   {% set currentCase = data.cases | withId(data.caseid) %}
@@ -26,22 +26,32 @@
 
       <form action="save" method="post" class="form">
 
-        {{ govukRadios({
-          idPrefix:   "restricted",
-          name:       "restricted",
-          items: [
-            {
-              value:  false,
-              text:   "Visible to all",
-              checked: not currentCase.restricted
+        {% call govukFieldset({
+          legend: {
+            text: "Visibility",
+            classes: "govuk-fieldset__legend--l"
+          }
+        }) %}
+          {{ govukRadios({
+            idPrefix:   "restricted",
+            name:       "restricted",
+            hint: {
+              text: "Restricted cases are visible only to the organisation that created them and the organisation to which they are currently assigned."
             },
-            {
-              value:  true,
-              text:   "My organisation only",
-              checked: currentCase.restricted
-            }
-          ]
-        }) }}
+            items: [
+              {
+                value:  false,
+                text:   "Visible to all",
+                checked: not currentCase.restricted
+              },
+              {
+                value:  true,
+                text:   "Restricted for legal privilege",
+                checked: currentCase.restricted
+              }
+            ]
+          }) }}
+        {% endcall %}
 
         {% call govukFieldset({
           legend: {
@@ -52,9 +62,8 @@
 
           {{ govukTextarea({
             hint: {
-              text: "Visibility should only be restricted where there are legal privilege concerns that mean businesses under investigation should not be exposed. If that applies here, please outline the details."
+              text: "Visibility should only be restricted where there are legal privilege concerns that mean businesses under investigation should not be exposed."
             },
-            classes: "govuk-!-width-two-thirds",
             id:   "status-description",
             name: "status-description"
           }) }}

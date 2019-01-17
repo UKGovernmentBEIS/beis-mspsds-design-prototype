@@ -1,7 +1,7 @@
 {% extends "includes/templates/flow.html" %}
 
 {% set displayTitle        = 'New activity' %}
-
+{% set currentCase = data.cases | withId(data['caseid']) %}
 
 
 {% block flow %}
@@ -51,6 +51,10 @@
             {
               value: "corrective-action",
               text: "Record corrective action"
+            },
+            {
+              value: "change-visibility",
+              text: "Restrict this case for legal privilege" if not currentCase.restricted else "Unrestrict this case"
             }
           ]
         }) }}
