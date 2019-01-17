@@ -44,10 +44,22 @@ module.exports = {
     },
     buildAddBusiness: function (business, user) {
         const activityTemplate = activityTemplates.addBusiness;
+
+        let bizName = '';
+        if (business.name) {
+            if (typeof business.name === 'string') {
+                bizName = business.name;
+            } else if (business.name.legal) {
+                bizName = business.name.legal;
+            } else if (business.name.trading) {
+                bizName = business.name.trading;
+            }
+        }
+
         return activityTemplate({
             author:         user,
             date:           today.long(),
-            businessName:           business.name,
+            businessName:           bizName,
             businessType:           business.type,
             businessAddress:        business.address,
             businessCompanyNumber:  business.companyNumber
