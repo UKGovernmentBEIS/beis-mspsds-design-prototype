@@ -2,24 +2,36 @@
 {% from "details/macro.njk"                                         import govukDetails %}
 
 {% set reportDetails %}
-<h3 class="govuk-heading-m">Allegation</h3>
-{{ govukTable({
-  firstCellIsHeader: true,
-  rows: [
-    [
-      { text: "Date recorded" },
-      { text: currentCase.dateCreated }
-    ],
-    [
-      { text: "Product type" },
-      { text: currentCase.report.productType | safe }
-    ],
-    [
-      { text: "Hazard type" },
-      { text: currentCase.report.hazardType }
+<h3 class="govuk-heading-m">{{"Allegation" if currentCase.type == "Case" else currentCase.type }}</h3>
+  {% if currentCase.type == "Case" %}
+  {{ govukTable({
+    firstCellIsHeader: true,
+    rows: [
+      [
+        { text: "Date recorded" },
+        { text: currentCase.dateCreated }
+      ],
+      [
+        { text: "Product type" },
+        { text: currentCase.report.productType | safe }
+      ],
+      [
+        { text: "Hazard type" },
+        { text: currentCase.report.hazardType }
+      ]
     ]
-  ]
-}) }}
+  }) }}
+  {% else %}
+  {{ govukTable({
+    firstCellIsHeader: true,
+    rows: [
+      [
+        { text: "Date recorded" },
+        { text: currentCase.dateCreated }
+      ]
+    ]
+  }) }}
+  {% endif %}
 
 <hr class="govuk-section-break govuk-section-break--m" />
 
@@ -61,7 +73,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     {{ govukDetails({
-      summaryText: "Report details",
+      summaryText: "Report details" if currentCase.type == "Case" else currentCase.type + " details",
       html: reportDetails
     }) }}
   </div>
@@ -73,23 +85,24 @@
 <div class="govuk-grid-row">
 {% if data['currentTeam'] == 'Trading Standards' %}
 
-    <div class="govuk-grid-column-two-thirds">
-        {{ govukTable({
-          classes: "mspsds-case-status",
-          firstCellIsHeader: true,
-          rows: [
-            [
-              { html: '<span class="govuk-caption-m govuk-!-font-size-16">Status</span> ' + currentCase.status  }
-            ],
-            [
-              { html: '<span class="govuk-caption-m govuk-!-font-size-16">Assigned to</span>' + currentCase.assignee }
-            ],
-            [
-              { html: '<span class="govuk-caption-m govuk-!-font-size-16">Last updated</span>' + currentCase.dateUpdated }
-            ]
-          ]
-        }) }}
-    </div>
+  {% set significantDateLabel = "Last updated" if currentCase.activities.length > 1 else "Created" %}
+  <div class="govuk-grid-column-two-thirds">
+    {{ govukTable({
+      classes: "mspsds-case-status",
+      firstCellIsHeader: true,
+      rows: [
+        [
+          { html: '<span class="govuk-caption-m govuk-!-font-size-16">Status</span> ' + currentCase.status  }
+        ],
+        [
+          { html: '<span class="govuk-caption-m govuk-!-font-size-16">Assigned to</span>' + currentCase.assignee }
+        ],
+        [
+          { html: '<span class="govuk-caption-m govuk-!-font-size-16">'+significantDateLabel+'</span>' + currentCase.dateUpdated }
+        ]
+      ]
+    }) }}
+  </div>
 
 {% else %}
 
