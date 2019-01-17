@@ -2,10 +2,9 @@
 {% from "details/macro.njk"                                         import govukDetails %}
 
 {% set reportDetails %}
-<h4 class="govuk-heading-s">Allegation</h4>
+<h3 class="govuk-heading-m">Allegation</h3>
 {{ govukTable({
   firstCellIsHeader: true,
-  classes: "govuk-!-font-size-16",
   rows: [
     [
       { text: "Date recorded" },
@@ -24,10 +23,9 @@
 
 <hr class="govuk-section-break govuk-section-break--m" />
 
-<h4 class="govuk-heading-s">Reporter</h4>
+<h3 class="govuk-heading-m">Reporter</h3>
 {{ govukTable({
   firstCellIsHeader: true,
-  classes: "govuk-!-font-size-16",
   rows: [
     [
       { text: "Name" },
@@ -54,20 +52,25 @@
 {% endset %}
 
 {{ tabTitle({
-  title:      'Overview'
+  title:      'Summary'
 }) }}
 
-<h3 class="govuk-heading-m govuk-grid-column-two-thirds">Summary</h3>
-<p class="govuk-body govuk-grid-column-two-thirds">{{currentCase.report.summary}}</p>
-
-<div class="govuk-grid-column-two-thirds">
-  {{ govukDetails({
-    summaryText: "Report details",
-    html: reportDetails
-  }) }}
+<div class="govuk-grid-row">
+  <p class="govuk-body govuk-grid-column-two-thirds">{{currentCase.report.summary}}</p>
+</div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ govukDetails({
+      summaryText: "Report details",
+      html: reportDetails
+    }) }}
+  </div>
 </div>
 
-<h3 class="govuk-heading-m govuk-grid-column-two-thirds">Status</h3>
+{{ tabTitle({
+  title:      'Current status'
+}) }}
+<div class="govuk-grid-row">
 {% if data['currentTeam'] == 'Trading Standards' %}
 
     <div class="govuk-grid-column-two-thirds">
@@ -80,6 +83,9 @@
             ],
             [
               { html: '<span class="govuk-caption-m govuk-!-font-size-16">Assigned to</span>' + currentCase.assignee }
+            ],
+            [
+              { html: '<span class="govuk-caption-m govuk-!-font-size-16">Last updated</span>' + currentCase.dateUpdated }
             ]
           ]
         }) }}
@@ -87,7 +93,7 @@
 
 {% else %}
 
-    <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-one-half">
         {{ govukTable({
           classes: "mspsds-case-status",
           firstCellIsHeader: true,
@@ -109,5 +115,4 @@
     </div>
 
 {% endif %}
-
-<div style="clear:both;"></div>
+</div>
