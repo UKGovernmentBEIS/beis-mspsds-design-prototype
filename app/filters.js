@@ -119,9 +119,9 @@ module.exports = function (env) {
 
   filters.caseSortAttr = function (caseListSettings) {
     switch (caseListSettings.sort) {
-      case "latest": return "dateUpdatedActual";
-      case "oldest": return "dateUpdatedActual";
-      case "newest": return "dateCreatedActual";
+      case "latest": return "dateUpdated";
+      case "oldest": return "dateUpdated";
+      case "newest": return "dateCreated";
       default: return undefined;
     }
   };
@@ -202,6 +202,10 @@ module.exports = function (env) {
   /* ------------------------------------------------------------------
     Date Filters
   ------------------------------------------------------------------ */
+
+  filters.prettifyDate = function(data) {
+    return date.shortFromInput(new Date(data).getFullYear(), new Date(data).getMonth() + 1, new Date(data).getDate());
+  }
 
   filters.buildDateString = function (year, month, day) {
     return date.shortFromInput(year, month, day);
