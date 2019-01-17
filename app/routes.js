@@ -182,7 +182,6 @@ router.post(`/:mode/flows/change-status/save`, function (req, res) {
 
 // Change Visibility flow
 router.post(`/:mode/flows/change-visibility/save`, function (req, res) {
-  // TODO: Add activity when it's designed
   const data = req.session.data;
   let restricted = req.body.restricted === "true"
   Cases.changeVisibility(data, restricted)
