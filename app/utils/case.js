@@ -192,6 +192,15 @@ changeVisibility = (data, restricted) => {
   const kase = array.findById(data.cases, data.caseid);
   kase.dateUpdated = new Date(Date.now());
   kase.restricted = restricted;
+
+  var commentText = data["visibility-comment"]
+  const newActivity = ActivityTemplates.visibilityChanged({
+    restricted,
+    author: data.currentUser,
+    date: today.long(),
+    commentText
+  });
+  kase.activities.unshift(newActivity);
 };
 
 addComment = (data) => {

@@ -283,14 +283,14 @@ module.exports = {
       description = "Description supplied by user goes here, in a paragraph",
       productId,
       attachment = "test-results.pdf"
-    }, 
+    },
     prod = products.products,) {
     return Object.assign(commonTestTemplate(...arguments),{
       title: "Passed test: " + prod.find(e => e.id === productId).name,
       action: "Recorded"
     })
   },
-  
+
   testRequested: function({
     legislation = "General Product Safety Regulations 2005",
     date = today.long(),
@@ -303,8 +303,22 @@ module.exports = {
       title: "Test requested: " + products.products.find(e => e.id === productId).name,
       action: "Test requested",
     })
-  }
+  },
 
+  visibilityChanged: function({
+    restricted,
+    commentText,
+    date,
+    author
+  }) {
+    return {
+      title: restricted ? "Case visibility restricted" : "Case visibility unrestricted",
+      action: "Changed",
+      author: author,
+      date: date,
+      text: commentText
+    }
+  }
 
 }
 
