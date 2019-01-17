@@ -64,11 +64,11 @@
             {% endif %}
 
             {% if caseInfo.dateUpdated %}
-                {{ caseFilter("Updated",caseInfo.dateUpdated, "mspsds-case-card__dateUpdated") }}
+                {{ caseFilter("Updated", caseInfo.dateUpdated | prettifyDate, "mspsds-case-card__dateUpdated") }}
             {% endif %}
 
             {% if caseInfo.dateCreated %}
-                {{ caseFilter("Created",caseInfo.dateCreated, "mspsds-case-card__dateCreated") }}
+                {{ caseFilter("Created", caseInfo.dateCreated | prettifyDate, "mspsds-case-card__dateCreated") }}
             {% endif %}
 
         </span>
