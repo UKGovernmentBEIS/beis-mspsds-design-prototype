@@ -240,6 +240,9 @@ router.post('/:mode/flows/add-activity/choose', function (req, res) {
     case 'test-result':
       res.redirect("/root/flows/record-test-result/01-record-test-result.html");
       break;
+    case 'change-visibility':
+      res.redirect("/root/flows/change-visibility/01-change-visibility.html");
+      break;
     default:
       res.render(path);
   }
