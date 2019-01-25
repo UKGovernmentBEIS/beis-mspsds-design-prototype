@@ -1,0 +1,56 @@
+{% extends "includes/templates/flow.html" %}
+
+{% set currentCase = data.cases | withId(data['caseid']) %}
+
+{% set displayTitle        = 'Confirm assignment change' %}
+
+{% set formAction         = 'save' %}
+
+
+{% block flow %}
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body">You are assigning this case to: <span class="govuk-!-font-weight-bold">{{currentCase.assignee}}</span></p>
+    <p class="govuk-body">You will still be able to view the case, as well as add further details and comments.
+</p>
+<p>You will not be able to change the assignment again once you confirm this change.</p>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    
+    <form action="{{formAction}}" method="post" class="form">
+
+      {{ govukTextarea({
+        name: "assignment-comment",
+        id: "assignment-comment",
+        rows: 3,
+        label: {
+          text: "Message to new assignee (optional)"
+        }
+      }) }}
+      
+
+
+
+      <div class="govuk-form-group">
+       {{ govukButton({
+              text: "Confirm change"
+            }) }}
+      </div>
+
+      
+      <p class="govuk-body"><a href="#" class="govuk-link">Cancel</a></p>
+      
+
+    </form>
+
+
+  </div>
+</div>
+
+
+{% endblock %}

@@ -164,14 +164,15 @@ addCase = (data) => {
   return newCase;
 };
 
-assignCase = (data, newAssignee) => {
+assignCase = (data, newAssignee, comment="") => {
   const kase = array.findById(data.cases, data.caseid);
   newAssignee = newAssignee === "Other" ? req.body["other-assignee"] : newAssignee;
 
   const newActivity = ActivityTemplates.assigned({
     assignee: newAssignee,
     author: data.currentUser,
-    date: today.long()
+    date: today.long(),
+    text: comment
   });
 
   kase.dateUpdated = new Date(Date.now());

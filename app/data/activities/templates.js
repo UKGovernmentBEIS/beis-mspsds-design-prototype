@@ -87,13 +87,15 @@ module.exports = {
     {
       assignee,
       author,
-      date = today.long()
+      date = today.long(),
+      text
     }) {
     return {
       title: "Assigned to " + assignee,
       action: "Assigned",
       author: author,
-      date: date
+      date: date,
+      text: text
     }
   },
 

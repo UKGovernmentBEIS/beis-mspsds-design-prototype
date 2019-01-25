@@ -61,8 +61,9 @@ router.post('/:mode/flows/create/save', function (req, res) {
 // Assign flow
 router.post('/:mode/flows/assign/save', function (req, res) {
   const data = req.session.data;
-  const newAssignee = req.body.assignee;
-  Cases.assignCase(data, newAssignee);
+  const newAssignee = req.session.data.assignee;
+  const assignmentComment = req.session.data['assignment-comment'];
+  Cases.assignCase(data, newAssignee, assignmentComment);
   res.redirect('/root/case--confirmation?confirmation=Case%20assigned');
 });
 
