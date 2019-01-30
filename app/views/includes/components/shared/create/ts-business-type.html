@@ -26,7 +26,7 @@
     }) %}
 
 
-         {% set otherBusinessTypeHtml %}
+        {% set otherBusinessTypeHtml %}
 
             {{ govukInput({
               id:         currentNewBizIDVar  + 'type-other',
@@ -61,14 +61,16 @@
           items: types
         }) }}
 
+        <div class="govuk-radios__divider">or</div>
+
         {{ govukCheckboxes({
           idPrefix:   currentNewBizIDVar  + 'type-none',
           name:       currentNewBizVar    + '[typeNone]',
           items: [
             {
               value: "None",
-              text: "None",
-              checked: checked("new['report']['business']['typeNone']", "None")
+              text: "None of the above",
+              checked: checked("new['report']['business']['typeNone']", "None of")
             }
           ]
         }) }}
