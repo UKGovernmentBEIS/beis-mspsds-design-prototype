@@ -4,7 +4,7 @@
     {% from "includes/components/shared/confirmation.html" import confirmation %}
     {{ confirmation({
         id:     'confirmation--case-created', 
-        title:  currentCase.report.type + ' published.',
+        title:  currentCase.report.type + ' published',
         type:   'success',
         messages: [{
             text: 'The reference is ' + currentCase.id

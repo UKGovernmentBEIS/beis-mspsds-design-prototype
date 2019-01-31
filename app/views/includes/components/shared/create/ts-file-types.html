@@ -26,10 +26,13 @@
 
     {% call govukFieldset({
       legend: {
-        text:           "Please provide and of the following",
+        text:           "What information do you have?",
         isPageHeading:  false,
         classes:        "govuk-fieldset__legend--m  govuk-!-margin-bottom-1"
-      }
+      },
+      hint: {
+                  text:   type.hint
+                }
     }) %}
 
         {% if data.fileTypes %}

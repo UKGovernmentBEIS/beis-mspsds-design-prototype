@@ -7,18 +7,21 @@
       idPrefix: "hazard-type", 
       name:     "new[report][hazardType]", 
       legend:   "Hazard type",
-      class:    "govuk-fieldset__legend--m govuk-!-margin-bottom-1",
-      hint:     "What kind of danger does the product present?", 
+      class:    "govuk-body govuk-!-margin-bottom-1",
+      hint:     "The primary danger the product presents", 
       values:   data.hazardTypes}) 
     }}
-
 
     {{ govukTextarea({
       name: "new[report][hazardSummary]",
       id:   "allegation-hazard–detail",
-      hint : {
-        text: "Please give details about the hazard, including any incidents or events that brought it to your attention"
+      label: {
+        text: "Hazard details"
       },
+      hint : {
+        text: "Including any incidents or events that brought it to your attention"
+      },
+
       value: data['new']['report']['summary']
     }) }}
 
@@ -33,8 +36,8 @@
     {{ govukTextarea({
       name: "new[report][complianceSummary]",
       id:   "allegation-compliance-detail",
-      hint : {
-        text: "Please give details of its non-compliance"
+      label: {
+        text: "Details of non-compliance"
       },
       value: data['new']['report']['summary']
     }) }}
@@ -49,6 +52,9 @@
     {{ govukCheckboxes({
       idPrefix: "report-report-type",
       name: "new[report][reportType]",
+      hint: {
+        text: "Select all that apply."
+      },
       items: [
         {
           value: "unsafe",
