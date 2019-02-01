@@ -125,8 +125,13 @@
                 checked: checked("tsCaseListSettings['creator']", "Me")
               },
               {
+                value: "myTeam",
+                text: "My team",
+                checked: checked("tsCaseListSettings['creator']", "MyTeam")
+              },
+              {
                 value: "other",
-                text: "Someone else",
+                text: "Other person or team",
                 checked: checked("tsCaseListSettings['creator']", "other"),
                 conditional: {
                   html: creatorHtml
