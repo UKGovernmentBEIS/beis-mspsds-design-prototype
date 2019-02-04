@@ -1,8 +1,0 @@
-{% set currentPage      = 'product' %}
-{% set currentProduct   = data.products | withId(data.productid) %}
-
-{% if currentProduct %}
-    {% extends "includes/templates/product.html" %}
-{% else %}
-    {% extends "includes/templates/404.html" %}
-{% endif %}

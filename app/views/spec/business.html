@@ -1,8 +1,0 @@
-{% set currentPage      = 'business' %}
-{% set currentBusiness = data.businesses | withId(data.businessid) %}
-
-{% if currentBusiness %}
-    {% extends "includes/templates/business.html" %}
-{% else %}
-    {% extends "includes/templates/404.html" %}
-{% endif %}

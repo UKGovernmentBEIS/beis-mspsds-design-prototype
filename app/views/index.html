@@ -21,46 +21,10 @@
 
       <h2 class="govuk-heading-m">MSPSDS Prototype Links</h2>
 
-      <form>
-        {{ govukSelect({
-            id: "mode",
-            name: "mode",
-          hint: {
-            text: "Choose whether you want to see the spec, test, or playground version of the prototype"
-          },
-          items: [
-            {
-              value:  "pages",
-              text:   "Working space",
-              selected: data.mode == "pages"
-            },
-            {
-              value:  "test",
-              text:   "Testable ",
-              selected: data.mode == "test"
-            },
-            {
-              value:  "spec",
-              text:   "Design specs for developers",
-              selected: data.mode == "spec"
-            },
-            {
-              value:  "old",
-              text:   "Old prototype version",
-              selected: data.mode == "old"
-            }
-          ],
-          formGroup: { classes: "display-inline"}
-        }) }}
-        {{ govukButton({text: "Go" }) }}
-      </form>
-
-
-      
       <a href="test-setup">Setup</a>
-      
 
-      {% include (data.mode or "old") + "/index.html" ignore missing %}
+
+      {% include "pages/index.html" ignore missing %}
     </div>
 </div>
 

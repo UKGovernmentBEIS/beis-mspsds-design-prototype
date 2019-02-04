@@ -1,8 +1,0 @@
-{% set currentPage      = 'case' %}
-{% set currentCase = data.cases | withId(data['caseid']) %}
-
-{% if currentCase %}
-	{% extends "includes/templates/case.html" %}
-{% else %}
-	{% extends "includes/templates/404.html" %}
-{% endif %}
