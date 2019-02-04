@@ -1,0 +1,73 @@
+{% extends "mspsds-layout.html" %}
+{% from "button/macro.njk" import govukButton %}
+{% from "input/macro.njk" import govukInput %}
+{% from "textarea/macro.njk" import govukTextarea %}
+
+{% block content %}
+<h1 class="govuk-heading-xl">Test case-update email notifications</h1>
+
+<h2 class="govuk-heading-l">Case Reassigned</h2>
+<form method="post" class="form">
+  <input type="hidden" name="email[type]" value="reassign" />
+  {{ govukButton({
+    text: "Send test case-reassigned email"
+  }) }}
+</form>
+
+<hr class="govuk-section-break govuk-section-break--m" />
+<h2 class="govuk-heading-l">Case Updated - Single</h2>
+<form method="post" class="form">
+  <input type="hidden" name="email[type]" value="single" />
+  {{ govukInput({
+    label: {
+      text: "action_subject"
+    },
+    name: "email[action_subject]"
+  }) }}
+  {{ govukInput({
+    label: {
+      text: "action_body"
+    },
+    name: "email[action_body]"
+  }) }}
+  {{ govukInput({
+    label: {
+      text: "action_context"
+    },
+    name: "email[action_context]"
+  }) }}
+  {{ govukTextarea({
+    label: {
+      text: "change_details"
+    },
+    name: "email[change_details]"
+  }) }}
+  {{ govukButton({
+    text: "Send test activity email"
+  }) }}
+</form>
+
+<hr class="govuk-section-break govuk-section-break--m" />
+<h2 class="govuk-heading-l">Case Updated - Batch</h2>
+<form method="post" class="form">
+  <input type="hidden" name="email[type]" value="batch" />
+  {{ govukTextarea({
+    label: {
+      text: "change_details"
+    },
+    name: "email[change_details]"
+  }) }}
+  {{ govukButton({
+    text: "Send test activity email"
+  }) }}
+</form>
+
+<hr class="govuk-section-break govuk-section-break--m" />
+<h2 class="govuk-heading-l">Case Closed</h2>
+<form method="post" class="form">
+  <input type="hidden" name="email[type]" value="close" />
+  {{ govukButton({
+    text: "Send test case-closed email"
+  }) }}
+</form>
+{% endblock %}

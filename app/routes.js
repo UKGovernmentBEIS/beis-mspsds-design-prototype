@@ -31,6 +31,50 @@ router.get('/:mode/:entity(case|business|product|case-list)/', function (req, re
 });
 
 
+// EMAIL TEST
+router.post('/pages/email-test', function (req, res, next) {
+  var NotifyClient = require('notifications-node-client').NotifyClient;
+  var notifyClient = new NotifyClient("YOUR_NOTIFY_KEY_HERE");
+  var email = req.session.data.email;
+
+  var templateId =
+    email.type == "close" ? "b7a910e6-fb73-402b-bd26-f54ef1a298d9" :
+    email.type == "reassign" ? "4edab54d-d947-4d57-b4b3-3c25bea98838" :
+    email.type == "single" ? "c72e8ea5-fb39-464a-aefc-1fad5c163e6d" :
+    "b09640e2-2dfa-45b4-afa8-692ce6eadcfd";
+  var emailAddress = "YOUR_EMAIL_ADDRESS_HERE";
+  var reference = "reference";
+
+  var action_subject = email.action_subject;
+  var action_body = email.action_body;
+  var action_context = email.action_context;
+  var change_details = email.change_details;
+
+  var personalisation = {
+    case_id: "1234-6578",
+    updater_name: "Tim Harwood",
+    name: "Nick",
+    case_title: "Problem with lighters",
+    status_change: "closed",
+    new_assignee: "Ed Horsford (Bolton TS)",
+    investigation_url: "https://google.com",
+    action_subject: action_subject,
+    action_body: action_body,
+    action_context: action_context,
+    change_details: change_details
+  }
+
+  notifyClient.sendEmail(templateId, emailAddress, {
+    personalisation: personalisation,
+    reference: reference
+  })
+  .then(response => console.log(response))
+  .catch(err => console.error(err));
+
+  next();
+});
+
+
 // FLOWS ----------------------------------------------------------------------
 router.post('/:mode/flows/ts-create/01', function (req, res, next) {
   Reset.resetNew(req);
