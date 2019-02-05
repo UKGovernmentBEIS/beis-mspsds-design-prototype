@@ -20,6 +20,7 @@ $govuk-global-styles: true;
 @import "site-nav";
 @import "case-status";
 @import "confirmation";
+@import "hmcts-banner";
 @import "product-panel";
 @import "add-correspondence";
 @import "case-filter";
@@ -63,4 +64,9 @@ div[class^="govuk-grid-column-"] img {
 // Remove default bottom-margin from content at the end of a tab
 .govuk-tabs__panel > :last-child .govuk-table:last-child {
   margin-bottom: govuk-spacing(0);
+}
+
+
+.govuk-link.delete {
+	color: $govuk-error-colour;
 }
