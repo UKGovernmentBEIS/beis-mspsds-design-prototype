@@ -1,0 +1,132 @@
+{% extends "mspsds-layout.html" %}
+
+{% set currentPage   = data['currentPage'] %}
+
+
+
+{% if currentPage   ==  'case' %}
+
+    {% if not titleType %}
+        {% set titleType     = 'Case: '+data['caseid']  %}
+    {% endif %}
+
+{% elif currentPage ==  'product'  %}
+
+    {% set currentProduct   = data.products | withId(data.productid) %}
+    {% if not titleType %}
+        {% set titleType = 'Product: ' + currentProduct.name  %}
+    {% endif %}
+
+{% elif currentPage ==  'business'  %}
+
+    {% set currentBusiness = data.businesses | withId(data['businessid']) %}
+    {% if not titleType %}
+        {% set titleType      = 'Business: '+ currentBusiness.name  %}
+    {% endif %}
+    
+{% endif %}
+
+
+
+{% if titleType == 'false' %}
+    {% set titleType = '' %}
+{% endif %}
+
+{% if (displayTitle == 'false') or (displayTitle == '') %}
+    {% set displayTitle = 'New' %}
+{% endif %}
+
+
+
+
+
+{% if currentPage   ==  'case' %}
+
+    {% if not backLink %}
+        {% set backLink      = '/root/case?caseid='+data['caseid']  %}
+    {% endif %}
+    {% if not backText %}
+        {% set backText      = 'Back to Case '+data['caseid']  %}
+    {% endif %}
+    
+{% elif currentPage ==  'product'  %}
+
+    {% if not backLink %}
+        {% set backLink      = '/root/product?productid='+data['productid']  %}
+    {% endif %}
+    {% if not backText %}
+        {% set backText      = 'Back to Product' %}
+    {% endif %}
+    
+{% elif currentPage ==  'business'  %}
+
+    {% if not backLink %}
+        {% set backLink      = '/root/business?businessid='+data['businessid']  %}
+    {% endif %}
+    {% if not backText %}
+        {% set backText      = 'Back to Business' %}
+    {% endif %}
+
+{% elif currentPage ==  'home'  %}
+
+    {% if not backLink %}
+        {% set backLink      = '/root/home'  %}
+    {% endif %}
+    {% if not backText %}
+        {% set backText      = 'Back home' %}
+    {% endif %}
+
+{% endif %}
+
+
+{% if backLink == 'false' %}
+    {% set backLink = false %}
+{% endif %}
+
+{% if backText == 'false' %}
+    {% set backText = '' %}
+{% endif %}
+
+
+
+
+
+
+{% block pageTitle %}
+  {{ titleType }} {{ displayTitle }}
+{% endblock %}
+
+
+
+
+
+{% block beforeContent %}
+
+    {% include "includes/components/shared/page-banner.html" %}
+
+    {% block navigation %}
+
+        {% if backLink %}
+            {{ govukBackLink({
+                text: backText,
+                href: backLink
+            }) }}
+        {% endif %}
+    {% endblock %}
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+    
+
+
+{% endblock %}
+
+
+
+
+

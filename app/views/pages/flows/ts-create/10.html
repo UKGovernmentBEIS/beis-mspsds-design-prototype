@@ -4,15 +4,15 @@
 {% set backText      = 'Back'  %}
 
 {% if data['new']['report']['type'] == 'Report' %}
-  {% set titleType           = 'Reporting an unsafe product' %}
+  {% set titleType           = 'Report an unsafe product' %}
   {% set displayTitle        = 'Find this in your system' %}
-  {% set formAction          = 'save' %}
+  {% set formAction          = './11' %}
 
 {% elif data['new']['report']['type'] == 'Question' %}
 
-  {% set titleType           = 'Asking a question' %}
+  {% set titleType           = 'Ask a question' %}
   {% set displayTitle        = 'Find this in your system' %}
-  {% set formAction          = 'save' %}
+  {% set formAction          = './11' %}
 
 {% endif %}
 
@@ -30,7 +30,7 @@
     <div class="govuk-grid-column-two-thirds">
       {% from "button/macro.njk" import govukButton %}
       {{ govukButton({
-        text: "Save"
+        text: "Continue"
       }) }}
     </div>
   </div>
