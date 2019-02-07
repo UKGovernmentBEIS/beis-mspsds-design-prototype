@@ -1,0 +1,29 @@
+{% extends "includes/templates/minimal.html" %}
+{% set displayTitle        = 'Create new' %}
+{% set formAction         = './04' %}
+{% set backLink         = 'false' %}
+
+
+{% block content %}
+
+<div class="flash-card">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">Track day to day work and see what others are raising</h1>
+      <p class="govuk-body-l">You can use the service to track and monitor day-to-day cases that are not national issues.</p>
+      <p class="govuk-body-l">You can view cases that other Trading Standards teams and authorised government bodies are raising.</p>
+
+      {% from "button/macro.njk" import govukButton %}
+      <form action="{{formAction}}" method="post" class="form">
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+      
+    </div>
+  </div>
+</div>
+  
+
+{% endblock %}
