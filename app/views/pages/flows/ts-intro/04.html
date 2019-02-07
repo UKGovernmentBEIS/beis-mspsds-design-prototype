@@ -1,29 +1,13 @@
-{% extends "includes/templates/minimal.html" %}
-{% set displayTitle        = 'Create new' %}
-{% set formAction         = './05' %}
-{% set backLink         = 'false' %}
+{% extends "includes/templates/ts-introduction.html" %}
 
+{% block introContent %}
+<h1 class="govuk-heading-l">You can add more information to alerts and cases over time</h1>
+<p class="govuk-body-l">Unlike RAPEX, you should raise alerts on this system as soon as you’re aware of an issue. You can continue to add more information (test results, findings, corrective actions) as more information comes in. </p>
+{# <p class="govuk-body-l">You can view cases that other Trading Standards teams and authorised government bodies are raising.</p> #}
 
-{% block content %}
-
-<div class="flash-card">
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-
-      <h1 class="govuk-heading-l">You can add more information to alerts and cases over time</h1>
-      <p class="govuk-body-l">Unlike RAPEX, you should raise alerts on this system as soon as you’re aware of an issue. You can continue to add more information (test results, findings, corrective actions) as more information comes in. </p>
-      {# <p class="govuk-body-l">You can view cases that other Trading Standards teams and authorised government bodies are raising.</p> #}
-
-      {% from "button/macro.njk" import govukButton %}
-
-        {{ govukButton({
-          text: "Get started",
-          href: "/root/home?signedIn=Yes&currentTeam=Trading%20Standards"
-        }) }}
-      
-    </div>
-  </div>
-</div>
-  
+{{ govukButton({
+  text: "Get started",
+  href: "/root/home?signedIn=Yes&currentTeam=Trading%20Standards"
+}) }}
 
 {% endblock %}
