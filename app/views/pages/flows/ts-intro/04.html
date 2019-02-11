@@ -1,9 +1,18 @@
 {% extends "includes/templates/ts-introduction.html" %}
 
 {% block introContent %}
-<h1 class="govuk-heading-l">You can add more information to alerts and cases over time</h1>
-<p class="govuk-body-l">Unlike RAPEX, you should raise alerts on this system as soon as you’re aware of an issue. You can continue to add more information (test results, findings, corrective actions) as more information comes in. </p>
-{# <p class="govuk-body-l">You can view cases that other Trading Standards teams and authorised government bodies are raising.</p> #}
+<h1 class="govuk-heading-l">Share national data on products, incidents and businesses</h1>
+<p class="govuk-body-l">The information shared in the Product safety register can only be seen by other MSAs.</p>
+
+<p class="govuk-body-l govuk-!-margin-bottom-3">
+  Collaborating and sharing data in this way means MSAs can see when other MSAs have:
+</p>
+
+<ul class="govuk-list govuk-list--bullet govuk-body-l">
+  <li>raised concerns about the safety of a product</li>
+  <li>tested a product </li>
+</ul>
+
 
 {{ govukButton({
   text: "Get started",
