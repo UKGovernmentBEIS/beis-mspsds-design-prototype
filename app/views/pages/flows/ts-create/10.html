@@ -5,13 +5,13 @@
 
 {% if data['new']['report']['type'] == 'Report' %}
   {% set titleType           = 'Report an unsafe product' %}
-  {% set displayTitle        = 'Find this in your system' %}
+  {% set displayTitle        = 'Do you have an existing case ID for this issue?' %}
   {% set formAction          = './11' %}
 
 {% elif data['new']['report']['type'] == 'Question' %}
 
   {% set titleType           = 'Ask a question' %}
-  {% set displayTitle        = 'Find this in your system' %}
+  {% set displayTitle        = 'Do you have an existing case ID for this issue?' %}
   {% set formAction          = './11' %}
 
 {% endif %}

@@ -1,83 +1,63 @@
-{% extends "includes/templates/minimal.html" %}
+{% extends "includes/templates/flow--creation-ts.html" %}
 
-{% set backLink      = './08' %}
+{% set displayTitle        = 'About this issue' %}
+{% set formAction         = './12' %}
+
+{% set backLink      = './10' %}
 {% set backText      = 'Back'  %}
 
-{% if data['new']['report']['type'] == 'Report' %}
-  {% set titleType           = 'Report an unsafe product' %}
-  {% set displayTitle        = 'Case created' %}
-  {% set formAction          = 'save' %}
 
-{% elif data['new']['report']['type'] == 'Question' %}
-
-  {% set titleType           = 'Ask a question' %}
-  {% set displayTitle        = 'Questoin created' %}
-  {% set formAction          = 'save' %}
-
-{% endif %}
+{% set titleType     = 'false' %}
 
 
+{% block flow %}
+  <form action="{{formAction}}" method="post" class="form">
 
-{% block content %}
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
 
-{# {% from "includes/components/shared/confirmation.html" import confirmation %}
-    {{ confirmation({
-        id:     'confirmation--case-created', 
-        title:  currentCase.report.type + ' published',
-        type:   'success',
-        messages: [{
-            text: 'The reference is ' + currentCase.id
-        },{
-            text: 'Details were emailed to you (someone@somewhere.com)'
-        }]
-    }) }}
- #}
+        <p class="govuk-body">You should raise an alert if this is a serious issue that The Office for Product Safety and Standards should review.</p>
 
-
-
-<form action="{{formAction}}" method="post" class="form">
-  
- {#  <div class="govuk-grid-row govuk-!-margin-bottom-3">
-    {% include "includes/components/shared/create/ts-reference-info.html" %}
-  </div>
- #}
- 
-
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      {% from "includes/components/shared/hmcts-banner.html" import hmctsBanner %}
-
-      {% set bannerHtml %}
-        <h1 class="govuk-heading-m">Case created</h1>
-        <h2 class="govuk-heading-s">Here is a title that is as long as they might be (ID: {{data['caseid']}})</h2>
-        <p class="govuk-body">A confirmation email has been sent to ed.horsford@softwire.com
-      </p>
-      {% endset %}
-
-      {{ hmctsBanner({
-        html: bannerHtml
-      }) }}
-
-
-      <p class="govuk-body">The case has now been assigned to <strong>The Office for Product Safety and Standards</strong>. If you need to, you can add more information later.</p>
+        <p class="govuk-body">You can continue to add details to the issue if you are still working on it.</p>
+        {{ govukRadios({
+          classes: "",
+          idPrefix: "changed-name",
+          name: "changed-name",
+          fieldset: {
+            legend: {
+              text: "Do you want to raise an alert about this issue?",
+              isPageHeading: false,
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
           
-      {# <p class="govuk-body">Your case has been assigned to <strong>The Office for Product Safety and Standards</strong>.</p> #}
-
-      {# <p class="govuk-body">They will review it and get back to you if they have any questions.</p> #}
-
-     
-
-      {% from "button/macro.njk" import govukButton %}
-      {{ govukButton({
-        text: "View case"
-      }) }}
-
-      <p class="govuk-body"><a href="#" class="govuk-link">Home</a></p>
-
-      <p class="govuk-body"><a href="#" class="govuk-link">View all cases you have created</a></p>
+          items: [
+            {
+              value: "yes",
+              text: "Yes, alert and assign to OPSS"
+            },
+            {
+              value: "no",
+              text: "No, not at this time - keep assigned to me"
+            }
+          ]
+        }) }}
+{# hint: {
+            text: "You should raise an alert if this is a serious issue that The Office for Product Safety and Standards should review."
+          }, #}
+        
+      </div>
     </div>
-  </div>
-</form>
 
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {% from "button/macro.njk" import govukButton %}
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </div>
+    </div>
 
+  </form>
 {% endblock %}
+
