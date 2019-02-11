@@ -17,7 +17,7 @@
 
 {% block beforeContent %}
 
-	{% include "includes/components/shared/page-banner.html" %}
+	{# {% include "includes/components/shared/page-banner.html" %} #}
 
 	{% from "includes/components/shared/site-nav.html"        import siteNav %}
   {{ siteNav([
@@ -28,17 +28,28 @@
     }, { 
       label: 'Cases',
       link: '/root/case-list'
-    }, { 
+    },
+    
+    {
+        label: 'About',
+        link: '/root/about'
+      }
+    ]) }}
+
+{% endblock %}
+{# 
+
+  { 
+      label: 'Incidents',
+      link: '/root/case-list'
+    },
+    , { 
       label: 'Products',
       link: '/root/product-list'
     }, { 
       label: 'Businesses',
       link: '/root/business-list'
-    }
-    ]) }}
-
-{% endblock %}
-
+    }, #}
 
 
 {% block content %}
@@ -61,21 +72,37 @@
     <div class="govuk-grid-column-two-thirds">
 
       <p class="govuk-body-l">
-        Use this service to report unsafe or non-compliant products and related work.
+        Report, track and share product safety information.
       </p>
 
-      <p class="govuk-body-l">
         {{ govukButton({
-          text: "Create new case",
+          text: "Open a new case",
           href: createLink,
           classes: "govuk-button--start"
         }) }}
-      </p>
 
     </div>
   </div>
 
-  <hr class="govuk-section-break govuk-section-break--visible  govuk-!-margin-bottom-9">
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-0">
+
+
+  <div class="govuk-grid-row">
+    
+    <div class="govuk-grid-column-one-third">
+      <h2 class="govuk-heading-m"><a href="#" class="govuk-link govuk-link--no-visited-state">Your cases</a></h2>
+      <p class="govuk-body">Cases you've opened or you're assigned to.</p>
+    </div>
+    <div class="govuk-grid-column-one-third">
+      <h2 class="govuk-heading-m"><a href="#" class="govuk-link govuk-link--no-visited-state">Incidents</a></h2>
+      <p class="govuk-body">Serious product safety cases opened by Trading Standards and other market surveillance authorities.</p>
+    </div>
+    <div class="govuk-grid-column-one-third">
+      <h2 class="govuk-heading-m"><a href="#" class="govuk-link govuk-link--no-visited-state">About this service</a></h2>
+      <p class="govuk-body">How and when to use this service.</p>
+    </div>
+  </div>
+
   
   {# <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
