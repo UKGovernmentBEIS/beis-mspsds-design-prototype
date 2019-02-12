@@ -1,6 +1,6 @@
 {% extends "includes/templates/flow--creation-ts.html" %}
 
-{% set backLink      = './04' %}
+{% set backLink      = './supply-chain-information' %}
 {% set backText      = 'Back'  %}
 
 {% set businessType  = data['new']['report']['business']['type'][businessesCount] %}
@@ -12,7 +12,24 @@
 {% if data['new']['report']['type'] == 'Report' %}
   {% set titleType           = 'Report an unsafe or non-compliant product' %}
   {% set displayTitle        = businessType + ' details' %}
-  {% set formAction         = './05' %}
+  {% set formAction         = './business-details' %}
+{% endif %}
+
+{% set businessTypes    = data['new']['report']['business']['type'] %}
+{% set businesses       = data['new']['report']['businesses'] %}
+
+{% set businessesCount = 0 %}
+{% if businesses %}
+    {% for business, obj in businesses %}
+        {% set businessesCount = businessesCount + 1%}
+    {% endfor %}
+{% endif %}
+
+
+{% if (businessTypes.length > 0) and (businessesCount == (businessTypes.length -1)) %}
+{% set formAction = './previous-corrective-action' %}
+{% else %}
+  
 {% endif %}
 
 

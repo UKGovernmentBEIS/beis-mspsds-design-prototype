@@ -1,6 +1,6 @@
 {% extends "includes/templates/minimal.html" %}
 
-{% set backLink      = './08' %}
+{% set backLink      = './about-this-case' %}
 {% set backText      = 'Back'  %}
 
 {% if data['new']['report']['type'] == 'Report' %}
@@ -11,7 +11,7 @@
 {% elif data['new']['report']['type'] == 'Question' %}
 
   {% set titleType           = 'Ask a question' %}
-  {% set displayTitle        = 'Questoin created' %}
+  {% set displayTitle        = 'Question created' %}
   {% set formAction          = 'save' %}
 
 {% endif %}

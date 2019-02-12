@@ -1,9 +1,11 @@
 {% extends "includes/templates/flow--creation-ts.html" %}
 
-{% set displayTitle        = 'Is more corrective action planned?' %}
-{% set formAction         = './02' %}
+{% set displayTitle        = 'Have you taken any corrective action?' %}
 
-{% set backLink      = './03' %}
+{% set displayTitle        = 'Has any corrective action been taken?' %}
+{% set formAction         = './planned-corrective-action' %}
+
+{% set backLink      = './supply-chain-information' %}
 {% set backText      = 'Back'  %}
 
 {% set titleType     = 'false' %}
@@ -22,7 +24,7 @@
       name: "more-detail",
       id: "more-detail",
       label: {
-        text: "What action is planned?"
+        text: "What action has been taken?"
       },
       _hint: {
         text: "Do not include personal or financial information, like your National Insurance number or credit card details."
@@ -37,17 +39,16 @@
           name: "previous-corrective-actions",
           fieldset: {
             legend: {
-              text: "What action is planned?",
+              text: "What action has been taken?",
               isPageHeading: false,
               classes: "govuk-fieldset__legend--xl govuk-visually-hidden"
             }
           },
-          _hint: {
-            text: "For example, you've arranged to visit the distributor
+          hint: {
+            text: "For example, you've asked the retailer to stop selling the product
             "
           },
           items: [
-
             {
               value: "yes",
               text: "Yes",

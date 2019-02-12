@@ -8,7 +8,7 @@
 
 {% set currentTeam   = data['currentTeam'] %}
 {% if currentTeam.includes("Trading") %}
-  {% set createLink  = '/root/flows/ts-create/01' %}
+  {% set createLink  = '/root/flows/ts-create/product-details' %}
 {% else %}
   {% set createLink  = data['createUrl'] %}
 {% endif %}

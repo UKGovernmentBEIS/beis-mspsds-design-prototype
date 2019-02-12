@@ -1,13 +1,13 @@
 {% extends "includes/templates/flow--creation-ts.html" %}
 
-{% set backLink      = './02' %}
+{% set backLink      = './product-details' %}
 {% set backText      = 'Back'  %}
 
 {% if data['new']['report']['type'] == 'Report' %}
 
     {% set titleType           = 'Report an unsafe or non-compliant product' %}
     {% set displayTitle        = 'Why are you reporting this product?' %}
-    {% set formAction          = './04' %}
+    {% set formAction          = './unsafe-product' %}
 
 {% elif data['new']['report']['type'] == 'Question' %}
 

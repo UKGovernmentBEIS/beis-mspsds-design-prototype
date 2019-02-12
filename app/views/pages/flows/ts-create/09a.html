@@ -1,6 +1,6 @@
 {% extends "includes/templates/flow--creation-ts.html" %}
 
-{% set backLink      = './08' %}
+{% set backLink      = './other-information-and-files' %}
 {% set backText      = 'Back'  %}
 
 
@@ -22,7 +22,25 @@
 {% if data['new']['report']['type'] == 'Report' %}
   {% set titleType      = 'Report an unsafe or non-compliant product' %}
   {% set displayTitle   = fileType + ' details' %}
-  {% set formAction     = './09' %}
+  {% set formAction     = './add-other-information-and-files' %}
+{% endif %}
+
+{% set fileTypes    = data['new']['report']['file']['types'] %}
+{% set files        = data['new']['report']['files'] %}
+
+{% set filesCount   = 0 %}
+{% if files %}
+    {% for file, obj in files %}
+        {% set filesCount = filesCount + 1%}
+    {% endfor %}
+    {% if data['moreFiles'] == "Yes" %}
+        {% set filesCount = filesCount - 1 %}
+    {% endif %}
+{% endif %}
+
+
+{% if (fileTypes.length > 0) and (filesCount == (fileTypes.length -1)) %}
+    {% set formAction = './existing-reference-number' %}
 {% endif %}
 
 
