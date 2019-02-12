@@ -76,9 +76,20 @@ router.post('/pages/email-test', function (req, res, next) {
 
 
 // FLOWS ----------------------------------------------------------------------
-router.post('/:mode/flows/ts-create/01', function (req, res, next) {
+router.post('/:mode/flows/ts-create/product-details', function (req, res, next) {
   Reset.resetNew(req);
   next();
+});
+
+router.post('/:mode/flows/ts-create/business-details', function (req, res, next) {
+  const data = req.session.data;
+  var businessCount = data['new']['report']['business']['type'].length
+  if (businessCount == 0){
+    res.redirect("/pages/flows/ts-create/previous-corrective-action")
+  }
+  else {
+    next();
+  } 
 });
 
 router.post('/:mode/flows/ts-create/save', function (req, res) {

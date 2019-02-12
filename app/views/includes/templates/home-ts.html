@@ -84,11 +84,17 @@
         Report, track and share product safety information.
       </p>
 
+      
+
+      <form action="{{createLink}}" method="post" class="form">
+      {% include "includes/components/shared/create/ts-setup-prototype-data.html" %}
+
         {{ govukButton({
           text: "Open a new case",
-          href: createLink,
           classes: "govuk-button--start"
         }) }}
+
+      </form>
 
     </div>
   </div>
