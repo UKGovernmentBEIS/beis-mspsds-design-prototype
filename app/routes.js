@@ -83,8 +83,8 @@ router.post('/:mode/flows/ts-create/product-details', function (req, res, next) 
 
 router.post('/:mode/flows/ts-create/business-details', function (req, res, next) {
   const data = req.session.data;
-  var businessCount = data['new']['report']['business']['type'].length
-  if (businessCount == 0){
+  var noneOfAbove = data['new']['report']['business']['typeNone']
+  if (noneOfAbove == 'None'){
     res.redirect("/pages/flows/ts-create/previous-corrective-action")
   }
   else {
