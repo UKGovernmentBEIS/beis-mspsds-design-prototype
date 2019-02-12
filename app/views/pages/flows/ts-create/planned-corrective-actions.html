@@ -1,0 +1,79 @@
+{% extends "includes/templates/flow--creation-ts.html" %}
+
+{% set displayTitle        = 'Is more corrective action planned?' %}
+{% set formAction         = './02' %}
+
+{% set backLink      = './03' %}
+{% set backText      = 'Back'  %}
+
+{% set titleType     = 'false' %}
+
+
+{% block flow %}
+  <form action="{{formAction}}" method="post" class="form">
+
+    {# <div class="govuk-grid-row">
+       {% include "includes/components/shared/create/ts-setup-prototype-data.html" %}
+       {% include "includes/components/shared/create/ts-issue-type-select.html" %}
+    </div> #}
+
+    {% set correctiveActionDetailsHTML %}
+    {{ govukTextarea({
+      name: "more-detail",
+      id: "more-detail",
+      label: {
+        text: "What action is planned?"
+      },
+      _hint: {
+        text: "Do not include personal or financial information, like your National Insurance number or credit card details."
+      }
+    }) }}
+    {% endset %}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {{ govukRadios({
+          idPrefix: "previous-corrective-actions",
+          name: "previous-corrective-actions",
+          fieldset: {
+            legend: {
+              text: "What action is planned?",
+              isPageHeading: false,
+              classes: "govuk-fieldset__legend--xl govuk-visually-hidden"
+            }
+          },
+          _hint: {
+            text: "For example, you've arranged to visit the distributor
+            "
+          },
+          items: [
+
+            {
+              value: "yes",
+              text: "Yes",
+              conditional: {
+                html: correctiveActionDetailsHTML
+              }
+            },
+            {
+              value: "no",
+              text: "No"
+            }
+          ]
+        }) }}
+      </div>
+    </div>
+
+    
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {% from "button/macro.njk" import govukButton %}
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </div>
+    </div>
+
+  </form>
+{% endblock %}

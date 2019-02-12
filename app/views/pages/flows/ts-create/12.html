@@ -48,8 +48,9 @@
       {% from "includes/components/shared/hmcts-banner.html" import hmctsBanner %}
 
       {% set bannerHtml %}
-        <h1 class="govuk-heading-m">Issue created: {{data['caseid']}}</h1>
-        <h2 class="govuk-body-l">Clothing (inc. baby) – Other hazard type (no product specified)</h2>
+        <h1 class="govuk-heading-l">Case created</h1>
+        <p class="govuk-body">Case ID: {{data['caseid']}}</p>
+        {# <h2 class="govuk-body-l">Case ID:  {{data['caseid']}}</h2> #}
         <p class="govuk-body">A confirmation email has been sent to <strong>ed.horsford@softwire.com</strong>
       </p>
       {% endset %}
@@ -57,9 +58,12 @@
       {{ hmctsBanner({
         html: bannerHtml
       }) }}
+      {# Clothing (inc. baby) – Other hazard type (no product specified) #}
+      <p class="govuk-body"><strong>Clothing (inc. baby) – Other hazard type (no product specified)</strong>, has now been assigned to <strong>The Office for Product Safety and Standards</strong>.</p>
 
+      <p class="govuk-body">If you need to, you can add more information later.</p>
 
-      <p class="govuk-body">The issue has now been assigned to <strong>The Office for Product Safety and Standards</strong>. If you need to, you can add more information later.</p>
+      {# <p class="govuk-body">The issue has now been assigned to <strong>The Office for Product Safety and Standards</strong>. If you need to, you can add more information later.</p> #}
           
       {# <p class="govuk-body">Your case has been assigned to <strong>The Office for Product Safety and Standards</strong>.</p> #}
 
@@ -69,12 +73,12 @@
 
       {% from "button/macro.njk" import govukButton %}
       {{ govukButton({
-        text: "View issue"
+        text: "View case"
       }) }}
 
-      <p class="govuk-body"><a href="#" class="govuk-link">Home</a></p>
+      <p class="govuk-body"><a href="/pages/home" class="govuk-link">Home</a></p>
 
-      <p class="govuk-body"><a href="#" class="govuk-link">View all issues you have created</a></p>
+      <p class="govuk-body"><a href="/pages/case-list" class="govuk-link">View all cases you have opened</a></p>
     </div>
   </div>
 </form>

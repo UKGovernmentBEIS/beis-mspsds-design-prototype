@@ -2,15 +2,36 @@
 {% from "includes/components/shared/autocomplete-input.html" import autocompleteInput %}
 
 {% set unsafeHtml %}
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <div class="hazard-wrapper" id=hazzardAutocomplete>
+          {{ autocompleteInput({
+            idPrefix: "hazard-type", 
+            name:     "new[report][hazardType]", 
+            legend:   "Hazard type",
+            class:    "govuk-body govuk-!-margin-bottom-1 govuk-input--width-20",
+            hint:     "The danger the product presents", 
+            values:   data.hazardTypes}) 
+          }}
+        </div>
+       
+      </div>
+       <div class="govuk-grid-column-one-half">
+           {# <a href="#" class="govuk-body govuk-link govuk-link--no-visited-state delete " id="hazzardAddAnother" data-target="hazzardAutocomplete" >Remove hazard</a> #}
+        </div>
+    </div>
+    
+    
 
-    {{ autocompleteInput({
-      idPrefix: "hazard-type", 
-      name:     "new[report][hazardType]", 
-      legend:   "Hazard type",
-      class:    "govuk-body govuk-!-margin-bottom-1",
-      hint:     "The primary danger the product presents", 
-      values:   data.hazardTypes}) 
-    }}
+    <p class="govuk-body"><a href="#" class="govuk-link govuk-link--no-visited-state" id="hazzardAddAnother" data-target="hazzardAutocomplete" >Add another hazard</a></p>
+
+    <script>
+      
+    </script>
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+
 
     {{ govukTextarea({
       name: "new[report][hazardSummary]",
@@ -53,9 +74,10 @@
       idPrefix: "report-report-type",
       name: "new[report][reportType]",
       hint: {
-        text: "Select all that apply."
+        text: "Select all that apply"
       },
       items: [
+      
         {
           value: "unsafe",
           text: "It’s unsafe",
@@ -66,10 +88,11 @@
         {
           value: "noncompliant",
           text: "It’s non-compliant",
-          conditional: {
+          _conditional: {
             html: complianceHtml
           }
         }
+        
       ]
     }) }}
 
