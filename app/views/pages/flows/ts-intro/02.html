@@ -1,0 +1,12 @@
+{% extends "includes/templates/ts-introduction.html" %}
+
+{% block introContent %}
+<h1 class="govuk-heading-l">Report unsafe and non-compliant products</h1>
+<p class="govuk-body-l">Trading Standards officers must use this service to report serious product safety incidents to The Office for Product Safety and Standards.</p>
+
+{{ govukButton({
+  text: "Continue",
+  href: './03'
+}) }}
+
+{% endblock %}

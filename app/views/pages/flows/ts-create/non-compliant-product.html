@@ -1,0 +1,47 @@
+{% extends "includes/templates/flow--creation-ts.html" %}
+
+{% set displayTitle        = 'Why is the product non-compliant?' %}
+{% set formAction         = './supply-chain-information' %}
+
+{% set backLink      = './unsafe-product' %}
+{% set backText      = 'Back'  %}
+
+{% set titleType     = 'false' %}
+
+
+{% block flow %}
+  <form action="{{formAction}}" method="post" class="form">
+
+    {# <div class="govuk-grid-row">
+       {% include "includes/components/shared/create/ts-setup-prototype-data.html" %}
+       {% include "includes/components/shared/create/ts-issue-type-select.html" %}
+    </div> #}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {{ govukTextarea({
+          name: "more-detail",
+          id: "more-detail",
+          _label: {
+            text: "Can you provide more detail?"
+          },
+          _hint: {
+            text: "Do not include personal or financial information, like your National Insurance number or credit card details."
+          }
+        }) }}
+      </div>
+    </div>
+
+    
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {% from "button/macro.njk" import govukButton %}
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </div>
+    </div>
+
+  </form>
+{% endblock %}

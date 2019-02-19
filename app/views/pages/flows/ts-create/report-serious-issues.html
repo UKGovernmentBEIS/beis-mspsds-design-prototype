@@ -1,0 +1,66 @@
+{% extends "includes/templates/flow--creation-ts.html" %}
+
+{% set displayTitle        = 'Report ‘serious’ issues' %}
+{% set formAction         = './case-created' %}
+
+{% set backLink      = './existing-reference-number' %}
+{% set backText      = 'Back'  %}
+
+
+{% set titleType     = 'false' %}
+
+
+{% block flow %}
+  <form action="{{formAction}}" method="post" class="form">
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        <p class="govuk-body">Trading Standards officers must escalate ‘serious’ product safety issues to The Office for Product Safety and Standards (OPSS).</p>
+
+        <p class="govuk-body">‘Serious’ means the product:</p> <ul class="govuk-list govuk-list--bullet">
+          <li>poses an actual or potential threat to a person’s safety</li>
+          <li>cannot be dealt with using everyday resources or procedures</li>
+        </ul>
+        {{ govukRadios({
+          classes: "",
+          idPrefix: "changed-name",
+          name: "changed-name",
+          fieldset: {
+            legend: {
+              text: "Do you want to escalate the issue and assign the case to OPSS?",
+              isPageHeading: false,
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          
+          items: [
+            {
+              value: "yes",
+              text: "Yes"
+            },
+            {
+              value: "no",
+              text: "No, keep assigned to me for now"
+            }
+          ]
+        }) }}
+{# hint: {
+            text: "You should raise an alert if this is a serious issue that The Office for Product Safety and Standards should review."
+          }, #}
+        
+      </div>
+    </div>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {% from "button/macro.njk" import govukButton %}
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </div>
+    </div>
+
+  </form>
+{% endblock %}
+

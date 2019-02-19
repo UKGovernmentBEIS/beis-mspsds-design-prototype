@@ -1,6 +1,6 @@
 {% extends "includes/templates/minimal.html" %}
 
-{% set backLink      = './08' %}
+{% set backLink      = './about-this-case' %}
 {% set backText      = 'Back'  %}
 
 {% if data['new']['report']['type'] == 'Report' %}
@@ -11,7 +11,7 @@
 {% elif data['new']['report']['type'] == 'Question' %}
 
   {% set titleType           = 'Ask a question' %}
-  {% set displayTitle        = 'Questoin created' %}
+  {% set displayTitle        = 'Question created' %}
   {% set formAction          = 'save' %}
 
 {% endif %}
@@ -48,18 +48,22 @@
       {% from "includes/components/shared/hmcts-banner.html" import hmctsBanner %}
 
       {% set bannerHtml %}
-        <h1 class="govuk-heading-m">Case created</h1>
-        <h2 class="govuk-heading-s">Here is a title that is as long as they might be (ID: {{data['caseid']}})</h2>
-        <p class="govuk-body">A confirmation email has been sent to ed.horsford@softwire.com
+        <h1 class="govuk-heading-l">Case created</h1>
+        <p class="govuk-body">Case ID: {{data['caseid']}}</p>
+        {# <h2 class="govuk-body-l">Case ID:  {{data['caseid']}}</h2> #}
+        <p class="govuk-body">A confirmation email has been sent to <strong>ed.horsford@softwire.com</strong>
       </p>
       {% endset %}
 
       {{ hmctsBanner({
         html: bannerHtml
       }) }}
+      {# Clothing (inc. baby) – Other hazard type (no product specified) #}
+      <p class="govuk-body"><strong>Clothing (inc. baby) – Other hazard type (no product specified)</strong>, has now been assigned to <strong>The Office for Product Safety and Standards</strong>.</p>
 
+      <p class="govuk-body">If you need to, you can add more information later.</p>
 
-      <p class="govuk-body">The case has now been assigned to <strong>The Office for Product Safety and Standards</strong>. If you need to, you can add more information later.</p>
+      {# <p class="govuk-body">The issue has now been assigned to <strong>The Office for Product Safety and Standards</strong>. If you need to, you can add more information later.</p> #}
           
       {# <p class="govuk-body">Your case has been assigned to <strong>The Office for Product Safety and Standards</strong>.</p> #}
 
@@ -72,9 +76,9 @@
         text: "View case"
       }) }}
 
-      <p class="govuk-body"><a href="#" class="govuk-link">Home</a></p>
+      <p class="govuk-body"><a href="/pages/home" class="govuk-link">Home</a></p>
 
-      <p class="govuk-body"><a href="#" class="govuk-link">View all cases you have created</a></p>
+      <p class="govuk-body"><a href="/pages/case-list" class="govuk-link">View all cases you have opened</a></p>
     </div>
   </div>
 </form>

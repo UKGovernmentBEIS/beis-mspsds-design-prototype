@@ -1,0 +1,88 @@
+{% extends "includes/templates/flow--creation-ts.html" %}
+{% from "includes/components/shared/autocomplete-input.html" import autocompleteInput %}
+
+
+{% set displayTitle        = 'Why is the product unsafe?' %}
+{% set formAction         = './non-compliant-product' %}
+
+{% set backLink      = './why-reporting' %}
+{% set backText      = 'Back'  %}
+
+{% set titleType     = 'false' %}
+
+
+
+
+{% block flow %}
+
+
+
+{% set complianceHtml %}
+    
+    {{ govukTextarea({
+      name: "new[report][complianceSummary]",
+      id:   "allegation-compliance-detail",
+      label: {
+        text: "Details of non-compliance"
+      },
+      value: data['new']['report']['summary']
+    }) }}
+
+{% endset -%}
+  <form action="{{formAction}}" method="post" class="form">
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <div class="hazard-wrapper" id=hazzardAutocomplete>
+          {{ autocompleteInput({
+            idPrefix: "hazard-type", 
+            name:     "new[report][hazardType]", 
+            legend:   "Hazard type",
+            class:    "govuk-body govuk-!-margin-bottom-1 govuk-input--width-20",
+            _hint:     "The danger the product presents", 
+            values:   data.hazardTypes}) 
+          }}
+        </div>
+        <p class="govuk-body"><a href="#" class="govuk-link govuk-link--no-visited-state" id="hazzardAddAnother" data-target="hazzardAutocomplete" >Add another hazard</a></p>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      </div>
+
+    </div>
+  
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        
+
+        {{ govukTextarea({
+          name: "new[report][hazardSummary]",
+          id:   "allegation-hazard–detail",
+          label: {
+            text: "Why do you think the product is unsafe?"
+          },
+          hint : {
+            text: "Including any incidents or events that brought it to your attention",
+            text: "For example, exposed wires or incidents that brought it to your attention"
+
+          },
+
+          value: data['new']['report']['summary']
+        }) }}
+      </div>
+    </div>
+
+    
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {% from "button/macro.njk" import govukButton %}
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </div>
+    </div>
+
+  </form>
+{% endblock %}
