@@ -1,6 +1,6 @@
 {% extends "includes/templates/flow--creation-ts.html" %}
 
-{% set displayTitle        = 'About this case' %}
+{% set displayTitle        = 'Report ‘serious’ issues' %}
 {% set formAction         = './case-created' %}
 
 {% set backLink      = './existing-reference-number' %}
@@ -16,16 +16,19 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
 
-        <p class="govuk-body">You should raise an alert if this is a serious issue that The Office for Product Safety and Standards should review.</p>
+        <p class="govuk-body">Trading Standards officers must escalate ‘serious’ product safety issues to The Office for Product Safety and Standards (OPSS).</p>
 
-        <p class="govuk-body">You can continue to add details to the issue if you are still working on it.</p>
+        <p class="govuk-body">‘Serious’ means the product:</p> <ul class="govuk-list govuk-list--bullet">
+          <li>poses an actual or potential threat to a person’s safety</li>
+          <li>cannot be dealt with using everyday resources or procedures</li>
+        </ul>
         {{ govukRadios({
           classes: "",
           idPrefix: "changed-name",
           name: "changed-name",
           fieldset: {
             legend: {
-              text: "Do you want to raise an alert about this issue?",
+              text: "Do you want to escalate the issue and assign the case to OPSS?",
               isPageHeading: false,
               classes: "govuk-fieldset__legend--m"
             }
@@ -34,11 +37,11 @@
           items: [
             {
               value: "yes",
-              text: "Yes, alert and assign to OPSS"
+              text: "Yes"
             },
             {
               value: "no",
-              text: "No, not at this time - keep assigned to me"
+              text: "No, keep assigned to me for now"
             }
           ]
         }) }}
