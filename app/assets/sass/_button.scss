@@ -1,3 +1,7 @@
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
 .mspsds-button {
 
     & + & {
@@ -5,12 +9,18 @@
     }
 
     &--delete {
-            background-color: govuk-colour("bright-red");
-            box-shadow: 0 2px 0 govuk-colour("red");
+            background-color:  $govuk-error-colour;
+            box-shadow: 0 2px 0 shade($govuk-error-colour, 50%);
 
         &:hover, 
         &:focus {
-            background-color: govuk-colour("red");
+            background-color: shade($govuk-error-colour, 10%);
         }
     }
+}
+
+
+
+.mspsds-button--delete {
+  
 }
