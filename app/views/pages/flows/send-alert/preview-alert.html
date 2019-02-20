@@ -1,0 +1,60 @@
+{% extends "includes/templates/minimal.html" %}
+
+{% set backLink      = './compose-alert' %}
+{% set backText      = 'Back'  %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">Preview your alert</h1>
+
+      <form action="preview-alert" method="post" novalidate>
+        
+        <div class="email-message">
+          <table class="email-message-meta">
+            <tbody>
+              <tr>
+                <th>From</th>
+                <td>
+                  The Office of Product Safety and Standards
+                </td>
+              </tr> 
+              <tr>
+                <th>To</th>
+                <td>
+                  <span class="placeholder-no-brackets">email address</span>
+                </td>
+              </tr>
+              
+              <tr class="email-message-meta">
+                <th>Subject</th>
+                <td>
+                  This is the test
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="email-message-body">
+            
+              <h2 style="Margin: 0 0 20px 0; padding: 0; font-size: 27px; line-height: 35px; font-weight: bold; color: #0B0C0C;">Primary heading</h2><p style="Margin: 0 0 20px 0; font-size: 19px; line-height: 25px; color: #0B0C0C;">some content</p><p style="Margin: 0 0 20px 0; font-size: 19px; line-height: 25px; color: #0B0C0C;">secondary heading</p><p style="Margin: 0 0 20px 0; font-size: 19px; line-height: 25px; color: #0B0C0C;">some content</p>
+            
+          </div>
+        </div>
+        {{ govukButton({
+          text: "Send alert to 1041 people"
+        }) }}
+
+      </form>
+
+      
+      
+
+
+    </div>
+  </div>
+</form>
+
+
+{% endblock %}

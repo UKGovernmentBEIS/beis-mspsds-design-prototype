@@ -1,0 +1,27 @@
+{% extends "includes/templates/minimal.html" %}
+
+{% set backLink      = './case' %}
+{% set backText      = 'Back to case'  %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">About alerts</h1>
+
+      <p class="govuk-body">You can issue an alert about this issue if it is a serious product safety incident. All users of the Product safety register will be sent an email notification...</p>
+
+      
+      {{ govukButton({
+        text: "Compose new alert",
+        href: 'compose-alert'
+      }) }}
+
+
+    </div>
+  </div>
+</form>
+
+
+{% endblock %}
