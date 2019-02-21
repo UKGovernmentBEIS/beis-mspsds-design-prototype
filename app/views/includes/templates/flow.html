@@ -112,6 +112,7 @@
                 href: backLink
             }) }}
         {% endif %}
+        {# <div class="save-and-return"><p class="govuk-body-s"><a href="#" class="govuk-link govuk-link--no-visited-state">Save and return later</a></p></div> #}
     {% endblock %}
 
 {% endblock %}
@@ -136,7 +137,28 @@
     {% block flow %}
     {% endblock %}
 
+    {% set detailsContent %}
 
+      <p class="govuk-body">If you're not able to provide these details now you can come back later to add them.</p>
+
+      <p class="govuk-body">Choose either:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li><p class="govuk-body"><a href="#" class="govuk-link">Save progress and return later</a><br>The case will not be published or viewable by anyone but you.</p></li>
+        <li><p class="govuk-body"><a href="#" class="govuk-link">Skip section</a><br>Add these details later by visiting the case page.</p></li>
+      </ul>
+
+    {% endset %}
+
+    {# <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {{ govukDetails({
+        summaryText: "Complete later",
+        html: detailsContent,
+        open: true
+      }) }}
+      </div>
+    </div> #}
 {% endblock %}
 
 
