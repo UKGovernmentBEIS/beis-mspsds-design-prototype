@@ -6,7 +6,13 @@
 }) }}
 
 <div class="govuk-grid-row">
-  <p class="govuk-body govuk-grid-column-two-thirds">{{currentCase.report.summary}}</p>
+  <div class="govuk-grid-column-two-thirds">
+    <p class="govuk-body">{{currentCase.report.summary}}</p>
+    <p class="govuk-body">
+      <a class="govuk-link govuk-link--no-visited-state" href="/pages/flows/summary/edit/01">Edit summary</a>
+    </p>
+  </div>
+  
 </div>
 <hr class="govuk-section-break govuk-section-break--m" />
 
