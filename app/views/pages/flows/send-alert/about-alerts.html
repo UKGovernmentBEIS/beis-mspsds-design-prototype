@@ -11,9 +11,9 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <h1 class="govuk-heading-xl">About alerts</h1>
+      {% if not currentCase.restricted %}
 
-      {# <p class="govuk-body-l">Send an email alert about this case</p> #}
+      <h1 class="govuk-heading-xl">About alerts</h1>
 
       <p class="govuk-body">When you send an alert:</p>
 
@@ -39,6 +39,24 @@
         <a class="govuk-link govuk-link--no-visited-state" href="/pages/case">Cancel</a>
       </p>
 
+      {% endif %}
+
+      {% if currentCase.restricted %}
+
+      <h1 class="govuk-heading-xl">You cannot send an alert about a restricted case</h1>
+
+      <p class="govuk-body">Email alerts can only be sent for cases that are not restricted. To send an alert about this case you need to unrestrict it.</p>
+
+      {{ govukButton({
+        text: "Change case visibility",
+        href: '/root/flows/change-visibility/01-change-visibility'
+      }) }}
+
+      <p class="govuk-body">
+        <a class="govuk-link govuk-link--no-visited-state" href="/pages/case">Cancel</a>
+      </p>
+
+      {% endif %}
 
     </div>
   </div>

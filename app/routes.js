@@ -300,6 +300,9 @@ router.post('/:mode/flows/add-activity/choose', function (req, res) {
     case 'change-visibility':
       res.redirect("/root/flows/change-visibility/01-change-visibility.html");
       break;
+    case 'send-alert':
+      res.redirect("/root/flows/send-alert/about-alerts");
+      break;
     default:
       res.render(path);
   }
