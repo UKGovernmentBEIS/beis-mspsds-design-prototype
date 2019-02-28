@@ -55,7 +55,12 @@
             {
               value: "change-visibility",
               text: "Restrict this case for legal privilege" if not currentCase.restricted else "Unrestrict this case"
+            },
+            {
+              value: "send-alert",
+              text: "Send email alert about this case" if not currentCase.restricted else "Unrestrict this case"
             }
+
           ]
         }) }}
 

@@ -6,32 +6,34 @@
 {% block content %}
 
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
 
       <h1 class="govuk-heading-xl">Preview your alert</h1>
 
       <form action="preview-alert" method="post" novalidate>
+
+        {# <p class="govuk-body">Review your alert to make sure it includes important details and is clear on what recipients should do.</p> #}
         
         <div class="email-message">
-          <table class="email-message-meta">
-            <tbody>
-              <tr>
-                <th>From</th>
-                <td>
+          <table class="email-message-meta govuk-table">
+            <tbody class="govuk-table__body">
+              <tr class="govuk-table__row">
+                <th class="govuk-table__header">From</th>
+                <td class="govuk-table__cell">
                   The Office of Product Safety and Standards
                 </td>
               </tr> 
-              <tr>
-                <th>To</th>
-                <td>
-                  <span class="placeholder-no-brackets">email address</span>
+              <tr class="govuk-table__row">
+                <th class="govuk-table__header">To</th>
+                <td class="govuk-table__cell">
+                  <span class="placeholder-no-brackets">All users (1041 people)</span>
                 </td>
               </tr>
               
-              <tr class="email-message-meta">
-                <th>Subject</th>
-                <td>
-                  This is the test
+              <tr class="email-message-meta govuk-table__row">
+                <th class="govuk-table__header">Subject</th>
+                <td class="govuk-table__cell">
+                  Product safety alert: foo
                 </td>
               </tr>
             </tbody>
@@ -42,9 +44,18 @@
             
           </div>
         </div>
+
+        <p class="govuk-body">If you’re not happy you can <a href="compose-alert" class="govuk-link">edit your message</a>.</p>
+
+        <p class="govuk-body">Alerts may take up to 5 minutes to send.</p>
         {{ govukButton({
           text: "Send alert to 1041 people"
         }) }}
+
+        <p class="govuk-body">
+          <a class="govuk-link govuk-link--no-visited-state" href="/pages/case">Cancel</a>
+        </p>
+
 
       </form>
 

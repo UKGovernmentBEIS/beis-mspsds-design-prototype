@@ -20,6 +20,7 @@ $email-message-gutter: $govuk-gutter * 2;
       border-top: 0;
       border-bottom: 1px solid $govuk-border-colour;
       vertical-align: top;
+      text-align: left;
     }
 
     th {
@@ -47,6 +48,7 @@ $email-message-gutter: $govuk-gutter * 2;
 
   &-body {
 
+    @include govuk-font(19);
     width: 100%;
     box-sizing: border-box;
     padding: $govuk-gutter-half $email-message-gutter 0 $email-message-gutter;

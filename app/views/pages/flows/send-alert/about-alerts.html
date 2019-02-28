@@ -1,7 +1,10 @@
 {% extends "includes/templates/minimal.html" %}
 
-{% set backLink      = './case' %}
-{% set backText      = 'Back to case'  %}
+{% set currentCase = data.cases | withId(data['caseid']) %}
+{% set backLink      = '/pages/case' %}
+{% set backText      = 'Back to case: ' + currentCase.id  %}
+
+
 
 {% block content %}
 
@@ -10,13 +13,31 @@
 
       <h1 class="govuk-heading-xl">About alerts</h1>
 
-      <p class="govuk-body">You can issue an alert about this issue if it is a serious product safety incident. All users of the Product safety register will be sent an email notification...</p>
+      {# <p class="govuk-body-l">Send an email alert about this case</p> #}
 
-      
+      <p class="govuk-body">When you send an alert:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>all users of this service will be sent an email</li>
+        <li>they’ll be given a link back to this case to view more details</li>
+      </ul>
+
+      <p class="govuk-body">Recipients will need an account on this service to view the case.</p>
+
+      {{ govukWarningText({
+        text: "Only send an alert if this is a serious product safety issue.",
+        iconFallbackText: "Warning"
+      }) }}
+
+    
       {{ govukButton({
         text: "Compose new alert",
         href: 'compose-alert'
       }) }}
+
+      <p class="govuk-body">
+        <a class="govuk-link govuk-link--no-visited-state" href="/pages/case">Cancel</a>
+      </p>
 
 
     </div>
