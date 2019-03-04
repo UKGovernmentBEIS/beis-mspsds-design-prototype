@@ -1,0 +1,149 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% block pageTitle %}
+Home Page
+{% endblock %}
+
+
+{% set currentTeam   = data['currentTeam'] %}
+{% if currentTeam.includes("Trading") %}
+{% set createLink  = '/root/flows/ts-create/product-details' %}
+{% else %}
+{% set createLink  = data['createUrl'] %}
+{% endif %}
+
+
+
+{% block beforeContent %}
+
+{# {% include "includes/components/shared/page-banner.html" %} #}
+{% set teamLink = true %}
+
+{% from "includes/components/shared/site-nav.html"        import siteNav %}
+{{ siteNav([
+  { 
+    label: 'Home',
+    link: '/root/home',
+    classes: ''
+  }, { 
+  label: 'Cases',
+  link: '/root/case-list'
+},
+
+{ 
+  label: 'Products',
+  link: '/root/product-list'
+}, { 
+label: 'Businesses',
+link: '/root/business-list'
+},{ 
+label: 'Your teams',
+link: '/pages/your-teams',
+classes: 'active menu-right'
+}
+
+
+]) }}
+
+{% endblock %}
+{# 
+
+  { 
+      label: 'Incidents',
+      link: '/root/case-list'
+    },
+    {
+        label: 'About',
+        link: '/root/about'
+      }
+    , { 
+      label: 'Products',
+      link: '/root/product-list'
+    }, { 
+      label: 'Businesses',
+      link: '/root/business-list'
+    }, #}
+
+
+    {% block content %}
+
+
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">OPSS Processing</h1>
+    {# <h2 class="govuk-heading-m">Team inbox</h2>
+    <p class="govuk-body"><a href="" class="govuk-link">opss-processing@opss.beis.gov.uk</a></p> #}
+    {{ govukButton({
+      text: "Invite a team member",
+      href: "./b1dab0f5-4651-4af8-9f15-fa8143ff338d/invite"
+    }) }}
+
+
+    <h2 class="govuk-heading-m">Team members</h2>
+
+    
+    <hr class="govuk-section-break govuk-section-break--visible">
+
+    <ul class="govuk-list">
+      <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
+        <h3 class="teams__user-contact govuk-!-margin-bottom-2 govuk-!-margin-top-1">
+          <span class="teams__user_name govuk-heading-s">Sarah McCarthy</span> 
+          <span class="govuk-caption-m teams__user_email">sarah.mccarathy@example.com</span>
+        </h3>
+        <ul class="govuk-list govuk-!-margin-0">
+          <li>
+            <span class="tick-cross-cross"><span class="govuk-visually-hidden">Cannot</span>Manage team membership</span>
+          </li>
+        </ul>
+      </li>
+      <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
+        <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
+          <span class="teams__user_name">Jack Sparrow</span> <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span>
+        </h3>
+        <ul class="govuk-list govuk-!-margin-0">
+          <li>
+            <span class="tick-cross-tick"><span class="govuk-visually-hidden">Can</span>Manage team membership</span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    {# <p class="govuk-body">Contact OPSS to remove a team member.</p> #}
+    {# {{ govukInsetText({
+      text: ""
+    }) }} #}
+  </div>
+  <div class="govuk-grid-column-one-third govuk-!-margin-top-9">  
+
+    <aside class="app-related-items" role="complementary">
+      <h2 class="govuk-heading-m" id="subsection-title">
+        Team information
+      </h2>
+      <p class="govuk-body">
+        <span class="govuk-!-font-weight-bold">Organisation</span>
+        <br>The Office of Product Safety and Standards
+      </p>
+      <p class="govuk-body">
+        <span class="govuk-!-font-weight-bold">Team inbox</span>
+        <br>
+        <a href="" class="govuk-link">opss-processing@opss.beis.gov.uk</a>
+      </p>
+      {# <p class="govuk-body">
+        <span class="govuk-!-font-weight-bold">Cases assigned to team:</span>
+        <br>13
+      </p>
+      <p class="govuk-body">
+        <span class="govuk-!-font-weight-bold">Team member cases:</span>
+        <br>32
+      </p> #}
+
+    </aside>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

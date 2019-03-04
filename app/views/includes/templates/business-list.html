@@ -1,4 +1,4 @@
-{% extends "mspsds-layout.html" %}
+\{% extends "mspsds-layout.html" %}
 
 {% set businesses    = data.businesses | attachBusinessChildren(data) %}
 
@@ -37,8 +37,12 @@
       label: 'Businesses',
       link: '/root/business-list',
       classes: 'active'
+    },{ 
+      label: 'Your teams',
+      link: '/pages/your-teams',
+      classes: 'menu-right'
     }
-    ], createLink ) }}
+    ] ) }}
 
 
 {% endblock %}

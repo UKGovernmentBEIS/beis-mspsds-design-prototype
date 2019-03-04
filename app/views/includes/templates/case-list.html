@@ -8,7 +8,7 @@
 {% set currentTeam   = data['currentTeam'] %}
 
 {% if currentTeam.includes("Trading") %}
-  {% set createLink   = '/root/flows/ts-create/01' %}
+  {% set createLink   = '/pages/flows/ts-create/product-details' %}
   {% set settings     = data.tsCaseListSettings  %}
 
 {% else %}
@@ -56,8 +56,12 @@
       }, {
         label: 'Businesses',
         link: '/root/business-list'
-      }
-    ], createLink ) }}
+      },{ 
+      label: 'Your teams',
+      link: '/pages/your-teams',
+      classes: 'menu-right'
+    }
+    ] ) }}
 
 {% endblock %}
 
@@ -74,6 +78,15 @@
       {{ pageTitle({
         title: "Cases"
       }) }}
+    </div>
+    <div class="govuk-grid-column-one-third">
+      <div class="align-right" data-create="{{create}}">
+        {{ govukButton({
+          text: "Create new",
+          href: createLink,
+          classes: "govuk-button"
+        }) }}
+      </div>
     </div>
   </div>
   {% endblock %}
