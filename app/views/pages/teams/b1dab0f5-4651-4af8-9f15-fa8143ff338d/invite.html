@@ -1,0 +1,125 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% block pageTitle %}
+Home Page
+{% endblock %}
+
+
+{% set currentTeam   = data['currentTeam'] %}
+{% if currentTeam.includes("Trading") %}
+{% set createLink  = '/root/flows/ts-create/product-details' %}
+{% else %}
+{% set createLink  = data['createUrl'] %}
+{% endif %}
+
+
+
+{% block beforeContent %}
+
+{# {% include "includes/components/shared/page-banner.html" %} #}
+{% set teamLink = true %}
+
+{% from "includes/components/shared/site-nav.html"        import siteNav %}
+{{ siteNav([
+  { 
+    label: 'Home',
+    link: '/root/home',
+    classes: ''
+  }, { 
+  label: 'Cases',
+  link: '/root/case-list'
+},
+
+{ 
+  label: 'Products',
+  link: '/root/product-list'
+}, { 
+label: 'Businesses',
+link: '/root/business-list'
+},{ 
+label: 'Your teams',
+link: '/pages/your-teams',
+classes: 'active menu-right'
+}
+
+
+]) }}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{ govukBackLink({
+      text: "Back",
+      href: "./../b1dab0f5-4651-4af8-9f15-fa8143ff338d"
+    }) }}
+  </div>
+</div>
+
+{% endblock %}
+{# 
+
+  { 
+      label: 'Incidents',
+      link: '/root/case-list'
+    },
+    {
+        label: 'About',
+        link: '/root/about'
+      }
+    , { 
+      label: 'Products',
+      link: '/root/product-list'
+    }, { 
+      label: 'Businesses',
+      link: '/root/business-list'
+    }, #}
+
+
+    {% block content %}
+
+
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        
+
+      <h1 class="govuk-heading-xl">Invite a team member</h1>
+      {# <h2 class="govuk-heading-m">Team inbox</h2>
+      <p class="govuk-body"><a href="" class="govuk-link">opss-processing@opss.beis.gov.uk</a></p> #}
+
+      <form action="./../b1dab0f5-4651-4af8-9f15-fa8143ff338d" method="post" novalidate>
+      
+      {{ govukInput({
+        label: {
+          text: "Email address",
+          classes: "govuk-label--m"
+        },
+        hint: {
+          text: "This should be their work address"
+        },
+        id: "invite-email",
+        name: "invite-email"
+      }) }}
+
+      {# <p class="govuk-body">Team members can see cases created by or assigned to their team or anyone in their team.</p> #}
+
+      {{ govukButton({
+        text: "Send invitation email"
+
+      }) }}
+    </form>
+    
+
+
+
+
+    
+  </div>
+
+</div>
+
+
+
+
+{% endblock %}
