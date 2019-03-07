@@ -81,6 +81,24 @@ router.post('/:mode/flows/ts-create/product-details', function (req, res, next) 
   next();
 });
 
+router.post('/:mode/flows/ts-create/product-images-any', function (req, res, next) {
+  var hasImages = req.session.data['product-images-any']
+  if (hasImages == 'yes') {
+    req.session.data['images-count'] = 1
+    res.redirect("/pages/flows/ts-create/product-image-upload")
+  }
+  else res.redirect("/pages/flows/ts-create/why-reporting")
+});
+
+router.post('/:mode/flows/ts-create/product-images-more', function (req, res, next) {
+  var moreImages = req.session.data['more-images-question']
+  if (moreImages == 'yes') {
+    req.session.data['images-count'] ++
+    res.redirect("/pages/flows/ts-create/product-image-upload")
+  }
+  else res.redirect("/pages/flows/ts-create/why-reporting")
+});
+
 router.post('/:mode/flows/ts-create/business-details', function (req, res, next) {
   const data = req.session.data;
   var noneOfAbove = data['new']['report']['business']['typeNone']

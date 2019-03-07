@@ -1,0 +1,65 @@
+{% extends "includes/templates/flow--creation-ts.html" %}
+
+{% set displayTitle        = 'Add a product image' %}
+
+{% set formAction         = './product-images-summary' %}
+
+{% set backLink      = './product-images' %}
+{% set backText      = 'Back'  %}
+
+{% set titleType     = 'false' %}
+
+
+{% block flow %}
+  <form action="{{formAction}}" method="post" class="form">
+
+    {# <p class="govuk-body">Select an image to upload.</p> #}
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {{ govukFileUpload({
+          id: "file-upload-1",
+          name: "file-upload-1",
+          label: {
+            text: "Browse for file",
+            _classes: "govuk-label--m"
+          }
+        }) }}
+
+        {{ govukInput({
+          id:   currentUploadIDVar + "title",
+          name: currentUploadVar + "[title]",
+          value:    currentAttachment.title,
+          label: {
+            text: "Image summary"
+          },
+          hint: {
+            text: "For example, details of what the image shows"
+          },
+          classes: "govuk-!-width-two-thirds"
+        }) }}
+
+
+        {{ govukTextarea({
+          id:   currentUploadIDVar + "description",
+          name: currentUploadVar + "[description]",
+          value:    currentAttachment.description,
+          label: {
+            text: "Description or summary (optional)"
+          }
+        }) }}
+      </div>
+    </div>
+
+    
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {% from "button/macro.njk" import govukButton %}
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </div>
+    </div>
+
+  </form>
+{% endblock %}
