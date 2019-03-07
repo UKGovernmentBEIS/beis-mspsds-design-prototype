@@ -1,0 +1,236 @@
+{% extends "includes/templates/flow--creation-ts.html" %}
+
+{% set displayTitle        = 'Add a business' %}
+
+{% set formAction         = './business-summary' %}
+
+{% set backLink      = './product-details' %}
+{% set backText      = 'Back'  %}
+
+{% set titleType     = 'false' %}
+
+
+{% block flow %}
+  <form action="{{formAction}}" method="post" class="form">
+
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        
+      </div>
+    </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {{ govukSelect({
+        id: "sort",
+        name: "sort",
+        label: {
+          text: "Business type",
+          classes: "govuk-label--m"
+        },
+        classes: "govuk-!-width-one-half",
+        items: [
+
+          {
+            value: "",
+            text: "",
+            selected: true
+          },
+          {
+            value: "detailer",
+            text: "Retailer"
+          },
+          {
+            value: "distributor",
+            text: "Distributor"
+          },
+          {
+            value: "importer",
+            text: "Importer"
+          },
+          {
+            value: "manufacturer",
+            text: "Manufacturer"
+          },
+          {
+            value: "other",
+            text: "Other"
+          }
+        ]
+      }) }}
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-0">
+
+      {{ govukInput({
+        label: {
+          text: "Trading name",
+          classes: "govuk-label--m"
+        },
+        hint: {
+          text: "The name the business is known by"
+        },
+        id: "trading-name",
+        name: "trading-name"
+      }) }}
+
+      {{ govukInput({
+        label: {
+          text: "Legal name",
+          classes: "govuk-label--m"
+        },
+        hint: {
+          text: "The registered nameof the company (if you have it)"
+        },
+        id: "legal-name",
+        name: "legal-name"
+      }) }}
+
+      {{ govukInput({
+        label: {
+          text: "Company number",
+          classes: "govuk-label--m"
+        },
+        hint: {
+          text: "For example, 012345678"
+        },
+        classes: "govuk-input--width-10",
+        id: "company-number",
+        name: "company-number"
+      }) }}
+
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-0">
+
+    {% call govukFieldset({
+        legend: {
+          text:           "Business address",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--m"
+        }
+      }) %}
+
+        {{ govukInput({
+          label: {
+            html: 'Building and street <span class="govuk-visually-hidden">line 1 of 2</span>'
+          },
+          id:         'address-line-1',
+          name:       'address-line-1'
+        }) }}
+
+        {{ govukInput({
+          label: {
+            html: '<span class="govuk-visually-hidden">Building and street line 2 of 2</span>'
+          },
+          id:         'address-line-2',
+          name:       'address-line-2'
+        }) }}
+
+
+        {{ govukInput({
+          label: {
+            html: 'Town or city'
+          },
+          classes:    "",
+          id:         'address-town',
+          name:       'address-town'
+        }) }}
+
+
+        {{ govukInput({
+          label: {
+            html: 'County'
+          },
+          id:         'address-county',
+          name:       'address-county'
+        }) }}
+
+
+        {{ govukInput({
+          label: {
+            html: 'Postcode'
+          },
+          classes:    "govuk-input--width-10",
+          id:         'postcode',
+          name:       'postcode'
+        }) }}
+
+
+        {{ govukInput({
+          label: {
+            html: 'Country'
+          },
+          classes:    "",
+          id:         currentNewBizIDVar  + 'country',
+          name:       currentNewBizVar + '[country]',
+          value: data['new']['report']['businesses'][businessType]['country']
+        }) }}
+
+      {% endcall %}
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-0">
+
+      {% call govukFieldset({
+        legend: {
+          text:           "Business contact",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+        }
+      }) %}
+
+        {{ govukInput({
+          label: {
+            text: "Name"
+          },
+          classes: "",
+          id:       'contact-name',
+          name:     'contact-name'
+        }) }}
+
+
+        {{ govukInput({
+          label: {
+            text: "Email"
+          },
+          classes: "",
+          id:       'contact-email',
+          name:     'contact-email'
+        }) }}
+
+
+        {{ govukInput({
+          label: {
+            text: "Phone number"
+          },
+          classes: "",
+          id:       'contact-phone',
+          name:     'contact-phone'
+        }) }}
+
+
+        {{ govukInput({
+          label: {
+            text: "Job title / description"
+          },
+          classes: "",
+          id:       'contact-title',
+          name:     'contact-title'
+        }) }}
+
+      {% endcall %}
+
+  </div>
+</div>
+
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {% from "button/macro.njk" import govukButton %}
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </div>
+    </div>
+
+  </form>
+{% endblock %}

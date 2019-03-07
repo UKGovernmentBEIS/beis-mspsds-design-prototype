@@ -1,0 +1,119 @@
+{% extends "includes/templates/flow--creation-ts.html" %}
+
+{% set displayTitle        = 'Business summary' %}
+
+{% set formAction         = './product-images-more' %}
+
+{% set backLink      = './product-details' %}
+{% set backText      = 'Back'  %}
+
+{% set titleType     = 'false' %}
+
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h2 class="govuk-heading-m">Manufacturer</h2>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full ">
+
+      <table class="govuk-table govuk-!-margin-bottom-4">
+
+
+        <tbody class="govuk-table__body">
+
+          <tr class="govuk-table__row">
+
+
+            <th class="govuk-table__header" scope="row">Role</th>
+
+
+
+            <td class="govuk-table__cell">Manufacturer –&nbsp;Charge Worx, International Travel Adaptor 931L</td>
+
+
+          </tr>
+
+          <tr class="govuk-table__row">
+
+
+            <th class="govuk-table__header" scope="row">Registered name</th>
+
+
+
+            <td class="govuk-table__cell">Charge Worx UK Ltd</td>
+
+
+          </tr>
+
+          <tr class="govuk-table__row">
+
+
+            <th class="govuk-table__header" scope="row">Main address</th>
+            <td class="govuk-table__cell">48 Bush Road,  Welwyn Garden City, Hertfordshire, England, United Kingdom  WG1 1XQ</td>
+          </tr>
+
+          <tr class="govuk-table__row">
+
+
+            <th class="govuk-table__header" scope="row">Main contact</th>
+            <td class="govuk-table__cell">Paul Jones, 0207 1234 5678, paul.jones@abc.np</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <th class="govuk-table__header" scope="row">Primary authority</th>
+            <td class="govuk-table__cell">Shropshire County Council</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="mspsds-controls">
+        <a href="/root/business?currentPage=business&amp;businessid=b1" class="mspsds-block-link">View business</a>       
+        <a href="/root/flows/business/delete/01?currentPage=business&amp;caseid=0132-1421&amp;businessid=b1" class="mspsds-block-link">Remove business</a>
+      </div>
+    </div>
+    <div class="govuk-grid-column-full">
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+    </div>
+  </div>
+
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "more-images-question",
+        name: "more-images-question",
+        fieldset: {
+        legend: {
+        text: "Do you have any more businesses to add?",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    items: [
+    {
+      value: "yes",
+      text: "Yes"
+    },
+    {
+      value: "no",
+      text: "No"
+    }
+    ]
+  }) }}
+  {% from "button/macro.njk" import govukButton %}
+  {{ govukButton({
+    text: "Continue"
+  }) }}
+</div>
+</div>
+
+</form>
+{% endblock %}
