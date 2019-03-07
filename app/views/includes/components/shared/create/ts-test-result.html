@@ -38,94 +38,20 @@
 
 {% endif %}
 
-
-
-
-
-{% if data['legislation'].length > 1 %}
-    <div class="govuk-grid-row">
-        <div class="mspsds-input govuk-grid-column-one-half govuk-!-margin-bottom-3">
-
-              {% from "includes/components/shared/autocomplete-input.html" import autocompleteInput %}
-
-
-              {{ autocompleteInput({
-                idPrefix:   currentUploadIDVar  + 'legislation',
-                name:       currentUploadVar    + '[legislation]',
-                class:      "govuk-fieldset__legend--m govuk-!-margin-bottom-1",
-                legend:     "Which legislation was tested against?", 
-                hint:       "Select the relevant legislation from the list, or enter a different one.", 
-                values:     data['legislation'] 
-              }) }}
-
-        </div>
-    </div>
-{% endif %}
-
-
-
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds  govuk-!-margin-bottom-3">
-
-
-      {% from "date-input/macro.njk"    import govukDateInput %}
-      {{ govukDateInput({
-        id:         currentUploadIDVar  + "date",
-        namePrefix: currentUploadVar    + "[date]",
-        fieldset: {
-          legend: {
-            text: "When was the test conducted?",
-            isPageHeading: false,
-            classes: "govuk-fieldset__legend--m"
-          }
-        },
-        hint: {
-          text: "For example, 31 3 2018"
-        }
-      }) }}
-
-      {% call govukFieldset({
-        legend: {
-          text:           "What was the test result?",
-          isPageHeading:  false,
-          classes:        "govuk-fieldset__legend--m"
-        }
-      }) %}
-      {{ govukRadios({
-        idPrefix:   currentUploadIDVar  + "status",
-        name:       currentUploadVar    + "[status]",
-        items: [
-          {
-            value:  "Pass",
-            text:   "Pass"
-          },
-          {
-            value:  "Fail",
-            text:   "Fail"
-          }
-        ]
-      }) }}
-      {% endcall %}
-
-      {% call govukFieldset({
-        legend: {
-          text: "Further details",
-          isPageHeading: false,
-          classes: "govuk-fieldset__legend--m"
-        }
-      }) %}
-        {{ govukTextarea({
-          name: currentUploadVar    + "[details]",
-          id:   currentUploadIDVar  + "details"
-        }) }}
-      {% endcall %}
-
-
-  </div>
-</div>
-
 <div class="govuk-grid-row">
     <div class="mspsds-input govuk-grid-column-two-thirds  govuk-!-margin-bottom-3">
+      {{ govukInput({
+        label: {
+          text: "Test type or title",
+          classes: "govuk-label--m"
+        },
+        hint: {
+          text: "A descriptive name for this test. For example, 'Tested for electrical safety' or 'Emmissions test'"
+        },
+        id: "event-name",
+        name: "event-name"
+      }) }}
+
 
           {% set attachmentHtml %}
 
@@ -136,6 +62,14 @@
                 includeDescription:     "true"
               }) }}
 
+              {# {{ govukFileUpload({
+                id: "file-upload-1",
+                name: "file-upload-1",
+                label: {
+                  text: "Browse for file"
+                }
+              }) }}
+ #}
           {% endset %}
 
 
@@ -164,7 +98,109 @@
               ]
           }) }}
           {% endcall %}
-        
+        {# <h2 class="govuk-heading-m">Attachments</h2>
+        {{ govukInsetText({
+          text: "No attachments uploaded."
+        }) }}
+        {{ govukButton({
+          text: "Add an attachment"
+        }) }} #}
     </div>
 
 </div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% from "date-input/macro.njk"    import govukDateInput %}
+      {{ govukDateInput({
+        id:         currentUploadIDVar  + "date",
+        namePrefix: currentUploadVar    + "[date]",
+        fieldset: {
+          legend: {
+            text: "Testing date",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        hint: {
+          text: "For example, 31 3 2018"
+        }
+      }) }}
+  </div>
+</div>
+
+
+
+{% if data['legislation'].length > 1 %}
+    <div class="govuk-grid-row">
+        <div class="mspsds-input govuk-grid-column-two-thirds govuk-!-margin-bottom-3">
+
+              {% from "includes/components/shared/autocomplete-input.html" import autocompleteInput %}
+
+
+              {{ autocompleteInput({
+                idPrefix:   currentUploadIDVar  + 'legislation',
+                name:       currentUploadVar    + '[legislation]',
+                class:      "govuk-fieldset__legend--m govuk-!-margin-bottom-1",
+                legend:     "Which legislation was it tested against?", 
+                hint:       "Select the relevant legislation, or enter a different one", 
+                values:     data['legislation'] 
+              }) }}
+
+        </div>
+    </div>
+{% endif %}
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds  govuk-!-margin-bottom-3">
+
+
+      
+
+      {% call govukFieldset({
+        legend: {
+          text:           "What was the test result?",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--m"
+        }
+      }) %}
+      {{ govukRadios({
+        idPrefix:   currentUploadIDVar  + "status",
+        name:       currentUploadVar    + "[status]",
+        items: [
+          {
+            value:  "Pass",
+            text:   "Pass"
+          },
+          {
+            value:  "Fail",
+            text:   "Fail"
+          },
+          {
+            value:  "Other",
+            text:   "Other"
+          }
+        ]
+      }) }}
+      {% endcall %}
+
+      {% call govukFieldset({
+        legend: {
+          text: "Further details",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--m"
+        }
+      }) %}
+        {{ govukTextarea({
+          name: currentUploadVar    + "[details]",
+          id:   currentUploadIDVar  + "details"
+        }) }}
+      {% endcall %}
+
+
+  </div>
+</div>
+
+
