@@ -26,6 +26,12 @@
   {% include "includes/components/case/tabs/case-tab-overview.html" %}
 {% endset -%}
 
+{% set productsCount = (" (" + currentCase.products.length + ")" if currentCase.products.length)%}
+
+{% set businessCount = (" (" + currentCase.businesses.length + ")" if currentCase.businesses.length)%}
+
+{% set attachmentsCount = (" (" + currentCase.attachments.length + ")" if currentCase.attachments.length)%}
+
 {{ govukTabs({
   items: [
     {
@@ -36,21 +42,21 @@
       }
     },
     {
-      label: "Products",
+      label: "Products" + productsCount,
       id: "products",
       panel: {
         html: productsHtml
       }
     },
     {
-      label: "Businesses",
+      label: "Businesses" + businessCount,
       id: "businesses",
       panel: {
         html: businessesHtml
       }
     },
     {
-      label: "Attachments",
+      label: "Attachments" + attachmentsCount,
       id: "attachments",
       panel: {
         html: attachmentsHtml

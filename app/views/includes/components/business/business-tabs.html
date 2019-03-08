@@ -28,7 +28,11 @@
 
 <hr class="govuk-section-break govuk-section-break--l" />
 
+{% set locationsCount = (" (" + currentBusiness.locations.length + ")" if currentBusiness.locations.length)%}
 
+{% set conctactsCount = (" (" + currentBusiness.contacts.length + ")" if currentBusiness.contacts.length)%}
+
+{% set attachmentsCount = (" (" + currentBusiness.attachments.length + ")" if currentBusiness.attachments.length)%}
 
 {{ govukTabs({
   items: [
@@ -40,21 +44,21 @@
       }
     },
     {
-      label: "Locations",
+      label: "Locations" + locationsCount,
       id: "locations",
       panel: {
         html: locationsHtml
       }
     },
     {
-      label: "Contacts",
+      label: "Contacts" + conctactsCount,
       id: "contacts",
       panel: {
         html: contactsHtml
       }
     },
     {
-      label: "Attachments",
+      label: "Attachments" + attachmentsCount,
       id: "attachments",
       panel: {
         html: attachmentsHtml

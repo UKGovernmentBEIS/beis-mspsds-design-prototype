@@ -19,7 +19,7 @@
 
 <hr class="govuk-section-break govuk-section-break--l" />
 
-
+{% set attachmentsCount = (" (" + currentProduct.attachments.length + ")" if currentProduct.attachments.length)%}
 
 {{ govukTabs({
   items: [
@@ -31,7 +31,7 @@
       }
     },
     {
-      label: "Attachments",
+      label: "Attachments" + attachmentsCount,
       id: "attachments",
       panel: {
         html: attachmentsHtml
