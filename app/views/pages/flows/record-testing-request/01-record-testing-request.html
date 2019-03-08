@@ -32,10 +32,22 @@ Record testing request
       {{ autocompleteInput({
         idPrefix: "case-products", 
         name:     "TODO-product-input-name", 
-        legend:   "Which product should be tested?", 
+        legend:   "Which product will be tested?", 
         hint:     "Only products already added to the case are listed. <a href='#'>Add a product</a>", 
         values:   products}) 
       }}
+
+      {{ govukInput({
+        label: {
+          text: "Test result title or test type",
+          classes: "govuk-label--l"
+        },
+        hint: {
+          text: "A descriptive name for this test. For example, ‘Tested for electrical safety’ or ‘Emissions test’"
+        },
+        id: "event-name",
+        name: "event-name"
+      }) }}
 
 
       {% from "includes/legislation-input.html" import legislationInput %}
@@ -47,7 +59,7 @@ Record testing request
         namePrefix: "testing-request-date",
         fieldset: {
           legend: {
-            text: "When did you request testing?",
+            text: "Date of test (optional)",
             isPageHeading: false,
             classes: "govuk-fieldset__legend--l"
           }
