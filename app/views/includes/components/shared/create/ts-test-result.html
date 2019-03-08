@@ -13,14 +13,14 @@
 {% if currentTestProducts.length > 1 %}
 
 <div class="govuk-grid-row">
-        <div class="mspsds-input govuk-grid-column-one-half govuk-!-margin-bottom-3">
+        <div class="mspsds-input govuk-grid-column-two-thirds">
 
               {% from "includes/components/shared/autocomplete-input.html" import autocompleteInput %}
 
               {{ autocompleteInput({
                 idPrefix:   currentUploadIDVar  + 'product',
                 name:       currentUploadVar    + '[product]',
-                class:      "govuk-fieldset__legend--m govuk-!-margin-bottom-1",
+                class:      "govuk-fieldset__legend--l govuk-!-margin-bottom-1",
                 legend:     "Which product is subject to action?", 
                 values:     currentTestProducts 
               }) }}
@@ -38,94 +38,20 @@
 
 {% endif %}
 
-
-
-
-
-{% if data['legislation'].length > 1 %}
-    <div class="govuk-grid-row">
-        <div class="mspsds-input govuk-grid-column-one-half govuk-!-margin-bottom-3">
-
-              {% from "includes/components/shared/autocomplete-input.html" import autocompleteInput %}
-
-
-              {{ autocompleteInput({
-                idPrefix:   currentUploadIDVar  + 'legislation',
-                name:       currentUploadVar    + '[legislation]',
-                class:      "govuk-fieldset__legend--m govuk-!-margin-bottom-1",
-                legend:     "Which legislation was tested against?", 
-                hint:       "Select the relevant legislation from the list, or enter a different one.", 
-                values:     data['legislation'] 
-              }) }}
-
-        </div>
-    </div>
-{% endif %}
-
-
-
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds  govuk-!-margin-bottom-3">
-
-
-      {% from "date-input/macro.njk"    import govukDateInput %}
-      {{ govukDateInput({
-        id:         currentUploadIDVar  + "date",
-        namePrefix: currentUploadVar    + "[date]",
-        fieldset: {
-          legend: {
-            text: "When was the test conducted?",
-            isPageHeading: false,
-            classes: "govuk-fieldset__legend--m"
-          }
+    <div class="mspsds-input govuk-grid-column-two-thirds-from-desktop">
+      {{ govukInput({
+        label: {
+          text: "Test result title or test type",
+          classes: "govuk-label--l"
         },
         hint: {
-          text: "For example, 31 3 2018"
-        }
+          text: "A descriptive name for this test. For example, ‘Tested for electrical safety’ or ‘Emissions test’"
+        },
+        id: "event-name",
+        name: "event-name"
       }) }}
 
-      {% call govukFieldset({
-        legend: {
-          text:           "What was the test result?",
-          isPageHeading:  false,
-          classes:        "govuk-fieldset__legend--m"
-        }
-      }) %}
-      {{ govukRadios({
-        idPrefix:   currentUploadIDVar  + "status",
-        name:       currentUploadVar    + "[status]",
-        items: [
-          {
-            value:  "Pass",
-            text:   "Pass"
-          },
-          {
-            value:  "Fail",
-            text:   "Fail"
-          }
-        ]
-      }) }}
-      {% endcall %}
-
-      {% call govukFieldset({
-        legend: {
-          text: "Further details",
-          isPageHeading: false,
-          classes: "govuk-fieldset__legend--m"
-        }
-      }) %}
-        {{ govukTextarea({
-          name: currentUploadVar    + "[details]",
-          id:   currentUploadIDVar  + "details"
-        }) }}
-      {% endcall %}
-
-
-  </div>
-</div>
-
-<div class="govuk-grid-row">
-    <div class="mspsds-input govuk-grid-column-two-thirds  govuk-!-margin-bottom-3">
 
           {% set attachmentHtml %}
 
@@ -136,6 +62,14 @@
                 includeDescription:     "true"
               }) }}
 
+              {# {{ govukFileUpload({
+                id: "file-upload-1",
+                name: "file-upload-1",
+                label: {
+                  text: "Browse for file"
+                }
+              }) }}
+ #}
           {% endset %}
 
 
@@ -143,7 +77,7 @@
             legend: {
               text: "Do you have a report or results file to upload?",
               isPageHeading: false,
-              classes: "govuk-fieldset__legend--m govuk-!-margin-bottom-1"
+              classes: "govuk-fieldset__legend--l"
             }
           }) %}
             {{ govukRadios({
@@ -164,7 +98,81 @@
               ]
           }) }}
           {% endcall %}
-        
-    </div>
 
+    {% from "date-input/macro.njk"    import govukDateInput %}
+      {{ govukDateInput({
+        id:         currentUploadIDVar  + "date",
+        namePrefix: currentUploadVar    + "[date]",
+        fieldset: {
+          legend: {
+            text: "Date of test",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        hint: {
+          text: "For example, 31 3 2018"
+        }
+      }) }}
+
+      {% if data['legislation'].length > 1 %}
+
+        {% from "includes/components/shared/autocomplete-input.html" import autocompleteInput %}
+
+
+        {{ autocompleteInput({
+          idPrefix:   currentUploadIDVar  + 'legislation',
+          name:       currentUploadVar    + '[legislation]',
+          class:      "govuk-fieldset__legend govuk-fieldset__legend--l",
+          legend:     "Against which legislation?", 
+          hint:       "Select the relevant legislation or enter a different one", 
+          values:     data['legislation'] 
+        }) }}
+
+      {% endif %}
+
+      {% call govukFieldset({
+        legend: {
+          text:           "What was the test result?",
+          isPageHeading:  false,
+          classes:        "govuk-fieldset__legend--l"
+        }
+      }) %}
+      {{ govukRadios({
+        idPrefix:   currentUploadIDVar  + "status",
+        name:       currentUploadVar    + "[status]",
+        items: [
+          {
+            value:  "Pass",
+            text:   "Pass"
+          },
+          {
+            value:  "Fail",
+            text:   "Fail"
+          },
+          {
+            value:  "Other",
+            text:   "Other"
+          }
+        ]
+      }) }}
+      {% endcall %}
+
+      {% call govukFieldset({
+        legend: {
+          text: "Further details",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--l"
+        }
+      }) %}
+        {{ govukTextarea({
+          name: currentUploadVar    + "[details]",
+          id:   currentUploadIDVar  + "details"
+        }) }}
+      {% endcall %}
+
+
+  </div>
 </div>
+
+
