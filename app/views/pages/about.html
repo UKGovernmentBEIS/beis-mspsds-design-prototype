@@ -1,0 +1,96 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% block pageTitle %}
+  About this service
+{% endblock %}
+
+
+{% set currentTeam   = data['currentTeam'] %}
+{% if currentTeam.includes("Trading") %}
+  {% set createLink  = '/root/flows/ts-create/product-details' %}
+{% else %}
+  {% set createLink  = data['createUrl'] %}
+{% endif %}
+
+
+
+{% block beforeContent %}
+
+	{# {% include "includes/components/shared/page-banner.html" %} #}
+  {% set teamLink = true %}
+
+	{% from "includes/components/shared/site-nav.html"        import siteNav %}
+  {{ siteNav([
+    { 
+      label: 'Home',
+      link: '/root/home',
+      classes: ''
+    }, { 
+      label: 'Cases',
+      link: '/root/case-list'
+    },
+
+    { 
+      label: 'Products',
+      link: '/root/product-list'
+    }, { 
+      label: 'Businesses',
+      link: '/root/business-list'
+    },{ 
+      label: 'Your teams',
+      link: '/pages/your-teams',
+      classes: 'menu-right'
+    }
+    
+    
+    ]) }}
+
+{% endblock %}
+{# 
+
+  { 
+      label: 'Incidents',
+      link: '/root/case-list'
+    },
+    {
+        label: 'About',
+        link: '/root/about'
+      }
+    , { 
+      label: 'Products',
+      link: '/root/product-list'
+    }, { 
+      label: 'Businesses',
+      link: '/root/business-list'
+    }, #}
+
+
+{% block content %}
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+    <h1 class="govuk-heading-xl">About this service</h1>
+
+    {% set insetHtml %}
+      <div>
+        <p class="govuk-body">
+          <a href="/pages/flows/ts-intro/01" class="govuk-link">View the introduction slides.</a>
+        </p>
+      </div>
+    {% endset %}
+
+    {{ govukInsetText({
+      html: insetHtml
+    }) }}
+
+    <p class="govuk-body">Here is some content about the service</p>
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}
