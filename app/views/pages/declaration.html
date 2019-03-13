@@ -1,0 +1,71 @@
+{% extends "mspsds-layout.html" %}
+
+
+{% block pageTitle %}
+  Declaration
+{% endblock %}
+
+
+{% set currentTeam   = data['currentTeam'] %}
+{% if currentTeam.includes("Trading") %}
+  {% set createLink  = '/root/flows/ts-create/product-details' %}
+{% else %}
+  {% set createLink  = data['createUrl'] %}
+{% endif %}
+
+
+
+{% block beforeContent %}
+
+	
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+    <h1 class="govuk-heading-xl">Declaration</h1>
+
+    {# <p class="govuk-body">The product safety database contains sensitive information.</p> #}
+
+    <p class="govuk-body">By continuing you agree:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>to the
+        <a class="govuk-link" href="#">terms-and-conditions</a> and <a class="govuk-link" href="#">privacy policy</a>
+      </li>
+      <li>that any information you provide is correct to the best of your knowledge
+      </li>
+      <li>
+        that you have the right to share information you enter
+      </li>
+      <li>
+        not to share any information from the product safety database outside your organisation
+      </li>
+    </ul>
+
+    {{ govukCheckboxes({
+      idPrefix: "declaration",
+      name: "declaration",
+      items: [
+        {
+          value: "declaration-agree",
+          text: "I agree"
+        }
+      ]
+    }) }}
+
+    
+
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}
