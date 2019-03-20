@@ -1,8 +1,11 @@
 // global styles for <a> and <p> tags
 $govuk-global-styles: true;
+// $govuk-page-width: 1200px;
 
 // Import GOV.UK Frontend
 @import "node_modules/govuk-frontend/all";
+
+@import "width-container";
 
 // Patterns that aren't in Frontend
 @import "patterns/check-your-answers";
@@ -20,7 +23,10 @@ $govuk-global-styles: true;
 @import "site-nav";
 @import "case-status";
 @import "confirmation";
+@import "hmcts-primary-navigation";
 @import "hmcts-banner";
+@import "hmcts-menu";
+@import "hmcts-identity-bar";
 @import "interruption-card";
 @import "teams";
 @import "email-message";
@@ -72,4 +78,36 @@ div[class^="govuk-grid-column-"] img {
 
 .govuk-link.delete {
 	color: $govuk-error-colour;
+}
+
+// Clear out blue bottom border from govuk design system
+.siteNavActive{
+  .govuk-header {
+    border-bottom-color: govuk-colour("black");
+  }
+  .govuk-header__container {
+    border-bottom: none;
+  }
+  div.hmcts-primary-navigation {
+    // margin-bottom: 10px;
+  }
+}
+
+
+.align-right {
+  float: right;
+}
+
+.button-inline {
+  display: inline-block;
+  margin-left: 15px;
+  margin-top: 3px;
+}
+
+.case-list {
+
+  & .govuk-width-container, & .hmcts-primary-navigation__container {
+    max-width: 1200px;
+  }
+  
 }

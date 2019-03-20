@@ -1,0 +1,15 @@
+{% from "button/macro.njk"        import govukButton %}
+    
+{% macro hmctsMenu(params) %}
+  <div class="hmcts-menu {{- ' ' + params.classes if params.classes}}">
+    <div class="hmcts-menu__wrapper">
+      {% for item in params.items %}
+        {{ govukButton({
+          classes: 'hmcts-menu__item ' + (item.classes if item.classes) + ' ' + (params.buttonClasses if params.buttonClasses),
+          text: item.text,
+          href: item.href
+        }) }}
+      {% endfor %}
+    </div>
+  </div>
+{% endmacro %}
