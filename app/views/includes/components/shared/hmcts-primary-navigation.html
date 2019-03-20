@@ -1,0 +1,38 @@
+
+{% macro hmctsPrimaryNavigation(params, createLink) %}
+  <div class="hmcts-primary-navigation {{- ' ' + params.classes if params.classes}}">
+
+    <div class="hmcts-primary-navigation__container">
+
+      <div class="hmcts-primary-navigation__nav">
+
+        <nav class="hmcts-primary-navigation"{% if (params.label) %} aria-label="{{ params.label }}"{% endif %}>
+
+          <ul class="hmcts-primary-navigation__list">
+
+            {% for item in params.items %}
+              <li class="hmcts-primary-navigation__item {{item.classes if item.classes}}">
+                <a class="hmcts-primary-navigation__link" {{ 'aria-current="page"' | safe if item.active }} href="{{ item.href }}">
+                  {{ item.html | safe if item.html else item.text }}
+                </a>
+              </li>
+            {% endfor %}
+
+          </ul>
+
+        </nav>
+
+      </div>
+
+    {% if params.searchHtml %}
+      <div class="hmcts-primary-navigation__search">
+        {{ params.searchHtml | safe }}
+      </div>
+    {% endif %}
+
+    </div>
+
+  </div>
+{% endmacro %}
+
+

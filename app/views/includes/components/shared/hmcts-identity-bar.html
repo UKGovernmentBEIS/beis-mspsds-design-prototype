@@ -1,0 +1,34 @@
+{% from "includes/components/shared/hmctsMenu.html" import hmctsMenu %}
+
+
+{% macro identityBar(params) %}
+  <div class="hmcts-identity-bar {{- ' ' + params.classes if params.classes}}">
+
+    <div class="hmcts-identity-bar__container">
+
+      <div class="hmcts-identity-bar__details">
+        {% if params.title %}
+          <span class="hmcts-identity-bar__title">{{ params.title.html | safe if params.title.html else params.title.text }}</span>
+        {% endif %}
+      </div>
+
+      {% if params.menus %}
+        <div class="hmcts-identity-bar__actions">
+          {% for menu in params.menus %}
+            <div class="hmcts-identity-bar__menu">
+              {{hmctsMenu({ items: menu.items })}}
+            </div>
+          {% endfor %}
+        </div>
+      {% elseif params.items %}
+        <div class="hmcts-identity-bar__actions">
+          {{hmctsMenu({ items: params.items })}}
+        </div>
+      {% endif %}
+
+
+
+    </div>
+
+  </div>
+{% endmacro %}
