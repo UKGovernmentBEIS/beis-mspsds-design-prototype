@@ -1,0 +1,19 @@
+
+{% macro subNavigation(params) %}
+  
+<nav class="hmcts-sub-navigation {{- ' ' + params.classes if params.classes}}"{% if (params.label) %} aria-label="{{ params.label }}"{% endif %}>
+
+  <ul class="hmcts-sub-navigation__list">
+
+    {% for item in params.items %}
+      <li class="hmcts-sub-navigation__item">
+        <a class="hmcts-sub-navigation__link" {{ 'aria-current="page"' | safe if item.active }} href="{{ item.href }}">
+          {{ item.html | safe if item.html else item.text }}
+        </a>
+      </li>
+    {% endfor %}
+
+  </ul>
+
+</nav>
+{% endmacro %}
