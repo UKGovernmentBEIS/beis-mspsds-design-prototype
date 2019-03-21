@@ -3,6 +3,8 @@
 {% set currentProduct = currentProduct | attachProductChildren(data) %}
 {% set bodyClasses = "mspsds-width-container product" %}
 
+{% set navActive = 'products' %}
+
 {% block pageTitle %}
   Product Page: {{ currentProduct.name }}
 {% endblock %}
@@ -11,7 +13,7 @@
 
 {% block beforeContent %}
 
-    {% include "includes/components/shared/page-banner.html" %}
+    {# {% include "includes/components/shared/page-banner.html" %} #}
 
     {% include "includes/components/product/product-navigation.html" %}
 

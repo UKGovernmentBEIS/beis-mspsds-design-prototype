@@ -85,7 +85,7 @@ module.exports = {
       html: `
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-third">
-          <img src="public/images/placeholder.png" style="cursor:pointer" title="click to view full size" />
+          <img src="/public/images/placeholder.png" style="cursor:pointer" title="click to view full size" />
         </div>
         <div class="govuk-grid-column-two-thirds">
           <p class="govuk-body">Image description lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>

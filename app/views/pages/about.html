@@ -20,7 +20,7 @@
 	{# {% include "includes/components/shared/page-banner.html" %} #}
   {% set teamLink = true %}
 
-	{% from "includes/components/shared/site-nav.html"        import siteNav %}
+	{# {% from "includes/components/shared/site-nav.html"        import siteNav %}
   {{ siteNav([
     { 
       label: 'Home',
@@ -44,7 +44,7 @@
     }
     
     
-    ]) }}
+    ]) }} #}
 
 {% endblock %}
 {# 
@@ -72,6 +72,15 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
     <h1 class="govuk-heading-xl">About this service</h1>
+    
+    <p class="govuk-body">The Product safety database is designed to improve information sharing amongst UK market surveillance authorities. It replaces two EU systems for managing product safety issues; ICSMS and RAPEX.</p>
+
+    <p class="govuk-body">The ambition for the service is to build a shared system for managing product safety cases across the UK. This means that when an organisation is investigating a product in the future they will have a better set of information to draw on. For example, finding test results for similar products or seeing if the manufacturer has been looked into before.</p>
+
+    <p class="govuk-body">This will reduce duplication and improve the quality of product safety and market surveillance activity in the UK.</p>    
+
+
+
 
     {% set insetHtml %}
       <div>

@@ -1,6 +1,7 @@
 {% extends "mspsds-layout.html" %}
 
 
+
 {% block pageTitle %}
   Home Page
 {% endblock %}
@@ -13,13 +14,45 @@
   {% set createLink  = data['createUrl'] %}
 {% endif %}
 
+{% set navActive = 'cases' %}
+
 
 
 {% block beforeContent %}
 
+{{ subNavigation({
+label: 'Sub navigation',
+items: [{
+text: 'Your cases',
+href: '#1',
+active: true
+}, {
+text: 'Team cases',
+href: '#2'
+}, {
+text: 'All cases',
+href: '#3'
+}]
+}) }} 
+
 	{# {% include "includes/components/shared/page-banner.html" %} #}
 
-	{% from "includes/components/shared/site-nav.html"        import siteNav %}
+  {# {{ hmctsPrimaryNavigation({
+    label: 'Primary navigation',
+    items: [{
+    text: 'Nav item 1',
+    href: '#1',
+    active: true
+    }, {
+    text: 'Nav item 2',
+    href: '#2'
+    }, {
+    text: 'Nav item 3',
+    href: '#3'
+    }]
+    }) }}  #}
+
+	{# {% from "includes/components/shared/site-nav.html"        import siteNav %}
   {{ siteNav([
     { 
       label: 'Home',
@@ -43,7 +76,9 @@
     }
     
     
-    ]) }}
+    ]) }} #}
+
+
 
 {% endblock %}
 {# 
@@ -66,6 +101,8 @@
 
 
 {% block content %}
+
+
 
 <section class="mspsds-pagetitle">
   <div class="govuk-grid-row">

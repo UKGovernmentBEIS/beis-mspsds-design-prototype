@@ -12,7 +12,7 @@
   {% set createLink  = data['createUrl'] %}
 {% endif %}
 
-
+{% set navActive = 'products' %}
 
 {% block pageTitle %}
   Product-list Page
@@ -20,9 +20,9 @@
 
 {% block beforeContent %}
 
-  {% include "includes/components/shared/page-banner.html" %}
+  {# {% include "includes/components/shared/page-banner.html" %} #}
   
-  {% from "includes/components/shared/site-nav.html"        import siteNav %}
+  {# {% from "includes/components/shared/site-nav.html"        import siteNav %}
   {{ siteNav([
     { 
       label: 'Home',
@@ -42,7 +42,7 @@
       link: '/pages/your-teams',
       classes: 'menu-right'
     }
-    ] ) }}
+    ] ) }} #}
 
 {% endblock %}
 

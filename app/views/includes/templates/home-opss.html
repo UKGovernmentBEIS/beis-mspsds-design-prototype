@@ -16,9 +16,9 @@
 
 {% block beforeContent %}
 
-  {% include "includes/components/shared/page-banner.html" %}
+  {# {% include "includes/components/shared/page-banner.html" %} #}
 
-  {% from "includes/components/shared/site-nav.html"        import siteNav %}
+  {# {% from "includes/components/shared/site-nav.html"        import siteNav %}
   {{ siteNav([
     { 
       label: 'Home',
@@ -34,7 +34,7 @@
       label: 'Businesses',
       link: '/root/business-list'
     }
-    ], createLink ) }}
+    ], createLink ) }} #}
 
 {% endblock %}
 
@@ -42,6 +42,6 @@
 
 {% block content %}
 
-Home OPSS
+<p class="govuk-body">Home OPSS</p>
 
 {% endblock %}

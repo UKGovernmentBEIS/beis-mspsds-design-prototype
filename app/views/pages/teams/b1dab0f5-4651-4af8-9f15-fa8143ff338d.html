@@ -13,14 +13,14 @@ Home Page
 {% set createLink  = data['createUrl'] %}
 {% endif %}
 
-
+{% set navActive = 'teams' %}
 
 {% block beforeContent %}
 
 {# {% include "includes/components/shared/page-banner.html" %} #}
 {% set teamLink = true %}
 
-{% from "includes/components/shared/site-nav.html"        import siteNav %}
+{# {% from "includes/components/shared/site-nav.html"        import siteNav %}
 {{ siteNav([
   { 
     label: 'Home',
@@ -44,7 +44,7 @@ classes: 'active menu-right'
 }
 
 
-]) }}
+]) }} #}
 
 {% endblock %}
 {# 

@@ -1,6 +1,6 @@
 // global styles for <a> and <p> tags
 $govuk-global-styles: true;
-// $govuk-page-width: 1200px;
+$govuk-page-width: 1200px;
 
 // Import GOV.UK Frontend
 @import "node_modules/govuk-frontend/all";
@@ -27,6 +27,7 @@ $govuk-global-styles: true;
 @import "hmcts-banner";
 @import "hmcts-menu";
 @import "hmcts-identity-bar";
+@import "hmcts-sub-navigation";
 @import "interruption-card";
 @import "teams";
 @import "email-message";
@@ -42,6 +43,7 @@ $govuk-global-styles: true;
 @import "crumbs";
 @import "contacts";
 @import "text-variants";
+@import "govuk-design-system-overrides";
 
 @import "start";
 
@@ -104,10 +106,15 @@ div[class^="govuk-grid-column-"] img {
   margin-top: 3px;
 }
 
-.case-list {
+// Set case list to be wider
+// .case-list {
+//   & .govuk-width-container, & .hmcts-primary-navigation__container {
+//     max-width: 1200px;
+//   } 
+// }
 
-  & .govuk-width-container, & .hmcts-primary-navigation__container {
-    max-width: 1200px;
-  }
-  
+// todo: should we do something like this?: https://github.com/alphagov/govuk-design-system/blob/master/src/stylesheets/main.scss#L69
+p.govuk-body, h1, h2, h3 {
+  max-width: 722px;
 }
+
