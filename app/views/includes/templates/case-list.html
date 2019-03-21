@@ -17,6 +17,8 @@
 
 {% endif %}
 
+{% set navActive = 'cases' %}
+
 
 {% set filters  = settings | caseFilters(data) %}
 {% set sortAttr = settings | caseSortAttr %}
@@ -24,7 +26,7 @@
 {% set cases    = data.cases | filterCollection(filters) | sort(sortDir, false, sortAttr) %}
 
 
-{% set bodyClasses = "mspsds-width-container case-list-3" %}
+{% set bodyClasses = "mspsds-width-container case-list" %}
 
 
 
@@ -39,9 +41,9 @@
 
 {% block beforeContent %}
 
-    {% include "includes/components/shared/page-banner.html" %}
+    {# {% include "includes/components/shared/page-banner.html" %} #}
 
-    {% from "includes/components/shared/site-nav.html"        import siteNav %}
+    {# {% from "includes/components/shared/site-nav.html"        import siteNav %}
     {{ siteNav([
       {
         label: 'Home',
@@ -61,7 +63,7 @@
       link: '/pages/your-teams',
       classes: 'menu-right'
     }
-    ] ) }}
+    ] ) }} #}
 
 {% endblock %}
 

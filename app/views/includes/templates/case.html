@@ -9,6 +9,7 @@
     {% set bodyClasses = " mspsds-width-container case" %}
 {% endif %}
 
+{% set navActive = 'cases' %}
 
 
 
@@ -16,13 +17,18 @@
   Case Page: {{ currentCase.title }}
 {% endblock %}
 
+{% block header %}
+  {{ super() }}
+  {% set includeCaseActions = true %}
 
+  {% include "includes/components/case/case-navigation.html" %}
+
+{% endblock %}
 
 {% block beforeContent %}
 
-	{% include "includes/components/shared/page-banner.html" %}
+	{# {% include "includes/components/shared/page-banner.html" %} #}
 
-	{% include "includes/components/case/case-navigation.html" %}
 
 {% endblock %}
 

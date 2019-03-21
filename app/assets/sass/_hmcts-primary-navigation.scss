@@ -54,7 +54,11 @@
   display: block;
   padding-bottom: 13px;
   padding-top: 12px;
-  text-decoration: underline;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 
   &:link,
   &:visited {

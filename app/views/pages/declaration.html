@@ -1,5 +1,7 @@
 {% extends "mspsds-layout.html" %}
 
+{% set hideSiteNav = true %}
+
 
 {% block pageTitle %}
   Declaration
@@ -59,7 +61,8 @@
     
 
     {{ govukButton({
-      text: "Continue"
+      text: "Continue",
+      href: "/pages/flows/ts-intro/01"
     }) }}
 
   </div>

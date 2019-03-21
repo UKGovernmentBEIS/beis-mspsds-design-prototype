@@ -1,7 +1,8 @@
 {% extends "mspsds-layout.html" %}
 
 {% set currentPage   = data['currentPage'] %}
-
+{# {% set currentCase = currentCase | attachCaseChildren(data) %} #}
+{% set currentCase = data.cases | withId(data['caseid']) %}
 
 
 {% if currentPage   ==  'case' %}
@@ -10,12 +11,18 @@
         {% set titleType     = 'Case: '+data['caseid']  %}
     {% endif %}
 
+    {% set navActive = 'cases' %}
+
+
+
 {% elif currentPage ==  'product'  %}
 
     {% set currentProduct   = data.products | withId(data.productid) %}
     {% if not titleType %}
         {% set titleType = 'Product: ' + currentProduct.name  %}
     {% endif %}
+
+    {% set navActive = 'products' %}
 
 {% elif currentPage ==  'business'  %}
 
@@ -24,6 +31,8 @@
         {% set titleType      = 'Business: '+ currentBusiness.name  %}
     {% endif %}
     
+    {% set navActive = 'businesses' %}
+
 {% endif %}
 
 
@@ -46,7 +55,8 @@
         {% set backLink      = '/root/case?caseid='+data['caseid']  %}
     {% endif %}
     {% if not backText %}
-        {% set backText      = 'Back to Case '+data['caseid']  %}
+        {# {% set backText      = 'Back to Case '+data['caseid']  %} #}
+        {% set backText      = 'Back'  %}
     {% endif %}
     
 {% elif currentPage ==  'product'  %}
@@ -91,7 +101,6 @@
 
 
 
-
 {% block pageTitle %}
   {{ titleType }} {{ displayTitle }}
 {% endblock %}
@@ -102,7 +111,7 @@
 
 {% block beforeContent %}
 
-    {% include "includes/components/shared/page-banner.html" %}
+    {# {% include "includes/components/shared/page-banner.html" %} #}
 
     {% block navigation %}
 
@@ -162,6 +171,14 @@
 {% endblock %}
 
 
+{% block header %}
+  {{ super() }}
+
+  {% set includeCaseActions = false %}
+
+  {% include "includes/components/case/case-navigation.html" %}
+
+{% endblock %}
 
 
 

@@ -22,6 +22,12 @@
 {% from "tag/macro.njk"           import govukTag %}
 {% from "textarea/macro.njk"      import govukTextarea %}
 {% from "warning-text/macro.njk"  import govukWarningText %}
+{% from "warning-text/macro.njk"  import govukWarningText %}
+{% from "includes/components/shared/hmcts-primary-navigation.html" import hmctsPrimaryNavigation %}
+{% from "includes/components/shared/hmctsMenu.html" import hmctsMenu %}
+{% from "includes/components/shared/hmcts-identity-bar.html" import identityBar %}
+{% from "includes/components/shared/hmcts-sub-navigation.html" import subNavigation %}
+
 
 
 
@@ -54,6 +60,7 @@
 {% endblock %}
 
 
+{% set bodyClasses = bodyClasses + ' siteNavActive' if hideSiteNav != true and data['signedIn'] == 'Yes' %}
 
 
 {% block header %}
@@ -61,11 +68,50 @@
   {# Set serviceName in config.js. #}
   {{ govukHeader({
     homepageUrl: "/",
-    serviceName: serviceName,
+    productName: serviceName,
+    _xserviceName: serviceName,
     serviceUrl: "/",
     containerClasses: "govuk-width-container",
     navigation: headerNav
   }) }}
+
+{#   {% set navHomeActive = navHomeActive else false %}
+  {% set navCasesActive = navCasesActive else false %} #}
+
+  {% if hideSiteNav != true %}
+    {% if data['signedIn'] == 'Yes' %} 
+
+      {{ hmctsPrimaryNavigation({
+        label: 'Primary navigation',
+        items: [{
+            text: 'Home',
+            href: '/root/home',
+            active: true if navActive == 'home'
+          }, {
+            text: 'Cases',
+            href: '/root/case-list',
+            active: true if navActive == 'cases'
+          }, {
+            text: 'Products',
+            href: '/root/product-list',
+            active: true if navActive == 'products'
+          },
+          {
+            text: 'Businesses',
+            href: '/root/business-list',
+            active: true if navActive == 'businesses'
+          },
+          {
+            text: 'Your teams',
+            href: '/pages/your-teams',
+            active: true if navActive == 'teams',
+            classes: 'align-right'
+          }]
+        }) }}
+
+      {% endif %}
+    {% endif %}
+
 {% endblock %}
 
 

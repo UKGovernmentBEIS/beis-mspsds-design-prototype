@@ -7,11 +7,11 @@
   Business Page: {{ currentBusiness.title }}
 {% endblock %}
 
-
+{% set navActive = 'businesses' %}
 
 {% block beforeContent %}
 
-    {% include "includes/components/shared/page-banner.html" %}
+    {# {% include "includes/components/shared/page-banner.html" %} #}
 
     {% include "includes/components/business/business-navigation.html" %}
 
