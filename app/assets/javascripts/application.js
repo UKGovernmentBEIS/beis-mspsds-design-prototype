@@ -20,10 +20,10 @@ new HMCTSFrontend.Menu({
 
 
 
-  new HMCTSFrontend.Menu({
-    container: $('.hmcts-menu--actions'),
-    mq: '(min-width: 200em)',
-    buttonText: 'Actions',
-    buttonClasses: 'hmcts-button--secondary hmcts-menu__toggle-button--secondary',
-    menuClasses: 'hmcts-menu__wrapper--right'
-  });
+new HMCTSFrontend.Menu({
+  container: $('.hmcts-menu--actions'),
+  mq: '(min-width: 200em)',
+  buttonText: 'Actions',
+  buttonClasses: 'hmcts-button--secondary hmcts-menu__toggle-button--secondary',
+  menuClasses: 'hmcts-menu__wrapper--right'
+});
