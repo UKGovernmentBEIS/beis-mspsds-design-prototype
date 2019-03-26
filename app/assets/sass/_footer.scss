@@ -5,3 +5,7 @@ $govuk-footer-text: #454a4c; // design system doesn't expose this colour
   @include govuk-font(16);
   color: $govuk-footer-text
 }
+
+.govuk-footer__meta-item > :last-child {
+  margin-bottom: 0;
+}
