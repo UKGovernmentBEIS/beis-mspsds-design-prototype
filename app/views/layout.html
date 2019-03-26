@@ -114,25 +114,42 @@
 
 {% endblock %}
 
+{% set footerMetaHTML %}
+  <p class="opss-footer__body">This is a new service – your <a class="govuk-footer__link" href="#">feedback</a> will help us to improve it.</p>
+
+  <p class="opss-footer__body">Email <a class="govuk-footer__link" href="mailto:example-email@beis.gov.uk">example-email@beis.gov.uk</a> for help using this service.</p>
+
+  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+  <h2 class="govuk-visually-hidden">Support links</h2>
+  <ul class="govuk-footer__inline-list">
+    <li class="govuk-footer__inline-list-item">
+      <a class="govuk-footer__link" href="https://govuk-prototype-kit.herokuapp.com/">
+        GOV.UK Prototype Kit {{releaseVersion}}
+      </a>
+    </li>
+    <li class="govuk-footer__inline-list-item">
+      <a class="govuk-footer__link" href="/prototype-admin/clear-data">
+        Clear data
+      </a>
+    </li>
+    <li class="govuk-footer__inline-list-item">
+      <a class="govuk-footer__link" href="/prototype-admin/change-team">
+        Switch team
+      </a>
+    </li>
+  </ul>
+{% endset %}
+
+{% set emailHTML %}
+Email <a class="govuk-footer__link" href="mailto:psd-support@beis.gov.uk">psd-support@beis.gov.uk</a> for help using this service.
+{% endset %}
 
 {% if useAutoStoreData %}
   {% block footer %}
     {{ govukFooter({
       meta: {
-        items: [
-          {
-            href: "https://govuk-prototype-kit.herokuapp.com/",
-            text: "GOV.UK Prototype Kit " + releaseVersion
-          },
-          {
-            href: "/prototype-admin/clears-data",
-            text: "Clear data"
-          },
-          {
-            href: "/prototype-admin/change-team",
-            text: "Switch team"
-          }
-        ]
+        html: footerMetaHTML
       }
     }) }}
   {% endblock %}
