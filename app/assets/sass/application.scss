@@ -30,6 +30,7 @@ $govuk-page-width: 1200px;
 @import "hmcts-sub-navigation";
 @import "interruption-card";
 @import "teams";
+@import "footer";
 @import "email-message";
 @import "product-panel";
 @import "add-correspondence";
@@ -116,5 +117,11 @@ div[class^="govuk-grid-column-"] img {
 // todo: should we do something like this?: https://github.com/alphagov/govuk-design-system/blob/master/src/stylesheets/main.scss#L69
 p.govuk-body, h1, h2, h3 {
   max-width: 722px;
+}
+
+
+.no-results-container {
+  background-color: govuk-colour("grey-4");
+  padding: 30px;
 }
 

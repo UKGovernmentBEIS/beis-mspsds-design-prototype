@@ -1,0 +1,7 @@
+
+// Support email address in footer
+$govuk-footer-text: #454a4c; // design system doesn't expose this colour
+.opss-footer__body {
+  @include govuk-font(16);
+  color: $govuk-footer-text
+}
