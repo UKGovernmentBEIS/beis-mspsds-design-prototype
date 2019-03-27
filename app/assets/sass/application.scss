@@ -122,6 +122,6 @@ p.govuk-body, h1, h2, h3 {
 
 .no-results-container {
   background-color: govuk-colour("grey-4");
-  padding: 30px;
+  @include govuk-responsive-padding(6);
 }
 
