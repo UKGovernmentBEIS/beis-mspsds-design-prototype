@@ -1,0 +1,249 @@
+{% extends "mspsds-layout.html" %}
+{% set currentPage      = 'case' %}
+{% set currentCase = data.cases | withId(data['caseid']) %}
+{% set currentCase = currentCase | attachCaseChildren(data) %}
+{% set currentTeam = data.currentTeam %}
+
+{% if bodyClasses %}
+    {% set bodyClasses = bodyClasses + " mspsds-width-container case" %}
+{% else %}
+    {% set bodyClasses = " mspsds-width-container case" %}
+{% endif %}
+
+{% set navActive = 'cases' %}
+
+
+
+{% block pageTitle %}
+  {# Case Page: {{ currentCase.title }} #}
+{% endblock %}
+
+{% block header %}
+  {{ super() }}
+  {% set includeCaseActions = true %}
+
+  {% include "includes/components/case/case-navigation.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+
+
+{% endblock %}
+
+
+
+{% block content %}
+
+{{ subNavigation({
+label: 'Sub navigation',
+items: [{
+text: 'Overview',
+href: '#1',
+active: false
+}, {
+text: 'Case file',
+href: '#2',
+active: true
+}, {
+text: 'Products (1)',
+href: '#3'
+}, {
+text: 'Businesses (2)',
+href: '#3'
+}, {
+text: 'Attachments (56)',
+href: '#3'
+}, {
+text: 'Timeline',
+href: '#3'
+}
+]
+}) }} 
+
+{% set viewLinkHTML %}
+<a href="#" class="govuk-link">View</a>
+{% endset %}
+
+{% set correspondenceHTML %}
+
+<p class="govuk-body"><a href="#" class="govuk-link">Add new correspondence</a></p>
+
+
+{{ govukTable({
+    firstCellIsHeader: false,
+    head: [
+
+      {
+        text: ""
+      },
+      {
+        text: "Type"
+      },
+      {
+        text: "Summary",
+        classes: "no-wrap"
+      },
+      {
+        text: "Date",
+        format: "numeric"
+      }
+    ],
+    rows: [
+    [ 
+      {
+        html: viewLinkHTML
+      },
+      {
+        text: "Email"
+      },
+      {
+        text: "Product safety alert: alert"
+      },
+      {
+        text: "1/2/2019",
+        format: "numeric"
+      }
+    ],
+    [
+      {
+        html: viewLinkHTML
+      },
+      {
+        text: "Phone call"
+      },
+      {
+        text: "Call with TS Southampton to discuss case"
+      },
+      {
+        text: "22/1/2019",
+        format: "numeric"
+      }
+    ],
+    [
+      {
+        html: viewLinkHTML
+      },
+      {
+        text: "Meeting"
+      },
+      {
+        text: "Team discussion"
+      },
+      {
+        text: "16/1/2019",
+        format: "numeric"
+      }
+    ],
+    [
+      {
+        html: viewLinkHTML
+      },
+      {
+        text: "Other (sms)"
+      },
+      {
+        text: "Arrange meeting"
+      },
+      {
+        text: "16/1/2019",
+        format: "numeric"
+      }
+    ]
+  }
+  }) }}
+
+  <p class="govuk-body"><a href="#" class="govuk-link">View all... (42 more items)</a></p>
+
+{% endset %}
+
+<h1 class="govuk-heading-l">Case file</h1>
+
+{{ govukAccordion({
+  id: "accordion-with-summary-sections",
+  items: [
+    {
+      heading: {
+        text: "Reports"
+      },
+      summary: {
+        text: "Hazards, failure reports, compliance"
+      },
+      content: {
+        html: 
+        '<ul class="govuk-list">
+            <li>
+              <a class="govuk-link" href="#">Agile and government services: an introduction</a>
+            </li>
+            <li>
+              <a class="govuk-link" href="#">Agile methods: an introduction</a>
+            </li>
+            <li>
+              <a class="govuk-link" href="#">Core principles of agile</a>
+            </li>
+        </ul>'
+      }
+    },
+        {
+      heading: {
+        text: "Test results"
+      },
+      summary: {
+        text: "2 Test results"
+      },
+      content: {
+        html:
+        ''
+      }
+    },
+            {
+      heading: {
+        text: "Corrective actions"
+      },
+      summary: {
+        text: "3 corrective actions, last action 2/2/2019"
+      },
+      content: {
+        html:
+        ''
+      }
+    },
+    {
+      heading: {
+        text: "Correspondence"
+      },
+      summary: {
+        text: "45 items, last item yesterday"
+      },
+      content: {
+        html: correspondenceHTML
+      }
+    },
+    {
+      heading: {
+        text: "Notes"
+      },
+      summary: {
+        text: "6 comments, last note yesterday"
+      },
+      content: {
+        html: ''
+      }
+    },
+    {
+      heading: {
+        text: "Linked cases"
+      },
+      summary: {
+        text: "0 linked cases"
+      },
+      content: {
+        html: ''
+      }
+    }
+
+  ]
+}) }}
+
+
+{% endblock %}
