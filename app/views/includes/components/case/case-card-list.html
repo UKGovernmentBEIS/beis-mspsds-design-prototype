@@ -1,8 +1,101 @@
 {% from "includes/components/case/case-card.html"         import caseCard %}
-
-{% macro caseCardList(cases, currentTeam = "", searchResult = false) %}
+{% from "table/macro.njk" import govukTable %}
+{# {% macro caseCardList(cases, currentTeam = "", searchResult = false) %}
   {% for case in cases %}
     {{ caseCard(case, searchResult, currentTeam) }}
   {% endfor %}
+
+{% endmacro %} #}
+
+
+{% macro caseCardList(cases, currentTeam = "", searchResult = false) %}
+{#   {% for case in cases %}
+    {{ caseCard(case, searchResult, currentTeam) }}
+  {% endfor %} #}
+
+  {% set caseRows = [] %}
+
+  {% for case in cases %}
+
+    {% set caseTitle -%}
+
+      {%- if case.type == "Question" -%}
+         {{- case.title | safe -}}
+      {%- endif -%}
+
+      {%- if case.products | length > 0 -%}
+        {{- " " + case.products[0].name -}}
+      {%- else -%}
+        {{- " undefined product" -}}
+      {%- endif -%}
+
+      {%- if case.type == 'Case' -%}
+        {%- if case.report.hazardType -%}
+          {{- " " + case.report.hazardType -}}
+        {%- else -%}
+          {{- " undefined hazard" -}}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endset %}
+    
+    {% set caseIdLink %}
+    <a href="case?caseid={{case.id}}&currentPage=case&productid=&businessid" class="govuk-link no-wrap">{{case.id}}</a>
+    {% endset %}
+    {% set caseTitleLink %}
+    <a href="case?caseid={{case.id}}&currentPage=case&productid=&businessid" class="govuk-link">{{caseTitle}}</a>
+    {% endset %}
+    {% set caseViewLink %}
+    <a href="case?caseid={{case.id}}&currentPage=case&productid=&businessid" class="govuk-link">View</a>
+    {% endset %}
+
+    {% set row = [
+      {text:case.id,
+        classes: "no-wrap"},
+      {text:caseTitle},
+      {text:case.report.reporter.name},
+      {text:case.assignee},
+      {text:case.dateUpdated | prettifyDate},
+      {text:caseViewLink | safe}
+      ] %}
+
+    {% set titleHTML -%}
+      {{caseTitleLink | safe}}
+      <span class="govuk-hint govuk-!-font-size-16">{{case.id}} – {{case.type}}</span>
+    {%- endset %}
+
+    {#  {text:case.report.reporter.name}, #}
+
+    {% set row = [
+      {html: titleHTML },
+      {text:case.assignee},
+      {text:case.dateUpdated | prettifyDate}
+      ] %}
+
+    {% set caseRows = (caseRows.push(row), caseRows) %}
+
+  {% endfor %}
+
+  {# {
+        text: "Created by",
+        classes: "no-wrap"
+      }, #}
+
+  {{ govukTable({
+    firstCellIsHeader: false,
+    head: [
+
+      {
+        text: "Case"
+      },
+      {
+        text: "Assigned to",
+        classes: "no-wrap"
+      },
+      {
+        text: "Updated"
+      }
+    ],
+    rows: caseRows
+  }) }}
 
 {% endmacro %}

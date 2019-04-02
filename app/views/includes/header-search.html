@@ -1,10 +1,10 @@
 {% macro headerSearch(options) %}
 
 	<form id="search" class="mspsds-search govuk-form-group {{options.classes}}" action="{{options.action}}" method="get" role="search">
-	    <div class="mspsds-search__content">
+	    <div class="mspsds-search__content govuk-form-group">
 	      <label for="mspsds-search__input" class="mspsds-search__label govuk-label govuk-label--s" >{{options.label}}</label>
 	      <input type="search" name="q" id="mspsds-search__input" title="Search" class="js-search-focus govuk-input" value="{{options.value}}">
-	      <input class="submit mspsds-search__submit" type="submit" value="Search">
+	      <input class="submit mspsds-search__submit" type="submit" hidden value="Search">
 	    </div>
 	</form>
 

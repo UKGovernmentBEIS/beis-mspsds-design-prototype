@@ -1,7 +1,7 @@
 .mspsds-search {
 
     position: relative;
-    @include govuk-responsive-margin(2, "bottom");
+    // @include govuk-responsive-margin(2, "bottom");
 
     &__submit {
         position:   absolute;
@@ -19,7 +19,7 @@
     }
 
     &--left {
-        @include govuk-responsive-margin(6, "bottom");
+        // @include govuk-responsive-margin(6, "bottom");
     }
 
     &__label {
