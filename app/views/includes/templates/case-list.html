@@ -8,12 +8,12 @@
 {% set currentTeam   = data['currentTeam'] %}
 
 {% if currentTeam.includes("Trading") %}
-  {% set createLink   = '/pages/flows/ts-create/product-details' %}
-  {% set settings     = data.tsCaseListSettings  %}
-
-{% else %}
-  {% set createLink  = data['createUrl'] %}
+  {% set createLink   = '/root/flows/ts-create/product-details' %}
   {% set settings     = data.caseListSettings  %}
+
+{# {% else %}
+  {% set createLink  = data['createUrl'] %}
+  {% set settings     = data.caseListSettings  %} #}
 
 {% endif %}
 
@@ -41,38 +41,10 @@
 
 {% block beforeContent %}
 
-    {# {% include "includes/components/shared/page-banner.html" %} #}
-
-    {# {% from "includes/components/shared/site-nav.html"        import siteNav %}
-    {{ siteNav([
-      {
-        label: 'Home',
-        link: '/root/home'
-      }, {
-        label: 'Cases',
-        link: '/root/case-list',
-        classes: 'active'
-      }, {
-        label: 'Products',
-        link: '/root/product-list'
-      }, {
-        label: 'Businesses',
-        link: '/root/business-list'
-      },{ 
-      label: 'Your teams',
-      link: '/pages/your-teams',
-      classes: 'menu-right'
-    }
-    ] ) }} #}
-
 {% endblock %}
 
-
-
-
-
-
 {% block content %}
+
 
   {% block pageHeader %}
   <div class="govuk-grid-row">
@@ -83,207 +55,224 @@
     </div>
     <div class="govuk-grid-column-one-third">
       <div class="align-right" data-create="{{create}}">
-        {{ govukButton({
-          text: "Create new",
-          href: createLink,
-          classes: "govuk-button"
-        }) }}
+        <form action="{{createLink}}" method="post" class="form">
+
+        {% include "includes/components/shared/create/ts-setup-prototype-data.html" %}
+
+          {{ govukButton({
+            text: "Create new",
+            classes: "govuk-button"
+          }) }}
+
+        </form>
       </div>
     </div>
   </div>
   {% endblock %}
+<form id="case-filters"  method="post">
 
   <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-quarter mspsds-case-filter-controls">
+      <div class="mspsds-case-filter-controls__container">
+        <h2 class="govuk-heading-m mspsds-case-filter-controls__heading">Filters</h2>
 
-    <div class="govuk-grid-column-one-quarter govuk-!-margin-bottom-2 mspsds-case-control mspsds-case-filter-controls">
-      <div class="govuk-!-margin-bottom-0">
+        <div class="mspsds-case-filter-controls__filters-container">
+          <div class="">
           {{ headerSearch({
             action: "./case-search",
             label: "Keywords",
             value: settings.q
           }) }}
+        </div>
+        
+        <div class="mspsds-case-control">
+        
+          {% set assigneeHtml %}
+            <label for="case-assignee-autocomplete" class="label govuk-label">Name / Team
+              <div id="case-assignee-autocomplete-container"></div>
+            </label>
+          {% endset -%}
+
+          {% set creatorHtml %}
+            <label for="case-creator-autocomplete" class="label govuk-label">Name / Team
+              <div id="case-creator-autocomplete-container"></div>
+            </label>
+          {% endset -%}
+          
+          {{ govukCheckboxes({
+
+              fieldset: {
+                legend: {
+                  text: "Assigned to",
+                  isPageHeading: false,
+                  classes: "govuk-fieldset__legend--s"
+                }
+              },
+              classes: "",
+              idPrefix:   "Assignee",
+              name:       "caseListSettings[assignee]",
+              items: [
+                {
+                  value: "Me",
+                  text: "Me",
+                  checked: checked("caseListSettings['assignee']", "Me")
+                },
+                {
+                  value: "my-team",
+                  text: "My team"
+                },
+                {
+                  value: "other",
+                  text: "Other person or team",
+                  checked: checked("caseListSettings['assignee']", "other"),
+                  conditional: {
+                    html: assigneeHtml
+                  }
+                }
+
+              ]
+            }) }}
+
+            {{ govukCheckboxes({
+
+              fieldset: {
+                legend: {
+                  text: "Created by",
+                  isPageHeading: false,
+                  classes: "govuk-fieldset__legend--s"
+                }
+              },
+              classes: "",
+              idPrefix:   "Creator",
+              name:       "caseListSettings[creator]",
+              items: [
+                {
+                  value: "Me",
+                  text: "Me",
+                  checked: checked("caseListSettings['creator']", "Me")
+                },
+                {
+                  value: "myTeam",
+                  text: "My team",
+                  checked: checked("caseListSettings['creator']", "MyTeam")
+                },
+                {
+                  value: "other",
+                  text: "Other person or team",
+                  checked: checked("caseListSettings['creator']", "other"),
+                  conditional: {
+                    html: creatorHtml
+                  }
+                }
+
+              ]
+            }) }}
+          
+          {# {% else %} #}
+          
+            
+
+          {# {% endif %} #}
+
+          {{ govukCheckboxes({
+            fieldset: {
+              legend: {
+                text: "Status",
+                isPageHeading: false,
+                classes: "govuk-fieldset__legend--s"
+              }
+            },
+            classes: "govuk-!-margin-bottom-5",
+            idPrefix: "Status",
+            name: "caseListSettings[status]",
+            items: [
+              {
+                value: "Open",
+                text: "Open",
+                checked: checked("caseListSettings['status']", "Open")
+              },
+              {
+                value: "Closed",
+                text: "Closed",
+                checked: checked("caseListSettings['status']", "Closed")
+              }
+            ]
+          }) }}
+
+          {# NB: filter by type doesn't work in prototype #}
+          {{ govukCheckboxes({
+            fieldset: {
+              legend: {
+                text: "Type",
+                isPageHeading: false,
+                classes: "govuk-fieldset__legend--s"
+              }
+            },
+            classes: "govuk-!-margin-bottom-5",
+            idPrefix: "Type",
+            name: "caseListSettings[type]",
+            items: [
+              {
+                value: "Case",
+                text: "Case",
+                checked: checked("caseListSettings['type']", "Case")
+              },
+              {
+                value: "Enquiry",
+                text: "Enquiry",
+                checked: checked("caseListSettings['type']", "Enquiry")
+              },
+              {
+                value: "Project",
+                text: "Project",
+                checked: checked("caseListSettings['type']", "Project")
+              }
+            ]
+          }) }}
+
+
+          {{ govukButton({
+            text: "Filter results"
+          }) }}
+
+        
+
+          <script type="text/javascript">
+            var users = {{ data.users | jsList | safe }}
+            
+            aElement = document.querySelector('#case-assignee-autocomplete-container');
+            accessibleAutocomplete({
+              element: aElement,
+              id: 'case-assignee-autocomplete',
+              name: "caseListSettings[assignee-other]",
+              showNoOptionsFound: false,
+              defaultValue: '{{data.caseListSettings["assignee-other"]}}',
+              showAllValues: true,
+              dropdownArrow: () => '',
+              source: users.sort()
+            });
+
+            cElement = document.querySelector('#case-creator-autocomplete-container');
+            accessibleAutocomplete({
+              element: cElement,
+              id: 'case-creator-autocomplete',
+              name: "caseListSettings[creator-other]",
+              showNoOptionsFound: false,
+              defaultValue: '{{data.caseListSettings["creator-other"]}}',
+              showAllValues: true,
+              dropdownArrow: () => '',
+              source: users.sort()
+            });
+
+          </script>
+        
+        </div>
+        </div>
+        
       </div>
 
-      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
-      <form id="case-filters"  method="post">
-        {% set assigneeHtml %}
-          <label for="case-assignee-autocomplete" class="label govuk-label">Name / Team
-            <div id="case-assignee-autocomplete-container"></div>
-          </label>
-        {% endset -%}
-
-        {% set creatorHtml %}
-          <label for="case-creator-autocomplete" class="label govuk-label">Name / Team
-            <div id="case-creator-autocomplete-container"></div>
-          </label>
-        {% endset -%}
-        
-
-        {% if data['currentTeam'] == 'Trading Standards' %}
-          {{ govukCheckboxes({
-
-            fieldset: {
-              legend: {
-                text: "Created by",
-                isPageHeading: false,
-                classes: "govuk-fieldset__legend--s"
-              }
-            },
-            classes: "govuk-!-margin-bottom-5",
-            idPrefix:   "Creator",
-            name:       "tsCaseListSettings[creator]",
-            items: [
-              {
-                value: "Me",
-                text: "Me",
-                checked: checked("tsCaseListSettings['creator']", "Me")
-              },
-              {
-                value: "myTeam",
-                text: "My team",
-                checked: checked("tsCaseListSettings['creator']", "MyTeam")
-              },
-              {
-                value: "other",
-                text: "Other person or team",
-                checked: checked("tsCaseListSettings['creator']", "other"),
-                conditional: {
-                  html: creatorHtml
-                }
-              }
-
-            ]
-          }) }}
-        
-        {% else %}
-        
-          {{ govukCheckboxes({
-
-            fieldset: {
-              legend: {
-                text: "Assigned to",
-                isPageHeading: false,
-                classes: "govuk-fieldset__legend--s"
-              }
-            },
-            classes: "govuk-!-margin-bottom-5",
-            idPrefix:   "Assignee",
-            name:       "caseListSettings[assignee]",
-            items: [
-              {
-                value: "Me",
-                text: "Me",
-                checked: checked("caseListSettings['assignee']", "Me")
-              },
-              {
-                value: "other",
-                text: "Someone else",
-                checked: checked("caseListSettings['assignee']", "other"),
-                conditional: {
-                  html: assigneeHtml
-                }
-              }
-
-            ]
-          }) }}
-
-        {% endif %}
-
-        {{ govukCheckboxes({
-          fieldset: {
-            legend: {
-              text: "Status",
-              isPageHeading: false,
-              classes: "govuk-fieldset__legend--s"
-            }
-          },
-          classes: "govuk-!-margin-bottom-5",
-          idPrefix: "Status",
-          name: "caseListSettings[status]",
-          items: [
-            {
-              value: "Open",
-              text: "Open",
-              checked: checked("caseListSettings['status']", "Open")
-            },
-            {
-              value: "Closed",
-              text: "Closed",
-              checked: checked("caseListSettings['status']", "Closed")
-            }
-          ]
-        }) }}
-
-        {{ govukRadios({
-          fieldset: {
-            legend: {
-              text: "Sort by",
-              isPageHeading: false,
-              classes: "govuk-fieldset__legend--s"
-            }
-          },
-          classes: "govuk-!-margin-bottom-5",
-          idPrefix:   "Sort",
-          name:       "caseListSettings[sort]",
-          items: [
-            {
-              value: "latest",
-              text: "Updated: recent",
-              checked: checked("caseListSettings['sort']", "latest")
-            },
-            {
-              value: "oldest",
-              text: "Updated: oldest",
-              checked: checked("caseListSettings['sort']", "oldest")
-            },
-            {
-              value: "newest",
-              text: "Created: newest",
-              checked: checked("caseListSettings['sort']", "newest")
-            }
-          ]
-        }) }}
-
-        {{ govukButton({
-          text: "Apply filters"
-        }) }}
-
-      </form>
-
-      <script type="text/javascript">
-        var users = {{ data.users | jsList | safe }}
-        
-        aElement = document.querySelector('#case-assignee-autocomplete-container');
-        accessibleAutocomplete({
-          element: aElement,
-          id: 'case-assignee-autocomplete',
-          name: "caseListSettings[assignee-other]",
-          showNoOptionsFound: false,
-          defaultValue: '{{data.caseListSettings["assignee-other"]}}',
-          showAllValues: true,
-          dropdownArrow: () => '',
-          source: users.sort()
-        });
-
-        cElement = document.querySelector('#case-creator-autocomplete-container');
-        accessibleAutocomplete({
-          element: cElement,
-          id: 'case-creator-autocomplete',
-          name: "caseListSettings[creator-other]",
-          showNoOptionsFound: false,
-          defaultValue: '{{data.caseListSettings["creator-other"]}}',
-          showAllValues: true,
-          dropdownArrow: () => '',
-          source: users.sort()
-        });
-
-      </script>
-      
     </div>
-
-
-
 
     {% set searchClasses = '' %}
 
@@ -295,17 +284,115 @@
       {% endif %}
 
     {% endif %}
+    <div class="govuk-grid-column-three-quarters mspsds-case-list-tab {{searchClasses}}">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+          {% if cases | length > 0 %}
+            <span class="govuk-heading-m">{{cases | length}} cases</span>
+          {% elseif cases | length == 0 %}
+            <span class="govuk-heading-m">No cases found</span>
+          {% endif %}
+
+          <p class="govuk-body"><a href="#" class="govuk-link govuk-link--no-visited-state opss-filter--hide">- Hide case filters</a></p>
+          
+          {# {{ govukButton({
+            text: "- Hide filters",
+            classes: "govuk-link govuk-link--no-visited-state opss-filter--hide"
+          }) }} #}
+        </div>
+        <div class="govuk-grid-column-one-half">
+          {% if cases | length > 1 %}
+            <span class="align-right">
+              {{ govukSelect({
+                id: "sort",
+                name: "sort",
+                formGroup: {
+                  classes: "govuk-!-margin-bottom-4"
+                },
+                label: {
+                  text: "Sort by"
+                },
+                items: [
+                  {
+                    value: "published",
+                    text: "Recently created"
+                  },
+                  {
+                    value: "updated",
+                    text: "Recently updated",
+                    selected: true
+                  },
+                  {
+                    value: "creator",
+                    text: "Creator"
+                  },
+                  {
+                    value: "assignee",
+                    text: "Assignee"
+                  },
+                  {
+                    value: "title",
+                    text: "Title"
+                  }
+                ]
+              }) }}
+            </span>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="facet-tags" data-module="track-click">
+        <div class="facet-tags__group">
+          <div class="facet-tags__wrapper">
+            <p class="facet-tags__preposition">Assigned to</p>
+            <div class="facet-tag">
+              <p class="facet-tag__text">You</p>
+              <button type="button" class="facet-tag__remove" aria-label="Remove filter CA98 and civil cartels" data-module="remove-filter-link" data-facet="case_type" data-value="ca98-and-civil-cartels" data-name="">✕</button>
+            </div>
+          </div>
+        {# <div class="facet-tags__wrapper">
+            <p class="facet-tags__preposition"> or </p>
+            <div class="facet-tag">
+              <p class="facet-tag__text">Competition disqualification</p>
+              <button type="button" class="facet-tag__remove" aria-label="Remove filter Competition disqualification" data-module="remove-filter-link" data-facet="case_type" data-value="competition-disqualification" data-name="">✕</button>
+            </div>
+          </div> #}
+      </div>
+        <div class="facet-tags__group">
+          <div class="facet-tags__wrapper">
+            <p class="facet-tags__preposition">Status</p>
+            <div class="facet-tag">
+              <p class="facet-tag__text">Open</p>
+              <button type="button" class="facet-tag__remove" aria-label="Remove filter CA98 - no grounds for action" data-module="remove-filter-link" data-facet="outcome_type" data-value="ca98-no-grounds-for-action-non-infringement" data-name="">✕</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% set caseListCases = cases | attachCaseChildren(data) %}
+
+      {% if caseListCases | length > 0 %}
+      
+        {% from "includes/components/case/case-card-list.html"          import caseCardList %}
+        {{ caseCardList(caseListCases, data.currentTeam, search)}}
+
+      {% endif %}
+    </div>
+    
+    
+  </div>
+  <div class="govuk-grid-row">
 
 
+    
+
+    
 
     <div class="govuk-grid-column-three-quarters mspsds-case-list-tab {{searchClasses}}">
-      {% from "includes/components/case/case-card-list.html"          import caseCardList %}
-      {{ caseCardList(cases | attachCaseChildren(data), data.currentTeam, search) }}
-      {% if cases | length == 0 %}
-          <span class="govuk-heading-xl">No results</span>
-      {% endif %}
+
+      
     </div>
 
   </div>
-
+</form>
 {% endblock %}

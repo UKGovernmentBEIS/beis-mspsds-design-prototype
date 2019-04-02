@@ -29,6 +29,7 @@ $govuk-page-width: 1200px;
 @import "hmcts-identity-bar";
 @import "hmcts-sub-navigation";
 @import "interruption-card";
+@import "facet-tags";
 @import "teams";
 @import "footer";
 @import "email-message";
@@ -98,7 +99,13 @@ div[class^="govuk-grid-column-"] img {
 
 
 .align-right {
-  float: right;
+  // float: right;
+}
+
+.align-right {
+  @include mq($from: tablet) {
+    float: right;
+  }
 }
 
 .button-inline {
@@ -108,11 +115,11 @@ div[class^="govuk-grid-column-"] img {
 }
 
 // Set case list to be wider
-// .case-list {
-//   & .govuk-width-container, & .hmcts-primary-navigation__container {
-//     max-width: 1200px;
-//   } 
-// }
+.case-list {
+  & .govuk-width-container, & .hmcts-primary-navigation__container {
+    max-width: 1200px;
+  } 
+}
 
 // todo: should we do something like this?: https://github.com/alphagov/govuk-design-system/blob/master/src/stylesheets/main.scss#L69
 p.govuk-body, h1, h2, h3 {
@@ -125,3 +132,29 @@ p.govuk-body, h1, h2, h3 {
   @include govuk-responsive-padding(6);
 }
 
+.no-wrap {
+  white-space: nowrap;
+}
+
+.mspsds-case-filter-controls__container {
+  // @include govuk-responsive-padding(3);
+  box-shadow: inset 0 0 0 1px govuk-colour("grey-3");
+}
+
+.mspsds-case-filter-controls__heading {
+  background-color: govuk-colour("grey-3");
+  @include govuk-responsive-padding(3);
+  // @include govuk-responsive-padding(3, "left");
+  // @include govuk-responsive-padding(3, "right");
+
+  // padding-top: 0;
+  margin-bottom: 0;
+}
+
+.mspsds-case-filter-controls__filters-container {
+  @include govuk-responsive-padding(3);
+}
+
+.mspsds-case-filter-controls {
+  border-right: 1px solid govuk-colour("grey-3");
+}
