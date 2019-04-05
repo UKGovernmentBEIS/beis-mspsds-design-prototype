@@ -1,0 +1,136 @@
+{% extends "mspsds-layout.html" %}
+{% set currentPage      = 'case' %}
+{% set currentCase = data.cases | withId(data['caseid']) %}
+{% set currentCase = currentCase | attachCaseChildren(data) %}
+{% set currentTeam = data.currentTeam %}
+
+{% if bodyClasses %}
+    {% set bodyClasses = bodyClasses + " mspsds-width-container case" %}
+{% else %}
+    {% set bodyClasses = " mspsds-width-container case" %}
+{% endif %}
+
+{% set navActive = 'cases' %}
+
+{% set caseNavActive = 'settings' %}
+{% set hasEditRights = true if (currentCase.assignee == data['currentUser']) else false %}
+
+{% set significantDateLabel = "Last updated" if currentCase.activities.length > 1 else "Created" %}
+
+
+
+
+{% block pageTitle %}
+{% endblock %}
+
+{% block header %}
+  {{ super() }}
+  {% set includeCaseActions = true %}
+
+  {% include "includes/components/case/case-bar.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+{% set summaryMetadataRows = [
+    {
+      key: {
+        text: "Status"
+      },
+      value: {
+        text: currentCase.status
+      },
+      actions: {
+        items: [
+          {
+            href: "/root/flows/change-status/01",
+            text: "Change",
+            visuallyHiddenText: "case status",
+            classes: "govuk-link--no-visited-state" 
+          } if hasEditRights else []
+        ]
+
+      }
+    },
+    {
+      key: {
+        text: "Assigned to" if (currentCase.status=="Open") else "Owner"
+      },
+      value: {
+        text: currentCase.assignee
+      },
+      actions: {
+        items: [
+          {
+            href: "/root/flows/assign/01",
+            text: "Change",
+            visuallyHiddenText: "assignee",
+            classes: "govuk-link--no-visited-state" 
+          } if hasEditRights else []
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Watchers"
+      },
+      value: {
+        text: "3 watchers"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "View / edit",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Edit rights"
+      },
+      value: {
+        text: "4 with edit rights"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "View / edit",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    }
+  ] %}
+
+
+
+
+
+{% block content %}
+
+{% include "includes/components/case/case-navigation.html" %}
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Settings</h1>
+
+    {{ govukSummaryList({
+      rows: summaryMetadataRows
+    }) }}
+  </div>
+  <div class="govuk-grid-column-one-third">
+
+  </div>
+</div>
+
+
+{% endblock %}

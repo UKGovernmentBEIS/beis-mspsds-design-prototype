@@ -138,23 +138,40 @@ p.govuk-body, h1, h2, h3 {
 
 .mspsds-case-filter-controls__container {
   // @include govuk-responsive-padding(3);
-  box-shadow: inset 0 0 0 1px govuk-colour("grey-3");
+  // box-shadow: inset 0 0 0 1px govuk-colour("grey-3");
 }
 
 .mspsds-case-filter-controls__heading {
-  background-color: govuk-colour("grey-3");
-  @include govuk-responsive-padding(3);
+  // background-color: govuk-colour("grey-3");
+  // @include govuk-responsive-padding(3);
   // @include govuk-responsive-padding(3, "left");
   // @include govuk-responsive-padding(3, "right");
 
   // padding-top: 0;
-  margin-bottom: 0;
+  // margin-bottom: 0;
 }
 
 .mspsds-case-filter-controls__filters-container {
-  @include govuk-responsive-padding(3);
+  // @include govuk-responsive-padding(3);
 }
 
 .mspsds-case-filter-controls {
   border-right: 1px solid govuk-colour("grey-3");
+}
+
+
+.product-image__container {
+  border: 1px solid govuk-colour("grey-3");
+  @include govuk-responsive-margin(3, "bottom");
+  max-width: 300px;
+}
+
+.psd--inline-link {
+  display: inline-block;
+}
+
+.govuk-summary-list__row.govuk-summary-list--no-border {
+  dd, dt {
+    padding-bottom:0;
+  }
 }

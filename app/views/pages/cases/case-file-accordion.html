@@ -298,136 +298,77 @@
           html: summaryMetadataHTML
         }
       }, #}
-  <h2 class="govuk-heading-m">Product</h2>
 
-  {% set hazardDescription %}
-    <p class="govuk-body">The internal wiring can become loose and make the main case live.</p>
-  {% endset %}
-
-  {% set hazardHTML %}
-    <p class="govuk-body">Electrocution</p>
-
-    {{hazardDescription | safe}}
-  {% endset %}
-
-  {{ govukSummaryList({
-    rows: [
+  {{ govukAccordion({
+    id: "accordion-with-summary-sections",
+    items: [
       {
-        key: {
-          text: "General product category"
+        heading: {
+          text: "Reports"
         },
-        value: {
-          text: "Low-voltage electrical"
+        summary: {
+          text: "Hazards, failure reports, compliance"
         },
-        actions: {
-          items: [
-            {
-              href: "#",
-              text: "Change",
-              visuallyHiddenText: "hazard type"
-            }
-          ]
+        content: {
+          html: reportsHTML
+        }
+      },
+          {
+        heading: {
+          text: "Test results"
+        },
+        summary: {
+          text: "2 test results"
+        },
+        content: {
+          html: testResultsHTML
+        }
+      },
+              {
+        heading: {
+          text: "Corrective actions"
+        },
+        summary: {
+          text: "3 corrective actions, last action 2/2/2019"
+        },
+        content: {
+          html: correctiveActionsHTML
         }
       },
       {
-        key: {
-          text: "Hazards"
+        heading: {
+          text: "Correspondence"
         },
-        value: {
-          html: hazardHTML
+        summary: {
+          text: "45 items, last item yesterday"
         },
-        actions: {
-          items: [
-            {
-              href: "#",
-              text: "Change",
-              visuallyHiddenText: "hazard type"
-            }
-          ]
+        content: {
+          html: correspondenceHTML
         }
       },
       {
-        key: {
-          text: "Compliance"
+        heading: {
+          text: "Notes"
         },
-        value: {
-          text: "No known compliance issues"
+        summary: {
+          text: "6 notes, last note yesterday"
         },
-        actions: {
-          items: [
-            {
-              href: "#",
-              text: "Change",
-              visuallyHiddenText: "contact details"
-            }
-          ]
+        content: {
+          html: notesHTML
+        }
+      },
+      {
+        heading: {
+          text: "Linked cases"
+        },
+        summary: {
+          text: "0 linked cases"
+        },
+        content: {
+          html: linkedCasesHTML
         }
       }
-    ]
-  }) }}
 
-  <h2 class="govuk-heading-m">Reporter</h2>
-
-  {% set reporterContactHTML %}
-  <p class="govuk-body">Ed Horsford</p>
-  <p class="govuk-body">ed.horsford@suffolk.trading-standards.gov.uk</p>
-  <p class="govuk-body">0798989898979</p>
-
-  {% endset %}
-
-  {{ govukSummaryList({
-    rows: [
-      {
-        key: {
-          text: "Report source"
-        },
-        value: {
-          text: "Trading Standards"
-        },
-        actions: {
-          items: [
-            {
-              href: "#",
-              text: "Change",
-              visuallyHiddenText: "hazard type"
-            }
-          ]
-        }
-      },
-      {
-        key: {
-          text: "Internal reference number"
-        },
-        value: {
-          text: "J58484739A"
-        },
-        actions: {
-          items: [
-            {
-              href: "#",
-              text: "Change",
-              visuallyHiddenText: "reference number"
-            }
-          ]
-        }
-      },
-      {
-        key: {
-          text: "Contact details"
-        },
-        value: {
-          html: reporterContactHTML
-        },
-        actions: {
-          items: [
-            {
-              href: "#",
-              text: "Change",
-              visuallyHiddenText: "reference number"
-            }
-          ]
-        }
-      }
     ]
   }) }}
 
