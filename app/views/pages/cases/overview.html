@@ -12,7 +12,11 @@
 
 {% set navActive = 'cases' %}
 
-{% set caseNavActive = 'caseFile' %}
+{% set caseNavActive = 'overview' %}
+{% set hasEditRights = true if (currentCase.assignee == data['currentUser']) else false %}
+
+{% set significantDateLabel = "Last updated" if currentCase.activities.length > 1 else "Created" %}
+
 
 
 
@@ -31,21 +35,7 @@
 
 {% endblock %}
 
-
-
-
-{% block content %}
-
-{% include "includes/components/case/case-navigation.html" %}
-
-{% set viewLinkHTML %}
-<a href="#" class="govuk-link">View</a>
-{% endset %}
-
-{% set summaryMetadataHTML %}
-
-{{ govukSummaryList({
-      rows: [
+{% set summaryMetadataRows = [
     {
       key: {
         text: "Status"
@@ -106,7 +96,7 @@
         items: [
           {
             href: "/root/flows/add-activity/01?currentPage=case&caseid="+currentCase.id,
-            text: "View timeline",
+            text: "Add activity",
             classes: "govuk-link--no-visited-state" 
           }
         ]
@@ -118,13 +108,18 @@
             }
           ]
         }
-      },
+      }
+  ] %}
+
+{# Not used
+
+,
     {
       key: {
         text: "Watchers"
       },
       value: {
-        text: "2 teams and 3 people"
+        text: "3 watchers"
       },
       actions: {
         items: [
@@ -141,7 +136,7 @@
         text: "Edit rights"
       },
       value: {
-        text: "1 team and 3 people"
+        text: "4 with edit rights"
       },
       actions: {
         items: [
@@ -153,152 +148,38 @@
         ]
       }
     }
-  ]
-    }) }}
-
-{% endset %}
-
-{% set correspondenceHTML %}
-
-<p class="govuk-body"><a href="#" class="govuk-link">Add new correspondence</a></p>
+     #}
 
 
-{{ govukTable({
-    firstCellIsHeader: false,
-    head: [
 
-      {
-        text: ""
-      },
-      {
-        text: "Type"
-      },
-      {
-        text: "Subject",
-        classes: "no-wrap"
-      },
-      {
-        text: "Date",
-        format: "numeric"
-      }
-    ],
-    rows: [
-    [ 
-      {
-        html: viewLinkHTML
-      },
-      {
-        text: "Email"
-      },
-      {
-        text: "Product safety alert: alert"
-      },
-      {
-        text: "1/2/2019",
-        format: "numeric"
-      }
-    ],
-    [
-      {
-        html: viewLinkHTML
-      },
-      {
-        text: "Phone call"
-      },
-      {
-        text: "Call with TS Southampton to discuss case"
-      },
-      {
-        text: "22/1/2019",
-        format: "numeric"
-      }
-    ],
-    [
-      {
-        html: viewLinkHTML
-      },
-      {
-        text: "Meeting"
-      },
-      {
-        text: "Team discussion"
-      },
-      {
-        text: "16/1/2019",
-        format: "numeric"
-      }
-    ],
-    [
-      {
-        html: viewLinkHTML
-      },
-      {
-        text: "Other (sms)"
-      },
-      {
-        text: "Arrange meeting"
-      },
-      {
-        text: "16/1/2019",
-        format: "numeric"
-      }
-    ]
-  }
-  }) }}
+{% block content %}
 
-  <p class="govuk-body"><a href="#" class="govuk-link">View all (42 more items)</a></p>
-
-{% endset %}
-
-{% set reportsHTML %}
-<p class="govuk-body"><a href="#" class="govuk-link">Add report</a></p>
-{% endset %}
-
-{% set testResultsHTML %}
-<p class="govuk-body"><a href="#" class="govuk-link">Add test request or result</a></p>
-{% endset %}
-
-{% set correctiveActionsHTML %}
-<p class="govuk-body"><a href="#" class="govuk-link">Add a corrective action</a></p>
-{% endset %}
-
-{% set notesHTML %}
-<p class="govuk-body"><a href="#" class="govuk-link">Add a note</a></p>
-{% endset %}
-
-{% set linkedCasesHTML %}
-<p class="govuk-body"><a href="#" class="govuk-link">Link to another case</a></p>
-{% endset %}
+{% include "includes/components/case/case-navigation.html" %}
 
 
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds-from-desktop">
-  <h1 class="govuk-heading-l">Case</h1>
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Overview</h1>
 
-  {# <p class="govuk-body-l">ChargeWorx adaptor, Electric shock, fire hazard</p>
+    <p class="govuk-body-l">ChargeWorx adaptor, Electric shock, fire hazard</p>
 
-  <h2 class="govuk-heading-m">Summary</h2>
+    <h2 class="govuk-heading-m">Summary</h2>
 
-  <p class="govuk-body">The hood of the jacket has cords with free ends in the neck area.
-  These cords can become trapped during various activities of the child, leading to strangulation.
+    <p class="govuk-body">The hood of the jacket has cords with free ends in the neck area.
+    These cords can become trapped during various activities of the child, leading to strangulation.
 
-  The product does not comply with the relevant European standard 14682.</p>
+    The product does not comply with the relevant European standard 14682.</p>
 
-  <p class="govuk-body"><a href="" class="govuk-link govuk-link--no-visited-state">Edit title or summary</a></p> #}
+    <p class="govuk-body psd--inline-link right-align"><a href="" class="govuk-link govuk-link--no-visited-state">Change summary</a></p>
 
-{# {
-        heading: {
-          text: "About the case"
-        },
-        summary: {
-          text: "Metadata about the case - dates, owners, watchers"
-        },
-        content: {
-          html: summaryMetadataHTML
-        }
-      }, #}
-  <h2 class="govuk-heading-m">Product</h2>
+    <h2 class="govuk-heading-m">About the case</h2>
+
+    {{ govukSummaryList({
+      rows: summaryMetadataRows
+    }) }}
+
+    <h2 class="govuk-heading-m">Product</h2>
 
   {% set hazardDescription %}
     <p class="govuk-body">The internal wiring can become loose and make the main case live.</p>
@@ -314,7 +195,7 @@
     rows: [
       {
         key: {
-          text: "General product category"
+          text: "Product category"
         },
         value: {
           text: "Low-voltage electrical"
@@ -331,8 +212,10 @@
       },
       {
         key: {
-          text: "Hazards"
+          text: "Hazards",
+          classes: "govuk-summary-list--no-border"
         },
+        classes: "govuk-summary-list--no-border",
         value: {
           html: hazardHTML
         },
@@ -375,14 +258,20 @@
 
   {% endset %}
 
-  {{ govukSummaryList({
+  {% set reportSourceHTML %}
+    <p class="govuk-body">Trading Standards Suffolk</p>
+
+    {# <p class="govuk-body">TS reference number: J58484739A</p> #}
+  {% endset %}
+
+  {# {{ govukSummaryList({
     rows: [
       {
         key: {
           text: "Report source"
         },
         value: {
-          text: "Trading Standards"
+          html: reportSourceHTML
         },
         actions: {
           items: [
@@ -393,20 +282,19 @@
             }
           ]
         }
-      },
-      {
+      },{
         key: {
-          text: "Internal reference number"
+          text: "TS reference number"
         },
         value: {
-          text: "J58484739A"
+          text: "J59398383838"
         },
         actions: {
           items: [
             {
               href: "#",
               text: "Change",
-              visuallyHiddenText: "reference number"
+              visuallyHiddenText: "hazard type"
             }
           ]
         }
@@ -429,36 +317,76 @@
         }
       }
     ]
-  }) }}
+  }) }} #}
 
+  {# Raw HTML as component doesn't support change links spanning sections #}
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row govuk-summary-list--no-border">
+        <dt class="govuk-summary-list__key">
+          Report source
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <p class="govuk-body">Trading Standards Suffolk</p>
+        </dd>
+        
+        <div class="govuk-summary-list__actions">
+          <a class="govuk-link" href="#">
+            Change<span class="govuk-visually-hidden"> report source</span>
+          </a>
+        </div>      
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          TS reference number
+        </dt>
+        <dd class="govuk-summary-list__value">
+          J59398383838
+        </dd>
+        
+        <div class="govuk-summary-list__actions">
+        </div>     
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Contact details
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <p class="govuk-body">Ed Horsford</p>
+          <p class="govuk-body">ed.horsford@suffolk.trading-standards.gov.uk</p>
+          <p class="govuk-body">0798989898979</p>
+        </dd>
+        
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="#">
+            Change<span class="govuk-visually-hidden"> reporter contact details</span>
+          </a>
+        </dd>     
+      </div>
+    </dl>
   </div>
-
   <div class="govuk-grid-column-one-third">
+    <aside class="app-related-items" role="complementary">
+      <h2 class="govuk-heading-m" id="subsection-title">
+        Product
+      </h2>
+
+      <h3 class="govuk-heading-s">ChargeWorx adaptor</h3>
+      <div class="product-image__container">
+        <img src="/public/images/slapwrap1.jpg" title="Product identifying image" />
+      </div>
+      
+
+      <p class="govuk-body">
+        <a href="#" class="govuk-link">View product</a>&nbsp;
+      </p>
 
 
-    <h2 class="govuk-heading-m">Product</h2>
-    <h3 class="govuk-heading-s">ChargeWorx adaptor</h3>
-    <div class="product-image__container">
-      <img src="/public/images/slapwrap1.jpg" title="Product identifying image" />
-    </div>
-    <p class="govuk-body">
-      <a href="#" class="govuk-link">View product</a>
-    </p>
 
-    <h2 class="govuk-heading-m">About this case</h2>
 
-    <p class="govuk-body">
-      Status: Open<br>
-      Assigned to: Tim Harwood<br>
-      Created by: Ed Horsford<br>
-      Last updated: 3 hours ago<br>
-      Watchers: 3 watchers<br>
-      Edit rights: 4 with edit rights<br>
-    </p>
+    </aside>
 
-    <p class="govuk-body psd--inline-link right-align"><a href="" class="govuk-link govuk-link--no-visited-state">Change settings</a></p>
-
-    
   </div>
 </div>
 

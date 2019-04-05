@@ -341,7 +341,7 @@
         </div>
       </div>
 
-      <div class="facet-tags" data-module="track-click">
+      {# <div class="facet-tags" data-module="track-click">
         <div class="facet-tags__group">
           <div class="facet-tags__wrapper">
             <p class="facet-tags__preposition">Assigned to</p>
@@ -350,13 +350,13 @@
               <button type="button" class="facet-tag__remove" aria-label="Remove filter CA98 and civil cartels" data-module="remove-filter-link" data-facet="case_type" data-value="ca98-and-civil-cartels" data-name="">✕</button>
             </div>
           </div>
-        {# <div class="facet-tags__wrapper">
+        <div class="facet-tags__wrapper">
             <p class="facet-tags__preposition"> or </p>
             <div class="facet-tag">
               <p class="facet-tag__text">Competition disqualification</p>
               <button type="button" class="facet-tag__remove" aria-label="Remove filter Competition disqualification" data-module="remove-filter-link" data-facet="case_type" data-value="competition-disqualification" data-name="">✕</button>
             </div>
-          </div> #}
+          </div>
       </div>
         <div class="facet-tags__group">
           <div class="facet-tags__wrapper">
@@ -367,7 +367,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> #}
 
       {% set caseListCases = cases | attachCaseChildren(data) %}
 
