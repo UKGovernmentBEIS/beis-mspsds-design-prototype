@@ -27,6 +27,7 @@ $govuk-page-width: 1200px;
 @import "hmcts-banner";
 @import "hmcts-menu";
 @import "hmcts-identity-bar";
+@import "hmcts-timeline";
 @import "hmcts-sub-navigation";
 @import "interruption-card";
 @import "facet-tags";
@@ -171,7 +172,7 @@ p.govuk-body, h1, h2, h3 {
 }
 
 .govuk-summary-list__row.govuk-summary-list--no-border {
-  dd, dt {
+  dd, dt, div {
     padding-bottom:0;
   }
 }
