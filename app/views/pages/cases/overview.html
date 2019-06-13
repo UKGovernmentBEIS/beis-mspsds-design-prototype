@@ -83,6 +83,16 @@
       actions: {
         items: []
       }
+    },{
+      key: {
+        text: "Date created"
+      },
+      value: {
+        text: "4 February 2019"
+      },
+      actions: {
+        items: []
+      }
     },
     {
       key: {
@@ -173,96 +183,280 @@
 
     <p class="govuk-body psd--inline-link right-align"><a href="" class="govuk-link govuk-link--no-visited-state">Change summary</a></p>
 
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+    <h2 class="govuk-heading-m"><a href="" class="govuk-link">Products</a></h2>
+
+    {% set hazardDescription %}
+      <p class="govuk-body">The internal wiring can become loose and make the main case live.</p>
+    {% endset %}
+
+    {% set hazardHTML %}
+      <p class="govuk-body">Electrocution</p>
+
+      {{hazardDescription | safe}}
+    {% endset %}
+
+    {{ govukSummaryList({
+      classes: 'govuk-summary-list--no-border',
+      rows: [
+        {
+          key: {
+            text: "Product category"
+          },
+          value: {
+            text: "Low-voltage electrical"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "Change",
+                visuallyHiddenText: "hazard type"
+              }
+            ]
+          }
+        },
+        {
+          key: {
+            text: "Hazards",
+            classes: "govuk-summary-list--no-border"
+          },
+          classes: "govuk-summary-list--no-border",
+          value: {
+            html: hazardHTML
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "Change",
+                visuallyHiddenText: "hazard type"
+              }
+            ]
+          }
+        },
+        {
+          key: {
+            text: "Compliance"
+          },
+          value: {
+            text: "No known compliance issues"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "Change",
+                visuallyHiddenText: "contact details"
+              }
+            ]
+          }
+        },
+        {
+          key: {
+            text: "Product details"
+          },
+          value: {
+            text: "2 products added"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "View",
+                visuallyHiddenText: "contact details"
+              }
+            ]
+          }
+        }
+      ]
+    }) }}
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+
+    <h2 class="govuk-heading-m"><a href="" class="govuk-link">Businesses</a></h2>
+    {{ govukSummaryList({
+      classes: 'govuk-summary-list--no-border',
+      rows: [
+    {
+      key: {
+        text: "Importer"
+      },
+      value: {
+        text: "Argos ltd"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "View",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    }
+  ]
+    }) }}
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+    <h2 class="govuk-heading-m"><a href="" class="govuk-link">Test results</a></h2>
+    {{ govukSummaryList({
+      classes: 'govuk-summary-list--no-border',
+      rows: [
+    {
+      key: {
+        text: "Screening check report"
+      },
+      value: {
+        text: "Tested on 4/4/2019, test result: fail"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "View",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    }
+  ]
+    }) }}
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+    <h2 class="govuk-heading-m"><a href="" class="govuk-link">Files and attachments</a></h2>
+
+    {{ govukSummaryList({
+      classes: 'govuk-summary-list--no-border',
+      rows: [
+    {
+      key: {
+        text: "Images"
+      },
+      value: {
+        text: "3 product images, 5 other images"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "View",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },{
+      key: {
+        text: "Other attachments"
+      },
+      value: {
+        text: "3 attachments"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "View",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    }
+  ]
+    }) }}
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+
+    <h2 class="govuk-heading-m"><a href="" class="govuk-link">Actions and correspondence</a></h2>
+
+
+    {{ govukSummaryList({
+      classes: 'govuk-summary-list--no-border',
+      rows: [
+    {
+      key: {
+        text: "Corrective actions"
+      },
+      value: {
+        text: "2 corrective actions"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "View",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },{
+      key: {
+        text: "Correspondence"
+      },
+      value: {
+        text: "12 items, last correspondence 14/04/2019"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "View",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },{
+      key: {
+        text: "Comments"
+      },
+      value: {
+        text: "10 comments, last comment 14/04/2019"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "View",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    }
+  ]
+    }) }}
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+
     <h2 class="govuk-heading-m">About the case</h2>
 
     {{ govukSummaryList({
+      classes: 'govuk-summary-list--no-border',
       rows: summaryMetadataRows
     }) }}
 
-    <h2 class="govuk-heading-m">Product</h2>
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
-  {% set hazardDescription %}
-    <p class="govuk-body">The internal wiring can become loose and make the main case live.</p>
-  {% endset %}
 
-  {% set hazardHTML %}
-    <p class="govuk-body">Electrocution</p>
+    <h2 class="govuk-heading-m">Reporter</h2>
 
-    {{hazardDescription | safe}}
-  {% endset %}
+    {% set reporterContactHTML %}
+    <p class="govuk-body">Ed Horsford</p>
+    <p class="govuk-body">ed.horsford@suffolk.trading-standards.gov.uk</p>
+    <p class="govuk-body">0798989898979</p>
 
-  {{ govukSummaryList({
-    rows: [
-      {
-        key: {
-          text: "Product category"
-        },
-        value: {
-          text: "Low-voltage electrical"
-        },
-        actions: {
-          items: [
-            {
-              href: "#",
-              text: "Change",
-              visuallyHiddenText: "hazard type"
-            }
-          ]
-        }
-      },
-      {
-        key: {
-          text: "Hazards",
-          classes: "govuk-summary-list--no-border"
-        },
-        classes: "govuk-summary-list--no-border",
-        value: {
-          html: hazardHTML
-        },
-        actions: {
-          items: [
-            {
-              href: "#",
-              text: "Change",
-              visuallyHiddenText: "hazard type"
-            }
-          ]
-        }
-      },
-      {
-        key: {
-          text: "Compliance"
-        },
-        value: {
-          text: "No known compliance issues"
-        },
-        actions: {
-          items: [
-            {
-              href: "#",
-              text: "Change",
-              visuallyHiddenText: "contact details"
-            }
-          ]
-        }
-      }
-    ]
-  }) }}
+    {% endset %}
 
-  <h2 class="govuk-heading-m">Reporter</h2>
+    {% set reportSourceHTML %}
+      <p class="govuk-body">Trading Standards Suffolk</p>
 
-  {% set reporterContactHTML %}
-  <p class="govuk-body">Ed Horsford</p>
-  <p class="govuk-body">ed.horsford@suffolk.trading-standards.gov.uk</p>
-  <p class="govuk-body">0798989898979</p>
-
-  {% endset %}
-
-  {% set reportSourceHTML %}
-    <p class="govuk-body">Trading Standards Suffolk</p>
-
-    {# <p class="govuk-body">TS reference number: J58484739A</p> #}
-  {% endset %}
+      {# <p class="govuk-body">TS reference number: J58484739A</p> #}
+    {% endset %}
 
   {# {{ govukSummaryList({
     rows: [
@@ -319,8 +513,9 @@
     ]
   }) }} #}
 
+
   {# Raw HTML as component doesn't support change links spanning sections #}
-    <dl class="govuk-summary-list">
+    <dl class="govuk-summary-list govuk-summary-list--no-border">
       <div class="govuk-summary-list__row govuk-summary-list--no-border">
         <dt class="govuk-summary-list__key">
           Report source
@@ -382,8 +577,39 @@
         <a href="#" class="govuk-link">View product</a>&nbsp;
       </p>
 
+      <h2 class="govuk-heading-m">Recent timeline</h2>
+      <div class="hmcts-timeline">
+            
+        <div class="hmcts-timeline__item">
+          <div class="hmcts-timeline__header">
+            <h3 class="hmcts-timeline__title"><a href="/app/cases/FR1231612322/timeline/81ec86ff-c4b9-40d5-953c-7a528b789118">Case reasssigned to you</a></h3>  
+            <p class="hmcts-timeline__by">by Jane Doe, OPSS Processing</p>
+            <p class="hmcts-timeline__date"><time datetime="2018-09-14T09:38:00.000Z">Fri 14 Sep 2018 at 9:38am</time></p>
+          </div>
+          <p class="govuk-body hmcts-timeline__paragraph">John, can you take a look at this please?</p> 
+          
+        </div>  
+        <div class="hmcts-timeline__item">
+          <div class="hmcts-timeline__header">
+            <h3 class="hmcts-timeline__title"><a href="/app/cases/FR1231612322/timeline/b4b33a91-7b5d-4045-a3cb-2804f97a6637">Comment added</a></h3>       
+            <p class="hmcts-timeline__by">by Simon Saint, OPSS Enforcement</p>
+            <p class="hmcts-timeline__date"><time datetime="2018-09-12T09:38:00.000Z">Wed 12 Sep 2018 at 9:38am</time></p>
+          </div>
+          
+          <p class="govuk-body hmcts-timeline__paragraph">Hey Chris, would you mind taking a...</p> 
 
+        </div>  
+        <div class="hmcts-timeline__item">
+          <div class="hmcts-timeline__header">
+            <h3 class="hmcts-timeline__title"><a href="/app/cases/FR1231612322/timeline/7e076c8e-3259-4fa4-aaaf-927a88c200f6">Email recorded</a></h3>     
+            <p class="hmcts-timeline__by">by DJ Nightingale</p>
+            <p class="hmcts-timeline__date"><time datetime="2018-09-11T16:15:00.000Z">Tue 11 Sep 2018 at 4:15pm</time></p>    
+          </div>
+          
+        </div>
+      </div>
 
+      <p class="govuk-body"><a href="" class="govuk-link">View full timeline</a></p>
 
     </aside>
 
