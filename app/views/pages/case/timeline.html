@@ -1,0 +1,86 @@
+{% extends "mspsds-layout.html" %}
+{% set currentPage      = 'case' %}
+{% set currentCase = data.cases | withId(data['caseid']) %}
+{% set currentCase = currentCase | attachCaseChildren(data) %}
+{% set currentTeam = data.currentTeam %}
+
+{% if bodyClasses %}
+    {% set bodyClasses = bodyClasses + " mspsds-width-container case" %}
+{% else %}
+    {% set bodyClasses = " mspsds-width-container case" %}
+{% endif %}
+
+{% set navActive = 'cases' %}
+
+{% set caseNavActive = 'timeline' %}
+{% set hasEditRights = true if (currentCase.assignee == data['currentUser']) else false %}
+
+{% set significantDateLabel = "Last updated" if currentCase.activities.length > 1 else "Created" %}
+
+{% from "includes/components/shared/activity-timeline.html"         import activityTimeline %}
+
+
+
+{% block pageTitle %}
+{% endblock %}
+
+{% block header %}
+  {{ super() }}
+  {% set includeCaseActions = true %}
+
+  {% include "includes/components/case/case-bar.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+
+
+
+{% block content %}
+
+{% include "includes/components/case/case-navigation.html" %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">Timeline</h1>
+
+    <div class="hmcts-timeline">
+            
+        <div class="hmcts-timeline__item">
+          <div class="hmcts-timeline__header">
+            <h3 class="hmcts-timeline__title"><a href="/app/cases/FR1231612322/timeline/81ec86ff-c4b9-40d5-953c-7a528b789118">Case reasssigned to you</a></h3>  
+            <p class="hmcts-timeline__by">by Jane Doe, OPSS Processing</p>
+            <p class="hmcts-timeline__date"><time datetime="2018-09-14T09:38:00.000Z">Fri 14 Sep 2018 at 9:38am</time></p>
+          </div>
+          <p class="govuk-body hmcts-timeline__paragraph">John, can you take a look at this please?</p> 
+          
+        </div>  
+        <div class="hmcts-timeline__item">
+          <div class="hmcts-timeline__header">
+            <h3 class="hmcts-timeline__title"><a href="/app/cases/FR1231612322/timeline/b4b33a91-7b5d-4045-a3cb-2804f97a6637">Comment added</a></h3>       
+            <p class="hmcts-timeline__by">by Simon Saint, OPSS Enforcement</p>
+            <p class="hmcts-timeline__date"><time datetime="2018-09-12T09:38:00.000Z">Wed 12 Sep 2018 at 9:38am</time></p>
+          </div>
+          
+          <p class="govuk-body hmcts-timeline__paragraph">Hey Chris, would you mind taking a...</p> 
+
+        </div>  
+        <div class="hmcts-timeline__item">
+          <div class="hmcts-timeline__header">
+            <h3 class="hmcts-timeline__title"><a href="/app/cases/FR1231612322/timeline/7e076c8e-3259-4fa4-aaaf-927a88c200f6">Email recorded</a></h3>     
+            <p class="hmcts-timeline__by">by DJ Nightingale</p>
+            <p class="hmcts-timeline__date"><time datetime="2018-09-11T16:15:00.000Z">Tue 11 Sep 2018 at 4:15pm</time></p>    
+          </div>
+          
+        </div>
+      </div>
+  </div>
+</div>
+
+{{ activityTimeline( currentCase.activities, currentCase, currentTeam) }}
+
+{% endblock %}

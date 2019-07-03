@@ -1,8 +1,34 @@
 {# {% from "back-link/macro.njk"     	import govukBackLink %} #}
 {# {% from "breadcrumbs/macro.njk" 	import govukBreadcrumbs %} #}
+{% set caseTitle -%}
+
+  {%- if currentCase.type == "Question" -%}
+     {{- currentCase.title | safe -}}
+  {%- endif -%}
+
+  {%- if currentCase.products | length > 0 -%}
+    {{- " " + currentCase.products[0].name -}}
+  {%- else -%}
+    {{- " undefined product" -}}
+  {%- endif -%}
+
+  {%- if currentCase.type == 'case' -%}
+    {%- if currentCase.report.hazardType -%}
+      {{- " " + currentCase.report.hazardType -}}
+    {%- else -%}
+      {{- " undefined hazard" -}}
+    {%- endif -%}
+  {%- endif -%}
+{%- endset %}
+
+{% set restrictedBadge %}
+{% if currentCase.restricted -%}
+<span class="hmcts-badge hmcts-badge--red">Restricted case</span>
+{%- endif %}
+{% endset %}
 
 {% set identityBarContentHTML %}
-  {{currentCase.id}} &nbsp;&nbsp;{{ currentCase.title }}
+  {{restrictedBadge | safe}}{{currentCase.id}} &nbsp;&nbsp;{{ caseTitle }}
 {% endset %}
 
 {#   {

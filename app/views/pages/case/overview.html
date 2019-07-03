@@ -17,7 +17,26 @@
 
 {% set significantDateLabel = "Last updated" if currentCase.activities.length > 1 else "Created" %}
 
+{% set caseTitle -%}
 
+  {%- if currentCase.type == "Question" -%}
+     {{- currentCase.title | safe -}}
+  {%- endif -%}
+
+  {%- if currentCase.products | length > 0 -%}
+    {{- " " + currentCase.products[0].name -}}
+  {%- else -%}
+    {{- " undefined product" -}}
+  {%- endif -%}
+
+  {%- if currentCase.type == 'case' -%}
+    {%- if currentCase.report.hazardType -%}
+      {{- " " + currentCase.report.hazardType -}}
+    {%- else -%}
+      {{- " undefined hazard" -}}
+    {%- endif -%}
+  {%- endif -%}
+{%- endset %}
 
 
 {% block pageTitle %}
@@ -34,6 +53,17 @@
 {% block beforeContent %}
 
 {% endblock %}
+
+{% set permissionsHTML %}
+
+<p class="govuk-body">3 teams with view or edit access</p>
+{% if currentCase.restricted -%}
+  <span class="hmcts-badge hmcts-badge--red">Restricted case</span>
+  {% else %}
+  <p class="govuk-body">All other users: view - limited</p>
+{%- endif %}
+
+{% endset %}
 
 {% set summaryMetadataRows = [
     {
@@ -57,6 +87,17 @@
     },
     {
       key: {
+        text: "Created by"
+      },
+      value: {
+        text: "Ed Horsford"
+      },
+      actions: {
+        items: []
+      }
+    },
+    {
+      key: {
         text: "Assigned to" if (currentCase.status=="Open") else "Owner"
       },
       value: {
@@ -75,13 +116,19 @@
     },
     {
       key: {
-        text: "Created by"
+        text: "Permissions"
       },
       value: {
-        text: "Ed Horsford"
+        html: permissionsHTML
       },
       actions: {
-        items: []
+        items: [
+          {
+            href: "settings/permissions",
+            text: "View or change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
       }
     },{
       key: {
@@ -99,8 +146,7 @@
         text: significantDateLabel
       },
       value: {
-        text: currentCase.dateUpdated | prettifyDate,
-        text: "Yesterday"
+        text: currentCase.dateUpdated | prettifyDate
       },
       actions: {
         items: [
@@ -172,14 +218,11 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">Overview</h1>
 
-    <p class="govuk-body-l">ChargeWorx adaptor, Electric shock, fire hazard</p>
+    <p class="govuk-body-l">{{caseTitle}}</p>
 
     <h2 class="govuk-heading-m">Summary</h2>
 
-    <p class="govuk-body">The hood of the jacket has cords with free ends in the neck area.
-    These cords can become trapped during various activities of the child, leading to strangulation.
-
-    The product does not comply with the relevant European standard 14682.</p>
+    <p class="govuk-body">{{currentCase.report.summary}}</p>
 
     <p class="govuk-body psd--inline-link right-align"><a href="" class="govuk-link govuk-link--no-visited-state">Change summary</a></p>
 
@@ -187,96 +230,99 @@
 
     <h2 class="govuk-heading-m"><a href="" class="govuk-link">Products</a></h2>
 
-    {% set hazardDescription %}
-      <p class="govuk-body">The internal wiring can become loose and make the main case live.</p>
-    {% endset %}
+    
+      {% set hazardDescription %}
+        <p class="govuk-body">{{currentCase.report.hazardSummary}}</p>
+      {% endset %}
 
-    {% set hazardHTML %}
-      <p class="govuk-body">Electrocution</p>
+      {% set hazardHTML %}
+        <p class="govuk-body">{{currentCase.report.hazardType}}</p>
 
-      {{hazardDescription | safe}}
-    {% endset %}
+        {{hazardDescription | safe}}
+      {% endset %}
 
-    {{ govukSummaryList({
-      classes: 'govuk-summary-list--no-border',
-      rows: [
-        {
-          key: {
-            text: "Product category"
+      {{ govukSummaryList({
+        classes: 'govuk-summary-list--no-border',
+        rows: [
+          {
+            key: {
+              text: "Product category"
+            },
+            value: {
+              text: currentCase.report.productType
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "hazard type"
+                }
+              ]
+            }
           },
-          value: {
-            text: "Low-voltage electrical"
+          {
+            key: {
+              text: "Hazards",
+              classes: "govuk-summary-list--no-border"
+            },
+            classes: "govuk-summary-list--no-border",
+            value: {
+              html: hazardHTML
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "hazard type"
+                }
+              ]
+            }
           },
-          actions: {
-            items: [
-              {
-                href: "#",
-                text: "Change",
-                visuallyHiddenText: "hazard type"
-              }
-            ]
+          {
+            key: {
+              text: "Compliance"
+            },
+            value: {
+              text: "No known compliance issues"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "contact details"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Product details"
+            },
+            value: {
+              text: currentCase.products | length + ' product added' if currentCase.products | length == 1 else currentCase.products | length + ' products added'
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "View",
+                  visuallyHiddenText: "contact details"
+                }
+              ]
+            }
           }
-        },
-        {
-          key: {
-            text: "Hazards",
-            classes: "govuk-summary-list--no-border"
-          },
-          classes: "govuk-summary-list--no-border",
-          value: {
-            html: hazardHTML
-          },
-          actions: {
-            items: [
-              {
-                href: "#",
-                text: "Change",
-                visuallyHiddenText: "hazard type"
-              }
-            ]
-          }
-        },
-        {
-          key: {
-            text: "Compliance"
-          },
-          value: {
-            text: "No known compliance issues"
-          },
-          actions: {
-            items: [
-              {
-                href: "#",
-                text: "Change",
-                visuallyHiddenText: "contact details"
-              }
-            ]
-          }
-        },
-        {
-          key: {
-            text: "Product details"
-          },
-          value: {
-            text: "2 products added"
-          },
-          actions: {
-            items: [
-              {
-                href: "#",
-                text: "View",
-                visuallyHiddenText: "contact details"
-              }
-            ]
-          }
-        }
-      ]
-    }) }}
+        ]
+      }) }}
 
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
-
     <h2 class="govuk-heading-m"><a href="" class="govuk-link">Businesses</a></h2>
+    
+    {% if currentCase.businesses | length > 0 %}
+
     {{ govukSummaryList({
       classes: 'govuk-summary-list--no-border',
       rows: [
@@ -299,6 +345,9 @@
     }
   ]
     }) }}
+    {% else %}
+    <p class="govuk-body">No businesses added</p>
+    {% endif %}
 
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 

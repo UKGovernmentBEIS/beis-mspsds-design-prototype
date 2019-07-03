@@ -1,0 +1,107 @@
+{% extends "mspsds-layout.html" %}
+{% set currentPage      = 'case' %}
+{% set currentCase = data.cases | withId(data['caseid']) %}
+{% set currentCase = currentCase | attachCaseChildren(data) %}
+{% set currentTeam = data.currentTeam %}
+{# {% set currentCase.restricted = true %} #}
+
+{% if bodyClasses %}
+    {% set bodyClasses = bodyClasses + " mspsds-width-container case" %}
+{% else %}
+    {% set bodyClasses = " mspsds-width-container case" %}
+{% endif %}
+
+{% set navActive = 'cases' %}
+
+{% set caseNavActive = 'settings' %}
+{% set hasEditRights = true if (currentCase.assignee == data['currentUser']) else false %}
+
+{% set significantDateLabel = "Last updated" if currentCase.activities.length > 1 else "Created" %}
+
+
+
+
+{% block pageTitle %}
+{% endblock %}
+
+{% block header %}
+  {{ super() }}
+  {% set includeCaseActions = false %}
+
+  {% include "includes/components/case/case-bar.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+
+  {{ govukBackLink({
+      text: 'Back',
+      href: '/pages/case/overview'
+  }) }}
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+{# {% include "includes/components/case/case-navigation.html" %} #}
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+    <h1 class="govuk-heading-l">Case restriction</h1>
+
+    <p class="govuk-body">Use restriction to prevent teams not involved in a case from being able to view details of the case.</p>
+
+    {% if currentCase.restricted %}
+    <p class="govuk-body">This case was restricted on <strong>3 June 2014</strong> by <strong>Ed Horsford (Trading Standards Southampton)</strong> for the following reason:</p>
+    {{ govukInsetText({
+      text: "We’re taking this manufacturer to court. Contact name@example.com if you need details."
+    }) }}
+
+    {% set detailsHTML %}
+
+     some text about when to restrict, and what it means
+
+    {% endset %}
+
+    {% endif %}
+
+    {{ govukDetails({
+      summaryText: "When to restrict a case",
+      html: detailsHTML
+    }) }}
+
+    <p class="govuk-body">Teams that {{'can' if currentCase.restricted else "will still be able to"}} access this case:</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>Trading Standards Southampton</li>
+      <li>OPSS - Incident management</li>
+      <li>Southampton council</li>
+    </ul>
+    <p class="govuk-body">
+    <a href="permissions">Manage team permissions</a></p>
+    
+    {% set restrictionButtonText %}
+    {% if curentCase.restricted %}Unrestrict this case{% else %}Restrict this case{% endif %}
+    {% endset %}
+
+    {{ govukButton({
+      text: restrictionButtonText,
+      href: "./b1dab0f5-4651-4af8-9f15-fa8143ff338d/invite",
+      classes: "mspsds-button--delete" if not currentCase.restricted
+    }) }}
+
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+
+  </div>
+</div>
+
+
+{% endblock %}

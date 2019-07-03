@@ -35,6 +35,30 @@
 
 {% endblock %}
 
+{% set permissionsHTML %}
+<p class="govuk-body">Edit access</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>Your team (case owner)</li>
+  <li>OPSS - processing</li>
+</ul>
+
+<p class="govuk-body">View - all</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>Birmingham Council</li>
+  <li>The Office of Product Safety and Standards</li>
+</ul>
+
+<p class="govuk-body">View - summary</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>All other users</li>
+</ul>
+{% endset %}
+
+{% set permissionsHTML %}
+<p class="govuk-body">3 with edit access</p>
+<p class="govuk-body">2 with full view access</p>
+{% endset %}
+
 {% set summaryMetadataRows = [
     {
       key: {
@@ -92,15 +116,15 @@
     },
     {
       key: {
-        text: "Edit rights"
+        text: "Case permissions"
       },
       value: {
-        text: "4 with edit rights"
+        html: permissionsHTML
       },
       actions: {
         items: [
           {
-            href: "#",
+            href: "settings/permissions",
             text: "View / edit",
             visuallyHiddenText: "contact details"
           }
