@@ -4,8 +4,29 @@
 <section class="mspsds-pagetitle">
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+      {% set caseTitle -%}
+
+        {%- if case.type == "Question" -%}
+           {{- currentCase.title | safe -}}
+        {%- endif -%}
+
+        {%- if currentCase.products | length > 0 -%}
+          {{- " " + currentCase.products[0].name -}}
+        {%- else -%}
+          {{- " undefined product" -}}
+        {%- endif -%}
+
+        {%- if currentCase.type == 'case' -%}
+          {%- if currentCase.report.hazardType -%}
+            {{- " " + currentCase.report.hazardType -}}
+          {%- else -%}
+            {{- " undefined hazard" -}}
+          {%- endif -%}
+        {%- endif -%}
+      {%- endset %}
+
       {{ pageTitle(
-        {title: currentCase.title | safe})
+        {title: caseTitle | safe})
       }}
       {# {{ pageTitle({
         type:       currentCase.type + ' ' + currentCase.id,

@@ -1,0 +1,292 @@
+{% extends "mspsds-layout.html" %}
+{% set currentPage      = 'case' %}
+{% set currentCase = data.cases | withId(data['caseid']) %}
+{% set currentCase = currentCase | attachCaseChildren(data) %}
+{% set currentTeam = data.currentTeam %}
+{# {% set currentCase.restricted = true %} #}
+
+{% if bodyClasses %}
+    {% set bodyClasses = bodyClasses + " mspsds-width-container case" %}
+{% else %}
+    {% set bodyClasses = " mspsds-width-container case" %}
+{% endif %}
+
+{% set navActive = 'cases' %}
+
+{% set caseNavActive = 'settings' %}
+{% set hasEditRights = true if (currentCase.assignee == data['currentUser']) else false %}
+
+{% set significantDateLabel = "Last updated" if currentCase.activities.length > 1 else "Created" %}
+
+
+
+
+{% block pageTitle %}
+{% endblock %}
+
+{% block header %}
+  {{ super() }}
+  {% set includeCaseActions = false %}
+
+  {% include "includes/components/case/case-bar.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+
+{#   {{ govukBackLink({
+      text: 'Back',
+      href: '/pages/case/settings'
+  }) }}
+ #}
+{% endblock %}
+
+
+{% set permissionsHTML %}
+<p class="govuk-body">Edit access</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>Your team (case owner)</li>
+  <li>OPSS - processing</li>
+</ul>
+
+<p class="govuk-body">View - all</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>Birmingham Council</li>
+  <li>The Office of Product Safety and Standards</li>
+</ul>
+
+<p class="govuk-body">View - summary</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>All other users</li>
+</ul>
+{% endset %}
+
+{% set _permissionsHTML %}
+<ul class="govuk-list">
+  <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
+    <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
+      <span class="teams__user_name">Your team</span> 
+      {# <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span> #}
+    </h3>
+    <ul class="govuk-list govuk-!-margin-0">
+      <li>
+        <span class="tick-cross-tick"><span class="govuk-visually-hidden">Has</span>Full edit access</span>
+      </li>
+    </ul>
+  </li>
+  <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
+    <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
+      <span class="teams__user_name">Birmingham council</span> 
+      {# <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span> #}
+    </h3>
+    <ul class="govuk-list govuk-!-margin-0">
+      <li>
+        <span class="tick-cross-tick"><span class="govuk-visually-hidden">Has</span>Full view access</span>
+      </li>
+    </ul>
+  </li>
+  <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
+    <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
+      <span class="teams__user_name">OPSS - Incidents</span> 
+      {# <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span> #}
+    </h3>
+    <ul class="govuk-list govuk-!-margin-0">
+      <li>
+        <span class="tick-cross-tick"><span class="govuk-visually-hidden">Has</span>Full view access</span>
+      </li>
+    </ul>
+  </li>
+  <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
+    <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
+      <span class="teams__user_name">All other organisations</span> 
+      {# <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span> #}
+    </h3>
+    <ul class="govuk-list govuk-!-margin-0">
+      <li>
+        <span class="tick-cross-tick"><span class="govuk-visually-hidden">Has</span>View case summary</span>
+        <span class="tick-cross-cross"><span class="govuk-visually-hidden">Can not</span>view correspondence</span>
+      </li>
+    </ul>
+  </li>
+</ul>
+{% endset %}
+
+
+
+
+
+
+
+{% block content %}
+
+{% include "includes/components/case/case-navigation.html" %}
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Case permissions</h1>
+
+    {% set restrictionText %}
+      <p class="govuk-body">This case is <strong>restricted</strong>. Only teams listed on this page can view details of the case. <br><a href="restriction">See restriction details.</a></p>
+    {% endset %}
+
+{% if currentCase.restricted %}
+    {{ hmctsBanner({
+type: 'warning',
+html: restrictionText,
+iconFallbackText: 'Warning'
+}) }} 
+{% endif %}
+
+    <p class="govuk-body">The currently assigned person and their team can always view and edit the whole case. Previously assigned teams retain edit access, but this can be changed by case admins.</p>
+    {# <h2 class="govuk-heading-m">Teams that can access this case</h2> #}
+
+    
+
+    {{ govukButton({
+      text: "Add a team",
+      href: "#"
+    }) }}
+
+    <ul class="govuk-list">
+      <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
+        <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
+          <span class="teams__user_name">Trading Standards Southampton (your team)</span> 
+          {# <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span> #}
+        </h3>
+        <ul class="govuk-list govuk-!-margin-0">
+          <li>
+            <span class="tick-cross-tick"><span class="govuk-visually-hidden">Can</span>Edit and modify (case admin)</span>
+          </li>
+          <li>
+            <span class="tick-cross-tick"><span class="govuk-visually-hidden">Can</span>View full case</span>
+          </li>
+        </ul>
+      </li>
+      
+      <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
+        <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
+          <span class="teams__user_name">OPSS - Incident management</span> 
+          {# <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span> #}
+        </h3>
+        <ul class="govuk-list govuk-!-margin-0">
+          <li>
+            <span class="tick-cross-tick"><span class="govuk-visually-hidden">Can</span>Edit and modify</span>
+          </li>
+          <li>
+            <span class="tick-cross-tick"><span class="govuk-visually-hidden">Can</span>View full case</span>
+          </li>
+          <li>
+            {# <span class="tick-cross-cross"><span class="govuk-visually-hidden">Is not a</span>Case admin</span> #}
+          </li>
+
+        </ul>
+        <div class="permissions-edit-link"><a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d">Edit permissions</a>
+        </div>
+      </li>
+      <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
+        <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
+          <span class="teams__user_name">Southampton council</span> 
+          {# <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span> #}
+        </h3>
+        <ul class="govuk-list govuk-!-margin-0">
+          <li>
+            <span class="tick-cross-cross"><span class="govuk-visually-hidden">Can not</span>Edit and modify</span>
+          </li>
+          <li>
+            <span class="tick-cross-tick"><span class="govuk-visually-hidden">Can</span>View full case</span>
+          </li>
+        </ul>
+        <div class="permissions-edit-link"><a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d">Edit permissions</a>
+        </div>
+      </li>
+
+      {# <h2 class="govuk-heading-m">Default access</h2> #}
+      <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
+        <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
+          <span class="teams__user_name">All other organisations</span> 
+          {# <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span> #}
+        </h3>        
+       
+        <ul class="govuk-list govuk-!-margin-0">
+          <li>
+            <span class="tick-cross-cross"><span class="govuk-visually-hidden">Can not</span>Edit and modify</span>
+          </li>
+          <li>
+            <span class="tick-cross-cross"><span class="govuk-visually-hidden">Can not</span>View full case</span>
+          </li>
+          {% if currentCase.restricted -%}
+          <li>
+            <span class="tick-cross-cross"><span class="govuk-visually-hidden">Can not</span>View limited case</span>
+          </li>
+          {% else %}
+          <li>
+            <span class="tick-cross-tick"><span class="govuk-visually-hidden">Can</span>View limited case</span>
+          </li>
+          {% endif %}
+          
+        </ul>
+        {# <div class="permissions-edit-link"><a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d">Edit permissions</a> #}
+        {# </div> #}
+       
+        
+      </li>
+    </ul>
+    
+    <h2 class="govuk-heading-m">Restrict access to this case</h2>
+    <p class="govuk-body">Prevent teams without 'view - full' access from being able to view details of this case.</p>
+
+    {% set detailsHTML %}
+
+      <p class="govuk-body">Cases can be marked as restricted when the details need to be withheld from other authorised users of the service. This may happen when a case is proceeding to court, or when it contains confidential information.</p>
+
+      <p class="govuk-body">Most day-to-day cases should not be restricted.</p>
+
+      <p class="govuk-body">What can not be seen:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>who or what the case is about</li>
+        <li>business names, brand names, addresses</li>
+        <li>any details about the case, such as files, incidents, reports</li>
+      </ul>
+
+      <p class="govuk-body">What can still be seen:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>case metadata like date created and owner</li>
+        <li>the category of product and type of case</li>
+        <li>a restricted access summary</li>
+      </ul>
+
+      
+
+      <p class="govuk-body">Who will be able to see the case:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>the current case owner and team</li>
+        <li>any teams with view or edit access</li>
+      </ul>
+
+      <p class="govuk-body">Only case admins can restrict or unrestrict a case.</p>
+
+    {% endset %}
+    
+
+    <p class="govuk-body">This case is currently <strong>{{'restricted' if currentCase.restricted else 'unrestricted'}}</strong>.</p>
+
+    {{ govukButton({
+      text: "See restriction details",
+      href: "restriction",
+      _classes: "mspsds-button--delete"
+    }) }}
+
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+
+  </div>
+</div>
+
+
+{% endblock %}
