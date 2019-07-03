@@ -1,5 +1,7 @@
 .teams__user {
   margin: 0;
+  padding: 15px 150px 15px 0;
+  position: relative;
   // border-top: 1px solid $govuk-border-colour;
   border-bottom: 1px solid $govuk-border-colour;
   & + & {
@@ -76,4 +78,11 @@
 
   }
 
+}
+
+.permissions-edit-link {
+  padding-top: 15px;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
