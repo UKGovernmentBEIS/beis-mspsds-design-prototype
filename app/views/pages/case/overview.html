@@ -56,7 +56,7 @@
 
 {% set permissionsHTML %}
 
-<p class="govuk-body">3 teams with view or edit access</p>
+<p class="govuk-body">4 teams added</p>
 {% if currentCase.restricted -%}
   <span class="hmcts-badge hmcts-badge--red">Restricted case</span>
   {% else %}
@@ -209,6 +209,13 @@
 
 
 {% block content %}
+
+{# {% if data['confirmation'] %}
+    {% block confirmation %}
+        {% from "includes/mspsds-confirmation.html" import confirmation %}
+        {{ confirmation("confirmation", data['confirmation']) }}
+    {% endblock %}
+{% endif %} #}
 
 {% include "includes/components/case/case-navigation.html" %}
 

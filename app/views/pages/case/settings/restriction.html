@@ -36,7 +36,7 @@
 
   {{ govukBackLink({
       text: 'Back',
-      href: '/pages/case/overview'
+      href: '/pages/case/settings/permissions'
   }) }}
 
 {% endblock %}
@@ -55,13 +55,30 @@
   <div class="govuk-grid-column-two-thirds-from-desktop">
     <h1 class="govuk-heading-l">Case restriction</h1>
 
-    <p class="govuk-body">Use restriction to prevent teams not involved in a case from being able to view details of the case.</p>
-
     {% if currentCase.restricted %}
-    <p class="govuk-body">This case was restricted on <strong>3 June 2014</strong> by <strong>Ed Horsford (Trading Standards Southampton)</strong> for the following reason:</p>
+    {% set restrictionTextHTML %}
+      <p class="govuk-body">This case was restricted on <strong>3 June 2014</strong> by <strong>Ed Horsford (Trading Standards Southampton)</strong> for the following reason:</p>
+      <p class="govuk-body">“We’re taking this manufacturer to court. Contact name@example.com if you need details.”</p>
+    {% endset %}
+
     {{ govukInsetText({
-      text: "We’re taking this manufacturer to court. Contact name@example.com if you need details."
+      html: restrictionTextHTML
     }) }}
+
+    {% endif %}
+
+    <p class="govuk-body">This case is currently <strong>{{'restricted' if currentCase.restricted else 'unrestricted'}}</strong>. Unless a team or individual has been added to it, they cannot see the case details. They will be able to see who it is assigned to but it will appear as ‘restricted’ in the database.</p>
+
+    {# <p class="govuk-body">This case is currently <strong>{{'restricted' if currentCase.restricted else 'unrestricted'}}</strong>.</p> #}
+
+    {{ govukDetails({
+      summaryText: "More detals about restricting a case",
+      html: detailsHTML
+    }) }}
+
+
+
+
 
     {% set detailsHTML %}
 
@@ -69,32 +86,33 @@
 
     {% endset %}
 
-    {% endif %}
+    
 
-    {{ govukDetails({
-      summaryText: "When to restrict a case",
-      html: detailsHTML
-    }) }}
-
-    <p class="govuk-body">Teams that {{'can' if currentCase.restricted else "will still be able to"}} access this case:</p>
-
-    <ul class="govuk-list govuk-list--bullet">
-      <li>Trading Standards Southampton</li>
-      <li>OPSS - Incident management</li>
-      <li>Southampton council</li>
-    </ul>
-    <p class="govuk-body">
-    <a href="permissions">Manage team permissions</a></p>
+    
+    
     
     {% set restrictionButtonText %}
-    {% if curentCase.restricted %}Unrestrict this case{% else %}Restrict this case{% endif %}
+    {% if currentCase.restricted %}Unrestrict this case{% else %}Restrict this case{% endif %}
     {% endset %}
 
-    {{ govukButton({
-      text: restrictionButtonText,
-      href: "./b1dab0f5-4651-4af8-9f15-fa8143ff338d/invite",
-      classes: "mspsds-button--delete" if not currentCase.restricted
-    }) }}
+    
+
+    <form action="./restriction/save" method="post" class="form">
+
+      {{ govukInput({
+        id:   "restricted",
+        name: "restriction",
+        value: "false" if currentCase.restricted else "true",
+        type: "hidden"
+      }) }}
+
+      {{ govukButton({
+        text: restrictionButtonText,
+        classes: "mspsds-button--delete" if not currentCase.restricted
+      }) }}
+
+
+    </form>
 
   </div>
 
