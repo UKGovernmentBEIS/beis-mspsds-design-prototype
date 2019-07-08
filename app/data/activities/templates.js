@@ -314,7 +314,7 @@ module.exports = {
     author
   }) {
     return {
-      title: restricted ? "Case visibility restricted" : "Case visibility unrestricted",
+      title: restricted ? "Case restricted" : "Case unrestricted",
       action: "Changed",
       author: author,
       date: date,

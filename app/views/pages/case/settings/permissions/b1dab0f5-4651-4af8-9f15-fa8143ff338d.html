@@ -48,18 +48,361 @@
 
 {% block content %}
 
+{% set permissionsTable %}
 
+{{ govukTable({
+  caption: "Access levels and rights",
+  firstCellIsHeader: true,
+  head: [
+    {
+      text: "Type of data or action"
+    },
+    {
+      text: "Full editing rights"
+    },
+    {
+      text: "Full viewing rights"
+    },
+    {
+      text: "Standard viewing rights"
+    },
+    {
+      text: "Restricted"
+    }
+  ],
+  rows: [
+  [
+      {
+        text: "Case title"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view ‘safe’ title"
+      }
+    ],
+    [
+      {
+        text: "Case summary"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Case creator and assignee"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      }
+    ],
+    [
+      {
+        text: "Reporter"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view*"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Comments"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "add and view"
+      },
+      {
+        text: "add and view"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Case notes"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "metadata only"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Products"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Businesses"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Corrective actions"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Incidents"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "summary only"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Activity log"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "metadata only"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Product images, test result attachments"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Other attachments"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "metadata only"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Test results"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Correspondence"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "✗"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Items marked as 'safe'"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Items marked as 'not-safe'"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "✗"
+      },
+      {
+        text: "✗"
+      }
+    ]
+  ]
+}) }}
+
+{% endset %}
+
+{% set detailsHTML %}
+{# 
+<p class="govuk-body">Teams can be given one of four permissions levels:</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>Admin</li>
+  <li>Edit</li>
+  <li>View - all</li>
+  <li>View - limited</li>
+</ul> #}
+
+{{permissionsTable | safe}}
+
+<h3 class="govuk-heading-m">Definitions</h3>
+<p class="govuk-body"><strong>Metadata only</strong> - only metadata about this item is available - such as date created and type - but not the contents of the item.</p>
+<p class="govuk-body"><strong>Summary only</strong> - only the summary for this item is available, including dates - but not the contents of the item.</p>
+
+
+{% endset %}
 
 
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l">OPSS - Incident management</h1>
+    <h1 class="govuk-heading-l">{{data['team']}}</h1>
 
     {{ govukDetails({
       summaryText: "What can be seen at each permissions level",
-      html: detailsHTML
+      html: detailsHTML,
+      open: false
     }) }}
+
+    {# {
+      value: "admin",
+      text: "Admin",
+      hint: {
+        text: "Can change anything about the case including assignment, status, restriction and case permissions. The current assignee is automatically a case admin."
+      }
+    }, #}
 
     <form action="../permissions" method="post" class="form">
       {{ govukRadios({
@@ -67,22 +410,16 @@
         name: "where-do-you-live",
         fieldset: {
           legend: {
-            text: "Permissions level",
+            text: "What permissions should " + data['team'] + " have?",
             isPageHeading: true,
             classes: "govuk-fieldset__legend--m"
           }
         },
         items: [
-          {
-            value: "admin",
-            text: "Case admin",
-            hint: {
-            text: "Can change anything about the case including assignment, status, restriction and case permissions. The current assignee is automatically a case admin."
-          }
-          },
+          
           {
             value: "edit",
-            text: "Edit and modify",
+            text: "Full editing rights",
             checked: true,
             hint: {
             text: "Can edit or modify case details, but not assignment, status, restriction or case permissions."
@@ -90,7 +427,7 @@
           },
           {
             value: "view-full",
-            text: "View - full",
+            text: "Full viewing rights",
             hint: {
             text: "Can view the full case file but not add or modify, except to add comments."
           }
@@ -99,7 +436,7 @@
     },
           {
             value: "view-limited",
-            text: "Default (view limited)",
+            text: "Standard viewing rights (default)",
             hint: {
             text: "Can view case details except sensitive information, correspondence, or attachments that aren't marked as safe."
           }
@@ -108,7 +445,7 @@
       }) }}
 
       {{ govukWarningText({
-        html: "If you want to prevent case details from being seen, it must be <a href=''>restricted</a>.",
+        html: "If you want to prevent case details from being seen, it must be <a href='../restriction'>restricted</a>.",
         iconFallbackText: "Warning"
       }) }}
 

@@ -1,16 +1,26 @@
 {% macro confirmation(id, text, actionText) %}
 
 {% from "button/macro.njk" import govukButton %}
+{% from "includes/components/shared/hmcts-banner.html" import hmctsBanner %}
 
-<div class="govuk-grid-column-full mspsds-confirmation" id="{{id}}">
+
+{% set confirmationBannerHTML %}
   {% if actionText %}
-      <span>{{text}}</span>
-      {{ govukButton({
-        text: actionText
-      }) }}
+    <span>{{text}}</span>
+    {{ govukButton({
+      text: actionText
+    }) }}
   {% else %}
     {{text}}
   {% endif %}
-</div>
+
+{% endset %}
+
+{{ hmctsBanner({
+  type: 'success',
+  html: confirmationBannerHTML,
+  iconFallbackText: 'Success'
+  }) }} 
+
 
 {% endmacro %}

@@ -246,6 +246,17 @@ router.post(`/:mode/flows/change-visibility/save`, function (req, res) {
   res.redirect(redirectURL);
 });
 
+router.post(`/pages/case/settings/restriction/save`, function (req, res) {
+  const data = req.session.data;
+  let restricted = req.body.restriction === "true"
+  // let restricted = true
+  Cases.changeVisibility(data, restricted)
+  let confirmationText = restricted ? "Case%20visibility%20restricted" : "Case%20visibility%20unrestricted"
+  let redirectURL = '/pages/case/overview?caseid=' + data.caseid + '&confirmation=' + confirmationText;
+  res.redirect(redirectURL);
+});
+
+
 // Add comment flow
 router.post(`/:mode/flows/add-comment/save`, function (req, res) {
   const data = req.session.data;

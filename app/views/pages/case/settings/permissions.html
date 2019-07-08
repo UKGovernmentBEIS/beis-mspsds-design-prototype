@@ -42,112 +42,69 @@
 {% endblock %}
 
 
-{% set permissionsHTML %}
-<p class="govuk-body">Edit access</p>
+{% set permissionsByLevel %}
+
+{# <h3 class="govuk-heading-m">Edit full case</h3> #}
+{# <p class="govuk-body">The case assignee always has edit rights. Previously assigned teams retain edit rights, but these can be changed later.</p> #}
+
+<h3 class="govuk-heading-m">Teams with full editing rights</h3>
+{# <p class="govuk-body">Teams who can edit the full case:</p> #}
 <ul class="govuk-list govuk-list--bullet">
-  <li>Your team (case owner)</li>
-  <li>OPSS - processing</li>
+  <li>Your team (case assignee)
+  <li>OPSS - processing (can manage permissions) - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team=OPSS%20-%20processing">change permissions</a></li>
 </ul>
 
-<p class="govuk-body">View - all</p>
+{# <h3 class="govuk-heading-m">View full case</h3> #}
+<h3 class="govuk-heading-m">Teams with full viewing rights</h3>
+{# <p class="govuk-body">Teams who can view the full case:</p> #}
 <ul class="govuk-list govuk-list--bullet">
-  <li>Birmingham Council</li>
-  <li>The Office of Product Safety and Standards</li>
-</ul>
-
-<p class="govuk-body">View - summary</p>
-<ul class="govuk-list govuk-list--bullet">
-  <li>All other users</li>
+  <li>Birmingham Council - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team=Birmingham%20Council">change permissions</a></li>
+  <li>The Office of Product Safety and Standards - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team=The%20Office%20of%20Product%20Safety%20and%20Standards">change permissions</a></li>
 </ul>
 {% endset %}
 
-{% set _permissionsHTML %}
-<ul class="govuk-list">
-  <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
-    <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
-      <span class="teams__user_name">Your team</span> 
-      {# <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span> #}
-    </h3>
-    <ul class="govuk-list govuk-!-margin-0">
-      <li>
-        <span class="tick-cross-tick"><span class="govuk-visually-hidden">Has</span>Full edit access</span>
-      </li>
-    </ul>
-  </li>
-  <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
-    <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
-      <span class="teams__user_name">Birmingham council</span> 
-      {# <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span> #}
-    </h3>
-    <ul class="govuk-list govuk-!-margin-0">
-      <li>
-        <span class="tick-cross-tick"><span class="govuk-visually-hidden">Has</span>Full view access</span>
-      </li>
-    </ul>
-  </li>
-  <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
-    <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
-      <span class="teams__user_name">OPSS - Incidents</span> 
-      {# <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span> #}
-    </h3>
-    <ul class="govuk-list govuk-!-margin-0">
-      <li>
-        <span class="tick-cross-tick"><span class="govuk-visually-hidden">Has</span>Full view access</span>
-      </li>
-    </ul>
-  </li>
-  <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
-    <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
-      <span class="teams__user_name">All other organisations</span> 
-      {# <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span> #}
-    </h3>
-    <ul class="govuk-list govuk-!-margin-0">
-      <li>
-        <span class="tick-cross-tick"><span class="govuk-visually-hidden">Has</span>View case summary</span>
-        <span class="tick-cross-cross"><span class="govuk-visually-hidden">Can not</span>view correspondence</span>
-      </li>
-    </ul>
-  </li>
-</ul>
-{% endset %}
+{% set defaultPermissionsLevel %}
+<h3 class="govuk-heading-m">All other teams</h3>
+
+{% if not currentCase.restricted %}
+<p class="govuk-body">Other teams have <strong>standard viewing rights</strong> to the case - view case details apart from sensitive items - such as those likely to contain personal data or confidential information.</p>
+<p class="govuk-body">If you don't wan't other teams to be able to view this case you can <a href="#restrict-access-to-this-case">restrict it</a>.</p>
+{% else %}
+{# <p class="govuk-body">Other teams cannot view details of this case because it is <strong>restricted</strong>. They will be able to see that it exists and who owns it, but will need editing or viewing rights to see details.  #}
+</p>
+<p class="govuk-body">This case is <strong>restricted</strong>. Unless a team or individual has been added to it, they cannot see the case details. They will be able to see who it is assigned to but it will appear as ‘restricted’ in the database.</p>
+<p class="govuk-body"><a href="restriction" class="govuk-link">See restriction details.</a></p>
 
 
-
-
-
-
-
-{% block content %}
-
-{% include "includes/components/case/case-navigation.html" %}
-
-
-
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l">Case permissions</h1>
-
-    {% set restrictionText %}
-      <p class="govuk-body">This case is <strong>restricted</strong>. Only teams listed on this page can view details of the case. <br><a href="restriction">See restriction details.</a></p>
-    {% endset %}
-
-{% if currentCase.restricted %}
-    {{ hmctsBanner({
-type: 'warning',
-html: restrictionText,
-iconFallbackText: 'Warning'
-}) }} 
 {% endif %}
 
-    <p class="govuk-body">The currently assigned person and their team can always view and edit the whole case. Previously assigned teams retain edit access, but this can be changed by case admins.</p>
-    {# <h2 class="govuk-heading-m">Teams that can access this case</h2> #}
 
-    
 
-    {{ govukButton({
-      text: "Add a team",
-      href: "#"
-    }) }}
+
+
+{% endset %}
+
+{% set standardViewRightsHTML %}
+<p class="govuk-body">They can view:</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>case details</li>
+  <li>products and businesses</li>
+  <li>test results and product images</li>
+  <li>items marked as ’safe’</li>
+</ul>
+
+<p class="govuk-body">They can not view:</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>correspondence (emails, phone calls and meeting notes)</li>
+  <li>case notes</li>
+  <li>attachments (except product images and test results)</li>
+  <li>items marked as ’not safe’</li>
+</ul>
+
+{% endset %}
+
+{% set permissionsByTeam %}
+
 
     <ul class="govuk-list">
       <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
@@ -155,6 +112,7 @@ iconFallbackText: 'Warning'
           <span class="teams__user_name">Trading Standards Southampton (your team)</span> 
           {# <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span> #}
         </h3>
+        <p class="govuk-body">Permissions level: <strong>admin</strong></p>
         <ul class="govuk-list govuk-!-margin-0">
           <li>
             <span class="tick-cross-tick"><span class="govuk-visually-hidden">Can</span>Edit and modify (case admin)</span>
@@ -170,6 +128,7 @@ iconFallbackText: 'Warning'
           <span class="teams__user_name">OPSS - Incident management</span> 
           {# <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span> #}
         </h3>
+        <p class="govuk-body">Permissions level: <strong>edit</strong></p>
         <ul class="govuk-list govuk-!-margin-0">
           <li>
             <span class="tick-cross-tick"><span class="govuk-visually-hidden">Can</span>Edit and modify</span>
@@ -190,6 +149,7 @@ iconFallbackText: 'Warning'
           <span class="teams__user_name">Southampton council</span> 
           {# <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span> #}
         </h3>
+        <p class="govuk-body">Permissions level: <strong>view - full</strong></p>
         <ul class="govuk-list govuk-!-margin-0">
           <li>
             <span class="tick-cross-cross"><span class="govuk-visually-hidden">Can not</span>Edit and modify</span>
@@ -204,11 +164,11 @@ iconFallbackText: 'Warning'
 
       {# <h2 class="govuk-heading-m">Default access</h2> #}
       <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
-        <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
+        <h2 class="govuk-heading-s govuk-!-margin-bottom-2">
           <span class="teams__user_name">All other organisations</span> 
           {# <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span> #}
-        </h3>        
-       
+        </h2>        
+        <p class="govuk-body">Permissions level: <strong>view - limited</strong></p>
         <ul class="govuk-list govuk-!-margin-0">
           <li>
             <span class="tick-cross-cross"><span class="govuk-visually-hidden">Can not</span>Edit and modify</span>
@@ -233,9 +193,86 @@ iconFallbackText: 'Warning'
         
       </li>
     </ul>
+
+
+{% endset %}
+
+
+{% block content %}
+
+{% include "includes/components/case/case-navigation.html" %}
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Case permission levels</h1>
+
+    {% set restrictionText %}
+      <p class="govuk-body">This case is <strong>restricted</strong>. Only teams listed on this page can view details of the case. <br><a href="restriction">See restriction details.</a></p>
+    {% endset %}
+
+    {% if currentCase.restricted %}
+        {{ hmctsBanner({
+      type: 'warning',
+      html: restrictionText,
+      iconFallbackText: 'Warning'
+      }) }} 
+    {% endif %}
+
+    <p class="govuk-body">The aim of the Product safety database is to encourage the product safety community to share as much information as possible. However, sharing data must be done responsibly so there are 3 permission levels. These are:</p>
+    <ol class="govuk-list govuk-list--number">
+      <li>Full editing rights.</li>
+      <li>Full viewing rights.</li>
+      <li>Standard viewing rights (default for unrestricted cases).</li>
+    </ol>
+
+    <p class="govuk-body">In exceptional circumstances, cases <a href="restriction">can be restricted</a> to prevent any details of the case being viewed by teams not involved in the case.</p>
+
+    {# <h2 class="govuk-heading-m">Full editing rights</h2>
+    <p class="govuk-body">Teams and individuals who are assigned to a case can edit it. They can also give other teams the same permission level. Previously assigned teams keep their edit and view rights but they can be changed later.</p>
+
+    <h2 class="govuk-heading-m">Full viewing rights</h2>
+    <p class="govuk-body">Teams and individuals who are assigned to a case can edit it. They can also give other teams the same permission level. Previously assigned teams keep their edit and view rights but they can be changed later.</p>
+
+    <h2 class="govuk-heading-m">Standard viewing rights</h2>
+    <p class="govuk-body">Teams and individuals who are assigned to a case can edit it. They can also give other teams the same permission level. Previously assigned teams keep their edit and view rights but they can be changed later.</p> #}
+
+    {# <p class="govuk-body">Teams and individuals who are assigned to a case can edit it in full. They can also give other teams the same permission level. Previously assigned teams keep their edit rights but they can be changed later.</p> #}
+
+    {# <p class="govuk-body">You can give other teams edit or view rights if you would like them to be able to edit or view the full case detalis.</p> #}
+
+    <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-6">
+
+    {{permissionsByLevel | safe}}
+
+    {{ govukButton({
+      text: "Add a team to the case",
+      href: "#"
+    }) }}
+
+<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-6">
+
+
+    {{defaultPermissionsLevel | safe}}
+
+    {% if not currentCase.restricted %}
+      {{ govukDetails({
+        summaryText: "What other teams will and won't be able to see",
+        html: standardViewRightsHTML
+      }) }}
+    {% endif %}
+
     
-    <h2 class="govuk-heading-m">Restrict access to this case</h2>
-    <p class="govuk-body">Prevent teams without 'view - full' access from being able to view details of this case.</p>
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+    {# <h2 class="govuk-heading-m" id="restrict-access-to-this-case">Restrict access to this case</h2> #}
+
+    {# <h2 class="govuk-heading-m" id="restrict-access-to-this-case">Restricting access in exceptional circumstances</h2>
+
+    <p class="govuk-body">Prevent teams without view or edit rights from being able to see details of this case.</p> #}
+
+    {# <p class="govuk-body">If there are legal or confidentiality reasons which mean teams not directly involved in the case shouldn't be able to view any details about it, you can <a href="#">restrict the case</a>.</p> #}
 
     {% set detailsHTML %}
 
@@ -273,13 +310,40 @@ iconFallbackText: 'Warning'
     {% endset %}
     
 
-    <p class="govuk-body">This case is currently <strong>{{'restricted' if currentCase.restricted else 'unrestricted'}}</strong>.</p>
+    {# <p class="govuk-body">This case is currently <strong>{{'restricted' if currentCase.restricted else 'unrestricted'}}</strong>.</p> #}
 
-    {{ govukButton({
+    {# {% if currentCase.restricted %}
+
+    {% set restrictionReasonHTML %}
+    <p class="govuk-body">This case was restricted on <strong>3 June 2014</strong> by <strong>Ed Horsford (Trading Standards Southampton)</strong> for the following reason:</p>
+    <p class="govuk-body">“We’re taking this manufacturer to court. Contact name@example.com if you need details.”</p>
+    {% endset %}
+
+    {{ hmctsBanner({
+      type: 'warning',
+      html: restrictionReasonHTML,
+      iconFallbackText: 'Warning'
+      }) }} 
+
+    {% endif %} #}
+
+    {% set restrictionButtonText %}
+    {% if currentCase.restricted %}Unrestrict this case{% else %}Restrict this case{% endif %}
+    {% endset %}
+
+    {# {{ govukButton({
+      text: restrictionButtonText,
+      href: "./b1dab0f5-4651-4af8-9f15-fa8143ff338d/invite",
+      classes: "mspsds-button--delete" if not currentCase.restricted
+    }) }} #}
+
+    {# <p class="govuk-body"><a href="restriction" class="govuk-link">See restriction details</a></p> #}
+
+    {# {{ govukButton({
       text: "See restriction details",
       href: "restriction",
       _classes: "mspsds-button--delete"
-    }) }}
+    }) }} #}
 
   </div>
 
