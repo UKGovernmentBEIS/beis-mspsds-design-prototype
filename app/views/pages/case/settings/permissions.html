@@ -51,24 +51,63 @@
 {# <p class="govuk-body">Teams who can edit the full case:</p> #}
 <ul class="govuk-list govuk-list--bullet">
   <li>Your team (case assignee)
-  <li>OPSS - processing (can manage permissions) - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team=OPSS%20-%20processing">change permissions</a></li>
+  {% for team in data.teamPermissions %}
+  {% if team.permissionsLevel == "admin" or team.permissionsLevel == "edit" %}
+    <li>{{team.teamName}} {{"(can manage case)" if team.permissionsLevel =="admin"}}- <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
+  {% endif %}
+  {% endfor %}
+
+  {# <li>OPSS - processing (can manage case) - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team=OPSS%20-%20processing&teamPermissionsLevel=admin">change permissions</a></li>
+  {% if data.newTeamName and (data.teamPermissionsLevel == "edit" or data.teamPermissionsLevel == "admin" ) %}
+    <li>{{data.newTeamName}} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{data.newTeamName}}&teamPermissionsLevel=edit">change permissions</a></li>
+  {% endif %} #}
 </ul>
 
-{# <h3 class="govuk-heading-m">View full case</h3> #}
+{% set viewFullPermissionsTeams = data.teamPermissions | filterAttr('permissionsLevel', 'view-full') %}
 <h3 class="govuk-heading-m">Teams with full viewing rights</h3>
-{# <p class="govuk-body">Teams who can view the full case:</p> #}
+
 <ul class="govuk-list govuk-list--bullet">
-  <li>Birmingham Council - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team=Birmingham%20Council">change permissions</a></li>
-  <li>The Office of Product Safety and Standards - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team=The%20Office%20of%20Product%20Safety%20and%20Standards">change permissions</a></li>
+  {% for team in viewFullPermissionsTeams %}
+    <li>{{team.teamName}} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
+  {% endfor %}
+  {% if viewFullPermissionsTeams | length < 1 %}
+  <li>No teams</li>
+  {% endif %}
 </ul>
+
+{% set standardPermissionsTeams = data.teamPermissions | filterAttr('permissionsLevel', 'view-limited') %}
+
+
+<h3 class="govuk-heading-m">Teams with standard viewing rights</h3>
+<ul class="govuk-list govuk-list--bullet">
+  {% for team in standardPermissionsTeams %}
+    <li>{{team.teamName}} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
+  {% endfor %}
+  {% if not currentCase.restricted %}
+    <li>All other organisations (default)</li>
+  {% else %}
+  {% if standardPermissionsTeams | length < 1 %}
+  <li>No teams</li>
+  {% endif %}
+  {% endif %}
+  
+</ul>
+
+
+
+
+
+
 {% endset %}
+
+
 
 {% set defaultPermissionsLevel %}
 <h3 class="govuk-heading-m">All other teams</h3>
 
 {% if not currentCase.restricted %}
 <p class="govuk-body">Other teams have <strong>standard viewing rights</strong> to the case - view case details apart from sensitive items - such as those likely to contain personal data or confidential information.</p>
-<p class="govuk-body">If you don't wan't other teams to be able to view this case you can <a href="#restrict-access-to-this-case">restrict it</a>.</p>
+<p class="govuk-body">If you don't wan't other teams to be able to view this case you can <a href="restriction">restrict it</a>.</p>
 {% else %}
 {# <p class="govuk-body">Other teams cannot view details of this case because it is <strong>restricted</strong>. They will be able to see that it exists and who owns it, but will need editing or viewing rights to see details.  #}
 </p>
@@ -248,7 +287,7 @@
 
     {{ govukButton({
       text: "Add a team to the case",
-      href: "#"
+      href: "permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team=new"
     }) }}
 
 <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-6">
