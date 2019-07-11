@@ -223,7 +223,15 @@ module.exports = function (env) {
     return typeof obj == 'string';
   };
 
-
+  /* ------------------------------------------------------------------
+    Generic Filters
+  ------------------------------------------------------------------ */
+  filters.filterAttr = function (arr, attr, test) {
+    var result = arr.filter(function (item) {
+       return item[attr] === test;
+    });
+    return result
+  };
   /* ------------------------------------------------------------------
     keep the following line to return your filters to the app
   ------------------------------------------------------------------ */

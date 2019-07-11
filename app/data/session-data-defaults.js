@@ -68,7 +68,20 @@ module.exports = {
   fileTypes:      require("./file-types").fileTypes,
   questionTypes:  require("./question-types").questionTypes,
 
-  
+  teamPermissions: [
+    { 
+      teamName: "OPSS - processing",
+      permissionsLevel: "admin"
+    },
+    { 
+      teamName: "Birmingham Council",
+      permissionsLevel: "view-full"
+    },
+    { 
+      teamName: "The Office of Product Safety and Standards",
+      permissionsLevel: "view-full"
+    }
+  ],
   
   new: {
     files: {

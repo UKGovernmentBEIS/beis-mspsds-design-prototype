@@ -246,6 +246,7 @@ router.post(`/:mode/flows/change-visibility/save`, function (req, res) {
   res.redirect(redirectURL);
 });
 
+// New restriction flow
 router.post(`/pages/case/settings/restriction/save`, function (req, res) {
   const data = req.session.data;
   let restricted = req.body.restriction === "true"
@@ -254,6 +255,42 @@ router.post(`/pages/case/settings/restriction/save`, function (req, res) {
   let confirmationText = restricted ? "Case%20visibility%20restricted" : "Case%20visibility%20unrestricted"
   let redirectURL = '/pages/case/overview?caseid=' + data.caseid + '&confirmation=' + confirmationText;
   res.redirect(redirectURL);
+});
+
+router.post(`/pages/case/settings/permissions/save`, function (req, res) {
+  const data = req.session.data;
+  let teamName = data.teamName
+  let permissionsLevel = data.teamPermissionsLevel
+
+  var existingTeam = false
+
+  req.session.data.teamPermissions.forEach(function(team) {
+    console.log('testing', team.teamName, 'for', teamName)
+    if (team.teamName == teamName) {
+      console.log("teamName is", teamName)
+      console.log("existing team")
+      team.permissionsLevel = permissionsLevel
+      existingTeam = true
+    }
+  });
+  // for (var team in req.session.data.teamPermissions) {
+  //   console.log('testing', team.teamName, 'for', teamName)
+  //   if (team.teamName == teamName) {
+  //     console.log("teamName is", teamName)
+  //     console.log("existing team")
+  //     team.permissionsLevel = permissionsLevel
+  //     existingTeam = true
+  //   }
+  // }
+  if (!existingTeam){
+    console.log("new team")
+    req.session.data.teamPermissions.push({
+      teamName: teamName,
+      permissionsLevel: permissionsLevel
+    })
+  }
+
+  res.redirect('/pages/case/settings/permissions');
 });
 
 
