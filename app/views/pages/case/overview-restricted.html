@@ -1,0 +1,187 @@
+{% extends "mspsds-layout.html" %}
+{% set currentPage      = 'case' %}
+{% set currentCase = data.cases | withId(data['caseid']) %}
+{% set currentCase = currentCase | attachCaseChildren(data) %}
+{% set currentTeam = data.currentTeam %}
+
+{% if bodyClasses %}
+    {% set bodyClasses = bodyClasses + " mspsds-width-container case" %}
+{% else %}
+    {% set bodyClasses = " mspsds-width-container case" %}
+{% endif %}
+
+{% set navActive = 'cases' %}
+
+{% set caseNavActive = 'overview' %}
+{% set hasEditRights = true if (currentCase.assignee == data['currentUser']) else false %}
+
+{% set significantDateLabel = "Last updated" if currentCase.activities.length > 1 else "Created" %}
+
+{% set caseTitle -%}
+
+  {%- if currentCase.type == "Question" -%}
+     {{- currentCase.title | safe -}}
+  {%- endif -%}
+
+  {%- if currentCase.products | length > 0 -%}
+    {{- " " + currentCase.products[0].name -}}
+  {%- else -%}
+    {{- " undefined product" -}}
+  {%- endif -%}
+
+  {%- if currentCase.type == 'case' -%}
+    {%- if currentCase.report.hazardType -%}
+      {{- " " + currentCase.report.hazardType -}}
+    {%- else -%}
+      {{- " undefined hazard" -}}
+    {%- endif -%}
+  {%- endif -%}
+{%- endset %}
+
+
+{% block pageTitle %}
+{% endblock %}
+
+{% block header %}
+  {{ super() }}
+  {% set includeCaseActions = false %}
+
+  {% include "includes/components/case/case-bar.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+{% set permissionsHTML %}
+
+<p class="govuk-body">{{(data.teamPermissions | length) + 1}} teams added</p>
+{% if currentCase.restricted -%}
+  <span class="hmcts-badge hmcts-badge--red">Restricted case</span>
+  {% else %}
+  <p class="govuk-body">All other users: standard view</p>
+{%- endif %}
+
+{% endset %}
+
+{% set summaryMetadataRows = [
+    {
+      key: {
+        text: "Status"
+      },
+      value: {
+        text: currentCase.status
+      },
+      actions: {
+        items: [
+          []
+        ]
+
+      }
+    },
+    {
+      key: {
+        text: "Created by"
+      },
+      value: {
+        text: "Ed Horsford"
+      },
+      actions: {
+        items: []
+      }
+    },
+    {
+      key: {
+        text: "Assigned to" if (currentCase.status=="Open") else "Owner"
+      },
+      value: {
+        text: currentCase.assignee
+      },
+      actions: {
+        items: [
+           []
+        ]
+      }
+    },{
+      key: {
+        text: "Date created"
+      },
+      value: {
+        text: "4 February 2019"
+      },
+      actions: {
+        items: []
+      }
+    },
+    {
+      key: {
+        text: significantDateLabel
+      },
+      value: {
+        text: currentCase.dateUpdated | prettifyDate
+      },
+      actions: {
+        items: [
+          []
+        ]
+      } if hasEditRights else {
+        items: [
+            {
+              href: "/root/flows/add-comment/01-add-comment",
+              text: "Add comment"
+            }
+          ]
+        }
+      }
+  ] %}
+
+
+
+{% block content %}
+
+
+{# {% include "includes/components/case/case-navigation.html" %} #}
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Restricted case</h1>
+
+    <p class="govuk-body-l">{{caseTitle}}</p>
+
+    <p class="govuk-body">This case is <strong>restricted</strong>, so you can't view case details. To view details the case owner will need to add your team as a collaborator or unrestrict the case.</p>
+
+    <p class="govuk-body">Contact <strong>Tim Harwood (OPSS - Incident management)</strong> to get access to this case.</p>
+
+    {% if currentCase.restricted %}
+    {% set restrictionTextHTML %}
+      <p class="govuk-body">This case was restricted on <strong>3 June 2014</strong> by <strong>Ed Horsford (OPSS - Incident management)</strong> for the following reason:</p>
+      <p class="govuk-body">“We’re taking this manufacturer to court. Contact name@example.com if you need details.”</p>
+    {% endset %}
+
+    {{ govukInsetText({
+      html: restrictionTextHTML
+    }) }}
+
+    {% endif %}
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+ 
+    <h2 class="govuk-heading-m">About the case</h2>
+
+    {{ govukSummaryList({
+      classes: 'govuk-summary-list--no-border',
+      rows: summaryMetadataRows
+    }) }}
+
+  <div class="govuk-grid-column-one-third">
+    
+
+  </div>
+</div>
+
+
+{% endblock %}
