@@ -19,8 +19,6 @@
 {% set significantDateLabel = "Last updated" if currentCase.activities.length > 1 else "Created" %}
 
 
-
-
 {% block pageTitle %}
 {% endblock %}
 
@@ -78,7 +76,7 @@
 {% set standardPermissionsTeams = data.teamPermissions | filterAttr('permissionsLevel', 'view-limited') %}
 
 
-<h3 class="govuk-heading-m">Teams with standard viewing rights</h3>
+{# <h3 class="govuk-heading-m">Teams with standard viewing rights</h3>
 <ul class="govuk-list govuk-list--bullet">
   {% for team in standardPermissionsTeams %}
     <li>{{team.teamName}} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
@@ -91,7 +89,7 @@
   {% endif %}
   {% endif %}
   
-</ul>
+</ul> #}
 
 
 
@@ -103,45 +101,42 @@
 
 
 {% set defaultPermissionsLevel %}
-<h3 class="govuk-heading-m">All other teams</h3>
 
 {% if not currentCase.restricted %}
-<p class="govuk-body">Other teams have <strong>standard viewing rights</strong> to the case - view case details apart from sensitive items - such as those likely to contain personal data or confidential information.</p>
-<p class="govuk-body">If you don't wan't other teams to be able to view this case you can <a href="restriction">restrict it</a>.</p>
+  <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-6">
+  <h3 class="govuk-heading-m">All other teams</h3>
+  {# <p class="govuk-body">Other teams have <strong>standard viewing rights</strong> to the case - view case details apart from sensitive items - such as those likely to contain personal data or confidential information.</p> #}
+  <p class="govuk-body">Other teams can view case details except sensitive information, correspondence, or attachments that aren't marked as safe.</p>
+  <p class="govuk-body">If you don't wan't other teams to be able to view this case you can <a href="restriction">restrict it</a>.</p>
 {% else %}
-{# <p class="govuk-body">Other teams cannot view details of this case because it is <strong>restricted</strong>. They will be able to see that it exists and who owns it, but will need editing or viewing rights to see details.  #}
-</p>
-<p class="govuk-body">This case is <strong>restricted</strong>. Unless a team or individual has been added to it, they cannot see the case details. They will be able to see who it is assigned to but it will appear as ‘restricted’ in the database.</p>
-<p class="govuk-body"><a href="restriction" class="govuk-link">See restriction details.</a></p>
 
+{# <p class="govuk-body">This case is <strong>restricted</strong>. Unless a team or individual has been added to it, they cannot see the case details. They will be able to see who it is assigned to but it will appear as ‘restricted’ in the database.</p>
+
+<p class="govuk-body"><a href="restriction" class="govuk-link">See restriction details.</a></p> #}
 
 {% endif %}
-
-
-
-
 
 {% endset %}
 
 {% set standardViewRightsHTML %}
-<p class="govuk-body">They can view:</p>
-<ul class="govuk-list govuk-list--bullet">
-  <li>case details</li>
-  <li>products and businesses</li>
-  <li>test results and product images</li>
-  <li>items marked as ’safe’</li>
-</ul>
+  <p class="govuk-body">They can view:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>case details</li>
+    <li>products and businesses</li>
+    <li>test results and product images</li>
+    <li>items marked as ’safe’</li>
+  </ul>
 
-<p class="govuk-body">They can not view:</p>
-<ul class="govuk-list govuk-list--bullet">
-  <li>correspondence (emails, phone calls and meeting notes)</li>
-  <li>case notes</li>
-  <li>attachments (except product images and test results)</li>
-  <li>items marked as ’not safe’</li>
-</ul>
-
+  <p class="govuk-body">They can not view:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>correspondence (emails, phone calls and meeting notes)</li>
+    <li>case notes</li>
+    <li>attachments (except product images and test results)</li>
+    <li>items marked as ’not safe’</li>
+  </ul>
 {% endset %}
 
+{# Unused #}
 {% set permissionsByTeam %}
 
 
@@ -259,14 +254,14 @@
       }) }} 
     {% endif %}
 
-    <p class="govuk-body">The aim of the Product safety database is to encourage the product safety community to share as much information as possible. However, sharing data must be done responsibly so there are 3 permission levels. These are:</p>
+    {# <p class="govuk-body">The aim of the Product safety database is to encourage the product safety community to share as much information as possible. However, sharing data must be done responsibly so there are 3 permission levels. These are:</p>
     <ol class="govuk-list govuk-list--number">
       <li>Full editing rights.</li>
       <li>Full viewing rights.</li>
       <li>Standard viewing rights (default for unrestricted cases).</li>
     </ol>
 
-    <p class="govuk-body">In exceptional circumstances, cases <a href="restriction">can be restricted</a> to prevent any details of the case being viewed by teams not involved in the case.</p>
+    <p class="govuk-body">In exceptional circumstances, cases <a href="restriction">can be restricted</a> to prevent any details of the case being viewed by teams not involved in the case.</p> #}
 
     {# <h2 class="govuk-heading-m">Full editing rights</h2>
     <p class="govuk-body">Teams and individuals who are assigned to a case can edit it. They can also give other teams the same permission level. Previously assigned teams keep their edit and view rights but they can be changed later.</p>
@@ -281,7 +276,7 @@
 
     {# <p class="govuk-body">You can give other teams edit or view rights if you would like them to be able to edit or view the full case detalis.</p> #}
 
-    <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-6">
+    {# <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-6"> #}
 
     {{permissionsByLevel | safe}}
 
@@ -290,28 +285,21 @@
       href: "permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team=new"
     }) }}
 
-<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-6">
+
 
 
     {{defaultPermissionsLevel | safe}}
 
-    {% if not currentCase.restricted %}
+    {# {% if not currentCase.restricted %}
       {{ govukDetails({
         summaryText: "What other teams will and won't be able to see",
         html: standardViewRightsHTML
       }) }}
-    {% endif %}
+    {% endif %} #}
 
     
-    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+    {# <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"> #}
 
-    {# <h2 class="govuk-heading-m" id="restrict-access-to-this-case">Restrict access to this case</h2> #}
-
-    {# <h2 class="govuk-heading-m" id="restrict-access-to-this-case">Restricting access in exceptional circumstances</h2>
-
-    <p class="govuk-body">Prevent teams without view or edit rights from being able to see details of this case.</p> #}
-
-    {# <p class="govuk-body">If there are legal or confidentiality reasons which mean teams not directly involved in the case shouldn't be able to view any details about it, you can <a href="#">restrict the case</a>.</p> #}
 
     {% set detailsHTML %}
 
@@ -347,43 +335,13 @@
       <p class="govuk-body">Only case admins can restrict or unrestrict a case.</p>
 
     {% endset %}
-    
-
-    {# <p class="govuk-body">This case is currently <strong>{{'restricted' if currentCase.restricted else 'unrestricted'}}</strong>.</p> #}
-
-    {# {% if currentCase.restricted %}
-
-    {% set restrictionReasonHTML %}
-    <p class="govuk-body">This case was restricted on <strong>3 June 2014</strong> by <strong>Ed Horsford (Trading Standards Southampton)</strong> for the following reason:</p>
-    <p class="govuk-body">“We’re taking this manufacturer to court. Contact name@example.com if you need details.”</p>
-    {% endset %}
-
-    {{ hmctsBanner({
-      type: 'warning',
-      html: restrictionReasonHTML,
-      iconFallbackText: 'Warning'
-      }) }} 
-
-    {% endif %} #}
+  
 
     {% set restrictionButtonText %}
     {% if currentCase.restricted %}Unrestrict this case{% else %}Restrict this case{% endif %}
     {% endset %}
 
-    {# {{ govukButton({
-      text: restrictionButtonText,
-      href: "./b1dab0f5-4651-4af8-9f15-fa8143ff338d/invite",
-      classes: "mspsds-button--delete" if not currentCase.restricted
-    }) }} #}
-
-    {# <p class="govuk-body"><a href="restriction" class="govuk-link">See restriction details</a></p> #}
-
-    {# {{ govukButton({
-      text: "See restriction details",
-      href: "restriction",
-      _classes: "mspsds-button--delete"
-    }) }} #}
-
+   
   </div>
 
   <div class="govuk-grid-column-one-third">

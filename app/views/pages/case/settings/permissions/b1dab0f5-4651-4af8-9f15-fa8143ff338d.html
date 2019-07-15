@@ -442,7 +442,53 @@
 
       {% endif %}
 
-      {{ govukRadios({
+      {% set permissionsItems = [
+          {
+            value: "admin",
+            text: "Edit, view and manage",
+            checked: true if data.teamPermissionsLevel == "admin",
+            hint: {
+              text: "Can set case permissions, add teams to the case and change assignment"
+            }
+          },
+          {
+            value: "edit",
+            text: "Edit and view",
+            checked: true if data.teamPermissionsLevel == "edit",
+            _hint: {
+              text: "Edit and view the full case"            
+            }
+          },
+          {
+            value: "view-full",
+            text: "View",
+            checked: true if data.teamPermissionsLevel == "view-full",
+            _hint: {
+              text: "View the full case"
+            }
+          }
+        ]
+        %}
+{# (a.push(3),a) #}
+      {% if data.team != 'new' %}
+      {% set permissionsItems = (permissionsItems.push(
+          {
+            divider: "or"
+          },
+          {
+            value: "view-limited",
+            text: "Remove from case",
+            checked: true if data.teamPermissionsLevel == "view-limited" or data.team == 'new',
+            hint: {
+              text: "Will still be able to view case details except sensitive information, correspondence, or attachments that aren't marked as safe"
+            }
+          }
+          ), permissionsItems   )
+      %}
+
+      {% endif %}
+
+      {# {{ govukRadios({
         idPrefix: "where-do-you-live",
         name: "teamPermissionsLevel",
         
@@ -469,9 +515,6 @@
             checked: true if data.teamPermissionsLevel == "edit",
             hint: {
               text: "Edit the full case"            
-            },
-            _conditional: {
-              html: adminCheckbox
             }
           },
           {
@@ -479,25 +522,43 @@
             text: "View all",
             checked: true if data.teamPermissionsLevel == "view-full",
             hint: {
-            text: "View the full case"
-          }
+              text: "View the full case"
+            }
+          },
+          {
+            divider: "or"
           },
           {
             value: "view-limited",
-            text: "View standard (non-sensitive items only)",
+            text: "Reset to default",
             checked: true if data.teamPermissionsLevel == "view-limited" or data.team == 'new',
             hint: {
-              text: "Can view case details except sensitive information, correspondence, or attachments that aren't marked as safe."
+              text: "View case details except sensitive information, correspondence, or attachments that aren't marked as safe."
             }
           }
         ]
+      }) }} #}
+
+      {{ govukRadios({
+        idPrefix: "where-do-you-live",
+        name: "teamPermissionsLevel",
+        
+        fieldset: {
+          legend: {
+            text: "What permissions should the team have?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--m",
+            hint: permissionsHintHTML
+          }
+        },
+        items: permissionsItems
       }) }}
+
 
       {# <p class="govuk-body">You can also <a href="">remove the team</a> from the case to return them to default permissions (standard).</p> #}
 
-  
       {{ govukWarningText({
-        html: "If you want to prevent case details from being seen, it must be <a href='../restriction'>restricted</a>.",
+        html: "If you want to prevent case details from being seen you can <a href='../restriction'>restrict this case</a>.",
         iconFallbackText: "Warning"
       }) }}
 

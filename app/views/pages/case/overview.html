@@ -56,7 +56,7 @@
 
 {% set permissionsHTML %}
 
-<p class="govuk-body">{{data.teamPermissions | length}} teams added</p>
+<p class="govuk-body">{{(data.teamPermissions | length) + 1}} teams added</p>
 {% if currentCase.restricted -%}
   <span class="hmcts-badge hmcts-badge--red">Restricted case</span>
   {% else %}
