@@ -51,20 +51,20 @@
 {% set permissionsTable %}
 
 {{ govukTable({
-  caption: "Access levels and rights",
+  caption: "Permission levels",
   firstCellIsHeader: true,
   head: [
     {
       text: "Type of data or action"
     },
     {
-      text: "Full editing rights"
+      text: "View and edit"
     },
     {
-      text: "Full viewing rights"
+      text: "View"
     },
     {
-      text: "Standard viewing rights"
+      text: "Default"
     },
     {
       text: "Restricted"
@@ -147,10 +147,10 @@
         text: "edit"
       },
       {
-        text: "add and view"
+        text: "view and add"
       },
       {
-        text: "add and view"
+        text: "view and add"
       },
       {
         text: "✗"
@@ -422,9 +422,10 @@
           id: "teamName",
           name: "teamName",
           type: "text",
-          classes: "govuk-!-width-one-third",
+          classes: "govuk-!-width-one-third govuk-label-m",
           label: {
-            text: "Team name"
+            text: "Team name",
+            classes: "govuk-label--m"
           },
           attributes: {
             spellcheck: "false"
@@ -443,28 +444,29 @@
       {% endif %}
 
       {% set permissionsItems = [
-          {
-            value: "admin",
-            text: "Edit, view and manage",
-            checked: true if data.teamPermissionsLevel == "admin",
-            hint: {
-              text: "Can set case permissions, add teams to the case and change assignment"
-            }
-          },
-          {
-            value: "edit",
-            text: "Edit and view",
-            checked: true if data.teamPermissionsLevel == "edit",
-            _hint: {
-              text: "Edit and view the full case"            
-            }
-          },
+          
           {
             value: "view-full",
             text: "View",
             checked: true if data.teamPermissionsLevel == "view-full",
             _hint: {
               text: "View the full case"
+            }
+          },
+          {
+            value: "edit",
+            text: "View and edit",
+            checked: true if data.teamPermissionsLevel == "edit",
+            _hint: {
+              text: "Edit and view the full case"            
+            }
+          },
+          {
+            value: "admin",
+            text: "View, edit and manage",
+            checked: true if data.teamPermissionsLevel == "admin",
+            hint: {
+              text: "Can set case permissions, add teams to the case and change assignment"
             }
           }
         ]
@@ -480,7 +482,7 @@
             text: "Remove from case",
             checked: true if data.teamPermissionsLevel == "view-limited" or data.team == 'new',
             hint: {
-              text: "Will still be able to view case details except sensitive information, correspondence, or attachments that aren't marked as safe"
+              text: "Will still be able to view case details except sensitive information, correspondence, or items that aren't marked as safe"
             }
           }
           ), permissionsItems   )
