@@ -45,6 +45,7 @@
 {% block header %}
   {{ super() }}
   {% set includeCaseActions = false %}
+  {% set restricted = true %}
 
   {% include "includes/components/case/case-bar.html" %}
 
@@ -57,11 +58,9 @@
 {% set permissionsHTML %}
 
 <p class="govuk-body">{{(data.teamPermissions | length) + 1}} teams added</p>
-{% if currentCase.restricted -%}
-  <span class="hmcts-badge hmcts-badge--red">Restricted case</span>
-  {% else %}
-  <p class="govuk-body">All other users: standard view</p>
-{%- endif %}
+
+<span class="hmcts-badge hmcts-badge--red">Restricted case</span>
+
 
 {% endset %}
 
@@ -151,13 +150,8 @@
 
     <p class="govuk-body-l">{{caseTitle}}</p>
 
-    <p class="govuk-body">This case is <strong>restricted</strong>, so you can't view case details. To view details the case owner will need to add your team as a collaborator or unrestrict the case.</p>
-
-    <p class="govuk-body">Contact <strong>Tim Harwood (OPSS - Incident management)</strong> to get access to this case.</p>
-
-    {% if currentCase.restricted %}
+    <p class="govuk-body">This case was restricted on 3 June 2014 by Ed Horsford (OPSS - Incident management) because:</p>
     {% set restrictionTextHTML %}
-      <p class="govuk-body">This case was restricted on <strong>3 June 2014</strong> by <strong>Ed Horsford (OPSS - Incident management)</strong> for the following reason:</p>
       <p class="govuk-body">“We’re taking this manufacturer to court. Contact name@example.com if you need details.”</p>
     {% endset %}
 
@@ -165,7 +159,7 @@
       html: restrictionTextHTML
     }) }}
 
-    {% endif %}
+    <p class="govuk-body">You’ll only be able to view this case if the case owner adds your team to it, or they make it unrestricted.</p>
 
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 

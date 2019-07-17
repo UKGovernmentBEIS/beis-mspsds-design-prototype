@@ -226,12 +226,21 @@ module.exports = function (env) {
   /* ------------------------------------------------------------------
     Generic Filters
   ------------------------------------------------------------------ */
+
+  // filter results for only those containing attr/ var
   filters.filterAttr = function (arr, attr, test) {
     var result = arr.filter(function (item) {
        return item[attr] === test;
     });
     return result
   };
+
+  // set attribute on object
+  filters.setAttribute = (dictionary, key, value) => {
+    var newDictionary = Object.assign({}, dictionary);
+    newDictionary[key] = value;
+    return newDictionary;
+  }
   /* ------------------------------------------------------------------
     keep the following line to return your filters to the app
   ------------------------------------------------------------------ */
