@@ -22,7 +22,7 @@
 {%- endset %}
 
 {% set restrictedBadge %}
-{% if currentCase.restricted -%}
+{% if currentCase.restricted or restricted -%}
 <span class="hmcts-badge hmcts-badge--red">Restricted case</span>
 {%- endif %}
 {% endset %}
