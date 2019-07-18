@@ -42,28 +42,8 @@
 
 {% set permissionsByLevel %}
 
-{# <h3 class="govuk-heading-m">Edit full case</h3> #}
-{# <p class="govuk-body">The case assignee always has edit rights. Previously assigned teams retain edit rights, but these can be changed later.</p> #}
-
-<h3 class="govuk-heading-m">Teams with full editing rights</h3>
-{# <p class="govuk-body">Teams who can edit the full case:</p> #}
-<ul class="govuk-list govuk-list--bullet">
-  <li>Your team (case assignee)
-  {% for team in data.teamPermissions %}
-  {% if team.permissionsLevel == "admin" or team.permissionsLevel == "edit" %}
-    <li>{{team.teamName}} {{"(can manage case) " if team.permissionsLevel =="admin"}}- <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
-  {% endif %}
-  {% endfor %}
-
-  {# <li>OPSS - processing (can manage case) - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team=OPSS%20-%20processing&teamPermissionsLevel=admin">change permissions</a></li>
-  {% if data.newTeamName and (data.teamPermissionsLevel == "edit" or data.teamPermissionsLevel == "admin" ) %}
-    <li>{{data.newTeamName}} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{data.newTeamName}}&teamPermissionsLevel=edit">change permissions</a></li>
-  {% endif %} #}
-</ul>
-
+<h3 class="govuk-heading-m">Teams with viewing rights</h3>
 {% set viewFullPermissionsTeams = data.teamPermissions | filterAttr('permissionsLevel', 'view-full') %}
-<h3 class="govuk-heading-m">Teams with full viewing rights</h3>
-
 <ul class="govuk-list govuk-list--bullet">
   {% for team in viewFullPermissionsTeams %}
     <li>{{team.teamName}} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
@@ -73,6 +53,53 @@
   {% endif %}
 </ul>
 
+<h3 class="govuk-heading-m">Teams with view and editing rights</h3>
+{% set viewAndEditPermissionsTeams = data.teamPermissions | filterAttr('permissionsLevel', 'edit') %}
+<ul class="govuk-list govuk-list--bullet">
+  {% for team in viewAndEditPermissionsTeams %}
+    <li>{{team.teamName}} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
+  {% endfor %}
+  {% if viewAndEditPermissionsTeams | length < 1 %}
+  <li>No teams</li>
+  {% endif %}
+</ul>
+
+<h3 class="govuk-heading-m">Teams with view, edit and managing rights</h3>
+<p class="govuk-body">Can set case permissions, add teams to the case and change assignment.</p>
+{% set managePermissionsTeams = data.teamPermissions | filterAttr('permissionsLevel', 'admin') %}
+<ul class="govuk-list govuk-list--bullet">
+  <li>OPSS - Incident management (your team)</li>
+  {% for team in managePermissionsTeams %}
+    <li>{{team.teamName}} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
+  {% endfor %}
+{#   {% if managePermissionsTeams | length < 1 %}
+  <li>No teams</li>
+  {% endif %} #}
+</ul>
+
+
+{# <h3 class="govuk-heading-m">Teams with full editing rights</h3>
+<ul class="govuk-list govuk-list--bullet">
+  <li>Your team (case assignee)
+  {% for team in data.teamPermissions %}
+  {% if team.permissionsLevel == "admin" or team.permissionsLevel == "edit" %}
+    <li>{{team.teamName}} {{"(can manage case) " if team.permissionsLevel =="admin"}}- <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
+  {% endif %}
+  {% endfor %}
+</ul> #}
+
+
+{# <h3 class="govuk-heading-m">Teams with full viewing rights</h3>
+
+<ul class="govuk-list govuk-list--bullet">
+  {% for team in viewFullPermissionsTeams %}
+    <li>{{team.teamName}} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
+  {% endfor %}
+  {% if viewFullPermissionsTeams | length < 1 %}
+  <li>No teams</li>
+  {% endif %}
+</ul>
+ #}
 {% set standardPermissionsTeams = data.teamPermissions | filterAttr('permissionsLevel', 'view-limited') %}
 
 
@@ -271,9 +298,12 @@
       <li>View, edit and manage</li>
     </ol>
 
-    <p class="govuk-body">All other teams can view case details apart from anything likely to contain sensitive information such as correspondence or personal details.</p>
 
+
+    {% if not currentCase.restricted %}
+    <p class="govuk-body">All other teams can view case details apart from anything likely to contain sensitive information such as correspondence or personal details.</p>
     <p class="govuk-body">In exceptional circumstances, it's possible to <a href="restriction">restrict this case</a> so that the case details cannot be seen by anyone who is not involved in it.</p>
+    {% endif %}
 
     {# <h2 class="govuk-heading-m">Full editing rights</h2>
     <p class="govuk-body">Teams and individuals who are assigned to a case can edit it. They can also give other teams the same permission level. Previously assigned teams keep their edit and view rights but they can be changed later.</p>
