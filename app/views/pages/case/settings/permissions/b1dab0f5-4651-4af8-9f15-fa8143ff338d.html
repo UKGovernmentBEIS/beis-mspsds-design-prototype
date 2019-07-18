@@ -382,38 +382,11 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">{{ "Add a team to the case" if (data.team == 'new') else data.team}}</h1>
 
-    
-
     {{ govukDetails({
       summaryText: "What can be seen at each permissions level",
       html: detailsHTML,
       open: false
     }) }}
-
-    {% set adminCheckbox %}
-      {{ govukCheckboxes({
-        idPrefix: "admin",
-        name: "admin",
-        _fieldset: {
-          legend: {
-            text: "What is your nationality?",
-            isPageHeading: true,
-            classes: "govuk-fieldset__legend--xl"
-          }
-        },
-        items: [
-          {
-            value: "true",
-            text: "Can manage users and permissions",
-            text: "Can edit all case details (reassign it, change its status, manage permission levels and restrict it).",
-            _hint: {
-              text: "Some hint text"
-            }
-          }
-        ]
-      }) }}
-    {% endset %}
-
 
     <form action="../permissions/save" method="post" class="form">
 
@@ -448,7 +421,7 @@
           {
             value: "view-full",
             text: "View",
-            checked: true if data.teamPermissionsLevel == "view-full",
+            checked: true if (data.teamPermissionsLevel == "view-full") and not (data.team == "new"),
             _hint: {
               text: "View the full case"
             }
@@ -456,7 +429,7 @@
           {
             value: "edit",
             text: "View and edit",
-            checked: true if data.teamPermissionsLevel == "edit",
+            checked: true if data.teamPermissionsLevel == "edit" and not (data.team == "new"),
             _hint: {
               text: "Edit and view the full case"            
             }
@@ -464,9 +437,9 @@
           {
             value: "admin",
             text: "View, edit and manage",
-            checked: true if data.teamPermissionsLevel == "admin",
+            checked: true if data.teamPermissionsLevel == "admin" and not (data.team == "new"),
             hint: {
-              text: "Can set case permissions, add teams to the case and change assignment"
+              text: "Case managers can set case permissions, add teams to the case and change assignment"
             }
           }
         ]
@@ -479,7 +452,7 @@
           },
           {
             value: "view-limited",
-            text: "Remove from case",
+            text: "Remove " + data.team + " from case",
             checked: true if data.teamPermissionsLevel == "view-limited" or data.team == 'new',
             hint: {
               text: "Will still be able to view case details except sensitive information, correspondence, or items that aren't marked as safe"
@@ -558,12 +531,14 @@
 
 
       {# <p class="govuk-body">You can also <a href="">remove the team</a> from the case to return them to default permissions (standard).</p> #}
+      {% if not currentCase.restricted %}
 
       {{ govukWarningText({
         html: "If you want to prevent case details from being seen you can <a href='../restriction'>restrict this case</a>.",
         iconFallbackText: "Warning"
       }) }}
 
+      {% endif %}
       {# {{ govukWarningText({
         html: "You must <a href='../restriction'>restrict the case</a> to stop case details being seen.",
         iconFallbackText: "Warning"

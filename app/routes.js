@@ -262,6 +262,8 @@ router.post(`/pages/case/settings/permissions/save`, function (req, res) {
   let teamName = data.teamName
   let permissionsLevel = data.teamPermissionsLevel
 
+  if (!teamName || !permissionsLevel) res.redirect('/pages/case/settings/permissions');
+
   var existingTeam = false
 
   req.session.data.teamPermissions.forEach(function(team) {
@@ -282,6 +284,10 @@ router.post(`/pages/case/settings/permissions/save`, function (req, res) {
   //     existingTeam = true
   //   }
   // }
+
+  // Reset new variable
+  if (req.session.team == 'new')req.session.data.team == ""
+
   if (!existingTeam){
     console.log("new team")
     req.session.data.teamPermissions.push({
