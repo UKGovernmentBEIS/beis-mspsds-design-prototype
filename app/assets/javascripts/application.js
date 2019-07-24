@@ -52,3 +52,24 @@ $('.opss-filter--hide').click(function(e){
   }
 
 })
+
+// toggle something on the page
+$('.app-toggle-link').click(function(e){
+
+  // don't follow href
+  e.preventDefault()
+
+  // get the button / link
+  var button = $(this)
+
+  // Get the target
+  var targetIdentifer = button.data('target');
+
+  // Should the original button be hidden?
+  var hideLink = button.data('hide-link')
+  if (hideLink == "true" || hideLink) button.addClass('hidden')
+
+  var targetItems = $('.' + targetIdentifer + '.target-item')
+  targetItems.toggleClass('hidden', 0)
+
+})

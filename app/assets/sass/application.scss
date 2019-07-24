@@ -165,7 +165,12 @@ p.govuk-body, h1, h2, h3 {
 .product-image__container {
   border: 1px solid govuk-colour("grey-3");
   @include govuk-responsive-margin(3, "bottom");
-  max-width: 300px;
+  max-width: 50%;
+  width: 200px;
+}
+
+.overview-product-group {
+  @include govuk-responsive-margin(6, "bottom");
 }
 
 .psd--inline-link {
@@ -177,3 +182,8 @@ p.govuk-body, h1, h2, h3 {
     padding-bottom:0;
   }
 }
+
+.hidden {
+  display: none;
+}
+
