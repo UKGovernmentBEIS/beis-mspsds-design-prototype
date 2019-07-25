@@ -17,6 +17,8 @@
 
 {% set significantDateLabel = "Last updated" if currentCase.activities.length > 1 else "Created" %}
 
+{% set hasViewRights = false if (data.hasViewRights == "false") else true %}
+
 {% set caseTitle -%}
 
   {%- if currentCase.type == "Question" -%}
@@ -80,7 +82,7 @@
             text: "Change",
             visuallyHiddenText: "case status",
             classes: "govuk-link--no-visited-state" 
-          } if hasEditRights else []
+          } if (hasEditRights and hasViewRights) else []
         ]
 
       }
@@ -125,7 +127,7 @@
         items: [
           {
             href: "settings/permissions",
-            text: "View or change",
+            text: "View or change" if hasEditRights else 'View',
             visuallyHiddenText: "contact details"
           }
         ]
@@ -216,8 +218,10 @@
         {{ confirmation("confirmation", data['confirmation']) }}
     {% endblock %}
 {% endif %} #}
+<div class="case-nav">
+  {% include "includes/components/case/case-navigation.html" %}
+</div>
 
-{% include "includes/components/case/case-navigation.html" %}
 
 
 
@@ -230,8 +234,15 @@
     <h2 class="govuk-heading-m">Summary</h2>
 
     <p class="govuk-body">{{currentCase.report.summary}}</p>
-
+    {% if hasEditRights %}
     <p class="govuk-body psd--inline-link right-align"><a href="" class="govuk-link govuk-link--no-visited-state">Change summary</a></p>
+    {% endif %}
+
+    {% if not hasViewRights %}
+      {{ govukInsetText({
+        text: "You have default viewing rights only because you are not involved in this case."
+      }) }}
+    {% endif %}
 
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
@@ -265,7 +276,7 @@
                   text: "Change",
                   visuallyHiddenText: "hazard type"
                 }
-              ]
+              ] if hasEditRights else []
             }
           },
           {
@@ -284,7 +295,7 @@
                   text: "Change",
                   visuallyHiddenText: "hazard type"
                 }
-              ]
+              ] if hasEditRights else []
             }
           },
           {
@@ -301,7 +312,7 @@
                   text: "Change",
                   visuallyHiddenText: "contact details"
                 }
-              ]
+              ] if hasEditRights else []
             }
           },
           {
@@ -386,6 +397,8 @@
 
     <h2 class="govuk-heading-m"><a href="" class="govuk-link">Files and attachments</a></h2>
 
+    <p class="govuk-body govuk-hint">Full files and attachments details are not viewable because you are not added to this case.</p>
+
     {{ govukSummaryList({
       classes: 'govuk-summary-list--no-border',
       rows: [
@@ -419,7 +432,7 @@
             text: "View",
             visuallyHiddenText: "name"
           }
-        ]
+        ] if hasViewRights else []
       }
     }
   ]
@@ -464,7 +477,7 @@
             text: "View",
             visuallyHiddenText: "name"
           }
-        ]
+        ] if hasViewRights else []
       }
     },{
       key: {
@@ -480,7 +493,7 @@
             text: "View",
             visuallyHiddenText: "name"
           }
-        ]
+        ] if hasViewRights else []
       }
     }
   ]
@@ -577,17 +590,19 @@
           Report source
         </dt>
         <dd class="govuk-summary-list__value">
-          <p class="govuk-body">Trading Standards Suffolk</p>
+          <p class="govuk-body">Member of public</p>
         </dd>
         
         <div class="govuk-summary-list__actions">
+          {% if hasEditRights %}
           <a class="govuk-link" href="#">
             Change<span class="govuk-visually-hidden"> report source</span>
           </a>
+          {% endif %}
         </div>      
       </div>
 
-      <div class="govuk-summary-list__row">
+      {# <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           TS reference number
         </dt>
@@ -597,22 +612,28 @@
         
         <div class="govuk-summary-list__actions">
         </div>     
-      </div>
+      </div> #}
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           Contact details
         </dt>
         <dd class="govuk-summary-list__value">
+          {% if hasViewRights %}
           <p class="govuk-body">Ed Horsford</p>
           <p class="govuk-body">ed.horsford@suffolk.trading-standards.gov.uk</p>
           <p class="govuk-body">0798989898979</p>
+          {% else %}
+          Details available to teams added to case
+          {% endif %}
         </dd>
         
         <dd class="govuk-summary-list__actions">
+          {% if hasEditRights %}
           <a class="govuk-link" href="#">
             Change<span class="govuk-visually-hidden"> reporter contact details</span>
           </a>
+          {% endif %}
         </dd>     
       </div>
     </dl>
@@ -681,26 +702,48 @@
             
         <div class="hmcts-timeline__item">
           <div class="hmcts-timeline__header">
-            <h3 class="hmcts-timeline__title"><a href="/app/cases/FR1231612322/timeline/81ec86ff-c4b9-40d5-953c-7a528b789118">Case reasssigned to you</a></h3>  
+            <h3 class="hmcts-timeline__title">
+              {% if hasViewRights %}
+              <a href="/app/cases/FR1231612322/timeline/81ec86ff-c4b9-40d5-953c-7a528b789118">Case assigned to you</a>
+              {% else %}
+              Case assigned to Tim Harwood
+              {% endif %}
+
+            </h3>  
             <p class="hmcts-timeline__by">by Jane Doe, OPSS Processing</p>
             <p class="hmcts-timeline__date"><time datetime="2018-09-14T09:38:00.000Z">Fri 14 Sep 2018 at 9:38am</time></p>
           </div>
-          <p class="govuk-body hmcts-timeline__paragraph">John, can you take a look at this please?</p> 
+          {% if hasViewRights %}
+          <p class="govuk-body hmcts-timeline__paragraph">John, can you take a look at this please?</p>
+          {% endif %}
           
         </div>  
         <div class="hmcts-timeline__item">
           <div class="hmcts-timeline__header">
-            <h3 class="hmcts-timeline__title"><a href="/app/cases/FR1231612322/timeline/b4b33a91-7b5d-4045-a3cb-2804f97a6637">Comment added</a></h3>       
+            <h3 class="hmcts-timeline__title">
+              {% if hasViewRights %}
+              <a href="/app/cases/FR1231612322/timeline/b4b33a91-7b5d-4045-a3cb-2804f97a6637">Comment added</a>
+              {% else %}
+              Comment added
+              {% endif %}
+              
+            </h3>       
             <p class="hmcts-timeline__by">by Simon Saint, OPSS Enforcement</p>
             <p class="hmcts-timeline__date"><time datetime="2018-09-12T09:38:00.000Z">Wed 12 Sep 2018 at 9:38am</time></p>
           </div>
-          
-          <p class="govuk-body hmcts-timeline__paragraph">Hey Chris, would you mind taking a...</p> 
+          {% if hasViewRights %}
+          <p class="govuk-body hmcts-timeline__paragraph">Hey Chris, would you mind taking a...</p>{% endif %}
 
         </div>  
         <div class="hmcts-timeline__item">
           <div class="hmcts-timeline__header">
-            <h3 class="hmcts-timeline__title"><a href="/app/cases/FR1231612322/timeline/7e076c8e-3259-4fa4-aaaf-927a88c200f6">Email recorded</a></h3>     
+            <h3 class="hmcts-timeline__title">
+              {% if hasViewRights %}
+                <a href="/app/cases/FR1231612322/timeline/7e076c8e-3259-4fa4-aaaf-927a88c200f6">Email recorded</a>
+              {% else %}
+                Email recorded
+              {% endif %}
+            </h3>     
             <p class="hmcts-timeline__by">by DJ Nightingale</p>
             <p class="hmcts-timeline__date"><time datetime="2018-09-11T16:15:00.000Z">Tue 11 Sep 2018 at 4:15pm</time></p>    
           </div>

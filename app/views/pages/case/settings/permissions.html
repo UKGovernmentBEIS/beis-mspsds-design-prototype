@@ -42,18 +42,25 @@
 
 {% set permissionsByLevel %}
 
-<h3 class="govuk-heading-m">Teams with viewing rights</h3>
-{% set viewFullPermissionsTeams = data.teamPermissions | filterAttr('permissionsLevel', 'view-full') %}
+{# Admin #}
+<h3 class="govuk-heading-m">Teams with full view, edit and managing rights</h3>
+{# <h3 class="govuk-heading-m">Full view, edit and manage</h3> #}
+
+<p class="govuk-hint">Can set case permissions, add teams to the case and change assignment.</p>
+
+{% set managePermissionsTeams = data.teamPermissions | filterAttr('permissionsLevel', 'admin') %}
 <ul class="govuk-list govuk-list--bullet">
-  {% for team in viewFullPermissionsTeams %}
-    <li>{{team.teamName}} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
+  <li>OPSS - Incident management (your team)</li>
+  {% for team in managePermissionsTeams %}
+  <li>{{team.teamName}} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
   {% endfor %}
-  {% if viewFullPermissionsTeams | length < 1 %}
-  <li>No teams</li>
-  {% endif %}
 </ul>
 
-<h3 class="govuk-heading-m">Teams with view and editing rights</h3>
+
+
+{# Editor #}
+<h3 class="govuk-heading-m">Teams with full view and editing rights</h3>
+{# <h3 class="govuk-heading-m">Full view and edit</h3> #}
 {% set viewAndEditPermissionsTeams = data.teamPermissions | filterAttr('permissionsLevel', 'edit') %}
 <ul class="govuk-list govuk-list--bullet">
   {% for team in viewAndEditPermissionsTeams %}
@@ -64,33 +71,10 @@
   {% endif %}
 </ul>
 
-<h3 class="govuk-heading-m">Teams with view, edit and managing rights</h3>
-<p class="govuk-hint">Can set case permissions, add teams to the case and change assignment.</p>
-{% set managePermissionsTeams = data.teamPermissions | filterAttr('permissionsLevel', 'admin') %}
-<ul class="govuk-list govuk-list--bullet">
-  <li>OPSS - Incident management (your team)</li>
-  {% for team in managePermissionsTeams %}
-    <li>{{team.teamName}} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
-  {% endfor %}
-{#   {% if managePermissionsTeams | length < 1 %}
-  <li>No teams</li>
-  {% endif %} #}
-</ul>
-
-
-{# <h3 class="govuk-heading-m">Teams with full editing rights</h3>
-<ul class="govuk-list govuk-list--bullet">
-  <li>Your team (case assignee)
-  {% for team in data.teamPermissions %}
-  {% if team.permissionsLevel == "admin" or team.permissionsLevel == "edit" %}
-    <li>{{team.teamName}} {{"(can manage case) " if team.permissionsLevel =="admin"}}- <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
-  {% endif %}
-  {% endfor %}
-</ul> #}
-
-
-{# <h3 class="govuk-heading-m">Teams with full viewing rights</h3>
-
+{# Full view #}
+<h3 class="govuk-heading-m">Teams with full viewing rights</h3>
+{# <h3 class="govuk-heading-m">Full view</h3> #}
+{% set viewFullPermissionsTeams = data.teamPermissions | filterAttr('permissionsLevel', 'view-full') %}
 <ul class="govuk-list govuk-list--bullet">
   {% for team in viewFullPermissionsTeams %}
     <li>{{team.teamName}} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
@@ -99,62 +83,24 @@
   <li>No teams</li>
   {% endif %}
 </ul>
- #}
-{% set standardPermissionsTeams = data.teamPermissions | filterAttr('permissionsLevel', 'view-limited') %}
 
+{# Full view #}
+<h3 class="govuk-heading-m">Teams with default viewing rights</h3>
+<p class="govuk-hint">Can view the case apart from sensitive information such as correspondence</p>
 
-{# <h3 class="govuk-heading-m">Teams with standard viewing rights</h3>
 <ul class="govuk-list govuk-list--bullet">
-  {% for team in standardPermissionsTeams %}
-    <li>{{team.teamName}} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
-  {% endfor %}
-  {% if not currentCase.restricted %}
-    <li>All other organisations (default)</li>
-  {% else %}
-  {% if standardPermissionsTeams | length < 1 %}
-  <li>No teams</li>
-  {% endif %}
-  {% endif %}
-  
-</ul> #}
-
-{# {% if not currentCase.restricted %}
-<h3 class="govuk-heading-m">All other teams</h3>
-<ul class="govuk-list govuk-list--bullet">
-  <li>
-    <p class="govuk-body">
-    Other teams can view case details except sensitive information, or items that aren't marked as safe.
-    </p>
-
-    <p class="govuk-body">If you don't wan't other teams to be able to view this case you can <a href="restriction">restrict it</a>.</p>
-  </li>
+  <li>All other teams</li>
 </ul>
-{% endif %} #}
 
+<h3 class="govuk-heading-m">Teams who are not involved in this case</h3>
 
-{% endset %}
-
-
-
-{% set defaultPermissionsLevel %}
-
-{# {% if not currentCase.restricted %}
-  <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-6">
-  <h3 class="govuk-heading-m">All other teams</h3>
-  <p class="govuk-body">Other teams have <strong>standard viewing rights</strong> to the case - view case details apart from sensitive items - such as those likely to contain personal data or confidential information.</p>
-  <p class="govuk-body">Other teams can view case details except sensitive information, correspondence, or attachments that aren't marked as safe.</p>
-  <p class="govuk-body">If you don't wan't other teams to be able to view this case you can <a href="restriction">restrict it</a>.</p>
-{% else %} #}
-
-{# <p class="govuk-body">This case is <strong>restricted</strong>. Unless a team or individual has been added to it, they cannot see the case details. They will be able to see who it is assigned to but it will appear as ‘restricted’ in the database.</p>
-
-<p class="govuk-body"><a href="restriction" class="govuk-link">See restriction details.</a></p> #}
-
-{# {% endif %} #}
+<p class="govuk-body">All other teams have default viewing rights. They can view the case apart from sensitive information such as correspondence.</p>
 
 {% endset %}
 
-{% set standardViewRightsHTML %}
+
+
+{# {% set standardViewRightsHTML %}
   <p class="govuk-body">They can view:</p>
   <ul class="govuk-list govuk-list--bullet">
     <li>case details</li>
@@ -170,7 +116,7 @@
     <li>attachments (except product images and test results)</li>
     <li>items marked as ’not safe’</li>
   </ul>
-{% endset %}
+{% endset %} #}
 
 {# Unused #}
 {% set permissionsByTeam %}
@@ -290,54 +236,43 @@
       }) }} 
     {% endif %}
 
-    <p class="govuk-body">The aim of the Product safety database is to encourage the product safety community to share as much information as possible. However, sharing data must be done responsibly so there are 3 permission levels. These are:</p>
-
-     <ol class="govuk-list govuk-list--number">
-      <li>View</li>
-      <li>View and edit</li>
-      <li>View, edit and manage</li>
-    </ol>
-
-
-
-    {% if not currentCase.restricted %}
-    <p class="govuk-body">All other teams can view case details apart from anything likely to contain sensitive information such as correspondence or personal details.</p>
-    <p class="govuk-body">In exceptional circumstances, it's possible to <a href="restriction">restrict this case</a> so that the case details cannot be seen by anyone who is not involved in it.</p>
-    {% endif %}
-
-    {# <h2 class="govuk-heading-m">Full editing rights</h2>
-    <p class="govuk-body">Teams and individuals who are assigned to a case can edit it. They can also give other teams the same permission level. Previously assigned teams keep their edit and view rights but they can be changed later.</p>
-
-    <h2 class="govuk-heading-m">Full viewing rights</h2>
-    <p class="govuk-body">Teams and individuals who are assigned to a case can edit it. They can also give other teams the same permission level. Previously assigned teams keep their edit and view rights but they can be changed later.</p>
-
-    <h2 class="govuk-heading-m">Standard viewing rights</h2>
-    <p class="govuk-body">Teams and individuals who are assigned to a case can edit it. They can also give other teams the same permission level. Previously assigned teams keep their edit and view rights but they can be changed later.</p> #}
-
-    {# <p class="govuk-body">Teams and individuals who are assigned to a case can edit it in full. They can also give other teams the same permission level. Previously assigned teams keep their edit rights but they can be changed later.</p> #}
-
-    {# <p class="govuk-body">You can give other teams edit or view rights if you would like them to be able to edit or view the full case detalis.</p> #}
 
     {# <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-6"> #}
 
     {{permissionsByLevel | safe}}
 
     {{ govukButton({
-      text: "Add a team to the case",
+      text: "Add a team",
       href: "permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team=new"
     }) }}
 
+    <h2 class="govuk-heading-m">The 4 permissions levels</h2>
+
+    <p class="govuk-body">The aim of the Product safety database is to encourage the product safety community to share as much information as possible. However, sharing data must be done responsibly and there are different permission levels which correspond to a team’s level of involvement.</p>
+
+    <p class="govuk-body">There are 4 permission levels.</p>
+
+    <p class="govuk-body">Teams who are currently involved in the case have one of the following:</p>
+     <ol class="govuk-list govuk-list--number">
+      <li>Full view, edit and manage.</li>
+      <li>Full view and edit.</li>
+      <li>Full view.</li>
+ 
+
+    </ol>
+
+    <p class="govuk-body">Teams who are not involved in a case have:</p>
+    <ol class="govuk-list govuk-list--number" start='4'>
+      <li>Default view.</li>
+    </ol>
 
 
 
-    {{defaultPermissionsLevel | safe}}
+    {% if not currentCase.restricted %}
+    <p class="govuk-body">In exceptional circumstances, it's possible to <a href="restriction">restrict this case</a> so that the case details cannot be seen by anyone who is not involved in it.</p>
+    {% endif %}
 
-    {# {% if not currentCase.restricted %}
-      {{ govukDetails({
-        summaryText: "What other teams will and won't be able to see",
-        html: standardViewRightsHTML
-      }) }}
-    {% endif %} #}
+
 
     
     {# <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"> #}
@@ -387,8 +322,9 @@
   </div>
 
   <div class="govuk-grid-column-one-third">
-
-  </div>
+    <h3 class="govuk-heading-m">Related</h3>
+    <p class="govuk-body"><a href="#" class="govuk-link">Restriction</a>
+  </div></p>
 </div>
 
 
