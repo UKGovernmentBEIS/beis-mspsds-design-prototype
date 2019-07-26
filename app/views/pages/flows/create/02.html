@@ -1,28 +1,110 @@
 {% extends "includes/templates/flow--creation.html" %}
 
-{% set displayTitle        = 'New '+ data['new']['report']['type'] %}
-{% set formAction         = './03' %}
-
-
-{% if data['new']['report']['type'] == 'Allegation' %}
-  {% set reportLabel = 'Who\'s making the allegation?' %}
-
-{% elif data['new']['report']['type'] == 'Question' %}
-  {% set reportLabel = 'Who did the question come from?' %}
-
-{% elif data['new']['report']['type'] == 'Recall' %}
-  {% set reportLabel = 'Who\'s reporting the recall?' %}
-
-{% elif data['new']['report']['type'] == 'Notification' %}
-  {% set reportLabel = 'Who\'s making the notification?' %}
-
-{% endif %}
-
+{% set displayTitle  = 'About the enquiry' %}
+{% set formAction  = './03a' %}
 
 {% block flow %}
 <form action="{{formAction}}" method="post" class="form">
   <div class="govuk-grid-row">
-    {% include "includes/components/shared/create/reporter-type-select.html" %}
+    {# {% include "includes/components/shared/create/reporter-type-select.html" %} #}
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      {# <h1 class="govuk-heading-l">About the enquiry</h1> #}
+
+      {% set receiveDateOther %}
+        {{ govukDateInput({
+          id: "receiveDateOther",
+          namePrefix: "passport-issued",
+          fieldset: {
+            legend: {
+              text: "What date was it received?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--s govuk-visually-hidden"
+            }
+          }, 
+          _hint: {
+            text: "For example, 24 06 2019"
+          }
+        }) }}
+
+
+      {% endset %}
+
+      {{ govukRadios({
+        idPrefix: "when-received",
+        name: "when-received",
+        fieldset: {
+          legend: {
+            text: "When was it received?",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "today",
+            text: "Today"
+          },
+          {
+            value: "yesterday",
+            text: "Yesterday"
+          },
+          {
+            value: "other-date",
+            text: "Other date",
+            conditional: {
+              html: receiveDateOther
+            }
+          }
+        ]
+      }) }}
+
+      {% set howRecievedOtherHTML %}
+        {{ govukInput({
+          label: {
+            text: "Method of communication",
+            classes: "govuk-visually-hidden"
+          },
+          id: "how-received-other",
+          name: "how-received-other",
+          classes: "govuk-!-width-one-half"
+        }) }}
+
+
+      {% endset %}
+
+      {{ govukRadios({
+        idPrefix: "how-received",
+        name: "how-received",
+        fieldset: {
+          legend: {
+            text: "How was it received?",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "email",
+            text: "Email"
+          },
+          {
+            value: "phone",
+            text: "Phone"
+          },
+          {
+            value: "other",
+            text: "Other",
+            conditional: {
+              html: howRecievedOtherHTML
+            },
+            _hint: {
+              text: "For example: some text"
+            }
+          }
+        ]
+      }) }}
+
+    </div>
   </div>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">

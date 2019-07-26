@@ -1,0 +1,36 @@
+{% extends "includes/templates/flow--creation.html" %}
+
+{% set displayTitle        = 'New '+ (data['new']['report']['type'] | lower) %}
+{% set formAction         = './03b' %}
+
+
+{% if data['new']['report']['type'] == 'Allegation' %}
+  {% set reportLabel = 'Who\'s making the allegation?' %}
+
+{% elif data['new']['report']['type'] == 'Question' %}
+  {% set reportLabel = 'Who made the enquiry?' %}
+
+{% elif data['new']['report']['type'] == 'Recall' %}
+  {% set reportLabel = 'Who\'s reporting the recall?' %}
+
+{% elif data['new']['report']['type'] == 'Notification' %}
+  {% set reportLabel = 'Who\'s making the notification?' %}
+
+{% endif %}
+
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+  <div class="govuk-grid-row">
+    {% include "includes/components/shared/create/reporter-type-select.html" %}
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% from "button/macro.njk" import govukButton %}
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </div>
+  </div>
+</form>
+{% endblock %}
