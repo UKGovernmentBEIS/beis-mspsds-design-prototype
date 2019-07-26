@@ -257,6 +257,22 @@ router.post(`/pages/case/settings/restriction/save`, function (req, res) {
   res.redirect(redirectURL);
 });
 
+router.get(`/pages/case/settings/restriction/on`, function (req, res) {
+  const data = req.session.data;
+  data.caseId = '0132-1421'
+  Cases.changeVisibility(data, true)
+  let redirectURL = '/root/case/overview?caseid=0132-1421&currentPage=case&productid=&businessid&signedIn=Yes&currentTeam=Trading%20Standards&currentUser=Tim%20Harwood&hasViewRights=true';
+  res.redirect(redirectURL);
+});
+
+router.get(`/pages/case/settings/restriction/off`, function (req, res) {
+  const data = req.session.data;
+  data.caseId = '0132-1421'
+  Cases.changeVisibility(data, false)
+  let redirectURL = '/root/case/overview?caseid=0132-1421&currentPage=case&productid=&businessid&signedIn=Yes&currentTeam=Trading%20Standards&currentUser=Tim%20Harwood&hasViewRights=true';
+  res.redirect(redirectURL);
+});
+
 router.post(`/pages/case/settings/permissions/save`, function (req, res) {
   const data = req.session.data;
   let teamName = data.teamName
