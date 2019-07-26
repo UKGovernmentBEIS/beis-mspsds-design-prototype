@@ -1,0 +1,576 @@
+{# {{ govukTable({
+  caption: "Permission levels",
+  firstCellIsHeader: true,
+  head: [
+    {
+      text: "Type of data"
+    },
+    {
+      text: "Edit or manage"
+    },
+    {
+      text: "Full view"
+    },
+    {
+      text: "Default view"
+    }
+  ],
+  rows: [
+  [
+      {
+        text: "Case title"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      }
+    ],
+    [
+      {
+        text: "Case summary"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      }
+    ],
+    [
+      {
+        text: "Case creator and assignee"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      }
+    ],
+    [
+      {
+        text: "Reporter"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view (if reporter is from within government)"
+      }
+    ],
+    [
+      {
+        text: "Comments"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view and add"
+      },
+      {
+        text: "view and add"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Case notes"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "metadata only"
+      }
+    ],
+    [
+      {
+        text: "Products"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      }
+    ],
+    [
+      {
+        text: "Businesses"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      }
+    ],
+    [
+      {
+        text: "Corrective actions"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      }
+    ],
+    [
+      {
+        text: "Incidents"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "summary only"
+      }
+    ],
+    [
+      {
+        text: "Activity log"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "metadata only"
+      }
+    ],
+    [
+      {
+        text: "Product images, test result attachments"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      }
+    ],
+    [
+      {
+        text: "Other attachments"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "metadata only"
+      }
+    ],
+    [
+      {
+        text: "Test results"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      }
+    ],
+    [
+      {
+        text: "Correspondence"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Items marked as 'safe'"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      }
+    ],
+    [
+      {
+        text: "Items marked as 'not-safe'"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "✗"
+      }
+    ]
+  ]
+}) }} #}
+
+{{ govukTable({
+  caption: "Permission levels",
+  firstCellIsHeader: true,
+  classes: 'table-delete-column-5',
+  head: [
+    {
+      text: "Type of data"
+    },
+    {
+      text: "Edit or manage"
+    },
+    {
+      text: "Full view"
+    },
+    {
+      text: "Teams not involved in case (default view)",
+      text: "Default view"
+    },
+    {
+      text: "Restricted"
+    }
+  ],
+  rows: [
+  [
+      {
+        text: "Case title"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view ‘safe’ title"
+      }
+    ],
+    [
+      {
+        text: "Case summary"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Case creator and assignee"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      }
+    ],
+    [
+      {
+        text: "Reporter"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view (if reporter is from government)"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Comments"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view and add"
+      },
+      {
+        text: "view and add"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Case notes"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "metadata only"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Products"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Businesses"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Corrective actions"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Incidents"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "summary only"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Activity log"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "metadata only"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Product images, test result attachments"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Other attachments"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "metadata only"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Test results"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Correspondence"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "✗"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Items marked as 'safe'"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "✗"
+      }
+    ],
+    [
+      {
+        text: "Items marked as 'not-safe'"
+      },
+      {
+        text: "edit"
+      },
+      {
+        text: "view"
+      },
+      {
+        text: "✗"
+      },
+      {
+        text: "✗"
+      }
+    ]
+  ]
+}) }}

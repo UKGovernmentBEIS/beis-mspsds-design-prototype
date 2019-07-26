@@ -187,3 +187,11 @@ p.govuk-body, h1, h2, h3 {
   display: none;
 }
 
+.table-delete-column-5 {
+  th:nth-child(5), td:nth-child(5) {
+    display:none;
+  }
+  th:nth-child(4), td:nth-child(4) {
+    padding-right: 0;
+  }
+}

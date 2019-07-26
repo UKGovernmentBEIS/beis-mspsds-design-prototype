@@ -52,7 +52,9 @@
 <ul class="govuk-list govuk-list--bullet">
   <li>OPSS - Incident management (your team)</li>
   {% for team in managePermissionsTeams %}
-  <li>{{team.teamName}} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
+  <li>{{team.teamName}}
+    {% if hasEditRights %}- <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
+    {% endif %}
   {% endfor %}
 </ul>
 
@@ -64,7 +66,7 @@
 {% set viewAndEditPermissionsTeams = data.teamPermissions | filterAttr('permissionsLevel', 'edit') %}
 <ul class="govuk-list govuk-list--bullet">
   {% for team in viewAndEditPermissionsTeams %}
-    <li>{{team.teamName}} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
+    <li>{{team.teamName}}{% if hasEditRights %} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a>{% endif %}</li>
   {% endfor %}
   {% if viewAndEditPermissionsTeams | length < 1 %}
   <li>No teams</li>
@@ -77,7 +79,7 @@
 {% set viewFullPermissionsTeams = data.teamPermissions | filterAttr('permissionsLevel', 'view-full') %}
 <ul class="govuk-list govuk-list--bullet">
   {% for team in viewFullPermissionsTeams %}
-    <li>{{team.teamName}} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
+    <li>{{team.teamName}}{% if hasEditRights %} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a>{% endif %}</li>
   {% endfor %}
   {% if viewFullPermissionsTeams | length < 1 %}
   <li>No teams</li>
@@ -85,16 +87,26 @@
 </ul>
 
 {# Full view #}
-<h3 class="govuk-heading-m">Teams with default viewing rights</h3>
+{# <h3 class="govuk-heading-m">Teams with default viewing rights</h3>
 <p class="govuk-hint">Can view the case apart from sensitive information such as correspondence</p>
 
 <ul class="govuk-list govuk-list--bullet">
   <li>All other teams</li>
-</ul>
+</ul> #}
 
+{% if currentCase.restricted %}
+<h3 class="govuk-heading-m">This case has been restricted</h3>
+
+
+
+<p class="govuk-body">All other teams{{", including yours " if not hasEditRights else " "}}cannot view it. See <a href="restriction.html">why this case has been restricted</a>.</p>
+
+{% else %}
 <h3 class="govuk-heading-m">Teams who are not involved in this case</h3>
 
 <p class="govuk-body">All other teams have default viewing rights. They can view the case apart from sensitive information such as correspondence.</p>
+{% endif %}
+
 
 {% endset %}
 
@@ -141,7 +153,7 @@
       
       <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
         <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
-          <span class="teams__user_name">OPSS - Incident management</span> 
+          <span class="teams__user_name">OPSS - incident management</span> 
           {# <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span> #}
         </h3>
         <p class="govuk-body">Permissions level: <strong>edit</strong></p>
@@ -241,10 +253,14 @@
 
     {{permissionsByLevel | safe}}
 
+    {% if hasEditRights %}
+
     {{ govukButton({
       text: "Add a team",
       href: "permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team=new"
     }) }}
+
+    {% endif %}
 
     <h2 class="govuk-heading-m">The 4 permissions levels</h2>
 
@@ -266,10 +282,21 @@
       <li>Default view.</li>
     </ol>
 
+    {% set detailsHTML %}
+      {% include "includes/components/shared/permissions-table.html" %}
+    {% endset %}
+
+    {{ govukDetails({
+      summaryText: "What can be seen at each permission level",
+      html: detailsHTML,
+      open: false
+    }) }}
+
 
 
     {% if not currentCase.restricted %}
-    <p class="govuk-body">In exceptional circumstances, it's possible to <a href="restriction">restrict this case</a> so that the case details cannot be seen by anyone who is not involved in it.</p>
+    <h3 class="govuk-heading-s">Restricting a case</h3>
+    <p class="govuk-body">In exceptional circumstances, people with full view, edit and managing rights can <a href="restriction">restrict a case</a>.</p>
     {% endif %}
 
 
@@ -278,45 +305,6 @@
     {# <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"> #}
 
 
-    {% set detailsHTML %}
-
-      <p class="govuk-body">Cases can be marked as restricted when the details need to be withheld from other authorised users of the service. This may happen when a case is proceeding to court, or when it contains confidential information.</p>
-
-      <p class="govuk-body">Most day-to-day cases should not be restricted.</p>
-
-      <p class="govuk-body">What can not be seen:</p>
-
-      <ul class="govuk-list govuk-list--bullet">
-        <li>who or what the case is about</li>
-        <li>business names, brand names, addresses</li>
-        <li>any details about the case, such as files, incidents, reports</li>
-      </ul>
-
-      <p class="govuk-body">What can still be seen:</p>
-
-      <ul class="govuk-list govuk-list--bullet">
-        <li>case metadata like date created and owner</li>
-        <li>the category of product and type of case</li>
-        <li>a restricted access summary</li>
-      </ul>
-
-      
-
-      <p class="govuk-body">Who will be able to see the case:</p>
-
-      <ul class="govuk-list govuk-list--bullet">
-        <li>the current case owner and team</li>
-        <li>any teams with view or edit access</li>
-      </ul>
-
-      <p class="govuk-body">Only case admins can restrict or unrestrict a case.</p>
-
-    {% endset %}
-  
-
-    {% set restrictionButtonText %}
-    {% if currentCase.restricted %}Unrestrict this case{% else %}Restrict this case{% endif %}
-    {% endset %}
 
    
   </div>
