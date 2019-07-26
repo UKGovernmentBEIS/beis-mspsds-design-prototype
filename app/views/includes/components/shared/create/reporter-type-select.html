@@ -1,7 +1,73 @@
 
   <div class="govuk-grid-column-two-thirds">
 
+    {% set businessNameHTML %}
+      {{ govukInput({
+        label: {
+          text: "Business name"
+        },
+        id: "event-name",
+        name: "new[report][reporter][orgName]",
+        classes: "govuk-!-width-one-half"
+      }) }}
 
+    {% endset %}
+
+    {% set tradingStandardsNameHTML %}
+      {{ autocompleteInput({
+        idPrefix:   'trading-standards-name',
+        name:       'new[report][reporter][orgName]',
+        class:      "govuk-label govuk-!-margin-bottom-1",
+        legend:     "Select Trading Standards organisation", 
+        _hint:       "",
+        values:     ['Bristol Trading Standards', 'Birmingham Trading Standards'] 
+      }) }}
+    {% endset %}
+
+    {% set localAuthorityNameHTML %}
+      {{ localAuthorityAutocomplete({
+        idPrefix:   'localAuthorityName',
+        name:       'new[report][reporter][orgName]',
+        class:      "govuk-label govuk-!-margin-bottom-1",
+        legend:     "Select authority"
+      }) }}
+      {% endset %}
+
+    {% set departmentOrAgencyNameHTML %}
+      {{ departmentOrAgencyAutocomplete({
+        idPrefix:   'departmentOrAgencyName',
+        name:       'new[report][reporter][orgName]',
+        class:      "govuk-label govuk-!-margin-bottom-1",
+        legend:     "Select department or agency"
+      }) }}
+
+    {% endset %}
+
+    {% set opssStakeholderNameHTML %}
+      {{ autocompleteInput({
+        idPrefix:   'stakeholder-name',
+        name:       'new[report][reporter][orgName]',
+        class:      "govuk-label govuk-!-margin-bottom-1",
+        legend:     "Select stakeholder", 
+        _hint:       "",
+        values:     ['Electrical safety first', 'National Testing Laboratory','Which?','Whirlpool'] 
+      }) }}
+
+
+
+    {% endset %}
+
+    {% set otherNameHTML %}
+      {{ govukInput({
+        label: {
+          text: "Organisation name"
+        },
+        id: "event-name",
+        name: "new[report][reporter][orgName]",
+        classes: "govuk-!-width-one-half"
+      }) }}
+
+    {% endset %}
 
     {% call govukFieldset({
       legend: {
@@ -17,27 +83,52 @@
             items: [
               {
                 value: "Consumer",
-                text: "A consumer"
+                text: "A member of the public"
               },
               {
                 value: "Business",
-                text: "A business"
+                text: "A business",
+                conditional: {
+                  html: businessNameHTML
+                }
               },
               {
-                value: "Local authority (Trading standards)",
-                text: "Local authority (Trading standards)"
+                value: "Trading standards",
+                text: "Trading Standards",
+                conditional: {
+                  html: tradingStandardsNameHTML
+                }
+              },
+              {
+                value: "Local authority",
+                text: "A local authority",
+                conditional: {
+                  html: localAuthorityNameHTML
+                }
               },
               {
                 value: "Other government department",
-                text: "Other government department"
+                text: "A government department or agency",
+                conditional: {
+                  html: departmentOrAgencyNameHTML
+                }
               },
               {
-                value: "Emergency service",
-                text: "Emergency service"
+                value: "stakeholder",
+                text: "An OPSS stakeholder",
+                conditional: {
+                  html: opssStakeholderNameHTML
+                }
               },
               {
-                value: "Internal",
-                text: "Internal"
+                divider: "or"
+              },
+              {
+                value: "Other",
+                text: "Other",
+                conditional: {
+                  html: otherNameHTML
+                }
               }
             ]
           }) }}

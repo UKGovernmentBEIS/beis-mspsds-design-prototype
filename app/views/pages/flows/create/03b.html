@@ -1,5 +1,5 @@
 {% extends "includes/templates/flow--creation.html" %}
-{% set displayTitle        = 'New '+ data['new']['report']['type']%}
+{% set displayTitle        = 'New '+ (data['new']['report']['type'] | lower) %}
 {% set formAction         = './04' %}
 
 {% block flow %}
