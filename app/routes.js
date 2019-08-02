@@ -422,8 +422,16 @@ const setCaseDefaults = (req) => {
   _.set(data, 'new.status', "Open")
   _.set(data, 'new.assignee', data.currentUser)
   _.set(data, 'new.report.product.items', [])
+  _.set(data, 'currentPage', 'Case')
+  _.set(data, 'navActive', 'Case')
+
 }
 
+const logInAsTradingStandards = (req) => {
+  var data = req.session.data
+  _.set(data, 'signedIn', 'Yes')
+  _.set(data, 'currentTeam', 'Trading Standards')
+}
 
 // Reset data when visiting new
 router.get('/pages/flows/create-new', function (req, res, next) {
@@ -437,6 +445,7 @@ router.get('/pages/flows/create-new', function (req, res, next) {
 
   // set case no / assignee, etc
   setCaseDefaults(req)
+  logInAsTradingStandards(req)
 
   // Support a case type passed via query string - so we can
   // bypass the first question
@@ -459,12 +468,26 @@ router.get('/pages/flows/create-new/overview', function (req, res, next) {
   // TEMP for prototype
   var caseType = _.get(data, 'new.report.type')
   if (!caseType) {
-    _.set(data, 'new.report.type', 'Report')
-    _.set(data, 'signedIn', 'Yes')
-    _.set(data, 'currentTeam', 'Trading Standards')
+
     setCaseDefaults(req)
+    logInAsTradingStandards(req)
+    _.set(data, 'new.report.type', 'Report')
   }
   next();
+});
+
+router.post('/pages/flows/create-new/title-and-summary', function (req, res) {
+  const data = req.session.data;
+  const caseTitle = data.new.title
+  const caseSummary = data.new.report.summary
+  if (!caseTitle || !caseSummary) {
+    res.redirect('/pages/flows/create-new/title-and-summary')
+  }
+  else {
+    _.set(data, 'new.report[title-and-summary].complete', true)
+    res.redirect('/pages/flows/create-new/overview');
+  }
+
 });
 
 // Product index page
@@ -510,7 +533,13 @@ router.post('/pages/flows/create-new/product/:index/generic-or-specific', functi
   var questionData = data.product.class
   if (questionData) {
     if (questionData == 'specific'){
-      res.redirect('/pages/flows/create-new/product/'+index +'/search')
+      if (index == 'new'){
+        res.redirect('/pages/flows/create-new/product/'+index +'/search')
+      }
+      else {
+        res.redirect('/pages/flows/create-new/product/'+index +'/category')
+      }
+      
     }
     if (questionData == 'generic'){
       res.redirect('/pages/flows/create-new/product/'+index +'/category')
@@ -528,6 +557,7 @@ router.post('/pages/flows/create-new/product/:index/save', function (req, res, n
   var index = req.params.index
 
   var productItems = _.get(data, 'new.report.product.items')
+  if (!productItems) _.set(data, 'new.report.product.items', []) //just to be safe
   var productData = data.product
 
   if (index == 'new') {
@@ -541,6 +571,13 @@ router.post('/pages/flows/create-new/product/:index/save', function (req, res, n
   res.redirect('/pages/flows/create-new/product/index')
 });
 
+
+router.post('/pages/flows/create-new/save', function (req, res) {
+  const data = req.session.data;
+  newCase = Cases.addCase(data);
+  Reset.resetNew(req);
+  res.redirect('/root/case/overview?caseid=' + newCase.id);
+});
 
 // Add your routes here - above the module.exports line
 module.exports = router;

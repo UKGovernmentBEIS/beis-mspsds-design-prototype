@@ -1,0 +1,63 @@
+{% extends "includes/templates/flow-create-new.html" %}
+{% set pageHeading        = 'Title and summary' %}
+{% set formAction         = '' %}
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+
+  <h1 class="govuk-heading-l">{{pageHeading}}</h1>
+
+  {{ govukInput({
+    label: {
+      text: caseType + " title",
+      classes: "govuk-label--m"
+    },
+    hint: {
+      text: "A descriptive title so that the " + (caseType | lower) + " can be recognised"
+    },
+    id: "input-name",
+    name: "new[title]",
+    classes: "govuk-!-width-two-thirds",
+    value: data.new.report.title
+  }) }}
+
+  {{ govukTextarea({
+    name: "new[report][summary]",
+    id: "more-detail",
+    label: {
+      text: caseType + " summary",
+      classes: "govuk-label--m"
+    },
+    hint: {
+      text: "A high level summary of the " + (caseType | lower)
+    },
+    value: data.new.report.summary
+  }) }}
+
+    {# {% if data['new']['report']['type'] == 'Allegation' %}
+      {% include "includes/components/shared/create/allegation-info.html" %}
+
+    {% elif data['new']['report']['type'] == 'Question' %}
+      {% include "includes/components/shared/create/question-info.html" %}
+
+    {% elif data['new']['report']['type'] == 'Project' %}
+      {% include "includes/components/shared/create/project-info.html" %}
+
+    {% elif data['new']['report']['type'] == 'Recall' %}
+      {% include "includes/components/shared/create/recall-info.html" %}
+
+    {% elif data['new']['report']['type'] == 'Notification' %}
+      {% include "includes/components/shared/create/notification-info.html" %}
+
+    {% endif %} #}
+
+    <div class="govuk-form-group">
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </div>
+
+      
+
+</form>
+{% endblock %}

@@ -15,8 +15,14 @@
     {% if data.hint %}
       <span class="govuk-hint">{{data.hint | safe}}</span>
     {% endif %}
+    
+    {% if not data.width %}
+      {% set width = 'govuk-!-width-one-half' %}
+    {% else %}
+      {% set width = data.width %}
+    {% endif %}
 
-    <div class="mspsds-autocomplete govuk-!-width-one-half" id="{{data.idPrefix}}-autocomplete-container"></div>
+    <div class="mspsds-autocomplete {{width}}" id="{{data.idPrefix}}-autocomplete-container"></div>
 
     <style>#{{data.idPrefix}}-autocomplete-container .autocomplete__dropdown-arrow-down{z-index: 0}</style>
 
@@ -25,12 +31,15 @@
 
       element = document.querySelector('#{{data.idPrefix}}-autocomplete-container');
       id = '{{data.idPrefix}}-autocomplete';
+      defaultValue = '{{data.value}}';
+
       accessibleAutocomplete({
         element: element,
         id: id,
         name: "{{data.name}}",
         showAllValues: true,
-        source: values
+        source: values,
+        defaultValue: defaultValue
       });
     </script>
 

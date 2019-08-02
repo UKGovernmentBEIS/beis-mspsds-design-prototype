@@ -1,0 +1,56 @@
+{% macro autocompleteCountry(data) %}
+
+    {% if data.legend %}
+      <legend for="{{data.idPrefix}}-autocomplete" class="{{class}} ">
+        {{data.legend}}
+      </legend>
+    {% endif %}
+
+    {% if data.hint %}
+      <span class="govuk-hint">{{data.hint | safe}}</span>
+    {% endif %}
+    {% from "select/macro.njk"        import govukSelect %}
+    {% from "fieldset/macro.njk"      import govukFieldset %}
+
+    {% call govukFieldset({
+      legend: {
+        text: data.label,
+        classes: "govuk-fieldset__legend--m"
+      }
+    }) %}
+
+    {{ govukSelect({
+      id: "country-autocomplete",
+      name: data.name,
+      classes: data.classes,
+      formGroup: {
+        classes: "mspsds-autocomplete " + data.width
+      },
+      _label: {
+        text: data.label
+      },
+      items: [
+        {
+          value: "1",
+          text: ""
+        },
+        {
+          value: "",
+          text: "2"
+        }
+      ]
+    }) }}
+
+    {% endcall %}
+
+    <script type="text/javascript">
+      var values = [{% for value in data.values %}"{{value}}",{% endfor %}];
+
+      openregisterLocationPicker({
+        selectElement: document.getElementById('country-autocomplete'),
+        url: '/public/javascripts/location-autocomplete-graph.json',
+        defaultValue: '{{data.value}}'
+      })
+    </script>
+
+{% endmacro %}

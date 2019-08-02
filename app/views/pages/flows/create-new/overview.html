@@ -1,13 +1,16 @@
 {% extends "includes/templates/flow-create-new.html" %}
 {% set pageHeading        = data.new.report.type + ' overview' %}
-{% set formAction         = './issue-type' %}
+{% set formAction         = './save' %}
 {% set hideReturnLink = true %}
 {% set report = data.new.report %}
 
 {% block flow %}
 
 <h1 class="govuk-heading-l">{{pageHeading}}</h1>
-<p class="govuk-body-l">Fill in the below sections to create your {{caseType | lower}}.</p>
+{% if data.new.title %}
+<p class="govuk-body-l">{{data.new.title}}</p>
+{% endif %}
+{# <p class="govuk-body-l">Fill in the below sections to create your {{caseType | lower}}.</p> #}
 
 
 
@@ -78,22 +81,9 @@
       <span class="app-task-list__section-number">2. </span> Required information
     </h2>
     <ul class="app-task-list__items">
-      <li class="app-task-list__item">
-        <span class="app-task-list__task-name">
-          <a href="#" aria-describedby="company-information-completed">
-            Title and {{caseType | lower}} summary
-          </a>
-        </span>
-        {# <strong class="govuk-tag app-task-list__task-completed" id="company-information-completed">Completed</strong> #}
-      </li>
-      <li class="app-task-list__item">
-        <span class="app-task-list__task-name">
-          <a href="#" aria-describedby="contact-details-completed">
-            Categories
-          </a>
-        </span>
-        {# <strong class="govuk-tag app-task-list__task-completed" id="contact-details-completed">Completed</strong> #}
-      </li>
+      {{ taskListItem('Title and ' + (caseType | lower) + ' summary', "title-and-summary", status="Complete" if data.new.report['title-and-summary'].complete else report['title-and-summary'].status)}}
+      
+      {{ taskListItem('Categories', "categories", status="Complete" if data.new.report['categories'].complete else report['categories'].status)}}
     </ul>
   </li>
   <li>
@@ -107,11 +97,11 @@
       {{ taskListItem('Add product details', "./product/index.html", extra = report.product.items | length +  ' product added' if report.product.items | length != 0, status="Complete" if data.new.report.product.complete else report.product.status)}}
       {{ taskListItem('Add hazard and risk details', "#")}}
       {{ taskListItem('Add businesses involved in case', "#")}}
-      {{ taskListItem('Add test results', "#")}}
+      {{ taskListItem('Add test results', "#", status="Can't start yet")}}
       {{ taskListItem('Add background information', "#")}}
       {{ taskListItem('Upload files and other attachments', "#")}}
       {{ taskListItem('Details of where the case came from', "#")}}
-      {{ taskListItem('Check case settings', "#")}}
+      {{ taskListItem('Check case metadata and settings', "#")}}
     </ul>
   </li>
 </ol>

@@ -1,6 +1,8 @@
 {% extends "includes/templates/flow-create-new.html" %}
 {% set pageHeading        = 'Product categorisation' %}
-{% set formAction         = './details' %}
+{% set formAction         = './save' if data.product.class == 'generic' else './general-details' %}
+{% set returnLink = {href:'/pages/flows/create-new/product/index', text: 'Return to products'} %}
+
 
 {% block flow %}
 <form action="{{formAction}}" method="post" class="form">
@@ -13,22 +15,23 @@
       legend:   "High level category",
       class:    "govuk-fieldset__legend--m govuk-!-margin-bottom-1",
       hint:     "For example, clothing or white goods",
+      value:    data.new.report.product.items[currentItemIndex].category,
       values:   data.productTypes}) 
     }}
 
     {{ govukInput({
-          label: {
-            text: "Product type",
-            classes: "govuk-label--m"
-          },
-          hint: {
-            html: "For example, dishwasher or plug adapter"
-          },
-          id: "report-product-type",
-          name: "product[productType]",
-          classes: "govuk-!-width-one-half",
-          value: data['new']['report']['product']['items'][currentItemIndex]['productType']
-        }) }}
+      label: {
+        text: "Product type",
+        classes: "govuk-label--m"
+      },
+      hint: {
+        html: "For example, dishwasher or plug adapter"
+      },
+      id: "report-product-type",
+      name: "product[productType]",
+      classes: "govuk-!-width-one-half",
+      value: data['new']['report']['product']['items'][currentItemIndex]['productType']
+    }) }}
 
 
     <div class="govuk-form-group">

@@ -6,13 +6,15 @@
 
 {% set caseType = data.new.report.type %}
 {% set report = data.new.report %}
+{% set navActive = 'cases' %}
 
 
 
 
 
 {% if not backLink %}
-    {% set backLink      = '/root/case?caseid='+data['caseid']  %}
+    {# {% set backLink      = '/root/case?caseid='+data['caseid']  %} #}
+    {% set backLink      = 'javascript:history.back();' %}
 {% endif %}
 {% if not backText %}
     {# {% set backText      = 'Back to Case '+data['caseid']  %} #}
@@ -58,8 +60,14 @@
     <div class="govuk-grid-column-two-thirds">
       {% block flow %}
       {% endblock %}
-      {% if not hideReturnLink %}
+      {% if not hideReturnLink %} 
+      {% if returnLink %}
+        <p class="govuk-body"><a href="{{returnLink.href}}" class="govuk-link">{{returnLink.text}}</a></p>
+      {% else %}
         <p class="govuk-body"><a href="/pages/flows/create-new/overview" class="govuk-link">Return to {{caseType | lower }} overview</a></p>
+      {% endif %}
+
+        
       {% endif %}
     </div>
     <div class="govuk-grid-column-one-third">
