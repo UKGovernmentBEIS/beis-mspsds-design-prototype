@@ -1,0 +1,93 @@
+{% extends "mspsds-layout.html" %}
+
+{% set currentPage   = data['currentPage'] %}
+{# {% set currentCase = currentCase | attachCaseChildren(data) %} #}
+{% set currentCase = data.cases | withId(data['caseid']) %}
+
+{% set caseType = data.new.report.type %}
+{% set report = data.new.report %}
+
+
+
+
+
+{% if not backLink %}
+    {% set backLink      = '/root/case?caseid='+data['caseid']  %}
+{% endif %}
+{% if not backText %}
+    {# {% set backText      = 'Back to Case '+data['caseid']  %} #}
+    {% set backText      = 'Back'  %}
+{% endif %}
+    
+{% if backLink == 'false' %}
+    {% set backLink = false %}
+{% endif %}
+
+{% if backText == 'false' %}
+    {% set backText = '' %}
+{% endif %}
+
+
+{% block pageTitle %}
+  {{ pageHeading }} - {{serviceName}} - GOV.UK
+{% endblock %}
+
+{% block beforeContent %}
+
+    {# {% include "includes/components/shared/page-banner.html" %} #}
+
+    {% block navigation %}
+
+        {% if backLink %}
+            {{ govukBackLink({
+                text: backText,
+                href: backLink
+            }) }}
+        {% endif %}
+    {% endblock %}
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+    
+    <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% block flow %}
+      {% endblock %}
+      {% if not hideReturnLink %}
+        <p class="govuk-body"><a href="/pages/flows/create-new/overview" class="govuk-link">Return to {{caseType | lower }} overview</a></p>
+      {% endif %}
+    </div>
+    <div class="govuk-grid-column-one-third">
+      <h2 class="govuk-heading-m">Related</h2>
+      <h2 class="govuk-heading-m">Prototype stuff</h2>
+      <p class="govuk-body">Case id: {{data.caseId}}</p>
+      <p class="govuk-body">New id: {{data.new.id}}</p>
+      <p class="govuk-body">Status: {{data.new.status}}</p>
+    </div>
+  </div>
+    
+
+{% endblock %}
+
+
+{% block header %}
+  {{ super() }}
+
+  {% set identityBarHTML %}
+    <span class="hmcts-badge hmcts-badge--grey">Draft {{caseType | lower or 'case'}}</span>
+
+  {% endset %}
+
+  {{ identityBar({
+    title: { html: identityBarHTML }
+  }) }}  
+
+{% endblock %}
+
+
+

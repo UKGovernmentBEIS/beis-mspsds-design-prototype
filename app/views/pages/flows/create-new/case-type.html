@@ -1,0 +1,61 @@
+{% extends "includes/templates/flow-create-new.html" %}
+{% set pageHeading        = 'What type of case do you want to create?' %}
+{% set formAction         = './overview' %}
+{% set hideReturnLink = true %}
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+
+    {{ govukRadios({
+      idPrefix: "issue-type",
+      name: "new[report][type]",
+      fieldset: {
+        legend: {
+          text: pageHeading,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: "Report",
+          text: "Report of an unsafe product",
+          checked: true if data.new.report.type == "Report",
+          hint: {
+            text: "For reports of unsafe products - previously called RAPEX."
+          }
+        },
+        {
+          value: "Allegation",
+          text: "Allegation",
+          checked: true if data.new.report.type == "Allegation",
+          hint: {
+            text: "For reports of unsafe products and ongoing cases."
+          }
+        },
+        {
+          value: "Enquiry",
+          text: "Enquiry",
+          checked: true if data.new.report.type == "Enquiry",
+          hint: {
+            text: "For questions and enquiries that do not relate to a case."
+          }
+        },
+        {
+          value: "Project",
+          text: "Project",
+          checked: true if data.new.report.type == "Project"
+        }
+      ]
+    }) }}
+
+    <div class="govuk-form-group">
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </div>
+
+      
+
+</form>
+{% endblock %}

@@ -7,6 +7,7 @@ const array       = require("./utils/arrayHelpers");
 const Businesses  = require("./utils/business")
 const Attachments = require("./utils/attachment");
 const Reset       = require("./utils/reset");
+var _ = require('lodash');
 
 // Catch-all for redirecting to the correct mode - MUST BE LAST ROUTE ADDED
 router.all("/root/*", function (req, res) {
@@ -410,6 +411,136 @@ router.post('/test-setup', function (req, res, next) {
 
   next();
 });
+
+// New omni-creation journey -----------------------------------------------------------------
+
+const setCaseDefaults = (req) => {
+  var data = req.session.data
+  var countOfCases = data.cases.length
+  data.caseId = "1800-" + countOfCases.toString().padStart(4, '0')
+  _.set(data, 'new.id', data.caseId)
+  _.set(data, 'new.status', "Open")
+  _.set(data, 'new.assignee', data.currentUser)
+  _.set(data, 'new.report.product.items', [])
+}
+
+
+// Reset data when visiting new
+router.get('/pages/flows/create-new', function (req, res, next) {
+
+  // Clear existing data
+  Reset.resetNew(req);
+  
+  // Set up data
+  var urlBase = '/pages/flows/create-new/'
+  var urlStem = 'case-type'
+
+  // set case no / assignee, etc
+  setCaseDefaults(req)
+
+  // Support a case type passed via query string - so we can
+  // bypass the first question
+  var reportType = _.get(req.session.data, 'newType')
+  if (reportType) {
+      _.set(req.session.data, 'new.report.type', reportType)
+    delete(req.session.data.newType)
+    res.redirect(urlBase + 'sections-to-include/' + reportType);
+  }
+
+  // If no type, ask for type
+  if (!reportType) res.redirect(urlBase + urlStem)
+
+});
+
+// Main task list page
+router.get('/pages/flows/create-new/overview', function (req, res, next) {
+  var data = req.session.data
+
+  // TEMP for prototype
+  var caseType = _.get(data, 'new.report.type')
+  if (!caseType) {
+    _.set(data, 'new.report.type', 'Report')
+    _.set(data, 'signedIn', 'Yes')
+    _.set(data, 'currentTeam', 'Trading Standards')
+    setCaseDefaults(req)
+  }
+  next();
+});
+
+// Product index page
+router.post('/pages/flows/create-new/product/index', function (req, res, next) {
+  var data = req.session.data
+  var questionData = _.get(data, 'new.report.product.addMore')
+
+  // Clear data for next time
+  delete data.new.report.product.addMore
+
+  if (questionData) {
+    if (questionData == 'true'){
+      // Adding a new product
+      _.set(data, 'new.report.product.status', "In progress")
+      _.set(data, 'new.report.product.complete', false)
+      var productCount = _.get(data, 'new.report.product.items')
+      productCount = (productCount)? productCount.length : 0
+      res.redirect('/pages/flows/create-new/product/new/generic-or-specific')
+    }
+    if (questionData == 'false'){
+      _.set(data, 'new.report.product.complete', true)
+      res.redirect('/pages/flows/create-new/overview')
+    }
+  }
+  // No option selected - render page instead
+  else {
+    next(); 
+  }
+});
+
+// Forward product pages to their templates
+router.get('/pages/flows/create-new/product/:index/:template', function (req, res, next) {
+  var index = req.params.index
+  var template = req.params.template
+  res.render('pages/flows/create-new/product/' + template, {currentItemIndex: index})
+});
+
+// Branch between search and category information
+router.post('/pages/flows/create-new/product/:index/generic-or-specific', function (req, res, next) {
+  var data = req.session.data
+  var index = req.params.index
+
+  var questionData = data.product.class
+  if (questionData) {
+    if (questionData == 'specific'){
+      res.redirect('/pages/flows/create-new/product/'+index +'/search')
+    }
+    if (questionData == 'generic'){
+      res.redirect('/pages/flows/create-new/product/'+index +'/category')
+    }
+  }
+  else {
+    next();
+  }
+
+});
+
+// Save the product data - new or ammend
+router.post('/pages/flows/create-new/product/:index/save', function (req, res, next) {
+  var data = req.session.data
+  var index = req.params.index
+
+  var productItems = _.get(data, 'new.report.product.items')
+  var productData = data.product
+
+  if (index == 'new') {
+    data.new.report.product.items.push(productData)
+  }
+  else {
+    data.new.report.product.items[index] = productData
+  }
+  delete data.product
+
+  res.redirect('/pages/flows/create-new/product/index')
+});
+
 
 // Add your routes here - above the module.exports line
 module.exports = router;
