@@ -1,0 +1,78 @@
+{% extends "includes/templates/flow-create-new.html" %}
+{% set pageHeading        = 'What best describes the product you’re adding?' %}
+{% set formAction         = './overview' %}
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+
+  {% set classOtherHtml %}
+    {{ govukInput({
+    label: {
+      text: "Other",
+      classes: "govuk-visually-hidden"
+    },
+    id: "event-name",
+    name: "new[report][product][classOther]",
+    value: data['new']['report']['product']['classOther'],
+    classes: "govuk-!-width-one-half"
+  }) }}
+  {% endset %}
+
+    {{ govukRadios({
+      idPrefix: "product-class",
+      name: "new[report][product][class]",
+      fieldset: {
+        legend: {
+          text: pageHeading,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+      {
+          value: "all",
+          text: "All units of this model",
+          checked: true if data.new.report.product.specificUnit == "all",
+          hint: {
+            text: "Where the problem is likely to occur in all units of this model"
+          }
+        },
+        {
+          value: "range",
+          text: "A range of units",
+          checked: true if data.new.report.product.class == "range",
+          hint: {
+            text: "For example where a batch has an issue"
+          }
+        },
+        {
+          value: "single-item",
+          text: "A single specific unit",
+          checked: true if data.new.report.product.class == "single-item",
+          hint: {
+            text: "For example, a report of a single unit that failed"
+          }
+        },
+        
+        
+        {
+          value: "other",
+          text: "Other",
+          checked: true if data.new.report.product.class == "other",
+          conditional: {
+            html: classOtherHtml
+          }
+        }
+      ]
+    }) }}
+
+    <div class="govuk-form-group">
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </div>
+
+      
+
+</form>
+{% endblock %}
