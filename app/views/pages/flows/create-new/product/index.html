@@ -2,6 +2,7 @@
 {% set pageHeading        = 'Products added to ' + data.new.report.type | lower %}
 {% set formAction         = '' %}
 
+
 {% block flow %}
 <form action="{{formAction}}" method="post" class="form">
     
@@ -17,9 +18,9 @@
     {# <h2 class="govuk-heading-s">Product {{loop.index}}: {{product.class}} product</h2> #}
     {% set productText %}
     {% if product.class == 'generic' -%}
-      Generic: {{product.category | lower}}, {{product.productType | lower}}
+      Generic product: {{product.category | lower}}, {{product.productType | lower}}
       {% else %}
-      {{product.name}}
+      {{product.name}}, {{product.category | lower}}, {{product.productType | lower}}
     {%- endif %}
     {% endset %}
 

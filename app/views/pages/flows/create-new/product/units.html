@@ -1,5 +1,5 @@
 {% extends "includes/templates/flow-create-new.html" %}
-{% set pageHeading        = 'What best describes the product you’re adding?' %}
+{% set pageHeading        = 'Do you have any more details about this product?' %}
 {% set formAction         = './overview' %}
 {% set returnLink = {href:'/pages/flows/create-new/product/index', text: 'Return to products'} %}
 
@@ -20,7 +20,7 @@
   }) }}
   {% endset %}
 
-    {{ govukRadios({
+    {# {{ govukRadios({
       idPrefix: "product-class",
       name: "new[report][product][class]",
       fieldset: {
@@ -32,13 +32,13 @@
       },
       items: [
       {
-          value: "all",
-          text: "All units of this model",
-          checked: true if data.new.report.product.specificUnit == "all",
+          value: "single-item",
+          text: "A single specific unit",
+          checked: true if data.new.report.product.class == "single-item",
           hint: {
-            text: "Where the problem is likely to occur in all units of this model"
+            text: "For example, a report of a single unit that failed"
           }
-        },
+      },
         {
           value: "range",
           text: "A range of units",
@@ -47,12 +47,12 @@
             text: "For example where a batch has an issue"
           }
         },
-        {
-          value: "single-item",
-          text: "A single specific unit",
-          checked: true if data.new.report.product.class == "single-item",
+      {
+          value: "all",
+          text: "All units of this model",
+          checked: true if data.new.report.product.specificUnit == "all",
           hint: {
-            text: "For example, a report of a single unit that failed"
+            text: "Where the problem is likely to occur in all units of this model"
           }
         },
         
@@ -64,6 +64,48 @@
           conditional: {
             html: classOtherHtml
           }
+        }
+      ]
+    }) }} #}
+
+    {{ govukCheckboxes({
+      idPrefix: "waste",
+      name: "waste",
+      fieldset: {
+        legend: {
+          text: pageHeading,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      hint: {
+        text: "Select all that apply."
+      },
+      items: [
+        {
+          value: "single-units",
+          text: "Add details of single units",
+          hint: {
+            text: "For example, a single unit that caught fire"
+          }
+        },
+        {
+          value: "range",
+          text: "Add details of a range of units",
+          hint: {
+            text: "For example, a batch that has been recalled"
+          }
+        },
+        {
+          value: "farm",
+          text: "Other"
+        },
+        {
+          divider: "or"
+        },
+        {
+          value: "none",
+          text: "No more details to add"
         }
       ]
     }) }}

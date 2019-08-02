@@ -20,6 +20,9 @@
 {% set hasViewRights = false if (data.hasViewRights == "false") else true %}
 
 {% set caseTitle -%}
+  {% if currentCase.title %}
+  {{currentCase.title}}
+  {% else %}
 
   {%- if currentCase.type == "Question" -%}
      {{- currentCase.title | safe -}}
@@ -38,6 +41,7 @@
       {{- " undefined hazard" -}}
     {%- endif -%}
   {%- endif -%}
+  {% endif %}
 {%- endset %}
 
 

@@ -2,6 +2,10 @@
 {# {% from "breadcrumbs/macro.njk" 	import govukBreadcrumbs %} #}
 {% set caseTitle -%}
 
+  {% if currentCase.title %}
+    {{currentCase.title}}
+  {% else %}
+
   {%- if currentCase.type == "Question" -%}
      {{- currentCase.title | safe -}}
   {%- endif -%}
@@ -19,6 +23,8 @@
       {{- " undefined hazard" -}}
     {%- endif -%}
   {%- endif -%}
+  
+  {% endif %}
 {%- endset %}
 
 {% set restrictedBadge %}
