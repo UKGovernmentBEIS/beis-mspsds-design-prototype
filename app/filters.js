@@ -4,6 +4,7 @@
 const date    = require("./utils/date").date;
 const today   = require("./utils/date").today;
 const CaseSearch   = require("./utils/case-search");
+var _ = require('lodash');
 
 
 module.exports = function (env) {
@@ -234,6 +235,55 @@ module.exports = function (env) {
     });
     return result
   };
+
+  // filters.where = (array, key, value) => {
+  //   return array.filter(item => {
+  //     const keys = key.split('.');
+  //     const reducedKey = keys.reduce((object, key) => {
+  //       return object[key];
+  //     }, item);
+
+  //     return (reducedKey === value ? item : false);
+  //   });
+  // }
+
+  filters.where = (array, key, value) => {
+    // Basic array
+    if (_.isArray(array)){
+      return array.filter(item => {
+      const keys = key.split('.');
+      const reducedKey = keys.reduce((object, key) => {
+        return object[key];
+      }, item);
+
+      return (reducedKey === value ? item : false);
+      });
+    }
+    // Object array
+    else if (_.isObject(array)){
+      const objectKeys = Object.keys(array)
+      var output = {}
+
+      var filteredKeys = objectKeys.filter(item => {
+        const keys = key.split('.');
+        const reducedKey = keys.reduce((object, key) => {
+          return object[key];
+        }, array[item]);
+        return (reducedKey === value ? array[item] : false);
+      });
+
+      filteredKeys.forEach(key =>{
+        output[key] = array[key]
+      })
+      return output
+    }
+  }
+
+  // set attribute on object
+  filters.debug = (item) => {
+    console.log('Debug', item)
+    return item;
+  }
 
   // set attribute on object
   filters.setAttribute = (dictionary, key, value) => {

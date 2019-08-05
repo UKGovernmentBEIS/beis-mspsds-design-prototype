@@ -82,6 +82,131 @@ module.exports = {
       permissionsLevel: "view-full"
     }
   ],
+
+  defaultTaskListSections: {
+    summary: {
+      title: 'Title and summary',
+      url: 'title-and-summary',
+      isRequired: true,
+      hideInTaskList: false,
+      status: {
+        isComplete: false,
+        text: '',
+      }
+    },
+    categories: {
+      title: 'Categories',
+      url: 'categories',
+      isRequired: false,
+      hideInTaskList: false,
+      status: {
+        isComplete: false,
+        text: '',
+      }
+    },
+    products: {
+      title: 'Add product details',
+      url: 'product/index',
+      isRequired: false,
+      hideInTaskList: false,
+      status: {
+        isComplete: false,
+        text: '',
+      }
+    },
+    hazards: {
+      title: 'Add hazard and risk details',
+      url: '#',
+      isRequired: false,
+      hideInTaskList: false,
+      status: {
+        isComplete: false,
+        text: '',
+      }
+    },
+    businesses: {
+      title: 'Add businesses involved in case',
+      url: '#',
+      isRequired: false,
+      hideInTaskList: false,
+      status: {
+        isComplete: false,
+        text: '',
+      }
+    },
+    testResults: {
+      title: 'Add test results',
+      url: '#',
+      isRequired: false,
+      hideInTaskList: false,
+      status: {
+        isComplete: false,
+        text: 'Can’t start yet',
+      }
+    },
+    backgroundInformation: {
+      title: 'Add background information',
+      url: '#',
+      isRequired: false,
+      hideInTaskList: false,
+      status: {
+        isComplete: false,
+        text: '',
+      }
+    },
+    filesAndAttachments: {
+      title: 'Upload files and attachments',
+      url: '#',
+      isRequired: false,
+      hideInTaskList: false,
+      status: {
+        isComplete: false,
+        text: '',
+      }
+    },
+    source: {
+      title: 'Details of where the case from',
+      url: '#',
+      isRequired: false,
+      hideInTaskList: false,
+      status: {
+        isComplete: false,
+        text: '',
+      }
+    },
+    settings: {
+      title: 'Check case metadata and settings',
+      url: '#',
+      isRequired: false,
+      hideInTaskList: false,
+      status: {
+        isComplete: false,
+        text: '',
+      }
+    }
+  },
+
+  defaultSections: {
+    allegation: [
+      'summary',
+      'categories',
+    ],
+    enquiry: [
+      'summary',
+      'categories',
+      'source'
+    ],
+    report: [
+      'summary',
+      'categories',
+      'products',
+      'hazards',
+      'backgroundInformation'
+    ],
+    project: [
+      'summary'
+    ],
+  },
   
   new: {
     files: {

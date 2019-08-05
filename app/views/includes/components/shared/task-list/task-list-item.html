@@ -1,20 +1,29 @@
 {% macro taskListItem(title, link, extra='', status=false) %}
+
+{% set badgeColour = 'hmcts-badge--grey' %}
+{% set statusText = status.text or "" %}
+
+{% if status.isComplete %}
+  {% set badgeColour = 'hmcts-badge--blue' %}
+  {% set statusText = statusText or "Completed"
+  %}
+{% endif %}
 <li class="app-task-list__item">
   <span class="app-task-list__task-name">
-    <a href="{{link}}" {% if status %}aria-describedby="{{title | toKebabCase }}-{{status | toKebabCase }}"{% endif %}>
+    <a href="{{link}}" {% if statusText %}aria-describedby="{{title | toKebabCase }}-{{statusText | toKebabCase }}"{% endif %}>
       {{title}}
     </a>
   </span>
   {% if extra %}
   <br><span class="govuk-body">{{extra}}</span>
   {% endif %}
-  {% if status %}
-    
-    {% set badgeColour = 'hmcts-badge--grey' %}
-    {% if status == 'Complete' %}
-    {% set badgeColour = 'hmcts-badge--blue' %}
-    {% endif %}
-    <span class="app-task-list__task-completed hmcts-badge {{badgeColour}}" id="{{title | toKebabCase }}-{{status | toKebabCase }}">{{status}}</span>
+
+
+
+  {% if statusText | length %}
+    <span class="app-task-list__task-completed hmcts-badge {{badgeColour}}" id="{{title | toKebabCase }}-{{statusText | toKebabCase }}">{{statusText}}</span>
+
+    {# {% endif %} #}
     
   {# <strong class="govuk-tag app-task-list__task-completed" id="{{title | toKebabCase }}-{{status | toKebabCase }}">{{status}}</strong> #}
   {% endif %}
