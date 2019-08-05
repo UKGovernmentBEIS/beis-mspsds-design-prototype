@@ -81,9 +81,11 @@
       <span class="app-task-list__section-number">2. </span> Required information
     </h2>
     <ul class="app-task-list__items">
-      {{ taskListItem('Title and ' + (caseType | lower) + ' summary', "title-and-summary", status="Complete" if data.new.report['title-and-summary'].complete else report['title-and-summary'].status)}}
-      
-      {{ taskListItem('Categories', "categories", status="Complete" if data.new.report['categories'].complete else report['categories'].status)}}
+      {% set requiredItems = data.new.taskListSections | where("isRequired", true) %}
+
+      {% for item, key in requiredItems %}
+        {{ taskListItem(key.title, key.url, extra="", status=key.status)}}
+      {% endfor %}
     </ul>
   </li>
   <li>
@@ -94,14 +96,19 @@
       text: "These sections are optional - you only need to add details if you have them."
     }) }}
     <ul class="app-task-list__items">
-      {{ taskListItem('Add product details', "./product/index.html", extra = report.product.items | length +  ' product added' if report.product.items | length != 0, status="Complete" if data.new.report.product.complete else report.product.status)}}
+      {# {{ taskListItem('Add product details', "./product/index.html", extra = report.product.items | length +  ' product added' if report.product.items | length != 0, status="Complete" if data.new.report.product.complete else report.product.status)}}
       {{ taskListItem('Add hazard and risk details', "#")}}
       {{ taskListItem('Add businesses involved in case', "#")}}
       {{ taskListItem('Add test results', "#", status="Can't start yet")}}
       {{ taskListItem('Add background information', "#")}}
       {{ taskListItem('Upload files and other attachments', "#")}}
       {{ taskListItem('Details of where the case came from', "#")}}
-      {{ taskListItem('Check case metadata and settings', "#")}}
+      {{ taskListItem('Check case metadata and settings', "#")}} #}
+      {% set optionalItems = data.new.taskListSections | where("isRequired", false) %}
+
+      {% for item, key in optionalItems %}
+        {{ taskListItem(key.title, key.url,extra="", status=key.status)}}
+      {% endfor %}
     </ul>
   </li>
 </ol>

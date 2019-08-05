@@ -424,6 +424,7 @@ const setCaseDefaults = (req) => {
   _.set(data, 'new.report.product.items', [])
   _.set(data, 'currentPage', 'Case')
   _.set(data, 'navActive', 'Case')
+  _.set(data, 'new.taskListSections', data.defaultTaskListSections)
 
 }
 
@@ -461,6 +462,17 @@ router.get('/pages/flows/create-new', function (req, res, next) {
 
 });
 
+const updateRequiredSections = (req) => {
+  var data = req.session.data
+
+  Object.keys(data.new.taskListSections).forEach( section => {
+
+    data.new.taskListSections[section].isRequired = (data.defaultSections[data.new.report.type.toLowerCase()].includes(section)) ? true : false
+    
+  })
+
+}
+
 // Main task list page
 router.get('/pages/flows/create-new/overview', function (req, res, next) {
   var data = req.session.data
@@ -471,10 +483,16 @@ router.get('/pages/flows/create-new/overview', function (req, res, next) {
 
     setCaseDefaults(req)
     logInAsTradingStandards(req)
-    _.set(data, 'new.report.type', 'Report')
+    caseType = "Report"
+    _.set(data, 'new.report.type', caseType)
   }
+
+  updateRequiredSections(req)
+
   next();
 });
+
+
 
 router.post('/pages/flows/create-new/title-and-summary', function (req, res) {
   const data = req.session.data;
@@ -484,7 +502,8 @@ router.post('/pages/flows/create-new/title-and-summary', function (req, res) {
     res.redirect('/pages/flows/create-new/title-and-summary')
   }
   else {
-    _.set(data, 'new.report[title-and-summary].complete', true)
+    _.set(data, 'new.taskListSections.summary.status.isComplete', true)
+    // _.set(data, 'new.taskListSections.summary.status.text', "Completed")
     res.redirect('/pages/flows/create-new/overview');
   }
 
@@ -501,14 +520,15 @@ router.post('/pages/flows/create-new/product/index', function (req, res, next) {
   if (questionData) {
     if (questionData == 'true'){
       // Adding a new product
-      _.set(data, 'new.report.product.status', "In progress")
-      _.set(data, 'new.report.product.complete', false)
+      _.set(data, 'new.taskListSections.products.status.isComplete', false)
+      _.set(data, 'new.taskListSections.products.status.text', "In progress")
       var productCount = _.get(data, 'new.report.product.items')
       productCount = (productCount)? productCount.length : 0
       res.redirect('/pages/flows/create-new/product/new/generic-or-specific')
     }
     if (questionData == 'false'){
-      _.set(data, 'new.report.product.complete', true)
+      _.set(data, 'new.taskListSections.products.status.isComplete', true)
+      _.set(data, 'new.taskListSections.products.status.text', "Completed")
       res.redirect('/pages/flows/create-new/overview')
     }
   }

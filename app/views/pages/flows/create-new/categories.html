@@ -44,6 +44,8 @@
     width: 'govuk-!-width-two-thirds'}) 
   }}
 
+  <p class="govuk-body"><a href="" class="govuk-link">Add another</a></p>
+
   {% set typeDetailList = [
     'Product safety issue',
     'Positive outcome',
@@ -61,7 +63,7 @@
 
   {{ govukInput({
     id:   "section-complete",
-    name: "new[report][categories][complete]",
+    name: "new[taskListSections][categories][status][isComplete]",
     value: true,
     type: "hidden"
   }) }}
