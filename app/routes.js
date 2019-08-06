@@ -517,18 +517,28 @@ router.post('/pages/flows/create-new/product/index', function (req, res, next) {
   // Clear data for next time
   delete data.new.report.product.addMore
 
+  var productCount = _.get(data, 'new.report.product.items')
+
   if (questionData) {
     if (questionData == 'true'){
       // Adding a new product
       _.set(data, 'new.taskListSections.products.status.isComplete', false)
       _.set(data, 'new.taskListSections.products.status.text', "In progress")
-      var productCount = _.get(data, 'new.report.product.items')
+      
       productCount = (productCount)? productCount.length : 0
+      delete data.product
       res.redirect('/pages/flows/create-new/product/new/generic-or-specific')
     }
     if (questionData == 'false'){
       _.set(data, 'new.taskListSections.products.status.isComplete', true)
       _.set(data, 'new.taskListSections.products.status.text', "Completed")
+      // Remove 'can't start yet' from test results if present
+      if ((_.get(data, 'new.taskListSections.testResults.status.text') == 'Can’t start yet') || (_.get(data, 'new.taskListSections.testResults.status.text') == 'Not relevant')){
+        if (productCount == 0){
+          _.set(data, 'new.taskListSections.testResults.status.text', "Not relevant")
+        }
+        else _.set(data, 'new.taskListSections.testResults.status.text', "")
+      }
       res.redirect('/pages/flows/create-new/overview')
     }
   }
@@ -591,6 +601,75 @@ router.post('/pages/flows/create-new/product/:index/save', function (req, res, n
   res.redirect('/pages/flows/create-new/product/index')
 });
 
+// Business pages
+router.post('/pages/flows/create-new/business/index', function (req, res, next) {
+  var data = req.session.data
+  var questionData = _.get(data, 'new.report.business.addMore')
+
+  // Clear data for next time
+  delete data.new.report.business.addMore
+
+  if (questionData) {
+    if (questionData == 'true'){
+      // Adding a new product
+      _.set(data, 'new.taskListSections.businesses.status.isComplete', false)
+      _.set(data, 'new.taskListSections.businesses.status.text', "In progress")
+      var businessCount = _.get(data, 'new.report.business.items')
+      businessCount = (businessCount)? businessCount.length : 0
+      delete data.business
+      // res.redirect('/pages/flows/create-new/business/new/search')
+      res.redirect('/pages/flows/create-new/business/new/enter-manual')
+    }
+    if (questionData == 'false'){
+      _.set(data, 'new.taskListSections.businesses.status.isComplete', true)
+      _.set(data, 'new.taskListSections.businesses.status.text', "Completed")
+      res.redirect('/pages/flows/create-new/overview')
+    }
+  }
+  // No option selected - render page instead
+  else {
+    next(); 
+  }
+});
+
+// Forward product pages to their templates
+router.post('/pages/flows/create-new/business/:index/search', function (req, res, next) {
+  var index = req.params.index
+  var data = req.session.data
+  var questionData = _.get(data, 'business.searchTerm')
+  res.redirect('/pages/flows/create-new/business/' + index + '/search-results?business[searchTerm]=' + questionData )
+});
+
+// Forward product pages to their templates
+router.get('/pages/flows/create-new/business/:index/:template', function (req, res, next) {
+  var index = req.params.index
+  var template = req.params.template
+  res.render('pages/flows/create-new/business/' + template, {currentItemIndex: index})
+});
+
+
+
+// Save the product data - new or ammend
+router.post('/pages/flows/create-new/business/:index/save', function (req, res, next) {
+  var data = req.session.data
+  var index = req.params.index
+
+  var businesses = _.get(data, 'new.report.business.businesses')
+  if (!businesses) _.set(data, 'new.report.business.businesses', []) //just to be safe
+  var businessData = data.business
+
+  if (index == 'new') {
+    data.new.report.business.businesses.push(businessData)
+  }
+  else {
+    data.new.report.business.businesses[index] = businessData
+  }
+  delete data.business
+
+  res.redirect('/pages/flows/create-new/business/index')
+});
+
+// Save
 
 router.post('/pages/flows/create-new/save', function (req, res) {
   const data = req.session.data;

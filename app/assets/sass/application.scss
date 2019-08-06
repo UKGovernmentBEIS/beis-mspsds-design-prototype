@@ -207,3 +207,19 @@ p.govuk-body, h1, h2, h3 {
 .app-task-list__items {
   padding-left: 0;
 }
+
+.results-list {
+  @extend .govuk-list;
+}
+.type-company {
+  h3, p {
+    @include govuk-responsive-margin(1, "bottom");
+  }
+  p {
+    @include govuk-font(16);
+  }
+  .crumbtrail {
+    color: $govuk-secondary-text-colour;
+  }
+  
+}

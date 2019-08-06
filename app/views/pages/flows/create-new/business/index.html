@@ -1,0 +1,87 @@
+{% extends "includes/templates/flow-create-new.html" %}
+{% set pageHeading        = 'Businesses added to ' + data.new.report.type | lower %}
+{% set formAction         = '' %}
+
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+    
+    <h1 class="govuk-heading-l">{{pageHeading}}</h1>
+
+    {% if report.business.businesses | length == 0 %}
+    {{ govukInsetText({
+      text: "No businesses added."
+    }) }}
+    {% else %}
+
+    {% for business in report.business.businesses %}
+    {# <h2 class="govuk-heading-s">business {{loop.index}}: {{business.class}} business</h2> #}
+    {% set businessText %}
+      {% set comma = joiner() %}
+      {{business.trading or business.legal}}<br>Type: {% for type in business.type %}{{comma()}} {{type | lower}}{% endfor %}
+    
+    {% endset %}
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Business " + loop.index
+            },
+            value: {
+
+
+              html: businessText
+            },
+            actions: {
+              items: [
+                {
+                  href: "./" + (loop.index -1 ) + '/enter-manual',
+                  text: "Change",
+                  visuallyHiddenText: "business " + loop.index
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+    
+    {% endfor %}
+
+    {% endif %}
+
+    {{ govukRadios({
+      idPrefix: "where-do-you-live",
+      name: "new[report][business][addMore]",
+      fieldset: {
+        legend: {
+          text: "Do you have businesses to add to the case?" if (report.business.businesses | length == 0) else "Do you have more businesses to add to the case?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "true",
+          text: "Yes, add a business",
+          checked: true if data.new.report.business.addMore == "true"
+        },
+        {
+          value: "false",
+          text: "No, mark this section as complete",
+          checked: true if data.new.report.business.addMore == "false"
+        }
+      ]
+    }) }}
+    
+
+    <div class="govuk-form-group">
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </div>
+
+      
+
+</form>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "includes/templates/flow-create-new.html" %}
+{% set pageHeading        = 'Product images' %}
+{% set formAction         = 'save' %}
+{% set returnLink = {href:'/pages/flows/create-new/product/index', text: 'Return to products'} %}
+
+{% if currentItemIndex == 'new' %}
+  {% set theProduct = data.product %}
+{% else %}
+  {% set theProduct = data.new.report.product.items[currentItemIndex] %}
+{% endif %}
+
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+
+  <h1 class="govuk-heading-l">{{pageHeading}}</h1>
+
+  <h2 class="govuk-heading-m">Product images</h2>
+
+  <p class="govuk-body">These should be promotional images or clear images of the product. They will be reused if the product is involved in other cases.</p>
+
+  <p class="govuk-body">Do not include evidence images - they should be uploaded in the 'files and settings' section.</p>
+  {# {{ govukInsetText({
+      text: "No evidence images added."
+    }) }} #}
+
+  <div class="govuk-form-group">
+    {{ govukButton({
+    text: "Add product images",
+    classes: "govuk-button--secondary govuk-!-margin-bottom-0",
+    href: "#"
+    }) }}
+  </div>
+
+  <h2 class="govuk-heading-m">Packaging images</h2>
+  <p class="govuk-body">Thes will be reused if the product is involved in other cases.</p>
+  {# {{ govukInsetText({
+      text: "No evidence images added."
+    }) }} #}
+
+  <div class="govuk-form-group">
+    {{ govukButton({
+    text: "Add packaging images",
+    classes: "govuk-button--secondary govuk-!-margin-bottom-0",
+    href: "#"
+    }) }}
+  </div>
+
+  {# <h2 class="govuk-heading-m">Evidence images</h2>
+  {{ govukInsetText({
+      text: "No evidence images added."
+    }) }}
+  <p class="govuk-body">Images of damaged products or damage caused by the product</p>
+
+  <div class="govuk-form-group">
+    {{ govukButton({
+    text: "Add evidence images",
+    classes: "govuk-button--secondary govuk-!-margin-bottom-0",
+    href: "#"
+    }) }}
+  </div> #}
+
+  
+  <div class="govuk-form-group">
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+  </div>
+
+      
+
+</form>
+{% endblock %}

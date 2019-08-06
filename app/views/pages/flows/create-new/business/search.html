@@ -1,0 +1,36 @@
+{% extends "includes/templates/flow-create-new.html" %}
+{% set pageHeading        = 'Search existing businesses' %}
+{% set formAction         = '' %}
+{% set returnLink = {href:'/pages/flows/create-new/business/index', text: 'Return to businesses'} %}
+
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+    
+    <h1 class="govuk-heading-l">{{pageHeading}}</h1>
+
+    <p class="govuk-body">The business may already have been added to the Product safety database - if so, you can link to the existing business.</p>
+    
+    {{ govukInput({
+      label: {
+        text: "Search",
+        classes: "govuk-label--m"
+      },
+      hint: {
+        text: "Try searching by company number, name or business address"
+      },
+      id: "business-name",
+      name: "business[searchTerm]",
+      classes: "govuk-!-width-one-half"
+    }) }}
+
+    <div class="govuk-form-group">
+      {{ govukButton({
+        text: "Search"
+      }) }}
+    </div>
+
+      
+
+</form>
+{% endblock %}

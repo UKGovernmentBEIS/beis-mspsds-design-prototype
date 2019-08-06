@@ -1,7 +1,13 @@
 {% extends "includes/templates/flow-create-new.html" %}
 {% set pageHeading        = 'General product details' %}
-{% set formAction         = './save' %}
+{% set formAction         = './image-types' %}
 {% set returnLink = {href:'/pages/flows/create-new/product/index', text: 'Return to products'} %}
+
+{% if currentItemIndex == 'new' %}
+  {% set theProduct = data.product %}
+{% else %}
+  {% set theProduct = data.new.report.product.items[currentItemIndex] %}
+{% endif %}
 
 {% block flow %}
 <form action="{{formAction}}" method="post" class="form">
@@ -17,7 +23,7 @@
     },
     id: "input-name",
     name: "product[name]",
-    value: data.new.report.product.items[currentItemIndex].name,
+    value: theProduct.name,
     classes: "govuk-!-width-two-thirds"
   }) }}
 
@@ -31,7 +37,7 @@
     },
     id: "barcode-name",
     name: "product[code]",
-    value: data.new.report.product.items[currentItemIndex].code,
+    value: theProduct.code,
     classes: "govuk-!-width-two-thirds"
   }) }}
 
@@ -45,7 +51,7 @@
     },
     id: "batch-name",
     name: "product[batch]",
-    value: data.new.report.product.items[currentItemIndex].batch,
+    value: theProduct.batch,
     classes: "govuk-!-width-two-thirds"
   }) }}
 
@@ -59,7 +65,7 @@
     },
     id: "webpage-name",
     name: "product[url]",
-    value: data.new.report.product.items[currentItemIndex].url,
+    value: theProduct.url,
     classes: "govuk-!-width-two-thirds"
   }) }}
 
@@ -69,7 +75,7 @@
     label: 'Country of origin', 
     width: "govuk-!-width-two-thirds",
     name: "product[country]",
-    value: data.new.report.product.items[currentItemIndex].country
+    value: theProduct.country
   })}}
 
 

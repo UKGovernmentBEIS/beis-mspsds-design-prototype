@@ -1,0 +1,84 @@
+{% extends "includes/templates/flow-create-new.html" %}
+{% set pageHeading        = 'What relationship does the business have to the case?' %}
+{% set formAction         = './save' %}
+{% set returnLink = {href:'/pages/flows/create-new/business/index', text: 'Return to businesses'} %}
+
+{% if currentItemIndex == 'new' %}
+  {% set theBusiness = data.business %}
+{% else %}
+  {% set theBusiness = data.new.report.business.businesses[currentItemIndex] %}
+{% endif %}
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+
+  {% set otherTypeHTML %}
+
+  {{ govukInput({
+    label: {
+      text: "Other name",
+      classes: "govuk-visually-hidden"
+    },
+    id: "business-typeOther",
+    name: "business[typeOther]",
+    classes: "govuk-!-width-one-half",
+    value: business.typeOther
+  }) }}
+
+  {% endset %}
+
+  {{ govukCheckboxes({
+    idPrefix: "business-type",
+    name: "business[type]",
+    fieldset: {
+      legend: {
+        text: pageHeading,
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    hint: {
+      text: "Select all that apply."
+    },
+    items: [
+      {
+        value: "Retailer",
+        text: "Retailer",
+        checked: checked(theBusiness['type'], "Retailer")
+      },
+      {
+        value: "Distributor",
+        text: "Distributor",
+        checked: checked(theBusiness['type'], "Distributor")
+      },
+      {
+        value: "Importer",
+        text: "Importer",
+        checked: checked(theBusiness['type'], "Importer")
+      },
+      {
+        value: "Manufacturer",
+        text: "Manufacturer",
+        checked: checked(theBusiness['type'], "Manufacturer")
+      },
+      {
+        value: "Other",
+        text: "Other",
+        checked: checked(theBusiness['type'], "Other"),
+        conditional: {
+          html: otherTypeHTML
+        }
+      }
+    ]
+  }) }}
+
+  <div class="govuk-form-group">
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+  </div>
+
+      
+
+</form>
+{% endblock %}
