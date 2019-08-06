@@ -1,11 +1,5 @@
 {% macro autocompleteCountry(data) %}
 
-    {% if data.legend %}
-      <legend for="{{data.idPrefix}}-autocomplete" class="{{class}} ">
-        {{data.legend}}
-      </legend>
-    {% endif %}
-
     {% if data.hint %}
       <span class="govuk-hint">{{data.hint | safe}}</span>
     {% endif %}
@@ -15,7 +9,7 @@
     {% call govukFieldset({
       legend: {
         text: data.label,
-        classes: "govuk-fieldset__legend--m"
+        classes: "govuk-fieldset__legend--m" if not data.labelClasses else data.labelClasses
       }
     }) %}
 

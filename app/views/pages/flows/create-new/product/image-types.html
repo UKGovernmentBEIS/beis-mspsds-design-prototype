@@ -1,0 +1,66 @@
+{% extends "includes/templates/flow-create-new.html" %}
+{% set pageHeading        = 'Product images' %}
+{% set formAction         = 'save' %}
+{% set returnLink = {href:'/pages/flows/create-new/product/index', text: 'Return to products'} %}
+
+{% if currentItemIndex == 'new' %}
+  {% set theProduct = data.product %}
+{% else %}
+  {% set theProduct = data.new.report.product.items[currentItemIndex] %}
+{% endif %}
+
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+
+  {# <h1 class="govuk-heading-l">{{pageHeading}}</h1> #}
+
+  {{ govukCheckboxes({
+    idPrefix: "where-do-you-live",
+    name: "theProduct.imageTypes",
+    fieldset: {
+      legend: {
+        text: "Do you have any images of the product?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+
+    hint: {
+      text: "Select all that apply."
+    },
+    items: [
+      {
+        value: "evidence-images",
+        text: "Evidence images",
+        checked: checked([theProduct['imageTypes']], "evidence-images"),
+        hint: {
+          text: "For example: images of damaged products or damage caused by the product"
+        }
+      },
+      {
+        value: "product-images",
+        text: "Generic images of the product",
+        checked: checked([theProduct['imageTypes']], "product-images"),
+        hint: {
+          text: "For example: promotional images that would be applicable to other cases involving this product"
+        }
+      },
+      {
+        value: "packaging-images",
+        text: "Images of the packaging",
+        checked: checked([theProduct['imageTyppe']], "packaging-images")
+      }
+    ]
+  }) }}
+
+  <div class="govuk-form-group">
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+  </div>
+
+      
+
+</form>
+{% endblock %}

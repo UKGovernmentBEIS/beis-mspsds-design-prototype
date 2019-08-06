@@ -1,0 +1,61 @@
+{% extends "includes/templates/flow-create-new.html" %}
+{% set pageHeading        = 'Search results' %}
+{% set formAction         = 'category' %}
+{% set returnLink = {href:'/pages/flows/create-new/business/index', text: 'Return to businesses'} %}
+
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+    
+    <h1 class="govuk-heading-l">Results for: {{data.business.searchTerm}}</h1>
+
+    {% set resultsCount = 5 %}
+
+    {% if resultsCount %}
+      <h2 class="govuk-heading-m">Results from the Product safety database</h2>
+      <ul id="results" class="govuk-list results-list">
+        <li class="type-company">
+          <h3>
+            <!-- $item._score -->
+            <a href="/company/10321258" title="View company">
+              <strong>NEAR</strong> <strong>FUTURE</strong>  LIMITED
+            </a>
+          </h3>
+
+          <p class="meta crumbtrail"> <strong>10321258</strong> - Incorporated on  9 August 2016 </p>
+          <p>75a  Queenstown Road, London, SW8 3RQ</p>
+          {{ govukButton({
+            text: "Select this company",
+            classes: "govuk-button--secondary govuk-!-margin-bottom-0"
+          }) }}
+          <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+        </li>
+      </ul>
+
+      <h2 class="govuk-heading-m">Results from Companies House</h2>
+      {% include "includes/templates/companies-house-nfs-results.html" %}
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <h2 class="govuk-heading-m">If you don't see the company</h2>
+
+      
+    {% else %}
+    {{ govukInsetText({
+      text: "No results."
+    }) }}
+
+    {% endif %}
+    
+    <p class="govuk-body">If you like you can <a href="search">search again</a>.</p>
+
+    <div class="govuk-form-group">
+      {{ govukButton({
+        text: "Add as a new business"
+      }) }}
+    </div>
+
+      
+
+</form>
+{% endblock %}

@@ -126,7 +126,7 @@ module.exports = {
     },
     businesses: {
       title: 'Add businesses involved in case',
-      url: '#',
+      url: 'business/index',
       isRequired: false,
       hideInTaskList: false,
       status: {
