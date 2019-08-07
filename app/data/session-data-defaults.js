@@ -116,7 +116,7 @@ module.exports = {
     },
     hazards: {
       title: 'Add hazard and risk details',
-      url: '#',
+      url: 'hazards-and-risks',
       isRequired: false,
       hideInTaskList: false,
       status: {
@@ -145,10 +145,11 @@ module.exports = {
       }
     },
     backgroundInformation: {
-      title: 'Add background information',
+      title: 'Add background information - incidents, corrective actions and case notes.',
       url: '#',
       isRequired: false,
       hideInTaskList: false,
+      extra: 'Including incidents',
       status: {
         isComplete: false,
         text: '',
@@ -176,7 +177,7 @@ module.exports = {
     },
     settings: {
       title: 'Check case metadata and settings',
-      url: '#',
+      url: 'metadata-and-settings',
       isRequired: false,
       hideInTaskList: false,
       status: {
