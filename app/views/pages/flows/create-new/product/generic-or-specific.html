@@ -1,5 +1,5 @@
 {% extends "includes/templates/flow-create-new.html" %}
-{% set pageHeading        = 'Is it a specific, identifiable product?' %}
+{% set pageHeading        = 'What level of information do you have about the product?' %}
 {% set formAction         = '' %}
 {% set returnLink = {href:'/pages/flows/create-new/product/index', text: 'Return to products'} %}
 
@@ -25,18 +25,18 @@
     },
     items: [
       {
-        value: "specific",
-        text: "Yes, it’s a specific product",
-        checked: checked([theProduct['class']], "specific"),
-        hint: {
-          text: "For example, a specific model of washing machine from a single supplier."
-        }
-      },{
         value: "generic",
-        text: "No, it’s a generic category of product",
+        text: "A generic category",
         checked: checked([theProduct['class']], "generic"),
         hint: {
-          text: "For example, toothpaste or hairdryers."
+          text: "For example, it’s a type of hairdryer"
+        }
+      },{
+        value: "specific",
+        text: "Some specific details",
+        checked: checked([theProduct['class']], "specific"),
+        hint: {
+          text: "For example, the model, a serial or batch number"
         }
       }
     ]

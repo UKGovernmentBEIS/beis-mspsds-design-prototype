@@ -1,5 +1,5 @@
 {% extends "includes/templates/flow-create-new.html" %}
-{% set pageHeading        = 'What type of case do you want to create?' %}
+{% set pageHeading        = 'What do you want to do?' %}
 {% set formAction         = './overview' %}
 {% set hideReturnLink = true %}
 
@@ -35,16 +35,20 @@
         },
         {
           value: "Enquiry",
-          text: "Enquiry",
+          text: "Make an enquiry",
           checked: true if data.new.report.type == "Enquiry",
           hint: {
-            text: "For questions and enquiries that do not relate to a case."
+            text: "Ask OPSS a question that does not relate to an existing case."
           }
         },
         {
           value: "Project",
-          text: "Project",
-          checked: true if data.new.report.type == "Project"
+          text: "Create a project",
+          checked: true if data.new.report.type == "Project",
+          hint: {
+            text: "Record information from an investigation into products or businesses. 
+"
+          }
         }
       ]
     }) }}
