@@ -95,8 +95,8 @@ module.exports = {
       }
     },
     categories: {
-      title: 'Categories',
-      url: 'categories',
+      title: 'Relevant legislation',
+      url: 'relevant-legislation',
       isRequired: false,
       hideInTaskList: false,
       status: {
@@ -115,7 +115,7 @@ module.exports = {
       }
     },
     hazards: {
-      title: 'Add hazard and risk details',
+      title: 'Hazard and risk details',
       url: 'hazards-and-risks',
       isRequired: false,
       hideInTaskList: false,
@@ -207,6 +207,13 @@ module.exports = {
     project: [
       'summary'
     ],
+  },
+
+  reportNames: {
+    enquiry: "Make an enquiry",
+    report: "Make a report",
+    project: "Create a project",
+    allegation: "Raise an allegation"
   },
   
   new: {

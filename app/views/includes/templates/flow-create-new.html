@@ -64,7 +64,7 @@
       {% if returnLink %}
         <p class="govuk-body"><a href="{{returnLink.href}}" class="govuk-link">{{returnLink.text}}</a></p>
       {% else %}
-        <p class="govuk-body"><a href="/pages/flows/create-new/overview" class="govuk-link">Return to {{caseType | lower }} overview</a></p>
+        <p class="govuk-body"><a href="/pages/flows/create-new/overview" class="govuk-link">Return to {{data.reportNames[data.new.report.type | lower] | lower}} page</a></p>
       {% endif %}
 
         

@@ -1,5 +1,5 @@
 {% extends "includes/templates/flow-create-new.html" %}
-{% set pageHeading        = data.new.report.type + ' overview' %}
+{% set pageHeading        = data.reportNames[data.new.report.type | lower] %}
 {% set formAction         = './save' %}
 {% set hideReturnLink = true %}
 {% set report = data.new.report %}
@@ -17,7 +17,7 @@
 <ol class="app-task-list">
   <li>
     <h2 class="app-task-list__section">
-      <span class="app-task-list__section-number">1. </span> Case setup
+      <span class="app-task-list__section-number">1. </span> About the case
     </h2>
     <ul class="app-task-list__items">
         {{ taskListItem("Case type", "./case-type",extra="", status={isComplete: true, text: "Completed"})}}
@@ -81,7 +81,7 @@
   </li>
   <li>
     <h2 class="app-task-list__section">
-      <span class="app-task-list__section-number">2. </span> Required information
+      <span class="app-task-list__section-number">2. </span> Add mandatory information
     </h2>
     <ul class="app-task-list__items">
       {% set requiredItems = data.new.taskListSections | where("isRequired", true) %}
@@ -93,10 +93,10 @@
   </li>
   <li>
     <h2 class="app-task-list__section">
-      <span class="app-task-list__section-number">3. </span> {{caseType}} details
+      <span class="app-task-list__section-number">3. </span>Add {{caseType | lower}} details
     </h2>
     {{ govukInsetText({
-      text: "These sections are optional - you only need to add details if you have them."
+      text: "You may not have all the information asked for below but it’s helpful to share what you can."
     }) }}
     <ul class="app-task-list__items">
       {# {{ taskListItem('Add product details', "./product/index.html", extra = report.product.items | length +  ' product added' if report.product.items | length != 0, status="Complete" if data.new.report.product.complete else report.product.status)}}
