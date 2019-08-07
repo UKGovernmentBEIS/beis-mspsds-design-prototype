@@ -1,0 +1,154 @@
+{% extends "includes/templates/flow-create-new.html" %}
+{% set pageHeading        = 'Metadata and settings' %}
+{% set formAction         = 'overview' %}
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+
+    <h1 class="govuk-heading-l">{{pageHeading}}</h1>
+
+    <h2 class="govuk-heading-m">Case metadata</h2>
+
+    {{ govukSummaryList({
+      rows: [
+        {
+          key: {
+            text: "Tags"
+          },
+          value: {
+            text: "No tags added"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "Change",
+                visuallyHiddenText: "tags"
+              }
+            ]
+          }
+        },
+        {
+          key: {
+            text: "Existing reference numbers"
+          },
+          value: {
+            text: "No reference numbers added"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "Change",
+                visuallyHiddenText: "existing case numbers"
+              }
+            ]
+          }
+        }
+      ]
+    }) }}
+
+
+    <h2 class="govuk-heading-m">Case settings</h2>
+
+    {% set permissionsHTML %}
+
+    <p class="govuk-body">2 teams added</p>
+    {% if currentCase.restricted -%}
+      <span class="hmcts-badge hmcts-badge--red">Restricted case</span>
+      {% else %}
+      <p class="govuk-body">All other users: default</p>
+    {%- endif %}
+
+    {% endset %}
+
+    {% set summaryMetadataRows = [
+      {
+        key: {
+          text: "Status when created"
+        },
+        value: {
+          text: currentCase.status
+        },
+        actions: {
+          items: [
+            {
+              href: "#",
+              text: "Change",
+              visuallyHiddenText: "case status",
+              classes: "govuk-link--no-visited-state" 
+            }
+          ]
+
+        }
+      },
+      {
+        key: {
+          text: "Created by"
+        },
+        value: {
+          text: "Ed Horsford"
+        },
+        actions: {
+          items: []
+        }
+      },
+      {
+        key: {
+          text: "Will be assigned to" if (currentCase.status=="Open") else "Owner"
+        },
+        value: {
+          text: currentCase.assignee
+        },
+        actions: {
+          items: [
+            {
+              href: "#",
+              text: "Change",
+              visuallyHiddenText: "assignee",
+              classes: "govuk-link--no-visited-state" 
+            }
+          ]
+        }
+      },
+      {
+        key: {
+          text: "Permissions"
+        },
+        value: {
+          html: permissionsHTML
+        },
+        actions: {
+          items: [
+            {
+              href: "#",
+              text: "Change",
+              visuallyHiddenText: "permissions"
+            }
+          ]
+        }
+      }
+    ] %}
+
+    {{ govukSummaryList({
+      classes: '',
+      rows: summaryMetadataRows
+    }) }}
+
+    {{ govukInput({
+      id:   "section-complete",
+      name: "new[taskListSections][settings][status][isComplete]",
+      value: true,
+      type: "hidden"
+    }) }}
+
+    <div class="govuk-form-group">
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </div>
+
+      
+
+</form>
+{% endblock %}

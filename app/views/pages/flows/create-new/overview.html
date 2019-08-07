@@ -87,7 +87,7 @@
       {% set requiredItems = data.new.taskListSections | where("isRequired", true) %}
 
       {% for item, key in requiredItems %}
-        {{ taskListItem(key.title, key.url, extra="", status=key.status)}}
+        {{ taskListItem(key.title, key.url, key.extra, status=key.status)}}
       {% endfor %}
     </ul>
   </li>
@@ -110,7 +110,7 @@
       {% set optionalItems = data.new.taskListSections | where("isRequired", false) %}
 
       {% for item, key in optionalItems %}
-        {{ taskListItem(key.title, key.url,extra="", status=key.status)}}
+        {{ taskListItem(key.title, key.url, key.extra, status=key.status)}}
       {% endfor %}
     </ul>
   </li>
