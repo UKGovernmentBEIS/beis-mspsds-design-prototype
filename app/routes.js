@@ -504,7 +504,7 @@ router.post('/pages/flows/create-new/title-and-summary', function (req, res) {
   else {
     _.set(data, 'new.taskListSections.summary.status.isComplete', true)
     // _.set(data, 'new.taskListSections.summary.status.text', "Completed")
-    res.redirect('/pages/flows/create-new/overview');
+    res.redirect('/pages/flows/create-new/overview#title-and-summary');
   }
 
 });
@@ -539,7 +539,7 @@ router.post('/pages/flows/create-new/product/index', function (req, res, next) {
         }
         else _.set(data, 'new.taskListSections.testResults.status.text', "")
       }
-      res.redirect('/pages/flows/create-new/overview')
+      res.redirect('/pages/flows/create-new/overview#product-details')
     }
   }
   // No option selected - render page instead
@@ -623,7 +623,7 @@ router.post('/pages/flows/create-new/business/index', function (req, res, next) 
     if (questionData == 'false'){
       _.set(data, 'new.taskListSections.businesses.status.isComplete', true)
       _.set(data, 'new.taskListSections.businesses.status.text', "Completed")
-      res.redirect('/pages/flows/create-new/overview')
+      res.redirect('/pages/flows/create-new/overview#businesses-involved')
     }
   }
   // No option selected - render page instead
@@ -667,6 +667,66 @@ router.post('/pages/flows/create-new/business/:index/save', function (req, res, 
   delete data.business
 
   res.redirect('/pages/flows/create-new/business/index')
+});
+
+
+// Test results
+
+// Business pages
+router.post('/pages/flows/create-new/test-result/index', function (req, res, next) {
+  var data = req.session.data
+  var questionData = _.get(data, 'new.report.testResult.addMore')
+
+  // Clear data for next time
+  delete data.new.report.testResult.addMore
+
+  if (questionData) {
+    if (questionData == 'true'){
+      // Adding a new test result
+      _.set(data, 'new.taskListSections.testResults.status.isComplete', false)
+      _.set(data, 'new.taskListSections.testResults.status.text', "In progress")
+      var testResultCount = _.get(data, 'new.report.testResult.items')
+      testResultCount = (testResultCount)? testResultCount.length : 0
+      delete data.testResult
+      res.redirect('/pages/flows/create-new/test-result/new/results-file')
+    }
+    if (questionData == 'false'){
+      _.set(data, 'new.taskListSections.testResults.status.isComplete', true)
+      _.set(data, 'new.taskListSections.testResults.status.text', "Completed")
+      res.redirect('/pages/flows/create-new/overview#test-results')
+    }
+  }
+  // No option selected - render page instead
+  else {
+    next(); 
+  }
+});
+
+// Forward product pages to their templates
+router.get('/pages/flows/create-new/test-result/:index/:template', function (req, res, next) {
+  var index = req.params.index
+  var template = req.params.template
+  res.render('pages/flows/create-new/test-result/' + template, {currentItemIndex: index})
+});
+
+// Save the product data - new or ammend
+router.post('/pages/flows/create-new/test-result/:index/save', function (req, res, next) {
+  var data = req.session.data
+  var index = req.params.index
+
+  var testResultes = _.get(data, 'new.report.testResult.testResults')
+  if (!testResultes) _.set(data, 'new.report.testResult.testResults', []) //just to be safe
+  var testResultData = data.testResult
+
+  if (index == 'new') {
+    data.new.report.testResult.testResults.push(testResultData)
+  }
+  else {
+    data.new.report.testResult.testResults[index] = testResultData
+  }
+  delete data.testResult
+
+  res.redirect('/pages/flows/create-new/test-result/index')
 });
 
 // Save

@@ -1,6 +1,6 @@
 {% extends "includes/templates/flow-create-new.html" %}
 {% set pageHeading        = 'What hazards and risks do you want to report?' %}
-{% set formAction         = './action' %}
+{% set formAction         = 'overview#hazards-and-risk-details' %}
 
 {% block flow %}
 <form action="{{formAction}}" method="post" class="form">
@@ -32,6 +32,13 @@
           text: "The product is safe"
         }
       ]
+    }) }}
+
+    {{ govukInput({
+      id:   "section-complete",
+      name: "new[taskListSections][hazards][status][isComplete]",
+      value: true,
+      type: "hidden"
     }) }}
 
     <div class="govuk-form-group">

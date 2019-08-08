@@ -9,11 +9,11 @@
 
   {{ govukInput({
     label: {
-      text: caseType + " title",
+      text: "Case title",
       classes: "govuk-label--m"
     },
     hint: {
-      text: "A descriptive title so that the " + (caseType | lower) + " can be recognised"
+      text: "A descriptive title so that the case can be recognised"
     },
     id: "input-name",
     name: "new[title]",
@@ -25,11 +25,11 @@
     name: "new[report][summary]",
     id: "more-detail",
     label: {
-      text: caseType + " summary",
+      text: "Case summary",
       classes: "govuk-label--m"
     },
     hint: {
-      text: "A high level summary of the " + (caseType | lower)
+      text: "A high level summary of the case"
     },
     value: data.new.report.summary
   }) }}

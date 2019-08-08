@@ -19,18 +19,19 @@
       items: [
         {
           value: "Report",
-          text: "Report of an unsafe product",
+          text: "Report an unsafe or non-compliant product",
+          text: "Report a product",
           checked: true if data.new.report.type == "Report",
           hint: {
-            text: "For reports of unsafe products - previously called RAPEX."
+            text: "For cases you would have reported through RAPEX and ICSMS."
           }
         },
         {
           value: "Allegation",
-          text: "Allegation",
+          text: "Make an allegation",
           checked: true if data.new.report.type == "Allegation",
           hint: {
-            text: "For reports of unsafe products and ongoing cases."
+            text: "For investigations in to products and ongoing cases."
           }
         },
         {

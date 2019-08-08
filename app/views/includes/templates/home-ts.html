@@ -14,6 +14,8 @@
   {% set createLink  = data['createUrl'] %}
 {% endif %}
 
+{% set createLink  = data['createUrl'] %}
+
 {% set navActive = 'home' %}
 
 
@@ -114,7 +116,7 @@
       
 
       <form action="{{createLink}}" method="post" class="form">
-      {% include "includes/components/shared/create/ts-setup-prototype-data.html" %}
+      {# {% include "includes/components/shared/create/ts-setup-prototype-data.html" %} #}
 
         {{ govukButton({
           text: "Open a new case",

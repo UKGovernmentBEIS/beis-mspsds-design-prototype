@@ -1,0 +1,98 @@
+{% extends "includes/templates/flow-create-new.html" %}
+{% set pageHeading        = 'Test results added to ' + data.new.report.type | lower %}
+{% set formAction         = '' %}
+
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+    
+    <h1 class="govuk-heading-l">{{pageHeading}}</h1>
+
+    {% if report.testResult.testResults | length == 0 %}
+    {{ govukInsetText({
+      text: "No test results added."
+    }) }}
+    {% else %}
+
+    {% for testResult in report.testResult.testResults %}
+    {# <h2 class="govuk-heading-s">testResult {{loop.index}}: {{testResult.class}} testResult</h2> #}
+    {% set testResultText %}
+        Result: {{testResult.result}}, date: {{testResult.date}}
+    {% endset %}
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: testResult.title
+            },
+            value: {
+
+
+              text: testResultText
+            },
+            actions: {
+              items: [
+                {
+                  href: "./" + (loop.index -1 ) + '/results-file',
+                  text: "Change",
+                  visuallyHiddenText: "test result " + loop.index
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+    
+    {% endfor %}
+
+    {% endif %}
+
+    {% if report.product.items | length == 0 %}
+    <p class="govuk-body">You need to <a href="/pages/flows/create-new/product/index">add a product</a> before you can add a test result.</p>
+    <div class="govuk-form-group">
+      {{ govukButton({
+        text: "Continue",
+        href: "./../overview"
+      }) }}
+    </div>
+
+    {% else %}
+
+      {{ govukRadios({
+        idPrefix: "more-test-results",
+        name: "new[report][testResult][addMore]",
+        fieldset: {
+          legend: {
+            text: "Do you have test results to add to the case?" if (report.testResult.testResults | length == 0) else "Do you have more test results to add to the case?",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "true",
+            text: "Yes, add a test result",
+            checked: true if data.new.report.testResult.addMore == "true"
+          },
+          {
+            value: "false",
+            text: "No, mark this section as complete",
+            checked: true if data.new.report.testResult.addMore == "false"
+          }
+        ]
+      }) }}
+      
+
+      <div class="govuk-form-group">
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </div>
+
+    {% endif %}
+
+      
+
+</form>
+{% endblock %}
