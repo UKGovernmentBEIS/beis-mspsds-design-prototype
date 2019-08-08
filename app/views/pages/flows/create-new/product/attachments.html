@@ -9,7 +9,7 @@
   {% set theProduct = data.new.report.product.items[currentItemIndex] %}
 {% endif %}
 
-{% set pageHeading        = 'Images and files: ' + theProduct.name %}
+{% set pageHeading        = 'Images for: ' + theProduct.name %}
 
 
 {% block flow %}
@@ -25,35 +25,49 @@
     text: ""
   }) }} #}
 
-  <h2 class="govuk-heading-m">Evidence images</h2>
-  {# <p class="govuk-body">Evidence images that relate to the product <strong>‘{{productName}}’</strong>.</p> #}
+  
 
-  <div class="govuk-form-group">
-    {{ govukButton({
-    text: "Add evidence images",
-    classes: "govuk-button--secondary govuk-!-margin-bottom-0",
-    href: "#"
-    }) }}
-  </div>
-
-  <h2 class="govuk-heading-m">Images and documents that are not specific to the case</h2>
+  <h2 class="govuk-heading-m">Product images</h2>
   {# <p class="govuk-body">Images and files relate to the product <strong>‘{{productName}}’</strong> and should be included in other cases - like promotional images / clear images of the product / specification fles.</p> #}
-  <p class="govuk-body">These files will be reused if the product is involved in other cases.</p>
-  <p class="govuk-body">Examples:</p>
+  <p class="govuk-body">Images of the product or packaging that can be used for identification. These will be reused if the product is involved in other cases.</p>
+  {# <p class="govuk-body">Examples:</p>
   <ul class="govuk-list govuk-list--bullet">
     <li>‘official’ or non-evidence images of the product</li>
     <li>images of the packaging or other materials</li>
     <li>specification documents for the product</li>
-  </ul>
+  </ul> #}
 
-
+  
 
   <div class="govuk-form-group">
-    {{ govukButton({
-    text: "Add general images and files",
+    {# {{ govukButton({
+    text: "Add product images",
     classes: "govuk-button--secondary govuk-!-margin-bottom-0",
     href: "#"
-    }) }}
+    }) }} #}
+    <div class="moj-multi-file-upload__dropzone">
+      <input class="govuk-file-upload" id="documents" name="documents" type="file" multiple="">
+      <p class="govuk-body">Drag and drop files here or </p>
+      <label for="documents" class="govuk-button govuk-button--secondary">Choose files</label>
+      <div aria-live="polite" role="status" class="govuk-visually-hidden"></div>
+    </div>
+  </div>
+
+  <h2 class="govuk-heading-m">Evidence images</h2>
+  <p class="govuk-body">Images showing fault, damage or injury relevant to this specific case.</p>
+
+  <div class="govuk-form-group">
+    {# {{ govukButton({
+    text: "Add evidence images",
+    classes: "govuk-button--secondary govuk-!-margin-bottom-0",
+    href: "#"
+    }) }} #}
+    <div class="moj-multi-file-upload__dropzone">
+      <input class="govuk-file-upload" id="documents" name="documents" type="file" multiple="">
+      <p class="govuk-body">Drag and drop files here or </p>
+      <label for="documents" class="govuk-button govuk-button--secondary">Choose files</label>
+      <div aria-live="polite" role="status" class="govuk-visually-hidden"></div>
+    </div>
   </div>
 
   {# <p class="govuk-body">Upload images and files that relate to the product <strong>‘{{productName}}’</strong> - but that aren't specific to the case (like evidence images). These will be reused if the product is involved in other cases.</p>

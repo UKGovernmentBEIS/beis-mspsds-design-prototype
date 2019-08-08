@@ -49,6 +49,7 @@ module.exports = {
   confirmation: {},
 
   createUrl: "/root/flows/create/01",
+  createUrl: "/pages/flows/create-new",
 
   cases:          require("./cases.js").cases,
   products:       require("./products.js").products,
@@ -105,7 +106,7 @@ module.exports = {
       }
     },
     products: {
-      title: 'Add product details',
+      title: 'Product identification',
       url: 'product/index',
       isRequired: false,
       hideInTaskList: false,
@@ -125,7 +126,7 @@ module.exports = {
       }
     },
     businesses: {
-      title: 'Add businesses involved in case',
+      title: 'Businesses involved',
       url: 'business/index',
       isRequired: false,
       hideInTaskList: false,
@@ -135,8 +136,8 @@ module.exports = {
       }
     },
     testResults: {
-      title: 'Add test results',
-      url: '#',
+      title: 'Test results',
+      url: 'test-result/index',
       isRequired: false,
       hideInTaskList: false,
       status: {
@@ -145,19 +146,19 @@ module.exports = {
       }
     },
     backgroundInformation: {
-      title: 'Add background information - incidents, corrective actions and case notes.',
+      title: 'Case history',
       url: '#',
       isRequired: false,
       hideInTaskList: false,
-      extra: 'Including incidents',
+      _extra: 'Including incidents',
       status: {
         isComplete: false,
         text: '',
       }
     },
     filesAndAttachments: {
-      title: 'Upload files and attachments',
-      url: '#',
+      title: 'Files and attachments',
+      url: 'files-and-attachments',
       isRequired: false,
       hideInTaskList: false,
       status: {
@@ -166,7 +167,7 @@ module.exports = {
       }
     },
     source: {
-      title: 'Details of where the case from',
+      title: 'Reporter’s details',
       url: '#',
       isRequired: false,
       hideInTaskList: false,
@@ -176,7 +177,7 @@ module.exports = {
       }
     },
     settings: {
-      title: 'Check case metadata and settings',
+      title: 'Metadata and settings',
       url: 'metadata-and-settings',
       isRequired: false,
       hideInTaskList: false,
@@ -213,7 +214,7 @@ module.exports = {
     enquiry: "Make an enquiry",
     report: "Make a report",
     project: "Create a project",
-    allegation: "Raise an allegation"
+    allegation: "Make an allegation"
   },
   
   new: {

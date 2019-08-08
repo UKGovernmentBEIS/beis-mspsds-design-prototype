@@ -1,6 +1,6 @@
 {% extends "includes/templates/flow-create-new.html" %}
 {% set pageHeading        = 'Metadata and settings' %}
-{% set formAction         = 'overview' %}
+{% set formAction         = 'overview#check-case-metadata-and-settings' %}
 
 {% block flow %}
 <form action="{{formAction}}" method="post" class="form">
@@ -10,6 +10,7 @@
     <h2 class="govuk-heading-m">Case metadata</h2>
 
     {{ govukSummaryList({
+      classes: "govuk-!-margin-bottom-9",
       rows: [
         {
           key: {
@@ -65,7 +66,7 @@
     {% set summaryMetadataRows = [
       {
         key: {
-          text: "Status when created"
+          text: "Status"
         },
         value: {
           text: currentCase.status
@@ -148,7 +149,7 @@
     ] %}
 
     {{ govukSummaryList({
-      classes: '',
+      classes: 'govuk-!-margin-bottom-9',
       rows: summaryMetadataRows
     }) }}
 
