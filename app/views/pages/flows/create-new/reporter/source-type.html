@@ -1,0 +1,172 @@
+{% extends "includes/templates/flow-create-new.html" %}
+{% set pageHeading        = 'Where did the ' + (data.new.report.type | lower) + ' come from?' %}
+{% set formAction         = '' %}
+{% set returnLink = {href:'/pages/flows/create-new/report/index', text: 'Return to reporter’s details'} %}
+
+
+{% if currentItemIndex == 'new' %}
+  {% set theReporter = data.reporter %}
+{% else %}
+  {% set theReporter = data.new.report.reporter.reports[currentItemIndex] %}
+{% endif %}
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+
+    {% set businessNameHTML %}
+      {{ govukInput({
+        label: {
+          text: "Business name"
+        },
+        id: "event-name",
+        name: "reporter[businessName]",
+        classes: "govuk-!-width-one-half",
+        value: theReporter.businessName
+      }) }}
+
+    {% endset %}
+
+    {% set tradingStandardsNameHTML %}
+      {{ autocompleteInput({
+        idPrefix:   'trading-standards-name',
+        name:       'reporter[tradingStandardsName]',
+        class:      "govuk-label govuk-!-margin-bottom-1",
+        legend:     "Select Trading Standards organisation", 
+        _hint:       "",
+        values:     data.tradingStandardsOrganisations,
+        value: theReporter.tradingStandardsName
+      }) }}
+    {% endset %}
+
+    {% set localAuthorityNameHTML %}
+      {{ localAuthorityAutocomplete({
+        idPrefix:   'localAuthorityName',
+        name:       'reporter[localAuthorityName]',
+        class:      "govuk-label govuk-!-margin-bottom-1",
+        legend:     "Select authority",
+        value: theReporter.localAuthorityName
+      }) }}
+      {% endset %}
+
+    {% set departmentOrAgencyNameHTML %}
+      {{ departmentOrAgencyAutocomplete({
+        idPrefix:   'departmentOrAgencyName',
+        name:       'reporter[departmentOrAgencyName]',
+        class:      "govuk-label govuk-!-margin-bottom-1",
+        legend:     "Select department or agency",
+        value: theReporter.departmentOrAgencyName
+      }) }}
+
+    {% endset %}
+
+    {% set opssStakeholderNameHTML %}
+      {{ autocompleteInput({
+        idPrefix:   'stakeholder-name',
+        name:       'reporter[opssStakeholderName]',
+        class:      "govuk-label govuk-!-margin-bottom-1",
+        legend:     "Select stakeholder", 
+        _hint:       "",
+        values:     ['Electrical safety first', 'National Testing Laboratory','Which?','Whirlpool'],
+        value: theReporter.opssStakeholderName
+      }) }}
+
+
+
+    {% endset %}
+
+    {% set otherNameHTML %}
+      {{ govukInput({
+        label: {
+          text: "Organisation name"
+        },
+        id: "event-name",
+        name: "reporter[otherOrgName]",
+        classes: "govuk-!-width-one-half",
+        value: theReporter.otherOrgName
+      }) }}
+
+    {% endset %}
+
+    {% call govukFieldset({
+      legend: {
+        text:           pageHeading,
+        isPageHeading:  true,
+        classes:        "govuk-fieldset__legend--l"
+      }
+    }) %}
+
+          {{ govukRadios({
+            idPrefix:   "reporter-type",
+            name:       "reporter[type]",
+            items: [
+              {
+                value: "Consumer",
+                text: "A member of the public",
+                checked: checked([theReporter.type], "Consumer")
+              },
+              {
+                value: "Business",
+                text: "A business",
+                checked: checked([theReporter.type], "Business"),
+                conditional: {
+                  html: businessNameHTML
+                }
+              },
+              {
+                value: "Trading Standards",
+                text: "Trading Standards",
+                checked: checked([theReporter.type], "Trading Standards"),
+                conditional: {
+                  html: tradingStandardsNameHTML
+                }
+              },
+              {
+                value: "Local authority",
+                text: "A local authority",
+                checked: checked([theReporter.type], "Local authority"),
+                conditional: {
+                  html: localAuthorityNameHTML
+                }
+              },
+              {
+                value: "Other government department or agency",
+                text: "A government department or agency",
+                checked: checked([theReporter.type], "Other government department or agency"),
+                conditional: {
+                  html: departmentOrAgencyNameHTML
+                }
+              },
+              {
+                value: "Stakeholder",
+                text: "An OPSS stakeholder",
+                checked: checked([theReporter.type], "Stakeholder"),
+                conditional: {
+                  html: opssStakeholderNameHTML
+                }
+              },
+              {
+                divider: "or"
+              },
+              {
+                value: "Other",
+                text: "Other",
+                checked: checked([theReporter.type], "Other"),
+                conditional: {
+                  html: otherNameHTML
+                }
+              }
+            ]
+          }) }}
+
+    {% endcall %}
+
+    <div class="govuk-form-group">
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </div>
+
+      
+
+</form>
+{% endblock %}

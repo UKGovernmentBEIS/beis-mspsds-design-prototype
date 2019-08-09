@@ -9,7 +9,7 @@
   {% set theProduct = data.new.report.product.items[currentItemIndex] %}
 {% endif %}
 
-{% set pageHeading        = 'Images for: ' + theProduct.name %}
+{% set pageHeading        = 'Attachments for: ' + theProduct.name %}
 
 
 {% block flow %}
@@ -55,6 +55,23 @@
 
   <h2 class="govuk-heading-m">Evidence images</h2>
   <p class="govuk-body">Images showing fault, damage or injury relevant to this specific case.</p>
+
+  <div class="govuk-form-group">
+    {# {{ govukButton({
+    text: "Add evidence images",
+    classes: "govuk-button--secondary govuk-!-margin-bottom-0",
+    href: "#"
+    }) }} #}
+    <div class="moj-multi-file-upload__dropzone">
+      <input class="govuk-file-upload" id="documents" name="documents" type="file" multiple="">
+      <p class="govuk-body">Drag and drop files here or </p>
+      <label for="documents" class="govuk-button govuk-button--secondary">Choose files</label>
+      <div aria-live="polite" role="status" class="govuk-visually-hidden"></div>
+    </div>
+  </div>
+
+  <h2 class="govuk-heading-m">Certificates</h2>
+  <p class="govuk-body"></p>
 
   <div class="govuk-form-group">
     {# {{ govukButton({

@@ -1,0 +1,71 @@
+{% extends "includes/templates/flow-create-new.html" %}
+{% set pageHeading        = 'Reporter’s details' %}
+{% set formAction         = './../overview#reporter’s-details' %}
+
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+    
+    <h1 class="govuk-heading-l">{{pageHeading}}</h1>
+
+    <p class="govuk-body">Sources of information for this {{report.type | lower}} - like claimants. You don’t need to add yourself.</p>
+
+    {% if report.reporter | length == 0 %}
+      {{ govukInsetText({
+        text: "No reporter’s details added."
+      }) }}
+    
+    {% else %}
+
+      {% for report in report.reporter.reports %}
+        {{ govukSummaryList({
+          rows: [
+            {
+              key: {
+                text: report.type
+              },
+              value: {
+                text: report.orgName
+              },
+              actions: {
+                items: [
+                  {
+                    href: "./" + (loop.index0 ) + '/source-type',
+                    text: "Change",
+                    visuallyHiddenText: "report " + loop.index
+                  }
+                ]
+              }
+            }
+          ]
+        }) }}
+      {% endfor %}
+    
+    {% endif %}
+
+    {{ govukInput({
+      id:   "section-complete",
+      name: "new[taskListSections][source][status][isComplete]",
+      value: true,
+      type: "hidden"
+    }) }}
+
+
+    <div class="govuk-form-group">
+      {{ govukButton({
+      text: "Add a reporter’s details",
+      classes: "govuk-button--secondary govuk-!-margin-bottom-0",
+      href: "new/source-type"
+      }) }}
+    </div>
+
+    <div class="govuk-form-group">
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </div>
+
+      
+
+</form>
+{% endblock %}

@@ -729,8 +729,65 @@ router.post('/pages/flows/create-new/test-result/:index/save', function (req, re
   res.redirect('/pages/flows/create-new/test-result/index')
 });
 
-// Save
+// Reporters
+router.get('/pages/flows/create-new/reporter/:index/:template', function (req, res, next) {
+  var index = req.params.index
+  var template = req.params.template
+  res.render('pages/flows/create-new/reporter/' + template, {currentItemIndex: index})
+});
 
+router.post('/pages/flows/create-new/reporter/:index/source-type', function (req, res, next) {
+  var index = req.params.index
+  var data = req.session.data
+  var reporterType = _.get(data, 'reporter.type')
+  var orgName = ''
+  switch (reporterType) {
+    case ("Business"):
+      orgName = _.get(data, 'reporter.businessName')
+      break
+    case ("Trading Standards"):
+      orgName = _.get(data, 'reporter.tradingStandardsName')
+      break
+    case ("Local authority"):
+      orgName = _.get(data, 'reporter.localAuthorityName')
+      break
+    case ("Other government department or agency"):
+      orgName = _.get(data, 'reporter.departmentOrAgencyName')
+      break
+    case ("Stakeholder"):
+      orgName = _.get(data, 'reporter.opssStakeholderName')
+      break
+    case ("Other"):
+      orgName = _.get(data, 'reporter.otherOrgName')
+      break
+    
+  }
+  console.log('setting', orgName)
+  _.set(data, 'reporter.orgName', orgName)
+  res.redirect('/pages/flows/create-new/reporter/' + index + '/contact-details' )
+});
+
+// Save the product data - new or ammend
+router.post('/pages/flows/create-new/reporter/:index/save', function (req, res, next) {
+  var data = req.session.data
+  var index = req.params.index
+
+  var reports = _.get(data, 'new.report.reporter.reports')
+  if (!reports) _.set(data, 'new.report.reporter.reports', []) //just to be safe
+  var reporter = data.reporter
+
+  if (index == 'new') {
+    data.new.report.reporter.reports.push(reporter)
+  }
+  else {
+    data.new.report.reporter.reports[index] = reporter
+  }
+  delete data.reporter
+
+  res.redirect('/pages/flows/create-new/reporter/index')
+});
+
+// Save
 router.post('/pages/flows/create-new/save', function (req, res) {
   const data = req.session.data;
   newCase = Cases.addCase(data);
