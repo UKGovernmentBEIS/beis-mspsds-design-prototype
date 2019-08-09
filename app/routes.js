@@ -799,7 +799,7 @@ router.get('/pages/flows/create-new/case-history/:index/edit', function (req, re
       res.redirect('/pages/flows/create-new/case-history/' + index + '/corrective-action' )
       break
     case ("Incident"):
-      res.redirect('/pages/flows/create-new/case-history/' + index + '/corrective-action' )
+      res.redirect('/pages/flows/create-new/case-history/' + index + '/incident' )
       break
     default:
       res.redirect('/pages/flows/create-new/case-history/index' )

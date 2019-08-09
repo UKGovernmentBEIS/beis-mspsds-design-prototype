@@ -1,0 +1,63 @@
+{% extends "includes/templates/flow-create-new.html" %}
+
+{% set formAction         = 'save' %}
+{% set returnLink = {href:'/pages/flows/create-new/test/index', text: 'Return to test results'} %}
+
+{% if currentItemIndex == 'new' %}
+  {% set theItem = data.historyItem %}
+{% else %}
+  {% set theItem = data.new.report.history.items[currentItemIndex] %}
+{% endif %}
+
+{% set pageHeading        = 'Do you have any files relating to the ' + (theItem.type | lower) + "?" %}
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+
+    {% set conditionalUploadHTML %}
+      <div class="moj-multi-file-upload__dropzone">
+        <input class="govuk-file-upload" id="documents" name="documents" type="file" multiple="">
+        <p class="govuk-body">Drag and drop files here or </p>
+        <label for="documents" class="govuk-button govuk-button--secondary">Choose files</label>
+        <div aria-live="polite" role="status" class="govuk-visually-hidden"></div>
+      </div>
+
+    {% endset %}
+
+    {{ govukRadios({
+      idPrefix: "where-do-you-live",
+      name: "historyItem[hasFile]",
+      fieldset: {
+        legend: {
+          text: pageHeading,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: "yes",
+          text: "Yes",
+          checked: checked([theItem['hasFile']], "yes"),
+          conditional: {
+            html: conditionalUploadHTML
+          }
+        },
+        {
+          checked: checked([theItem['hasFile']], "no"),
+          value: "no",
+          text: "No"
+        }
+      ]
+    }) }}
+
+    <div class="govuk-form-group">
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </div>
+
+      
+
+</form>
+{% endblock %}
