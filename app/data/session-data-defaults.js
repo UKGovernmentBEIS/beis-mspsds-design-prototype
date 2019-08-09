@@ -69,6 +69,8 @@ module.exports = {
   fileTypes:      require("./file-types").fileTypes,
   questionTypes:  require("./question-types").questionTypes,
 
+  tradingStandardsOrganisations:  require("./trading-standards-orgs").tradingStandardsOrganisations,
+
   teamPermissions: [
     { 
       teamName: "OPSS - processing",
@@ -168,7 +170,7 @@ module.exports = {
     },
     source: {
       title: 'Reporter’s details',
-      url: '#',
+      url: 'reporter/index',
       isRequired: false,
       hideInTaskList: false,
       status: {
