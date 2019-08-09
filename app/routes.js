@@ -787,6 +787,52 @@ router.post('/pages/flows/create-new/reporter/:index/save', function (req, res, 
   res.redirect('/pages/flows/create-new/reporter/index')
 });
 
+
+
+router.get('/pages/flows/create-new/case-history/:index/edit', function (req, res, next) {
+  var data = req.session.data
+  var index = req.params.index
+  var template = req.params.template
+  var historyItem = _.get(data, 'new.report.history.items['+index+']')
+  switch (historyItem.type) {
+    case ("Corrective action"):
+      res.redirect('/pages/flows/create-new/case-history/' + index + '/corrective-action' )
+      break
+    case ("Incident"):
+      res.redirect('/pages/flows/create-new/case-history/' + index + '/corrective-action' )
+      break
+    default:
+      res.redirect('/pages/flows/create-new/case-history/index' )
+  }
+});
+
+// History items
+router.get('/pages/flows/create-new/case-history/:index/:template', function (req, res, next) {
+  var index = req.params.index
+  var template = req.params.template
+  res.render('pages/flows/create-new/case-history/' + template, {currentItemIndex: index})
+});
+
+// Save the data
+router.post('/pages/flows/create-new/case-history/:index/save', function (req, res, next) {
+  var data = req.session.data
+  var index = req.params.index
+
+  var historyItems = _.get(data, 'new.report.history.items')
+  if (!historyItems) _.set(data, 'new.report.history.items', []) //just to be safe
+  var historyItem = data.historyItem
+
+  if (index == 'new') {
+    data.new.report.history.items.push(historyItem)
+  }
+  else {
+    data.new.report.history.items[index] = historyItem
+  }
+  delete data.historyItem
+
+  res.redirect('/pages/flows/create-new/case-history/index')
+});
+
 // Save
 router.post('/pages/flows/create-new/save', function (req, res) {
   const data = req.session.data;

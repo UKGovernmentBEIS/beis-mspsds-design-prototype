@@ -147,9 +147,9 @@ module.exports = {
         text: 'Can’t start yet',
       }
     },
-    backgroundInformation: {
+    caseHistory: {
       title: 'Case history',
-      url: '#',
+      url: 'case-history/index',
       isRequired: false,
       hideInTaskList: false,
       _extra: 'Including incidents',
@@ -205,7 +205,7 @@ module.exports = {
       'categories',
       'products',
       'hazards',
-      'backgroundInformation'
+      'caseHistory'
     ],
     project: [
       'summary'
