@@ -1,7 +1,7 @@
 {% extends "includes/templates/flow-create-new.html" %}
 {% set pageHeading        = 'What are their contact details?' %}
 {% set formAction         = 'save' %}
-{% set returnLink = {href:'/pages/flows/create-new/report/index', text: 'Return to reporter’s details'} %}
+{% set returnLink = {href:'/pages/flows/create-new/reporter/index', text: 'Return to reporter’s details'} %}
 
 {% if currentItemIndex == 'new' %}
   {% set theReporter = data.reporter %}

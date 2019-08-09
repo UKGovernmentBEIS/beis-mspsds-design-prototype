@@ -17,7 +17,7 @@
     {% for testResult in report.testResult.testResults %}
     {# <h2 class="govuk-heading-s">testResult {{loop.index}}: {{testResult.class}} testResult</h2> #}
     {% set testResultText %}
-        Result: {{testResult.result}}, date: {{testResult.date}}
+        Result: {{testResult.result}}, date: {{testResult.date | arrayToDate | govukDate}}
     {% endset %}
 
       {{ govukSummaryList({

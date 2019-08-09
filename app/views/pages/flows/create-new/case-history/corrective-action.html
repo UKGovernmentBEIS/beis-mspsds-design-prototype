@@ -1,0 +1,130 @@
+{% extends "includes/templates/flow-create-new.html" %}
+{% set pageHeading        = 'Record a corrective action' %}
+{% set formAction         = 'save' %}
+{% set returnLink = {href:'/pages/flows/create-new/case-history/index', text: 'Return to case history'} %}
+
+{% if currentItemIndex == 'new' %}
+  {% set theItem = data.historyItem %}
+{% else %}
+  {% set theItem = data.new.report.history.items[currentItemIndex] %}
+{% endif %}
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+
+  <h1 class="govuk-heading-l">{{pageHeading}}</h1>
+
+    {{ govukInput({
+      label: {
+        text: "Summary of the action",
+        classes: "govuk-label--m"
+      },
+      id: "summary",
+      name: "historyItem[title]",
+      value: theItem.title,
+      classes: "govuk-!-width-two-thirds",
+      hint: {
+      text: "For example, ‘Retailer has been told to remove the item from the shelves’."
+    }
+    }) }}
+
+    {{ govukDateInput({
+      id: "action-date",
+      namePrefix: "historyItem[date].",
+      fieldset: {
+        legend: {
+          text: "Corrective action date",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          name: "day",
+          classes: "govuk-input--width-2",
+          value: theItem['date'][0]
+        },
+        {
+          name: "month",
+          classes: "govuk-input--width-2",
+          value: theItem['date'][1]
+        },
+        {
+          name: "year",
+          classes: "govuk-input--width-4",
+          value: theItem['date'][2]
+        }
+      ],
+      hint: {
+        html: "Date the corrective action came in to effect. This may be in the future.<br>For example, 12 7 2019"
+      }
+    }) }}
+
+    {% set legislationList = ['General Product Safety Regulations 2005',
+    'Gas Appliances (Enforcement) and Miscellaneous Amendments Regulations 2018 / EU 2016/426 Appliances Burning Gaseous Fuels',
+    'Personal Protective Equipment (Enforcement) Regulations 2018 / EU 2016/425 Personal Protective Equipment',
+    'Radio Equipment Regulations 2017',
+    'Recreational Craft Regulations 2017',
+    'Electrical Equipment (Safety) Regulations 2016',
+    'Electromagnetic Compatibility Regulations 2016',
+    'Equipment and Protective Systems Intended for Use in Potentially Explosive Atmospheres Regulations 2016',
+    'Lifts Regulations 2016',
+    'Pressure Equipment Regulations 2016',
+    'Simple Pressure Vessels (Safety) Regulations 2016',
+    'Pyrotechnic Articles (Safety) Regulations 2015',
+    'Cosmetic Products Enforcement Regulations 2013 / EC 1223/2009 Cosmetic Products',
+    'Toys Safety Regulations 2011',
+    'Aerosol Dispensers Regulations 2009',
+    'Supply of Machinery (Safety) Regulations 2008',
+    'Fireworks Act 2003 / Fireworks Regulations 2004',
+    'Noise Emission in the Environment by Equipment for Use Outdoors Regulations 2001',
+    'Plugs and Sockets (Safety) Regulations 1994',
+    'Food Imitations (Safety) Regulations 1989',
+    'Furniture and Furnishings (Fire) (Safety) Regulations 1988',
+    'Consumer Protection Act 1987 (Part 1)',
+    'Nightwear Safety Regulations 1985',
+    'Oil Heaters (Safety) Regulations 1977',
+    'Gun Barrel Proof Acts 1868 to 1978'] %}
+
+    {{ autocompleteInput({
+      idPrefix: "legislation", 
+      name:     "historyItem[legislation]", 
+      legend:   "Relevant legislation", 
+      hint:     "Select the relevant legislation or enter a different one.", 
+      values:   legislationList,
+      value: theItem['legislation'],
+      class: 'govuk-heading-m',
+      width: 'govuk-!-width-two-thirds'}) 
+    }}
+
+    {{ govukTextarea({
+      name: "historyItem[otherDetails]",
+      value: theItem.otherDetails,
+      id: "otherDetails",
+      label: {
+        text: "Further details",
+        classes: "govuk-label--m"
+      },
+      hint: {
+        text: "If you have more information about a corrective action, add it here.
+  "
+      }
+    }) }}
+
+    {{ govukInput({
+      id:   "history-type",
+      name: "historyItem[type]",
+      value: "Corrective action",
+      type: "hidden"
+    }) }}
+
+    <div class="govuk-form-group">
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </div>
+
+      
+
+</form>
+{% endblock %}

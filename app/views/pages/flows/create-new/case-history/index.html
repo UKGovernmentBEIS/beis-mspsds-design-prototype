@@ -1,0 +1,87 @@
+{% extends "includes/templates/flow-create-new.html" %}
+{% set pageHeading        = 'Case history' %}
+{% set formAction         = './../overview' %}
+
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+    
+    <h1 class="govuk-heading-l">{{pageHeading}}</h1>
+
+    <p class="govuk-body">Add relevant history for this case.</p>
+
+    {% if report.history.items | length == 0 %}
+    {{ govukInsetText({
+      text: "No case history added."
+    }) }}
+    {% else %}
+
+    {% for historyItem in report.history.items %}
+    {# <h2 class="govuk-heading-s">testResult {{loop.index}}: {{testResult.class}} testResult</h2> #}
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              html: (historyItem.date | arrayToDate | govukDate) + "<br>" + historyItem.type
+            },
+            value: {
+
+
+              text: historyItem.title
+            },
+            actions: {
+              items: [
+                {
+                  href: "./" + (loop.index -1 ) + '/edit',
+                  text: "Change",
+                  visuallyHiddenText: "history item " + loop.index
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+    
+    {% endfor %}
+
+    {% endif %}
+
+    <div class="govuk-form-group">
+      {{ hmctsMenu({
+        classes: 'hmcts-menu--add-case-history',
+        items: [
+          {
+            text: 'Add a corrective action',
+            classes: 'hmcts-button--secondary',
+            href: 'new/corrective-action'
+          }, {
+            text: 'Add details of an incident',
+            classes: 'hmcts-button--secondary'
+          }, {
+            text: 'Add a case note',
+            classes: 'hmcts-button--secondary'
+          }
+        ]
+        }) 
+      }} 
+    </div>
+      {{ govukInput({
+        id:   "section-complete",
+        name: "new[taskListSections][caseHistory][status][isComplete]",
+        value: true,
+        type: "hidden"
+      }) }}
+
+      <div class="govuk-form-group">
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </div>
+
+   
+
+      
+
+</form>
+{% endblock %}
