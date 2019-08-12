@@ -425,6 +425,7 @@ const setCaseDefaults = (req) => {
   _.set(data, 'currentPage', 'Case')
   _.set(data, 'navActive', 'Case')
   _.set(data, 'new.taskListSections', data.defaultTaskListSections)
+  _.set(data, 'new.isDraft', true)
 
 }
 
@@ -837,8 +838,10 @@ router.post('/pages/flows/create-new/case-history/:index/save', function (req, r
 router.post('/pages/flows/create-new/save', function (req, res) {
   const data = req.session.data;
   newCase = Cases.addCase(data);
+  data.caseid = newCase.id
   Reset.resetNew(req);
-  res.redirect('/root/case/overview?caseid=' + newCase.id);
+  res.redirect('/pages/flows/create-new/case-created');
+  // res.redirect('/root/case/overview?caseid=' + newCase.id);
 });
 
 // Add your routes here - above the module.exports line
