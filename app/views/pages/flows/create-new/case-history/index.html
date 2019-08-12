@@ -18,12 +18,20 @@
 
     {% for historyItem in report.history.items %}
     {# <h2 class="govuk-heading-s">testResult {{loop.index}}: {{testResult.class}} testResult</h2> #}
+      {%- set itemDate -%}
+      {{- historyItem.date | arrayToDate | govukDate -}}
+      {%- endset %}
+  
+      {% if itemDate | length != 0 %}
+      {% set itemDate = itemDate + '<br>' %}
+      {% endif %}
+
 
       {{ govukSummaryList({
         rows: [
           {
             key: {
-              html: (historyItem.date | arrayToDate | govukDate) + "<br>" + historyItem.type
+              html: itemDate + historyItem.type
             },
             value: {
 

@@ -294,7 +294,11 @@ module.exports = function (env) {
   // set attribute on object
   filters.govukDate = (date) => {
     var theDate = moment(date)
-    return theDate.format('D MMMM YYYY')
+    if (theDate.isValid()){
+      return theDate.format('D MMMM YYYY')
+    }
+    else return ''
+    
   }
 
   // set attribute on object
