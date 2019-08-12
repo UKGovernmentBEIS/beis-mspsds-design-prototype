@@ -5,9 +5,53 @@
 {% block flow %}
 <form action="{{formAction}}" method="post" class="form">
 
+    {% set hazardDetailsHTML %}
+      <div class="hazard-wrapper" id=hazzardAutocomplete>
+          {{ autocompleteInput({
+            idPrefix: "hazard-type", 
+            name:     "new[report][hazardType]", 
+            legend:   "Hazard type",
+            class:    "govuk-body govuk-!-margin-bottom-1 govuk-input--width-20",
+            _hint:     "The danger the product presents", 
+            values:   data.hazardTypes,
+            value: report.hazardType
+          }) 
+          }}
+        </div>
+        <p class="govuk-body"><a href="#" class="govuk-link govuk-link--no-visited-state" id="hazzardAddAnother" data-target="hazzardAutocomplete" >Add another hazard</a></p>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+        {{ govukTextarea({
+          name: "new[report][hazardSummary]",
+          value: data.new.report['hazardSummary'],
+          id:   "allegation-hazard–detail",
+          label: {
+            text: "Why do you think the product is unsafe?"
+          },
+          hint : {
+            text: "Including any incidents or events that brought it to your attention",
+            text: "For example, exposed wires or incidents that brought it to your attention"
+
+          }
+        }) }}
+    {% endset %}
+
+    {% set complianceHtml %}
+    
+      {{ govukTextarea({
+        name: "new[report][complianceSummary]",
+        id:   "allegation-compliance-detail",
+        label: {
+          text: "Details of non-compliance"
+        },
+        value: report.complianceSummary
+      }) }}
+
+    {% endset -%}
+
     {{ govukCheckboxes({
       idPrefix: "waste",
-      name: "waste",
+      name: "new[report][reportType]",
       fieldset: {
         legend: {
           text: pageHeading,
@@ -21,18 +65,62 @@
       items: [
         {
           value: "It’s unsafe",
-          text: "It’s unsafe"
+          text: "It’s unsafe",
+          checked: checked([report['reportType']], "It’s unsafe"),
+          conditional: {
+            html: hazardDetailsHTML
+          },
+          attributes: {
+              'data-js-select': 'select'
+            }
         },
         {
           value: "non-compliant",
-          text: "It’s non-compliant"
+          checked: checked([report['reportType']], "non-compliant"),
+          text: "It’s non-compliant",
+          conditional: {
+              html: complianceHtml
+          },
+          attributes: {
+              'data-js-select': 'select'
+            }
         },
         {
           value: "safe",
-          text: "The product is safe"
+          checked: checked([report['reportType']], "safe"),
+          text: "The product is safe",
+          attributes: {
+              'data-js-select': 'deselect'
+            }
         }
       ]
     }) }}
+
+    {# 
+    ,
+        {
+          value: "safe",
+          checked: checked(report['reportType'], "It’s safe"),
+          text: "The product is safe"
+        }
+     #}
+
+    {# <div class="govuk-radios__divider">or</div>
+
+      {{ govukCheckboxes({
+        idPrefix:   "new[report][reportType]",
+        name:       "new[report][reportType]",
+        items: [
+          {
+            value: "safe",
+            text: "The product is safe",
+            checked: checked(report['reportType'], "safe"),
+            attributes: {
+              'data-js-select': 'deselect'
+            }
+          }
+        ]
+      }) }} #}
 
     {{ govukInput({
       id:   "section-complete",
