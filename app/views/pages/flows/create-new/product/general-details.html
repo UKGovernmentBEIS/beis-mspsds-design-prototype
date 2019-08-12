@@ -78,6 +78,19 @@
     value: theProduct.country
   })}}
 
+  {{ govukTextarea({
+    name: "product[description]",
+    value: theProduct.description,
+    id: "more-detail",
+    label: {
+      text: "Description of product",
+      classes: "govuk-label--m"
+    },
+    hint: {
+      text: "For example, ‘Orange, 4 socket extension lead’"
+    }
+  }) }}
+
 
   <div class="govuk-form-group">
     {{ govukButton({
