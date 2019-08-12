@@ -1,0 +1,47 @@
+{% extends "includes/templates/flow-create-new.html" %}
+{% set pageHeading        = 'Case created' %}
+{% set formAction         = '' %}
+{% set hideReturnLink = true %}
+{% set backLink = 'false' %}
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+
+    {% from "includes/components/shared/hmcts-banner.html" import hmctsBanner %}
+
+    {% set bannerHtml %}
+      <h1 class="govuk-heading-l">{{pageHeading}}</h1>
+      <p class="govuk-body">Case ID: {{data['caseid']}}</p>
+      {# <h2 class="govuk-body-l">Case ID:  {{data['caseid']}}</h2> #}
+      <p class="govuk-body">A confirmation email has been sent to <strong>example@example.com</strong>
+    </p>
+    {% endset %}
+
+    {{ hmctsBanner({
+      html: bannerHtml
+    }) }}
+      {# Clothing (inc. baby) – Other hazard type (no product specified) #}
+      <p class="govuk-body"><strong>{{currentCase.title}}</strong>, has now been assigned to <strong>{{currentCase.assignee}}</strong>.</p>
+
+      <p class="govuk-body">If you need to, you can add more information later.</p>
+
+      {# <p class="govuk-body">The issue has now been assigned to <strong>The Office for Product Safety and Standards</strong>. If you need to, you can add more information later.</p> #}
+          
+      {# <p class="govuk-body">Your case has been assigned to <strong>The Office for Product Safety and Standards</strong>.</p> #}
+
+      {# <p class="govuk-body">They will review it and get back to you if they have any questions.</p> #}
+
+      {% from "button/macro.njk" import govukButton %}
+      <div class="govuk-form-group">
+        {{ govukButton({
+          text: "View case",
+          href: '/root/case/overview'
+        }) }}
+      </div>
+
+      <p class="govuk-body"><a href="/pages/home" class="govuk-link">Home</a></p>
+
+      <p class="govuk-body"><a href="/pages/case-list" class="govuk-link">View all cases you have opened</a></p>
+
+</form>
+{% endblock %}

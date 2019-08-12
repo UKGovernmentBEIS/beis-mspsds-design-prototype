@@ -86,15 +86,17 @@
 {% block header %}
   {{ super() }}
 
-  {% set identityBarHTML %}
+  {% set identityBarHTML %} 
     <span class="hmcts-badge hmcts-badge--grey">Draft {{caseType | lower or 'case'}}</span>
-
   {% endset %}
 
-  {{ identityBar({
-    title: { html: identityBarHTML }
-  }) }}  
-
+  {% if data.new.isDraft %}
+    {{ identityBar({
+      title: { html: identityBarHTML }
+    }) }}  
+  {% else %}
+    {% include "includes/components/case/case-bar.html" %}
+  {% endif %}
 {% endblock %}
 
 
