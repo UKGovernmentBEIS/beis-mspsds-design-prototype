@@ -8,7 +8,7 @@
     
     <h1 class="govuk-heading-l">{{pageHeading}}</h1>
 
-    <p class="govuk-body">Add relevant history for this case.</p>
+    <p class="govuk-body">Record what’s happened in the case so far. Sharing this information will reduce confusion and the number of questions from people who become involved in the case later on.</p>
 
     {% if report.history.items | length == 0 %}
     {{ govukInsetText({
@@ -52,13 +52,14 @@
         classes: 'hmcts-menu--add-case-history',
         items: [
           {
-            text: 'Add a corrective action',
-            classes: 'hmcts-button--secondary',
-            href: 'new/corrective-action'
-          }, {
             text: 'Add details of an incident',
             classes: 'hmcts-button--secondary',
             href: 'new/incident'
+          },
+          {
+            text: 'Add a corrective action',
+            classes: 'hmcts-button--secondary',
+            href: 'new/corrective-action'
           }, {
             text: 'Add a case note',
             classes: 'hmcts-button--secondary',
