@@ -474,6 +474,24 @@ const updateRequiredSections = (req) => {
 
 }
 
+// Overview
+router.post('/pages/flows/create-new/overview', function (req, res, next) {
+  var data = req.session.data
+  var caseType = _.get(data, 'new.report.type')
+  if (!caseType) {
+    setCaseDefaults(req)
+    logInAsTradingStandards(req)
+    caseType = "Report"
+    _.set(data, 'new.report.type', caseType)
+  }
+  if (caseType == "Report"){
+    _.set(data, 'new.assignee', "OPSS - Processing")
+  }
+
+  
+  res.redirect('/pages/flows/create-new/overview')
+});
+
 // Main task list page
 router.get('/pages/flows/create-new/overview', function (req, res, next) {
   var data = req.session.data
