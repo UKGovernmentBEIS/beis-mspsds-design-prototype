@@ -224,3 +224,13 @@ p.govuk-body, h1, h2, h3 {
   }
   
 }
+
+.autocomplete__input--show-all-values + 
+.autocomplete__dropdown-arrow-down {
+  z-index: 1;
+}
+
+
+.nowrap {
+  white-space: nowrap;
+}

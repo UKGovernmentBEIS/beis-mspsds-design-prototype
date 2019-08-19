@@ -92,7 +92,6 @@ $('.app-toggle-link').click(function(e){
   $selectButtons.on('click', function () {
     $deSelectButtons.each((index, item) => {
       if($(item).is(":checked")){
-        // item.click()
         $(item).next().click()
       }
     })
@@ -102,7 +101,6 @@ $('.app-toggle-link').click(function(e){
 
       $selectButtons.each((index, item) => {
         if($(item).is(":checked")){
-          // item.click()
           $(item).next().click()
         }
       })
@@ -110,10 +108,23 @@ $('.app-toggle-link').click(function(e){
   })
 
 // Ignore clicks on # anchors
- $('a[href=#]').on('click', function(e){
-  e.preventDefault()
- })
+  $('a[href=#]').on('click', function(e){
+    e.preventDefault()
+  })
 
+  $('.autocomplete__dropdown-arrow-down').on('click', function(event){
+    var input = $(event.target).parents('.autocomplete__dropdown-arrow-down').prev()
+    if (! input.hasClass('autocomplete__input--focused')){
+      console.log('does not have class')
+      input.addClass('autocomplete__input--focused')
+      input.click()
+      input.focus()
+    }
+   
+  })
+
+
+// Non working drag and drop - added to prevent page being lost if things are dragged
 
 var dragged;
 
@@ -151,7 +162,6 @@ document.addEventListener("dragenter", function(event) {
 document.addEventListener("dragleave", function(event) {
   // reset background of potential drop target when the draggable element leaves it
   if (event.target.className == "moj-multi-file-upload__dropzone") {
-    event.target.style.background = "";
     $(event.target).removeClass("moj-multi-file-upload--dragover")
   }
 

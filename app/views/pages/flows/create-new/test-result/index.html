@@ -17,18 +17,16 @@
     {% for testResult in report.testResult.testResults %}
     {# <h2 class="govuk-heading-s">testResult {{loop.index}}: {{testResult.class}} testResult</h2> #}
     {% set testResultText %}
-        Result: {{testResult.result}}, date: {{testResult.date | arrayToDate | govukDate}}
+        Result: {{testResult.result}}
     {% endset %}
 
       {{ govukSummaryList({
         rows: [
           {
             key: {
-              text: testResult.title
+              html: (testResult.date | arrayToDate | govukDate) + '<br>' + testResult.title
             },
             value: {
-
-
               text: testResultText
             },
             actions: {

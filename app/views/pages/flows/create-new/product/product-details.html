@@ -1,6 +1,6 @@
 {% extends "includes/templates/flow-create-new.html" %}
-{% set pageHeading        = 'General product details' %}
-{% set formAction         = './attachments' %}
+{% set pageHeading        = 'Product details' %}
+{% set formAction         = './images' %}
 {% set returnLink = {href:'/pages/flows/create-new/product/index', text: 'Return to products'} %}
 
 {% if currentItemIndex == 'new' %}
@@ -29,7 +29,7 @@
 
   {{ govukInput({
     label: {
-      text: "Barcode (or serial number)",
+      text: "Barcode",
       classes: "govuk-label--m"
     },
     hint: {
@@ -41,7 +41,21 @@
     classes: "govuk-!-width-two-thirds"
   }) }}
 
-  {{ govukInput({
+  {# {{ govukInput({
+    label: {
+      text: "Serial number",
+      classes: "govuk-label--m"
+    },
+    hint: {
+      text: "If you have this data it makes it easier to correctly identify the product"
+    },
+    id: "barcode-name",
+    name: "product[code]",
+    value: theProduct.code,
+    classes: "govuk-!-width-two-thirds"
+  }) }} #}
+
+ {#  {{ govukInput({
     label: {
       text: "Batch number",
       classes: "govuk-label--m"
@@ -53,7 +67,14 @@
     name: "product[batch]",
     value: theProduct.batch,
     classes: "govuk-!-width-two-thirds"
-  }) }}
+  }) }} #}
+
+  {{autocompleteCountry({
+    label: 'Country of origin', 
+    width: "govuk-!-width-two-thirds",
+    name: "product[country]",
+    value: theProduct.country
+  })}}
 
   {{ govukInput({
     label: {
@@ -71,12 +92,7 @@
 
   <p class="govuk-body"><a href="#" class="govuk-link">Add another webpage</a></p>
 
-  {{autocompleteCountry({
-    label: 'Country of origin', 
-    width: "govuk-!-width-two-thirds",
-    name: "product[country]",
-    value: theProduct.country
-  })}}
+  
 
   {{ govukTextarea({
     name: "product[description]",
@@ -90,6 +106,20 @@
       text: "For example, ‘Orange, 4 socket extension lead’"
     }
   }) }}
+
+ {#  <h2 class="govuk-heading-m">Batches and units</h2>
+  <p class="govuk-body">Details of individual units or batches you’ve inspected or had reported to you.</p>
+  {{ govukInsetText({
+      text: "No details added."
+    }) }}
+
+  <div class="govuk-form-group">
+    {{ govukButton({
+    text: "Add details of a unit or batch",
+    classes: "govuk-button--secondary govuk-!-margin-bottom-0",
+    href: "#"
+    }) }}
+  </div> #}
 
 
   <div class="govuk-form-group">

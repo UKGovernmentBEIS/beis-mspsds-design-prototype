@@ -10,12 +10,18 @@
 {% endblock %}
 
 
+{% block header %}
+  {{ super() }}
+
+  {% include "includes/components/product/product-navigation.html" %}
+
+{% endblock %}
 
 {% block beforeContent %}
 
     {# {% include "includes/components/shared/page-banner.html" %} #}
 
-    {% include "includes/components/product/product-navigation.html" %}
+    {# {% include "includes/components/product/product-navigation.html" %} #}
 
 {% endblock %}
 

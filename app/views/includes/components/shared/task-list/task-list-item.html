@@ -8,24 +8,23 @@
   {% set statusText = statusText or "Completed"
   %}
 {% endif %}
-<li class="app-task-list__item">
-  <span class="app-task-list__task-name">
+<li class="app-task-list__item" id="{{title | toKebabCase}}">
+  <div class="govuk-form-group govuk-!-margin-bottom-2">
+    <span class="app-task-list__task-name">
     <a href="{{link}}" {% if statusText %}aria-describedby="{{title | toKebabCase }}-{{statusText | toKebabCase }}"{% endif %}>
       {{title}}
     </a>
   </span>
-  {% if extra %}
-  <br><span class="govuk-body">{{extra}}</span>
-  {% endif %}
-
-
 
   {% if statusText | length %}
     <span class="app-task-list__task-completed hmcts-badge {{badgeColour}}" id="{{title | toKebabCase }}-{{statusText | toKebabCase }}">{{statusText}}</span>
-
-    {# {% endif %} #}
-    
-  {# <strong class="govuk-tag app-task-list__task-completed" id="{{title | toKebabCase }}-{{status | toKebabCase }}">{{status}}</strong> #}
   {% endif %}
+  </div>
+  {% if extra %}
+  <div class="govuk-form-group govuk-!-margin-bottom-2">
+    <p class="govuk-body">{{extra}}</p>
+  </div>
+  {% endif %}
+  
 </li>
 {% endmacro %}
