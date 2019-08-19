@@ -9,7 +9,7 @@
   {% set theItem = data.new.report.history.items[currentItemIndex] %}
 {% endif %}
 
-{% set pageHeading        = 'Do you have any files relating to the ' + (theItem.type | lower) + "?" %}
+{% set pageHeading        = 'Do you have any files relating to this ' + (theItem.type | lower) + "?" %}
 
 {% block flow %}
 <form action="{{formAction}}" method="post" class="form">

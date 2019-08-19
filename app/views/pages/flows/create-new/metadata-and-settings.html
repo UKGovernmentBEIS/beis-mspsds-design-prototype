@@ -1,6 +1,6 @@
 {% extends "includes/templates/flow-create-new.html" %}
 {% set pageHeading        = 'Metadata and settings' %}
-{% set formAction         = 'overview#check-case-metadata-and-settings' %}
+{% set formAction         = 'overview' %}
 
 {% block flow %}
 <form action="{{formAction}}" method="post" class="form">
@@ -14,17 +14,17 @@
       rows: [
         {
           key: {
-            text: "Tags"
+            text: "Labels"
           },
           value: {
-            text: "No tags added"
+            text: "No labels added"
           },
           actions: {
             items: [
               {
                 href: "#",
                 text: "Change",
-                visuallyHiddenText: "tags"
+                visuallyHiddenText: "labels"
               }
             ]
           }

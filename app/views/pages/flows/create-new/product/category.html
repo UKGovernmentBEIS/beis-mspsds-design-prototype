@@ -1,6 +1,6 @@
 {% extends "includes/templates/flow-create-new.html" %}
 {% set pageHeading        = 'Product categorisation' %}
-{% set formAction         = './save' if data.product.class == 'generic' else './general-details' %}
+{% set formAction         = './save' if data.product.class == 'generic' else './product-details' %}
 {% set returnLink = {href:'/pages/flows/create-new/product/index', text: 'Return to products'} %}
 
 {% if currentItemIndex == 'new' %}

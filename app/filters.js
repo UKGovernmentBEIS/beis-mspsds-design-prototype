@@ -311,6 +311,23 @@ module.exports = function (env) {
   filters.toKebabCase = (string) => {
     return string.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/\s+/g, '-').toLowerCase()
   }
+
+
+  // Check whether array includes value
+  filters.arrayIncludes = (array, searchElement, caseSensitive=true) =>{ 
+    // Case sensitive
+    if ( caseSensitive == true ) return Array.isArray(array) ? array.includes(searchElement) : false
+    // Case insensitive
+    if ( _.isString(searchElement)) {
+      return ( array.map(function(item) {
+        if ( item && _.isString(item) ) return item.toLowerCase()
+        return item
+      }).indexOf( searchElement.toLowerCase() ) < 0 ) ? false : true
+    } else {
+      return ( array.indexOf( searchElement ) < 0) ? false : true
+    }
+  }
+
   /* ------------------------------------------------------------------
     keep the following line to return your filters to the app
   ------------------------------------------------------------------ */
