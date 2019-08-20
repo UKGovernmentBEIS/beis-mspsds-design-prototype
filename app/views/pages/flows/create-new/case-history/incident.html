@@ -60,6 +60,43 @@
       }
     }) }}
 
+    {% set approximateDateHTML %}
+      {{ govukDateInput({
+        id: "dob",
+        namePrefix: "historyItem[approximateDate].",
+        fieldset: {
+          legend: {
+            text: "Approximate date of incident",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        hint: {
+          text: "For example, 7 2019"
+        },
+        items: [
+          {
+            name: "month",
+            classes: "govuk-input--width-2",
+            value: theItem['approximateDate'][0]
+          },
+          {
+            name: "year",
+            classes: "govuk-input--width-4",
+            autocomplete: "bday-year",
+            value: theItem['approximateDate'][1]
+          }
+        ]
+      }) }}
+
+    {% endset %}
+
+    {{ govukDetails({
+      summaryText: "I don’t know the exact date",
+      html: approximateDateHTML,
+      open: true if theItem['approximateDate'] else false
+    }) }}
+
     {{ govukTextarea({
       name: "historyItem[otherDetails]",
       value: theItem.otherDetails,

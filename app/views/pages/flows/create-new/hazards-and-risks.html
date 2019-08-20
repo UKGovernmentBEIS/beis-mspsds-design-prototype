@@ -26,7 +26,7 @@
           value: data.new.report['hazardSummary'],
           id:   "allegation-hazard–detail",
           label: {
-            text: "Why do you think the product is unsafe?"
+            text: "Further details (optional)"
           },
           _hint : {
             text: "Including any incidents or events that brought it to your attention",
@@ -65,7 +65,7 @@
       items: [
         {
           value: "It’s unsafe",
-          text: "It’s unsafe",
+          text: "It’s unsafe or potentially unsafe",
           checked: checked([report['reportType']], "It’s unsafe"),
           conditional: {
             html: hazardDetailsHTML
@@ -77,14 +77,18 @@
         {
           value: "non-compliant",
           checked: checked([report['reportType']], "non-compliant"),
-          text: "It’s non-compliant",
+          text: "It’s non-compliant or potentially non-compliant",
           conditional: {
               html: complianceHtml
           },
           attributes: {
               'data-js-select': 'select'
             }
-        },
+        }
+      ]
+    }) }}
+
+{# ,
         {
           value: "safe",
           checked: checked([report['reportType']], "safe"),
@@ -92,10 +96,7 @@
           attributes: {
               'data-js-select': 'deselect'
             }
-        }
-      ]
-    }) }}
-
+        } #}
     {# 
     ,
         {
