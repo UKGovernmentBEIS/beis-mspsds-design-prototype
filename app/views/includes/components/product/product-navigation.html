@@ -1,7 +1,7 @@
 {% from "back-link/macro.njk"     	import govukBackLink %}
 {% from "breadcrumbs/macro.njk" 	import govukBreadcrumbs %}
 
-<div class="govuk-grid-row mspsds-crumbs">
+{# <div class="govuk-grid-row mspsds-crumbs">
 
 	<div class="govuk-grid-column-three-quarters">
 
@@ -39,4 +39,23 @@
 
 	</div>
 
-</div>
+</div> #}
+
+{% set menus = [
+   {
+    items: [{
+      text: 'Open case about this product',
+      href: '/pages/flows/create-new?newType=Report',
+      classes: ''
+    }]
+
+  ]}%}
+
+{% set identityBarContentHTML %}
+<span class="hmcts-badge hmcts-badge--grey">Product</span> {{currentProduct.name}}
+{% endset %}
+
+{{ identityBar({
+    title: { html: identityBarContentHTML },
+    menus: menus
+    }) }}  
