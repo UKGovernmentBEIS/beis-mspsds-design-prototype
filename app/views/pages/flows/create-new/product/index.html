@@ -1,5 +1,5 @@
 {% extends "includes/templates/flow-create-new.html" %}
-{% set pageHeading        = 'Products added to ' + data.new.report.type | lower %}
+{% set pageHeading        = 'Products linked to the ' + data.new.report.type | lower %}
 {% set formAction         = '' %}
 
 
@@ -10,7 +10,7 @@
 
     {% if report.product.items | length == 0 %}
     {{ govukInsetText({
-      text: "No products added."
+      text: "No products"
     }) }}
     {% else %}
 
@@ -52,12 +52,17 @@
 
     {% endif %}
 
+    {% set firstProductText = "Do you have products to link to the " + report.type | lower + "?" %}
+    {% set notFirstProductText = "Do you have more products to link to the " + report.type | lower + "?" %}
+
+    {% set isFirstProduct = true if (report.product.items | length == 0) else false %}
+
     {{ govukRadios({
       idPrefix: "where-do-you-live",
       name: "new[report][product][addMore]",
       fieldset: {
         legend: {
-          text: "Do you have products to add to the case?" if (report.product.items | length == 0) else "Do you have more products to add to the case?",
+          text: firstProductText if isFirstProduct else notFirstProductText,
           isPageHeading: false,
           classes: "govuk-fieldset__legend--m"
         }
@@ -65,7 +70,7 @@
       items: [
         {
           value: "true",
-          text: "Yes, add a product",
+          text: "Yes, link a product",
           checked: true if data.new.report.product.addMore == "true"
         },
         {

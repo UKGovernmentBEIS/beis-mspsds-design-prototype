@@ -1,5 +1,5 @@
 {% extends "includes/templates/flow-create-new.html" %}
-{% set pageHeading        = 'Test results added to ' + data.new.report.type | lower %}
+{% set pageHeading        = 'Test results linked to the ' + data.new.report.type | lower %}
 {% set formAction         = '' %}
 
 
@@ -47,7 +47,7 @@
     {% endif %}
 
     {% if report.product.items | length == 0 %}
-    <p class="govuk-body">You need to <a href="/pages/flows/create-new/product/index">add a product</a> before you can add a test result.</p>
+    <p class="govuk-body">You need to <a href="/pages/flows/create-new/product/index">link a product</a> before you can link a test result.</p>
     <div class="govuk-form-group">
       {{ govukButton({
         text: "Continue",
@@ -57,12 +57,17 @@
 
     {% else %}
 
+      {% set firstTestResultText = "Do you have test results to link to the " + report.type | lower + "?" %}
+      {% set notFirstTestResultText = "Do you have more test results to link to the " + report.type | lower + "?" %}
+
+      {% set isFirstTestResult = true if (report.testResult.testResults | length == 0) else false %}
+
       {{ govukRadios({
         idPrefix: "more-test-results",
         name: "new[report][testResult][addMore]",
         fieldset: {
           legend: {
-            text: "Do you have test results to add to the case?" if (report.testResult.testResults | length == 0) else "Do you have more test results to add to the case?",
+            text: firstTestResultText if isFirstTestResult else notFirstTestResultText,
             isPageHeading: false,
             classes: "govuk-fieldset__legend--m"
           }
@@ -70,7 +75,7 @@
         items: [
           {
             value: "true",
-            text: "Yes, add a test result",
+            text: "Yes, link a test result",
             checked: true if data.new.report.testResult.addMore == "true"
           },
           {

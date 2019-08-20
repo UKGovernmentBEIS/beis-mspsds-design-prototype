@@ -298,7 +298,14 @@ module.exports = function (env) {
       return theDate.format('D MMMM YYYY')
     }
     else return ''
-    
+  }
+
+  // Return month names from numbers. eg January, Februray
+  filters.prettyMonth = (monthNumber) => {
+    if (monthNumber){
+      return moment().month(monthNumber - 1).format("MMMM");
+    }
+    else return ''
   }
 
   // set attribute on object

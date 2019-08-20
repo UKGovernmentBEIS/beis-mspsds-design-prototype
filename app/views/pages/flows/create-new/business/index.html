@@ -1,5 +1,5 @@
 {% extends "includes/templates/flow-create-new.html" %}
-{% set pageHeading        = 'Businesses added to ' + data.new.report.type | lower %}
+{% set pageHeading        = 'Businesses linked to the ' + data.new.report.type | lower %}
 {% set formAction         = '' %}
 
 
@@ -10,7 +10,7 @@
 
     {% if report.business.businesses | length == 0 %}
     {{ govukInsetText({
-      text: "No businesses added."
+      text: "No businesses"
     }) }}
     {% else %}
 
@@ -50,12 +50,18 @@
 
     {% endif %}
 
+    {% set firstBusinessText = "Do you have businesses to link to the " + report.type | lower + "?" %}
+    {% set notFirstBusinessText = "Do you have more businesses to link to the " + report.type | lower + "?" %}
+
+    {% set isFirstBusiness = true if (report.business.businesses | length == 0) else false %}
+
+
     {{ govukRadios({
       idPrefix: "where-do-you-live",
       name: "new[report][business][addMore]",
       fieldset: {
         legend: {
-          text: "Do you have businesses to add to the case?" if (report.business.businesses | length == 0) else "Do you have more businesses to add to the case?",
+          text: firstBusinessText if isFirstBusiness else notFirstBusinessText,
           isPageHeading: false,
           classes: "govuk-fieldset__legend--m"
         }
@@ -63,7 +69,7 @@
       items: [
         {
           value: "true",
-          text: "Yes, add a business",
+          text: "Yes, link a business",
           checked: true if data.new.report.business.addMore == "true"
         },
         {

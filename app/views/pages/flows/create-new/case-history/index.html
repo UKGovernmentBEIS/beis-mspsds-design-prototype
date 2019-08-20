@@ -12,14 +12,18 @@
 
     {% if report.history.items | length == 0 %}
     {{ govukInsetText({
-      text: "No case history added."
+      text: "No case history"
     }) }}
     {% else %}
 
     {% for historyItem in report.history.items %}
     {# <h2 class="govuk-heading-s">testResult {{loop.index}}: {{testResult.class}} testResult</h2> #}
       {%- set itemDate -%}
-      {{- historyItem.date | arrayToDate | govukDate -}}
+        {%- if historyItem.date -%}
+          {{- historyItem.date | arrayToDate | govukDate -}}
+        {%- elseif historyItem.approximateDate -%}
+          {{- historyItem.approximateDate[0] | prettyMonth }} {{historyItem.approximateDate[1]}} 
+        {%- endif %}
       {%- endset %}
   
       {% if itemDate | length != 0 %}
