@@ -1,20 +1,25 @@
+{% from "button/macro.njk"        import govukButton %}
+
 {% macro taskListItem(title, link, extra='', status=false) %}
 
-{% set badgeColour = 'hmcts-badge--grey' %}
-{% set statusText = status.text or "" %}
 
+{% if not status.isComplete %}
+  {% set badgeColour = 'hmcts-badge--grey' %}
+  {% set statusText = status.text or "Not started" %}
+{% endif %}
 {% if status.isComplete %}
   {% set badgeColour = 'hmcts-badge--blue' %}
-  {% set statusText = statusText or "Completed"
+  {% set statusText = status.text or "Completed"
   %}
 {% endif %}
 <li class="app-task-list__item" id="{{title | toKebabCase}}">
   <div class="govuk-form-group govuk-!-margin-bottom-2">
     <span class="app-task-list__task-name">
-    <a href="{{link}}" {% if statusText %}aria-describedby="{{title | toKebabCase }}-{{statusText | toKebabCase }}"{% endif %}>
+    {# <a href="{{link}}" {% if statusText %}aria-describedby="{{title | toKebabCase }}-{{statusText | toKebabCase }}"{% endif %}>
       {{title}}
-    </a>
-  </span>
+    </a> #}
+    <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{title}}</h3>
+    </span>
 
   {% if statusText | length %}
     <span class="app-task-list__task-completed hmcts-badge {{badgeColour}}" id="{{title | toKebabCase }}-{{statusText | toKebabCase }}">{{statusText}}</span>
@@ -25,6 +30,23 @@
     <p class="govuk-body">{{extra}}</p>
   </div>
   {% endif %}
-  
+
+  {% if status %}
+    {% if not status.isComplete == true %}
+      {# {{ govukButton({
+        text: "Start section",
+        classes: "_govuk-button--secondary govuk-!-margin-bottom-0 ",
+        href: link
+      }) }} #}
+      {% if status.text == 'Can’t start yet' or status.text == 'Not relevant' %}
+      <p class="govuk-body govuk-hint govuk-!-margin-bottom-0">{{status.prerequisiteText}}</p>
+      {% else %}
+      <a href="{{link}}">Start section</a>
+      {% endif %}
+    {% endif %}
+    {% if status.isComplete %}
+      <a href="{{link}}">Review answers</a>
+    {% endif %}
+  {% endif %}
 </li>
 {% endmacro %}

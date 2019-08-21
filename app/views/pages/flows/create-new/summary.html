@@ -21,10 +21,16 @@
 
   {{ govukInput({
       id:   "section-complete",
-      name: "new[taskListSections][summary][status][isComplete]",
+      name: "new[taskListSections][caseName][status][isComplete]",
       value: true,
       type: "hidden"
     }) }}
+  {{ govukInput({
+    id:   "section-complete",
+    name: "new[taskListSections][summary][status][isComplete]",
+    value: true,
+    type: "hidden"
+  }) }}
 
   <div class="govuk-form-group">
     {{ govukButton({

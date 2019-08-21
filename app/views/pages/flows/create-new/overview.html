@@ -3,6 +3,7 @@
 {% set formAction         = './save' %}
 {% set hideReturnLink = true %}
 {% set report = data.new.report %}
+{% set sectionCount = 0 %}
 
 {% block flow %}
 
@@ -17,106 +18,96 @@
 <ol class="app-task-list">
   <li>
     <h2 class="app-task-list__section">
-      <span class="app-task-list__section-number">1. </span> About the case
+      {% set sectionCount = sectionCount + 1 %}
+      <span class="app-task-list__section-number">{{sectionCount}}. </span> About the case
     </h2>
     <ul class="app-task-list__items">
         {{ taskListItem("Case type", "./case-type", extra="", status={isComplete: true, text: "Completed"})}}
         {# {{ taskListItem("Choose sections to include", "./information-available", extra="", status={isComplete: true, text: "Completed"} )}} #}
+        {% set items = data.defaultSections[report.caseType]['part0'] %}
+        {% for item in items %}
+          {% set key = data.new.taskListSections[item] %}
+          {{ taskListItem(key.title, key.url, key.extra, status=key.status)}}
+        {% endfor %}
     </ul>
-    {# {{ govukSummaryList({
-      classes: "app-task-list__items",
-      rows: [
-        {
-          key: {
-            text: "Case type"
-          },
-          value: {
-            text: data.new.report.type
-          },
-          actions: {
-            items: [
-              {
-                href: "./case-type",
-                text: "Change",
-                visuallyHiddenText: "case type"
-              }
-            ]
-          }
-        },
-        {
-          key: {
-            text: "Sections to include"
-          },
-          value: {
-            text: "6 of 12 selected"
-          },
-          actions: {
-            items: [
-              {
-                href: "#",
-                text: "Change",
-                visuallyHiddenText: "sections to include"
-              }
-            ]
-          }
-        },
-        {
-          key: {
-            text: "Status"
-          },
-          value: {
-            text: data.new.status + data.new.id
-          },
-          actions: {
-            items: [
-              {
-                href: "#",
-                text: "Change",
-                visuallyHiddenText: "sections to include"
-              }
-            ]
-          }
-        }
-      ]
-    }) }} #}
+  
   </li>
+  {# Main report section #}
+  {% set items = data.defaultSections[report.caseType]['part1'] %}
+  {% if items | length %}
   <li>
     <h2 class="app-task-list__section">
-      <span class="app-task-list__section-number">2. </span> Add mandatory information
+      {% set sectionCount = sectionCount + 1 %}
+      {# <span class="app-task-list__section-number">2. </span> Add mandatory information #}
+      <span class="app-task-list__section-number">{{sectionCount}}. </span> Add {{caseType | lower}} details
     </h2>
     <ul class="app-task-list__items">
       {% set requiredItems = data.new.taskListSections | where("isRequired", true) %}
 
-      {% for item, key in requiredItems %}
+      {# {% for item, key in requiredItems %}
+        {{ taskListItem(key.title, key.url, key.extra, status=key.status)}}
+      {% endfor %} #}
+      
+      {% for item in items %}
+        {% set key = data.new.taskListSections[item] %}
         {{ taskListItem(key.title, key.url, key.extra, status=key.status)}}
       {% endfor %}
     </ul>
   </li>
+  {% endif %}
+
+
+  {# Optional / extra sections #}
+  {% set items = data.defaultSections[report.caseType]['part2'] %}
+  {% if items | length %}
   <li>
     <h2 class="app-task-list__section">
-      <span class="app-task-list__section-number">3. </span>Add {{caseType | lower}} details
+      {% set sectionCount = sectionCount + 1 %}
+      {# <span class="app-task-list__section-number">3. </span>Add {{caseType | lower}} details #}
+      <span class="app-task-list__section-number">{{sectionCount}}. </span>Add additional details if you have them
     </h2>
-    {{ govukInsetText({
+    {# {{ govukInsetText({
       text: "You may not have all the information asked for below but it’s helpful to share what you can."
-    }) }}
+    }) }} #}
     <ul class="app-task-list__items">
-      {% set optionalItems = data.new.taskListSections | where("isRequired", false) | where("hideInTaskList", false)%}
+      {# {% set optionalItems = data.new.taskListSections | where("isRequired", false) | where("hideInTaskList", false)%}
 
       {% for item, key in optionalItems %}
         {{ taskListItem(key.title, key.url, key.extra, status=key.status)}}
+      {% endfor %} #}
+
+      {% for item in items %}
+        {% set key = data.new.taskListSections[item] %}
+        {% set status = {isComplete: key.status.isComplete, text: key.status.text or ("Completed" if key.status.isComplete) or 'Optional', prerequisiteText: key.status.prerequisiteText} %}
+        {# {{ taskListItem(key.title, key.url, key.extra, status=key.status)}} #}
+        {{ taskListItem(key.title, key.url, key.extra, status=status)}}
       {% endfor %}
     </ul>
   </li>
+  {% endif %}
+
+
+  {# Final items #}
+  {% set items = data.defaultSections[report.caseType]['part3'] %}
+  {% if items | length %}
   <li>
     <h2 class="app-task-list__section">
-      <span class="app-task-list__section-number">4. </span>Final {{caseType | lower}} details
+      {% set sectionCount = sectionCount + 1 %}
+      <span class="app-task-list__section-number">{{sectionCount}}. </span>Final {{caseType | lower}} details
     </h2>
     <ul class="app-task-list__items">
-      {% set task = data.new.taskListSections['caseName'] %}
-      {{ taskListItem(task.title, task.url, task.extra, status=task.status)}}
+      {# {% set task = data.new.taskListSections['caseName'] %}
+      {{ taskListItem(task.title, task.url, task.extra, status=task.status)}} #}
+
+      {% for item in items %}
+        {% set key = data.new.taskListSections[item] %}
+        {{ taskListItem(key.title, key.url, key.extra, status=key.status)}}
+      {% endfor %}
      
     </ul>
   </li>
+  {% endif %}
+
 </ol>
 
 
@@ -126,9 +117,9 @@
 
     <div class="govuk-form-group">
       {{ govukButton({
-        text: "Review case"
+        text: "Create " + (caseType | lower)
       }) }}
-      <p class="govuk-body"><a href="#" class="govuk-link">Save case as draft and finish later</a></p>
+      <p class="govuk-body"><a href="#" class="govuk-link">Save {{caseType | lower}} as draft and finish later</a></p>
       
     </div>
 

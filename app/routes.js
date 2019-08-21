@@ -463,22 +463,21 @@ const setReportTypeFromCaseType = (req, caseType) =>{
 const updateRequiredSections = (req) => {
   var data = req.session.data
 
-  Object.keys(data.new.taskListSections).forEach( section => {
+  // Object.keys(data.new.taskListSections).forEach( section => {
 
-    data.new.taskListSections[section].isRequired = (data.defaultSections[data.new.report.type.toLowerCase()].includes(section)) ? true : false   
-  })
+  //   data.new.taskListSections[section].isRequired = (data.defaultSections[data.new.report.type.toLowerCase()].includes(section)) ? true : false   
+  // })
 
   // Case naming requires product and hazards
   var caseNamingStatus = _.get(data, 'new.taskListSections.caseName.status')
   if (caseNamingStatus.text == 'Can’t start yet' && caseNamingStatus.isComplete == false){
-    console.log('case naming status', caseNamingStatus)
+
     var businessCount = _.get(data, 'new.report.business.businesses')
     businessCount = businessCount ? businessCount.length : false
     var productCount = _.get(data, 'new.report.product.items')
     productCount = productCount ? productCount.length : false
     var hasHazards = _.get(data, 'new.report.reportType')
     hasHazards = (hasHazards) ? true : false
-    console.log('businesses:', businessCount, 'product:', productCount)
     if (productCount & hasHazards){
       console.log('removing can’t start yet')
       _.set(data, 'new.taskListSections.caseName.status.text', "")
@@ -575,8 +574,10 @@ router.post('/pages/flows/create-new/title-and-summary', function (req, res) {
   }
   else {
     _.set(data, 'new.taskListSections.summary.status.isComplete', true)
+    _.set(data, 'new.taskListSections.caseName.status.isComplete', true)
+    _.set(data, 'new.taskListSections.caseName.status.text', '')
     // _.set(data, 'new.taskListSections.summary.status.text', "Completed")
-    res.redirect('/pages/flows/create-new/overview#title-and-summary');
+    res.redirect('/pages/flows/create-new/overview');
   }
 
 });
