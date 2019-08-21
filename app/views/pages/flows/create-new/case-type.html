@@ -1,6 +1,6 @@
 {% extends "includes/templates/flow-create-new.html" %}
 {% set pageHeading        = 'What do you want to do?' %}
-{% set formAction         = './overview' %}
+{% set formAction         = '' %}
 {% set hideReturnLink = true %}
 
 {% block flow %}
@@ -8,7 +8,7 @@
 
     {{ govukRadios({
       idPrefix: "issue-type",
-      name: "new[report][type]",
+      name: "new[report][caseType]",
       fieldset: {
         legend: {
           text: pageHeading,
@@ -18,34 +18,33 @@
       },
       items: [
         {
-          value: "Report",
-          text: "Report an unsafe or non-compliant product",
-          text: "Report a product",
-          checked: true if data.new.report.type == "Report",
+          value: "reportProductIssue",
+          text: "Report a safety or compliance issue",
+          checked: checked([data.new['report']['caseType']], "reportProductIssue"),
           hint: {
-            text: "For cases you would have reported through RAPEX and ICSMS."
+            text: "For products you would have reported through RAPEX or ICSMS because they are suspected or proven to be unsafe or non-compliant."
           }
         },
         {
-          value: "Allegation",
-          text: "Make an allegation",
-          checked: true if data.new.report.type == "Allegation",
+          value: "shareTestResults",
+          text: "Share test results for safe products",
+          checked: checked([data.new['report']['caseType']], "shareTestResults"),
           hint: {
-            text: "For investigations of products and ongoing cases."
+            text: "Help other market surveillance authorities avoid testing the same product again."
           }
         },
         {
-          value: "Enquiry",
+          value: "enquiry",
           text: "Make an enquiry",
-          checked: true if data.new.report.type == "Enquiry",
+          checked: checked([data.new['report']['caseType']], "enquiry"),
           hint: {
             text: "Ask OPSS a question that does not relate to an existing case."
           }
         },
         {
-          value: "Project",
+          value: "project",
           text: "Create a project",
-          checked: true if data.new.report.type == "Project",
+          checked: checked([data.new['report']['caseType']], "project"),
           hint: {
             text: "Record information from an investigation into products or businesses. 
 "
@@ -53,6 +52,20 @@
         }
       ]
     }) }}
+
+    {# 
+    
+    ,
+        {
+          value: "reportOtherIssue",
+          text: "Report any other type of issue",
+          checked: checked([data.new['report']['caseType']], "reportOtherIssue"),
+          hint: {
+            text: "For all other issues that aren't about a product"
+          }
+        }
+
+     #}
 
     <div class="govuk-form-group">
       {{ govukButton({

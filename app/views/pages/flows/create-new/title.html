@@ -1,0 +1,125 @@
+{% extends "includes/templates/flow-create-new.html" %}
+{% set pageHeading        = 'Choose a title for your case' %}
+{% set formAction         = '' %}
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+
+  {% if data.new.taskListSections.caseName.status.text == 'Can’t start yet' %}
+
+  <h1 class="govuk-heading-l">{{pageHeading}}</h1>
+
+  <p class="govuk-body">You need to link at least one product and add hazard and risk details before you can complete this section.</p>
+    <div class="govuk-form-group">
+      {{ govukButton({
+        text: "Continue",
+        href: "overview"
+      }) }}
+    </div>
+
+  {% else %}
+
+    {% if data.new.title %}
+      {{ govukInput({
+          label: {
+            text: "Case title",
+            classes: "govuk-label--l",
+            isPageHeading: true
+          },
+          hint: {
+            text: "A descriptive title so that the case can be recognised"
+          },
+          id: "input-name",
+          name: "new[title]",
+          classes: "govuk-!-width-two-thirds",
+          value: data.new.title
+        }) }}
+
+    {% else %}
+
+
+      {% set hazards -%}
+        {%- if report.reportType -%}
+          {%- if report.reportType | arrayIncludes('It’s unsafe') -%}
+          safety
+          {%- endif -%}
+          {%- if report.reportType | length > 1 %} and{% else %} issues{% endif -%}
+          {%- if report.reportType | arrayIncludes('non-compliant') %} compliance issues
+          {%- endif -%}
+        {%- endif -%}
+      {%- endset %}
+
+      {% set autoTitle -%}
+      {%- if report.product.items | length == 1 -%}
+        {{- ( report.product.items[0].name + ", ") if report.product.items[0].name}}{{report.product.items[0].productType}}, {{hazards}}
+      {%- endif %}
+      {%- if report.product.items | length > 1 %}
+        {{- report.product.items | length }} products, {{report.product.items[0].productType}}, {{hazards}}
+      {%- endif %}
+      
+      {%- endset %}
+
+      {# <h1 class="govuk-heading-l">{{pageHeading}}</h1>
+
+
+      <p class="govuk-body">We’ve given your case the following title:</p>
+
+      {{ govukInsetText({
+        text: autoTitle
+      }) }} #}
+
+      {# {% set autoTitle = 'Bosch MX978987, dishwasher, safety and compliance issues' %} #}
+
+      {% set titleInputHTML %}
+        {{ govukInput({
+          label: {
+            text: "Case title",
+            classes: "govuk-label--s"
+          },
+          _hint: {
+            text: "A descriptive title so that the case can be recognised"
+          },
+          id: "input-name",
+          name: "customTitle",
+          value: autoTitle
+        }) }}
+      {% endset %}
+
+      {{ govukRadios({
+        idPrefix: "auto-title",
+        name: "use-auto-title",
+        fieldset: {
+          legend: {
+            text: pageHeading,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: [
+          {
+            value: autoTitle,
+            html: "Use the automagically generated title ‘" + autoTitle + "’",
+            html: "‘" + autoTitle + "’"
+          },
+          {
+            value: "no",
+            text: "Enter a different title",
+            conditional: {
+              html: titleInputHTML
+            }
+          }
+        ]
+      }) }}
+
+    {% endif %}
+
+    <div class="govuk-form-group">
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </div>
+
+  {% endif %}    
+
+</form>
+{% endblock %}

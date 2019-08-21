@@ -187,6 +187,26 @@ module.exports = {
         isComplete: false,
         text: '',
       }
+    },
+    nextSteps: {
+      title: 'Next steps',
+      url: 'escalate-case',
+      isRequired: false,
+      hideInTaskList: true,
+      status: {
+        isComplete: false,
+        text: '',
+      }
+    },
+    caseName: {
+      title: 'Case naming',
+      url: 'title',
+      isRequired: false,
+      hideInTaskList: false,
+      status: {
+        isComplete: false,
+        text: 'Can’t start yet',
+      }
     }
   },
 
