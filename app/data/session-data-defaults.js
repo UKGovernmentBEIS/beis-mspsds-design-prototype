@@ -145,6 +145,7 @@ module.exports = {
       status: {
         isComplete: false,
         text: 'Can’t start yet',
+        prerequisiteText: 'Add product details first'
       }
     },
     caseHistory: {
@@ -206,30 +207,88 @@ module.exports = {
       status: {
         isComplete: false,
         text: 'Can’t start yet',
+        prerequisiteText: 'Add product and hazard details first'
       }
     }
   },
 
+
   defaultSections: {
-    allegation: [
-      'summary',
-      'categories',
-    ],
-    enquiry: [
-      'summary',
-      'categories',
-      'source'
-    ],
-    report: [
-      'summary',
-      'categories',
-      'products',
-      'hazards',
-      'caseHistory'
-    ],
-    project: [
-      'summary'
-    ],
+    reportProductIssue: {
+      "part0": [],
+      "part1": [
+        'categories',
+        'products',
+        'hazards',
+        'caseHistory'
+      ],
+      "part2": [
+        "businesses",
+        "testResults",
+        "filesAndAttachments",
+        "source",
+      ],
+      "part3": [
+        "caseName",
+        "settings"
+      ]
+    },
+    shareTestResults: {
+      "part0": [],
+      "part1": [
+        'summary',
+        'categories',
+        'products',
+        'testResults'
+      ],
+      "part2": [
+        'caseHistory',
+        "businesses",
+        "filesAndAttachments",
+        "source",
+      ],
+      "part3": [
+        "settings"
+      ]
+    },
+    enquiry: {
+      "part0": [],
+      "part1": [
+        'summary',
+        'categories',  
+        "source"  
+      ],
+      "part2": [
+        'products',
+        'hazards',
+        'caseHistory',
+        "businesses",
+        "testResults",
+        "filesAndAttachments"
+      ],
+      "part3": [
+        "settings"
+      ]
+    },
+    project: {
+      "part0": [],
+      "part1": [
+        'summary'
+      ],
+      "part2": [
+        'categories',
+        'products',
+        'hazards',
+        'caseHistory',
+        "businesses",
+        "testResults",
+        "filesAndAttachments",
+        "source"
+      ],
+      "part3": [
+        "settings"
+      ]
+    },
   },
 
   reportNames: {
