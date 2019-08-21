@@ -209,6 +209,26 @@ module.exports = {
         text: 'Can’t start yet',
         prerequisiteText: 'Add product and hazard details first'
       }
+    },
+    enquiryDetails: {
+      title: 'What the enquiry is about',
+      url: '#',
+      isRequired: false,
+      hideInTaskList: false,
+      status: {
+        isComplete: false,
+        text: ''
+      }
+    },
+    enquirySource: {
+      title: 'Enquiry source',
+      url: '#',
+      isRequired: false,
+      hideInTaskList: false,
+      status: {
+        isComplete: false,
+        text: ''
+      }
     }
   },
 
@@ -217,8 +237,8 @@ module.exports = {
     reportProductIssue: {
       "part0": [],
       "part1": [
-        'categories',
         'products',
+        'categories',
         'hazards',
         'caseHistory'
       ],
@@ -237,9 +257,9 @@ module.exports = {
       "part0": [],
       "part1": [
         'summary',
-        'categories',
         'products',
-        'testResults'
+        'testResults',
+        'categories'
       ],
       "part2": [
         'caseHistory',
@@ -254,9 +274,9 @@ module.exports = {
     enquiry: {
       "part0": [],
       "part1": [
-        'summary',
-        'categories',  
-        "source"  
+        'enquiryDetails',
+        'enquirySource', 
+        'categories'
       ],
       "part2": [
         'products',
@@ -276,8 +296,8 @@ module.exports = {
         'summary'
       ],
       "part2": [
-        'categories',
         'products',
+        'categories',
         'hazards',
         'caseHistory',
         "businesses",
