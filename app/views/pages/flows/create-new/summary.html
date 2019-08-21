@@ -1,0 +1,38 @@
+{% extends "includes/templates/flow-create-new.html" %}
+{% set pageHeading        = 'Case summary' %}
+{% set formAction         = 'overview' %}
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+
+  {{ govukTextarea({
+    name: "new[report][summary]",
+    id: "more-detail",
+    label: {
+      text: "Case summary",
+      classes: "govuk-label--l",
+      isPageHeading: true
+    },
+    hint: {
+      text: "A high level summary of the case"
+    },
+    value: data.new.report.summary
+  }) }}
+
+  {{ govukInput({
+      id:   "section-complete",
+      name: "new[taskListSections][summary][status][isComplete]",
+      value: true,
+      type: "hidden"
+    }) }}
+
+  <div class="govuk-form-group">
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+  </div>
+
+      
+
+</form>
+{% endblock %}

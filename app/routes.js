@@ -435,10 +435,63 @@ const logInAsTradingStandards = (req) => {
   _.set(data, 'currentTeam', 'Trading Standards')
 }
 
+const setReportTypeFromCaseType = (req, caseType) =>{
+
+  var data = req.session.data
+  var reportType = "Report" //fallback
+
+  switch (caseType) {
+    case ("reportProductIssue"):
+      reportType = "Report"
+      break
+    case ("reportOtherIssue"):
+      reportType = "Report"
+      break
+    case ("shareTestResults"):
+      reportType = "Report"
+      break
+    case ("enquiry"):
+      reportType = "Enquiry"
+      break
+    case ("project"):
+      reportType = "Project"
+      break
+  }
+  _.set(data, 'new.report.type', reportType)
+}
+
+const updateRequiredSections = (req) => {
+  var data = req.session.data
+
+  Object.keys(data.new.taskListSections).forEach( section => {
+
+    data.new.taskListSections[section].isRequired = (data.defaultSections[data.new.report.type.toLowerCase()].includes(section)) ? true : false   
+  })
+
+  // Case naming requires product and hazards
+  var caseNamingStatus = _.get(data, 'new.taskListSections.caseName.status')
+  if (caseNamingStatus.text == 'Can’t start yet' && caseNamingStatus.isComplete == false){
+    console.log('case naming status', caseNamingStatus)
+    var businessCount = _.get(data, 'new.report.business.businesses')
+    businessCount = businessCount ? businessCount.length : false
+    var productCount = _.get(data, 'new.report.product.items')
+    productCount = productCount ? productCount.length : false
+    var hasHazards = _.get(data, 'new.report.reportType')
+    hasHazards = (hasHazards) ? true : false
+    console.log('businesses:', businessCount, 'product:', productCount)
+    if (productCount & hasHazards){
+      console.log('removing can’t start yet')
+      _.set(data, 'new.taskListSections.caseName.status.text', "")
+    }
+  }
+
+}
+
 // Reset data when visiting new
 router.get('/pages/flows/create-new', function (req, res, next) {
 
   // Clear existing data
+  // todo: doesn't clear temp stuff set on data
   Reset.resetNew(req);
   
   // Set up data
@@ -451,46 +504,47 @@ router.get('/pages/flows/create-new', function (req, res, next) {
 
   // Support a case type passed via query string - so we can
   // bypass the first question
-  var reportType = _.get(req.session.data, 'newType')
-  if (reportType) {
-      _.set(req.session.data, 'new.report.type', reportType)
+  var caseType = _.get(req.session.data, 'newType')
+  if (caseType) {
+      setReportTypeFromCaseType(req, caseType)
+      _.set(req.session.data, 'new.report.caseType', caseType)
     delete(req.session.data.newType)
-    res.redirect(urlBase + 'sections-to-include/' + reportType);
+    res.redirect(urlBase + 'overview');
   }
 
   // If no type, ask for type
-  if (!reportType) res.redirect(urlBase + urlStem)
+  if (!caseType) res.redirect(urlBase + urlStem)
 
 });
 
-const updateRequiredSections = (req) => {
-  var data = req.session.data
 
-  Object.keys(data.new.taskListSections).forEach( section => {
 
-    data.new.taskListSections[section].isRequired = (data.defaultSections[data.new.report.type.toLowerCase()].includes(section)) ? true : false
-    
-  })
 
-}
 
 // Overview
-router.post('/pages/flows/create-new/overview', function (req, res, next) {
+router.post('/pages/flows/create-new/case-type', function (req, res, next) {
+
   var data = req.session.data
-  var caseType = _.get(data, 'new.report.type')
-  if (!caseType) {
-    setCaseDefaults(req)
-    logInAsTradingStandards(req)
-    caseType = "Report"
-    _.set(data, 'new.report.type', caseType)
-  }
-  if (caseType == "Report"){
+  var caseType = _.get(data, 'new.report.caseType')
+  
+  setReportTypeFromCaseType(req, caseType)
+
+  var reportType = _.get(data, 'new.report.type')
+
+  if (reportType == "Report"){
     _.set(data, 'new.assignee', "OPSS - Processing")
   }
 
-  
+  // if (caseType == 'Report'){
+  //   res.redirect('/pages/flows/create-new/about')
+  // }
+  // else {
+  //   res.redirect('/pages/flows/create-new/overview')
+  // }
   res.redirect('/pages/flows/create-new/overview')
+  
 });
+
 
 // Main task list page
 router.get('/pages/flows/create-new/overview', function (req, res, next) {
@@ -499,11 +553,11 @@ router.get('/pages/flows/create-new/overview', function (req, res, next) {
   // TEMP for prototype
   var caseType = _.get(data, 'new.report.type')
   if (!caseType) {
-
     setCaseDefaults(req)
     logInAsTradingStandards(req)
     caseType = "Report"
     _.set(data, 'new.report.type', caseType)
+    _.set(data, 'new.report.caseType', "reportProductIssue")
   }
 
   updateRequiredSections(req)
@@ -511,8 +565,7 @@ router.get('/pages/flows/create-new/overview', function (req, res, next) {
   next();
 });
 
-
-
+// For case types other than reports of products
 router.post('/pages/flows/create-new/title-and-summary', function (req, res) {
   const data = req.session.data;
   const caseTitle = data.new.title
@@ -527,6 +580,40 @@ router.post('/pages/flows/create-new/title-and-summary', function (req, res) {
   }
 
 });
+
+// For reports of products
+router.post('/pages/flows/create-new/title', function (req, res) {
+  const data = req.session.data;
+  if (data.new.title){
+    res.redirect('/pages/flows/create-new/summary')
+  }
+  else {
+    const useAutoTitle = data['use-auto-title']
+    var title = ''
+    if (useAutoTitle != 'no') {
+      title = useAutoTitle
+    }
+    else {
+      title = data.customTitle
+      delete data.customTitle
+    }    
+    if (!title) {
+      res.redirect('/pages/flows/create-new/title')
+    }
+    else {
+      _.set(data, 'new.title', title)
+      res.redirect('/pages/flows/create-new/summary');
+    }
+  }
+});
+
+// router.post('/pages/flows/create-new/summary', function (req, res) {
+//   const data = req.session.data;
+//   const caseSummary = data.new.report.summary
+
+//   _.set(data, 'new.taskListSections.summary.status.isComplete', true)
+//   res.redirect('/pages/flows/create-new/overview');
+// });
 
 // Product index page
 router.post('/pages/flows/create-new/product/index', function (req, res, next) {
@@ -558,7 +645,7 @@ router.post('/pages/flows/create-new/product/index', function (req, res, next) {
         }
         else _.set(data, 'new.taskListSections.testResults.status.text', "")
       }
-      res.redirect('/pages/flows/create-new/overview#product-details')
+      res.redirect('/pages/flows/create-new/overview')
     }
   }
   // No option selected - render page instead
@@ -642,7 +729,7 @@ router.post('/pages/flows/create-new/business/index', function (req, res, next) 
     if (questionData == 'false'){
       _.set(data, 'new.taskListSections.businesses.status.isComplete', true)
       _.set(data, 'new.taskListSections.businesses.status.text', "Completed")
-      res.redirect('/pages/flows/create-new/overview#businesses-involved')
+      res.redirect('/pages/flows/create-new/overview')
     }
   }
   // No option selected - render page instead
@@ -712,7 +799,7 @@ router.post('/pages/flows/create-new/test-result/index', function (req, res, nex
     if (questionData == 'false'){
       _.set(data, 'new.taskListSections.testResults.status.isComplete', true)
       _.set(data, 'new.taskListSections.testResults.status.text', "Completed")
-      res.redirect('/pages/flows/create-new/overview#test-results')
+      res.redirect('/pages/flows/create-new/overview')
     }
   }
   // No option selected - render page instead
