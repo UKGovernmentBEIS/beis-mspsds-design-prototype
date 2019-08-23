@@ -234,3 +234,7 @@ p.govuk-body, h1, h2, h3 {
 .nowrap {
   white-space: nowrap;
 }
+
+.hmcts-menu [role=menuitem] {
+  border-bottom: 1px solid govuk-colour("grey-2");
+}
