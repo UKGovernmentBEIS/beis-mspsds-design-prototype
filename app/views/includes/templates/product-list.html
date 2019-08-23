@@ -57,17 +57,24 @@
       }) }}
     </div>
 
+  </div>
 
-
-    <div class="govuk-grid-column-full mspsds-case-list-tab {{searchClasses}}">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-quarter">
+      test
+    </div>
+    <div class="govuk-grid-column-three-quarters mspsds-case-list-tab {{searchClasses}}">
       {% from "includes/components/product/product-card-list.html"          import productCardList %}
       {{ productCardList(products) }}
       {% if products | length == 0 %}
           <span class="govuk-heading-xl">No products</span>
       {% endif %}
     </div>
+  </div>  
 
-  </div>
+    
+
+  
 
 
 {% endblock %}

@@ -469,18 +469,21 @@ const updateRequiredSections = (req) => {
   // })
 
   // Case naming requires product and hazards
-  var caseNamingStatus = _.get(data, 'new.taskListSections.caseName.status')
+  var caseNamingStatus = _.get(data, 'new.taskListSections.autoCaseName.status')
   if (caseNamingStatus.text == 'Can’t start yet' && caseNamingStatus.isComplete == false){
 
-    var businessCount = _.get(data, 'new.report.business.businesses')
-    businessCount = businessCount ? businessCount.length : false
+    // var businessCount = _.get(data, 'new.report.business.businesses')
+    // businessCount = businessCount ? businessCount.length : false
+
     var productCount = _.get(data, 'new.report.product.items')
     productCount = productCount ? productCount.length : false
+
     var hasHazards = _.get(data, 'new.report.reportType')
     hasHazards = (hasHazards) ? true : false
+
     if (productCount & hasHazards){
-      console.log('removing can’t start yet')
-      _.set(data, 'new.taskListSections.caseName.status.text', "")
+      console.log('Removing can’t start yet')
+      _.set(data, 'new.taskListSections.autoCaseName.status.text', "")
     }
   }
 
@@ -565,25 +568,25 @@ router.get('/pages/flows/create-new/overview', function (req, res, next) {
 });
 
 // For case types other than reports of products
-router.post('/pages/flows/create-new/title-and-summary', function (req, res) {
+router.post('/pages/flows/create-new/name-and-summary', function (req, res) {
   const data = req.session.data;
   const caseTitle = data.new.title
   const caseSummary = data.new.report.summary
   if (!caseTitle || !caseSummary) {
-    res.redirect('/pages/flows/create-new/title-and-summary')
+    res.redirect('/pages/flows/create-new/name-and-summary')
   }
   else {
     _.set(data, 'new.taskListSections.summary.status.isComplete', true)
-    _.set(data, 'new.taskListSections.caseName.status.isComplete', true)
-    _.set(data, 'new.taskListSections.caseName.status.text', '')
-    // _.set(data, 'new.taskListSections.summary.status.text', "Completed")
+    _.set(data, 'new.taskListSections.autoCaseName.status.isComplete', true)
+    // Clear out 'can't start yet' text
+    _.set(data, 'new.taskListSections.autoCaseName.status.text', '')
     res.redirect('/pages/flows/create-new/overview');
   }
 
 });
 
 // For reports of products
-router.post('/pages/flows/create-new/title', function (req, res) {
+router.post('/pages/flows/create-new/name', function (req, res) {
   const data = req.session.data;
   if (data.new.title){
     res.redirect('/pages/flows/create-new/summary')
@@ -599,7 +602,7 @@ router.post('/pages/flows/create-new/title', function (req, res) {
       delete data.customTitle
     }    
     if (!title) {
-      res.redirect('/pages/flows/create-new/title')
+      res.redirect('/pages/flows/create-new/name')
     }
     else {
       _.set(data, 'new.title', title)

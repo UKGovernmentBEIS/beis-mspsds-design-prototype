@@ -26,14 +26,6 @@
           }
         },
         {
-          value: "shareTestResults",
-          text: "Share test results for safe products",
-          checked: checked([data.new['report']['caseType']], "shareTestResults"),
-          hint: {
-            text: "Help other market surveillance authorities avoid testing the same product again."
-          }
-        },
-        {
           value: "enquiry",
           text: "Make an enquiry",
           checked: checked([data.new['report']['caseType']], "enquiry"),
@@ -48,6 +40,17 @@
           hint: {
             text: "Record information from an investigation into products or businesses. 
 "
+          }
+        },
+        {
+          divider: "or"
+        },
+        {
+          value: "shareTestResults",
+          text: "Share test results for safe products",
+          checked: checked([data.new['report']['caseType']], "shareTestResults"),
+          hint: {
+            text: "Help other market surveillance authorities avoid testing the same product again."
           }
         }
       ]

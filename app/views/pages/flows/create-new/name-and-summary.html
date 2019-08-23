@@ -1,5 +1,5 @@
 {% extends "includes/templates/flow-create-new.html" %}
-{% set pageHeading        = 'Title and summary' %}
+{% set pageHeading        = data.new.report.type + ' name and summary' %}
 {% set formAction         = '' %}
 
 {% block flow %}
@@ -9,11 +9,11 @@
 
   {{ govukInput({
     label: {
-      text: "Case title",
+      text: caseType + " name",
       classes: "govuk-label--m"
     },
     hint: {
-      text: "A descriptive title so that the case can be recognised"
+      text: "A descriptive name so that the case can be recognised"
     },
     id: "input-name",
     name: "new[title]",
@@ -25,7 +25,7 @@
     name: "new[report][summary]",
     id: "more-detail",
     label: {
-      text: "Case summary",
+      text: caseType + " summary",
       classes: "govuk-label--m"
     },
     hint: {

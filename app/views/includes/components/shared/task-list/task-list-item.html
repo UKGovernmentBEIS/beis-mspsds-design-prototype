@@ -18,7 +18,7 @@
     {# <a href="{{link}}" {% if statusText %}aria-describedby="{{title | toKebabCase }}-{{statusText | toKebabCase }}"{% endif %}>
       {{title}}
     </a> #}
-    <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{title}}</h3>
+    <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{title | replace("@caseType", caseType)}}</h3>
     </span>
 
   {% if statusText | length %}
@@ -35,7 +35,7 @@
     {% if not status.isComplete == true %}
       {# {{ govukButton({
         text: "Start section",
-        classes: "_govuk-button--secondary govuk-!-margin-bottom-0 ",
+        classes: "govuk-button--secondary govuk-!-margin-bottom-0 ",
         href: link
       }) }} #}
       {% if status.text == 'Can’t start yet' or status.text == 'Not relevant' %}

@@ -88,8 +88,8 @@ module.exports = {
 
   defaultTaskListSections: {
     summary: {
-      title: 'Title and summary',
-      url: 'title-and-summary',
+      title: '@caseType name and summary',
+      url: 'name-and-summary',
       isRequired: true,
       hideInTaskList: false,
       status: {
@@ -118,8 +118,8 @@ module.exports = {
       }
     },
     hazards: {
-      title: 'Hazard and risk details',
-      url: 'hazards-and-risks',
+      title: 'Safety and compliance',
+      url: 'safety-and-compliance',
       isRequired: false,
       hideInTaskList: false,
       status: {
@@ -199,15 +199,15 @@ module.exports = {
         text: '',
       }
     },
-    caseName: {
-      title: 'Case naming',
-      url: 'title',
+    autoCaseName: {
+      title: '@caseType name and summary',
+      url: 'name',
       isRequired: false,
       hideInTaskList: false,
       status: {
         isComplete: false,
         text: 'Can’t start yet',
-        prerequisiteText: 'Add product and hazard details first'
+        prerequisiteText: 'Add product and safety and compliance details first'
       }
     },
     enquiryDetails: {
@@ -249,7 +249,7 @@ module.exports = {
         "source",
       ],
       "part3": [
-        "caseName",
+        "autoCaseName",
         "settings"
       ]
     },

@@ -49,9 +49,10 @@
     {% endfor %}
 
     {% endif %}
+      {# Do you know any businesses involved in the #}
+    {% set firstBusinessText = "Do you know any businesses involved in the " + report.type | lower + "?" %}
 
-    {% set firstBusinessText = "Do you have businesses to link to the " + report.type | lower + "?" %}
-    {% set notFirstBusinessText = "Do you have more businesses to link to the " + report.type | lower + "?" %}
+    {% set notFirstBusinessText = "Do you know any more businesses involved in the " + report.type | lower + "?" %}
 
     {% set isFirstBusiness = true if (report.business.businesses | length == 0) else false %}
 
