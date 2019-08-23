@@ -1,5 +1,5 @@
 {% extends "includes/templates/flow-create-new.html" %}
-{% set pageHeading        = 'Choose a title for your case' %}
+{% set pageHeading        = 'Choose a name for your case' %}
 {% set formAction         = '' %}
 
 {% block flow %}
@@ -22,12 +22,12 @@
     {% if data.new.title %}
       {{ govukInput({
           label: {
-            text: "Case title",
+            text: "Case name",
             classes: "govuk-label--l",
             isPageHeading: true
           },
           hint: {
-            text: "A descriptive title so that the case can be recognised"
+            text: "A descriptive name so that the case can be recognised"
           },
           id: "input-name",
           name: "new[title]",
@@ -73,11 +73,11 @@
       {% set titleInputHTML %}
         {{ govukInput({
           label: {
-            text: "Case title",
+            text: "Case name",
             classes: "govuk-label--s"
           },
           _hint: {
-            text: "A descriptive title so that the case can be recognised"
+            text: "A descriptive name so that the case can be recognised"
           },
           id: "input-name",
           name: "customTitle",
@@ -98,12 +98,12 @@
         items: [
           {
             value: autoTitle,
-            html: "Use the automagically generated title ‘" + autoTitle + "’",
+            html: "Use the automagically generated name ‘" + autoTitle + "’",
             html: "‘" + autoTitle + "’"
           },
           {
             value: "no",
-            text: "Enter a different title",
+            text: "Create a different name",
             conditional: {
               html: titleInputHTML
             }

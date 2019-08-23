@@ -35,7 +35,7 @@
 {% from "includes/components/shared/autocomplete-local-authority.html" import localAuthorityAutocomplete %}
 {% from "includes/components/shared/autocompleteCountry.html" import autocompleteCountry %}
 {# Task list #}
-{% from "includes/components/shared/task-list/task-list-item.html" import taskListItem %}
+{% from "includes/components/shared/task-list/task-list-item.html" import taskListItem with context %}
 {% from "includes/legislation-input.html" import legislationInput %}
 
 
@@ -96,13 +96,13 @@
             href: '/root/home',
             active: true if navActive == 'home'
           }, {
-            text: 'Cases',
-            href: '/root/case-list',
-            active: true if navActive == 'cases'
-          }, {
             text: 'Products',
             href: '/root/product-list',
             active: true if navActive == 'products'
+          }, {
+            text: 'Cases',
+            href: '/root/case-list',
+            active: true if navActive == 'cases'
           },
           {
             text: 'Businesses',

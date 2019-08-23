@@ -13,8 +13,6 @@
 {% endif %}
 {# <p class="govuk-body-l">Fill in the below sections to create your {{caseType | lower}}.</p> #}
 
-
-
 <ol class="app-task-list">
   <li>
     <h2 class="app-task-list__section">
@@ -64,11 +62,11 @@
     <h2 class="app-task-list__section">
       {% set sectionCount = sectionCount + 1 %}
       {# <span class="app-task-list__section-number">3. </span>Add {{caseType | lower}} details #}
-      <span class="app-task-list__section-number">{{sectionCount}}. </span>Add additional details if you have them
+      <span class="app-task-list__section-number">{{sectionCount}}. </span>Add additional details
     </h2>
-    {# {{ govukInsetText({
+    {{ govukInsetText({
       text: "You may not have all the information asked for below but it’s helpful to share what you can."
-    }) }} #}
+    }) }}
     <ul class="app-task-list__items">
       {# {% set optionalItems = data.new.taskListSections | where("isRequired", false) | where("hideInTaskList", false)%}
 

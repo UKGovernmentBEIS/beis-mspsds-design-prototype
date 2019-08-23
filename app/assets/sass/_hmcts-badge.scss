@@ -4,7 +4,7 @@
    #BADGE
    ========================================================================== */
 
-   .hmcts-badge {
+  .hmcts-badge {
     @include govuk-font($size: 14);
     border: 2px solid govuk-colour("blue");
     color: govuk-colour("blue");
@@ -12,6 +12,7 @@
     padding: 0 govuk-spacing(1);
     text-transform: uppercase;
     vertical-align: middle;
+    padding-top: 2px;
   }
 
   .hmcts-badge--red {
