@@ -412,7 +412,7 @@ router.post('/test-setup', function (req, res, next) {
   next();
 });
 
-// New omni-creation journey -----------------------------------------------------------------
+// New task list omni-creation journey -----------------------------------------------------------------
 
 const setCaseDefaults = (req) => {
   var data = req.session.data
@@ -435,6 +435,7 @@ const logInAsTradingStandards = (req) => {
   _.set(data, 'currentTeam', 'Trading Standards')
 }
 
+// Maps between user facing case types and internal 'report types'- used as a noun in text and for functionality.
 const setReportTypeFromCaseType = (req, caseType) =>{
 
   var data = req.session.data
@@ -460,20 +461,13 @@ const setReportTypeFromCaseType = (req, caseType) =>{
   _.set(data, 'new.report.type', reportType)
 }
 
+// Some sections are conditional on others
 const updateRequiredSections = (req) => {
   var data = req.session.data
-
-  // Object.keys(data.new.taskListSections).forEach( section => {
-
-  //   data.new.taskListSections[section].isRequired = (data.defaultSections[data.new.report.type.toLowerCase()].includes(section)) ? true : false   
-  // })
 
   // Case naming requires product and hazards
   var caseNamingStatus = _.get(data, 'new.taskListSections.autoCaseName.status')
   if (caseNamingStatus.text == 'Can’t start yet' && caseNamingStatus.isComplete == false){
-
-    // var businessCount = _.get(data, 'new.report.business.businesses')
-    // businessCount = businessCount ? businessCount.length : false
 
     var productCount = _.get(data, 'new.report.product.items')
     productCount = productCount ? productCount.length : false
@@ -491,10 +485,16 @@ const updateRequiredSections = (req) => {
 
 // Reset data when visiting new
 router.get('/pages/flows/create-new', function (req, res, next) {
+  var data = req.session.data
 
   // Clear existing data
-  // todo: doesn't clear temp stuff set on data
   Reset.resetNew(req);
+  delete data.customTitle
+  delete data.product
+  delete data.business
+  delete data.testResult
+  delete data.historyItem
+  delete data.reporter
   
   // Set up data
   var urlBase = '/pages/flows/create-new/'
@@ -520,29 +520,22 @@ router.get('/pages/flows/create-new', function (req, res, next) {
 });
 
 
-
-
-
-// Overview
+// Case type
 router.post('/pages/flows/create-new/case-type', function (req, res, next) {
 
   var data = req.session.data
   var caseType = _.get(data, 'new.report.caseType')
   
+  // Map case types to report types
   setReportTypeFromCaseType(req, caseType)
 
   var reportType = _.get(data, 'new.report.type')
 
+  // Force 'reports' to be assigned to OPSS
   if (reportType == "Report"){
     _.set(data, 'new.assignee', "OPSS - Processing")
   }
 
-  // if (caseType == 'Report'){
-  //   res.redirect('/pages/flows/create-new/about')
-  // }
-  // else {
-  //   res.redirect('/pages/flows/create-new/overview')
-  // }
   res.redirect('/pages/flows/create-new/overview')
   
 });
@@ -552,7 +545,7 @@ router.post('/pages/flows/create-new/case-type', function (req, res, next) {
 router.get('/pages/flows/create-new/overview', function (req, res, next) {
   var data = req.session.data
 
-  // TEMP for prototype
+  // TEMP for prototype - needed by other pages but gets easily cleared when rebooting prototype
   var caseType = _.get(data, 'new.report.type')
   if (!caseType) {
     setCaseDefaults(req)
@@ -562,6 +555,7 @@ router.get('/pages/flows/create-new/overview', function (req, res, next) {
     _.set(data, 'new.report.caseType', "reportProductIssue")
   }
 
+  // Update 'can't start yet' badges, etc
   updateRequiredSections(req)
 
   next();
@@ -585,25 +579,33 @@ router.post('/pages/flows/create-new/name-and-summary', function (req, res) {
 
 });
 
-// For reports of products
+// Auto case name page - for reports of products
 router.post('/pages/flows/create-new/name', function (req, res) {
-  const data = req.session.data;
+  const data = req.session.data
+
+  // If we alredy have a title (revisiting section)
   if (data.new.title){
     res.redirect('/pages/flows/create-new/summary')
   }
   else {
+    // Radio question
     const useAutoTitle = data['use-auto-title']
     var title = ''
+    // Auto-title
     if (useAutoTitle != 'no') {
+      // Get the title
       title = useAutoTitle
     }
+    // Manual title
     else {
       title = data.customTitle
       delete data.customTitle
-    }    
+    }  
+    // In case title is blank
     if (!title) {
       res.redirect('/pages/flows/create-new/name')
     }
+    // Copy title in to case
     else {
       _.set(data, 'new.title', title)
       res.redirect('/pages/flows/create-new/summary');
@@ -611,13 +613,27 @@ router.post('/pages/flows/create-new/name', function (req, res) {
   }
 });
 
-// router.post('/pages/flows/create-new/summary', function (req, res) {
-//   const data = req.session.data;
-//   const caseSummary = data.new.report.summary
 
-//   _.set(data, 'new.taskListSections.summary.status.isComplete', true)
-//   res.redirect('/pages/flows/create-new/overview');
-// });
+// Redirect to directly adding a product if products section is required
+router.get('/pages/flows/create-new/product/index', function (req, res, next) {
+  var data = req.session.data
+  var productItems = _.get(data, 'new.report.product.items')
+  var productCount = (productItems)? productItems.length : 0
+
+  // Start adding a product immediately if products required
+  var productsAreRequired = data.defaultSections[data.new.report.caseType].part1.includes('products')
+
+  // Only redirect if we don’t alredy have products
+  if (productCount == 0 && productsAreRequired){
+    delete data.product
+    res.redirect('/pages/flows/create-new/product/new/generic-or-specific')
+  }
+  // Else render page
+  else {
+    next ()
+  }
+  
+});
 
 // Product index page
 router.post('/pages/flows/create-new/product/index', function (req, res, next) {
@@ -627,15 +643,18 @@ router.post('/pages/flows/create-new/product/index', function (req, res, next) {
   // Clear data for next time
   delete data.new.report.product.addMore
 
-  var productCount = _.get(data, 'new.report.product.items')
+  var productItems = _.get(data, 'new.report.product.items')
+  var productCount = (productItems)? productItems.length : 0
 
   if (questionData) {
     if (questionData == 'true'){
       // Adding a new product
+      // Status is not complete
       _.set(data, 'new.taskListSections.products.status.isComplete', false)
+      // Status "In progress"
       _.set(data, 'new.taskListSections.products.status.text', "In progress")
-      
-      productCount = (productCount)? productCount.length : 0
+       
+      // Delete data before beginning journey
       delete data.product
       res.redirect('/pages/flows/create-new/product/new/generic-or-specific')
     }
@@ -699,6 +718,7 @@ router.post('/pages/flows/create-new/product/:index/save', function (req, res, n
   var productItems = _.get(data, 'new.report.product.items')
   if (!productItems) _.set(data, 'new.report.product.items', []) //just to be safe
   var productData = data.product
+  delete data.product
 
   if (index == 'new') {
     data.new.report.product.items.push(productData)
