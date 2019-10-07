@@ -88,27 +88,10 @@ classes: 'active menu-right'
     <hr class="govuk-section-break govuk-section-break--visible">
 
     <ul class="govuk-list">
-      <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
-        <h3 class="teams__user-contact govuk-!-margin-bottom-2 govuk-!-margin-top-1">
-          <span class="teams__user_name govuk-heading-s">Sarah McCarthy</span> 
-          <span class="govuk-caption-m teams__user_email">sarah.mccarathy@example.com</span>
-        </h3>
-        <ul class="govuk-list govuk-!-margin-0">
-          <li>
-            {# <span class="tick-cross-cross"><span class="govuk-visually-hidden">Cannot</span>Cannot invite team members</span> #}
-          </li>
-        </ul>
-      </li>
-      <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
-        <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
-          <span class="teams__user_name">Jack Sparrow</span> <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span>
-        </h3>
-        <ul class="govuk-list govuk-!-margin-0">
-          <li>
-            <span class="tick-cross-tick"><span class="govuk-visually-hidden">Can</span>Can invite team members</span>
-          </li>
-        </ul>
-      </li>
+      {{ teamMember({email: "brice.kendrick@example.com", invited: true, inviteExpired: true})}}
+      {{ teamMember({name: "Jack Sparrow", email: "jack.sparrow@example.com", isTeamAdmin: true})}}
+      {{ teamMember({email: "patricia.demers@example.com", invited: true})}}
+      {{ teamMember({name: "Sarah McCarthy", email: "sarah.mccarthy@example.com"})}}
     </ul>
     {# <p class="govuk-body">Contact OPSS to remove a team member.</p> #}
     {# {{ govukInsetText({

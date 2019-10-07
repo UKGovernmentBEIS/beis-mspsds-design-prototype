@@ -85,6 +85,9 @@ classes: 'active menu-right'
         
 
       <h1 class="govuk-heading-xl">Invite a team member</h1>
+      <p class="govuk-body"></p>
+      {# <p class="govuk-body">You can add colleagues with email addresses ending in ‘hants.gov.uk’. If you need to add someone else, <a href="#">contact OPSS</a>.</p> #}
+
       {# <h2 class="govuk-heading-m">Team inbox</h2>
       <p class="govuk-body"><a href="" class="govuk-link">opss-processing@opss.beis.gov.uk</a></p> #}
 
@@ -99,7 +102,8 @@ classes: 'active menu-right'
           text: "This should be their work address"
         },
         id: "invite-email",
-        name: "invite-email"
+        name: "invite-email",
+        classes: "govuk-input govuk-!-width-three-quarters"
       }) }}
 
       {# <p class="govuk-body">Team members can see cases created by or assigned to their team or anyone in their team.</p> #}
