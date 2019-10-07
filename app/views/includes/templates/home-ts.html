@@ -19,7 +19,6 @@
 {% set navActive = 'home' %}
 
 
-
 {% block beforeContent %}
 
 
@@ -90,12 +89,15 @@
 
 {% block content %}
 
-
+{# Manually set to see banner #}
+{% if data.stabilityIssues %}
+{% include "includes/components/shared/service-status-banner.html" %}
+{% endif %}
 
 <section class="mspsds-pagetitle">
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      {% from "includes/components/shared/page-title.html"        import pageTitle %}
+      {% from "includes/components/shared/page-title.html" import pageTitle %}
       {{ pageTitle({
         title: serviceName
       }) }}
