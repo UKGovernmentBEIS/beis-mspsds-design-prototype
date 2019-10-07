@@ -1,6 +1,6 @@
 module.exports = {
     hazardTypes: [
-      	'Asphyxiation',
+  	'Asphyxiation',
 		'Burns',
 		'Chemical',
 		'Choking',
@@ -22,11 +22,5 @@ module.exports = {
 		'Strangulation',
 		'Suffocation',
 		'Other'
-//      'Asphyxiation',
-//      'Blunt force',
-//      'Chemical exposure',
-//      'Fire/burn',
-//      'Penetrating force',
-//      'Other hazard type'
     ]
 };
