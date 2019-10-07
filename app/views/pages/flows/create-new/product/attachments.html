@@ -12,7 +12,7 @@
 {%- set productName %}
 ‘{{theProduct.name}}’
 {%- endset %}
-{% set pageHeading        = 'Do you have documents relating to ' + productName + "?" %}
+{% set pageHeading        = 'Do you have other documents relating to the product ' + productName + "?" %}
 
 {# {% set pageHeading        = 'Do you have other documents to upload?' %} #}
 
@@ -30,6 +30,11 @@
 
     {% endset %}
 
+    {% set hintHTML %}
+For example, a conformance statement or certificate from the manufacturer.<br><br>
+Do not include test results you’ve commissioned — they should be added in the test results section.
+    {% endset %}
+
     {{ govukRadios({
       idPrefix: "where-do-you-live",
       name: "testResult[hasFile]",
@@ -41,7 +46,7 @@
         }
       },
       hint: {
-      text: "For example, a conformance statement or testing certificate from the manufacturer."
+      html: hintHTML
     },
       items: [
         {
