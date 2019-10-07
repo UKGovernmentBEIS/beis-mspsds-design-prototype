@@ -4,64 +4,75 @@
 
 
 {% block header %}
-    {{ super() }}
+{{ super() }}
 
 
 <div class="app-masthead">
-    <div class="govuk-width-container app-site-width-container">
-        <div class="govuk-grid-row">
+  <div class="govuk-width-container app-site-width-container">
+    <div class="govuk-grid-row">
 
-                <div class="govuk-grid-column-full">
-                    {% include "includes/components/shared/page-banner.html" %}
-                </div>
+      <div class="govuk-grid-column-full">
+        {# {% include "includes/components/shared/page-banner.html" %} #}
+        {% set bannerHTML %}
+        This is a new service – your feedback will help us to improve it.
+        {% endset %}
+        {{ govukPhaseBanner({
+          tag: {
+            text: "Beta"
+          },
+          html: bannerHTML
+        }) }}
+      </div>
 
-                <div class="govuk-grid-column-two-thirds">
+      <div class="govuk-grid-column-two-thirds">
 
-                    <h1 class="govuk-heading-xl app-masthead__title">{{ serviceName }}</h1>
+        <h1 class="govuk-heading-xl app-masthead__title">{{ serviceName }}</h1>
 
-
-                    <p class="app-masthead__description govuk-!-margin-bottom-2">
-                        Use this service to:
-                    </p>
-
-                    <ul class="govuk-list govuk-list--bullet app-masthead__list govuk-!-margin-bottom-7">
-                        <li>
-                          Report unsafe products and related work
-                        </li>
-                        <li>
-                          Ask questions about testing, policy, legislation etc
-                        </li>
-                    </ul>
-
-                    <div class='masthead-account-links'>
-                        <a href="flows/account/create/01" role="button" draggable="false" class="govuk-button banner-button">
-                            Create an account
-                        </a>
-                        <p> or <a href='flows/account/sign-in/01' class='banner-link'>sign in</a> if you’ve used it before</p>
-                    </div>
-                </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-{% endblock %}
-
-{% block content %}
-
-
-
-
-
-<div class="govuk-grid-row">
-
-    <div class="govuk-grid-column-two-thirds">
-        <h3 class="govuk-heading-m">Guidance and information on product safety and product recalls</h1>
-        <p>
-            All businesses importing, manufacturing or supplying consumer products have certain legal obligations. Background information on them is available on the Business Companion website.
+       {#  <p class="app-masthead__description govuk-!-margin-bottom-2">
+          Use this service to:
         </p>
+
+        <ul class="govuk-list govuk-list--bullet app-masthead__list govuk-!-margin-bottom-7">
+          <li>
+            Report unsafe products and related work
+          </li>
+          <li>
+            Ask questions about testing, policy, legislation etc
+          </li>
+        </ul> #}
+
+        <p class="app-masthead__description govuk-!-margin-bottom-2">Report, track and share product safety information.</p>
+        <p class="app-masthead__list govuk-!-margin-bottom-2">This service available to selected market surveillance authorities in the UK.</p>
+
+        <div class='masthead-account-links'>
+          <a href="flows/account/create/01" role="button" draggable="false" class="govuk-button banner-button">
+            Sign in for government users
+          </a>
+          <p> or <a href='flows/account/sign-in/01' class='banner-link'>contact OPSS</a> if you think you should have access</p>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
-{% endblock %}
+
+
+
+
+      {% endblock %}
+
+      {% block content %}
+
+
+
+
+
+      <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+          <h3 class="govuk-heading-m">Guidance and information on product safety and product recalls</h1>
+            <p>
+              All businesses importing, manufacturing or supplying consumer products have certain legal obligations. Background information on them is available on the Business Companion website.
+            </p>
+          </div>
+        </div>
+        {% endblock %}
