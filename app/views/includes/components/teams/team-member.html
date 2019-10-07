@@ -1,0 +1,36 @@
+{% macro teamMember (data) %}
+<li class="teams__user">
+  <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
+    {% if data.name %}<span class="teams__user_name">{{data.name}}</span> {% endif %}<span class="govuk-caption-m teams__user_email">{{data.email}}{{ " (invited)" if (data.invited and not data.inviteExpired) }}{{ " (invite expired)" if (data.inviteExpired) }}</span>
+  </h3>
+  {% if data.isTeamAdmin %}
+  <ul class="govuk-list govuk-!-margin-0">
+    <li>
+      <span class="tick-cross-tick"><span class="govuk-visually-hidden">Can</span>Can invite team members</span>
+    </li>
+  </ul>
+  {% endif %}
+  
+  <div class="tick-cross-list-edit-link">
+    
+    <a href="/services/b1dab0f5-4651-4af8-9f15-fa8143ff338d/cancel-invited-user/22fa9524-e959-480c-a939-fe9ca621eb93">
+    {% if data.invited and not data.inviteExpired %}
+    Cancel invite{# Resend invitation #}
+    {% elseif data.invited and data.inviteExpired %}
+    Cancel invite
+    {% else %}
+    {# Change details #}
+    {% endif %}
+  </a>
+    
+
+    
+  </div>
+
+  
+</li>
+
+
+
+
+{% endmacro %}
