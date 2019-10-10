@@ -1,3 +1,5 @@
+{% from "inset-text/macro.njk"    import govukInsetText %} 
+
 {% macro autocompleteInput(data) %}
 
     {% if data.class %}
@@ -33,14 +35,36 @@
       id = '{{data.idPrefix}}-autocomplete';
       defaultValue = '{{data.value}}';
 
+      confirmFunction = function(val) {
+        {% if data.conditional %}
+
+          if (val == 'Other'){
+            $('.{{data.idPrefix}}-conditional-container').removeClass("hidden")
+            console.log('removing hidden class')
+          }
+          else if (typeof(val) != 'undefined') {
+            $('.{{data.idPrefix}}-conditional-container').addClass("hidden")
+            console.log('adding hidden class')
+          }
+        {% endif %}
+      }
+
       accessibleAutocomplete({
         element: element,
         id: id,
         name: "{{data.name}}",
         showAllValues: true,
         source: values,
-        defaultValue: defaultValue
+        defaultValue: defaultValue,
+        onConfirm: confirmFunction
       });
     </script>
+
+    {% if data.conditional %}
+    {{ govukInsetText({
+      html: data.conditional,
+      classes: data.idPrefix + "-conditional-container app-inset-conditional hidden"
+    }) }}
+    {% endif %}
 
 {% endmacro %}

@@ -14,22 +14,12 @@
 <form action="{{formAction}}" method="post" class="form">
 
     <h1 class="govuk-heading-l">{{pageHeading}}</h1>
-    
-    {{ autocompleteInput({
-      idPrefix: "report-product-category", 
-      name:     "product[category]", 
-      legend:   "High level category",
-      class:    "govuk-fieldset__legend--m govuk-!-margin-bottom-1",
-      hint:     "For example, clothing or white goods",
-      value:    theProduct.category,
-      values:   data.productTypes}) 
-    }}
 
     {% set productCategoryOtherHTML %}
       {{ govukInput({
         label: {
-          text: "Other category name",
-          classes: "govuk-label--md"
+          text: "What is the high level category?",
+          classes: "govuk-label--s"
         },
         _hint: {
           html: "For example, dishwasher or plug adapter"
@@ -41,10 +31,27 @@
       }) }}
     {% endset %}
 
-    {# {{ govukInsetText({
-      html: productCategoryOtherHTML,
-      classes: "app-inset-conditional hidden"
-    }) }} #}
+    
+    
+    {{ autocompleteInput({
+      idPrefix: "report-product-category", 
+      name:     "product[category]", 
+      legend:   "High level category",
+      class:    "govuk-fieldset__legend--m govuk-!-margin-bottom-1",
+      hint:     "For example, clothing or white goods",
+      value:    theProduct.category,
+      values:   data.productTypes,
+      _conditional: productCategoryOtherHTML
+    }) 
+    }}
+
+    
+
+    <script>
+
+    </script>
+
+    
 
     {{ govukInput({
       label: {

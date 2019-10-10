@@ -1,6 +1,6 @@
 {% extends "includes/templates/flow-create-new.html" %}
 {% set pageHeading        = 'Check if the product has already been reported' %}
-{% set formAction         = 'search-results' %}
+{% set formAction         = '' %}
 {% set returnLink = {href:'/pages/flows/create-new/product/index', text: 'Return to products'} %}
 
 
@@ -11,10 +11,11 @@
 
     <p class="govuk-body">If the product has already been added to the Product safety database, you can link to it rather than reporting it again.</p>
     
+    {% set searchHTML %}
     {{ govukInput({
       label: {
         text: "Search",
-        classes: "govuk-label--m"
+        classes: "govuk-label--s"
       },
       hint: {
         text: "Try searching by name, model, brand or serial number"
@@ -23,10 +24,36 @@
       name: "product[searchTerm]",
       classes: "govuk-!-width-one-half"
     }) }}
+    {% endset %}
+
+    {{ govukRadios({
+      idPrefix: "where-do-you-live",
+      name: "product[searchOrAdd]",
+      fieldset: {
+        legend: {
+          text: "How do you want to link the product?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "search",
+          text: "Search existing products in PSD",
+          conditional: {
+          html: searchHTML
+        }
+        },
+        {
+          value: "add",
+          text: "Add as a new product"
+        }
+      ]
+    }) }}
 
     <div class="govuk-form-group">
       {{ govukButton({
-        text: "Search"
+        text: "Continue"
       }) }}
     </div>
 

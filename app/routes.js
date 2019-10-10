@@ -710,6 +710,21 @@ router.post('/pages/flows/create-new/product/:index/generic-or-specific', functi
 
 });
 
+// Product search or add directly
+router.post('/pages/flows/create-new/product/:index/search', function (req, res, next) {
+  var index = req.params.index
+  var data = req.session.data
+  var searchOrAdd = _.get(data, 'product.searchOrAdd')
+  var searchTerm = _.get(data, 'product.searchTerm')
+  if (searchOrAdd == 'search'){
+    res.redirect('/pages/flows/create-new/product/' + index + '/search-results?product[searchTerm]=' + searchTerm )
+  }
+  else if (searchOrAdd == 'add'){
+    res.redirect('/pages/flows/create-new/product/' + index + '/category' )
+  }
+  next()
+});
+
 // Save the product data - new or ammend
 router.post('/pages/flows/create-new/product/:index/save', function (req, res, next) {
   var data = req.session.data
@@ -762,7 +777,7 @@ router.post('/pages/flows/create-new/business/index', function (req, res, next) 
   }
 });
 
-// Forward product pages to their templates
+// Business search
 router.post('/pages/flows/create-new/business/:index/search', function (req, res, next) {
   var index = req.params.index
   var data = req.session.data
@@ -770,7 +785,7 @@ router.post('/pages/flows/create-new/business/:index/search', function (req, res
   res.redirect('/pages/flows/create-new/business/' + index + '/search-results?business[searchTerm]=' + questionData )
 });
 
-// Forward product pages to their templates
+// Forward business pages to their templates
 router.get('/pages/flows/create-new/business/:index/:template', function (req, res, next) {
   var index = req.params.index
   var template = req.params.template

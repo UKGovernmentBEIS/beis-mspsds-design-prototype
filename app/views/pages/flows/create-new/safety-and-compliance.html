@@ -6,6 +6,22 @@
 {% block flow %}
 <form action="{{formAction}}" method="post" class="form">
 
+    {% set hazardTypeOtherHTML %}
+      {{ govukInput({
+        label: {
+          text: "What is the hazard type?",
+          classes: ""
+        },
+        _hint: {
+          html: "For example, dishwasher or plug adapter"
+        },
+        id: "report-hazard-type-other",
+        name: "new[report][hazardTypeOther]",
+        classes: "govuk-!-width-one-half",
+        value: report[hazardTypeOther]
+      }) }}
+    {% endset %}
+
     {% set hazardDetailsHTML %}
       <div class="hazard-wrapper" id=hazzardAutocomplete>
           {{ autocompleteInput({
@@ -15,7 +31,8 @@
             class:    "govuk-body govuk-!-margin-bottom-1 govuk-input--width-20",
             _hint:     "The danger the product presents", 
             values:   data.hazardTypes,
-            value: report.hazardType
+            value: report.hazardType,
+            _conditional: hazardTypeOtherHTML
           }) 
           }}
         </div>
