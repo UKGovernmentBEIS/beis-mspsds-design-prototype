@@ -71,10 +71,10 @@
     <h2 class="app-task-list__section">
       {% set sectionCount = sectionCount + 1 %}
       {# <span class="app-task-list__section-number">3. </span>Add {{caseType | lower}} details #}
-      <span class="app-task-list__section-number">{{sectionCount}}. </span>Extra details if available
+      <span class="app-task-list__section-number">{{sectionCount}}. </span>Further details
     </h2>
     {{ govukInsetText({
-      text: "You may not have all the information asked for below but it’s helpful to share what you can."
+      text: "If any of this information is available to you, you should add it here."
     }) }}
     <ul class="app-task-list__items">
       {# {% set optionalItems = data.new.taskListSections | where("isRequired", false) | where("hideInTaskList", false)%}
