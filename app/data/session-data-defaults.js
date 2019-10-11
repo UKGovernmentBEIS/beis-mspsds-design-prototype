@@ -211,7 +211,7 @@ module.exports = {
       }
     },
     enquiryDetails: {
-      title: 'What the enquiry is about',
+      title: 'About the enquiry',
       url: '#',
       isRequired: false,
       hideInTaskList: false,
