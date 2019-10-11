@@ -3,6 +3,7 @@
 {% set bodyClasses = "mspsds-width-container peoduct-list-3" %}
 
 {% set products    = data.products | attachProductChildren(data) %}
+{% from "includes/header-search.html"     import headerSearch %}
 
 
 {% set currentTeam   = data['currentTeam'] %}
@@ -61,7 +62,88 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-quarter">
-      test
+      <h2 class="govuk-heading-m mspsds-case-filter-controls__heading">Filters</h2>
+
+      {{ govukInput({
+        label: {
+          text: "Product name or brand",
+          classes: "govuk-label--s"
+        },
+        id: "event-name",
+        name: "event-name"
+      }) }}
+
+      {{ autocompleteInput({
+        idPrefix: "report-product-category", 
+        name:     "product[category]", 
+        legend:   "High level category",
+        class:    "govuk-fieldset__legend--s govuk-!-margin-bottom-1",
+        value:    theProduct.category,
+        values:   data.productTypes,
+        width: "govuk-!-width-full"
+      }) 
+      }}
+
+      {{ autocompleteInput({
+        idPrefix: "report-product-type", 
+        name:     "product[type]", 
+        legend:   "Product type",
+        class:    "govuk-fieldset__legend--s govuk-!-margin-bottom-1",
+        _hint:     "For example, clothing or white goods",
+        value:    theProduct.category,
+        values:   data.productTypes,
+        width: "govuk-!-width-full"
+      }) 
+      }}
+
+      {{ govukInput({
+        label: {
+          text: "Barcode",
+          classes: "govuk-label--s"
+        },
+        id: "event-name",
+        name: "event-name"
+      }) }}
+
+      {{autocompleteCountry({
+        label: 'Country of origin', 
+        width: "govuk-!-width-full",
+        name: "product[country]",
+        labelClasses:    "govuk-fieldset__legend--s govuk-!-margin-bottom-1",
+        value: theProduct.country
+      })}}
+
+      {{ govukCheckboxes({
+        idPrefix: "waste",
+        name: "productIncludes",
+        fieldset: {
+          legend: {
+            text: "Product includes",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        items: [
+          {
+            value: "carcasses",
+            text: "Test results"
+          },
+          {
+            value: "mines",
+            text: "Images"
+          },
+          {
+            value: "farm",
+            text: "Counterfeit"
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+            text: "Filter results"
+          }) }}
+
+
     </div>
     <div class="govuk-grid-column-three-quarters mspsds-case-list-tab {{searchClasses}}">
       {% from "includes/components/product/product-card-list.html"          import productCardList %}
