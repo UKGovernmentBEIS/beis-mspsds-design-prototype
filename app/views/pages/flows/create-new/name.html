@@ -1,5 +1,5 @@
 {% extends "includes/templates/flow-create-new.html" %}
-{% set pageHeading        = 'Choose a name for your case' %}
+{% set pageHeading        = 'Choose a name for your ' + (data.new.report.type | lower) %}
 {% set formAction         = '' %}
 
 {% block flow %}
@@ -95,11 +95,17 @@
             classes: "govuk-fieldset__legend--l"
           }
         },
+        _hint: {
+          text: "‘" + autoTitle + "’" + " has been automatically generated based on the products and issue details added to this case."
+        },
         items: [
           {
             value: autoTitle,
             html: "Use the automagically generated name ‘" + autoTitle + "’",
-            html: "‘" + autoTitle + "’"
+            html: "‘" + autoTitle + "’",
+            hint: {
+              text: 'Automatically generated from the information given.'
+            }
           },
           {
             value: "no",
