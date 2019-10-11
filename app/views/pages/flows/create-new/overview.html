@@ -37,8 +37,17 @@
     <h2 class="app-task-list__section">
       {% set sectionCount = sectionCount + 1 %}
       {# <span class="app-task-list__section-number">2. </span> Add mandatory information #}
-      <span class="app-task-list__section-number">{{sectionCount}}. </span> Add {{caseType | lower}} details
+      <span class="app-task-list__section-number">{{sectionCount}}. </span>Required {{caseType | lower}} details
     </h2>
+    {# {{ govukInsetText({
+      text: "You must add this information now, but can amend later."
+    }) }} #}
+    {# {% set insetTextHTML %}
+    
+    {% endset %} #}
+    {{ govukInsetText({
+      text: "This information is required to report a safety or compliance issue."
+    }) }}
     <ul class="app-task-list__items">
       {% set requiredItems = data.new.taskListSections | where("isRequired", true) %}
 
@@ -62,7 +71,7 @@
     <h2 class="app-task-list__section">
       {% set sectionCount = sectionCount + 1 %}
       {# <span class="app-task-list__section-number">3. </span>Add {{caseType | lower}} details #}
-      <span class="app-task-list__section-number">{{sectionCount}}. </span>Add additional details
+      <span class="app-task-list__section-number">{{sectionCount}}. </span>Extra details if available
     </h2>
     {{ govukInsetText({
       text: "You may not have all the information asked for below but it’s helpful to share what you can."

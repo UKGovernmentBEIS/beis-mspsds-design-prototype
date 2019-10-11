@@ -41,7 +41,7 @@
       {% if status.text == 'Can’t start yet' or status.text == 'Not relevant' %}
       <p class="govuk-body govuk-hint govuk-!-margin-bottom-0">{{status.prerequisiteText}}</p>
       {% else %}
-      <a href="{{link}}">Start section</a>
+      <a href="{{link}}">Add details</a>
       {% endif %}
     {% endif %}
     {% if status.isComplete %}

@@ -1,5 +1,5 @@
 {% extends "includes/templates/flow-create-new.html" %}
-{% set pageHeading        = 'Case summary' %}
+{% set pageHeading        = data.new.report.type + ' summary' %}
 {% set formAction         = 'overview' %}
 
 {% block flow %}
@@ -9,7 +9,7 @@
     name: "new[report][summary]",
     id: "more-detail",
     label: {
-      text: "Case summary",
+      text: pageHeading,
       classes: "govuk-label--l",
       isPageHeading: true
     },
