@@ -52,7 +52,7 @@
     'Positive outcome',
     'Notification of test results']%}
 
-  {{ autocompleteInput({
+  {# {{ autocompleteInput({
     idPrefix: "type-detail", 
     name:     "new[report][typeDetail]", 
     legend:   "Type of " + (data.new.report.type | lower), 
@@ -60,7 +60,7 @@
     values:   typeDetailList,
     value: data.new.report.typeDetail,
     class: 'govuk-heading-m'}) 
-  }}
+  }} #}
 
   {{ govukInput({
     id:   "section-complete",
