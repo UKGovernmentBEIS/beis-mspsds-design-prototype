@@ -41,14 +41,13 @@
           </li>
         </ul> #}
 
-        <p class="app-masthead__description govuk-!-margin-bottom-2">Report, track and share product safety information.</p>
-        <p class="app-masthead__list govuk-!-margin-bottom-2">This service available to selected market surveillance authorities in the UK.</p>
+        <p class="app-masthead__description govuk-!-margin-bottom-2">Report, track and share product safety information with the product safety community.</p>
 
         <div class='masthead-account-links'>
           <a href="flows/account/create/01" role="button" draggable="false" class="govuk-button banner-button">
-            Sign in for government users
+            Sign in to your account
           </a>
-          <p> or <a href='flows/account/sign-in/01' class='banner-link'>contact OPSS</a> if you think you should have access</p>
+          <p> or <a href='flows/account/sign-in/01' class='banner-link'>email OPSS</a> if you think you should have access</p>
         </div>
       </div>
     </div>
@@ -69,10 +68,15 @@
       <div class="govuk-grid-row">
 
         <div class="govuk-grid-column-two-thirds">
-          <h3 class="govuk-heading-m">Guidance and information on product safety and product recalls</h1>
+          {# <h3 class="govuk-heading-m">Guidance and information on product safety and product recalls</h1> #}
             <p>
-              All businesses importing, manufacturing or supplying consumer products have certain legal obligations. Background information on them is available on the Business Companion website.
+              You must use the database to tell OPSS immediately about corrective actions that have been or will be taken because a product is:
             </p>
+            <ul class="govuk-list govuk-list--bullet">
+              <li>unsafe (according to the General Product Safety Regulations 2005)</li>
+              <li>poses a serious risk (as determined by a risk assessment)</li>
+            </ul>
+            <p>You should use the database to report products that do not comply with relevant product safety legislation as soon as possible.</p>
           </div>
         </div>
         {% endblock %}
