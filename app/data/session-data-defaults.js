@@ -98,8 +98,8 @@ module.exports = {
       }
     },
     categories: {
-      title: 'Relevant legislation',
-      url: 'relevant-legislation',
+      title: 'Regulation and standards',
+      url: 'regulation-and-standards',
       isRequired: false,
       hideInTaskList: false,
       status: {
