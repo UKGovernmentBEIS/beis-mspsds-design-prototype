@@ -5,13 +5,13 @@
 
 
 {% if data['new']['report']['type'] == 'Allegation' %}
-  {% set reportLabel = 'Who\'s making the allegation?' %}
+  {% set reportLabel = 'Who’s making the allegation?' %}
 
 {% elif data['new']['report']['type'] == 'Question' %}
   {% set reportLabel = 'Who made the enquiry?' %}
 
 {% elif data['new']['report']['type'] == 'Recall' %}
-  {% set reportLabel = 'Who\'s reporting the recall?' %}
+  {% set reportLabel = 'Who’s reporting the recall?' %}
 
 {% elif data['new']['report']['type'] == 'Notification' %}
   {% set reportLabel = 'Who\'s making the notification?' %}
