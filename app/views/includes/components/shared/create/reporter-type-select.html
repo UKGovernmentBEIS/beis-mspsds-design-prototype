@@ -31,7 +31,7 @@
         class:      "govuk-label govuk-!-margin-bottom-1",
         legend:     "Select authority"
       }) }}
-      {% endset %}
+    {% endset %}
 
     {% set departmentOrAgencyNameHTML %}
       {{ departmentOrAgencyAutocomplete({
@@ -39,6 +39,18 @@
         name:       'new[report][reporter][orgName]',
         class:      "govuk-label govuk-!-margin-bottom-1",
         legend:     "Select department or agency"
+      }) }}
+
+    {% endset %}
+
+    {% set internationalNameHTML %}
+      {{ govukInput({
+        label: {
+          text: "Organisation name"
+        },
+        id: "event-name",
+        name: "new[report][reporter][orgName]",
+        classes: "govuk-!-width-one-half"
       }) }}
 
     {% endset %}
@@ -52,9 +64,6 @@
         _hint:       "",
         values:     ['Electrical safety first', 'National Testing Laboratory','Which?','Whirlpool'] 
       }) }}
-
-
-
     {% endset %}
 
     {% set otherNameHTML %}
@@ -66,7 +75,6 @@
         name: "new[report][reporter][orgName]",
         classes: "govuk-!-width-one-half"
       }) }}
-
     {% endset %}
 
     {% call govukFieldset({
@@ -93,13 +101,6 @@
                 }
               },
               {
-                value: "Trading standards",
-                text: "Trading Standards",
-                conditional: {
-                  html: tradingStandardsNameHTML
-                }
-              },
-              {
                 value: "Local authority",
                 text: "A local authority",
                 conditional: {
@@ -108,9 +109,16 @@
               },
               {
                 value: "Other government department",
-                text: "A government department or agency",
+                text: "A UK government department or agency",
                 conditional: {
                   html: departmentOrAgencyNameHTML
+                }
+              },
+              {
+                value: "Foreign government or agency",
+                text: "International source",
+                conditional: {
+                  html: internationalNameHTML
                 }
               },
               {
