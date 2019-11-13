@@ -1,5 +1,5 @@
 {% extends "includes/templates/flow-create-new.html" %}
-{% set pageHeading        = 'Relevant legislation' %}
+{% set pageHeading        = 'Regulation and standards' %}
 {% set formAction         = 'overview' %}
 
 {% block flow %}
@@ -36,11 +36,11 @@
   {{ autocompleteInput({
     idPrefix: "legislation", 
     name:     "new[report][legislation]", 
-    legend:   "Legislation relevant to case", 
+    legend:   "Legislation (if relevant)", 
     _hint:     "Only products already added to the case are listed. <a href='#'>Add a product</a>", 
     values:   legislationList,
     value: data.new.report.legislation,
-    hint:     "Select the relevant legislation or enter a different one.", 
+    _hint:     "Select the relevant legislation or enter a different one.", 
     class: 'govuk-heading-m',
     width: 'govuk-!-width-two-thirds'}) 
   }}
@@ -55,12 +55,29 @@
   {# {{ autocompleteInput({
     idPrefix: "type-detail", 
     name:     "new[report][typeDetail]", 
-    legend:   "Type of " + (data.new.report.type | lower), 
+    legend:   "Standards relevant to case",
     _hint:     "Only products already added to the case are listed. <a href='#'>Add a product</a>", 
     values:   typeDetailList,
     value: data.new.report.typeDetail,
-    class: 'govuk-heading-m'}) 
+    class: 'govuk-heading-m',
+    width: 'govuk-!-width-two-thirds'}) 
   }} #}
+
+  {{ govukInput({
+    label: {
+      text: "Standards (if relevant)",
+      classes: "govuk-label--m"
+    },
+    hint: {
+      text: "For example, ‘BS EN 12472:2005+A1:2009’"
+    },
+    id: "new[report][standards]",
+    name: "new[report][standards]",
+    value: report.standards,
+    classes: "govuk-!-width-two-thirds"
+  }) }}
+
+  <p class="govuk-body"><a href="#" class="govuk-link">Add another</a></p>
 
   {{ govukInput({
     id:   "section-complete",
