@@ -19,6 +19,7 @@
 
 {% set hasViewRights = false if (data.hasViewRights == "false") else true %}
 
+{# TODO: this should really be a macro or a filter - or just stored as a string #}
 {% set caseTitle -%}
   {% if currentCase.title %}
   {{currentCase.title}}
@@ -71,6 +72,13 @@
 
 {% endset %}
 
+{% set assigneeHTML %}
+<p class="govuk-body">
+  {{currentCase.assignee}}
+  <br>(OPSS Processing)
+</p>
+{% endset %}
+
 {% set summaryMetadataRows = [
     {
       key: {
@@ -107,7 +115,7 @@
         text: "Assigned to" if (currentCase.status=="Open") else "Owner"
       },
       value: {
-        text: currentCase.assignee
+        html: assigneeHTML
       },
       actions: {
         items: [
@@ -231,6 +239,8 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-l">{{currentCase.report.type}}: {{currentCase.id}}</span>
+
     <h1 class="govuk-heading-l">Overview</h1>
 
     <p class="govuk-body-l">{{caseTitle}}</p>
