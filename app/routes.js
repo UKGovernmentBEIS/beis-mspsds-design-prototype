@@ -474,7 +474,7 @@ const updateRequiredSections = (req) => {
 
     var hasHazards = _.get(data, 'new.report.reportType')
     hasHazards = (hasHazards) ? true : false
-
+    console.log("Product count: ", productCount, " hasHzards: ", hasHazards)
     if (productCount & hasHazards){
       console.log('Removing can’t start yet')
       _.set(data, 'new.taskListSections.autoCaseName.status.text', "")
