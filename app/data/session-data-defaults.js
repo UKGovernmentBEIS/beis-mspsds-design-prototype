@@ -118,8 +118,8 @@ module.exports = {
       }
     },
     hazards: {
-      title: 'Safety and compliance',
-      url: 'safety-and-compliance',
+      title: 'Safety, risk and issues',
+      url: 'safety-risk-issues/safety-and-compliance',
       isRequired: false,
       hideInTaskList: false,
       status: {
