@@ -203,6 +203,25 @@
       ]
     }) }}
 
+    {% set scopeList = [
+      "EU wide",
+      "EEA wide",
+      "National",
+      "Regional",
+      "Local",
+      "Unknown"
+    ]%}
+
+    {{ autocompleteInput({
+      idPrefix: "scope", 
+      name:     "historyItem[scope]", 
+      legend:   "Scope of measure",
+      values:   scopeList,
+      value: theItem['scope'],
+      class: 'govuk-heading-m',
+      width: 'govuk-!-width-one-third'}) 
+    }}
+
     {{ govukTextarea({
       name: "historyItem[otherDetails]",
       value: theItem.otherDetails,
