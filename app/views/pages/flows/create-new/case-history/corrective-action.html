@@ -14,6 +14,7 @@
 
   <h1 class="govuk-heading-l">{{pageHeading}}</h1>
 
+    {# Summary of the action #}
     {{ govukInput({
       label: {
         text: "Summary of the action",
@@ -28,6 +29,51 @@
     }
     }) }}
 
+    {# Category of measure #}
+    {% set measureCategoryList = [
+      "Ban on the marketing of the product and any accompanying measures",
+      "Destruction of the product",
+      "Import rejected at border",
+      "Making the marketing of the product subject to prior conditions",
+      "Marking the product with appropriate warnings on the risks",
+      "Recall of the product from end users",
+      "Temporary ban on the supply, offer to supply and display of the product",
+      "Warning consumers of the risks",
+      "Withdrawal of the product from the market",
+      "Other"
+    ]%}
+
+    {% set measureCategoryOther %}
+      {{ govukInput({
+        label: {
+          text: "Other category of measure",
+          classes: "govuk-label--s"
+        },
+        id: "measureCategoryOther",
+        name: "historyItem[measureCategoryOther]",
+        value: theItem.measureCategoryOther,
+        classes: "govuk-!-width-two-thirds",
+        _hint: {
+          text: "For example, ‘Retailer has been told to remove the item from the shelves’."
+        }
+      }) }}
+
+    {% endset %}
+
+    {{ autocompleteInput({
+      idPrefix: "measureCategory", 
+      name:     "historyItem[measureCategory]", 
+      legend:   "Category of measure", 
+      _hint:     "Select the relevant legislation or enter a different one.", 
+      values:   measureCategoryList,
+      value: theItem['measureCategory'],
+      class: 'govuk-heading-m',
+      width: 'govuk-!-width-two-thirds',
+      conditional: measureCategoryOther
+    }) 
+    }}
+
+    {# Date of measure #}
     {{ govukDateInput({
       id: "action-date",
       namePrefix: "historyItem[date].",
@@ -60,6 +106,7 @@
       }
     }) }}
 
+    {# Legislation #}
     {% set legislationList = ['General Product Safety Regulations 2005',
     'Gas Appliances (Enforcement) and Miscellaneous Amendments Regulations 2018 / EU 2016/426 Appliances Burning Gaseous Fuels',
     'Personal Protective Equipment (Enforcement) Regulations 2018 / EU 2016/425 Personal Protective Equipment',
@@ -96,6 +143,65 @@
       class: 'govuk-heading-m',
       width: 'govuk-!-width-two-thirds'}) 
     }}
+
+    
+
+    {# Type of measure #}
+    {{ govukRadios({
+      idPrefix: "typeOfMeasure",
+      name: "historyItem[typeOfMeasure]",
+      fieldset: {
+        legend: {
+          text: "Type of measure",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "mandatory",
+          text: "Mandatory measure",
+          checked: checked([theItem['typeOfMeasure']], "mandatory")
+        },
+        {
+          value: "voluntary",
+          text: "Voluntary measure",
+          checked: checked([theItem['typeOfMeasure']], "voluntary")
+        }
+      ]
+    }) }}
+
+
+
+    {# Type of measure #}
+    {{ govukRadios({
+      idPrefix: "durationOfMeasure",
+      name: "historyItem[durationOfMeasure]",
+      fieldset: {
+        legend: {
+          text: "Duration of measure",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "permanent",
+          text: "Permanent measure",
+          checked: checked([theItem['durationOfMeasure']], "permanent")
+        },
+        {
+          value: "temporary",
+          text: "Temporary measure",
+          checked: checked([theItem['durationOfMeasure']], "temporary")
+        },
+        {
+          value: "unknown",
+          text: "Unknown duration",
+          checked: checked([theItem['durationOfMeasure']], "unknown")
+        }
+      ]
+    }) }}
 
     {{ govukTextarea({
       name: "historyItem[otherDetails]",
