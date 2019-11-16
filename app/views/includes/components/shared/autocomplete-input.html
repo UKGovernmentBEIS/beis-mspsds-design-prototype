@@ -58,13 +58,16 @@
         defaultValue: defaultValue,
         onConfirm: confirmFunction
       });
+
     </script>
 
     {% if data.conditional %}
-    {{ govukInsetText({
-      html: data.conditional,
-      classes: data.idPrefix + "-conditional-container app-inset-conditional hidden"
-    }) }}
+      {# In case the autocomplete starts with 'Other' #}
+      {% set hiddenClass = 'hidden' if data.value != 'Other' else '' %}
+      {{ govukInsetText({
+        html: data.conditional,
+        classes: data.idPrefix + "-conditional-container app-inset-conditional " + hiddenClass
+      }) }}
     {% endif %}
 
 {% endmacro %}
