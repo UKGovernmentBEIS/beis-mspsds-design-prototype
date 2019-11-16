@@ -1,0 +1,90 @@
+{% extends "includes/templates/flow-create-new.html" %}
+{% set pageHeading        = 'Have you completed a risk assessment?' %}
+{% set formAction         = 'add-risk-assessment' %}
+{% set productCount = report.product.items | length %}
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+
+    {% set hintHTML %}
+      If you've not done one, you can add it to the case later.
+    {% endset %}
+    {{ govukRadios({
+      idPrefix: "waste",
+      name: "new[report][riskAssessment][hasAssessment]",
+      fieldset: {
+        legend: {
+          text: pageHeading,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      hint: {
+        html: hintHTML
+      },
+      items: [
+        {
+          value: "true",
+          text: "Yes, I have a risk assessment to upload",
+          checked: checked([report['riskAssessment']['hasAssessment']], "true")
+        },
+        {
+          value: "false",
+          checked: checked([report['riskAssessment']['hasAssessment']], "false"),
+          text: "No"
+        }
+      ]
+    }) }}
+
+{# ,
+        {
+          value: "safe",
+          checked: checked([report['reportType']], "safe"),
+          text: "The product is safe",
+          attributes: {
+              'data-js-select': 'deselect'
+            }
+        } #}
+    {# 
+    ,
+        {
+          value: "safe",
+          checked: checked(report['reportType'], "It’s safe"),
+          text: "The product is safe"
+        }
+     #}
+
+    {# <div class="govuk-radios__divider">or</div>
+
+      {{ govukCheckboxes({
+        idPrefix:   "new[report][reportType]",
+        name:       "new[report][reportType]",
+        items: [
+          {
+            value: "safe",
+            text: "The product is safe",
+            checked: checked(report['reportType'], "safe"),
+            attributes: {
+              'data-js-select': 'deselect'
+            }
+          }
+        ]
+      }) }} #}
+
+    {{ govukInput({
+      id:   "section-complete",
+      name: "new[taskListSections][hazards][status][isComplete]",
+      value: true,
+      type: "hidden"
+    }) }}
+
+    <div class="govuk-form-group">
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </div>
+
+      
+
+</form>
+{% endblock %}
