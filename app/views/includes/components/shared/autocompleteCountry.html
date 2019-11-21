@@ -1,8 +1,6 @@
 {% macro autocompleteCountry(data) %}
 
-    {% if data.hint %}
-      <span class="govuk-hint">{{data.hint | safe}}</span>
-    {% endif %}
+    
     {% from "select/macro.njk"        import govukSelect %}
     {% from "fieldset/macro.njk"      import govukFieldset %}
 
@@ -12,6 +10,9 @@
         classes: "govuk-fieldset__legend--m" if not data.labelClasses else data.labelClasses
       }
     }) %}
+    {% if data.hint %}
+      <span class="govuk-hint">{{data.hint | safe}}</span>
+    {% endif %}
 
     {{ govukSelect({
       id: "country-autocomplete",
