@@ -14,8 +14,9 @@
 
   <h1 class="govuk-heading-l">{{pageHeading}}</h1>
 
+    {# Remove in place of type of action #}
     {# Summary of the action #}
-    {{ govukInput({
+    {# {{ govukInput({
       label: {
         text: "Summary of the action",
         classes: "govuk-label--m"
@@ -27,10 +28,10 @@
       hint: {
       text: "For example, ‘Retailer has been told to remove the item from the shelves’."
     }
-    }) }}
+    }) }} #}
 
-    {# Category of measure #}
-    {% set measureCategoryList = [
+    {# Type of action #}
+    {% set typeOfActionList = [
       "Ban on the marketing of the product and any accompanying measures",
       "Destruction of the product",
       "Import rejected at border",
@@ -43,15 +44,15 @@
       "Other"
     ]%}
 
-    {% set measureCategoryOther %}
+    {% set typeOfActionOther %}
       {{ govukInput({
         label: {
-          text: "Other category of measure",
+          text: "Other type of action",
           classes: "govuk-label--s"
         },
-        id: "measureCategoryOther",
-        name: "historyItem[measureCategoryOther]",
-        value: theItem.measureCategoryOther,
+        id: "typeOfActionOther",
+        name: "historyItem[typeOfActionOther]",
+        value: theItem.typeOfActionOther,
         classes: "govuk-!-width-two-thirds",
         _hint: {
           text: "For example, ‘Retailer has been told to remove the item from the shelves’."
@@ -61,15 +62,15 @@
     {% endset %}
 
     {{ autocompleteInput({
-      idPrefix: "measureCategory", 
-      name:     "historyItem[measureCategory]", 
-      legend:   "Category of measure", 
-      _hint:     "Select the relevant legislation or enter a different one.", 
-      values:   measureCategoryList,
-      value: theItem['measureCategory'],
+      idPrefix: "typeOfAction", 
+      name:     "historyItem[title]", 
+      legend:   "What type of action has been taken?", 
+      _hint:     "If more than one type of action has been taken, choose other.", 
+      values:   typeOfActionList,
+      value: theItem['title'],
       class: 'govuk-heading-m',
       width: 'govuk-!-width-two-thirds',
-      conditional: measureCategoryOther
+      conditional: typeOfActionOther
     }) 
     }}
 
@@ -79,7 +80,7 @@
       namePrefix: "historyItem[date].",
       fieldset: {
         legend: {
-          text: "Corrective action date",
+          text: "What date did the action come in to effect?",
           isPageHeading: false,
           classes: "govuk-fieldset__legend--m"
         }
@@ -102,7 +103,7 @@
         }
       ],
       hint: {
-        html: "Date the corrective action came in to effect. This may be in the future.<br>For example, 12 7 2019"
+        html: "This may be in the future. For example, 12 7 2019"
       }
     }) }}
 
@@ -137,22 +138,55 @@
       idPrefix: "legislation", 
       name:     "historyItem[legislation]", 
       legend:   "Relevant legislation", 
-      hint:     "Select the relevant legislation or enter a different one.", 
+      _hint:     "Select the relevant legislation or enter a different one.", 
       values:   legislationList,
       value: theItem['legislation'],
       class: 'govuk-heading-m',
       width: 'govuk-!-width-two-thirds'}) 
     }}
 
+{% set currentActionBusinesses = [] %}
+{% if report.business.businesses %}
+  {% for business in report.business.businesses %}
+    {% set businessName = business.legal %}
+    {% set currentActionBusinesses = (currentActionBusinesses.push(businessName), currentActionBusinesses) %}
+  {% endfor %}
+
+{% endif %}
+
+{% set businessesCount = report.business.businesses | length %}
     
 
-    {# Type of measure #}
+{% if businessesCount > 1 %}
+
+  {{ autocompleteInput({
+    idPrefix:   currentNewActionIDVar  + 'business',
+    name:       'historyItem[business]',
+    class:      "govuk-fieldset__legend--m govuk-!-margin-bottom-1",
+    legend:     "Which business is responsible? (optional)", 
+    hint:       "Only businesses already added to the case are listed.", 
+    values:     currentActionBusinesses 
+  }) }}
+
+{% elseif businessesCount == 1 %}
+
+  {{ govukInput({
+    idPrefix:   currentNewActionIDVar  + 'business',
+    name:       currentNewActionVar    + '[business]',
+    value:      currentActionBusinesses[0],
+    type:       "hidden"
+  }) }}
+
+{% endif %}
+    
+
+    {# Mandatory or voluntary #}
     {{ govukRadios({
-      idPrefix: "typeOfMeasure",
-      name: "historyItem[typeOfMeasure]",
+      idPrefix: "typeOfAction",
+      name: "historyItem[typeOfAction]",
       fieldset: {
         legend: {
-          text: "Type of measure",
+          text: "Is the corrective action mandatory?",
           isPageHeading: false,
           classes: "govuk-fieldset__legend--m"
         }
@@ -160,12 +194,12 @@
       items: [
         {
           value: "mandatory",
-          text: "Mandatory measure",
+          text: "Yes",
           checked: checked([theItem['typeOfMeasure']], "mandatory")
         },
         {
           value: "voluntary",
-          text: "Voluntary measure",
+          text: "No, it’s voluntary",
           checked: checked([theItem['typeOfMeasure']], "voluntary")
         }
       ]
@@ -179,7 +213,7 @@
       name: "historyItem[durationOfMeasure]",
       fieldset: {
         legend: {
-          text: "Duration of measure",
+          text: "How long will the corrective action be in place?",
           isPageHeading: false,
           classes: "govuk-fieldset__legend--m"
         }
@@ -187,35 +221,36 @@
       items: [
         {
           value: "permanent",
-          text: "Permanent measure",
+          text: "Permanently",
           checked: checked([theItem['durationOfMeasure']], "permanent")
         },
         {
           value: "temporary",
-          text: "Temporary measure",
+          text: "Temporarily",
           checked: checked([theItem['durationOfMeasure']], "temporary")
         },
         {
           value: "unknown",
-          text: "Unknown duration",
+          text: "Unknown",
           checked: checked([theItem['durationOfMeasure']], "unknown")
         }
       ]
     }) }}
 
     {% set scopeList = [
-      "EU wide",
-      "EEA wide",
-      "National",
-      "Regional",
       "Local",
+      "Regional",
+      "National",
+      "EEA wide",
+      "EU wide",
       "Unknown"
     ]%}
 
     {{ autocompleteInput({
       idPrefix: "scope", 
       name:     "historyItem[scope]", 
-      legend:   "Scope of measure",
+      legend:   "What is the geographic scope of the action?",
+      _hint:     "For example, local or national.", 
       values:   scopeList,
       value: theItem['scope'],
       class: 'govuk-heading-m',
@@ -227,7 +262,7 @@
       value: theItem.otherDetails,
       id: "otherDetails",
       label: {
-        text: "Further details",
+        text: "Further details (optional)",
         classes: "govuk-label--m"
       },
       hint: {
