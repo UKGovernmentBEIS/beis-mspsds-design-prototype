@@ -1,0 +1,22 @@
+{% extends "includes/templates/case-edit.html" %}
+
+{% set editContentType = 'summary' %}
+
+{% block formContent %}
+{% set pageHeading = 'Edit ' + (currentCase.report.type | lower) + ' summary' %}
+
+  {{ govukTextarea({
+    name: "currentCase.report.summary",
+    id: "more-detail",
+    label: {
+      text: pageHeading,
+      classes: "govuk-label--l",
+      isPageHeading: true
+    },
+    hint: {
+      text: "A high level summary of the case"
+    },
+    value: currentCase.report.summary
+  }) }}
+
+{% endblock %}
