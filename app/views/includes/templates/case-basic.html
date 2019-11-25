@@ -1,0 +1,74 @@
+{# Template used for all case pages and their children #}
+
+{% extends "mspsds-layout.html" %}
+{% set currentCase = data.cases | withId(data['caseid']) %}
+
+{% set currentCase = currentCase | attachCaseChildren(data) %}
+{% set currentTeam = data.currentTeam %}
+
+{% set hasEditRights = true if (currentCase.assignee == data['currentUser']) else false %}
+
+{% set caseType = currentCase.report.type %}
+
+{% if bodyClasses %}
+    {% set bodyClasses = bodyClasses + " mspsds-width-container case" %}
+{% else %}
+    {% set bodyClasses = " mspsds-width-container case" %}
+{% endif %}
+
+{% set navActive = 'cases' %}
+
+{% set caseTypeAndNumber = currentCase.report.type + ': ' + currentCase.id %}
+
+{% block pageTitle %}
+  {{ pageHeading }} - {{caseTypeAndNumber}} - {{serviceName}} - GOV.UK
+{% endblock %}
+
+{% block header %}
+  {{ super() }}
+  {# {% set includeCaseActions = true %} #}
+
+  {% include "includes/components/case/case-bar.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+
+	{# {% include "includes/components/shared/page-banner.html" %} #}
+
+{% endblock %}
+
+{# TODO: this should really be a macro or a filter - or just stored as a string #}
+{% set caseTitle -%}
+  {% if currentCase.title %}
+  {{currentCase.title}}
+  {% else %}
+
+  {%- if currentCase.type == "Question" -%}
+     {{- currentCase.title | safe -}}
+  {%- endif -%}
+
+  {%- if currentCase.products | length > 0 -%}
+    {{- " " + currentCase.products[0].name -}}
+  {%- else -%}
+    {{- " undefined product" -}}
+  {%- endif -%}
+
+  {%- if currentCase.type == 'case' -%}
+    {%- if currentCase.report.hazardType -%}
+      {{- " " + currentCase.report.hazardType -}}
+    {%- else -%}
+      {{- " undefined hazard" -}}
+    {%- endif -%}
+  {%- endif -%}
+  {% endif %}
+{%- endset %}
+
+
+
+{% block content %}
+
+
+
+
+{% endblock %}

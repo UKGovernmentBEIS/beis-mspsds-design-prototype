@@ -1,0 +1,17 @@
+{# Template used for first level pages in cases: overview / products / timeline, etc #}
+
+{% extends "./case-basic.html" %}
+{% set includeCaseActions = true %}
+
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <div class="case-nav">
+        {% include "includes/components/case/case-navigation.html" %}
+      </div>
+    </div>
+  </div>
+  
+{% endblock %}
+
