@@ -1,0 +1,41 @@
+{# Template used for edit pages #}
+
+{% extends "./case-basic.html" %}
+{% set includeCaseActions = false %}
+
+{# Ideally these should go to previous #}
+{% set formCancel = './overview' %} 
+{% set formAction = './overview' %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back to " + (caseType | lower),
+  href: formCancel
+}) }}
+{% endblock %}
+
+{% set submitButtonText = 'Update' + (' ' + editContentType) if editContentType %}
+
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+    <form action="{{formAction}}" method="post" class="form">
+      {% block formContent %}
+      {% endblock %}
+      <div class="govuk-form-group">
+        {{ govukButton({
+          text: submitButtonText
+        }) }}
+        <p class="govuk-body">
+          <a class="govuk-link govuk-link--no-visited-state" href="{{formCancel}}">Cancel</a>
+        </p>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+
