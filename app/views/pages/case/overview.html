@@ -1,83 +1,29 @@
-{% extends "mspsds-layout.html" %}
-{% set currentPage      = 'case' %}
-{% set currentCase = data.cases | withId(data['caseid']) %}
-{% set currentCase = currentCase | attachCaseChildren(data) %}
-{% set currentTeam = data.currentTeam %}
-
-{% if bodyClasses %}
-    {% set bodyClasses = bodyClasses + " mspsds-width-container case" %}
-{% else %}
-    {% set bodyClasses = " mspsds-width-container case" %}
-{% endif %}
-
-{% set navActive = 'cases' %}
+{% extends "includes/templates/case-top-level.html" %}
 
 {% set caseNavActive = 'overview' %}
-{% set hasEditRights = true if (currentCase.assignee == data['currentUser']) else false %}
+{% set pageHeading = 'Overview' %}
+
 
 {% set significantDateLabel = "Last updated" if currentCase.activities.length > 1 else "Created" %}
 
-{% set hasViewRights = false if (data.hasViewRights == "false") else true %}
-
-{# TODO: this should really be a macro or a filter - or just stored as a string #}
-{% set caseTitle -%}
-  {% if currentCase.title %}
-  {{currentCase.title}}
-  {% else %}
-
-  {%- if currentCase.type == "Question" -%}
-     {{- currentCase.title | safe -}}
-  {%- endif -%}
-
-  {%- if currentCase.products | length > 0 -%}
-    {{- " " + currentCase.products[0].name -}}
-  {%- else -%}
-    {{- " undefined product" -}}
-  {%- endif -%}
-
-  {%- if currentCase.type == 'case' -%}
-    {%- if currentCase.report.hazardType -%}
-      {{- " " + currentCase.report.hazardType -}}
-    {%- else -%}
-      {{- " undefined hazard" -}}
-    {%- endif -%}
-  {%- endif -%}
-  {% endif %}
-{%- endset %}
-
-
-{% block pageTitle %}
-{% endblock %}
-
-{% block header %}
-  {{ super() }}
-  {% set includeCaseActions = true %}
-
-  {% include "includes/components/case/case-bar.html" %}
-
-{% endblock %}
-
-{% block beforeContent %}
-
-{% endblock %}
 
 {% set permissionsHTML %}
-
-<p class="govuk-body">{{(data.teamPermissions | length) + 1}} teams added</p>
-{% if currentCase.restricted -%}
-  <span class="hmcts-badge hmcts-badge--red">Restricted case</span>
-  {% else %}
-  <p class="govuk-body">All other users: default</p>
-{%- endif %}
-
+  <p class="govuk-body">{{(data.teamPermissions | length) + 1}} teams added</p>
+  {% if currentCase.restricted -%}
+    <span class="hmcts-badge hmcts-badge--red">Restricted case</span>
+    {% else %}
+    <p class="govuk-body">All other users: default</p>
+  {%- endif %}
 {% endset %}
+
 
 {% set assigneeHTML %}
-<p class="govuk-body">
-  {{currentCase.assignee}}
-  <br>(OPSS Processing)
-</p>
+  <p class="govuk-body">
+    {{currentCase.assignee}}
+    <br>(OPSS Processing)
+  </p>
 {% endset %}
+
 
 {% set summaryMetadataRows = [
     {
@@ -181,67 +127,24 @@
       }
   ] %}
 
-{# Not used
-
-,
-    {
-      key: {
-        text: "Watchers"
-      },
-      value: {
-        text: "3 watchers"
-      },
-      actions: {
-        items: [
-          {
-            href: "#",
-            text: "View / edit",
-            visuallyHiddenText: "contact details"
-          }
-        ]
-      }
-    },
-    {
-      key: {
-        text: "Edit rights"
-      },
-      value: {
-        text: "4 with edit rights"
-      },
-      actions: {
-        items: [
-          {
-            href: "#",
-            text: "View / edit",
-            visuallyHiddenText: "contact details"
-          }
-        ]
-      }
-    }
-     #}
-
-
-
 {% block content %}
 
+{# Todo: make confirmations work again #}
 {# {% if data['confirmation'] %}
     {% block confirmation %}
         {% from "includes/mspsds-confirmation.html" import confirmation %}
         {{ confirmation("confirmation", data['confirmation']) }}
     {% endblock %}
 {% endif %} #}
-<div class="case-nav">
-  {% include "includes/components/case/case-navigation.html" %}
-</div>
 
-
-
+{# Brings in sub nav #}
+{{ super() }}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <span class="govuk-caption-l">{{currentCase.report.type}}: {{currentCase.id}}</span>
 
-    <h1 class="govuk-heading-l">Overview</h1>
+    <span class="govuk-caption-l">{{caseTypeAndNumber}}</span>
+    <h1 class="govuk-heading-l">{{pageHeading}}</h1>
 
     <p class="govuk-body-l">{{caseTitle}}</p>
 
@@ -249,7 +152,7 @@
 
     <p class="govuk-body">{{currentCase.report.summary}}</p>
     {% if hasEditRights %}
-    <p class="govuk-body psd--inline-link right-align"><a href="" class="govuk-link govuk-link--no-visited-state">Change summary</a></p>
+    <p class="govuk-body psd--inline-link right-align"><a href="./edit-summary" class="govuk-link govuk-link--no-visited-state">Change summary</a></p>
     {% endif %}
 
     {% if not hasViewRights %}
@@ -260,16 +163,16 @@
 
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
+
+    {# Products section #}
     <h2 class="govuk-heading-m"><a href="" class="govuk-link">Products</a></h2>
 
-    
       {% set hazardDescription %}
         <p class="govuk-body">{{currentCase.report.hazardSummary}}</p>
       {% endset %}
 
       {% set hazardHTML %}
         <p class="govuk-body">{{currentCase.report.hazardType}}</p>
-
         {{hazardDescription | safe}}
       {% endset %}
 
@@ -351,6 +254,8 @@
 
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
+
+    {# Businesses section #}
     <h2 class="govuk-heading-m"><a href="" class="govuk-link">Businesses</a></h2>
     
     {% if currentCase.businesses | length > 0 %}
@@ -358,57 +263,61 @@
     {{ govukSummaryList({
       classes: 'govuk-summary-list--no-border',
       rows: [
-    {
-      key: {
-        text: "Importer"
-      },
-      value: {
-        text: "Argos ltd"
-      },
-      actions: {
-        items: [
-          {
-            href: "#",
-            text: "View",
-            visuallyHiddenText: "name"
+        {
+          key: {
+            text: "Importer"
+          },
+          value: {
+            text: "Argos ltd"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "View",
+                visuallyHiddenText: "name"
+              }
+            ]
           }
-        ]
-      }
-    }
-  ]
-    }) }}
+        }
+      ]
+        }) }}
     {% else %}
     <p class="govuk-body">No businesses added</p>
     {% endif %}
 
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
+
+    {# Test results #}
     <h2 class="govuk-heading-m"><a href="" class="govuk-link">Test results</a></h2>
     {{ govukSummaryList({
       classes: 'govuk-summary-list--no-border',
       rows: [
-    {
-      key: {
-        text: "Screening check report"
-      },
-      value: {
-        text: "Tested on 4/4/2019, test result: fail"
-      },
-      actions: {
-        items: [
-          {
-            href: "#",
-            text: "View",
-            visuallyHiddenText: "name"
+        {
+          key: {
+            text: "Screening check report"
+          },
+          value: {
+            text: "Tested on 4/4/2019, test result: fail"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "View",
+                visuallyHiddenText: "name"
+              }
+            ]
           }
-        ]
-      }
-    }
-  ]
-    }) }}
+        }
+      ]
+        }) }}
 
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
+
+    {# Test results #}
     <h2 class="govuk-heading-m"><a href="" class="govuk-link">Files and attachments</a></h2>
 
     <p class="govuk-body govuk-hint">Full files and attachments details are not viewable because you are not added to this case.</p>
@@ -416,106 +325,106 @@
     {{ govukSummaryList({
       classes: 'govuk-summary-list--no-border',
       rows: [
-    {
-      key: {
-        text: "Images"
-      },
-      value: {
-        text: "3 product images, 5 other images"
-      },
-      actions: {
-        items: [
-          {
-            href: "#",
-            text: "View",
-            visuallyHiddenText: "name"
+        {
+          key: {
+            text: "Images"
+          },
+          value: {
+            text: "3 product images, 5 other images"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "View",
+                visuallyHiddenText: "name"
+              }
+            ]
           }
-        ]
-      }
-    },{
-      key: {
-        text: "Other attachments"
-      },
-      value: {
-        text: "3 attachments"
-      },
-      actions: {
-        items: [
-          {
-            href: "#",
-            text: "View",
-            visuallyHiddenText: "name"
+        },{
+          key: {
+            text: "Other attachments"
+          },
+          value: {
+            text: "3 attachments"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "View",
+                visuallyHiddenText: "name"
+              }
+            ] if hasViewRights else []
           }
-        ] if hasViewRights else []
-      }
-    }
-  ]
-    }) }}
+        }
+      ]
+        }) }}
 
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
 
+    {# Actions and correspondence #}
     <h2 class="govuk-heading-m"><a href="" class="govuk-link">Actions and correspondence</a></h2>
-
 
     {{ govukSummaryList({
       classes: 'govuk-summary-list--no-border',
       rows: [
-    {
-      key: {
-        text: "Corrective actions"
-      },
-      value: {
-        text: "2 corrective actions"
-      },
-      actions: {
-        items: [
-          {
-            href: "#",
-            text: "View",
-            visuallyHiddenText: "name"
+        {
+          key: {
+            text: "Corrective actions"
+          },
+          value: {
+            text: "2 corrective actions"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "View",
+                visuallyHiddenText: "name"
+              }
+            ]
           }
-        ]
-      }
-    },{
-      key: {
-        text: "Correspondence"
-      },
-      value: {
-        text: "12 items, last correspondence 14/04/2019"
-      },
-      actions: {
-        items: [
-          {
-            href: "#",
-            text: "View",
-            visuallyHiddenText: "name"
+        },{
+          key: {
+            text: "Correspondence"
+          },
+          value: {
+            text: "12 items, last correspondence 14/04/2019"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "View",
+                visuallyHiddenText: "name"
+              }
+            ] if hasViewRights else []
           }
-        ] if hasViewRights else []
-      }
-    },{
-      key: {
-        text: "Comments"
-      },
-      value: {
-        text: "10 comments, last comment 14/04/2019"
-      },
-      actions: {
-        items: [
-          {
-            href: "#",
-            text: "View",
-            visuallyHiddenText: "name"
+        },{
+          key: {
+            text: "Comments"
+          },
+          value: {
+            text: "10 comments, last comment 14/04/2019"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "View",
+                visuallyHiddenText: "name"
+              }
+            ] if hasViewRights else []
           }
-        ] if hasViewRights else []
-      }
-    }
-  ]
-    }) }}
+        }
+      ]
+        }) }}
 
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
-
+    {# About the case #}
     <h2 class="govuk-heading-m">About the case</h2>
 
     {{ govukSummaryList({
@@ -525,79 +434,20 @@
 
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
-
+    {# Reporter #}
     <h2 class="govuk-heading-m">Reporter</h2>
 
     {% set reporterContactHTML %}
     <p class="govuk-body">Ed Horsford</p>
     <p class="govuk-body">ed.horsford@suffolk.trading-standards.gov.uk</p>
     <p class="govuk-body">0798989898979</p>
-
     {% endset %}
 
     {% set reportSourceHTML %}
       <p class="govuk-body">Trading Standards Suffolk</p>
-
-      {# <p class="govuk-body">TS reference number: J58484739A</p> #}
     {% endset %}
 
-  {# {{ govukSummaryList({
-    rows: [
-      {
-        key: {
-          text: "Report source"
-        },
-        value: {
-          html: reportSourceHTML
-        },
-        actions: {
-          items: [
-            {
-              href: "#",
-              text: "Change",
-              visuallyHiddenText: "hazard type"
-            }
-          ]
-        }
-      },{
-        key: {
-          text: "TS reference number"
-        },
-        value: {
-          text: "J59398383838"
-        },
-        actions: {
-          items: [
-            {
-              href: "#",
-              text: "Change",
-              visuallyHiddenText: "hazard type"
-            }
-          ]
-        }
-      },
-      {
-        key: {
-          text: "Contact details"
-        },
-        value: {
-          html: reporterContactHTML
-        },
-        actions: {
-          items: [
-            {
-              href: "#",
-              text: "Change",
-              visuallyHiddenText: "reference number"
-            }
-          ]
-        }
-      }
-    ]
-  }) }} #}
-
-
-  {# Raw HTML as component doesn't support change links spanning sections #}
+    {# Raw HTML as component doesn't support change links spanning sections #}
     <dl class="govuk-summary-list govuk-summary-list--no-border">
       <div class="govuk-summary-list__row govuk-summary-list--no-border">
         <dt class="govuk-summary-list__key">
@@ -613,21 +463,8 @@
             Change<span class="govuk-visually-hidden"> report source</span>
           </a>
           {% endif %}
-        </div>      
+        </div>
       </div>
-
-      {# <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-          TS reference number
-        </dt>
-        <dd class="govuk-summary-list__value">
-          J59398383838
-        </dd>
-        
-        <div class="govuk-summary-list__actions">
-        </div>     
-      </div> #}
-
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
           Contact details
@@ -641,33 +478,33 @@
           Details available to teams added to case
           {% endif %}
         </dd>
-        
         <dd class="govuk-summary-list__actions">
           {% if hasEditRights %}
           <a class="govuk-link" href="#">
             Change<span class="govuk-visually-hidden"> reporter contact details</span>
           </a>
           {% endif %}
-        </dd>     
+        </dd>
       </div>
     </dl>
   </div>
+
+  {# Sidebar #}
   <div class="govuk-grid-column-one-third">
     <aside class="app-related-items" role="complementary">
       <h2 class="govuk-heading-m" id="subsection-title">
-        Products (5)
+        Products ({{currentCase.products | length}})
       </h2>
 
       <div class="overview-product-group">
-
         <p class="govuk-body govuk-!-margin-bottom-1">
           <a href="#" class="govuk-link">ChargeWorx adaptor</a>
         </p>
         <div class="product-image__container">
           <img src="/public/images/charge-worx.jpg" title="Product identifying image" />
         </div>
-
       </div>
+
       <div class="overview-product-group">
         <p class="govuk-body govuk-!-margin-bottom-1">
           <a href="#" class="govuk-link">Inteligix adaptor</a>
@@ -675,8 +512,8 @@
         <div class="product-image__container">
           <img src="/public/images/slapwraphopunslow3-500x500.jpg" title="Product identifying image" />
         </div>
-
       </div>
+
       <div class="overview-product-group">
         <p class="govuk-body govuk-!-margin-bottom-1">
           <a href="#" class="govuk-link">Plug adaptor</a>
@@ -685,11 +522,8 @@
           <img src="/public/images/slapwrap1.jpg" title="Product identifying image" />
         </div>
       </div>
-      {# <p class="govuk-body govuk-hint">(2  products not shown)</p> #}
+
       <a href="#" class="govuk-body govuk-link app-toggle-link" data-target="overview-product-group" data-hide-link="true">Show 2 more products...</a>
-      <script>
-        
-      </script>
 
       <div class="overview-product-group target-item hidden">
         <p class="govuk-body govuk-!-margin-bottom-1">
@@ -699,6 +533,7 @@
           <img src="/public/images/slapwrap1.jpg" title="Product identifying image" />
         </div>
       </div>
+
       <div class="overview-product-group target-item hidden">
         <p class="govuk-body govuk-!-margin-bottom-1">
           <a href="#" class="govuk-link">Plug adaptor</a>
@@ -710,10 +545,9 @@
 
       <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
-
+      {# Timeline #}
       <h2 class="govuk-heading-m">Recent timeline</h2>
       <div class="hmcts-timeline">
-            
         <div class="hmcts-timeline__item">
           <div class="hmcts-timeline__header">
             <h3 class="hmcts-timeline__title">
@@ -722,16 +556,14 @@
               {% else %}
               Case assigned to Tim Harwood
               {% endif %}
-
-            </h3>  
+            </h3>
             <p class="hmcts-timeline__by">by Jane Doe, OPSS Processing</p>
             <p class="hmcts-timeline__date"><time datetime="2018-09-14T09:38:00.000Z">Fri 14 Sep 2018 at 9:38am</time></p>
           </div>
           {% if hasViewRights %}
           <p class="govuk-body hmcts-timeline__paragraph">John, can you take a look at this please?</p>
           {% endif %}
-          
-        </div>  
+        </div>
         <div class="hmcts-timeline__item">
           <div class="hmcts-timeline__header">
             <h3 class="hmcts-timeline__title">
@@ -740,15 +572,13 @@
               {% else %}
               Comment added
               {% endif %}
-              
-            </h3>       
+            </h3>
             <p class="hmcts-timeline__by">by Simon Saint, OPSS Enforcement</p>
             <p class="hmcts-timeline__date"><time datetime="2018-09-12T09:38:00.000Z">Wed 12 Sep 2018 at 9:38am</time></p>
           </div>
           {% if hasViewRights %}
           <p class="govuk-body hmcts-timeline__paragraph">Hey Chris, would you mind taking a...</p>{% endif %}
-
-        </div>  
+        </div>
         <div class="hmcts-timeline__item">
           <div class="hmcts-timeline__header">
             <h3 class="hmcts-timeline__title">
@@ -761,11 +591,10 @@
             <p class="hmcts-timeline__by">by DJ Nightingale</p>
             <p class="hmcts-timeline__date"><time datetime="2018-09-11T16:15:00.000Z">Tue 11 Sep 2018 at 4:15pm</time></p>    
           </div>
-          
         </div>
       </div>
-
       <p class="govuk-body"><a href="" class="govuk-link">View full timeline</a></p>
+      {# end timeline #}
 
     </aside>
 
