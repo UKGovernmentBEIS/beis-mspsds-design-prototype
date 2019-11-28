@@ -1,6 +1,7 @@
 // global styles for <a> and <p> tags
 $govuk-global-styles: true;
 $govuk-page-width: 1200px;
+$govuk-show-breakpoints: true;
 
 // Import GOV.UK Frontend
 @import "node_modules/govuk-frontend/all";
@@ -242,4 +243,23 @@ p.govuk-body, h1, h2, h3 {
 
 .app-inset-conditional {
   border-left-width: 4px;
+}
+
+.hmcts-identity-bar__details .hmcts-badge {
+  @include govuk-responsive-margin(2, "right");
+}
+
+.app-meta-area {
+  @include govuk-responsive-margin(6, "bottom");
+}
+
+.app-document-preview {
+  @include govuk-responsive-margin(4, "bottom");
+  @include govuk-responsive-padding(3, "bottom");
+  border-bottom: 1px solid govuk-colour("grey-2");
+  &:last-of-type {
+    @include govuk-media-query($from: tablet) {
+      border-bottom: none;
+    }
+  }
 }
