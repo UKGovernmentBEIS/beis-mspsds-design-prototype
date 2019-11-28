@@ -1,0 +1,52 @@
+{% extends "includes/templates/case-delete.html" %}
+{% set pageHeading = 'Risk assessment completed by Southampton council: severe risk' %}
+{% set pageHeading = 'risk assessment' %}
+
+{% set contentType = 'risk assessment' %}
+
+{% set riskAssessmentLink %}
+<a href="" class="govuk-link">RAG Risk assessment - Foobar-Zipbuz.pdf (PDF, opens in a new window)</a>
+{% endset %}
+
+
+{# Todo: make this actually update a case #}
+{% block formContent %}
+<div class="app-meta-area">
+  <p class="govuk-body govuk-hint">Added 10 November 2019<br>Updated 11 November 2019</p>
+</div>
+
+{# {{ govukTable({
+  caption: "To be deleted",
+  firstCellIsHeader: true,
+  head: [
+    {
+      text: "Item",
+      classes: 'govuk-!-width-one-quarter'
+    },
+    {
+      text: "Details",
+      classes: 'govuk-!-width-three-quarters'
+    }
+  ],
+  rows: [
+    [
+      {
+        text: "Risk assessment"
+      },
+      {
+        text: "Added 10 November 2019"
+      }
+    ],
+    [
+      {
+        text: "Attachment"
+      },
+      {
+        text: "RAG Risk assessment - Foobar-Zipbuz.pdf"
+      }
+    ]
+  ]
+}) }} #}
+
+
+{% endblock %}

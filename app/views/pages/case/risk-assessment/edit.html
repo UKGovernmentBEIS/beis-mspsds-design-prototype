@@ -1,0 +1,27 @@
+{% extends "includes/templates/case-edit.html" %}
+{% set pageHeading = 'Edit risk assessment' %}
+{% set contentType = 'risk assessment' %}
+
+{% set riskAssessmentLink %}
+<a href="" class="govuk-link">RAG Risk assessment - Foobar-Zipbuz.pdf</a>
+{% endset %}
+{#  (PDF, opens in a new window) #}
+
+
+
+{% set productLinks %}
+<ul class="govuk-list">
+  <li><a href="#" class="govuk-link">Foobar mouse</a></li>
+  <li><a href="#" class="govuk-link">Zipbuz mouse</a></li>
+</ul>
+{% endset %}
+
+{% set metaContent = "Added 10 November 2019<br>Updated 11 November 2019" %}
+
+
+{# Todo: make this actually update a case #}
+{% block formContent %}
+  {% include "includes/components/shared/risk-assessment/record-risk-assessment.html" %}
+  
+{% endblock %}
+

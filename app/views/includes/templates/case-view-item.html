@@ -1,0 +1,55 @@
+{# Template used for edit pages #}
+
+{% extends "./case-basic.html" %}
+{% set includeCaseActions = false %}
+
+{# Ideally these should go to previous #}
+{% set formCancel = '../overview' %} 
+{% set formAction = '../overview' %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back to " + (caseType | lower),
+  href: formCancel
+}) }}
+{% endblock %}
+
+
+
+{% block content %}
+
+{% set returnButtonText = 'Return to ' + (caseType | lower) %}
+
+{% set metaArea %}
+<div class="app-meta-area">
+  <p class="govuk-body govuk-hint">{{metaContent | safe}}</p>
+</div>
+{% endset %}
+
+{% set editDeleteLinks %}
+  <div class="govuk-form-group">
+    <p class="govuk-body">
+      <a class="govuk-link govuk-link--no-visited-state" href="./edit">Edit risk assessment</a>
+    </p>
+    <p class="govuk-body">
+      <a class="govuk-link govuk-link--no-visited-state delete" href="./delete">Delete risk assessment</a>
+    </p>
+  </div>
+{% endset %}
+
+{% set returnButton %}
+<div class="govuk-form-group">
+  {{ govukButton({
+    text: returnButtonText,
+    href: '../overview'
+  }) }}
+</div>
+{% endset %}
+
+  {% block pageContent %}
+  {% endblock %}
+
+
+{% endblock %}
+
+

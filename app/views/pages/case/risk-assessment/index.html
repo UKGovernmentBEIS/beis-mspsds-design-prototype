@@ -1,0 +1,167 @@
+{% extends "includes/templates/case-view-item.html" %}
+{% set pageHeading = 'Risk assessment completed by Southampton council: severe risk' %}
+{% set pageHeading = 'Risk assessment: severe risk' %}
+
+
+{% set riskAssessmentLink %}
+<a href="" class="govuk-link">RAG Risk assessment - Foobar-Zipbuz.pdf</a>
+{% endset %}
+{#  (PDF, opens in a new window) #}
+
+{% set contentType = 'risk assessment' %}
+
+{% set productLinks %}
+<ul class="govuk-list">
+  <li><a href="#" class="govuk-link">Foobar mouse</a></li>
+  <li><a href="#" class="govuk-link">Zipbuz mouse</a></li>
+</ul>
+{% endset %}
+
+{% set metaContent = "Added 10 November 2019<br>Updated 11 November 2019" %}
+
+
+{# Todo: make this actually update a case #}
+{% block pageContent %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{pageHeading}}</h1>
+
+    {{metaArea | safe }}
+
+    {{ govukSummaryList({
+      rows: [
+        {
+          key: {
+            text: "Risk level"
+          },
+          value: {
+            html: 'Severe'
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "Change",
+                visuallyHiddenText: "contact details"
+              }
+            ]
+          } if false
+        },
+        {
+          key: {
+            text: "Date of assessment"
+          },
+          value: {
+            text: "5 November 2019"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "Change",
+                visuallyHiddenText: "name"
+              }
+            ] if false
+          } if false
+        },
+        {
+          key: {
+            text: "Products assessed"
+          },
+          value: {
+            html: productLinks
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "Change",
+                visuallyHiddenText: "contact information"
+              }
+            ]
+          } if false
+        },
+        {
+          key: {
+            text: "Risk assessor"
+          },
+          value: {
+            text: "Southampton council"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "Change",
+                visuallyHiddenText: "date of birth"
+              }
+            ]
+          } if false
+        },
+        {
+          key: {
+            text: "Further details"
+          },
+          value: {
+            text: 'Not provided'
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "Change",
+                visuallyHiddenText: "contact details"
+              }
+            ]
+          } if false
+        }
+      ]
+    }) }}
+
+
+    
+  </div>
+  <div class="govuk-grid-column-one-third">
+    <h2 class="govuk-heading-m">Attachments</h2>
+    <div class="app-document-preview">
+      <p class="govuk-body">{{riskAssessmentLink | safe}}</p>
+      <div class="mspsds-attachment-panel__image">
+        <a href="/public/images/document-thumbnail.png">
+          <img src="/public/images/document-thumbnail.png" alt="document preview">
+        </a>
+      </div>
+    </div>
+  </div>
+  
+</div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {{editDeleteLinks | safe }}
+
+    {# {{returnButton | safe }} #}
+  </div>
+</div>
+
+{% endblock %}
+
+{# 
+,
+{
+  key: {
+    text: "Attachments"
+  },
+  value: {
+    html: riskAssessmentLink
+  },
+  actions: {
+    items: [
+      {
+        href: "#",
+        text: "Change",
+        visuallyHiddenText: "contact details"
+      }
+    ]
+  } if false
+}
+ #}

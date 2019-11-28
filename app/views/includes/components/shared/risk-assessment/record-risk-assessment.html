@@ -1,0 +1,354 @@
+{# {% if viewContext == 'add' %}
+  {% set theRiskAssessment = data.new.report.riskAssessment %}
+{% else %}
+  {% set theRiskAssessment = currentCase.report.riskAssessment %}
+{% endif %} #}
+
+{{ govukDateInput({
+  id: "test-date",
+  namePrefix: "new[report][riskAssessment][date].",
+  fieldset: {
+    legend: {
+      text: "Date of risk assessment",
+      isPageHeading: false,
+      classes: "govuk-fieldset__legend--m"
+    }
+  },
+  items: [
+    {
+      name: "day",
+      classes: "govuk-input--width-2",
+      value: report.riskAssessment['date'][0]
+    },
+    {
+      name: "month",
+      classes: "govuk-input--width-2",
+      value: report.riskAssessment['date'][1]
+    },
+    {
+      name: "year",
+      classes: "govuk-input--width-4",
+      value: report.riskAssessment['date'][2]
+    }
+  ],
+  hint: {
+    text: "For example, 12 7 2019"
+  }
+}) }}
+
+<p class="govuk-body"><a href="#" class="govuk-link">Today</a>&nbsp;&nbsp;&nbsp;<a href="#" class="govuk-link">Yesterday</a></p>
+
+{% set riskAssessorOtherHTML %}
+{{ govukInput({
+  id: "risk-assessor-other",
+  name: "new[report][riskAssessment][authorOtherName]",
+  value: report.riskAssessment.authorOtherName,
+  type: "tel",
+  classes: "govuk-!-width-two-thirds",
+  label: {
+    text: "Organisation name"
+  }
+}) }}
+{% endset -%}
+
+{% set psdTeamsHTML %}
+{{ localAuthorityAutocomplete({
+    idPrefix:   'localAuthorityName',
+    name:       'new[report][riskAssessment][authorOtherPSDTeam]',
+    value:      report.riskAssessment.authorOtherPSDTeam,
+    class:      "govuk-label govuk-!-margin-bottom-1",
+    legend:     "Select PSD team"
+  }) }}
+{% endset -%}
+
+{{ govukRadios({
+  idPrefix: "risk-assessor",
+  name: "new[report][riskAssessment][authorType]",
+  fieldset: {
+    legend: {
+      text: "Who completed the risk assessment?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--m"
+    }
+  },
+  items: [
+    {
+      value: "self",
+      text: "Me or my organisation",
+      checked: checked([data.new['report']['riskAssessment']['authorType']], "self")
+    },
+    {
+      value: "otherPSDTeam",
+      text: "Another team on the PSD",
+      checked: checked([data.new['report']['riskAssessment']['authorType']], "otherPSDTeam"),
+      conditional: {
+        html: psdTeamsHTML
+      }
+    },
+    {
+      value: "authorOther",
+      text: "Someone else",
+      checked: checked([data.new['report']['riskAssessment']['authorType']], "authorOther"),
+      conditional: {
+        html: riskAssessorOtherHTML
+      }
+    }
+  ]
+}) }}
+
+{# {% set riskAssessmentTypeOtherHTML %}
+{{ govukInput({
+  id: "risk-type-other",
+  name: "risk-type-other",
+  classes: "govuk-!-width-two-thirds",
+  label: {
+    text: "Type of risk assessment"
+  }
+}) }}
+{% endset -%} #}
+
+
+{# {{ govukRadios({
+  idPrefix: "assessment-type",
+  name: "assessment-type",
+  fieldset: {
+    legend: {
+      text: "Type of risk assessment",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--m"
+    }
+  },
+  items: [
+    {
+      value: "email",
+      text: "RAPEX"
+    },
+    {
+      value: "phone",
+      text: "Other",
+      conditional: {
+        html: riskAssessmentTypeOtherHTML
+      }
+    }
+  ]
+}) }} #}
+
+{% set products = [
+  'Travel plug adaptor — Charge Worx 931L',
+  'iPhone charger – unbranded, white',
+  'Travel plug adaptor – Multipower 94998'
+] %}
+
+  {# {{ autocompleteInput({
+    idPrefix: "case-products", 
+    name:     "TODO-product-input-name", 
+    legend:   "Product that was assessed", 
+    hint:     "Only products already added to the case are listed. <a href='#'>Add a product</a>", 
+    class: 'govuk-heading-m',
+    values:   products}) 
+  }} #}
+
+{# Shown where a case has a single product #}
+{#     {{ govukRadios({
+  idPrefix: "product-assessed-single",
+  name: "product-assessed-single",
+  fieldset: {
+    legend: {
+      text: "Product that was assessed",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--m"
+    }
+  },
+  hint: {
+    text: "The risk assessment will be linked to this product"
+  },
+  items: [
+    {
+      value: "email",
+      text: "Travel plug adaptor — Charge Worx 931L"
+    },
+    {
+      value: "email",
+      text: "Not applicable"
+    }
+  ]
+}) }}
+#}
+{# {% set productAutocompleteHTML %}
+  {{ autocompleteInput({
+    idPrefix: "product-autocomplete-multi", 
+    name:     "product-autocomplete-multi", 
+    legend:   "Select product", 
+    class: 'govuk-fieldset__legend--s govuk-!-font-weight-regular',
+    values:   products}) 
+  }}
+  <p class="govuk-body"><a href="#" class="govuk-link">Add another product</a></p>
+{% endset %} #}
+
+{# Shown where a case has multiple products #}
+{# {{ govukRadios({
+  idPrefix: "how-contacted-conditional",
+  name: "product-assessed-multi",
+  fieldset: {
+    legend: {
+      text: "Products that were assessed",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--m"
+    }
+  },
+  hint: {
+    text: "The risk assessment will be linked to these products."
+  },
+  items: [
+    {
+      value: "email",
+      text: "All products in case"
+    },
+    {
+      value: "phone",
+      text: "One or more products in case",
+      conditional: {
+        html: productAutocompleteHTML
+      }
+    },
+    {
+      value: "email",
+      text: "Not applicable"
+    }
+  ]
+}) }} #}
+
+{# Shown where a case has multiple products #}
+{{ govukCheckboxes({
+  idPrefix: "waste",
+  name: "new[report][riskAssessment][productsAssessed]",
+  fieldset: {
+    legend: {
+      text: "Which products were assessed?",
+      isPageHeading: false,
+      classes: "govuk-fieldset__legend--m"
+    }
+  },
+  hint: {
+    text: "Select all that apply. You must select at least one."
+  },
+  items: [
+    {
+      value: "productA",
+      text: "Travel plug adaptor — Charge Worx 931L",
+      checked: checked([data.new['report']['riskAssessment']['productsAssessed']], "productA")
+    },
+    {
+      value: "productB",
+      text: "iPhone charger – unbranded, white",
+      checked: checked([data.new['report']['riskAssessment']['productsAssessed']], "productB")
+    },
+    {
+      value: "productC",
+      text: "Travel plug adaptor – Multipower 94998",
+      checked: checked([data.new['report']['riskAssessment']['productsAssessed']], "productC")
+    }
+  ]
+}) }}
+
+<p class="govuk-body"><a href="#" class="govuk-link">Select all products</a></p>
+
+{% set riskLevels = [
+  'Serious risk',
+  'High risk',
+  'Medium risk',
+  'Low risk',
+  'Other'
+] %}
+
+
+{% set riskLevelsOtherHTML %}
+{{ govukInput({
+  id: "risk-levels-other",
+  name: "new[report][riskAssessment][riskLevelOther]",
+  value: report.riskAssessment.riskLevelOther,
+  classes: "govuk-!-width-two-thirds",
+  label: {
+    text: "What was the risk level?"
+  }
+}) }}
+{% endset -%}
+
+
+{{ autocompleteInput({
+  idPrefix: "legislation", 
+  name:     "new[report][riskAssessment][riskLevel]", 
+  legend:   "What was the assessed risk level?", 
+  hint:     "Choose the highest risk level determined for the product.",
+  values:   riskLevels,
+  value: report.riskAssessment.riskLevel,
+  class: 'govuk-heading-m',
+  width: 'govuk-!-width-two-thirds',
+  conditional: riskLevelsOtherHTML}) 
+}}
+
+{% set riskAssessmentUploadHTML -%}
+  This should be a pdf export from the <a href="#">RAPEX risk assessment tool</a>.
+{%- endset %}
+
+{% set filePickerHTML %}
+{{ govukFileUpload({
+  id: "file-upload-1",
+  name: "file-upload-1",
+  label: {
+    text: "Upload the risk assessment",
+    classes: "govuk-label--s"
+  },
+  hint: {
+    html: riskAssessmentUploadHTML
+  }
+}) }}
+{% endset %}
+
+{# {{filePickerHTML | safe}} #}
+
+{% if viewContext == 'add' %}
+  {{filePickerHTML | safe}}
+
+{% else %}
+
+  {{ govukRadios({
+    idPrefix: "where-do-you-live",
+    name: "where-do-you-live",
+    fieldset: {
+      legend: {
+        text: "Do you want to change the uploaded attchment?",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    items: [
+      {
+        value: "no",
+        html: "No, use ‘<strong>RAG Risk assessment - Foobar-Zipbuz.pdf</strong>’",
+        checked: true
+      },
+      {
+        value: "yes",
+        text: "Yes, replace it",
+        conditional: {
+          html: filePickerHTML
+        }
+      }
+    ]
+  }) }}
+
+{% endif %}
+
+{{ govukTextarea({
+  name: "new[report][riskAssessment][moreDetail]",
+  id: "more-detail",
+  value: report.riskAssessment.moreDetail,
+  label: {
+    text: "Further details (optional)",
+    classes: "govuk-label--m"
+  },
+  hint: {
+    text: "If there are any other details relevant to the risk assessment."
+  }
+}) }}
