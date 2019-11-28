@@ -1,0 +1,48 @@
+{# Template used for edit pages #}
+
+{% extends "./case-basic.html" %}
+{% set includeCaseActions = false %}
+
+{# Ideally these should go to previous #}
+{% set formCancel = './' %} 
+{% set formAction = './overview' %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back to " + (caseType | lower),
+  href: formCancel
+}) }}
+{% endblock %}
+
+{% set submitButtonText = 'Delete' %}
+{% set submitButtonText = submitButtonText + ((' ' + contentType) if contentType) %}
+
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+    <h1 class="govuk-heading-l">Delete {{pageHeading | lower}}</h1>
+    <form action="{{formAction}}" method="post" class="form">
+      {% block formContent %}
+      {% endblock %}
+      {# <p class="govuk-body">Are you sure you want to delete this {{contentType}}?</p> #}
+      <p class="govuk-body">The risk assessment and attached pdf will be removed from the case.</p>
+
+      <p class="govuk-body">The {{contentType}} will be removed from the case, but a record of it will be kept in the activity log for audit purposes. If the record should also be removed from the activity log, contact <a href="#">opss.enquiries@beis.gov.uk</a>.</p>
+      <div class="govuk-form-group">
+        {{ govukButton({
+          text: submitButtonText,
+          classes: 'mspsds-button mspsds-button--delete'
+        }) }}
+        <p class="govuk-body">
+          <a class="govuk-link govuk-link--no-visited-state" href="{{formCancel}}">Cancel</a>
+        </p>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+

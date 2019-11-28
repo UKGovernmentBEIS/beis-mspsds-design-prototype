@@ -4,6 +4,8 @@
 {% set pageHeading = 'Overview' %}
 
 
+{% block content %}
+
 {% set significantDateLabel = "Last updated" if currentCase.activities.length > 1 else "Created" %}
 
 
@@ -127,8 +129,6 @@
       }
   ] %}
 
-{% block content %}
-
 {# Todo: make confirmations work again #}
 {# {% if data['confirmation'] %}
     {% block confirmation %}
@@ -142,7 +142,6 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-
     <span class="govuk-caption-l">{{caseTypeAndNumber}}</span>
     <h1 class="govuk-heading-l">{{pageHeading}}</h1>
 
@@ -252,6 +251,33 @@
         ]
       }) }}
 
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+    {# Businesses section #}
+    <h2 class="govuk-heading-m">Risk</h2>
+
+    {{ govukSummaryList({
+      classes: 'govuk-summary-list--no-border',
+      rows: [
+        {
+          key: {
+            text: "Risk assessment"
+          },
+          value: {
+            text: "Assessed risk: severe"
+          },
+          actions: {
+            items: [
+              {
+                href: "./risk-assessment/",
+                text: "View",
+                visuallyHiddenText: "risk assessment"
+              }
+            ]
+          }
+        }
+      ]
+    }) }}
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
 

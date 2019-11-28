@@ -177,6 +177,14 @@
     type:       "hidden"
   }) }}
 
+{% elseif businessesCount == 0 %}
+  
+  <div class="govuk-form-group">
+    <h2 class="govuk-heading-m">Which business is responsible?</h2>
+    <p class="govuk-body govuk-hint">There are no businesses associated with this case.</p>
+  </div>
+
+
 {% endif %}
     
 
