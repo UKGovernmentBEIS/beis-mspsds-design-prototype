@@ -3,7 +3,11 @@
   @include govuk-responsive-margin(6, "top");
 
     &__image {
-      float: right;
+      // float: right;
+      max-width: 80px;
+      @include govuk-media-query($from: tablet) {
+        max-width: 100px;
+      }
     }
 
     &__title, 

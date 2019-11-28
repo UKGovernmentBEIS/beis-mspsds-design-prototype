@@ -14,13 +14,21 @@
 }) }}
 {% endblock %}
 
-{% set submitButtonText = 'Update' + (' ' + editContentType) if editContentType %}
+{% set submitButtonText = 'Update' %}
+{% set submitButtonText = submitButtonText + ((' ' + contentType) if contentType) %}
 
+{% set metaArea %}
+<div class="app-meta-area">
+  <p class="govuk-body govuk-hint">{{metaContent | safe}}</p>
+</div>
+{% endset %}
 
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
     <form action="{{formAction}}" method="post" class="form">
+      <h1 class="govuk-heading-l">{{pageHeading}}</h1>
+      {{metaArea | safe }}
       {% block formContent %}
       {% endblock %}
       <div class="govuk-form-group">
