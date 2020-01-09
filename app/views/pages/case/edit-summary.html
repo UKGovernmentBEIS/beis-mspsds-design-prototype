@@ -1,7 +1,9 @@
 {% extends "includes/templates/case-edit.html" %}
 
-{% set editContentType = 'summary' %}
+{% set contentType = 'summary' %}
 
+
+{# Todo: make this actually update a case #}
 {% block formContent %}
 {% set pageHeading = 'Edit ' + (currentCase.report.type | lower) + ' summary' %}
 

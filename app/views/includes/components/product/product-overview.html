@@ -4,11 +4,59 @@
 
 <section class="mspsds-overview">
 
-      {{ productPanel({
-          product:          currentProduct,
-          controls:         false,
-          displayImage:     true,
-          displayDetails:   'summary'
+
+
+</section>
+
+<section class="mspsds-pagetitle">
+
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      {{ pageTitle({
+        type:       'Product',
+        title:      currentProduct.name
       }) }}
+      <p class="govuk-body">{{currentProduct.type}} ({{currentProduct.category}})</p>
+
+      <div class="app-meta-area">
+        {% set metaContent = {rows: [
+          {
+            key: {
+              text: "Added:"
+            },
+            value: {
+              text: "10 November 2019"
+            }
+          },
+          {
+            key: {
+              text: "Updated:"
+            },
+            value: {
+              text: "11 November 2019"
+            }
+          }
+        ]} %}
+        {{simpleDescriptionList(metaContent)}}
+      </div>
+    </div>
+
+
+      <div class="govuk-grid-column-one-third">
+        {% if currentProduct.posterImage %}
+        <div class="app-image-preview">
+          <img src="{{ currentProduct.posterImage }}" title="Product identifying image" />
+          {% else %}
+          &nbsp;
+          {% endif %}
+        </div>
+
+      </div>
+
+
+  </div>
+
 
 </section>

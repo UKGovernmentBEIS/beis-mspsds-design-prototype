@@ -1,7 +1,5 @@
 {% extends "mspsds-layout.html" %}
 
-
-
 {% block pageTitle %}
   Home Page
 {% endblock %}
@@ -14,7 +12,7 @@
   {% set createLink  = data['createUrl'] %}
 {% endif %}
 
-{% set createLink  = data['createUrl'] %}
+{# {% set createLink  = data['createUrl'] %} #}
 
 {% set navActive = 'home' %}
 
@@ -22,70 +20,7 @@
 {% block beforeContent %}
 
 
-	{# {% include "includes/components/shared/page-banner.html" %} #}
-
-  {# {{ hmctsPrimaryNavigation({
-    label: 'Primary navigation',
-    items: [{
-    text: 'Nav item 1',
-    href: '#1',
-    active: true
-    }, {
-    text: 'Nav item 2',
-    href: '#2'
-    }, {
-    text: 'Nav item 3',
-    href: '#3'
-    }]
-    }) }}  #}
-
-	{# {% from "includes/components/shared/site-nav.html"        import siteNav %}
-  {{ siteNav([
-    { 
-      label: 'Home',
-      link: '/root/home',
-      classes: 'active'
-    }, { 
-      label: 'Cases',
-      link: '/root/case-list'
-    },
-
-    { 
-      label: 'Products',
-      link: '/root/product-list'
-    }, { 
-      label: 'Businesses',
-      link: '/root/business-list'
-    },{ 
-      label: 'Your teams',
-      link: '/pages/your-teams',
-      classes: 'menu-right'
-    }
-    
-    
-    ]) }} #}
-
-
-
 {% endblock %}
-{# 
-
-  { 
-      label: 'Incidents',
-      link: '/root/case-list'
-    },
-    {
-        label: 'About',
-        link: '/root/about'
-      }
-    , { 
-      label: 'Products',
-      link: '/root/product-list'
-    }, { 
-      label: 'Businesses',
-      link: '/root/business-list'
-    }, #}
-
 
 {% block content %}
 
@@ -115,11 +50,11 @@
         Report, track and share product safety information.
       </p>
 
-      
+
 
       <form action="{{createLink}}" method="post" class="form">
-      {# {% include "includes/components/shared/create/ts-setup-prototype-data.html" %} #}
-
+      {% include "includes/components/shared/create/ts-setup-prototype-data.html" %}
+      {# <h1 class="govuk-heading-l">{{currentTeam}}</h1> #}
         {{ govukButton({
           text: "Create a new case",
           classes: "govuk-button--start"
@@ -138,7 +73,7 @@
 
 
   <div class="govuk-grid-row">
-    
+
     <div class="govuk-grid-column-one-third">
       <h2 class="govuk-heading-m"><a href="/pages/case-list" class="govuk-link govuk-link--no-visited-state">Your cases</a></h2>
       <p class="govuk-body">Cases you’ve opened or you’re assigned to.</p>
@@ -157,14 +92,14 @@
     </div>
   </div>
 
-  
+
   {# <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
       <h2 class="govuk-heading-l">Report an unsafe product</h2>
 
       <p class="govuk-body">Trading standards are required to notify OPSS about any products which pose a serious danger to the public – in order to meet that requirement, there are a number of pieces of information we need:<p>
-      
+
 
        <ul class="govuk-list govuk-!-margin-bottom-9">
         <li>
@@ -182,13 +117,13 @@
         <li>
           <h3 class="govuk-heading-m govuk-!-margin-bottom-1">Supply chain</h3>
           <p class="govuk-body">
-           Information that describes businesses involved, and their roles in the supply chain, including registered business names, company numbers, address an contact details as available. 
+           Information that describes businesses involved, and their roles in the supply chain, including registered business names, company numbers, address an contact details as available.
           </p>
         </li>
         <li>
           <h3 class="govuk-heading-m govuk-!-margin-bottom-1">Corrective action</h3>
           <p class="govuk-body">
-           Information that describes corrective actions taken (by you or any business), including details of date, legistaltion and documentary evidence where applicable. 
+           Information that describes corrective actions taken (by you or any business), including details of date, legistaltion and documentary evidence where applicable.
           </p>
         </li>
         <li>
@@ -211,14 +146,14 @@
 
 
   <hr class="govuk-section-break govuk-section-break--visible  govuk-!-margin-bottom-9">
-  
+
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
       <h2 class="govuk-heading-l">Ask a question</h2>
 
       <p class="govuk-body">Use this service to ask a question about policy, legistation, testing or other technical aspect, and we'll ensure it’s passed to the correct person or department to answer it<p>
-      
+
 
     </div>
   </div> #}

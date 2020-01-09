@@ -1,0 +1,109 @@
+{% set hazardDescription %}
+{% if currentCase.report.hazardSummary %}
+  <p class="govuk-body">{{currentCase.report.hazardSummary}}</p>
+{% endif %}
+{% endset %}
+
+{% set hazardHTML %}
+  <p class="govuk-body">{{currentCase.report.hazardType}}</p>
+  {{hazardDescription | safe}}
+{% endset %}
+
+{% set caseRiskLevel %}
+  {% if not data.demoCase.riskLevel %}
+  Not set
+  {% elseif data.demoCase.riskLevel == 'other' %}
+  Other: {{data.demoCase.riskLevelOther}}
+  {% else %}
+  {{data.demoCase.riskLevel | capitalize }}
+  {% endif %}
+{% endset %}
+
+{% set riskAssessmentHTML %}
+<p class="govuk-body">
+  Completed by Southampton Council on <span class="no-wrap">1 December 2019</span>
+</p>
+<p class="govuk-body">
+  Assessed risk: Serious risk
+</p>
+{% endset %}
+
+{{ govukSummaryList({
+  classes: 'govuk-summary-list--no-border',
+  rows: [
+    {
+      key: {
+        text: "Case risk level"
+      },
+      value: {
+        text: caseRiskLevel
+      },
+      actions: {
+        items: [
+          {
+            href: "./risk-level/add" if not data.demoCase.riskLevel else "./risk-level/edit",
+            text: "Change" if data.demoCase.riskLevel else 'Add',
+            visuallyHiddenText: "risk level"
+          }
+        ] if hasEditRights else []
+      }
+    },
+    {
+      key: {
+        text: "Risk assessment",
+        classes: ""
+      },
+      classes: "",
+      value: {
+        html: riskAssessmentHTML
+      },
+      actions: {
+        items: [
+          {
+            href: "./risk-assessment/",
+            text: "View",
+            visuallyHiddenText: "risk assessment"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Hazards",
+        classes: ""
+      },
+      classes: "",
+      value: {
+        html: hazardHTML
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "hazard type"
+          }
+        ] if false
+      }
+    },
+    {
+      key: {
+        text: "Compliance"
+      },
+      value: {
+        text: "Missing conformance labelling"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ] if hasEditRights else []
+      } if false
+    }
+
+
+  ]
+}) }}

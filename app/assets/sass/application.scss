@@ -50,6 +50,7 @@ $govuk-show-breakpoints: true;
 @import "text-variants";
 @import "govuk-design-system-overrides";
 @import "moj-multi-file-upload";
+@import "app-description-list";
 
 @import "start";
 
@@ -122,7 +123,7 @@ div[class^="govuk-grid-column-"] img {
 .case-list {
   & .govuk-width-container, & .hmcts-primary-navigation__container {
     max-width: 1200px;
-  } 
+  }
 }
 
 // todo: should we do something like this?: https://github.com/alphagov/govuk-design-system/blob/master/src/stylesheets/main.scss#L69
@@ -223,10 +224,10 @@ p.govuk-body, h1, h2, h3 {
   .crumbtrail {
     color: $govuk-secondary-text-colour;
   }
-  
+
 }
 
-.autocomplete__input--show-all-values + 
+.autocomplete__input--show-all-values +
 .autocomplete__dropdown-arrow-down {
   z-index: 1;
 }
@@ -262,4 +263,8 @@ p.govuk-body, h1, h2, h3 {
       border-bottom: none;
     }
   }
+}
+
+.app-image-preview {
+  max-width: 200px;
 }

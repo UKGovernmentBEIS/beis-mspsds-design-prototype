@@ -134,7 +134,7 @@ module.exports = {
       report: {
         type: 'Allegation',
         date: '18/10/2018',
-        summary: 'Something happened',
+        summary: 'Adapter sparked in customer’s hand, causing a severe burn.',
         productType: 'Toy',
         hazardType: 'Electric shock',
         otherDetails: 'Other details captured during the report entry',
@@ -151,6 +151,13 @@ module.exports = {
           body: '',
           attachment: '',
           attachmentDescription: ''
+        },
+        riskAssessment: {
+          date: [1,2,3],
+          authorType: 'foobar',
+          productsAssessed: 'product',
+          riskLevel: 'Severe',
+          moreDetail: 'hello world'
         }
       },
       products: ['p1', 'p2'],

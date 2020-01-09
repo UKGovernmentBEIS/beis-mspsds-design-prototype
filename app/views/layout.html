@@ -38,9 +38,9 @@
 {% from "includes/components/shared/task-list/task-list-item.html" import taskListItem with context %}
 {% from "includes/legislation-input.html" import legislationInput %}
 {% from "includes/components/teams/team-member.html" import teamMember %}
+{% from "includes/components/shared/simple-description-list.html" import simpleDescriptionList %}
 
-
-{% if data['signedIn'] == 'Yes' %} 
+{% if data['signedIn'] == 'Yes' %}
   {% set headerNav = [
     {
       href: "/",
@@ -88,7 +88,7 @@
   {% set navCasesActive = navCasesActive else false %} #}
 
   {% if hideSiteNav != true %}
-    {% if data['signedIn'] == 'Yes' %} 
+    {% if data['signedIn'] == 'Yes' %}
 
       {{ hmctsPrimaryNavigation({
         label: 'Primary navigation',
@@ -128,7 +128,7 @@
 <footer class="govuk-footer " role="contentinfo">
   <div class="govuk-width-container ">
     <div class="govuk-footer__meta">
-      <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">        
+      <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
         <p class="opss-footer__body">Email <a class="govuk-footer__link" href="mailto:example-email@beis.gov.uk">example-email@beis.gov.uk</a> for help using this service.</p>
         <h2 class="govuk-visually-hidden">Support links</h2>
         <ul class="govuk-footer__inline-list">
