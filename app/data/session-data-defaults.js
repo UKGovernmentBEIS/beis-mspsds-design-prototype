@@ -49,7 +49,7 @@ module.exports = {
   confirmation: {},
 
   createUrl: "/root/flows/create/01",
-  createUrl: "/pages/flows/create-new",
+  // createUrl: "/pages/flows/create-new",
 
   cases:          require("./cases.js").cases,
   products:       require("./products.js").products,

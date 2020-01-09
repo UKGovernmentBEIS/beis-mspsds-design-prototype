@@ -6,14 +6,6 @@
 
 {% set attachment = attachmentData.attachment %}
 
-{% set extraClass = 'govuk-grid-column-full' %}
-{% if attachment.type == 'document' %}
-
-  {% set extraClass = 'govuk-grid-column-one-half' %}
-
-{% endif %}
-
-
 <div class="govuk-grid-row mspsds-attachment-panel">
 
 
@@ -32,7 +24,7 @@
     <h3 class="mspsds-attachment-panel__title govuk-heading-m">{{attachment.title}}</h3>
     <p class="mspsds-attachment-panel__date govuk-body-s">Updated {{attachment.date}}</p>
     <p class="govuk-body">{{attachment.description}}</p>
-    
+
     {% if attachmentData.controls %}
 
       {{ controls(attachmentData.controls) }}

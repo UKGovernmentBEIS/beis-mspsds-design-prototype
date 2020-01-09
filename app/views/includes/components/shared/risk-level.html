@@ -1,0 +1,91 @@
+
+{% set theRiskLevel = data.demoCase.riskLevel %}
+
+{% set otherRiskLevelHTML %}
+  {{ govukInput({
+    label: {
+      text: "Risk level",
+      classes: "govuk-visually-hidden"
+    },
+    id: "other-risk-level",
+    name: "demoCase[riskLevelOther]",
+    value: data.demoCase.riskLevelOther,
+    classes: "govuk-!-width-one-half"
+  }) }}
+{% endset %}
+
+<p class="govuk-body">Risk levels should usually be supported by a risk assessment.</p>
+
+{# With risk asssesment #}
+{% set insetTextHTML %}
+<p class="govuk-body">This case has <a href="../risk-assessment/">1 risk assessment</a> attached, assessing the risk as <strong>serious</strong>.</p>
+{% endset %}
+
+{# Without risk assessment #}
+{% set insetTextHTML %}
+<p class="govuk-body">This case does not have a risk assessment attached. You may want to <a href="../risk-assessment/edit">add a risk assesment</a> before setting the case risk level.</p>
+{% endset %}
+
+{{ govukInsetText({
+  html: insetTextHTML
+}) }}
+
+<p class="govuk-body">The case risk level may differ from attached risk assements if necessary - such as when there are conflicting assesments, or where the assessment was provided by a third party.</p>
+
+
+
+
+ {{ govukRadios({
+    idPrefix: "risk-level",
+    name: "demoCase[riskLevel]",
+    fieldset: {
+      legend: {
+        text: "Risk level",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    items: [
+      {
+        value: "serious risk",
+        text: "Serious risk",
+        checked: checked([theRiskLevel], "serious risk")
+      },
+      {
+        value: "high risk",
+        text: "High risk",
+        checked: checked([theRiskLevel], "high risk")
+      },
+      {
+        value: "medium risk",
+        text: "Medium risk",
+        checked: checked([theRiskLevel], "medium risk")
+      },
+      {
+        value: "low risk",
+        text: "Low risk",
+        checked: checked([theRiskLevel], "low risk")
+      },
+      {
+        value: "other",
+        text: "Other",
+        checked: checked([theRiskLevel], "other"),
+        conditional: {
+          html: otherRiskLevelHTML
+        }
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "no risk",
+        text: "No risk",
+        checked: checked([theRiskLevel], "no risk")
+      },
+      {
+        value: "unknown",
+        text: "Unknown",
+        checked: checked([theRiskLevel], "unknown")
+      }
+    ]
+  }) }}

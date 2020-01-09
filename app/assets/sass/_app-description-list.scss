@@ -1,0 +1,67 @@
+// Styles merged from https://github.com/alphagov/govuk_publishing_components/blob/master/app/assets/stylesheets/govuk_publishing_components/components/_metadata.scss
+
+.app-description-list {
+  @include govuk-font($size: 16);
+  color: $govuk-text-colour;
+
+  margin: 0; // Reset default user agent styles
+
+  @include govuk-responsive-margin(3, "bottom");
+
+  a {
+    @include govuk-link-common;
+    @include govuk-link-style-default;
+  }
+
+}
+
+.app-description-list__key {
+  margin-top: .5em;
+  line-height: 1.4;
+
+  @include govuk-media-query($from: tablet) {
+    box-sizing: border-box;
+    float: left;
+    clear: left;
+    width: 20%;
+    max-width: 11em;
+    padding-right: govuk-spacing(2);
+    margin-top: 0;
+  }
+}
+
+.app-description-list__value {
+  margin: 0;
+  line-height: 1.4;
+
+  @include govuk-media-query($from: tablet) {
+    float: left;
+    width: 80%;
+  }
+}
+
+.app-description-list__value > p {
+  margin-bottom: govuk-spacing(2);
+}
+
+.app-description-list__value > :last-child {
+  margin-bottom: 0;
+}
+
+.app-description-list__key,
+.app-description-list__value {
+  // Automatic wrapping for unbreakable text (e.g. URLs)
+  word-wrap: break-word; // Fallback for older browsers only
+  overflow-wrap: break-word;
+}
+
+// Used for 'link ui' like 'select all'
+.app-description-list-link {
+  text-decoration: none;
+}
+
+.app-description-list-link:focus,
+.app-description-list-link:active,
+.app-description-list-link:hover {
+  text-decoration: underline;
+}

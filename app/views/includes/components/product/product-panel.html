@@ -125,6 +125,20 @@
         ]), prodRows) %}
       {% endif %}
 
+      {% if true %}
+        {% set prodRows = (prodRows.push([
+                  { text: "Number of units affected" },
+                  { html: '50000 units approximately'  }
+        ]), prodRows) %}
+      {% endif %}
+
+      {% if true %}
+        {% set prodRows = (prodRows.push([
+                  { text: "Product authenticity" },
+                  { html: 'Genuine'  }
+        ]), prodRows) %}
+      {% endif %}
+
 
   {% endif %}
 

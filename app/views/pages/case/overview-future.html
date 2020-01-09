@@ -1,0 +1,631 @@
+{% extends "includes/templates/case-top-level.html" %}
+
+{% set caseNavActive = 'overview' %}
+{% set pageHeading = 'Overview' %}
+
+
+{% block content %}
+
+{% set significantDateLabel = "Last updated" if currentCase.activities.length > 1 else "Created" %}
+
+
+{% set permissionsHTML %}
+  <p class="govuk-body">{{(data.teamPermissions | length) + 1}} teams added</p>
+  {% if currentCase.restricted -%}
+    <span class="hmcts-badge hmcts-badge--red">Restricted case</span>
+    {% else %}
+    <p class="govuk-body">All other users: default</p>
+  {%- endif %}
+{% endset %}
+
+
+{% set assigneeHTML %}
+  <p class="govuk-body">
+    {{currentCase.assignee}}
+    <br>(OPSS Processing)
+  </p>
+{% endset %}
+
+
+{% set summaryMetadataRows = [
+    {
+      key: {
+        text: "Status"
+      },
+      value: {
+        text: currentCase.status
+      },
+      actions: {
+        items: [
+          {
+            href: "/root/flows/change-status/01",
+            text: "Change",
+            visuallyHiddenText: "case status",
+            classes: "govuk-link--no-visited-state" 
+          } if (hasEditRights and hasViewRights) else []
+        ]
+
+      }
+    },
+    {
+      key: {
+        text: "Created by"
+      },
+      value: {
+        text: "Ed Horsford"
+      },
+      actions: {
+        items: []
+      }
+    },
+    {
+      key: {
+        text: "Assigned to" if (currentCase.status=="Open") else "Owner"
+      },
+      value: {
+        html: assigneeHTML
+      },
+      actions: {
+        items: [
+          {
+            href: "/root/flows/assign/01",
+            text: "Change",
+            visuallyHiddenText: "assignee",
+            classes: "govuk-link--no-visited-state" 
+          } if hasEditRights else []
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Permissions"
+      },
+      value: {
+        html: permissionsHTML
+      },
+      actions: {
+        items: [
+          {
+            href: "settings/permissions",
+            text: "View or change" if hasEditRights else 'View',
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    },{
+      key: {
+        text: "Date created"
+      },
+      value: {
+        text: "4 February 2019"
+      },
+      actions: {
+        items: []
+      }
+    },
+    {
+      key: {
+        text: significantDateLabel
+      },
+      value: {
+        text: currentCase.dateUpdated | prettifyDate
+      },
+      actions: {
+        items: [
+          {
+            href: "/root/flows/add-activity/01?currentPage=case&caseid="+currentCase.id,
+            text: "Add activity",
+            classes: "govuk-link--no-visited-state" 
+          }
+        ]
+      } if hasEditRights else {
+        items: [
+            {
+              href: "/root/flows/add-comment/01-add-comment",
+              text: "Add comment"
+            }
+          ]
+        }
+      }
+  ] %}
+
+{# Todo: make confirmations work again #}
+{# {% if data['confirmation'] %}
+    {% block confirmation %}
+        {% from "includes/mspsds-confirmation.html" import confirmation %}
+        {{ confirmation("confirmation", data['confirmation']) }}
+    {% endblock %}
+{% endif %} #}
+
+{# Brings in sub nav #}
+{{ super() }}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-l">{{caseTypeAndNumber}}</span>
+    <h1 class="govuk-heading-l">{{pageHeading}}</h1>
+
+    <p class="govuk-body-l">{{caseTitle}}</p>
+
+    <h2 class="govuk-heading-m">Summary</h2>
+
+    <p class="govuk-body">{{currentCase.report.summary}}</p>
+    {% if hasEditRights %}
+    <p class="govuk-body psd--inline-link right-align"><a href="./edit-summary" class="govuk-link govuk-link--no-visited-state">Change summary</a></p>
+    {% endif %}
+
+    {% if not hasViewRights %}
+      {{ govukInsetText({
+        text: "You have default viewing rights only because you are not involved in this case."
+      }) }}
+    {% endif %}
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+
+    {# Products section #}
+    <h2 class="govuk-heading-m"><a href="" class="govuk-link">Products</a></h2>
+
+      {% set hazardDescription %}
+        <p class="govuk-body">{{currentCase.report.hazardSummary}}</p>
+      {% endset %}
+
+      {% set hazardHTML %}
+        <p class="govuk-body">{{currentCase.report.hazardType}}</p>
+        {{hazardDescription | safe}}
+      {% endset %}
+
+      {{ govukSummaryList({
+        classes: 'govuk-summary-list--no-border',
+        rows: [
+          {
+            key: {
+              text: "Product category"
+            },
+            value: {
+              text: currentCase.report.productType
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "hazard type"
+                }
+              ] if hasEditRights else []
+            }
+          },
+          {
+            key: {
+              text: "Hazards",
+              classes: "govuk-summary-list--no-border"
+            },
+            classes: "govuk-summary-list--no-border",
+            value: {
+              html: hazardHTML
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "hazard type"
+                }
+              ] if hasEditRights else []
+            }
+          },
+          {
+            key: {
+              text: "Compliance"
+            },
+            value: {
+              text: "No known compliance issues"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "contact details"
+                }
+              ] if hasEditRights else []
+            }
+          },
+          {
+            key: {
+              text: "Product details"
+            },
+            value: {
+              text: currentCase.products | length + ' product added' if currentCase.products | length == 1 else currentCase.products | length + ' products added'
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "View",
+                  visuallyHiddenText: "contact details"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+    {# Businesses section #}
+    <h2 class="govuk-heading-m">Risk</h2>
+
+    {{ govukSummaryList({
+      classes: 'govuk-summary-list--no-border',
+      rows: [
+        {
+          key: {
+            text: "Risk assessment"
+          },
+          value: {
+            text: "Assessed risk: severe"
+          },
+          actions: {
+            items: [
+              {
+                href: "./risk-assessment/",
+                text: "View",
+                visuallyHiddenText: "risk assessment"
+              }
+            ]
+          }
+        }
+      ]
+    }) }}
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+
+    {# Businesses section #}
+    <h2 class="govuk-heading-m"><a href="" class="govuk-link">Businesses</a></h2>
+    
+    {% if currentCase.businesses | length > 0 %}
+
+    {{ govukSummaryList({
+      classes: 'govuk-summary-list--no-border',
+      rows: [
+        {
+          key: {
+            text: "Importer"
+          },
+          value: {
+            text: "Argos ltd"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "View",
+                visuallyHiddenText: "name"
+              }
+            ]
+          }
+        }
+      ]
+        }) }}
+    {% else %}
+    <p class="govuk-body">No businesses added</p>
+    {% endif %}
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+
+    {# Test results #}
+    <h2 class="govuk-heading-m"><a href="" class="govuk-link">Test results</a></h2>
+    {{ govukSummaryList({
+      classes: 'govuk-summary-list--no-border',
+      rows: [
+        {
+          key: {
+            text: "Screening check report"
+          },
+          value: {
+            text: "Tested on 4/4/2019, test result: fail"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "View",
+                visuallyHiddenText: "name"
+              }
+            ]
+          }
+        }
+      ]
+        }) }}
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+
+    {# Test results #}
+    <h2 class="govuk-heading-m"><a href="" class="govuk-link">Files and attachments</a></h2>
+
+    <p class="govuk-body govuk-hint">Full files and attachments details are not viewable because you are not added to this case.</p>
+
+    {{ govukSummaryList({
+      classes: 'govuk-summary-list--no-border',
+      rows: [
+        {
+          key: {
+            text: "Images"
+          },
+          value: {
+            text: "3 product images, 5 other images"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "View",
+                visuallyHiddenText: "name"
+              }
+            ]
+          }
+        },{
+          key: {
+            text: "Other attachments"
+          },
+          value: {
+            text: "3 attachments"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "View",
+                visuallyHiddenText: "name"
+              }
+            ] if hasViewRights else []
+          }
+        }
+      ]
+        }) }}
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+
+    {# Actions and correspondence #}
+    <h2 class="govuk-heading-m"><a href="" class="govuk-link">Actions and correspondence</a></h2>
+
+    {{ govukSummaryList({
+      classes: 'govuk-summary-list--no-border',
+      rows: [
+        {
+          key: {
+            text: "Corrective actions"
+          },
+          value: {
+            text: "2 corrective actions"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "View",
+                visuallyHiddenText: "name"
+              }
+            ]
+          }
+        },{
+          key: {
+            text: "Correspondence"
+          },
+          value: {
+            text: "12 items, last correspondence 14/04/2019"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "View",
+                visuallyHiddenText: "name"
+              }
+            ] if hasViewRights else []
+          }
+        },{
+          key: {
+            text: "Comments"
+          },
+          value: {
+            text: "10 comments, last comment 14/04/2019"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "View",
+                visuallyHiddenText: "name"
+              }
+            ] if hasViewRights else []
+          }
+        }
+      ]
+        }) }}
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+    {# About the case #}
+    <h2 class="govuk-heading-m">About the case</h2>
+
+    {{ govukSummaryList({
+      classes: 'govuk-summary-list--no-border',
+      rows: summaryMetadataRows
+    }) }}
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+    {# Reporter #}
+    <h2 class="govuk-heading-m">Reporter</h2>
+
+    {% set reporterContactHTML %}
+    <p class="govuk-body">Ed Horsford</p>
+    <p class="govuk-body">ed.horsford@suffolk.trading-standards.gov.uk</p>
+    <p class="govuk-body">0798989898979</p>
+    {% endset %}
+
+    {% set reportSourceHTML %}
+      <p class="govuk-body">Trading Standards Suffolk</p>
+    {% endset %}
+
+    {# Raw HTML as component doesn't support change links spanning sections #}
+    <dl class="govuk-summary-list govuk-summary-list--no-border">
+      <div class="govuk-summary-list__row govuk-summary-list--no-border">
+        <dt class="govuk-summary-list__key">
+          Report source
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <p class="govuk-body">Member of public</p>
+        </dd>
+        
+        <div class="govuk-summary-list__actions">
+          {% if hasEditRights %}
+          <a class="govuk-link" href="#">
+            Change<span class="govuk-visually-hidden"> report source</span>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Contact details
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {% if hasViewRights %}
+          <p class="govuk-body">Ed Horsford</p>
+          <p class="govuk-body">ed.horsford@suffolk.trading-standards.gov.uk</p>
+          <p class="govuk-body">0798989898979</p>
+          {% else %}
+          Details available to teams added to case
+          {% endif %}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          {% if hasEditRights %}
+          <a class="govuk-link" href="#">
+            Change<span class="govuk-visually-hidden"> reporter contact details</span>
+          </a>
+          {% endif %}
+        </dd>
+      </div>
+    </dl>
+  </div>
+
+  {# Sidebar #}
+  <div class="govuk-grid-column-one-third">
+    <aside class="app-related-items" role="complementary">
+      <h2 class="govuk-heading-m" id="subsection-title">
+        Products ({{currentCase.products | length}})
+      </h2>
+
+      <div class="overview-product-group">
+        <p class="govuk-body govuk-!-margin-bottom-1">
+          <a href="#" class="govuk-link">ChargeWorx adaptor</a>
+        </p>
+        <div class="product-image__container">
+          <img src="/public/images/charge-worx.jpg" title="Product identifying image" />
+        </div>
+      </div>
+
+      <div class="overview-product-group">
+        <p class="govuk-body govuk-!-margin-bottom-1">
+          <a href="#" class="govuk-link">Inteligix adaptor</a>
+        </p>
+        <div class="product-image__container">
+          <img src="/public/images/slapwraphopunslow3-500x500.jpg" title="Product identifying image" />
+        </div>
+      </div>
+
+      <div class="overview-product-group">
+        <p class="govuk-body govuk-!-margin-bottom-1">
+          <a href="#" class="govuk-link">Plug adaptor</a>
+        </p>
+        <div class="product-image__container">
+          <img src="/public/images/slapwrap1.jpg" title="Product identifying image" />
+        </div>
+      </div>
+
+      <a href="#" class="govuk-body govuk-link app-toggle-link" data-target="overview-product-group" data-hide-link="true">Show 2 more products...</a>
+
+      <div class="overview-product-group target-item hidden">
+        <p class="govuk-body govuk-!-margin-bottom-1">
+          <a href="#" class="govuk-link">Plug adaptor</a>
+        </p>
+        <div class="product-image__container">
+          <img src="/public/images/slapwrap1.jpg" title="Product identifying image" />
+        </div>
+      </div>
+
+      <div class="overview-product-group target-item hidden">
+        <p class="govuk-body govuk-!-margin-bottom-1">
+          <a href="#" class="govuk-link">Plug adaptor</a>
+        </p>
+        <div class="product-image__container">
+          <img src="/public/images/slapwrap1.jpg" title="Product identifying image" />
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      {# Timeline #}
+      <h2 class="govuk-heading-m">Recent timeline</h2>
+      <div class="hmcts-timeline">
+        <div class="hmcts-timeline__item">
+          <div class="hmcts-timeline__header">
+            <h3 class="hmcts-timeline__title">
+              {% if hasViewRights %}
+              <a href="/app/cases/FR1231612322/timeline/81ec86ff-c4b9-40d5-953c-7a528b789118">Case assigned to you</a>
+              {% else %}
+              Case assigned to Tim Harwood
+              {% endif %}
+            </h3>
+            <p class="hmcts-timeline__by">by Jane Doe, OPSS Processing</p>
+            <p class="hmcts-timeline__date"><time datetime="2018-09-14T09:38:00.000Z">Fri 14 Sep 2018 at 9:38am</time></p>
+          </div>
+          {% if hasViewRights %}
+          <p class="govuk-body hmcts-timeline__paragraph">John, can you take a look at this please?</p>
+          {% endif %}
+        </div>
+        <div class="hmcts-timeline__item">
+          <div class="hmcts-timeline__header">
+            <h3 class="hmcts-timeline__title">
+              {% if hasViewRights %}
+              <a href="/app/cases/FR1231612322/timeline/b4b33a91-7b5d-4045-a3cb-2804f97a6637">Comment added</a>
+              {% else %}
+              Comment added
+              {% endif %}
+            </h3>
+            <p class="hmcts-timeline__by">by Simon Saint, OPSS Enforcement</p>
+            <p class="hmcts-timeline__date"><time datetime="2018-09-12T09:38:00.000Z">Wed 12 Sep 2018 at 9:38am</time></p>
+          </div>
+          {% if hasViewRights %}
+          <p class="govuk-body hmcts-timeline__paragraph">Hey Chris, would you mind taking a...</p>{% endif %}
+        </div>
+        <div class="hmcts-timeline__item">
+          <div class="hmcts-timeline__header">
+            <h3 class="hmcts-timeline__title">
+              {% if hasViewRights %}
+                <a href="/app/cases/FR1231612322/timeline/7e076c8e-3259-4fa4-aaaf-927a88c200f6">Email recorded</a>
+              {% else %}
+                Email recorded
+              {% endif %}
+            </h3>     
+            <p class="hmcts-timeline__by">by DJ Nightingale</p>
+            <p class="hmcts-timeline__date"><time datetime="2018-09-11T16:15:00.000Z">Tue 11 Sep 2018 at 4:15pm</time></p>    
+          </div>
+        </div>
+      </div>
+      <p class="govuk-body"><a href="" class="govuk-link">View full timeline</a></p>
+      {# end timeline #}
+
+    </aside>
+
+  </div>
+</div>
+
+
+{% endblock %}

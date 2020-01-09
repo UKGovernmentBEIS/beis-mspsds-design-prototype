@@ -72,9 +72,39 @@
   {{autocompleteCountry({
     label: 'Country of origin', 
     width: "govuk-!-width-two-thirds",
+    hint: "Where the product is manufactured",
     name: "product[country]",
     value: theProduct.country
   })}}
+
+  {{ govukRadios({
+    idPrefix: "productCounterfeit",
+    name: "product[isCounterfeit]",
+    fieldset: {
+      legend: {
+        text: "Is the product a counterfeit?",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    _hint: {
+      text: 'Where you believe the product is likely to be counterfeit'
+    },
+    items: [
+      {
+        value: "yes",
+        text: "Yes"
+      },
+      {
+        value: "no",
+        text: "No"
+      },
+      {
+        value: "unsure",
+        text: "Unsure"
+      }
+    ]
+  }) }}
 
   {{ govukInput({
     label: {
@@ -99,13 +129,14 @@
     value: theProduct.description,
     id: "more-detail",
     label: {
-      text: "Description of product",
+      text: "Product and packaging description",
       classes: "govuk-label--m"
     },
-    hint: {
-      text: "For example, ‘Orange, 4 socket extension lead’"
+    _hint: {
+      text: "For any other product details not already provided"
     }
   }) }}
+
 
  {#  <h2 class="govuk-heading-m">Batches and units</h2>
   <p class="govuk-body">Details of individual units or batches you’ve inspected or had reported to you.</p>

@@ -2,7 +2,113 @@
 {% include "./ts-product-type-info.html" %}
 
 
-<div class="mspsds-input govuk-grid-column-one-half">
+<div class="mspsds-input govuk-grid-column-two-thirds-from-desktop">
+
+    {# Counterfeit does not populate data #}
+     {{ govukRadios({
+      idPrefix: "where-do-you-live",
+      name: "product[isCounterfeit]",
+      fieldset: {
+        legend: {
+          text: "Is the product a counterfeit?",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      _hint: {
+        text: 'Where you believe the product is likely to be counterfeit'
+      },
+      items: [
+        {
+          value: "yes",
+          text: "Yes"
+        },
+        {
+          value: "no",
+          text: "No"
+        },
+        {
+          value: "unsure",
+          text: "Unsure"
+        }
+      ]
+    }) }}
+
+    {% set unitCountApproximateNumberHTML %}
+      {{ govukInput({
+        label: {
+          text: "Give approximate number",
+          _classes: "govuk-label--s"
+        },
+        hint: {
+          text: "If you have this data it makes it easier to correctly identify the product"
+        } if false,
+        id: "unit-count-known-number",
+        name: "product[countNumber]",
+        value: theProduct.countNumber,
+        classes: "govuk-!-width-two-thirds"
+      }) }}
+    {% endset %}
+
+    {% set unitCountExactNumberHTML %}
+      {{ govukInput({
+        label: {
+          text: "Give exact number",
+          _classes: "govuk-label--s"
+        },
+        hint: {
+          text: "If you have this data it makes it easier to correctly identify the product"
+        } if false,
+        id: "unit-count-known-number",
+        name: "product[countNumber]",
+        value: theProduct.countNumber,
+        classes: "govuk-!-width-two-thirds"
+      }) }}
+    {% endset %}
+
+
+
+    {{ govukRadios({
+    idPrefix: "productCounterfeit",
+    name: "product[isCounterfeit]",
+    fieldset: {
+      legend: {
+        text: "How many units are affected?",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    _hint: {
+      text: 'Where you believe the product is likely to be counterfeit'
+    },
+    items: [
+      {
+        value: "exact",
+        text: "Exact number known",
+        conditional: {
+          html: unitCountExactNumberHTML
+        }
+      },
+      {
+        value: "approximate",
+        text: "Approximate number known",
+        conditional: {
+          html: unitCountApproximateNumberHTML
+        }
+      },
+      {
+        value: "unknown",
+        text: "Unknown"
+      },
+      {
+        divider: 'or'
+      },
+      {
+        value: "unknown",
+        text: "Not relevant"
+      }
+    ]
+  }) }}
 
     {% call govukFieldset({
       legend: {

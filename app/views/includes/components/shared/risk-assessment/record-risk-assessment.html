@@ -9,7 +9,7 @@
   namePrefix: "new[report][riskAssessment][date].",
   fieldset: {
     legend: {
-      text: "Date of risk assessment",
+      text: "Date of assessment",
       isPageHeading: false,
       classes: "govuk-fieldset__legend--m"
     }
@@ -57,7 +57,7 @@
     name:       'new[report][riskAssessment][authorOtherPSDTeam]',
     value:      report.riskAssessment.authorOtherPSDTeam,
     class:      "govuk-label govuk-!-margin-bottom-1",
-    legend:     "Select PSD team"
+    legend:     "Choose team"
   }) }}
 {% endset -%}
 
@@ -66,7 +66,7 @@
   name: "new[report][riskAssessment][authorType]",
   fieldset: {
     legend: {
-      text: "Who completed the risk assessment?",
+      text: "Who completed the assessment?",
       isPageHeading: true,
       classes: "govuk-fieldset__legend--m"
     }
@@ -74,12 +74,12 @@
   items: [
     {
       value: "self",
-      text: "Me or my organisation",
+      text: "Me or my team",
       checked: checked([data.new['report']['riskAssessment']['authorType']], "self")
     },
     {
       value: "otherPSDTeam",
-      text: "Another team on the PSD",
+      text: "Another team on the Product safety database",
       checked: checked([data.new['report']['riskAssessment']['authorType']], "otherPSDTeam"),
       conditional: {
         html: psdTeamsHTML
@@ -230,7 +230,7 @@
     }
   },
   hint: {
-    text: "Select all that apply. You must select at least one."
+    text: "You must choose at least one. Only products already added to the case are listed."
   },
   items: [
     {
@@ -269,7 +269,7 @@
   value: report.riskAssessment.riskLevelOther,
   classes: "govuk-!-width-two-thirds",
   label: {
-    text: "What was the risk level?"
+    text: "Other: what was the risk level?"
   }
 }) }}
 {% endset -%}
@@ -278,8 +278,8 @@
 {{ autocompleteInput({
   idPrefix: "legislation", 
   name:     "new[report][riskAssessment][riskLevel]", 
-  legend:   "What was the assessed risk level?", 
-  hint:     "Choose the highest risk level determined for the product.",
+  legend:   "What was the risk level?", 
+  hint:     "If there was more than one, choose the highest.",
   values:   riskLevels,
   value: report.riskAssessment.riskLevel,
   class: 'govuk-heading-m',
@@ -288,7 +288,7 @@
 }}
 
 {% set riskAssessmentUploadHTML -%}
-  This should be a pdf export from the <a href="#">RAPEX risk assessment tool</a>.
+  This must be a pdf export from the <a href="#">RAPEX risk assessment tool</a>.
 {%- endset %}
 
 {% set filePickerHTML %}
@@ -349,6 +349,6 @@
     classes: "govuk-label--m"
   },
   hint: {
-    text: "If there are any other details relevant to the risk assessment."
+    text: "If there are other details relevant to the risk assessment, add them here."
   }
 }) }}

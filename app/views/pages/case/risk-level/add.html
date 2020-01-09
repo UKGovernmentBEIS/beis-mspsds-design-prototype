@@ -1,0 +1,20 @@
+{% extends "includes/templates/case-edit.html" %}
+{% set pageHeading = 'Add a case risk level' %}
+{% set contentType = 'risk level' %}
+
+{% set pageContext = 'add' %}
+
+{% set formCancel = '../overview' %}
+{% set formAction = '../overview' %}
+
+
+{# Todo: make this actually update a case #}
+{% block formContent %}
+
+
+
+  {% include "includes/components/shared/risk-level.html" %}
+
+
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "includes/templates/flow-create-new.html" %}
+{% set pageHeading        = 'Does the issue relate to a product?' %}
+{% set formAction         = './overview' %}
+{% set hideReturnLink = true %}
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+
+    {{ govukRadios({
+      idPrefix: "issue-type",
+      name: "new[report][issueType]",
+      fieldset: {
+        legend: {
+          text: pageHeading,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: "single",
+          text: "Yes",
+          checked: true if data.new.report.issueType == "single",
+          _hint: {
+            text: "For reports of safety and compliance issues with a single product."
+          }
+        },
+        {
+          value: "non-product",
+          text: "No, the issue is not related to a product",
+          checked: true if data.new.report.issueType == "non-product",
+          _hint: {
+            text: "For other issues not specific to a product. 
+"
+          }
+        }
+      ]
+    }) }}
+
+    <div class="govuk-form-group">
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </div>
+
+      
+
+</form>
+{% endblock %}
