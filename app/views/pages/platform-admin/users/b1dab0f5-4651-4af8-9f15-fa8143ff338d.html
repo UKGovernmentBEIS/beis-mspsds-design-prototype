@@ -1,0 +1,348 @@
+{% extends "includes/templates/admin-basic.html" %}
+{% set navCategory = 'Users' %}
+
+
+{% block pageContent %}
+
+{# {% set invited = true if invited =="true" else false %} #}
+
+{{ govukBackLink({
+  text: "Back",
+href: "../users",
+  classes: "govuk-!-margin-bottom-6"
+}) }}
+
+<h1 class="govuk-heading-l">{{data.email if data.invited else data['fullName']}}</h1>
+<p class="govuk-body govuk-hint">{{"Invited user" if data.invited else data.email}}</p>
+
+{% set teamLinkHTML %}
+<a href="../teams/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team-name={{data['team-name']}}" class="govuk-link">{{data['team-name']}}</a>
+{% endset %}
+
+{% if data.invited == 'true' %}
+<h2 class="govuk-heading-m">General</h2>
+{{ govukSummaryList({
+  classes: 'app-summary-list--key-weight-regular',
+  rows: [
+    {
+      key: {
+        text: "Email address"
+      },
+      value: {
+        text: data['email']
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },{
+      key: {
+        text: "Team"
+      },
+      value: {
+        html: teamLinkHTML
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "date of birth"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "User type"
+      },
+      value: {
+        text: ["Team admin", "Member"} | random
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "User status"
+      },
+      value: {
+        text: "Invited"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Resend invite",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+<p class="govuk-body"><a href="" class="govuk-link delete">Cancel invite</a></p>
+
+
+{% else %}
+
+<h2 class="govuk-heading-m">General</h2>
+{{ govukSummaryList({
+  classes: 'app-summary-list--key-weight-regular',
+  rows: [
+    {
+      key: {
+        text: "Full name"
+      },
+      value: {
+        text: data['fullName']
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },{
+      key: {
+        text: "Email address"
+      },
+      value: {
+        text: data['email']
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },{
+      key: {
+        text: "Team"
+      },
+      value: {
+        html: teamLinkHTML
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "date of birth"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "User status"
+      },
+      value: {
+        text: "Active"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+<h2 class="govuk-heading-m">Security</h2>
+{{ govukSummaryList({
+  classes: 'app-summary-list--key-weight-regular',
+  rows: [
+    {
+      key: {
+        text: "Last logged in"
+      },
+      value: {
+        text: ['2','3','15','21','31'] | random + ' days ago'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ] if false
+      }
+    },{
+      key: {
+        text: "Password"
+      },
+      value: {
+        html: 'Last set on 4 January 2020'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Force reset",
+            visuallyHiddenText: "name"
+          }
+        ] if false
+      }
+    },{
+      key: {
+        text: "Mobile number"
+      },
+      value: {
+        text: '0773 • • • • 078'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },{
+      key: {
+        text: "Receives 2FA codes by"
+      },
+      value: {
+        html: '<span class="govuk-hint">Text message</span>'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+<h2 class="govuk-heading-m">Notifications</h2>
+{{ govukSummaryList({
+  classes: 'app-summary-list--key-weight-regular',
+  rows: [
+    {
+      key: {
+        text: "Receive notifications"
+      },
+      value: {
+        html: '<span class="govuk-hint">On</span>'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+<h2 class="govuk-heading-m">Permissions</h2>
+{{ govukSummaryList({
+  classes: 'app-summary-list--key-weight-regular',
+  rows: [
+    {
+      key: {
+        text: "Export data"
+      },
+      value: {
+        html: '<span class="govuk-hint">Off</span>'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },{
+      key: {
+        text: "Send alerts"
+      },
+      value: {
+        html: '<span class="govuk-hint">Off</span>'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },{
+      key: {
+        text: "Receive alerts"
+      },
+      value: {
+        html: '<span class="govuk-hint">Off</span>'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },{
+      key: {
+        text: "Case access"
+      },
+      value: {
+        html: ["View only", '<span class="govuk-hint">Standard</span>'] | random
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact information"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+<p class="govuk-body"><a href="" class="govuk-link delete">Archive user</a></p>
+
+
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,233 @@
+{% extends "includes/templates/admin-basic.html" %}
+{% set navCategory = 'Organisations' %}
+
+{% block pageContent %}
+
+{{ govukBackLink({
+  text: "Back",
+href: "../organisations",
+  classes: "govuk-!-margin-bottom-6"
+}) }}
+
+<h1 class="govuk-heading-l">{{data['team-name']}}</h1>
+
+<h2 class="govuk-heading-m">General settings</h2>
+<div class="govuk-grid-row">
+
+</div>
+
+{% set opssTeams = [
+  'OPSS Processing',
+  'OPSS Enforcement',
+  'OPSS Digital',
+  'OPSS Incident Management',
+  'OPSS Trading Standards Co-ordination',
+  'OPSS Testing',
+  'OPSS Connections'
+  ] %}
+
+{% set hseTeams = [
+  'HSE North',
+  'HSE East',
+  'HSE West',
+  'HSE South'
+  ] %}
+
+{% set teamNames = opssTeams if data['team-name'].includes('Office for Product Safety and Standards') else hseTeams %}
+
+{% set teamsHTML %}
+<ul class="govuk-list">
+  {% for team in teamNames %}
+  <li>
+    <a class="govuk-link" href="/pages/platform-admin/teams/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team-name={{team}}&org={{data['team-name']}}">{{team}}</a>
+  </li>
+  {% endfor %}
+</ul>
+
+
+{% endset %}
+
+{{ govukSummaryList({
+  classes: 'app-summary-list--key-weight-regular',
+  rows: [
+    {
+      key: {
+        text: "Organisation name"
+      },
+      value: {
+        text: data['team-name']
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Teams"
+      },
+      value: {
+        html: teamsHTML
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "date of birth"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Org status"
+      },
+      value: {
+        text: "Active"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Additional allowed domains"
+      },
+      value: {
+        text: "None"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Case types"
+      },
+      value: {
+        html: "Allegation,<br>Project"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Default case owner"
+      },
+      value: {
+        text: ["Ask", "Self", "OPSS Enforcement"] | random
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+
+<h2 class="govuk-heading-m">Permissions</h2>
+{{ govukSummaryList({
+  classes: 'app-summary-list--key-weight-regular',
+  rows: [
+    {
+      key: {
+        text: "Export data"
+      },
+      value: {
+        text: ["On", "Off"] | random
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },{
+      key: {
+        text: "Send alerts"
+      },
+      value: {
+        text: ["On", "Off"] | random
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },{
+      key: {
+        text: "Receive alerts"
+      },
+      value: {
+        text: ["On", "Off"] | random
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },{
+      key: {
+        text: "Case access"
+      },
+      value: {
+        text: ["View only", "Standard"] | random
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact information"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+
+<p class="govuk-body"><a href="" class="govuk-link delete">Delete this organisation</a></p>
+{% endblock %}

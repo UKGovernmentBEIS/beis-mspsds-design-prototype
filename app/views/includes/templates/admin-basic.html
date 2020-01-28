@@ -1,0 +1,55 @@
+{# Template used for all case pages and their children #}
+
+{% extends "mspsds-layout.html" %}
+
+{% block pageTitle %}
+  {{ pageHeading }} - {{serviceName}} - GOV.UK
+{% endblock %}
+
+{% block header %}
+  {{ super() }}
+
+{% endblock %}
+
+{% block beforeContent %}
+
+	{# {% include "includes/components/shared/page-banner.html" %} #}
+
+{% endblock %}
+
+{% set navItems = [
+  "Users",
+  "Teams",
+  "Organisations",
+  "Settings"
+  ]
+%}
+
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-quarter">
+    <h2 class="govuk-heading-m">Platform admin</h2>
+    <ul class="govuk-list">
+      <li>
+        <a href="/pages/platform-admin" class="govuk-link {{'active' if navCategory=='Summary'}}">Summary</a>
+    </li>
+
+    {% for item in navItems %}
+
+      <li>
+        <a href="/pages/platform-admin/{{item | lower | toKebabCase }}" class="govuk-link {{'active' if navCategory==item}}">{{item}}</a>
+      </li>
+    {% endfor %}
+    </ul>
+
+  </div>
+
+  <div class="govuk-grid-column-three-quarters">
+    {% block pageContent %}
+
+    {% endblock %}
+  </div>
+</div>
+
+{% endblock %}

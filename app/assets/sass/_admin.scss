@@ -1,0 +1,9 @@
+.app-summary-list--key-weight-regular {
+  .govuk-summary-list__key {
+    @include govuk-typography-weight-regular;
+  }
+}
+
+.active {
+  font-weight: 700;
+}

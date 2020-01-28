@@ -1,0 +1,282 @@
+{% extends "includes/templates/admin-basic.html" %}
+{% set navCategory = 'Teams' %}
+
+{% block pageContent %}
+
+{{ govukBackLink({
+  text: "Back",
+href: "../teams",
+  classes: "govuk-!-margin-bottom-6"
+}) }}
+
+<h1 class="govuk-heading-l">{{data['team-name']}}</h1>
+
+<h2 class="govuk-heading-m">General settings</h2>
+<div class="govuk-grid-row">
+
+</div>
+
+{% set organisationLinkHTML %}
+
+{% if data['org'] != 'None' %}
+<a href="/pages/platform-admin/organisations/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team-name={{data.org}}" class="govuk-link">{{data.org}}</a>
+{% else %}
+  None
+{% endif %}
+
+{% endset %}
+
+{{ govukSummaryList({
+  classes: 'app-summary-list--key-weight-regular',
+  rows: [
+    {
+      key: {
+        text: "Team name"
+      },
+      value: {
+        text: data['team-name']
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Organisation"
+      },
+      value: {
+        html: organisationLinkHTML
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "date of birth"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Team status"
+      },
+      value: {
+        text: "Active"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Additional allowed domains"
+      },
+      value: {
+        text: "None"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Case types"
+      },
+      value: {
+        html: "Allegation,<br>Project"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Default case owner"
+      },
+      value: {
+        text: ["Ask", "Self", "OPSS Enforcement"] | random
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+<h2 class="govuk-heading-m">Notifications</h2>
+{{ govukSummaryList({
+  classes: 'app-summary-list--key-weight-regular',
+  rows: [
+    {
+      key: {
+        text: "Receive notifications"
+      },
+      value: {
+        text: "On"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Team inbox"
+      },
+      value: {
+        html: data['team-name'] | lower | toKebabCase + "@example.com"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact information"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+<h2 class="govuk-heading-m">Permissions</h2>
+{{ govukSummaryList({
+  classes: 'app-summary-list--key-weight-regular',
+  rows: [
+    {
+      key: {
+        text: "Export data"
+      },
+      value: {
+        text: ["On", "Off"] | random
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },{
+      key: {
+        text: "Send alerts"
+      },
+      value: {
+        text: ["On", "Off"] | random
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },{
+      key: {
+        text: "Receive alerts"
+      },
+      value: {
+        text: ["On", "Off"] | random
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },{
+      key: {
+        text: "Case access"
+      },
+      value: {
+        text: ["View only", "Standard"] | random
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact information"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+<h2 class="govuk-heading-m">Team members</h2>
+
+<div class="govuk-form-group">
+  {{ govukButton({
+  text: "Add a user to this team",
+  href: "../users/new?newUserTeam=" + data['team-name'],
+  classes: "govuk-button--secondary govuk-!-margin-bottom-2"
+}) }}
+</div>
+
+<ul class="govuk-list">
+{% set users = [] %}
+      {% for iterator in range(0, 4) %}
+        {% set user = '' | faker %}
+        {% set users = (users.push(
+          user), users   ) %}
+      {% endfor %}
+
+      {% for user in users | sort(attribute='fullName') %}
+      {% set invited = [true, false] | random %}
+      {% set teamAdmin = [true, false] | random %}
+      <li>
+        <a class="govuk-link govuk-heading-m govuk-!-margin-bottom-1" href="/pages/platform-admin/users/b1dab0f5-4651-4af8-9f15-fa8143ff338d?fullName={{user.fullName}}&email={{user.email}}&invited={{invited}}&team-name={{data['team-name']}}">{{user.email}}</a>
+        <p class="govuk-body govuk-hint">{{'Team admin, ' if teamAdmin}}{{'Invited' if invited else user.fullName}}</p>
+      </li>
+
+      {% endfor %}
+
+    </ul>
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+<p class="govuk-body"><a href="" class="govuk-link delete">Delete this team</a></p>
+{% endblock %}

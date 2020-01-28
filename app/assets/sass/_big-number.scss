@@ -1,0 +1,176 @@
+// Borrowed from https://github.com/alphagov/notifications-admin/blob/master/app/assets/stylesheets/components/big-number.scss
+
+// Adapted to use design system mixins
+$gutter: 30px;
+$gutter-two-thirds: 20px;
+$gutter-half: 15px;
+
+%big-number,
+.big-number {
+
+  display: block;
+
+  &-number {
+    @include govuk-font(48, $weight: bold, $tabular: true); // adapted
+    display: block;
+  }
+
+  &-label {
+    @include govuk-font(19);
+    display: inline-block;
+    padding-bottom: 10px;
+  }
+
+}
+
+.big-number-dark {
+  @extend %big-number;
+  padding: $gutter-half;
+  margin-bottom: $gutter-two-thirds;
+  position: relative;
+  background: govuk-colour("black");
+  color:  govuk-colour("white");
+
+  .big-number-number {
+    @include govuk-font(36, $weight: bold, $tabular: true); // Adapted
+  }
+}
+
+.big-number-smaller {
+
+  @extend %big-number;
+
+  .big-number-number {
+    @include govuk-font(36, $weight: bold, $tabular: true); // Adapted
+  }
+
+}
+
+.big-number-smallest {
+
+  @extend %big-number;
+
+  .big-number-number {
+    @include govuk-font(24, $weight: bold, $tabular: true); // Adapted
+  }
+
+}
+
+.big-number-with-status {
+
+  @extend %big-number;
+  position: relative;
+  margin-bottom: $gutter-two-thirds;
+
+  .big-number,
+  .big-number-smaller {
+    padding: $gutter-half;
+    position: relative;
+    background: govuk-colour("black");
+    color:  govuk-colour("white");
+  }
+
+  .big-number-label {
+
+    padding-bottom: 0;
+
+    &:link,
+    &:visited {
+      color: $govuk-link-colour;
+    }
+
+  }
+
+  .big-number-link {
+
+    text-decoration: none;
+    background: $govuk-link-colour;
+    color: govuk-colour("white");
+    display: block;
+    border: 2px solid $govuk-link-colour;
+    margin-bottom: 5px;
+
+    &:hover {
+
+      color: govuk-colour("light-blue");
+
+      .big-number {
+        color: govuk-colour("light-blue");
+      }
+
+    }
+
+    &:active,
+    &:focus {
+      outline: 3px solid $govuk-focus-colour;
+    }
+
+    .big-number,
+    .big-number-smaller {
+      background: transparent;
+    }
+
+    .big-number-label {
+      text-decoration: underline;
+    }
+
+  }
+
+  %big-number-status,
+  .big-number-status {
+
+    @include govuk-font(19);
+    display: block;
+    background: govuk-colour("green");
+    color: govuk-colour("white");
+    padding: 15px;
+
+    a {
+
+      &:link,
+      &:visited,
+      &:active,
+      &:hover {
+        color: govuk-colour("white");
+        text-decoration: underline;
+      }
+
+      &:active,
+      &:focus {
+        color: $govuk-text-colour;
+        border-bottom: 1px solid $govuk-text-colour;
+      }
+
+    }
+
+  }
+
+  .big-number-status-failing {
+    @extend %big-number-status;
+    background: $govuk-error-colour;
+  }
+
+}
+
+.big-number-meta-wrapper {
+
+  position: relative;
+  margin: $gutter-half 0 $gutter 0;
+  background: $govuk-brand-colour;
+
+  .big-number-meta {
+
+    padding: ($gutter / 3) $gutter-half;
+    color: govuk-colour("white");
+    pointer-events: none;
+
+    @include govuk-media-query(desktop) {
+      position: absolute;
+      bottom: 7px;
+      right: 5px;
+      text-align: right;
+    }
+
+  }
+
+}

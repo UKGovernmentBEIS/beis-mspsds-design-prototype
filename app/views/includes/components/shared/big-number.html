@@ -1,0 +1,19 @@
+{% macro bigNumberDark(number, label) %}
+
+<div class="big-number-dark">
+  <div class="big-number-number">{{number}}</div>
+  <span class="big-number-label">{{label}}</span>
+</div>
+
+{% endmacro %}
+
+
+{% macro bigNumberWithStatus(status) %}
+
+<div class="big-number-with-status">
+  <div class="big-number-status">
+    {{status}}
+  </div>
+</div>
+
+{% endmacro %}
