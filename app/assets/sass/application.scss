@@ -1,7 +1,7 @@
 // global styles for <a> and <p> tags
 $govuk-global-styles: true;
 $govuk-page-width: 1200px;
-$govuk-show-breakpoints: true;
+// $govuk-show-breakpoints: true;
 
 // Import GOV.UK Frontend
 @import "node_modules/govuk-frontend/all";
@@ -17,6 +17,8 @@ $govuk-show-breakpoints: true;
 @import "components/cookie-banner";
 
 // Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
+@import "admin";
+@import "big-number";
 @import "stat-highlights";
 @import "activity-timeline";
 @import "attachment-list";

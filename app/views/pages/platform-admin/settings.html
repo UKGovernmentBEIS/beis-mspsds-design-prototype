@@ -1,0 +1,110 @@
+{% extends "includes/templates/admin-basic.html" %}
+{% set navCategory = 'Settings' %}
+{% set pageHeading = navCategory %}
+
+
+{% block pageContent %}
+
+<h1 class="govuk-heading-l">{{pageHeading}}</h1>
+
+<h2 class="govuk-heading-m">General settings</h2>
+{{ govukSummaryList({
+  classes: 'app-summary-list--key-weight-regular',
+  rows: [
+    {
+      key: {
+        text: "Service name"
+      },
+      value: {
+        text: 'Product safety database'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Support email addres"
+      },
+      value: {
+        html: 'opss.enquiries@beis.gov.uk'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "date of birth"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "News update"
+      },
+      value: {
+        text: "None"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+<h2 class="govuk-heading-m">Security</h2>
+{{ govukSummaryList({
+  classes: 'app-summary-list--key-weight-regular',
+  rows: [
+    {
+      key: {
+        text: "Service 2FA"
+      },
+      value: {
+        text: 'On'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "2FA Required"
+      },
+      value: {
+        html: 'New sessions only'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "date of birth"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+
+{% endblock %}

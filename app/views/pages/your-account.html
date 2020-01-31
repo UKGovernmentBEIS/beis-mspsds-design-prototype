@@ -1,0 +1,106 @@
+{% extends "mspsds-layout.html" %}
+{% set navCategory = 'Users' %}
+{% set pageHeading = 'Your account' %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+    <h1 class="govuk-heading-l">{{pageHeading}}</h1>
+
+    {% set teamLinkHTML %}
+    <a href="../teams/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team-name={{data['team-name']}}" class="govuk-link">{{data['team-name']}}</a>
+    {% endset %}
+
+    {{ govukSummaryList({
+      classes: 'app-summary-list--key-weight-regular',
+      rows: [
+        {
+          key: {
+            text: "Name"
+          },
+          value: {
+            text: data.currentUser
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "Change",
+                visuallyHiddenText: "name"
+              }
+            ]
+          }
+        },{
+          key: {
+            text: "Email address"
+          },
+          value: {
+            html: "felix.bernhard@council.gov.uk"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "Change",
+                visuallyHiddenText: "date of birth"
+              }
+            ]
+          } if false
+        },
+        {
+          key: {
+            text: "Mobile number"
+          },
+          value: {
+            text: '07700 900578'
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "Change",
+                visuallyHiddenText: "contact details"
+              }
+            ]
+          }
+        },
+        {
+          key: {
+            text: "Password"
+          },
+          value: {
+            html: 'Last changed 3 weeks ago'
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "Change",
+                visuallyHiddenText: "contact details"
+              }
+            ]
+          }
+        },
+        {
+          key: {
+            text: "Your team"
+          },
+          value: {
+            html: teamLinkHTML
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "Resend invite",
+                visuallyHiddenText: "contact details"
+              }
+            ]
+          } if false
+        }
+      ]
+    }) }}
+  </div>
+</div>
+
+{% endblock %}

@@ -18,12 +18,12 @@ Example usage:
 */
 
 module.exports = {
-  currentUser:   'Tim Harwood',
+  currentUser:   'Felix Bernhard',
   currentTeam:   'OPSS - Processing',
 
   signedIn:       'No',
 
-  alwaysDisplayCrumbs: 'No', 
+  alwaysDisplayCrumbs: 'No',
 
   debugging:     'No',
 
@@ -72,15 +72,15 @@ module.exports = {
   tradingStandardsOrganisations:  require("./trading-standards-orgs").tradingStandardsOrganisations,
 
   teamPermissions: [
-    { 
+    {
       teamName: "OPSS - processing",
       permissionsLevel: "admin"
     },
-    { 
+    {
       teamName: "Birmingham Council",
       permissionsLevel: "view-full"
     },
-    { 
+    {
       teamName: "The Office of Product Safety and Standards",
       permissionsLevel: "view-full"
     }
@@ -275,7 +275,7 @@ module.exports = {
       "part0": [],
       "part1": [
         'enquiryDetails',
-        'enquirySource', 
+        'enquirySource',
         'categories'
       ],
       "part2": [
@@ -317,7 +317,7 @@ module.exports = {
     project: "Create a project",
     allegation: "Make an allegation"
   },
-  
+
   new: {
     files: {
       testing: {},

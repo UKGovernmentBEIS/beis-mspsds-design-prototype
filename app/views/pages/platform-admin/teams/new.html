@@ -1,0 +1,92 @@
+{% extends "includes/templates/admin-basic.html" %}
+{% set navCategory = 'Teams' %}
+{% set pageHeading = "New team" %}
+
+{% block pageContent %}
+
+{{ govukBackLink({
+  text: "Back",
+href: "../teams",
+  classes: "govuk-!-margin-bottom-6"
+}) }}
+
+<h1 class="govuk-heading-l">Add a new team</h1>
+
+<form action="./new-details" method="post" class="form">
+  {{ govukInput({
+    label: {
+      text: "Team name",
+      classes: "govuk-label--s"
+    },
+    hint: {
+      text: "For example, ‘Southwark Council’ or ‘OPSS Enforcement’"
+    },
+    id: "team-name",
+    name: "team-name",
+    classes: "govuk-!-width-one-half"
+  }) }}
+
+  {% set psdTeamsHTML %}
+    {{ localAuthorityAutocomplete({
+        idPrefix:   'localAuthorityName',
+        name:       'oijpo',
+        value:      report.riskAssessment.authorOtherPSDTeam,
+        class:      "govuk-label govuk-!-margin-bottom-1",
+        legend:     "Choose organisation"
+      }) }}
+  {% endset %}
+
+  {% set newOrgHTML %}
+    {{ govukInput({
+      label: {
+        text: "Organisation name"
+      },
+      id: "event-name",
+      name: "hdhdh",
+      classes: "govuk-!-width-three-quarters"
+    }) }}
+  {% endset %}
+
+  {{ govukRadios({
+    idPrefix: "organisation-name",
+    name: "organisation-name",
+    fieldset: {
+      legend: {
+        text: "Part of a larger organisation?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--s"
+      }
+    },
+    items: [
+      {
+        value: "no",
+        text: "No",
+        _hint: {
+          text: 'An organisation with the same name will be be created'
+        }
+      },
+      {
+        value: "existing",
+        text: "Yes, an existing PSD organisation",
+        conditional: {
+          html: psdTeamsHTML
+        }
+      },
+      {
+        value: "new",
+        text: "Yes, a new organisation",
+        conditional: {
+          html: newOrgHTML
+        }
+      }
+    ]
+  }) }}
+  <div class="govuk-form-group">
+    {{ govukButton({
+      text: "Next"
+    }) }}
+  </div>
+
+</form>
+
+{% endblock %}

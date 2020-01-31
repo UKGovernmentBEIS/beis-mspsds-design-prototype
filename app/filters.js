@@ -4,6 +4,7 @@
 const date    = require("./utils/date").date;
 const today   = require("./utils/date").today;
 const moment = require("moment");
+const faker = require("faker");
 const CaseSearch   = require("./utils/case-search");
 var _ = require('lodash');
 
@@ -321,7 +322,7 @@ module.exports = function (env) {
 
 
   // Check whether array includes value
-  filters.arrayIncludes = (array, searchElement, caseSensitive=true) =>{ 
+  filters.arrayIncludes = (array, searchElement, caseSensitive=true) =>{
     // Case sensitive
     if ( caseSensitive == true ) return Array.isArray(array) ? array.includes(searchElement) : false
     // Case insensitive
@@ -333,6 +334,20 @@ module.exports = function (env) {
     } else {
       return ( array.indexOf( searchElement ) < 0) ? false : true
     }
+  }
+
+  filters.faker = (string) => {
+    // faker.seed(123)
+    var firstName = faker.name.firstName()
+    var lastName = faker.name.lastName()
+    var fullName = firstName + " " + lastName
+    var email = fullName.split(' ').join('.').toLowerCase() + "@council.gov.uk"
+    var user = {
+      firstName: firstName,
+      lastName: lastName,
+      fullName: fullName,
+      email: email}
+    return user;
   }
 
   /* ------------------------------------------------------------------

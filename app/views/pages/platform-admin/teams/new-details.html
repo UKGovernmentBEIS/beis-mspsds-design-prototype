@@ -1,0 +1,117 @@
+{% extends "includes/templates/admin-basic.html" %}
+{% set navCategory = 'Teams' %}
+{% set pageHeading = "New team details" %}
+
+{% block pageContent %}
+
+{{ govukBackLink({
+  text: "Back",
+href: "../teams",
+  classes: "govuk-!-margin-bottom-6"
+}) }}
+
+<h1 class="govuk-heading-l">{{data['team-name']}} settings</h1>
+
+<form action="../teams/b1dab0f5-4651-4af8-9f15-fa8143ff338d" method="post" class="form">
+
+  {{ govukRadios({
+    idPrefix: "team-status",
+    name: "team-status",
+    fieldset: {
+      legend: {
+        text: "Team status",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--s"
+      }
+    },
+    items: [
+      {
+        value: "active",
+        text: "Active"
+      },{
+        value: "active",
+        text: "Make active when first user added"
+      },
+      {
+        value: "inactive",
+        text: "Innactive"
+      }
+    ]
+  }) }}
+  {{ govukInput({
+    label: {
+      text: "Team inbox (optional)",
+      classes: "govuk-label--s"
+    },
+    hint: {
+      text: "If not set, all team members will get all notifications."
+    },
+    id: "team-inbox",
+    name: "team-inbox",
+    classes: "govuk-!-width-one-half"
+  }) }}
+
+  {% set psdTeamsHTML %}
+    {{ localAuthorityAutocomplete({
+        idPrefix:   'localAuthorityName',
+        name:       'oijpo',
+        value:      report.riskAssessment.authorOtherPSDTeam,
+        class:      "govuk-label govuk-!-margin-bottom-1",
+        legend:     "Choose organisation"
+      }) }}
+  {% endset %}
+
+  {% set newOrgHTML %}
+    {{ govukInput({
+      label: {
+        text: "Organisation name"
+      },
+      id: "event-name",
+      name: "hdhdh",
+      classes: "govuk-!-width-three-quarters"
+    }) }}
+  {% endset %}
+
+  {{ govukRadios({
+    idPrefix: "user-case-access",
+    name: "user-case-access",
+    fieldset: {
+      legend: {
+        text: "Case access",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--s"
+      }
+    },
+    items: [
+      {
+        value: "same",
+        text: "Standard"
+      },
+      {
+        value: "existing",
+        text: "View only"
+      }
+    ]
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: "Email address for team admin to invite (optional)",
+      classes: "govuk-label--s"
+    },
+    _hint: {
+      text: "Will send an email inviting user to " + data['team-name']
+    },
+    id: "team-inbox",
+    name: "team-inbox",
+    classes: "govuk-!-width-one-half"
+  }) }}
+  <div class="govuk-form-group">
+    {{ govukButton({
+      text: "Create team"
+    }) }}
+  </div>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "includes/templates/admin-basic.html" %}
+{% set navCategory = 'Teams' %}
+{% set pageHeading = navCategory %}
+
+{% set teams = [
+  "OPSS Processing",
+  "OPSS Enforcement",
+  "OPSS Trading Standards Co-ordination",
+  'Aberdeen City Council',
+  'Aberdeenshire Council',
+  'Angus Council',
+  'Argyll and Bute Council',
+  'Dumfries and Galloway Council',
+  'Dundee City Council',
+  'East Ayrshire Council',
+  'East Dunbartonshire Council',
+  'East Lothian Council',
+  'East Renfrewshire Council',
+  'Falkirk Council',
+  'Fife Council',
+  'Glasgow City Council',
+  'Highland Council',
+  'Inverclyde Council',
+  'Midlothian Council',
+  'Moray Council',
+  'North Ayrshire Council',
+  'North Lanarkshire Council',
+  'Perth and Kinross Council',
+  'Renfrewshire Council',
+  'Scottish Borders Council',
+  'South Ayrshire Council',
+  'South Lanarkshire Council',
+  'Stirling Council & Clackmannanshire Council',
+  'West Dunbartonshire Council',
+  'West Lothian Council'] %}
+{% block pageContent %}
+<h1 class="govuk-heading-l">{{pageHeading}}</h1>
+
+{{ govukButton({
+  text: "Add a new team",
+  href: "./teams/new",
+  classes: "govuk-button--secondary govuk-!-margin-bottom-2"
+}) }}
+
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+    <ul class="govuk-list">
+      {% for team in teams %}
+      {% set org = 'Office for Product Safety and Standards' if team.includes('OPSS') else 'None' %}
+      <li>
+        <a class="govuk-link govuk-heading-m govuk-!-margin-bottom-1" href="teams/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team-name={{team}}&org={{org}}">{{team}}</a>
+        <p class="govuk-body govuk-hint">{{["Inactive, ","","",""] |random }}{{ [2,3,4,5,6,7,8,9] | random }} team members</p>
+      </li>
+
+      {% endfor %}
+      {# <li>
+        <a class="govuk-link govuk-heading-m" href="teams/b1dab0f5-4651-4af8-9f15-fa8143ff338d">OPSS Processing</a>
+      </li>
+      <li>
+        <a class="govuk-link govuk-heading-m" href="teams/b1dab0f5-4651-4af8-9f15-fa8143ff338d">OPSS Enforcement</a>
+      </li>
+      <li>
+        <a class="govuk-link govuk-heading-m" href="teams/b1dab0f5-4651-4af8-9f15-fa8143ff338d">OPSS Trading Standards Co-ordination</a>
+      </li> #}
+    </ul>
+{% endblock %}

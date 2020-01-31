@@ -1,0 +1,66 @@
+{% extends "includes/templates/admin-basic.html" %}
+{% set navCategory = 'Users' %}
+{% set pageHeading = navCategory %}
+
+{% set teams = [
+  "OPSS Processing",
+  "OPSS Enforcement",
+  "OPSS Trading Standards Co-ordination",
+  'Aberdeen City council',
+  'Aberdeenshire council',
+  'Angus council',
+  'Argyll and Bute council',
+  'Dumfries and Galloway council',
+  'Dundee City council',
+  'East Ayrshire council',
+  'East Dunbartonshire council',
+  'East Lothian council',
+  'East Renfrewshire council',
+  'Falkirk council',
+  'Fife council',
+  'Glasgow City council',
+  'Highland council',
+  'Inverclyde council',
+  'Midlothian council',
+  'Moray council',
+  'North Ayrshire council',
+  'North Lanarkshire council',
+  'Perth and Kinross council',
+  'Renfrewshire council',
+  'Scottish Borders council',
+  'South Ayrshire council',
+  'South Lanarkshire council',
+  'Stirling council & Clackmannanshire council',
+  'West Dunbartonshire council',
+  'West Lothian council'] %}
+{% block pageContent %}
+<h1 class="govuk-heading-l">{{pageHeading}}</h1>
+
+{{ govukButton({
+  text: "Add a new user",
+  href: "./users/new?newUserTeam=false",
+  classes: "govuk-button--secondary govuk-!-margin-bottom-2"
+}) }}
+
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+    <ul class="govuk-list">
+
+      {% set users = [] %}
+      {% for iterator in range(0, 20) %}
+        {% set user = '' | faker %}
+        {% set users = (users.push(
+          user), users   ) %}
+      {% endfor %}
+
+      {% for user in users | sort(attribute='fullName') %}
+      {% set invited = [true, false] | random %}
+      {% set team = teams | random %}
+      <li>
+        <a class="govuk-link govuk-heading-m govuk-!-margin-bottom-1" href="users/b1dab0f5-4651-4af8-9f15-fa8143ff338d?fullName={{user.fullName}}&email={{user.email}}&invited={{invited}}&team-name={{team}}">{{user.email}}</a>
+        <p class="govuk-body govuk-hint">{{'Invited' if invited else user.fullName}}</p>
+      </li>
+
+      {% endfor %}
+    </ul>
+{% endblock %}

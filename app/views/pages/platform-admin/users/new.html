@@ -1,0 +1,100 @@
+{% extends "includes/templates/admin-basic.html" %}
+{% set navCategory = 'Users' %}
+{% set pageHeading = "Add a new user" %}
+
+{% block pageContent %}
+
+{{ govukBackLink({
+  text: "Back",
+href: "../teams",
+  classes: "govuk-!-margin-bottom-6"
+}) }}
+
+<h1 class="govuk-heading-l">{{pageHeading}}</h1>
+
+<form action="./b1dab0f5-4651-4af8-9f15-fa8143ff338d?invited=true" method="post" class="form">
+
+  {% if data.newUserTeam != 'false' %}
+    {{ govukInsetText({
+      text: "User will be invited to join " + data.newUserTeam
+    }) }}
+  {% else %}
+
+  {{ localAuthorityAutocomplete({
+      idPrefix:   'localAuthorityName',
+      name:       'team-name',
+      value:      report.riskAssessment.authorOtherPSDTeam,
+      class:      "govuk-label--s govuk-!-margin-bottom-1",
+      legend:     "Choose team"
+    }) }}
+
+  {% endif %}
+
+  {{ govukInput({
+    label: {
+      text: "Work email address",
+      classes: "govuk-label--s"
+    },
+    _hint: {
+      text: "For example, ‘Southwark Council’ or ‘OPSS Enforcement’"
+    },
+    id: "email",
+    name: "email",
+    classes: "govuk-!-width-one-half"
+  }) }}
+
+  {% set psdTeamsHTML %}
+    {{ localAuthorityAutocomplete({
+        idPrefix:   'localAuthorityName',
+        name:       'oijpo',
+        value:      report.riskAssessment.authorOtherPSDTeam,
+        class:      "govuk-label govuk-!-margin-bottom-1",
+        legend:     "Choose organisation"
+      }) }}
+  {% endset %}
+
+  {% set newOrgHTML %}
+    {{ govukInput({
+      label: {
+        text: "Organisation name"
+      },
+      id: "event-name",
+      name: "hdhdh",
+      classes: "govuk-!-width-three-quarters"
+    }) }}
+  {% endset %}
+
+  {{ govukRadios({
+    idPrefix: "user-type",
+    name: "user-type",
+    fieldset: {
+      legend: {
+        text: "User type",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--s"
+      }
+    },
+    items: [
+      {
+        value: "regular",
+        text: "Team admin"
+      },
+      {
+        value: "standard",
+        text: "Standard"
+      },
+      {
+        value: "view-only",
+        text: "View only"
+      }
+    ]
+  }) }}
+  <div class="govuk-form-group">
+    {{ govukButton({
+      text: "Send invite"
+    }) }}
+  </div>
+
+</form>
+
+{% endblock %}
