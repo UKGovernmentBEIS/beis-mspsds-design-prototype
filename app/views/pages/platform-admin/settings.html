@@ -1,10 +1,11 @@
 {% extends "includes/templates/admin-basic.html" %}
 {% set navCategory = 'Settings' %}
+{% set pageHeading = navCategory %}
 
 
 {% block pageContent %}
 
-<h1 class="govuk-heading-l">Settings</h1>
+<h1 class="govuk-heading-l">{{pageHeading}}</h1>
 
 <h2 class="govuk-heading-m">General settings</h2>
 {{ govukSummaryList({

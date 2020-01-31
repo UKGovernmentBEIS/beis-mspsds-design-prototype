@@ -1,5 +1,6 @@
 {% extends "includes/templates/admin-basic.html" %}
 {% set navCategory = 'Teams' %}
+{% set pageHeading = navCategory %}
 
 {% set teams = [
   "OPSS Processing",
@@ -33,7 +34,7 @@
   'West Dunbartonshire Council',
   'West Lothian Council'] %}
 {% block pageContent %}
-<h1 class="govuk-heading-l">Teams</h1>
+<h1 class="govuk-heading-l">{{pageHeading}}</h1>
 
 {{ govukButton({
   text: "Add a new team",

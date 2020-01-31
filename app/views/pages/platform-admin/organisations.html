@@ -1,11 +1,12 @@
 {% extends "includes/templates/admin-basic.html" %}
 {% set navCategory = 'Organisations' %}
+{% set pageHeading = navCategory %}
 
 {% set teams = [
   "Office for Product Safety and Standards",
   "Health and Safety Executive"] %}
 {% block pageContent %}
-<h1 class="govuk-heading-l">Organisations</h1>
+<h1 class="govuk-heading-l">{{pageHeading}}</h1>
 
 {{ govukButton({
   text: "Add a new organisation",

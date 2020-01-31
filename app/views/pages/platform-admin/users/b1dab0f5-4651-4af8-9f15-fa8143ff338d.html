@@ -1,6 +1,6 @@
 {% extends "includes/templates/admin-basic.html" %}
 {% set navCategory = 'Users' %}
-
+{% set pageHeading = 'User - ' + data.email %}
 
 {% block pageContent %}
 
@@ -12,14 +12,17 @@ href: "../users",
   classes: "govuk-!-margin-bottom-6"
 }) }}
 
+{% set invited = true if (data.invited == 'true') else false %}
+
+<span class="govuk-caption-l">{{pageHeading}}</span>
 <h1 class="govuk-heading-l">{{data.email if data.invited else data['fullName']}}</h1>
-<p class="govuk-body govuk-hint">{{"Invited user" if data.invited else data.email}}</p>
+<p class="govuk-body govuk-hint">{{"Invited user" if invited else data.email}}</p>
 
 {% set teamLinkHTML %}
 <a href="../teams/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team-name={{data['team-name']}}" class="govuk-link">{{data['team-name']}}</a>
 {% endset %}
 
-{% if data.invited == 'true' %}
+{% if invited %}
 <h2 class="govuk-heading-m">General</h2>
 {{ govukSummaryList({
   classes: 'app-summary-list--key-weight-regular',
@@ -59,10 +62,27 @@ href: "../users",
     },
     {
       key: {
-        text: "User type"
+        text: "Is team admin"
       },
       value: {
-        text: ["Team admin", "Member"} | random
+        text: ["Yes", "No"} | random
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Additional roles"
+      },
+      value: {
+        html: 'None'
       },
       actions: {
         items: [
@@ -79,7 +99,7 @@ href: "../users",
         text: "User status"
       },
       value: {
-        text: "Invited"
+        html: "Invited"
       },
       actions: {
         items: [
@@ -90,6 +110,23 @@ href: "../users",
           }
         ]
       }
+    },
+    {
+      key: {
+        text: "Account"
+      },
+      value: {
+        text: "Invited 2 January 2020"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Resend invite",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      } if false
     }
   ]
 }) }}
@@ -154,6 +191,40 @@ href: "../users",
     },
     {
       key: {
+        text: "Is team admin"
+      },
+      value: {
+        text: ["Yes", "No"} | random
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Additional roles"
+      },
+      value: {
+        html: 'None'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    },
+    {
+      key: {
         text: "User status"
       },
       value: {
@@ -168,6 +239,23 @@ href: "../users",
           }
         ]
       }
+    },
+    {
+      key: {
+        text: "Account"
+      },
+      value: {
+        html: '<p class="govuk-body">Invited 2 January 2020</p><p class="govuk-body">Created 4 January 2020</p>'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Resend invite",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      } if false
     }
   ]
 }) }}
@@ -333,6 +421,46 @@ href: "../users",
             href: "#",
             text: "Change",
             visuallyHiddenText: "contact information"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+<h2 class="govuk-heading-m">Flags</h2>
+{{ govukSummaryList({
+  classes: 'app-summary-list--key-weight-regular',
+  rows: [
+    {
+      key: {
+        text: "Accepted declaration"
+      },
+      value: {
+        html: 'Yes'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },{
+      key: {
+        text: "Has seen intro slides"
+      },
+      value: {
+        html: 'Yes'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
           }
         ]
       }

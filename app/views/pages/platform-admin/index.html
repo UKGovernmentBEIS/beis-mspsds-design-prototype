@@ -1,9 +1,10 @@
 {% extends "includes/templates/admin-basic.html" %}
 
 {% set navCategory = 'Summary' %}
+{% set pageHeading = navCategory %}
 
 {% block pageContent %}
-<h1 class="govuk-heading-l">Summary</h1>
+<h1 class="govuk-heading-l">{{pageHeading}}</h1>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-third">
     {{ bigNumberDark(1343, 'Total cases')}}

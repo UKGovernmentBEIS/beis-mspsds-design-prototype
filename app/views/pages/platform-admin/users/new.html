@@ -1,6 +1,6 @@
 {% extends "includes/templates/admin-basic.html" %}
 {% set navCategory = 'Users' %}
-
+{% set pageHeading = "Add a new user" %}
 
 {% block pageContent %}
 
@@ -10,7 +10,7 @@ href: "../teams",
   classes: "govuk-!-margin-bottom-6"
 }) }}
 
-<h1 class="govuk-heading-l">Add a new user</h1>
+<h1 class="govuk-heading-l">{{pageHeading}}</h1>
 
 <form action="./b1dab0f5-4651-4af8-9f15-fa8143ff338d?invited=true" method="post" class="form">
 

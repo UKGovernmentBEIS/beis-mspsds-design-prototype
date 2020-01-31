@@ -1,5 +1,6 @@
 {% extends "includes/templates/admin-basic.html" %}
 {% set navCategory = 'Teams' %}
+{% set pageHeading = data['team-name'] + " - Team" %}
 
 {% block pageContent %}
 
@@ -9,6 +10,7 @@ href: "../teams",
   classes: "govuk-!-margin-bottom-6"
 }) }}
 
+<span class="govuk-caption-l">Team</span>
 <h1 class="govuk-heading-l">{{data['team-name']}}</h1>
 
 <h2 class="govuk-heading-m">General settings</h2>

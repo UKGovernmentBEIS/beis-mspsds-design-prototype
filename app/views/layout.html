@@ -45,7 +45,7 @@
 {% if data['signedIn'] == 'Yes' %}
   {% set headerNav = [
     {
-      href: "/",
+      href: "/pages/your-account",
       text: "Your account"
     },{
       href: "/pages/platform-admin",
@@ -115,8 +115,8 @@
             active: true if navActive == 'businesses'
           },
           {
-            text: 'Your teams',
-            href: '/pages/your-teams',
+            text: 'Your team',
+            href: '/pages/teams/b1dab0f5-4651-4af8-9f15-fa8143ff338d',
             active: true if navActive == 'teams',
             classes: 'align-right'
           }]
