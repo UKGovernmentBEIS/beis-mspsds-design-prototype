@@ -59,6 +59,7 @@
 
     <p class="govuk-body">This case is currently <strong>restricted</strong>.</p>
 
+    <p class="govuk-body">Only teams added to the case can view case details.</p>
 
     <p class="govuk-body">This case was restricted on <strong>3 June 2019</strong> by <strong>Jane Hawgreaves (OPSS Enforcement)</strong> for the following reason:</p>
 
@@ -67,11 +68,14 @@
     }) }}
 
 
-    <p class="govuk-body">Unless a team is added to the case, they cannot see  case details.</p>
+
 
     {% else %}
 
       <p class="govuk-body">This case is currently <strong>unrestricted</strong>.</p>
+
+      <p class="govuk-body">This means that all teams can view case details except sensitive items like correspondence.</p>
+
       <p class="govuk-body">Restrict the case to prevent teams not added to the case from being able to view any case details.</p>
     {% endif %}
 
@@ -80,12 +84,23 @@
     {# <p class="govuk-body">This case is currently <strong>{{'restricted' if currentCase.restricted else 'unrestricted'}}</strong>.</p> #}
 
     {% set detailsHTML %}
-      Details about what restriction means
+      <p class="govuk-body">
+        The information shared in the PSD can only be seen by registered users from market surveillance authorities and the Office for Product Safety and Standards (OPSS). Case owners can ‘restrict’ cases which means that only teams that are added to a case can view case details.
+      </p>
+
+      <p class="govuk-body">
+        Items that my contain personal information (like correspondence) can only be seen by teams added to the case - so you do not need to restrict a case to stop teams who aren not involved from seeing them.
+      </p>
+
+      <p class="govuk-body">
+        The aim of the Product safety database is to share information within the product safety community to save time, effort and money. Therefore, cases should only be restricted in exceptional circumstances, for example, if it is going to court or contains commercially sensitive information that should not be visible to teams that are not involved.
+      </p>
     {% endset %}
 
     {{ govukDetails({
       summaryText: "More detals about restricting a case",
-      html: detailsHTML
+      html: detailsHTML,
+      open: false
     }) }}
 
 
@@ -103,17 +118,19 @@
         type: "hidden"
       }) }}
 
-      {{ govukButton({
-        text: restrictionButtonText,
-        classes: "mspsds-button--delete" if not currentCase.restricted
-      }) }}
+      {% if hasEditRights %}
+        {{ govukButton({
+          text: restrictionButtonText,
+          _classes: "mspsds-button--delete" if not currentCase.restricted
+        }) }}
+      {% endif %}
 
 
       {% set caseOwnerHTML %}
         {% if hasEditRights %}
-          <p class="govuk-body">Only the case owner (you and your team) can change case restriction.</p>
+          <p class="govuk-body">Only the case owner can change case restriction.</p>
           {% else %}
-          <p class="govuk-body">Only the case owner (Ed Horsford or their team OPSS Processing) can change case restriction.</p>
+          <p class="govuk-body">Only the case owner (OPSS Processing) can change case restriction.</p>
         {% endif %}
       {% endset %}
 
