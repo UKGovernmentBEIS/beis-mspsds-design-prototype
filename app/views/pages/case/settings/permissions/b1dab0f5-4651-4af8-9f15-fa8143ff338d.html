@@ -36,14 +36,10 @@
 
   {{ govukBackLink({
       text: 'Back',
-      href: '../permissions'
+      href: '../permissions-by-team'
   }) }}
 
 {% endblock %}
-
-
-
-
 
 
 {% block content %}
@@ -79,22 +75,18 @@
     <form action="../permissions/save" method="post" class="form">
 
       {% if data.team == 'new' %}
-        {{ govukInput({
-          id: "teamName",
-          name: "teamName",
-          type: "text",
-          classes: "govuk-!-width-one-third govuk-label-m",
-          label: {
-            text: "Team name",
-            classes: "govuk-label--m"
-          },
-          attributes: {
-            spellcheck: "false"
-          }
+
+        {# Approximates a list of teams #}
+        {{ localAuthorityAutocomplete({
+          idPrefix:   'localAuthorityName',
+          name:       'teamName',
+          class:      "govuk-label--m govuk-!-margin-bottom-1",
+          legend:     "Choose team"
         }) }}
 
-        {% else %}
+      {% else %}
 
+        {# Hidden input to pass data along #}
         {{ govukInput({
           id: "teamName",
           name: "teamName",
@@ -104,111 +96,69 @@
 
       {% endif %}
 
+      {# View or edit options #}
       {% set permissionsItems = [
-
           {
             value: "view-full",
-            text: "View",
+            text: "View full case",
             checked: true if (data.teamPermissionsLevel == "view-full") and not (data.team == "new"),
-            _hint: {
-              text: "View the full case"
+            hint: {
+              text: "View full case details including correspondence"
             }
           },
           {
             value: "edit",
-            text: "View and edit",
+            text: "Edit full case",
             checked: true if data.teamPermissionsLevel == "edit" and not (data.team == "new"),
-            _hint: {
-              text: "Edit and view the full case"
-            }
-          },
-          {
-            value: "admin",
-            text: "View, edit and manage",
-            checked: true if data.teamPermissionsLevel == "admin" and not (data.team == "new"),
             hint: {
-              text: "Case managers can set case permissions, add teams to the case and change assignment"
+              text: "View and edit all case details. Cannot add or remove teams or close the case."
             }
           }
         ]
-        %}
-{# (a.push(3),a) #}
-      {% if data.team != 'new' %}
-      {% set permissionsItems = (permissionsItems.push(
-          {
-            divider: "or"
-          },
-          {
-            value: "view-limited",
-            text: "Remove " + data.team + " from case",
-            checked: true if data.teamPermissionsLevel == "view-limited" or data.team == 'new',
-            hint: {
-              text: "Will still be able to view case details except sensitive information, correspondence, or items that aren't marked as safe"
-            }
-          }
-          ), permissionsItems   )
       %}
+      {# Removed admin option #}
+      {#
+      {
+          value: "admin",
+          text: "View, edit and manage",
+          checked: true if data.teamPermissionsLevel == "admin" and not (data.team == "new"),
+          hint: {
+            text: "Case managers can set case permissions, add teams to the case and change assignment"
+          }
+        }
+         #}
+      {# (a.push(3),a) #}
+
+      {# Add remove option if it's an existing team #}
+      {% if data.team != 'new' %}
+        {% set permissionsItems = (permissionsItems.push(
+            {
+              divider: "or"
+            },
+            {
+              value: "remove",
+              text: "Remove " + data.team + " from case",
+              checked: true if data.teamPermissionsLevel == "view-limited" or data.team == 'new',
+              hint: {
+                text: "Will still be able to view case details except sensitive information, correspondence, or items that aren't marked as safe"
+              },
+              hint: {
+                text: "Will have default view rights" if not currentCase.restricted else "Will not be able to view case details as it is restricted"
+                  }
+            }
+            ), permissionsItems   )
+        %}
 
       {% endif %}
 
-      {# {{ govukRadios({
-        idPrefix: "where-do-you-live",
-        name: "teamPermissionsLevel",
-
-        fieldset: {
-          legend: {
-            text: "What permissions should the team have?",
-            isPageHeading: true,
-            classes: "govuk-fieldset__legend--m",
-            hint: permissionsHintHTML
-          }
-        },
-        items: [
-          {
-            value: "admin",
-            text: "Edit, view and manage",
-            checked: true if data.teamPermissionsLevel == "admin",
-            hint: {
-              text: "Edit the full case as well as manage case permissions"
-            }
-          },
-          {
-            value: "edit",
-            text: "Edit and view",
-            checked: true if data.teamPermissionsLevel == "edit",
-            hint: {
-              text: "Edit the full case"
-            }
-          },
-          {
-            value: "view-full",
-            text: "View all",
-            checked: true if data.teamPermissionsLevel == "view-full",
-            hint: {
-              text: "View the full case"
-            }
-          },
-          {
-            divider: "or"
-          },
-          {
-            value: "view-limited",
-            text: "Reset to default",
-            checked: true if data.teamPermissionsLevel == "view-limited" or data.team == 'new',
-            hint: {
-              text: "View case details except sensitive information, correspondence, or attachments that aren't marked as safe."
-            }
-          }
-        ]
-      }) }} #}
-
+      {# Choose permission level for team #}
       {{ govukRadios({
         idPrefix: "where-do-you-live",
         name: "teamPermissionsLevel",
 
         fieldset: {
           legend: {
-            text: "What permissions should the team have?",
+            text: "What permissions should the team have?" if (data.team == 'new') else "Permission level",
             isPageHeading: true,
             classes: "govuk-fieldset__legend--m",
             hint: permissionsHintHTML
@@ -217,23 +167,62 @@
         items: permissionsItems
       }) }}
 
+      {# Comment sent to team that is being updated #}
+      {% set additionalMessageHTML %}
+        {% if data.team == 'new' %}
+          Include a message for the team
+        {% else %}
+          Include a message for {{data.teamName}}
+        {% endif %}
+      {% endset %}
 
-      {# <p class="govuk-body">You can also <a href="">remove the team</a> from the case to return them to default permissions (standard).</p> #}
-      {% if not currentCase.restricted %}
+      {% set teamMessageHTML %}
+        {{ govukTextarea({
+          name: "more-detail",
+          id: "more-detail",
+          label: {
+            text: "Message to " + (data.teamName if (data.team != 'new') else "the team")
+          }
+        }) }}
+      {% endset %}
 
-      {{ govukWarningText({
-        html: "If you want to prevent case details from being seen you can <a href='../restriction'>restrict this case</a>.",
-        iconFallbackText: "Warning"
+      {{ govukRadios({
+        idPrefix: "include-message",
+        name: "include-message",
+        fieldset: {
+          legend: {
+            text: additionalMessageHTML,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: teamMessageHTML
+            }
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
       }) }}
 
-      {% endif %}
-      {# {{ govukWarningText({
-        html: "You must <a href='../restriction'>restrict the case</a> to stop case details being seen.",
-        iconFallbackText: "Warning"
-      }) }} #}
+      {# {% if not currentCase.restricted %}
+
+        {{ govukWarningText({
+          html: "If you want to prevent case details from being seen you can <a href='../restriction'>restrict this case</a>.",
+          iconFallbackText: "Warning"
+        }) }}
+
+      {% endif %} #}
+
 
       {{ govukButton({
-        text: "Set permissions"
+        text: "Update team" if data.team != 'new' else "Add team to this case"
       }) }}
     </form>
 

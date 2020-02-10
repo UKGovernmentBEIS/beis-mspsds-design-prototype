@@ -32,19 +32,21 @@
 
 {% block beforeContent %}
 
-{#   {{ govukBackLink({
+  {{ govukBackLink({
       text: 'Back',
-      href: '/pages/case/settings'
+      href: '../overview'
   }) }}
- #}
+
 {% endblock %}
 
 
 {% set permissionsByLevel %}
 
+<h2 class="govuk-heading-m">Teams added to case</h2>
+
 {# Admin #}
-<h3 class="govuk-heading-m">Teams with full view, edit and managing rights</h3>
-{# <h3 class="govuk-heading-m">Full view, edit and manage</h3> #}
+{# <h3 class="govuk-heading-m">Teams with full view, edit and managing rights</h3> #}
+<h3 class="govuk-heading-s">Full view, edit and manage</h3>
 
 <p class="govuk-hint">Can set case permissions, add teams to the case and change assignment.</p>
 
@@ -52,21 +54,19 @@
 <ul class="govuk-list govuk-list--bullet">
   <li>OPSS - Incident management (your team)</li>
   {% for team in managePermissionsTeams %}
-  <li>{{team.teamName}}
-    {% if hasEditRights %}- <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
-    {% endif %}
+  <li>{{team.teamName}} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
   {% endfor %}
 </ul>
 
 
 
 {# Editor #}
-<h3 class="govuk-heading-m">Teams with full view and editing rights</h3>
-{# <h3 class="govuk-heading-m">Full view and edit</h3> #}
+{# <h3 class="govuk-heading-m">Teams with full view and editing rights</h3> #}
+<h3 class="govuk-heading-s">Full view and edit</h3>
 {% set viewAndEditPermissionsTeams = data.teamPermissions | filterAttr('permissionsLevel', 'edit') %}
 <ul class="govuk-list govuk-list--bullet">
   {% for team in viewAndEditPermissionsTeams %}
-    <li>{{team.teamName}}{% if hasEditRights %} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a>{% endif %}</li>
+    <li>{{team.teamName}} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
   {% endfor %}
   {% if viewAndEditPermissionsTeams | length < 1 %}
   <li>No teams</li>
@@ -74,12 +74,12 @@
 </ul>
 
 {# Full view #}
-<h3 class="govuk-heading-m">Teams with full viewing rights</h3>
-{# <h3 class="govuk-heading-m">Full view</h3> #}
+{# <h3 class="govuk-heading-m">Teams full with viewing rights</h3> #}
+<h3 class="govuk-heading-s">Full view</h3>
 {% set viewFullPermissionsTeams = data.teamPermissions | filterAttr('permissionsLevel', 'view-full') %}
 <ul class="govuk-list govuk-list--bullet">
   {% for team in viewFullPermissionsTeams %}
-    <li>{{team.teamName}}{% if hasEditRights %} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a>{% endif %}</li>
+    <li>{{team.teamName}} - <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">change permissions</a></li>
   {% endfor %}
   {% if viewFullPermissionsTeams | length < 1 %}
   <li>No teams</li>
@@ -87,157 +87,131 @@
 </ul>
 
 {# Full view #}
-{# <h3 class="govuk-heading-m">Teams with default viewing rights</h3>
+<h3 class="govuk-heading-m">Teams with default viewing rights</h3>
 <p class="govuk-hint">Can view the case apart from sensitive information such as correspondence</p>
 
 <ul class="govuk-list govuk-list--bullet">
   <li>All other teams</li>
-</ul> #}
-
-{% if currentCase.restricted %}
-<h3 class="govuk-heading-m">This case has been restricted</h3>
-
-
-
-<p class="govuk-body">All other teams{{", including yours " if not hasEditRights else " "}}cannot view it. See <a href="restriction.html">why this case has been restricted</a>.</p>
-
-{% else %}
-<h3 class="govuk-heading-m">Teams who are not involved in this case</h3>
-
-<p class="govuk-body">All other teams have default viewing rights. They can view the case apart from sensitive information such as correspondence.</p>
-{% endif %}
-
+</ul>
 
 {% endset %}
 
-
-
-{# {% set standardViewRightsHTML %}
-  <p class="govuk-body">They can view:</p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>case details</li>
-    <li>products and businesses</li>
-    <li>test results and product images</li>
-    <li>items marked as ’safe’</li>
-  </ul>
-
-  <p class="govuk-body">They can not view:</p>
-  <ul class="govuk-list govuk-list--bullet">
-    <li>correspondence (emails, phone calls and meeting notes)</li>
-    <li>case notes</li>
-    <li>attachments (except product images and test results)</li>
-    <li>items marked as ’not safe’</li>
-  </ul>
-{% endset %} #}
-
-{# Unused #}
 {% set permissionsByTeam %}
 
+  {% set restrictedBadge %}
+    <span class="hmcts-badge hmcts-badge--red">Restricted</span>
+  {% endset %}
 
-    <ul class="govuk-list">
-      <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
-        <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
-          <span class="teams__user_name">Trading Standards Southampton (your team)</span> 
-          {# <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span> #}
-        </h3>
-        <p class="govuk-body">Permissions level: <strong>admin</strong></p>
-        <ul class="govuk-list govuk-!-margin-0">
-          <li>
-            <span class="tick-cross-tick"><span class="govuk-visually-hidden">Can</span>Edit and modify (case admin)</span>
-          </li>
-          <li>
-            <span class="tick-cross-tick"><span class="govuk-visually-hidden">Can</span>View full case</span>
-          </li>
-        </ul>
-      </li>
-      
-      <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
-        <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
-          <span class="teams__user_name">OPSS - incident management</span> 
-          {# <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span> #}
-        </h3>
-        <p class="govuk-body">Permissions level: <strong>edit</strong></p>
-        <ul class="govuk-list govuk-!-margin-0">
-          <li>
-            <span class="tick-cross-tick"><span class="govuk-visually-hidden">Can</span>Edit and modify</span>
-          </li>
-          <li>
-            <span class="tick-cross-tick"><span class="govuk-visually-hidden">Can</span>View full case</span>
-          </li>
-          <li>
-            {# <span class="tick-cross-cross"><span class="govuk-visually-hidden">Is not a</span>Case admin</span> #}
-          </li>
+  {% set changeLink %}
+  <a href="" class="govuk-link govuk-body">Change</a>
+  {% endset %}
 
-        </ul>
-        <div class="permissions-edit-link"><a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d">Edit permissions</a>
-        </div>
-      </li>
-      <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
-        <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
-          <span class="teams__user_name">Southampton council</span> 
-          {# <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span> #}
-        </h3>
-        <p class="govuk-body">Permissions level: <strong>view - full</strong></p>
-        <ul class="govuk-list govuk-!-margin-0">
-          <li>
-            <span class="tick-cross-cross"><span class="govuk-visually-hidden">Can not</span>Edit and modify</span>
-          </li>
-          <li>
-            <span class="tick-cross-tick"><span class="govuk-visually-hidden">Can</span>View full case</span>
-          </li>
-        </ul>
-        <div class="permissions-edit-link"><a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d">Edit permissions</a>
-        </div>
-      </li>
+  {% set restrictionLink %}
+  <a href="restriction.html" class="govuk-link govuk-body">{{"Restrict access" if not currentCase.restricted else "Change case restriction"}}</a>
+  {% endset %}
 
-      {# <h2 class="govuk-heading-m">Default access</h2> #}
-      <li class="teams__user govuk-!-padding-top-3 govuk-!-padding-bottom-3">
-        <h2 class="govuk-heading-s govuk-!-margin-bottom-2">
-          <span class="teams__user_name">All other organisations</span> 
-          {# <span class="govuk-caption-m teams__user_email">jack.sparrow@example.com</span> #}
-        </h2>        
-        <p class="govuk-body">Permissions level: <strong>view - limited</strong></p>
-        <ul class="govuk-list govuk-!-margin-0">
-          <li>
-            <span class="tick-cross-cross"><span class="govuk-visually-hidden">Can not</span>Edit and modify</span>
-          </li>
-          <li>
-            <span class="tick-cross-cross"><span class="govuk-visually-hidden">Can not</span>View full case</span>
-          </li>
-          {% if currentCase.restricted -%}
-          <li>
-            <span class="tick-cross-cross"><span class="govuk-visually-hidden">Can not</span>View limited case</span>
-          </li>
-          {% else %}
-          <li>
-            <span class="tick-cross-tick"><span class="govuk-visually-hidden">Can</span>View limited case</span>
-          </li>
-          {% endif %}
-          
-        </ul>
-        {# <div class="permissions-edit-link"><a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d">Edit permissions</a> #}
-        {# </div> #}
-       
-        
-      </li>
-    </ul>
+  {% if hasEditRights %}
+    {% from "button/macro.njk"        import govukButton %}
 
+    {{ govukButton({
+      text: "Add a team to the case",
+      href: "permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team=new"
+    }) }}
+    <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-6">
+
+  {% endif %}
+
+  {% from "table/macro.njk"         import govukTable %}
+
+  {# Create teams array for table #}
+
+  {# Remove admin teams so they can be sorted separately #}
+  {% set adminTeams = data.teamPermissions | filterAttr('permissionsLevel', 'admin') | sort(attribute='teamName') %}
+  {# Sort non admins #}
+  {% set teamsWithoutAdmins = data.teamPermissions | removeAttr('permissionsLevel', 'admin') | sort(attribute='teamName')%}
+
+  {# Combine admins and non admins #}
+  {% set combinedTeams = [] %}
+  {% for team in adminTeams %}
+    {% set combinedTeams = (combinedTeams.push(
+        team), combinedTeams) %}
+  {% endfor %}
+  {% for team in teamsWithoutAdmins %}
+    {% set combinedTeams = (combinedTeams.push(
+        team), combinedTeams) %}
+  {% endfor %}
+
+  {% set teams = [] %}
+    {% for team in combinedTeams  %}
+
+      {# Remap permission levels to human names #}
+      {% set thePermissionLevel = '' %}
+      {% if team.permissionsLevel == 'view-full' %}
+        {% set thePermissionLevel = 'View full' %}
+      {% elif team.permissionsLevel == 'edit' %}
+        {% set thePermissionLevel = 'Edit' %}
+      {% elif team.permissionsLevel == 'admin' %}
+        {% set thePermissionLevel = 'Case owner' %}
+      {% endif %}
+
+      {# Generate change link for all except admin #}
+      {% set changeLink %}
+        {% if team.permissionsLevel != 'admin' %}
+          <a href="permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team={{team.teamName}}&teamPermissionsLevel={{team.permissionsLevel}}">Change</a>
+        {% endif %}
+      {% endset %}
+
+      {% set theTeam = [
+        {
+          text: team.teamName
+        },
+        {
+          text: thePermissionLevel
+        },
+        {
+          html: changeLink if hasEditRights
+        }
+      ]
+      %}
+      {% set teams = (teams.push(
+        theTeam), teams   ) %}
+
+    {% endfor %}
+
+    {{ govukTable({
+      firstCellIsHeader: false,
+      head: [
+        {
+          text: "Team name",
+          classes: 'app-custom-class'
+        },
+        {
+          text: "Permission level",
+          classes: 'app-custom-class'
+        },
+        {
+          text: "",
+          classes: 'app-custom-class'
+        }
+      ],
+      rows: teams
+    }) }}
 
 {% endset %}
 
 
 {% block content %}
 
-{% include "includes/components/case/case-navigation.html" %}
+{# {% include "includes/components/case/case-navigation.html" %} #}
 
 
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l">Case permission levels</h1>
+
 
     {% set restrictionText %}
-      <p class="govuk-body">This case is <strong>restricted</strong>. Only teams listed on this page can view details of the case. <br><a href="restriction">See restriction details.</a></p>
+      <p class="govuk-body">This case is <strong>restricted</strong>. Only teams added to the case can view case details. <br><a href="restriction">See restriction details.</a></p>
     {% endset %}
 
     {% if currentCase.restricted %}
@@ -245,22 +219,18 @@
       type: 'warning',
       html: restrictionText,
       iconFallbackText: 'Warning'
-      }) }} 
+      }) }}
     {% endif %}
 
 
-    {# <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-6"> #}
+    <h1 class="govuk-heading-l">Teams added to case</h1>
 
-    {{permissionsByLevel | safe}}
 
-    {% if hasEditRights %}
+    {{permissionsByTeam | safe}}
 
-    {{ govukButton({
-      text: "Add a team",
-      href: "permissions/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team=new"
-    }) }}
 
-    {% endif %}
+
+    {% set aboutPermissionLevelsHTML %}
 
     <h2 class="govuk-heading-m">The 4 permissions levels</h2>
 
@@ -270,11 +240,9 @@
 
     <p class="govuk-body">Teams who are currently involved in the case have one of the following:</p>
      <ol class="govuk-list govuk-list--number">
-      <li>Full view, edit and manage.</li>
+      {# <li>Full view, edit and manage.</li> #}
       <li>Full view and edit.</li>
       <li>Full view.</li>
- 
-
     </ol>
 
     <p class="govuk-body">Teams who are not involved in a case have:</p>
@@ -292,27 +260,33 @@
       open: false
     }) }}
 
-
-
     {% if not currentCase.restricted %}
     <h3 class="govuk-heading-s">Restricting a case</h3>
-    <p class="govuk-body">In exceptional circumstances, people with full view, edit and managing rights can <a href="restriction">restrict a case</a>.</p>
+    <p class="govuk-body">In exceptional circumstances, the case owner can <a href="restriction">restrict a case</a>.</p>
     {% endif %}
 
+    {% endset %}
+
+    {{ govukDetails({
+      summaryText: "About permission levels",
+      html: aboutPermissionLevelsHTML
+    }) }}
+
+    {% set caseOwnerHTML %}
+      {% if hasEditRights %}
+        <p class="govuk-body">Only the case owner (you and your team) can add teams to the case.</p>
+        {% else %}
+        <p class="govuk-body">Only the case owner (Ed Horsford or their team OPSS Processing) can add teams to a case.</p>
+      {% endif %}
+    {% endset %}
+
+    {{ permissionNotice({
+      html: caseOwnerHTML
+    }) }}
 
 
-    
-    {# <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"> #}
-
-
-
-   
   </div>
 
-  <div class="govuk-grid-column-one-third">
-    <h3 class="govuk-heading-m">Related</h3>
-    <p class="govuk-body"><a href="#" class="govuk-link">Restriction</a>
-  </div></p>
 </div>
 
 

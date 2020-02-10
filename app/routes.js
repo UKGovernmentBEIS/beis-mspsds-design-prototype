@@ -90,7 +90,7 @@ router.post('/:mode/flows/ts-create/business-details', function (req, res, next)
   }
   else {
     next();
-  } 
+  }
 });
 
 router.post('/:mode/flows/ts-create/save', function (req, res) {
@@ -276,37 +276,30 @@ router.get(`/pages/case/settings/restriction/off`, function (req, res) {
 
 router.post(`/pages/case/settings/permissions/save`, function (req, res) {
   const data = req.session.data;
-  let teamName = data.teamName
+  let teamName = data.teamName;
   let permissionsLevel = data.teamPermissionsLevel
 
+  // Ignore if data missing
   if (!teamName || !permissionsLevel) res.redirect('/pages/case/settings/permissions');
 
-  var existingTeam = false
+  var existingTeam = false //default
 
+  // Check if team is existing and update if necessary
   req.session.data.teamPermissions.forEach(function(team) {
-    console.log('testing', team.teamName, 'for', teamName)
     if (team.teamName == teamName) {
-      console.log("teamName is", teamName)
-      console.log("existing team")
       team.permissionsLevel = permissionsLevel
       existingTeam = true
     }
   });
-  // for (var team in req.session.data.teamPermissions) {
-  //   console.log('testing', team.teamName, 'for', teamName)
-  //   if (team.teamName == teamName) {
-  //     console.log("teamName is", teamName)
-  //     console.log("existing team")
-  //     team.permissionsLevel = permissionsLevel
-  //     existingTeam = true
-  //   }
-  // }
+
+  // Delete teams with permissions level of 'remove'
+  req.session.data.teamPermissions = req.session.data.teamPermissions.filter(team => team.permissionsLevel != 'remove')
 
   // Reset new variable
-  if (req.session.team == 'new')req.session.data.team == ""
+  if (req.session.team == 'new') req.session.data.team == ""
 
   if (!existingTeam){
-    console.log("new team")
+    console.log("Adding team ", teamName, "to case")
     req.session.data.teamPermissions.push({
       teamName: teamName,
       permissionsLevel: permissionsLevel
@@ -495,7 +488,7 @@ router.get('/pages/flows/create-new', function (req, res, next) {
   delete data.testResult
   delete data.historyItem
   delete data.reporter
-  
+
   // Set up data
   var urlBase = '/pages/flows/create-new/'
   var urlStem = 'case-type'
@@ -525,7 +518,7 @@ router.post('/pages/flows/create-new/case-type', function (req, res, next) {
 
   var data = req.session.data
   var caseType = _.get(data, 'new.report.caseType')
-  
+
   // Map case types to report types
   setReportTypeFromCaseType(req, caseType)
 
@@ -537,7 +530,7 @@ router.post('/pages/flows/create-new/case-type', function (req, res, next) {
   }
 
   res.redirect('/pages/flows/create-new/overview')
-  
+
 });
 
 
@@ -600,7 +593,7 @@ router.post('/pages/flows/create-new/name', function (req, res) {
     else {
       title = data.customTitle
       delete data.customTitle
-    }  
+    }
     // In case title is blank
     if (!title) {
       res.redirect('/pages/flows/create-new/name')
@@ -632,7 +625,7 @@ router.get('/pages/flows/create-new/product/index', function (req, res, next) {
   else {
     next ()
   }
-  
+
 });
 
 // Product index page
@@ -653,7 +646,7 @@ router.post('/pages/flows/create-new/product/index', function (req, res, next) {
       _.set(data, 'new.taskListSections.products.status.isComplete', false)
       // Status "In progress"
       _.set(data, 'new.taskListSections.products.status.text', "In progress")
-       
+
       // Delete data before beginning journey
       delete data.product
       res.redirect('/pages/flows/create-new/product/new/generic-or-specific')
@@ -673,7 +666,7 @@ router.post('/pages/flows/create-new/product/index', function (req, res, next) {
   }
   // No option selected - render page instead
   else {
-    next(); 
+    next();
   }
 });
 
@@ -698,7 +691,7 @@ router.post('/pages/flows/create-new/product/:index/generic-or-specific', functi
       else {
         res.redirect('/pages/flows/create-new/product/'+index +'/category')
       }
-      
+
     }
     if (questionData == 'generic'){
       res.redirect('/pages/flows/create-new/product/'+index +'/category')
@@ -773,7 +766,7 @@ router.post('/pages/flows/create-new/business/index', function (req, res, next) 
   }
   // No option selected - render page instead
   else {
-    next(); 
+    next();
   }
 });
 
@@ -843,7 +836,7 @@ router.post('/pages/flows/create-new/test-result/index', function (req, res, nex
   }
   // No option selected - render page instead
   else {
-    next(); 
+    next();
   }
 });
 
@@ -905,7 +898,7 @@ router.post('/pages/flows/create-new/reporter/:index/source-type', function (req
     case ("Other"):
       orgName = _.get(data, 'reporter.otherOrgName')
       break
-    
+
   }
   console.log('setting', orgName)
   _.set(data, 'reporter.orgName', orgName)

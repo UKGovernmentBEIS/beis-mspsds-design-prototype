@@ -238,6 +238,14 @@ module.exports = function (env) {
     return result
   };
 
+  // filter results for only those containing attr/ var
+  filters.removeAttr = function (arr, attr, test) {
+    var result = arr.filter(function (item) {
+       return item[attr] !== test;
+    });
+    return result
+  };
+
   // filters.where = (array, key, value) => {
   //   return array.filter(item => {
   //     const keys = key.split('.');
