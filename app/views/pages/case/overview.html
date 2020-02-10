@@ -62,13 +62,15 @@
 
 {% set permissionsHTML %}
 
-<p class="govuk-body">{{(data.teamPermissions | length) + 1}} teams added</p>
-{% if currentCase.restricted -%}
-  <span class="hmcts-badge hmcts-badge--red">Restricted case</span>
-  {% else %}
-  <p class="govuk-body">All other users: default</p>
-{%- endif %}
-
+  {% for team in data.teamPermissions  | sort(attribute='teamName') %}
+    <p class="govuk-body">{{team.teamName}}</p>
+  {% endfor %}
+  {# <p class="govuk-body">{{(data.teamPermissions | length) + 1}} teams</p> #}
+  {# {% if currentCase.restricted -%}
+    <span class="hmcts-badge hmcts-badge--red">Restricted case</span>
+    {% else %}
+    <p class="govuk-body">All other users: default</p>
+  {%- endif %} #}
 {% endset %}
 
 {% set summaryMetadataRows = [
@@ -104,10 +106,12 @@
     },
     {
       key: {
-        text: "Assigned to" if (currentCase.status=="Open") else "Owner"
+        text: "Case owner" if (currentCase.status=="Open") else "Owner"
       },
       value: {
-        text: currentCase.assignee
+        text: currentCase.assignee,
+        html: "Ed Horsford<br>(OPSS Processing)",
+        _html: 'OPSS Processing'
       },
       actions: {
         items: [
@@ -122,7 +126,7 @@
     },
     {
       key: {
-        text: "Permissions"
+        text: "Teams added to case"
       },
       value: {
         html: permissionsHTML
@@ -131,13 +135,29 @@
         items: [
           {
             href: "settings/permissions",
-            text: "View or change" if hasEditRights else 'View',
+            text: "Change" if hasEditRights else 'View',
             visuallyHiddenText: "contact details"
           }
         ]
       }
-    } if false,
+    },
     {
+      key: {
+        text: "Case restriction"
+      },
+      value: {
+        text: 'Restricted' if currentCase.restricted else 'Unrestricted'
+      },
+      actions: {
+        items: [
+          {
+            href: "settings/restriction",
+            text: "Change" if hasEditRights else 'View',
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    },{
       key: {
         text: "Date created"
       },

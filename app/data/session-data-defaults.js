@@ -21,7 +21,7 @@ module.exports = {
   currentUser:   'Felix Bernhard',
   currentTeam:   'OPSS - Processing',
 
-  signedIn:       'No',
+  signedIn:       'Yes',
 
   alwaysDisplayCrumbs: 'No',
 
@@ -73,16 +73,11 @@ module.exports = {
 
   teamPermissions: [
     {
-      teamName: "OPSS - processing",
+      teamName: "OPSS Processing",
       permissionsLevel: "admin"
-    },
-    {
-      teamName: "Birmingham Council",
-      permissionsLevel: "view-full"
-    },
-    {
-      teamName: "The Office of Product Safety and Standards",
-      permissionsLevel: "view-full"
+    },{
+      teamName: "OPSS Enforcement",
+      permissionsLevel: "edit"
     }
   ],
 
