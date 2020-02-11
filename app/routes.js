@@ -254,7 +254,7 @@ router.post(`/pages/case/settings/restriction/save`, function (req, res) {
   // let restricted = true
   Cases.changeVisibility(data, restricted)
   let confirmationText = restricted ? "Case%20visibility%20restricted" : "Case%20visibility%20unrestricted"
-  let redirectURL = '/pages/case/settings/permissions?caseid=' + data.caseid + '&confirmation=' + confirmationText;
+  let redirectURL = '/pages/case/overview';
   res.redirect(redirectURL);
 });
 
