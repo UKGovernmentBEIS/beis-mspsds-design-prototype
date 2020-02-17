@@ -13,7 +13,10 @@
 {% set navActive = 'cases' %}
 
 {% set caseNavActive = 'overview' %}
-{% set hasEditRights = true if (currentCase.assignee == data['currentUser']) else false %}
+{# {% set hasEditRights = true if (currentCase.assignee == data['currentUser']) else false %} #}
+
+{% set hasEditRights = false if (data.hasEditRights == "false") else true %}
+
 
 {% set significantDateLabel = "Last updated" if currentCase.activities.length > 1 else "Created" %}
 
@@ -98,7 +101,7 @@
         text: "Created by"
       },
       value: {
-        text: "Ed Horsford"
+        text: data.currentUser
       },
       actions: {
         items: []
@@ -110,7 +113,7 @@
       },
       value: {
         text: currentCase.assignee,
-        html: "Ed Horsford<br>(OPSS Processing)",
+        html: data.currentUser+"<br>"+data.currentTeam,
         _html: 'OPSS Processing'
       },
       actions: {
@@ -315,9 +318,9 @@
     <h2 class="govuk-heading-m">Enquiry</h2>
 
     {% set reporterContactHTML %}
-    <p class="govuk-body">Ed Horsford</p>
-    <p class="govuk-body">ed.horsford@suffolk.trading-standards.gov.uk</p>
-    <p class="govuk-body">0798989898979</p>
+    <p class="govuk-body">Durward Weimann</p>
+    <p class="govuk-body">durward.weimann@council.gov.uk</p>
+    <p class="govuk-body">07700 909483</p>
 
     {% endset %}
 
@@ -367,7 +370,7 @@
             },
             classes: "",
             value: {
-              text: "Member of the public"
+              text: "Government employee"
             },
             actions: {
               items: [

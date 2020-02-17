@@ -17,9 +17,12 @@ Example usage:
 
 */
 
+let currentUser = 'Felix Bernhard'
+let currentTeam = 'OPSS Enforcement'
+
 module.exports = {
-  currentUser:   'Felix Bernhard',
-  currentTeam:   'OPSS - Processing',
+  currentUser:   currentUser,
+  currentTeam:   currentTeam,
 
   signedIn:       'Yes',
 
@@ -73,10 +76,10 @@ module.exports = {
 
   teamPermissions: [
     {
-      teamName: "OPSS Processing",
+      teamName: currentTeam,
       permissionsLevel: "admin"
     },{
-      teamName: "OPSS Enforcement",
+      teamName: "OPSS Processing",
       permissionsLevel: "edit"
     }
   ],

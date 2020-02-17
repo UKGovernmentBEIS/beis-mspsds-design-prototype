@@ -14,7 +14,10 @@
 {% set navActive = 'cases' %}
 
 {% set caseNavActive = 'settings' %}
-{% set hasEditRights = true if (currentCase.assignee == data['currentUser']) else false %}
+{# {% set hasEditRights = true if (currentCase.assignee == data['currentUser']) else false %} #}
+
+{% set hasEditRights = false if (data.hasEditRights == "false") else true %}
+
 
 {% set significantDateLabel = "Last updated" if currentCase.activities.length > 1 else "Created" %}
 
@@ -76,7 +79,7 @@
 
       <p class="govuk-body">This means that all teams can view case details except sensitive items like correspondence.</p>
 
-      <p class="govuk-body">Restrict the case to prevent teams not added to the case from being able to view any case details.</p>
+      <p class="govuk-body">If the case is going to court or it contains commercially sensitive information you should consider making the case restricted.</p>
     {% endif %}
 
 
@@ -85,15 +88,15 @@
 
     {% set detailsHTML %}
       <p class="govuk-body">
-        The information shared in the PSD can only be seen by registered users from market surveillance authorities and the Office for Product Safety and Standards (OPSS). Case owners can ‘restrict’ cases which means that only teams that are added to a case can view case details.
+        The information shared in the PSD can only be seen by registered users from market surveillance authorities and the Office for Product Safety and Standards (OPSS).
       </p>
 
       <p class="govuk-body">
-        Items that my contain personal information (like correspondence) can only be seen by teams added to the case - so you do not need to restrict a case to stop teams who aren not involved from seeing them.
+        You should only restrict a case in exceptional circumstances. For example, if it's going to court or it contains commercially sensitive information that should not be visible to teams that are not involved in a case.
       </p>
 
       <p class="govuk-body">
-        The aim of the Product safety database is to share information within the product safety community to save time, effort and money. Therefore, cases should only be restricted in exceptional circumstances, for example, if it is going to court or contains commercially sensitive information that should not be visible to teams that are not involved.
+        Items that may contain sensitive details such as correspondence between teams and consumer contact details can only be seen by teams that have been added to the case so you do not need to restrict a case to stop other teams from seeing them.
       </p>
     {% endset %}
 
