@@ -133,7 +133,7 @@ module.exports = {
       title: 'ChargeWorx adaptor, Electric shock, fire hazard',
       report: {
         type: 'Allegation',
-        date: '18/10/2018',
+        date: '18 October 2018',
         summary: 'Adapter sparked in customer’s hand, causing a severe burn.',
         productType: 'Toy',
         hazardType: 'Electric shock',
@@ -160,6 +160,8 @@ module.exports = {
           moreDetail: 'hello world'
         }
       },
+      assignee: "Felix Bernhard",
+      creator: "Felix Bernhard",
       products: ['p1', 'p2'],
       businesses: [{
           id: 'b1',
