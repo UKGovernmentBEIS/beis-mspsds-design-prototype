@@ -1,8 +1,8 @@
 module.exports = {
   teams: [
-    "OPSS - Processing",
-    "OPSS - TSC",
-    "OPSS - IMU",
-    "Trading Standards"
+    "OPSS Processing",
+    "OPSS Enforcement",
+    "OPSS Incident management",
+    "Southampton Council"
   ],
 }

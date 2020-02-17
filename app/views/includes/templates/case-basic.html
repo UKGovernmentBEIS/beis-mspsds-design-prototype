@@ -6,7 +6,9 @@
 {% set currentCase = currentCase | attachCaseChildren(data) %}
 {% set currentTeam = data.currentTeam %}
 
-{% set hasEditRights = true if (currentCase.assignee == data['currentUser']) else false %}
+{# {% set hasEditRights = true if (currentCase.assignee == data['currentUser']) else false %} #}
+{% set hasEditRights = false if (data.hasEditRights == "false") else true %}
+
 {% set hasViewRights = false if (data.hasViewRights == "false") else true %}
 
 {% set caseType = currentCase.report.type %}

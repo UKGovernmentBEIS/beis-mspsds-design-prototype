@@ -86,9 +86,9 @@
             value: settings.q
           }) }}
         </div>
-        
+
         <div class="mspsds-case-control">
-        
+
           {% set assigneeHtml %}
             <label for="case-assignee-autocomplete" class="label govuk-label">Name / Team
               <div id="case-assignee-autocomplete-container"></div>
@@ -100,7 +100,7 @@
               <div id="case-creator-autocomplete-container"></div>
             </label>
           {% endset -%}
-          
+
           {{ govukCheckboxes({
 
               fieldset: {
@@ -169,10 +169,10 @@
 
               ]
             }) }}
-          
+
           {# {% else %} #}
-          
-            
+
+
 
           {# {% endif %} #}
 
@@ -237,11 +237,11 @@
             text: "Filter results"
           }) }}
 
-        
+
 
           <script type="text/javascript">
             var users = {{ data.users | jsList | safe }}
-            
+
             aElement = document.querySelector('#case-assignee-autocomplete-container');
             accessibleAutocomplete({
               element: aElement,
@@ -267,10 +267,10 @@
             });
 
           </script>
-        
+
         </div>
         </div>
-        
+
       </div>
 
 
@@ -296,7 +296,7 @@
           {% endif %}
 
           <p class="govuk-body"><a href="#" class="govuk-link govuk-link--no-visited-state opss-filter--hide">- Hide case filters</a></p>
-          
+
           {# {{ govukButton({
             text: "- Hide filters",
             classes: "govuk-link govuk-link--no-visited-state opss-filter--hide"
@@ -374,25 +374,25 @@
       {% set caseListCases = cases | attachCaseChildren(data) %}
 
       {% if caseListCases | length > 0 %}
-      
+
         {% from "includes/components/case/case-card-list.html"          import caseCardList %}
         {{ caseCardList(caseListCases, data.currentTeam, search)}}
 
       {% endif %}
     </div>
-    
-    
+
+
   </div>
   <div class="govuk-grid-row">
 
 
-    
 
-    
+
+
 
     <div class="govuk-grid-column-three-quarters mspsds-case-list-tab {{searchClasses}}">
 
-      
+
     </div>
 
   </div>

@@ -13,7 +13,9 @@
 {% set navActive = 'cases' %}
 
 {% set caseNavActive = 'overview' %}
-{% set hasEditRights = true if (currentCase.assignee == data['currentUser']) else false %}
+{# {% set hasEditRights = true if (currentCase.assignee == data['currentUser']) else false %} #}
+{% set hasEditRights = false if (data.hasEditRights == "false") else true %}
+
 
 {% set significantDateLabel = "Last updated" if currentCase.activities.length > 1 else "Created" %}
 
@@ -163,7 +165,7 @@
 
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
- 
+
     <h2 class="govuk-heading-m">About the case</h2>
 
     {{ govukSummaryList({
@@ -172,7 +174,7 @@
     }) }}
 
   <div class="govuk-grid-column-one-third">
-    
+
 
   </div>
 </div>

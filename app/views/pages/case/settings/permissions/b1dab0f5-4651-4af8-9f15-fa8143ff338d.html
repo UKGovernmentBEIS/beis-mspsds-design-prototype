@@ -137,7 +137,7 @@
             },
             {
               value: "remove",
-              text: "Remove " + data.team + " from case",
+              text: "Remove " + data.team + " from the case",
               checked: true if data.teamPermissionsLevel == "view-limited" or data.team == 'new',
               hint: {
                 text: "Will still be able to view case details except sensitive information, correspondence, or items that aren't marked as safe"
@@ -172,7 +172,7 @@
         {% if data.team == 'new' %}
           Include a message for the team
         {% else %}
-          Include a message for {{data.teamName}}
+          Include a message for {{data.team}}
         {% endif %}
       {% endset %}
 
@@ -181,7 +181,7 @@
           name: "more-detail",
           id: "more-detail",
           label: {
-            text: "Message to " + (data.teamName if (data.team != 'new') else "the team")
+            text: "Message to " + (data.team if (data.team != 'new') else "the team")
           }
         }) }}
       {% endset %}
@@ -222,7 +222,7 @@
 
 
       {{ govukButton({
-        text: "Update team" if data.team != 'new' else "Add team to this case"
+        text: "Update permission level" if data.team != 'new' else "Add team to this case"
       }) }}
     </form>
 

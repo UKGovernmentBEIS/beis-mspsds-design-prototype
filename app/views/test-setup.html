@@ -24,7 +24,7 @@
 
 
 {% block content %}
-  
+
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       {{ pageTitle({
@@ -37,13 +37,13 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    
+
     <form method="post" class="form">
 
-      
+
       {% call govukFieldset({
         legend: {
-          text:           "Who's testing?",
+          text:           "Who’s testing?",
           isPageHeading:  false,
           classes:        "govuk-fieldset__legend--l"
         }
@@ -61,7 +61,7 @@
 
         {% for team in data['teams'] %}
 
-          {% set teamRows = (teamRows.push({ 
+          {% set teamRows = (teamRows.push({
               value: team,
               text: team,
               checked: checked("currentTeam", team)
@@ -132,7 +132,7 @@
             }
           ]
         }) }}
-      
+
       {{ govukButton({text: "Save"}) }}
 
     </form>
@@ -153,7 +153,7 @@
           name:       "caseToAssign",
           items:      (data.cases | selectChoices(( data.caseToAssign | default('0132-1421'))))
         }) }}
-        
+
         <p> to user </p>
 
         {{ govukInput({
@@ -161,7 +161,7 @@
           name:       "assignee",
           value:      data.currentUser
         }) }}
-        
+
 
       {% endcall %}
 

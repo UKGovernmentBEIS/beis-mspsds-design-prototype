@@ -14,7 +14,10 @@
 {% set navActive = 'cases' %}
 
 {% set caseNavActive = 'settings' %}
-{% set hasEditRights = true if (currentCase.assignee == data['currentUser']) else false %}
+{# {% set hasEditRights = true if (currentCase.assignee == data['currentUser']) else false %} #}
+
+{% set hasEditRights = false if (data.hasEditRights == "false") else true %}
+
 
 {% set significantDateLabel = "Last updated" if currentCase.activities.length > 1 else "Created" %}
 
@@ -90,7 +93,8 @@
     {% elif team.permissionsLevel == 'edit' %}
       {% set thePermissionLevel = 'Edit' %}
     {% elif team.permissionsLevel == 'admin' %}
-      {% set thePermissionLevel = 'Case owner' %}
+      {% set thePermissionLevel = '<span class="hmcts-badge hmcts-badge--grey">Case owner</span>
+' %}
     {% endif %}
 
     {# Generate change link for all except admin #}
@@ -105,7 +109,7 @@
         text: team.teamName
       },
       {
-        text: thePermissionLevel
+        html: thePermissionLevel
       },
       {
         html: changeLink if hasEditRights
@@ -156,39 +160,33 @@
       }) }}
     {% endif %} #}
 
-    <h1 class="govuk-heading-l">Teams added to case</h1>
+    <h1 class="govuk-heading-l">Teams added to the case</h1>
 
     {{permissionsByTeam | safe}}
 
     {% set aboutPermissionLevelsHTML %}
 
-    <h2 class="govuk-heading-m">The 4 permissions levels</h2>
+    <p class="govuk-body">The aim of the Product safety database is to encourage the product safety community to share as much information as possible. However, this must be done responsibly so there are several permission levels.</p>
 
-    <p class="govuk-body">The aim of the Product safety database is to encourage the product safety community to share as much information as possible. However, sharing data must be done responsibly and there are different permission levels which correspond to a team’s level of involvement.</p>
+    <h3 class="govuk-heading-s">Teams added with ‘View’ access</h3>
+    <p class="govuk-body">Can view all details of the case, including items that may contain personal information. You should give ‘View’ access to a team if you want them to be able to see the full case.</p>
 
-    <p class="govuk-body">There are 4 permission levels.</p>
+    <h3 class="govuk-heading-s">Teams added with ‘Edit’ access</h3>
+    <p class="govuk-body">Can view and edit all details of the case, including items that may contain sensitive information. You should give ‘Edit’ access to a team if you are collaborating with them or want them to add details to a case.</p>
 
-    <p class="govuk-body">Teams who are currently involved in the case have one of the following:</p>
-     <ol class="govuk-list govuk-list--number">
-      {# <li>Full view, edit and manage.</li> #}
-      <li>Full view and edit.</li>
-      <li>Full view.</li>
-    </ol>
+    <h3 class="govuk-heading-s">Teams not added to a case</h3>
+    <p class="govuk-body">Teams that have not been added to the case will be able to view most case details, but will not be able to see items that may contain personal information, like correspondence or contact details from members of the public.</p>
 
-    <p class="govuk-body">Teams who are not involved in a case have:</p>
-    <ol class="govuk-list govuk-list--number" start='4'>
-      <li>Default view.</li>
-    </ol>
+    <p class="govuk-body">If you want to prevent other teams from being able to see any case details, you can <a href="#">restrict the case</a>.</p>
 
-    {% set detailsHTML %}
+
+
+    {% set permissionsTable %}
+      <h2 class="govuk-heading-m">Permissions table</h2>
       {% include "includes/components/shared/permissions-table.html" %}
     {% endset %}
 
-    {{ govukDetails({
-      summaryText: "What can be seen at each permission level",
-      html: detailsHTML,
-      open: false
-    }) }}
+    {{permissionsTable | safe}}
 
     {% if not currentCase.restricted %}
     <h3 class="govuk-heading-s">Restricting a case</h3>
@@ -199,7 +197,8 @@
 
     {{ govukDetails({
       summaryText: "About permission levels",
-      html: aboutPermissionLevelsHTML
+      html: aboutPermissionLevelsHTML,
+      open: true
     }) }}
 
     {% set caseOwnerHTML %}
