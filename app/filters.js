@@ -7,6 +7,7 @@ const moment = require("moment");
 const faker = require("faker");
 const CaseSearch   = require("./utils/case-search");
 var _ = require('lodash');
+var CSV = require('csv-string')
 
 
 module.exports = function (env) {
@@ -356,6 +357,44 @@ module.exports = function (env) {
       fullName: fullName,
       email: email}
     return user;
+  }
+
+  filters.csvToArray = (csvString) => {
+    arr = CSV.parse(csvString);
+    let tableData = []
+    arr.forEach(row => {
+      let rowData = []
+      // console.log("Row is", row)
+      row.forEach(item => {
+        rowData.push(item)
+      })
+
+      tableData.push(rowData)
+    })
+    if (tableData.length == 1){
+      tableData = tableData[0]
+    }
+    // console.log("tabledata lengths itableData);
+    return tableData;
+  }
+
+  filters.csvToMacroArray = (csvString) => {
+    arr = CSV.parse(csvString);
+    let tableData = []
+    arr.forEach(row => {
+      let rowData = []
+      // console.log("Row is", row)
+      row.forEach(item => {
+        rowData.push({html: item})
+      })
+
+      tableData.push(rowData)
+    })
+    if (tableData.length == 1){
+      tableData = tableData[0]
+    }
+    // console.log("tabledata lengths itableData);
+    return tableData;
   }
 
   /* ------------------------------------------------------------------
