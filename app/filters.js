@@ -359,42 +359,56 @@ module.exports = function (env) {
     return user;
   }
 
+  // Convert a csv string to array
   filters.csvToArray = (csvString) => {
     arr = CSV.parse(csvString);
-    let tableData = []
+    let arrData = []
     arr.forEach(row => {
       let rowData = []
-      // console.log("Row is", row)
       row.forEach(item => {
         rowData.push(item)
       })
-
-      tableData.push(rowData)
+      arrData.push(rowData)
     })
-    if (tableData.length == 1){
-      tableData = tableData[0]
-    }
-    // console.log("tabledata lengths itableData);
-    return tableData;
+    // Flatten array if it's only a single line
+    arrData = (arrData.length == 1) ? arrData[0] : arrData
+    return arrData;
   }
 
-  filters.csvToMacroArray = (csvString) => {
+  filters.csvToTableMacro = (csvString) => {
     arr = CSV.parse(csvString);
-    let tableData = []
+    let arrData = []
     arr.forEach(row => {
       let rowData = []
-      // console.log("Row is", row)
       row.forEach(item => {
         rowData.push({html: item})
       })
-
-      tableData.push(rowData)
+      arrData.push(rowData)
     })
-    if (tableData.length == 1){
-      tableData = tableData[0]
-    }
-    // console.log("tabledata lengths itableData);
-    return tableData;
+    arrData = (arrData.length == 1) ? arrData[0] : arrData
+    return arrData;
+  }
+
+  // expects in order: key, value, href, link text, visuallyHiddenText
+  filters.csvToSummaryList = (csvString) => {
+    arr = CSV.parse(csvString);
+    let arrData = []
+    arr.forEach(row => {
+      let rowData = {}
+      rowData.key = {text: row[0]}
+      rowData.value = {html: row[1]}
+      if (row[2]){
+        let item = {}
+        item.href = row[2] // href
+        item.text = (row[3]) ? row[3] : "Change" // link texts
+        if (row[4]) item.visuallyHiddenText = row[4]
+        rowData.actions = {
+          items: [item]
+        }
+      }
+      arrData.push(rowData)
+    })
+    return arrData;
   }
 
   /* ------------------------------------------------------------------
