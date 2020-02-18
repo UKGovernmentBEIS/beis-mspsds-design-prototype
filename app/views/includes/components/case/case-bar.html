@@ -23,7 +23,7 @@
       {{- " undefined hazard" -}}
     {%- endif -%}
   {%- endif -%}
-  
+
   {% endif %}
 {%- endset %}
 
@@ -43,7 +43,7 @@
   }, #}
 
 
-    {% set addNewMenuItems = 
+    {% set addNewMenuItems =
       [{
         text: 'Comment',
         classes: 'hmcts-button--secondary',
@@ -75,7 +75,7 @@
       }]
     %}
 
-    {% set actionsMenuItems = 
+    {% set actionsMenuItems =
       [{
         text: 'Reassign this case',
         classes: 'hmcts-button--secondary',
@@ -168,23 +168,23 @@ Current user: {{data['currentUser']}} #}
   {{ identityBar({
     title: { html: identityBarContentHTML },
     menus: menus
-    }) }}  
+    }) }}
 
 {% else %}
 
   {{ identityBar({
     title: { html: identityBarContentHTML }
-    }) }}  
+    }) }}
 
 
 {% endif %}
 
 
-{# 
+{#
 
 <div class="govuk-grid-row">
 
-      
+
 
 	{% if data['currentTeam'] == 'Trading Standards' %}
 

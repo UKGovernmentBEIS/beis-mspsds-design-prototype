@@ -98,6 +98,11 @@
       <p class="govuk-body">
         Items that may contain sensitive details such as correspondence between teams and consumer contact details can only be seen by teams that have been added to the case so you do not need to restrict a case to stop other teams from seeing them.
       </p>
+
+      <h2 class="govuk-heading-m">Permissions table</h2>
+
+      {% include "includes/components/shared/permissions-table.html" %}
+
     {% endset %}
 
     {{ govukDetails({

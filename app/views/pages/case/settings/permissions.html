@@ -165,34 +165,7 @@
     {{permissionsByTeam | safe}}
 
     {% set aboutPermissionLevelsHTML %}
-
-    <p class="govuk-body">The aim of the Product safety database is to encourage the product safety community to share as much information as possible. However, this must be done responsibly so there are several permission levels.</p>
-
-    <h3 class="govuk-heading-s">Teams added with ‘View full case’</h3>
-    <p class="govuk-body">Can view all details of the case, including items that may contain personal information. You should give ‘View’ access to a team if you want them to be able to see the full case.</p>
-
-    <h3 class="govuk-heading-s">Teams added with ‘Edit full case’</h3>
-    <p class="govuk-body">Can view and edit all details of the case, including items that may contain sensitive information. You should give ‘Edit’ access to a team if you are collaborating with them or want them to add details to a case.</p>
-
-    <h3 class="govuk-heading-s">Teams not added to a case (default view)</h3>
-    <p class="govuk-body">Teams that have not been added to the case will be able to view most case details, but will not be able to see items that may contain personal information, like correspondence or contact details from members of the public.</p>
-
-    <p class="govuk-body">If you want to prevent other teams from being able to see any case details, you can <a href="#">restrict the case</a>.</p>
-
-
-
-    {% set permissionsTable %}
-      <h2 class="govuk-heading-m">Permissions table</h2>
-      {% include "includes/components/shared/permissions-table.html" %}
-    {% endset %}
-
-    {{permissionsTable | safe}}
-
-    {% if not currentCase.restricted %}
-    <h3 class="govuk-heading-s">Restricting a case</h3>
-    <p class="govuk-body">In exceptional circumstances, the case owner can <a href="restriction">restrict a case</a>.</p>
-    {% endif %}
-
+      {% include "includes/components/shared/permissions-content.html" %}
     {% endset %}
 
     {{ govukDetails({

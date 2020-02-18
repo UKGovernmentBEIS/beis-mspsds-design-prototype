@@ -375,6 +375,7 @@ module.exports = function (env) {
     return arrData;
   }
 
+  // Convert CSV data to the format needed for the govukTable macro rows
   filters.csvToTableMacro = (csvString) => {
     arr = CSV.parse(csvString);
     let arrData = []
@@ -385,29 +386,47 @@ module.exports = function (env) {
       })
       arrData.push(rowData)
     })
-    arrData = (arrData.length == 1) ? arrData[0] : arrData
+    // arrData = (arrData.length == 1) ? arrData[0] : arrData
     return arrData;
   }
 
-  // expects in order: key, value, href, link text, visuallyHiddenText
-  filters.csvToSummaryList = (csvString) => {
-    arr = CSV.parse(csvString);
+  // Convert nested array to form needed for govukSummaryList
+  //
+  // Expects nested array
+  // [
+  //   ["key", "value"],
+  //   ["key", "value", "href"],
+  //   ["key", "value", "href", "link text", "visually hidden text"]
+  // ]
+  // href, link text, and visually hidden text are all optional
+
+  filters.arrayToSummaryList = (array) => {
     let arrData = []
-    arr.forEach(row => {
+    array.forEach(row => {
       let rowData = {}
       rowData.key = {text: row[0]}
       rowData.value = {html: row[1]}
-      if (row[2]){
+      // Action (optional)
+      if ( row[2] != null ){
         let item = {}
-        item.href = row[2] // href
-        item.text = (row[3]) ? row[3] : "Change" // link texts
-        if (row[4]) item.visuallyHiddenText = row[4]
+        // Href
+        item.href = row[2]
+        // Action link text (optional)
+        item.text = (row[3] != null ) ? row[3] : "Change"
+        // Visually hidden text (optional)
+        item.visuallyHiddenText = (row[4] != null ) ? row[4] : row[0].toLowerCase()
         rowData.actions = {
           items: [item]
         }
       }
       arrData.push(rowData)
     })
+    return arrData;
+  }
+
+  filters.csvToSummaryList = (csvString) => {
+    arr = CSV.parse(csvString);
+    let arrData = filters.arrayToSummaryList(arr)
     return arrData;
   }
 

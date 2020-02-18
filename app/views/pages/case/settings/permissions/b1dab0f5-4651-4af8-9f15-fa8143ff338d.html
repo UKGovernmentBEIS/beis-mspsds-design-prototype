@@ -53,10 +53,6 @@
 
 {{permissionsTable | safe}}
 
-<h3 class="govuk-heading-m">Definitions</h3>
-<p class="govuk-body"><strong>Metadata only</strong> - only metadata about this item is available - such as date created and type - but not the contents of the item.</p>
-<p class="govuk-body"><strong>Summary only</strong> - only the summary for this item is available, including dates - but not the contents of the item.</p>
-
 
 {% endset %}
 
@@ -151,6 +147,8 @@
 
       {% endif %}
 
+
+
       {# Choose permission level for team #}
       {{ govukRadios({
         idPrefix: "where-do-you-live",
@@ -167,12 +165,20 @@
         items: permissionsItems
       }) }}
 
+      <p class="govuk-body">
+      {% if (data.team == 'new') %}
+        We’ll let the team know they’ve been added to the case.
+      {% else %}
+        We’ll let {{data.team}} know that their permission level has been changed.
+      {% endif %}
+      </p>
+
       {# Comment sent to team that is being updated #}
-      {% set additionalMessageHTML %}
+      {% set additionalMessageQuestionText %}
         {% if data.team == 'new' %}
-          Include a message for the team
+          Include an additional message for the team?
         {% else %}
-          Include a message for {{data.team}}
+          Include an additional message for {{data.team}}?
         {% endif %}
       {% endset %}
 
@@ -191,15 +197,15 @@
         name: "include-message",
         fieldset: {
           legend: {
-            text: additionalMessageHTML,
+            text: additionalMessageQuestionText,
             isPageHeading: true,
-            classes: "govuk-fieldset__legend--m"
+            _classes: "govuk-fieldset__legend--s"
           }
         },
         items: [
           {
             value: "yes",
-            text: "Yes",
+            text: "Yes, add a message",
             conditional: {
               html: teamMessageHTML
             }
