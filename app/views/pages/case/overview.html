@@ -53,7 +53,7 @@
 
 {% block header %}
   {{ super() }}
-  {% set includeCaseActions = true %}
+  {% set includeCaseActions = false %}
 
   {% include "includes/components/case/case-bar.html" %}
 
@@ -259,9 +259,9 @@
 
       {% set productCategoryList %}
         <ul class="govuk-list">
-          <li>Childcare articles and children’s equipment</li>
-          <li>Explosive atmospheres equipment</li>
-          <li>Kitchen / cooking accessories</li>
+          <li>Electrical appliances and equipment</li>
+          {# <li>Explosive atmospheres equipment</li>
+          <li>Kitchen / cooking accessories</li> #}
         </ul>
 
       {% endset %}

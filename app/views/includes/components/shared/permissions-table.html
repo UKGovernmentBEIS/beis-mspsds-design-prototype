@@ -24,7 +24,7 @@
   caption: "Case actions",
   firstCellIsHeader: true,
   head: columnHeaders,
-  rows: actionsCSVdata | csvToMacroArray,
+  rows: actionsCSVdata | csvToTableMacro,
   classes: "govuk-!-margin-bottom-9"
 }) }}
 
@@ -46,7 +46,7 @@
   caption: "Case information",
   firstCellIsHeader: true,
   head: columnHeaders,
-  rows: caseInformationCSVdata | csvToMacroArray,
+  rows: caseInformationCSVdata | csvToTableMacro,
   classes: "govuk-!-margin-bottom-9"
 }) }}
 
@@ -62,7 +62,7 @@
   caption: "Case documents and logs",
   firstCellIsHeader: true,
   head: columnHeaders,
-  rows: caseDocumentsCSVdata | csvToMacroArray,
+  rows: caseDocumentsCSVdata | csvToTableMacro,
   classes: "govuk-!-margin-bottom-9"
 }) }}
 
@@ -76,7 +76,7 @@
   caption: "Linked items",
   firstCellIsHeader: true,
   head: columnHeaders,
-  rows: caseLinkedItemsCSVdata | csvToMacroArray,
+  rows: caseLinkedItemsCSVdata | csvToTableMacro,
   classes: "govuk-!-margin-bottom-9"
 }) }}
 
@@ -91,6 +91,14 @@
   caption: "Attachments",
   firstCellIsHeader: true,
   head: columnHeaders,
-  rows: caseAttachmentsCSVdata | csvToMacroArray,
+  rows: caseAttachmentsCSVdata | csvToTableMacro,
   classes: "govuk-!-margin-bottom-9"
 }) }}
+
+{# {% set summaryListData =
+  "Name, Ed Horsford
+  Date of birth, 14 February, #, , date of birth"%}
+
+{{ govukSummaryList({
+  rows: summaryListData | csvToSummaryList
+}) }} #}
