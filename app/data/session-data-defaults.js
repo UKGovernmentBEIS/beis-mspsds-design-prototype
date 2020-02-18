@@ -18,7 +18,7 @@ Example usage:
 */
 
 let currentUser = 'Felix Bernhard'
-let currentTeam = 'OPSS Enforcement'
+let currentTeam = 'Southampton Council'
 
 module.exports = {
   currentUser:   currentUser,
