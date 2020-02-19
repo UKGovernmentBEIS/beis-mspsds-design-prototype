@@ -24,7 +24,7 @@
   caption: "Case actions",
   firstCellIsHeader: true,
   head: columnHeaders,
-  rows: actionsCSVdata | csvToTableMacro,
+  rows: actionsCSVdata | csvToGovukTable,
   classes: "govuk-!-margin-bottom-9"
 }) }}
 
@@ -46,7 +46,7 @@
   caption: "Case information",
   firstCellIsHeader: true,
   head: columnHeaders,
-  rows: caseInformationCSVdata | csvToTableMacro,
+  rows: caseInformationCSVdata | csvToGovukTable,
   classes: "govuk-!-margin-bottom-9"
 }) }}
 
@@ -62,7 +62,7 @@
   caption: "Case documents and logs",
   firstCellIsHeader: true,
   head: columnHeaders,
-  rows: caseDocumentsCSVdata | csvToTableMacro,
+  rows: caseDocumentsCSVdata | csvToGovukTable,
   classes: "govuk-!-margin-bottom-9"
 }) }}
 
@@ -76,7 +76,7 @@
   caption: "Linked items",
   firstCellIsHeader: true,
   head: columnHeaders,
-  rows: caseLinkedItemsCSVdata | csvToTableMacro,
+  rows: caseLinkedItemsCSVdata | csvToGovukTable,
   classes: "govuk-!-margin-bottom-9"
 }) }}
 
@@ -91,6 +91,8 @@
   caption: "Attachments",
   firstCellIsHeader: true,
   head: columnHeaders,
-  rows: caseAttachmentsCSVdata | csvToTableMacro,
+  rows: caseAttachmentsCSVdata | csvToGovukTable,
   classes: "govuk-!-margin-bottom-9"
 }) }}
+
+
