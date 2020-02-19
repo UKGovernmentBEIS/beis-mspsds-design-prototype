@@ -17,7 +17,7 @@ Example usage:
 
 */
 
-let currentUser = 'Felix Bernhard'
+let currentUser = 'Jo Bernhard'
 let currentTeam = 'Southampton Council'
 
 module.exports = {
