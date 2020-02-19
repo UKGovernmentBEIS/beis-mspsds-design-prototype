@@ -165,22 +165,14 @@
         items: permissionsItems
       }) }}
 
+
       <p class="govuk-body">
       {% if (data.team == 'new') %}
-        We’ll let the team know they’ve been added to the case.
+        We’ll email the team to let them know they’ve been added to the case.
       {% else %}
-        We’ll let {{data.team}} know that their permission level has been changed.
+        We’ll email {{data.team}} to let them know that their permission level has been changed.
       {% endif %}
       </p>
-
-      {# Comment sent to team that is being updated #}
-      {% set additionalMessageQuestionText %}
-        {% if data.team == 'new' %}
-          Include an additional message for the team?
-        {% else %}
-          Include an additional message for {{data.team}}?
-        {% endif %}
-      {% endset %}
 
       {% set teamMessageHTML %}
         {{ govukTextarea({
@@ -197,7 +189,7 @@
         name: "include-message",
         fieldset: {
           legend: {
-            text: additionalMessageQuestionText,
+            text: "Do you want to include instructions or more information?",
             isPageHeading: true,
             _classes: "govuk-fieldset__legend--s"
           }
