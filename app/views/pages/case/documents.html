@@ -1,0 +1,216 @@
+{% extends "mspsds-layout.html" %}
+{% set currentPage      = 'case' %}
+{% set currentCase = data.cases | withId(data['caseid']) %}
+{% set currentCase = currentCase | attachCaseChildren(data) %}
+{% set currentTeam = data.currentTeam %}
+
+{% if bodyClasses %}
+    {% set bodyClasses = bodyClasses + " mspsds-width-container case" %}
+{% else %}
+    {% set bodyClasses = " mspsds-width-container case" %}
+{% endif %}
+
+{% set navActive = 'cases' %}
+
+{% set caseNavActive = 'documents' %}
+{# {% set hasEditRights = true if (currentCase.assignee == data['currentUser']) else false %} #}
+{% set hasEditRights = false if (data.hasEditRights == "false") else true %}
+
+
+{% set significantDateLabel = "Last updated" if currentCase.activities.length > 1 else "Created" %}
+
+
+
+
+{% block pageTitle %}
+{% endblock %}
+
+{% block header %}
+  {{ super() }}
+  {% set includeCaseActions = true %}
+
+  {% include "includes/components/case/case-bar.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+
+
+
+{% block content %}
+
+{% include "includes/components/case/case-navigation.html" %}
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Supporting information</h1>
+
+
+  </div>
+</div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half">
+        <p class="govuk-body"><a href="#" class="govuk-link">Add supporting information</a>
+        </p>
+      </div>
+      <div class="govuk-grid-column-one-half">
+
+        <span class="align-right">
+          {{ govukSelect({
+            id: "sort",
+            name: "sort",
+            formGroup: {
+              classes: "govuk-!-margin-bottom-4"
+            },
+            label: {
+              text: "Sort by"
+            },
+            items: [
+              {
+                value: "published",
+                text: "Date added"
+              },
+              {
+                value: "updated",
+                text: "Last updated"
+              },
+              {
+                value: "effective",
+                text: "Date of the activity",
+                selected: true
+              },
+              {
+                value: "author",
+                text: "Added by"
+              },
+              {
+                value: "name",
+                text: "Name"
+              }
+            ]
+          }) }}
+        </span>
+       {#  <span class="align-right govuk-!-margin-right-3">
+
+          {{ govukCheckboxes({
+            idPrefix: "nationality",
+            name: "nationality",
+            items: [
+              {
+                value: "british",
+                text: "Group by type",
+                checked: true
+              }
+            ]
+          }) }}
+        </span> #}
+      </div>
+    </div>
+
+  {% set tableData = [
+    [
+      {
+        html: '<a href="/pages/case/risk-assessment/">Risk assessment: serious risk</a>'
+      },{
+        text: "Ed Horsford"
+      },{
+        text: "4 January 2020"
+      }
+    ],[
+      {
+        html: '<a href="#">Test result: failed test</a>'
+      },{
+        text: "Ed Horsford"
+      },{
+        text: "3 January 2020"
+      }
+    ]
+
+  ]%}
+
+  <h2 class="govuk-heading-m">Documents and attachments</h2>
+
+
+    {{ govukTable({
+      firstCellIsHeader: false,
+      head: [
+
+        {
+          text: ""
+        },
+        {
+          text: "Added by"
+        },
+        {
+          text: "Date added"
+        }
+      ],
+      rows: tableData
+    }) }}
+
+  <h2 class="govuk-heading-m">Corrective actions</h2>
+  <p class="govuk-body"><a href="#" class="govuk-link">Add a corrective action</a>
+
+  {{ govukTable({
+    firstCellIsHeader: false,
+    head: [
+
+      {
+        text: "Item"
+      },
+      {
+        text: "Added by"
+      },
+      {
+        text: "Date"
+      }
+    ],
+    rows: [
+      ["<a href='#'>Corrective action: Investigated foo</a>", "J Smith", "1 January 2020"],
+      ["<a href='#'>Corrective action: Investigated foo</a>", "J Smith", "1 January 2020"],
+      ["<a href='#'>Corrective action: Investigated foo</a>", "J Smith", "1 January 2020"],
+      ["<a href='#'>Corrective action: Investigated foo</a>", "J Smith", "1 January 2020"],
+      ["<a href='#'>Corrective action: Investigated foo</a>", "J Smith", "1 January 2020"]
+    ] | arrayToGovukTable
+  }) }}
+
+  <h2 class="govuk-heading-m">Correspondence</h2>
+  <p class="govuk-body"><a href="#" class="govuk-link">Add correspondence</a>
+  {{ permissionNotice({
+    html: "Correspondence can only be viewed by teams added to the case."
+  }) }}
+
+  {{ govukTable({
+    firstCellIsHeader: false,
+    head: [
+
+      {
+        text: "Item"
+      },
+      {
+        text: "Added by"
+      },
+      {
+        text: "Date"
+      }
+    ],
+    rows: [
+      ["<a href='#'>Email: Subject line foo</a>", "J Smith", "1 January 2020"],
+      ["<a href='#'>Email: Subject line foo</a>", "J Smith", "1 January 2020"],
+      ["<a href='#'>Email: Subject line foo</a>", "J Smith", "1 January 2020"],
+      ["<a href='#'>Email: Subject line foo</a>", "J Smith", "1 January 2020"],
+      ["<a href='#'>Email: Subject line foo</a>", "J Smith", "1 January 2020"]
+    ] | arrayToGovukTable
+  }) }}
+
+  </div>
+</div>
+
+{% endblock %}
