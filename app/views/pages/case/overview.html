@@ -106,60 +106,6 @@
       actions: {
         items: []
       }
-    },
-    {
-      key: {
-        text: "Case owner" if (currentCase.status=="Open") else "Owner"
-      },
-      value: {
-        text: currentCase.assignee,
-        html: data.currentUser+"<br>"+data.currentTeam,
-        _html: 'OPSS Processing'
-      },
-      actions: {
-        items: [
-          {
-            href: "/root/flows/assign/01",
-            text: "Change",
-            visuallyHiddenText: "assignee",
-            classes: "govuk-link--no-visited-state"
-          } if hasEditRights else []
-        ]
-      }
-    },
-    {
-      key: {
-        text: "Teams added to case"
-      },
-      value: {
-        html: permissionsHTML
-      },
-      actions: {
-        items: [
-          {
-            href: "settings/permissions",
-            text: "Change" if hasEditRights else 'View',
-            visuallyHiddenText: "contact details"
-          }
-        ]
-      }
-    },
-    {
-      key: {
-        text: "Case restriction"
-      },
-      value: {
-        text: 'Restricted' if currentCase.restricted else 'Unrestricted'
-      },
-      actions: {
-        items: [
-          {
-            href: "settings/restriction",
-            text: "Change" if hasEditRights else 'View',
-            visuallyHiddenText: "contact details"
-          }
-        ]
-      }
     },{
       key: {
         text: "Date created"
@@ -408,7 +354,31 @@
 
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
+    <h2 class="govuk-heading-m">Sharing and collaboration</h2>
+
+    {% set unrestrictedText %}
+      <p class="govuk-body govuk-hint">Teams not added to case have default view rights</p>
+    {% endset %}
+
+    {% set sharingData = [
+      ["Case owner", data.currentUser+"<br>"+data.currentTeam, "/root/flows/assign/01"],
+      ["Teams added to case", permissionsHTML, "settings/permissions"],
+      ["Case restriction", 'Restricted' if currentCase.restricted else 'Unrestricted', "settings/restriction"]
+      ]
+      %}
+
+    {{ govukSummaryList({
+      classes: 'govuk-summary-list--no-border',
+      rows: sharingData | arrayToSummaryList
+    }) }}
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
     <h2 class="govuk-heading-m">About the case</h2>
+
+
+
+
 
     {{ govukSummaryList({
       classes: 'govuk-summary-list--no-border',
