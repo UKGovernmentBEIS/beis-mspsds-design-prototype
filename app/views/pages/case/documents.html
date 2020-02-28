@@ -208,7 +208,8 @@
     {# {% set data.groupByType = true %} #}
     {% if groupByType %}
       {% for type, items in itemsSorted | sort(attribute='type') | groupby("type") %}
-          <h2 class="govuk-heading-m govuk-!-margin-bottom-0">{{type | pluralise }}</h2>
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">{{type | pluralise }}</h2>
+          <p class="govuk-body govuk-!-margin-bottom-0"><a href="#" class="govuk-link">Add {{type | lower}}</a></p>
           {{ itemTable(items) }}
           <hr class="govuk-section-break govuk-section-break--l">
       {% endfor %}
@@ -226,7 +227,7 @@
 {% macro itemTable(items) %}
 
   {# Slim down to data we need #}
-  {% set theItems = items | keepAttributes('htmlTitle', 'addedHtml', 'dateGovuk') %}
+  {% set theItems = items | keepAttributes('htmlTitle', 'dateGovuk', 'addedHtml') %}
   {# Convert to nested array #}
   {% set tableData = theItems | objectArrayToArray %}
   {# Make table #}
@@ -239,10 +240,13 @@
         classes: "govuk-!-width-one-half"
       },
       {
-        text: "Added by"
+        text: "Activity date",
+        classes: "govuk-!-width-one-quarter"
       },
       {
-        text: "Activity date"
+        text: "Added by"
+        ,
+        classes: "govuk-!-width-one-quarter"
       }
     ],
     rows: tableData | arrayToGovukTable
