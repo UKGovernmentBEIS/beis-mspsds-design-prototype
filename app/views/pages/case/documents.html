@@ -172,15 +172,17 @@
 
     {# Add extra fields #}
     {% for item in historyItems %}
-      {% set titleText = item.title %}
-      {% if item.type == 'Correspondence' %}
-        {% set titleText = item.correspondenceType + ": " + item.title %}
-      {% endif %}
-      {% if not groupByType %}
-        {% set titleText = (item.correspondenceType or item.type) + ": " + item.title %}
-      {% endif %}
+
+      {% set titleExtra %}
+        {% if (not groupByType) or (groupByType and item.correspondenceType) %}
+          <br>
+          <span class="govuk-hint govuk-!-margin-top-1 govuk-!-margin-bottom-0">{{item.correspondenceType or item.type}}</span>
+        {% endif %}
+      {% endset %}
+
       {% set title -%}
-        <a href="documents/{{loop.index0}}">{{titleText}}</a>
+        <a href="documents/{{loop.index0}}">{{item.title}}</a>
+        {{titleExtra | safe}}
       {%- endset %}
       {% set author = ('' | faker).fullName %}
       {% set item = item | setAttribute('title', title) %}
@@ -196,10 +198,10 @@
 
     {# {% set data.groupByType = true %} #}
     {% if groupByType %}
-      {% for type, items in itemsSorted | groupby("type") %}
+      {% for type, items in itemsSorted | sort(attribute='type') | groupby("type") %}
           <h2 class="govuk-heading-m govuk-!-margin-bottom-0">{{type | pluralise }}</h2>
           {{ itemTable(items) }}
-          <hr class="govuk-section-break govuk-section-break--m">
+          <hr class="govuk-section-break govuk-section-break--l">
       {% endfor %}
       {% else %}
       {{ itemTable(itemsSorted) }}
