@@ -17,9 +17,10 @@
   }, {
     text: 'Images (5)',
     href: '/pages/case/images',
+    href: '#',
     active: true if caseNavActive == 'images'
   }, {
-    text: 'Supporting information (2)',
+    text: 'Supporting information (' + (currentCase.report.history.items | length) + ')',
     href: '/pages/case/documents',
     active: true if caseNavActive == 'documents'
   }, {

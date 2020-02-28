@@ -158,7 +158,163 @@ module.exports = {
           productsAssessed: 'product',
           riskLevel: 'Severe',
           moreDetail: 'hello world'
-        }
+        },
+        testResult: {
+          testResults:
+            [
+              {
+                hasFile: 'no',
+                title: 'Electrical safety test',
+                date: [4, 2, 2019],
+                dateAdded: [11, 2, 2020],
+                legislation: 'Electrical Equipment (Safety) Regulations 2016',
+                result: 'fail',
+                details: '',
+                type: 'Test result'
+              }
+            ]
+        },
+        history: {
+          items:
+            [
+              {
+                title: 'Initial enquiry',
+                date: [14, 1, 2020],
+                dateAdded: [30, 1, 2020],
+                from: '',
+                to: '',
+                subject: '',
+                body: '',
+                attachment: '',
+                attachmentDescription: '',
+                type: 'Correspondence',
+                correspondenceType: 'Email',
+                hasFile: 'no'
+             },
+              {
+                title: 'Request for documents',
+                date: [4, 2, 2020],
+                dateAdded: [12, 2, 2020],
+                from: '',
+                to: '',
+                subject: '',
+                body: '',
+                attachment: '',
+                attachmentDescription: '',
+                type: 'Correspondence',
+                correspondenceType: 'Email',
+                hasFile: 'no'
+             },
+              {
+                title: 'Call with supplier',
+                date: [2, 2, 2020],
+                dateAdded: [12, 2, 2020],
+                from: '',
+                to: '',
+                subject: '',
+                body: '',
+                attachment: '',
+                attachmentDescription: '',
+                type: 'Correspondence',
+                correspondenceType: 'Phone call',
+                hasFile: 'no'
+             },{
+                title: 'Asking for contact details',
+                date: [2, 2, 2020],
+                dateAdded: [12, 2, 2020],
+                from: '',
+                to: '',
+                subject: '',
+                body: '',
+                attachment: '',
+                attachmentDescription: '',
+                type: 'Correspondence',
+                correspondenceType: 'Phone call',
+                hasFile: 'no'
+             },
+             {
+               title: 'Destruction of the product',
+               typeOfActionOther: '',
+               date: [2, 2, 2020],
+               dateAdded: [12, 2, 2020],
+               legislation:
+                'Gas Appliances (Enforcement) and Miscellaneous Amendments Regulations 2018 / EU 2016/426 Appliances Burning Gaseous Fuels',
+               typeOfAction: 'mandatory',
+               durationOfMeasure: 'permanent',
+               scope: 'National',
+               otherDetails: '',
+               type: 'Corrective action',
+               hasFile: 'no'
+             },
+             {
+               title: 'Marking the product with appropriate warnings on the risks',
+               typeOfActionOther: '',
+               date: [1, 5, 2020],
+               dateAdded: [13, 2, 2020],
+               legislation:
+                'Gas Appliances (Enforcement) and Miscellaneous Amendments Regulations 2018 / EU 2016/426 Appliances Burning Gaseous Fuels',
+               typeOfAction: 'voluntary',
+               durationOfMeasure: 'permanent',
+               scope: 'EEA wide',
+               otherDetails: 'sgseggse',
+               type: 'Corrective action',
+               hasFile: 'no'
+             },
+             {
+               title: 'Impounded the product',
+               typeOfActionOther: '',
+               date: [11, 2, 2020],
+               dateAdded: [12, 2, 2020],
+               legislation:
+                'Gas Appliances (Enforcement) and Miscellaneous Amendments Regulations 2018 / EU 2016/426 Appliances Burning Gaseous Fuels',
+               typeOfAction: 'voluntary',
+               durationOfMeasure: 'permanent',
+               scope: 'EEA wide',
+               otherDetails: 'sgseggse',
+               type: 'Corrective action',
+               hasFile: 'no'
+             },
+             {
+              title: 'Item exploded in user\'s hand',
+              date: [ 12, 12, 2019 ],
+              dateAdded: [12, 2, 2020],
+              approximateDate: '',
+              otherDetails: 'Really dangerous thing happened.',
+              type: 'Incident',
+              hasFile: 'no'
+            },
+            {
+              hasFile: 'no',
+              title: 'Electrical safety test',
+              date: [4, 2, 2019],
+              dateAdded: [11, 2, 2020],
+              legislation: 'Electrical Equipment (Safety) Regulations 2016',
+              result: 'fail',
+              details: '',
+              type: 'Test result'
+            },
+            {
+              title: 'Assessed risk: serious',
+              date: [1,2,2020],
+              dateAdded: [1,2,2020],
+              authorType: 'foobar',
+              productsAssessed: 'product',
+              riskLevel: 'Severe',
+              moreDetail: 'hello world',
+              type: 'Risk assessment'
+            },
+            {
+              title: 'Assessed risk: low',
+              date: [5,6,2010],
+              dateAdded: [1,2,2020],
+              authorType: 'foobar',
+              productsAssessed: 'product',
+              riskLevel: 'Severe',
+              moreDetail: 'hello world',
+              type: 'Risk assessment'
+            }
+           ]
+         }
       },
       assignee: "Felix Bernhard",
       creator: "Felix Bernhard",

@@ -5,7 +5,7 @@
 
 {% block flow %}
 <form action="{{formAction}}" method="post" class="form">
-    
+
     <h1 class="govuk-heading-l">{{pageHeading}}</h1>
 
     <p class="govuk-body">Record what’s happened in the case so far. Sharing this information will reduce confusion and the number of questions from people who become involved in the case later on.</p>
@@ -20,12 +20,12 @@
     {# <h2 class="govuk-heading-s">testResult {{loop.index}}: {{testResult.class}} testResult</h2> #}
       {%- set itemDate -%}
         {%- if historyItem.date -%}
-          {{- historyItem.date | arrayToDate | govukDate -}}
+          {{- historyItem.date | arrayToGovukDate -}}
         {%- elseif historyItem.approximateDate -%}
-          {{- historyItem.approximateDate[0] | prettyMonth }} {{historyItem.approximateDate[1]}} 
+          {{- historyItem.approximateDate[0] | prettyMonth }} {{historyItem.approximateDate[1]}}
         {%- endif %}
       {%- endset %}
-  
+
       {% if itemDate | length != 0 %}
       {% set itemDate = itemDate + '<br>' %}
       {% endif %}
@@ -54,7 +54,7 @@
           }
         ]
       }) }}
-    
+
     {% endfor %}
 
     {% endif %}
@@ -84,8 +84,8 @@
             href: '#'
           }
         ]
-        }) 
-      }} 
+        })
+      }}
     </div>
       {{ govukInput({
         id:   "section-complete",
@@ -100,9 +100,9 @@
         }) }}
       </div>
 
-   
 
-      
+
+
 
 </form>
 {% endblock %}
