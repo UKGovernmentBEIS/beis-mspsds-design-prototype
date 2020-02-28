@@ -25,7 +25,9 @@ buildDefaultWithDifferences = (nonDefaultFields) => {
     summary: reportData.summary,
     productType: reportData.productType,
     hazardType: reportData.hazardType,
-    reporter: reporter
+    reporter: reporter,
+    history: reportData.history,
+    testResult: reportData.testResult
   } : null;
 
   return {

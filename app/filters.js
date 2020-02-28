@@ -3,7 +3,6 @@
 
 const date    = require("./utils/date").date;
 const today   = require("./utils/date").today;
-const moment = require("moment");
 const faker = require("faker");
 const CaseSearch   = require("./utils/case-search");
 var _ = require('lodash');
@@ -296,27 +295,7 @@ module.exports = function (env) {
     return item;
   }
 
-  // set attribute on object
-  filters.arrayToDate = (array) => {
-    return new Date(array[2], array[1] -1, array[0])
-  }
 
-  // set attribute on object
-  filters.govukDate = (date) => {
-    var theDate = moment(date)
-    if (theDate.isValid()){
-      return theDate.format('D MMMM YYYY')
-    }
-    else return ''
-  }
-
-  // Return month names from numbers. eg January, Februray
-  filters.prettyMonth = (monthNumber) => {
-    if (monthNumber){
-      return moment().month(monthNumber - 1).format("MMMM");
-    }
-    else return ''
-  }
 
   // set attribute on object
   filters.setAttribute = (dictionary, key, value) => {

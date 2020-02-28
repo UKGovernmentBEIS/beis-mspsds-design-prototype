@@ -5,7 +5,7 @@
 
 {% block flow %}
 <form action="{{formAction}}" method="post" class="form">
-    
+
     <h1 class="govuk-heading-l">{{pageHeading}}</h1>
 
     {% if report.testResult.testResults | length == 0 %}
@@ -24,7 +24,7 @@
         rows: [
           {
             key: {
-              html: (testResult.date | arrayToDate | govukDate) + '<br>' + testResult.title
+              html: (testResult.date | arrayToGovukDate) + '<br>' + testResult.title
             },
             value: {
               text: testResultText
@@ -41,7 +41,7 @@
           }
         ]
       }) }}
-    
+
     {% endfor %}
 
     {% endif %}
@@ -85,7 +85,7 @@
           }
         ]
       }) }}
-      
+
 
       <div class="govuk-form-group">
         {{ govukButton({
@@ -95,7 +95,7 @@
 
     {% endif %}
 
-      
+
 
 </form>
 {% endblock %}
