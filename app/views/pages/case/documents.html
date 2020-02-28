@@ -185,11 +185,20 @@
         {{titleExtra | safe}}
       {%- endset %}
       {% set author = ('' | faker).fullName %}
-      {% set item = item | setAttribute('title', title) %}
+
+      {% set addedHtml %}
+        {{author}}
+        <br>
+        <span class="govuk-hint govuk-!-margin-top-1 govuk-!-margin-bottom-0">{{item.dateAdded | arrayToGovukDate }}</span>
+
+      {% endset %}
+
+      {% set item = item | setAttribute('htmlTitle', title) %}
       {% set item = item | setAttribute('author', author) %}
+      {% set item = item | setAttribute('addedHtml', addedHtml) %}
       {% set item = item | setAttribute('index', loop.index0 ) %}
       {% set item = item | setAttribute('dateGovuk', item.date | arrayToGovukDate ) %}
-      {% set item = item | setAttribute('dateAddedGovuk', item.dateAdded | arrayToGovukDate ) %}
+      {# {% set item = item | setAttribute('dateAddedGovuk', item.dateAdded | arrayToGovukDate ) %} #}
       {% set historyItemsWithExtra = historyItemsWithExtra | push(item) %}
     {% endfor %}
 
@@ -217,7 +226,7 @@
 {% macro itemTable(items) %}
 
   {# Slim down to data we need #}
-  {% set theItems = items | keepAttributes('title', 'author', 'dateAddedGovuk', 'dateGovuk') %}
+  {% set theItems = items | keepAttributes('htmlTitle', 'addedHtml', 'dateGovuk') %}
   {# Convert to nested array #}
   {% set tableData = theItems | objectArrayToArray %}
   {# Make table #}
@@ -231,9 +240,6 @@
       },
       {
         text: "Added by"
-      },
-      {
-        text: "Date added"
       },
       {
         text: "Activity date"
