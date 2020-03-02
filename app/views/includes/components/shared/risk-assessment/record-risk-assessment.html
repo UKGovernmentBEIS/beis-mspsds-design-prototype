@@ -1,12 +1,14 @@
-{# {% if viewContext == 'add' %}
-  {% set theRiskAssessment = data.new.report.riskAssessment %}
+
+
+{% if currentItemIndex == 'new' %}
+  {% set theRiskAssessment = data.riskAssessment %}
 {% else %}
-  {% set theRiskAssessment = currentCase.report.riskAssessment %}
-{% endif %} #}
+  {% set theRiskAssessment = currentCase.report.history.items[currentItemIndex] %}
+{% endif %}
 
 {{ govukDateInput({
   id: "test-date",
-  namePrefix: "new[report][riskAssessment][date].",
+  namePrefix: "riskAssessment[date].",
   fieldset: {
     legend: {
       text: "Date of assessment",
@@ -18,17 +20,17 @@
     {
       name: "day",
       classes: "govuk-input--width-2",
-      value: report.riskAssessment['date'][0]
+      value: theRiskAssessment['date'][0]
     },
     {
       name: "month",
       classes: "govuk-input--width-2",
-      value: report.riskAssessment['date'][1]
+      value: theRiskAssessment['date'][1]
     },
     {
       name: "year",
       classes: "govuk-input--width-4",
-      value: report.riskAssessment['date'][2]
+      value: theRiskAssessment['date'][2]
     }
   ],
   hint: {
@@ -41,8 +43,8 @@
 {% set riskAssessorOtherHTML %}
 {{ govukInput({
   id: "risk-assessor-other",
-  name: "new[report][riskAssessment][authorOtherName]",
-  value: report.riskAssessment.authorOtherName,
+  name: "riskAssessment[authorOtherName]",
+  value: theRiskAssessment.authorOtherName,
   type: "tel",
   classes: "govuk-!-width-two-thirds",
   label: {
@@ -54,8 +56,8 @@
 {% set psdTeamsHTML %}
 {{ localAuthorityAutocomplete({
     idPrefix:   'localAuthorityName',
-    name:       'new[report][riskAssessment][authorOtherPSDTeam]',
-    value:      report.riskAssessment.authorOtherPSDTeam,
+    name:       'riskAssessment[authorOtherPSDTeam]',
+    value:      theRiskAssessment.authorOtherPSDTeam,
     class:      "govuk-label govuk-!-margin-bottom-1",
     legend:     "Choose team"
   }) }}
@@ -63,7 +65,7 @@
 
 {{ govukRadios({
   idPrefix: "risk-assessor",
-  name: "new[report][riskAssessment][authorType]",
+  name: "riskAssessment[authorType]",
   fieldset: {
     legend: {
       text: "Who completed the assessment?",
@@ -75,12 +77,12 @@
     {
       value: "self",
       text: "Me or my team",
-      checked: checked([data.new['report']['riskAssessment']['authorType']], "self")
+      checked: checked([theRiskAssessment['authorType']], "self")
     },
     {
       value: "otherPSDTeam",
       text: "Another team on the Product safety database",
-      checked: checked([data.new['report']['riskAssessment']['authorType']], "otherPSDTeam"),
+      checked: checked([theRiskAssessment['authorType']], "otherPSDTeam"),
       conditional: {
         html: psdTeamsHTML
       }
@@ -88,7 +90,7 @@
     {
       value: "authorOther",
       text: "Someone else",
-      checked: checked([data.new['report']['riskAssessment']['authorType']], "authorOther"),
+      checked: checked([theRiskAssessment['authorType']], "authorOther"),
       conditional: {
         html: riskAssessorOtherHTML
       }
@@ -140,12 +142,12 @@
 ] %}
 
   {# {{ autocompleteInput({
-    idPrefix: "case-products", 
-    name:     "TODO-product-input-name", 
-    legend:   "Product that was assessed", 
-    hint:     "Only products already added to the case are listed. <a href='#'>Add a product</a>", 
+    idPrefix: "case-products",
+    name:     "TODO-product-input-name",
+    legend:   "Product that was assessed",
+    hint:     "Only products already added to the case are listed. <a href='#'>Add a product</a>",
     class: 'govuk-heading-m',
-    values:   products}) 
+    values:   products})
   }} #}
 
 {# Shown where a case has a single product #}
@@ -176,11 +178,11 @@
 #}
 {# {% set productAutocompleteHTML %}
   {{ autocompleteInput({
-    idPrefix: "product-autocomplete-multi", 
-    name:     "product-autocomplete-multi", 
-    legend:   "Select product", 
+    idPrefix: "product-autocomplete-multi",
+    name:     "product-autocomplete-multi",
+    legend:   "Select product",
     class: 'govuk-fieldset__legend--s govuk-!-font-weight-regular',
-    values:   products}) 
+    values:   products})
   }}
   <p class="govuk-body"><a href="#" class="govuk-link">Add another product</a></p>
 {% endset %} #}
@@ -221,7 +223,7 @@
 {# Shown where a case has multiple products #}
 {{ govukCheckboxes({
   idPrefix: "waste",
-  name: "new[report][riskAssessment][productsAssessed]",
+  name: "riskAssessment[productsAssessed]",
   fieldset: {
     legend: {
       text: "Which products were assessed?",
@@ -236,17 +238,17 @@
     {
       value: "productA",
       text: "Travel plug adaptor — Charge Worx 931L",
-      checked: checked([data.new['report']['riskAssessment']['productsAssessed']], "productA")
+      checked: checked([theRiskAssessment['productsAssessed']], "productA")
     },
     {
       value: "productB",
       text: "iPhone charger – unbranded, white",
-      checked: checked([data.new['report']['riskAssessment']['productsAssessed']], "productB")
+      checked: checked([theRiskAssessment['productsAssessed']], "productB")
     },
     {
       value: "productC",
       text: "Travel plug adaptor – Multipower 94998",
-      checked: checked([data.new['report']['riskAssessment']['productsAssessed']], "productC")
+      checked: checked([theRiskAssessment['productsAssessed']], "productC")
     }
   ]
 }) }}
@@ -265,8 +267,8 @@
 {% set riskLevelsOtherHTML %}
 {{ govukInput({
   id: "risk-levels-other",
-  name: "new[report][riskAssessment][riskLevelOther]",
-  value: report.riskAssessment.riskLevelOther,
+  name: "riskAssessment[riskLevelOther]",
+  value: theRiskAssessment.riskLevelOther,
   classes: "govuk-!-width-two-thirds",
   label: {
     text: "Other: what was the risk level?"
@@ -276,15 +278,15 @@
 
 
 {{ autocompleteInput({
-  idPrefix: "legislation", 
-  name:     "new[report][riskAssessment][riskLevel]", 
-  legend:   "What was the risk level?", 
+  idPrefix: "legislation",
+  name:     "riskAssessment[riskLevel]",
+  legend:   "What was the risk level?",
   hint:     "If there was more than one, choose the highest.",
   values:   riskLevels,
-  value: report.riskAssessment.riskLevel,
+  value: theRiskAssessment.riskLevel,
   class: 'govuk-heading-m',
   width: 'govuk-!-width-two-thirds',
-  conditional: riskLevelsOtherHTML}) 
+  conditional: riskLevelsOtherHTML})
 }}
 
 {% set riskAssessmentUploadHTML -%}
@@ -307,7 +309,7 @@
 
 {# {{filePickerHTML | safe}} #}
 
-{% if viewContext == 'add' %}
+{% if currentItemIndex == 'new' %}
   {{filePickerHTML | safe}}
 
 {% else %}
@@ -341,9 +343,9 @@
 {% endif %}
 
 {{ govukTextarea({
-  name: "new[report][riskAssessment][moreDetail]",
+  name: "riskAssessment[moreDetail]",
   id: "more-detail",
-  value: report.riskAssessment.moreDetail,
+  value: theRiskAssessment.moreDetail,
   label: {
     text: "Further details (optional)",
     classes: "govuk-label--m"
@@ -351,4 +353,11 @@
   hint: {
     text: "If there are other details relevant to the risk assessment, add them here."
   }
+}) }}
+
+{{ govukInput({
+  id:   "issue-assignee",
+  name: "document[type]",
+  value: "Risk assessment",
+  type: "hidden"
 }) }}

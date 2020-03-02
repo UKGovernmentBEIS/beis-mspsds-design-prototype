@@ -7,6 +7,8 @@ const array       = require("./utils/arrayHelpers");
 const Businesses  = require("./utils/business")
 const Attachments = require("./utils/attachment");
 const Reset       = require("./utils/reset");
+const moment = require("moment");
+
 var _ = require('lodash');
 
 // Catch-all for redirecting to the correct mode - MUST BE LAST ROUTE ADDED
@@ -464,11 +466,82 @@ const setReportTypeFromCaseType = (req, caseType) =>{
 // -------------------------------------------------------------------
 
 // Forward product pages to their templates
+router.get('/pages/case/documents/:index/edit', function (req, res, next) {
+  const data = req.session.data;
+  const kase = array.findById(data.cases, data.caseid);
+
+  var index = req.params.index
+  var documentType = kase.report.history.items[index].type
+
+  if (documentType == 'Risk assessment'){
+    res.render('pages/case/risk-assessment/edit', {currentItemIndex: index})
+
+  }
+  else {
+    res.render('pages/case/supporting-information/' + template, {currentItemIndex: index})
+  }
+});
+
+
+// Forward product pages to their templates
 router.get('/pages/case/documents/:index/:template', function (req, res, next) {
+  const data = req.session.data;
+  const kase = array.findById(data.cases, data.caseid);
+
   var index = req.params.index
   var template = req.params.template
+
   res.render('pages/case/supporting-information/' + template, {currentItemIndex: index})
+
 });
+
+
+
+
+
+router.post('/pages/case/documents/:index/save', function (req, res) {
+  const data = req.session.data;
+  var index = req.params.index;
+
+  var documentType = data.document.type
+  delete data.document.type //just in case
+
+  // Load up current case
+  const kase = array.findById(data.cases, data.caseid);
+
+
+  let documentData = {}
+
+  // Handle risk assessments only
+  if (documentType == "Risk assessment") {
+    documentData = data.riskAssessment
+    documentData.type = "Risk assessment"
+    documentData.title = documentData.type + ': ' + documentData.riskLevel
+    delete data.riskAssessment
+  }
+
+  // console.log(kase)
+  // console.log({documentData})
+
+  // kase.report.history.items[index] = documentData
+  // console.log(kase.report.history.items)
+  var today = new Date()
+  let todayArray = [today.getDate(), today.getMonth()+1, today.getFullYear()]
+
+  if (index == 'new'){
+
+    documentData.dateAdded = todayArray
+    documentData.author = data.currentTeam
+    kase.report.history.items.push(documentData)
+  }
+  else {
+    documentData.dateUpdated = todayArray
+    Object.assign(kase.report.history.items[index], documentData)
+  }
+
+  res.redirect('/pages/case/documents');
+});
+
 // -------------------------------------------------------------------
 // New task list create journey
 // -------------------------------------------------------------------

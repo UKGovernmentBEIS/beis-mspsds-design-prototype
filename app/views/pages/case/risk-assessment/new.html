@@ -1,5 +1,5 @@
-{% extends "includes/templates/case-edit.html" %}
-{% set pageHeading = 'Edit risk assessment' %}
+{% extends "includes/templates/case-add.html" %}
+{% set pageHeading = 'Add risk assessment' %}
 {% set contentType = 'risk assessment' %}
 
 {% set riskAssessmentLink %}
@@ -10,10 +10,9 @@
 {% set currentCase = data.cases | withId(data['caseid']) %}
 
 {% set currentCase = currentCase | attachCaseChildren(data) %}
-{% set theRiskAssessment = currentCase.report.history.items[currentItemIndex] %}
-{% set metaContent %}
-Added {{theRiskAssessment.dateAdded | arrayToGovukDate}}
-{% endset %}
+
+{% set currentItemIndex = 'new' %}
+{% set pageContext = 'add' %}
 
 
 {# Todo: make this actually update a case #}

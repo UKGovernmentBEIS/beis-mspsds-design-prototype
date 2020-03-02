@@ -139,6 +139,11 @@
     {# Corrective actions, correspondence, incidents #}
     {% set historyItems = currentCase.report.history.items %}
 
+    {# Add an index so we can link to documents later #}
+    {% set historyItems = historyItems | addIndexCount %}
+
+    {% set historyItems = historyItems | removeAttr('hide', true) %}
+
     {# Test results #}
     {# {% set testResultItems = currentCase.report.testResult.testResults %} #}
 
@@ -181,10 +186,11 @@
       {% endset %}
 
       {% set title -%}
-        <a href="documents/{{loop.index0}}/view">{{item.title}}</a>
+        <a href="documents/{{item.index}}/view">{{item.title}}</a>
         {{titleExtra | safe}}
       {%- endset %}
       {% set author = ('' | faker).fullName %}
+      {% set author = data.currentTeam %}
 
       {% set addedHtml %}
         {{author}}
@@ -212,7 +218,7 @@
           {% set items = items | sortDateArrays(sortOrderReversed, sortOrder) %}
           {% set sectionId = type | pluralise | slugify %}
           <h2 id="{{sectionId}}" class="govuk-heading-m govuk-!-margin-bottom-2">{{type | pluralise }}</h2>
-          <p class="govuk-body govuk-!-margin-bottom-0"><a href="#" class="govuk-link">Add {{type | lower}}</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-0"><a href="./{{type | slugify}}/new" class="govuk-link">Add {{type | lower}}</a></p>
           {{ itemTable(items) }}
           <hr class="govuk-section-break govuk-section-break--l">
       {% endfor %}
