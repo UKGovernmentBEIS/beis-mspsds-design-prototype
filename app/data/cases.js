@@ -181,15 +181,15 @@ module.exports = {
                 title: 'Initial enquiry',
                 date: [14, 1, 2020],
                 dateAdded: [30, 1, 2020],
-                from: '',
-                to: '',
-                subject: '',
-                body: '',
+                from: 'firstname.lastname@council.gov.uk',
+                to: 'enquiries@manufacturer.co.uk',
+                subject: 'Trading standards investigation',
+                body: 'Dear foo...',
                 attachment: '',
                 attachmentDescription: '',
                 type: 'Correspondence',
                 correspondenceType: 'Email',
-                hasFile: 'no'
+                hasFile: 'yes'
              },
               {
                 title: 'Request for documents',
@@ -217,7 +217,7 @@ module.exports = {
                 attachmentDescription: '',
                 type: 'Correspondence',
                 correspondenceType: 'Phone call',
-                hasFile: 'no'
+                hasFile: 'yes'
              },{
                 title: 'Asking for contact details',
                 date: [2, 2, 2020],
@@ -230,7 +230,7 @@ module.exports = {
                 attachmentDescription: '',
                 type: 'Correspondence',
                 correspondenceType: 'Phone call',
-                hasFile: 'no'
+                hasFile: 'yes'
              },
              {
                title: 'Destruction of the product',

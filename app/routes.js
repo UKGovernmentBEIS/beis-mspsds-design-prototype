@@ -274,15 +274,19 @@ router.get(`/pages/case/settings/restriction/off`, function (req, res) {
   res.redirect(redirectURL);
 });
 
+// Adding teams to a case (shared across all cases)
 router.post(`/pages/case/settings/permissions/save`, function (req, res) {
   const data = req.session.data;
+
+  // Team being added or updated
   let teamName = data.teamName;
+  // New or updated permission level including remove
   let permissionsLevel = data.teamPermissionsLevel
 
   // Ignore if data missing
   if (!teamName || !permissionsLevel) res.redirect('/pages/case/settings/permissions');
 
-  var existingTeam = false //default
+  var existingTeam = false // default
 
   // Check if team is existing and update if necessary
   req.session.data.teamPermissions.forEach(function(team) {
@@ -298,6 +302,7 @@ router.post(`/pages/case/settings/permissions/save`, function (req, res) {
   // Reset new variable
   if (req.session.team == 'new') req.session.data.team == ""
 
+  // New team
   if (!existingTeam){
     console.log("Adding team ", teamName, "to case")
     req.session.data.teamPermissions.push({
@@ -453,6 +458,20 @@ const setReportTypeFromCaseType = (req, caseType) =>{
   }
   _.set(data, 'new.report.type', reportType)
 }
+
+// -------------------------------------------------------------------
+// Supporting information
+// -------------------------------------------------------------------
+
+// Forward product pages to their templates
+router.get('/pages/case/documents/:index/:template', function (req, res, next) {
+  var index = req.params.index
+  var template = req.params.template
+  res.render('pages/case/supporting-information/' + template, {currentItemIndex: index})
+});
+// -------------------------------------------------------------------
+// New task list create journey
+// -------------------------------------------------------------------
 
 // Some sections are conditional on others
 const updateRequiredSections = (req) => {

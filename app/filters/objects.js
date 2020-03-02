@@ -62,6 +62,13 @@ filters.keepAttributes = (array, ...keysToKeep) => {
   else return keepKeys(array)
 }
 
+// set attribute on object
+filters.setAttribute = (dictionary, key, value) => {
+  var newDictionary = Object.assign({}, dictionary);
+  newDictionary[key] = value;
+  return newDictionary;
+}
+
 // -------------------------------------------------------------------
 // keep the following line to return your filters to the app
 // -------------------------------------------------------------------

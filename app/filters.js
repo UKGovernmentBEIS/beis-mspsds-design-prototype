@@ -289,26 +289,6 @@ module.exports = function (env) {
     }
   }
 
-  // set attribute on object
-  filters.debug = (item) => {
-    console.log('Debug', item)
-    return item;
-  }
-
-
-
-  // set attribute on object
-  filters.setAttribute = (dictionary, key, value) => {
-    var newDictionary = Object.assign({}, dictionary);
-    newDictionary[key] = value;
-    return newDictionary;
-  }
-
-  filters.toKebabCase = (string) => {
-    return string.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/\s+/g, '-').toLowerCase()
-  }
-
-
   // Check whether array includes value
   filters.arrayIncludes = (array, searchElement, caseSensitive=true) =>{
     // Case sensitive
