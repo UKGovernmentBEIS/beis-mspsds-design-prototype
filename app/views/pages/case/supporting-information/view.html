@@ -1,6 +1,28 @@
 {% extends "includes/templates/case-view-item.html" %}
 
+{% block beforeContent %}
+  {# {{ govukBackLink({
+    text: "Back to " + (caseType | lower),
+    href: formCancel
+  }) }} #}
 
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Case overview",
+        href: "../../overview"
+      },
+      {
+        text: "Supporting information",
+        href: "../../documents"
+      },
+      {
+        text: "Document"
+      }
+    ]
+  }) }}
+
+{% endblock %}
 
 {# Todo: make this actually update a case #}
 {% block pageContent %}

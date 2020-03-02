@@ -95,7 +95,7 @@
             },
             {
               value: "activity-date",
-              text: "Date of the activity",
+              text: "Activity date",
               selected: true if data.sortOrder == 'activity-date'
             },
             {
@@ -168,7 +168,7 @@
       {% set sortOrderReversed = true %}
     {% endswitch %}
 
-   {% set historyItemsWithExtra = [] %}
+    {% set historyItemsWithExtra = [] %}
 
     {# Add extra fields #}
     {% for item in historyItems %}
@@ -202,12 +202,14 @@
       {% set historyItemsWithExtra = historyItemsWithExtra | push(item) %}
     {% endfor %}
 
+    {# Sort items #}
     {% set itemsSorted = historyItemsWithExtra | sortDateArrays(sortOrderReversed, sortOrder) %}
-    {# Slim down to just fields we want #}
 
-    {# {% set data.groupByType = true %} #}
     {% if groupByType %}
       {% for type, items in itemsSorted | sort(attribute='type') | groupby("type") %}
+
+          {# Re-sort items as grouping has unsorted them #}
+          {% set items = items | sortDateArrays(sortOrderReversed, sortOrder) %}
           {% set sectionId = type | pluralise | slugify %}
           <h2 id="{{sectionId}}" class="govuk-heading-m govuk-!-margin-bottom-2">{{type | pluralise }}</h2>
           <p class="govuk-body govuk-!-margin-bottom-0"><a href="#" class="govuk-link">Add {{type | lower}}</a></p>
@@ -225,6 +227,8 @@
 
 {% endblock %}
 
+
+{# Generate table #}
 {% macro itemTable(items) %}
 
   {# Slim down to data we need #}
