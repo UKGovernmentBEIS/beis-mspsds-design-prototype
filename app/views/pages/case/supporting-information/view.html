@@ -43,9 +43,11 @@
       {% if (item | length == 3) %}
         {% set item = item | arrayToGovukDate %}
       {% endif %}
-      {% set row = [name | title, item] %}
+      {% set row = [name | title, item | string] %}
       {% set summaryListData = summaryListData | push(row) %}
     {% endfor %}
+
+    {# {{summaryListData | debug}} #}
 
     {{ govukSummaryList({
       rows: summaryListData | arrayToSummaryList

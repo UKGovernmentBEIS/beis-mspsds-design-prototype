@@ -301,17 +301,19 @@ module.exports = {
               productsAssessed: 'product',
               riskLevel: 'Severe',
               moreDetail: 'hello world',
-              type: 'Risk assessment'
+              type: 'Risk assessment',
+              hide: true
             },
             {
               title: 'Assessed risk: low',
               date: [5,6,2010],
               dateAdded: [1,2,2020],
-              authorType: 'foobar',
-              productsAssessed: 'product',
-              riskLevel: 'Severe',
-              moreDetail: 'hello world',
-              type: 'Risk assessment'
+              authorType: 'self',
+              productsAssessed: ['productA','productB'],
+              riskLevel: 'Low risk',
+              moreDetail: '',
+              type: 'Risk assessment',
+              hide: true
             }
            ]
          }

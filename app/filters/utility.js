@@ -38,6 +38,14 @@ filters.falsify = (input) => {
   return input;
 }
 
+filters.addIndexCount = array => {
+
+  array.forEach((item, index) =>{
+    item.index = index
+  })
+  return array;
+}
+
 // -------------------------------------------------------------------
 // keep the following line to return your filters to the app
 // -------------------------------------------------------------------

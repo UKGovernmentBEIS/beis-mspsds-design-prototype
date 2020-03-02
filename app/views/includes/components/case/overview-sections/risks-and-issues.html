@@ -19,14 +19,49 @@
   {% endif %}
 {% endset %}
 
+{% set historyItems = currentCase.report.history.items %}
+{# Add an index so we can link to documents later #}
+{% set historyItems = historyItems | addIndexCount %}
+{% set historyItems = historyItems | removeAttr('hide', true) %}
+
+
+{# Filter items for riskAssessments #}
+{% set riskAssessments = historyItems | filterAttr("type", "Risk assessment") | sortDateArrays(false, 'dateAdded') %}
+{% set riskAssessmentCount = riskAssessments | length %}
+{% set riskAssessment = riskAssessments[0] if riskAssessmentCount else '' %}
+
 {% set riskAssessmentHTML %}
-<p class="govuk-body">
-  Completed by Southampton Council on <span class="no-wrap">1 December 2019</span>
-</p>
-<p class="govuk-body">
-  Assessed risk: Serious risk
-</p>
+
+  {% if riskAssessmentCount == 0 %}
+    No risk assessments
+  {% else %}
+
+    <p class="govuk-body">{{riskAssessmentCount}} risk {{'assessment' | pluralise(riskAssessmentCount)}}</p>
+    <p class="govuk-body">{{'Completed' if (riskAssessmentCount == 1) else 'Most recent' }} by {{riskAssessment.author}} on {{riskAssessment.date | arrayToGovukDate}}
+    </p>
+    <p class="govuk-body">
+      Assessed risk: {{riskAssessment.riskLevel}}
+    </p>
+  {% endif %}
+
 {% endset %}
+
+{# No existing risk assessments - push to add one #}
+{% set riskAssessmentLinkText = 'Add' %}
+{% set riskAssessmentLinkDestination = './risk-assessment/new' %}
+
+{# Has one or more risk assessments #}
+{% if riskAssessmentCount  %}
+  {# Multiple risk assessments - link to documents tab #}
+  {% set riskAssessmentLinkText = 'View' %}
+  {% set riskAssessmentLinkDestination = './documents#risk-assessments' %}
+
+  {# Single risk assessment - link to document #}
+  {% if riskAssessmentCount == 1 %}
+    {% set riskAssessmentLinkDestination = './documents/' + riskAssessment.index + '/view' %}
+  {% endif %}
+{% endif %}
+
 
 {{ govukSummaryList({
   classes: 'govuk-summary-list--no-border',
@@ -60,8 +95,8 @@
       actions: {
         items: [
           {
-            href: "./risk-assessment/",
-            text: "View",
+            href: riskAssessmentLinkDestination,
+            text: riskAssessmentLinkText,
             visuallyHiddenText: "risk assessment"
           }
         ]

@@ -3,11 +3,11 @@
 {% extends "./case-basic.html" %}
 {% set includeCaseActions = false %}
 
-{% set pageContext = pageContext or 'edit' %}
+{% set pageContext = add %}
 
 {# Ideally these should go to previous page #}
 {% set formCancel = formCancel or '../overview' %}
-{% set formAction = formAction or './save' %}
+{% set formAction = formAction or '../documents/new/save' %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -16,7 +16,7 @@
 }) }}
 {% endblock %}
 
-{% set submitButtonText = 'Update' if pageContext == 'edit' else 'Add' %}
+{% set submitButtonText = 'Add' %}
 
 {% set submitButtonText = submitButtonText + ((' ' + contentType) if contentType) %}
 

@@ -182,6 +182,12 @@ assignCase = (data, newAssignee, comment="") => {
   kase.activities.unshift(newActivity);
 };
 
+addDocument = (data, document) => {
+  const kase = array.findById(data.cases, data.caseid);
+  kase.history.items.push(document)
+  kase.dateUpdated = new Date(Date.now());
+}
+
 changeStatus = (data, body) => {
   const kase = array.findById(data.cases, data.caseid);
   const newActivity = Activities.buildChangeStatus(body, data.currentUser);
