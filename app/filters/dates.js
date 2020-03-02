@@ -137,6 +137,67 @@ filters.sortDateArrays = (arr, reversed, attr) => {
     return array
   }
 
+// https://momentjs.com/docs/#/displaying/format/
+filters.formatDate = (date, format, dateFormat) => {
+
+  var returnDate;
+  // No date provided.
+  if (!date){
+    // console.log('error for', date, 'format', format);
+    throw "Error in formatDate: no date provided";
+  }
+  // Check for valid date
+  else if (dateFormat && moment(date, dateFormat).isValid()){
+    returnDate = moment(date, dateFormat);
+  }
+  else if ( moment(date).isValid() ){
+    returnDate = moment(date);
+  }
+  // Invalid date
+  else {
+    throw "Error in formatDate: invalid date";
+  };
+
+  switch (true)
+    {
+      // 2018-03-21
+      case (format == 'dashDate'):
+        return returnDate.format('YYYY-MM-DD');
+
+      // 2018/03/21
+      case (format == 'slashDate'):
+        return returnDate.format('YYYY/MM/DD');
+
+      // 2018/03
+      case (format == 'yearMonth'):
+        return returnDate.format('YYYY/MM');
+
+      // 2018-03-21T00:00:00.000Z
+      case (format == 'iso8601'):
+        return returnDate.toISOString();
+
+      // a year ago
+      case (format == 'relative'):
+        return timeAgoInDays(returnDate)
+
+      // 21st March 2018
+      case (format == 'pretty'):
+        return returnDate.format('Do MMMM YYYY');
+
+      // March 21st 2018, 12:00:00 am
+      case (format == 'full'):
+        return returnDate.format('MMMM Do YYYY, h:mm:ss a');
+
+      // pass format through to moment
+      case _.isString(format):
+        return returnDate.format(format);
+
+      // Default
+      default:
+        return returnDate.format();
+    }
+}
+
 // -------------------------------------------------------------------
 // keep the following line to return your filters to the app
 // -------------------------------------------------------------------

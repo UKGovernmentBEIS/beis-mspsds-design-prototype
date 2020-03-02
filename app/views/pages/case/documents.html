@@ -181,7 +181,7 @@
       {% endset %}
 
       {% set title -%}
-        <a href="documents/{{loop.index0}}">{{item.title}}</a>
+        <a href="documents/{{loop.index0}}/view">{{item.title}}</a>
         {{titleExtra | safe}}
       {%- endset %}
       {% set author = ('' | faker).fullName %}
@@ -208,7 +208,8 @@
     {# {% set data.groupByType = true %} #}
     {% if groupByType %}
       {% for type, items in itemsSorted | sort(attribute='type') | groupby("type") %}
-          <h2 class="govuk-heading-m govuk-!-margin-bottom-2">{{type | pluralise }}</h2>
+          {% set sectionId = type | pluralise | slugify %}
+          <h2 id="{{sectionId}}" class="govuk-heading-m govuk-!-margin-bottom-2">{{type | pluralise }}</h2>
           <p class="govuk-body govuk-!-margin-bottom-0"><a href="#" class="govuk-link">Add {{type | lower}}</a></p>
           {{ itemTable(items) }}
           <hr class="govuk-section-break govuk-section-break--l">

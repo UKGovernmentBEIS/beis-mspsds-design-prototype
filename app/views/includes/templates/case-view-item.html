@@ -4,50 +4,85 @@
 {% set includeCaseActions = false %}
 
 {# Ideally these should go to previous #}
-{% set formCancel = '../overview' %} 
-{% set formAction = '../overview' %}
+{% set formCancel = '../../documents' %}
+{% set formAction = '../../documents' %}
+
 
 {% block beforeContent %}
-  {{ govukBackLink({
-  text: "Back to " + (caseType | lower),
-  href: formCancel
-}) }}
-{% endblock %}
+  {# {{ govukBackLink({
+    text: "Back to " + (caseType | lower),
+    href: formCancel
+  }) }} #}
 
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Case overview",
+        href: "../../overview"
+      },
+      {
+        text: "Supporting information",
+        href: "../../documents"
+      },
+      {
+        text: "document"
+      }
+    ]
+  }) }}
+
+{% endblock %}
 
 
 {% block content %}
 
-{% set returnButtonText = 'Return to ' + (caseType | lower) %}
+  {# Data set up #}
+  {% set historyItems = currentCase.report.history.items %}
+  {# currentItemIndex document passed by the route #}
+  {% set currentDocument = historyItems[currentItemIndex] %}
 
-{% set metaArea %}
-<div class="app-meta-area">
-  <p class="govuk-body govuk-hint">{{metaContent | safe}}</p>
-</div>
-{% endset %}
+  {% set contentType = currentDocument.type %}
 
-{% set editDeleteLinks %}
-  <div class="govuk-form-group">
-    <p class="govuk-body">
-      <a class="govuk-link govuk-link--no-visited-state" href="./edit">Edit risk assessment</a>
-    </p>
-    <p class="govuk-body">
-      <a class="govuk-link govuk-link--no-visited-state delete" href="./delete">Delete risk assessment</a>
-    </p>
+
+
+  {% set metaContent %}
+    Added {{currentDocument.dateAdded | arrayToGovukDate }}
+    {% if currentDocument.dateUpdated %}
+      <br>
+      Updated {{currentDocument.dateUpdated | arrayToGovukDate }}
+    {% endif %}
+  {% endset %}
+
+  {% set metaArea %}
+  <div class="app-meta-area">
+    <p class="govuk-body govuk-hint">{{metaContent | safe}}</p>
   </div>
-{% endset %}
+  {% endset %}
 
-{% set returnButton %}
-<div class="govuk-form-group">
-  {{ govukButton({
-    text: returnButtonText,
-    href: '../overview'
-  }) }}
-</div>
-{% endset %}
+  {% set editDeleteLinks %}
+    <div class="govuk-form-group">
+      <p class="govuk-body">
+        <a class="govuk-link govuk-link--no-visited-state" href="#">Edit {{currentDocument.type | lower}}</a>
+      </p>
+      <p class="govuk-body">
+        <a class="govuk-link govuk-link--no-visited-state delete" href="#">Delete {{currentDocument.type | lower}}</a>
+      </p>
+    </div>
+  {% endset %}
 
-  {% block pageContent %}
-  {% endblock %}
+
+  {% set returnButtonText = 'Return to ' + (caseType | lower) %}
+
+  {% set returnButton %}
+  <div class="govuk-form-group">
+    {{ govukButton({
+      text: returnButtonText,
+      href: '../overview'
+    }) }}
+  </div>
+  {% endset %}
+
+    {% block pageContent %}
+    {% endblock %}
 
 
 {% endblock %}

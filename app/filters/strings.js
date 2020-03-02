@@ -1,7 +1,7 @@
 // -------------------------------------------------------------------
 // Imports and setup
 // -------------------------------------------------------------------
-var _ = require('lodash');
+const string = require('string')
 // Leave this filters line
 var filters = {}
 
@@ -23,20 +23,19 @@ var filters = {}
 
 */
 
-// set attribute on object
-filters.debug = (item) => {
-  console.log('Debug', item)
-  return item;
+// Create url / slugs from text
+// This is a heading => this-is-a-heading
+filters.slugify = (input) => {
+  if (!input) throw "Error in slugify: no input", input;
+  else return string(input).slugify().toString();
 }
 
 
-filters.falsify = (input) => {
-  if (_.isNumber(input)) return input
-  else if (input == false) return false
-  else if (input == 'true') return true
-  else if (input == 'false') return false
-  return input;
+// Hyphen separate a string
+filters.toKebabCase = (string) => {
+  return string.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/\s+/g, '-').toLowerCase()
 }
+
 
 // -------------------------------------------------------------------
 // keep the following line to return your filters to the app
