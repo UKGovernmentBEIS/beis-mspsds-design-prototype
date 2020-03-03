@@ -1,0 +1,76 @@
+{% extends "includes/templates/case-basic.html" %}
+{% set pageHeading = 'What type of information are you adding?' %}
+{% set contentType = 'risk assessment' %}
+
+{% set formCancel = formCancel or '../documents' %}
+{% set formAction = formAction or '../documents' %}
+
+{% set currentCase = data.cases | withId(data['caseid']) %}
+{% set currentCase = currentCase | attachCaseChildren(data) %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back to " + (caseType | lower),
+  href: formCancel
+}) }}
+{% endblock %}
+
+{# Todo: make this actually update a case #}
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+    <form action="{{formAction}}" method="post" class="form">
+
+      {% set radioOptionsArray = [
+        ["Comment", "Comment or case note"],
+        ["Corrective action", "Corrective action"],
+        ["Correspondence", "Correspondence"],
+        ["Image", "Image"],
+        ["Risk assessment", "Risk assessment"],
+        ["Test result", "Test result"],
+        ["Other document", "Other document or attachment"]
+        ]%}
+
+      {# Remap array to form needed by macro#}
+      {% set radioItems = [] %}
+      {% for item in radioOptionsArray %}
+        {% set item = {
+          value: item[0],
+          text: item[1]
+        } %}
+        {# Add divider on second to last item #}
+        {% if loop.last %}
+          {% set radioItems = radioItems | push({divider:"or"}) %}
+        {% endif %}
+        {% set radioItems = radioItems | push(item) %}
+      {% endfor %}
+
+      {{ govukRadios({
+        idPrefix: "where-do-you-live",
+        name: "newDocumentType",
+        fieldset: {
+          legend: {
+            text: pageHeading,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: radioItems
+      }) }}
+
+
+
+      <div class="govuk-form-group">
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+        <p class="govuk-body">
+          <a class="govuk-link govuk-link--no-visited-state" href="{{formCancel}}">Cancel</a>
+        </p>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}

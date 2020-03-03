@@ -9,6 +9,8 @@ const Attachments = require("./utils/attachment");
 const Reset       = require("./utils/reset");
 const moment = require("moment");
 
+const dateFilters = require("./filters/dates").filters
+
 var _ = require('lodash');
 
 // Catch-all for redirecting to the correct mode - MUST BE LAST ROUTE ADDED
@@ -465,6 +467,27 @@ const setReportTypeFromCaseType = (req, caseType) =>{
 // Supporting information
 // -------------------------------------------------------------------
 
+router.post('/pages/case/documents', function (req, res) {
+  const data = req.session.data;
+
+  const documentType = _.get(data, 'newDocumentType')
+  console.log("document type was," + documentType)
+
+  // Delete temporary storage
+  if (documentType) delete data.newDocumentType
+
+  if (documentType == 'Risk assessment') {
+    res.redirect('/pages/case/risk-assessment/new')
+  }
+  else {
+    console.log(documentType, 'not one of the types we support yet')
+    res.redirect('/pages/case/documents')
+  }
+
+
+});
+
+
 // Forward product pages to their templates
 router.get('/pages/case/documents/:index/edit', function (req, res, next) {
   const data = req.session.data;
@@ -506,6 +529,9 @@ router.post('/pages/case/documents/:index/save', function (req, res) {
   var documentType = data.document.type
   delete data.document.type //just in case
 
+  var today = new Date()
+  let todayArray = [today.getDate(), today.getMonth()+1, today.getFullYear()]
+
   // Load up current case
   const kase = array.findById(data.cases, data.caseid);
 
@@ -514,33 +540,113 @@ router.post('/pages/case/documents/:index/save', function (req, res) {
 
   // Handle risk assessments only
   if (documentType == "Risk assessment") {
+    let riskLevelOther = (documentData.riskLevelOther) ? (": (" + documentData.riskLevelOther.toLowerCase() + ")") : ""
     documentData = data.riskAssessment
     documentData.type = "Risk assessment"
-    documentData.title = documentData.type + ': ' + documentData.riskLevel
+    documentData.title = documentData.type + ': ' + documentData.riskLevel.toLowerCase() + riskLevelOther
     delete data.riskAssessment
   }
 
-  // console.log(kase)
-  // console.log({documentData})
+  let documentNumber = 0
 
-  // kase.report.history.items[index] = documentData
-  // console.log(kase.report.history.items)
-  var today = new Date()
-  let todayArray = [today.getDate(), today.getMonth()+1, today.getFullYear()]
+  const makeFileName = (...args) =>{
 
+    let fileName = []
+    args.forEach(arg =>{
+      var part = arg.split(' ').join("-")
+      fileName.push(part)
+    })
+    fileName = fileName.join('_')
+
+    return fileName
+  }
+
+  // New document
   if (index == 'new'){
-
     documentData.dateAdded = todayArray
     documentData.author = data.currentTeam
+    if (documentData.hasFile == 'yes'){
+      let fileDate = dateFilters.formatDate(today, "dashDate")
+      documentData.fileName = makeFileName(fileDate, documentData.title, ".pdf")
+    }
     kase.report.history.items.push(documentData)
+    documentNumber = kase.report.history.items.length - 1
   }
+  // Updated document
   else {
     documentData.dateUpdated = todayArray
     Object.assign(kase.report.history.items[index], documentData)
+    documentNumber = index
   }
 
-  res.redirect('/pages/case/documents');
+
+
+  // Risk assessment specific
+  let currentCaseRiskLevel = _.get(kase, 'riskLevel')
+  let isRiskAssessment = (documentType == "Risk assessment")
+
+  let defaultRedirect = '/pages/case/documents'
+
+  if (isRiskAssessment){
+    if (documentData.riskLevel != currentCaseRiskLevel){
+      // Store most recent risk level temporarily
+      data.lastRiskLevel = documentData.riskLevel
+      data.documentNumber = documentNumber
+      res.redirect('/pages/case/risk-level/match-risk-level');
+    }
+    else {
+      res.redirect('/pages/case/documents/' + documentNumber + '/view');
+    }
+  }
+  else {
+    res.redirect(defaultRedirect);
+  }
+
+
 });
+
+// Update case risk level after adding a risk assessment
+router.post('/pages/case/risk-level/match-risk-level', function (req, res) {
+  const data = req.session.data;
+
+  // Load up current case
+  const kase = array.findById(data.cases, data.caseid);
+
+  let riskLevel = data.lastRiskLevel
+  delete data.lastRiskLevel
+  let documentNumber = data.documentNumber
+  delete data.documentNumber
+
+  let matchRiskLevel = data.matchRiskQuestion
+  matchRiskLevel = (matchRiskLevel == "true") ? true : false
+
+  if (matchRiskLevel){
+    kase.riskLevel = riskLevel
+  }
+
+  res.redirect('/pages/case/documents/' + documentNumber + '/view')
+
+});
+
+// Update case risk level
+router.post('/pages/case/risk-level/save', function (req, res) {
+  const data = req.session.data;
+
+  // Load up current case
+  const kase = array.findById(data.cases, data.caseid);
+
+  let caseRiskLevel = data.riskLevel
+  delete data.riskLevel
+  let caseRiskLevelOther = data.riskLevelOther
+  delete data.riskLevelOther
+
+  kase.riskLevel = caseRiskLevel
+  kase.riskLevelOther = caseRiskLevelOther
+
+  res.redirect('/pages/case/overview')
+
+});
+
 
 // -------------------------------------------------------------------
 // New task list create journey

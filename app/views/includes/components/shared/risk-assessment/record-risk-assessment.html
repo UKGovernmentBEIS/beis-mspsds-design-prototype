@@ -7,7 +7,7 @@
 {% endif %}
 
 {{ govukDateInput({
-  id: "test-date",
+  id: "assessment-date",
   namePrefix: "riskAssessment[date].",
   fieldset: {
     legend: {
@@ -38,7 +38,10 @@
   }
 }) }}
 
-<p class="govuk-body"><a href="#" class="govuk-link">Today</a>&nbsp;&nbsp;&nbsp;<a href="#" class="govuk-link">Yesterday</a></p>
+<p class="govuk-body">
+  <a href="#" class="govuk-link js-today-link" data-target="assessment-date">Today</a>&nbsp;&nbsp;&nbsp;
+  <a href="#" class="govuk-link js-yesterday-link" data-target="assessment-date">Yesterday</a>
+</p>
 
 {% set riskAssessorOtherHTML %}
 {{ govukInput({
@@ -236,32 +239,34 @@
   },
   items: [
     {
-      value: "productA",
+      value: "Travel plug adaptor — Charge Worx 931L",
       text: "Travel plug adaptor — Charge Worx 931L",
-      checked: checked([theRiskAssessment['productsAssessed']], "productA")
+      checked: checked([theRiskAssessment['productsAssessed']], "Travel plug adaptor — Charge Worx 931L")
     },
     {
-      value: "productB",
+      value: "iPhone charger – unbranded, white",
       text: "iPhone charger – unbranded, white",
-      checked: checked([theRiskAssessment['productsAssessed']], "productB")
+      checked: checked([theRiskAssessment['productsAssessed']], "iPhone charger – unbranded, white")
     },
     {
-      value: "productC",
+      value: "Travel plug adaptor – Multipower 94998",
       text: "Travel plug adaptor – Multipower 94998",
-      checked: checked([theRiskAssessment['productsAssessed']], "productC")
+      checked: checked([theRiskAssessment['productsAssessed']], "Travel plug adaptor – Multipower 94998")
     }
   ]
 }) }}
 
 <p class="govuk-body"><a href="#" class="govuk-link">Select all products</a></p>
 
-{% set riskLevels = [
+{# {% set riskLevels = [
   'Serious risk',
   'High risk',
   'Medium risk',
   'Low risk',
   'Other'
-] %}
+] %} #}
+
+{% set riskLevels = data.riskLevels %}
 
 
 {% set riskLevelsOtherHTML %}
@@ -299,13 +304,15 @@
   name: "file-upload-1",
   label: {
     text: "Upload the risk assessment",
-    classes: "govuk-label--s"
+    classes: "govuk-label--m"
   },
   hint: {
     html: riskAssessmentUploadHTML
   }
 }) }}
 {% endset %}
+
+{% set fileName = theRiskAssessment.fileName or 'RAG Risk assessment - Foobar-Zipbuz.pdf' %}
 
 {# {{filePickerHTML | safe}} #}
 
@@ -327,7 +334,7 @@
     items: [
       {
         value: "no",
-        html: "No, use ‘<strong>RAG Risk assessment - Foobar-Zipbuz.pdf</strong>’",
+        html: "No, use ‘<strong>" + fileName + "’",
         checked: true
       },
       {
@@ -359,5 +366,12 @@
   id:   "issue-assignee",
   name: "document[type]",
   value: "Risk assessment",
+  type: "hidden"
+}) }}
+
+{{ govukInput({
+  id:   "risk-level",
+  name: "riskAssessment[hasFile]",
+  value: "yes",
   type: "hidden"
 }) }}

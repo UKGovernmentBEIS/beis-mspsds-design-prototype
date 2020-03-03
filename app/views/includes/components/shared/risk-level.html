@@ -1,5 +1,5 @@
 
-{% set theRiskLevel = data.demoCase.riskLevel %}
+{% set theRiskLevel = currentCase.riskLevel %}
 
 {% set otherRiskLevelHTML %}
   {{ govukInput({
@@ -8,8 +8,8 @@
       classes: "govuk-visually-hidden"
     },
     id: "other-risk-level",
-    name: "demoCase[riskLevelOther]",
-    value: data.demoCase.riskLevelOther,
+    name: "riskLevelOther",
+    value: currentCase.riskLevelOther,
     classes: "govuk-!-width-one-half"
   }) }}
 {% endset %}
@@ -37,7 +37,7 @@
 
  {{ govukRadios({
     idPrefix: "risk-level",
-    name: "demoCase[riskLevel]",
+    name: "riskLevel",
     fieldset: {
       legend: {
         text: "Risk level",
@@ -47,29 +47,29 @@
     },
     items: [
       {
-        value: "serious risk",
+        value: "Serious risk",
         text: "Serious risk",
-        checked: checked([theRiskLevel], "serious risk")
+        checked: checked([theRiskLevel], "Serious risk")
       },
       {
-        value: "high risk",
+        value: "High risk",
         text: "High risk",
-        checked: checked([theRiskLevel], "high risk")
+        checked: checked([theRiskLevel], "High risk")
       },
       {
-        value: "medium risk",
+        value: "Medium risk",
         text: "Medium risk",
-        checked: checked([theRiskLevel], "medium risk")
+        checked: checked([theRiskLevel], "Medium risk")
       },
       {
-        value: "low risk",
+        value: "Low risk",
         text: "Low risk",
-        checked: checked([theRiskLevel], "low risk")
+        checked: checked([theRiskLevel], "Low risk")
       },
       {
-        value: "other",
+        value: "Other",
         text: "Other",
-        checked: checked([theRiskLevel], "other"),
+        checked: checked([theRiskLevel], "Other"),
         conditional: {
           html: otherRiskLevelHTML
         }
@@ -78,14 +78,14 @@
         divider: "or"
       },
       {
-        value: "no risk",
+        value: "No risk",
         text: "No risk",
-        checked: checked([theRiskLevel], "no risk")
+        checked: checked([theRiskLevel], "No risk")
       },
       {
-        value: "unknown",
+        value: "Unknown",
         text: "Unknown",
-        checked: checked([theRiskLevel], "unknown")
+        checked: checked([theRiskLevel], "Unknown")
       }
     ]
   }) }}
