@@ -37,21 +37,31 @@
 
     {{metaArea | safe }}
 
-    {% set summaryListData = [] %}
+    {% if currentDocument.type == 'Risk assessment' %}
 
-    {% for name, item in currentDocument %}
-      {% if (item | length == 3) %}
-        {% set item = item | arrayToGovukDate %}
-      {% endif %}
-      {% set row = [name | title, item | string] %}
-      {% set summaryListData = summaryListData | push(row) %}
-    {% endfor %}
 
-    {# {{summaryListData | debug}} #}
+      {{riskAssessmentSummaryList(currentDocument)}}
+    {% else %}
 
-    {{ govukSummaryList({
-      rows: summaryListData | arrayToSummaryList
-    }) }}
+      {% set summaryListData = [] %}
+
+      {% for name, item in currentDocument %}
+        {% if (item | length == 3) %}
+          {% set item = item | arrayToGovukDate %}
+        {% endif %}
+        {% set row = [name | title, item | string] %}
+        {% set summaryListData = summaryListData | push(row) %}
+      {% endfor %}
+
+      {# {{summaryListData | debug}} #}
+
+      {{ govukSummaryList({
+        rows: summaryListData | arrayToSummaryList
+      }) }}
+
+    {% endif %}
+
+
 
 
   </div>
@@ -62,8 +72,14 @@
     {# Create a fake filename #}
     {% set fileExtension = 'pdf' if currentDocument.correspondenceType != 'Email' else 'msg' %}
 
+    {% set fileName %}
+      {{currentDocument.dateAdded | arrayToDateObject | formatDate("dashDate")}}_{{currentDocument.title | slugify}}.{{fileExtension}}
+    {% endset %}
+
+    {% set fileName = currentDocument.fileName or fileName %}
+
     {% set fileLink %}
-      <a href="" class="govuk-link">{{currentDocument.dateAdded | arrayToDateObject | formatDate("dashDate")}}_{{currentDocument.title | slugify}}.{{fileExtension}}</a>
+      <a href="" class="govuk-link">{{fileName}}</a>
     {% endset %}
 
     <div class="govuk-grid-column-one-third">
@@ -91,3 +107,46 @@
 </div>
 
 {% endblock %}
+
+{% macro riskAssessmentSummaryList(riskAssessment) %}
+
+  {# Work out the author name #}
+  {% set riskAssessor %}
+    {% if riskAssessment.authorType == "self" %}
+      {{currentTeam}}
+    {% elseif riskAssessment.authorType == 'otherPSDTeam' %}
+      {{riskAssessment.authorOtherPSDTeam}}
+    {% else %}
+      {{riskAssessment.authorOtherName}}
+    {% endif %}
+  {% endset %}
+
+  {# Work out the risk level #}
+  {% set riskLevel %}
+    {% if riskAssessment.riskLevel != "Other" %}
+      {{riskAssessment.riskLevel}}
+    {% else %}
+      {{riskAssessment.riskLevel}}: {{riskAssessment.riskLevelOther | lower}}
+    {% endif %}
+  {% endset %}
+
+  {% set products %}
+    {% for product in riskAssessment.productsAssessed %}
+      <p class="govuk-body"><a href="#" class="govuk-link">{{product}}</a></p>
+    {% endfor %}
+  {% endset %}
+
+  {% set arrayData = [
+    ["Risk level", riskLevel],
+    ["Date of assessment", riskAssessment.date | arrayToGovukDate],
+    ["Products assessed", products],
+    ["Risk assessor", riskAssessor],
+    ["Futher details", riskAssessment.moreDetail or "Not provided"]
+
+    ] %}
+
+  {{ govukSummaryList({
+      rows: arrayData | arrayToSummaryList
+    }) }}
+
+{% endmacro %}

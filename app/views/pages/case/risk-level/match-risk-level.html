@@ -1,0 +1,100 @@
+{% extends "includes/templates/case-edit.html" %}
+{% set pageHeading = 'Case risk level' %}
+{% set contentType = 'risk level' %}
+{% set submitButtonText = 'Update' %}
+
+{% set pageContext = 'add' %}
+
+{% set formCancel = '../documents' %}
+{% set formAction = './match-risk-level' %}
+
+
+{# Todo: make this actually update a case #}
+{% block formContent %}
+
+
+{% set caseRiskLevel = currentCase.riskLevel %}
+{% set riskAssessmentRiskLevel = data.lastRiskLevel %}
+
+{% set caseRiskLevelNumber = 'other' %}
+{% set riskAssessmentRiskLevelNumber = 'other' %}
+
+{# Get index in array of risk levels #}
+{% for riskLevel in data.riskLevels %}
+  {% if caseRiskLevel == riskLevel %}
+    {% set caseRiskLevelNumber = loop.index0 %}
+  {% endif %}
+  {% if riskAssessmentRiskLevel == riskLevel %}
+    {% set riskAssessmentRiskLevelNumber = loop.index0 %}
+  {% endif %}
+{% endfor %}
+
+{# <p>Case risk level {{caseRiskLevel}}</p>
+<p>Case risk level number {{caseRiskLevelNumber}}</p>
+<p>Case risk level {{riskAssessmentRiskLevel}}</p>
+<p>Risk level number {{riskAssessmentRiskLevelNumber}}</p> #}
+
+{% set riskLevelChange = 'the same' %}
+{% if caseRiskLevelNumber < riskAssessmentRiskLevelNumber %}
+  {% set riskLevelChange = 'lower' %}
+{% elseif caseRiskLevelNumber > riskAssessmentRiskLevelNumber %}
+  {% set riskLevelChange = 'higher' %}
+{% endif %}
+
+{% set questionText = "Update the case risk level to match the risk assessment?" %}
+
+
+<p class="govuk-body">
+  {% if not caseRiskLevel %}
+
+    {% set questionText = "Set the case risk level to match the risk assessment?" %}
+    Would you like to set the overall case risk level to <strong>{{riskAssessmentRiskLevel | lower}}</strong>?
+  {% elseif caseRiskLevelNumber == 'other' %}
+    The case risk level is currently set to {{caseRiskLevel}}. The risk assessment you added is {{riskAssessmentRiskLevel}}.
+  {% elseif caseRiskLevelNumber > -1 %}
+    The risk assessment you added has a <strong>{{riskLevelChange}}</strong> risk level than the current case risk level ({{caseRiskLevel | lower}}).
+  {% endif %}
+</p>
+
+{{ govukInsetText({
+  text: "Case risk levels can be different than the risk assessment if needed."
+}) }}
+
+  {% set yesText %}
+ Yes, set the case risk level to <strong>{{riskAssessmentRiskLevel | lower}}</strong>
+
+  {% endset %}
+
+  {{ govukRadios({
+    idPrefix: "where-do-you-live",
+    name: "matchRiskQuestion",
+    fieldset: {
+      legend: {
+        text: questionText,
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--s"
+      }
+    },
+    items: [
+      {
+        value: "true",
+        html: yesText
+      },
+      {
+        value: "false",
+        text: "No, do not update the case risk level"
+      }
+    ]
+  }) }}
+
+{# Reset temporary storage #}
+{# {{ govukInput({
+  id:   "risk-level",
+  name: "lastRiskLevel",
+  value: "",
+  type: "hidden"
+}) }} #}
+
+
+
+{% endblock %}

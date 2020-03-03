@@ -52,7 +52,7 @@
   <div class="govuk-grid-column-full">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-half">
-        <p class="govuk-body"><a href="#" class="govuk-link">Add supporting information</a>
+        <p class="govuk-body"><a href="./documents/add" class="govuk-link">Add supporting information</a>
         </p>
       </div>
       <div class="govuk-grid-column-one-half">
@@ -61,7 +61,7 @@
         {% set groupByType = data.groupByType | falsify %}
 
         {% if groupByType %}
-          {% set linkText = "Group all items together" %}
+          {% set linkText = "Show items as a single table" %}
           {% set groupByTypeNext = false %}
         {% else %}
           {% set linkText = "Group items by type" %}
@@ -87,11 +87,6 @@
               value: "date-added",
               text: "Date added",
               selected: true if (data.sortOrder == 'date-added')
-            },
-            {
-              value: "date-updated",
-              text: "Last updated",
-              selected: true if data.sortOrder == 'date-updated'
             },
             {
               value: "activity-date",
@@ -179,9 +174,19 @@
     {% for item in historyItems %}
 
       {% set titleExtra %}
-        {% if (not groupByType) or (groupByType and item.correspondenceType) %}
+        {# {% if (not groupByType) or (groupByType and item.correspondenceType) %} #}
+        {% if (groupByType and item.correspondenceType) %}
           <br>
           <span class="govuk-hint govuk-!-margin-top-1 govuk-!-margin-bottom-0">{{item.correspondenceType or item.type}}</span>
+        {% endif %}
+      {% endset %}
+
+      {% set typeExtra %}
+        {# {% if (not groupByType) or (groupByType and item.correspondenceType) %} #}
+        {{item.type}}
+        {% if (not groupByType and item.correspondenceType) %}
+          <br>
+          <span class="govuk-hint govuk-!-margin-top-1 govuk-!-margin-bottom-0">{{item.correspondenceType}}</span>
         {% endif %}
       {% endset %}
 
@@ -201,6 +206,7 @@
 
       {% set item = item | setAttribute('htmlTitle', title) %}
       {% set item = item | setAttribute('author', author) %}
+      {% set item = item | setAttribute('typeExtra', typeExtra) %}
       {% set item = item | setAttribute('addedHtml', addedHtml) %}
       {% set item = item | setAttribute('index', loop.index0 ) %}
       {% set item = item | setAttribute('dateGovuk', item.date | arrayToGovukDate ) %}
@@ -212,18 +218,21 @@
     {% set itemsSorted = historyItemsWithExtra | sortDateArrays(sortOrderReversed, sortOrder) %}
 
     {% if groupByType %}
+      {% set columnsToShow = ['htmlTitle', 'dateGovuk', 'addedHtml'] %}
+
       {% for type, items in itemsSorted | sort(attribute='type') | groupby("type") %}
 
           {# Re-sort items as grouping has unsorted them #}
           {% set items = items | sortDateArrays(sortOrderReversed, sortOrder) %}
           {% set sectionId = type | pluralise | slugify %}
           <h2 id="{{sectionId}}" class="govuk-heading-m govuk-!-margin-bottom-2">{{type | pluralise }}</h2>
-          <p class="govuk-body govuk-!-margin-bottom-0"><a href="./{{type | slugify}}/new" class="govuk-link">Add {{type | lower}}</a></p>
-          {{ itemTable(items) }}
+          <p class="govuk-body govuk-!-margin-bottom-2"><a href="./{{type | slugify}}/new" class="govuk-link">Add {{type | lower}}</a></p>
+          {{ itemTable(items, columnsToShow) }}
           <hr class="govuk-section-break govuk-section-break--l">
       {% endfor %}
       {% else %}
-      {{ itemTable(itemsSorted) }}
+      {% set columnsToShow = ['htmlTitle', 'typeExtra', 'dateGovuk', 'addedHtml'] %}
+      {{ itemTable(itemsSorted, columnsToShow) }}
 
 
     {% endif %}
@@ -235,31 +244,41 @@
 
 
 {# Generate table #}
-{% macro itemTable(items) %}
+{% macro itemTable(items, columnsToShow) %}
 
   {# Slim down to data we need #}
-  {% set theItems = items | keepAttributes('htmlTitle', 'dateGovuk', 'addedHtml') %}
+  {# {% set theItems = items | keepAttributes('htmlTitle', 'dateGovuk', 'addedHtml') %} #}
+  {% set theItems = items | keepAttributes(columnsToShow) %}
   {# Convert to nested array #}
   {% set tableData = theItems | objectArrayToArray %}
   {# Make table #}
-  {{ govukTable({
-    firstCellIsHeader: false,
-    head: [
 
+  {% set tableHeader = [
       {
-        text: "",
-        classes: "govuk-!-width-one-half"
+        text: "Item",
+        classes: "govuk-!-width-one-third" if columnsToShow.includes('typeExtra') else "govuk-!-width-one-half"
+      },{
+        text: "Type",
+        classes: "govuk-!-width-one-quarter",
+        remove: false if columnsToShow.includes('typeExtra') else true
       },
       {
         text: "Activity date",
         classes: "govuk-!-width-one-quarter"
       },
       {
-        text: "Added by"
-        ,
+        text: "Added by",
         classes: "govuk-!-width-one-quarter"
       }
-    ],
+    ] %}
+
+  {# Remove items with remove set to true #}
+  {% set tableHeader = tableHeader | removeAttr('remove', true) %}
+
+
+  {{ govukTable({
+    firstCellIsHeader: false,
+    head: tableHeader,
     rows: tableData | arrayToGovukTable
   }) }}
 

@@ -319,6 +319,14 @@ module.exports = {
     allegation: "Make an allegation"
   },
 
+  riskLevels: [
+    'Serious risk',
+    'High risk',
+    'Medium risk',
+    'Low risk',
+    'Other'
+  ],
+
   new: {
     files: {
       testing: {},

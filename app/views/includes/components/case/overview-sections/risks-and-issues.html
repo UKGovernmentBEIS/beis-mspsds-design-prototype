@@ -9,13 +9,16 @@
   {{hazardDescription | safe}}
 {% endset %}
 
+{% set riskLevel = currentCase.riskLevel %}
+{% set riskLevelOther = currentCase.riskLevelOther %}
+
 {% set caseRiskLevel %}
-  {% if not data.demoCase.riskLevel %}
+  {% if not riskLevel %}
   Not set
-  {% elseif data.demoCase.riskLevel == 'other' %}
-  Other: {{data.demoCase.riskLevelOther}}
+  {% elseif riskLevel == 'Other' %}
+  Other: {{riskLevelOther}}
   {% else %}
-  {{data.demoCase.riskLevel | capitalize }}
+  {{riskLevel }}
   {% endif %}
 {% endset %}
 
@@ -76,8 +79,8 @@
       actions: {
         items: [
           {
-            href: "./risk-level/add" if not data.demoCase.riskLevel else "./risk-level/edit",
-            text: "Change" if data.demoCase.riskLevel else 'Add',
+            href: "./risk-level/add",
+            text: "Change" if riskLevel else 'Add',
             visuallyHiddenText: "risk level"
           }
         ] if hasEditRights else []
@@ -85,7 +88,7 @@
     },
     {
       key: {
-        text: "Risk assessment",
+        text: "Risk assessment" | pluralise(riskAssessmentCount),
         classes: ""
       },
       classes: "",

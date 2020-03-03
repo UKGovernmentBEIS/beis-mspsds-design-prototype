@@ -42,7 +42,7 @@ filters.objectArrayToArray = array => {
 }
 
 // Keep only whitelisted keys from object or array of objects
-filters.keepAttributes = (array, ...keysToKeep) => {
+filters.keepAttributes = (array, keysToKeep) => {
   const keepKeys = function(theObject) {
     var newObj = {}
     // Re-orders and keeps only selected keys

@@ -16,7 +16,11 @@
 }) }}
 {% endblock %}
 
-{% set submitButtonText = 'Update' if pageContext == 'edit' else 'Add' %}
+{% set submitButtonText = submitButtonText %}
+{% set defaultButtonText = 'Update' if pageContext == 'edit' else 'Add' %}
+{% set submitButtonText = submitButtonText or defaultButtonText %}
+
+{# {% set submitButtonText = submitButtonText or ()%} #}
 
 {% set submitButtonText = submitButtonText + ((' ' + contentType) if contentType) %}
 
