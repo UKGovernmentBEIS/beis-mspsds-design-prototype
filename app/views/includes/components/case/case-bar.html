@@ -42,139 +42,144 @@
     href: '#'
   }, #}
 
+{% set menuItemActive = false %}
 
-    {% set addNewMenuItems =
-      [{
-        text: 'Comment',
-        classes: 'hmcts-button--secondary',
-        href: "/root/flows/add-comment/01-add-comment"
-      }, {
-        text: 'Correspondence',
-        classes: 'hmcts-button--secondary',
-        href: "/root/flows/add-email/01e-add-email-context"
-      }, {
-        text: 'Corrective action',
-        classes: 'hmcts-button--secondary',
-        href: "/root/flows/add-email/01e-add-email-context"
-      }, {
-        text: 'File attachment',
-        classes: 'hmcts-button--secondary',
-        href: "/root/flows/attachment/add/01"
-      }, {
-        text: 'Test request or result',
-        classes: 'hmcts-button--secondary',
-        href: "/root/flows/record-test-result/01-record-test-result"
-      }, {
-        text: 'Product',
-        classes: 'hmcts-button--secondary',
-        href: "/root/flows/product/add/01"
-      }, {
-        text: 'Business',
-        classes: 'hmcts-button--secondary',
-        href: "/root/flows/business/add/01"
-      }]
-    %}
 
-    {% set actionsMenuItems =
-      [{
-        text: 'Reassign this case',
-        classes: 'hmcts-button--secondary',
-        href: "/root/flows/assign/01"
-      }, {
-        text: 'Close case' if currentCase.status =="Open" else 'Reopen case',
-        classes: 'hmcts-button--secondary',
-        href: "/root/flows/change-status/01"
-      }, {
-        text: 'Change case type',
-        classes: 'hmcts-button--secondary',
-        href: "#"
-      }, {
-        text: "Restrict this case" if not currentCase.restricted else "Unrestrict this case",
-        classes: 'hmcts-button--secondary',
-        href: "/root/flows/change-visibility/01-change-visibility"
-      }, {
-        text: 'Send email alert about this case',
-        classes: 'hmcts-button--secondary',
-        href: "/root/flows/send-alert/about-alerts"
-      }]
-    %}
-
-{% set hasEditRightsItems = [
-
-  {
+{% set addNewMenuItems =
+  [{
+    text: 'Comment',
     classes: 'hmcts-button--secondary',
-    text: 'Add new',
-    href: '/root/flows/add-activity/01?currentPage=case&caseid='+currentCase.id
-  },
-  {
+    href: "/root/flows/add-comment/01-add-comment" if menuItemActive else "#"
+  }, {
+    text: 'Correspondence',
     classes: 'hmcts-button--secondary',
-    text: 'Actions',
-    href: '#'
-  }
-  ]%}
+    href: "/root/flows/add-email/01e-add-email-context" if menuItemActive else "#"
+  }, {
+    text: 'Corrective action',
+    classes: 'hmcts-button--secondary',
+    href: "/root/flows/add-email/01e-add-email-context" if menuItemActive else "#"
+  }, {
+    text: 'File attachment',
+    classes: 'hmcts-button--secondary',
+    href: "/root/flows/attachment/add/01" if menuItemActive else "#"
+  },{
+    text: 'Risk assessment',
+    classes: 'hmcts-button--secondary',
+    href: "/pages/case/risk-assessment/new"
+  },{
+    text: 'Test request or result',
+    classes: 'hmcts-button--secondary',
+    href: "/root/flows/record-test-result/01-record-test-result" if menuItemActive else "#"
+  }, {
+    text: 'Product',
+    classes: 'hmcts-button--secondary',
+    href: "/root/flows/product/add/01" if menuItemActive else "#"
+  }, {
+    text: 'Business',
+    classes: 'hmcts-button--secondary',
+    href: "/root/flows/business/add/01" if menuItemActive else "#"
+  }]
+%}
+
+{% set actionsMenuItems =
+  [{
+    text: 'Reassign this case',
+    classes: 'hmcts-button--secondary',
+    href: "/root/flows/assign/01" if menuItemActive else "#"
+  }, {
+    text: 'Close case' if currentCase.status =="Open" else 'Reopen case',
+    classes: 'hmcts-button--secondary',
+    href: "/root/flows/change-status/01" if menuItemActive else "#"
+  }, {
+    text: 'Change case type',
+    classes: 'hmcts-button--secondary',
+    href: "#"
+  }, {
+    text: "Restrict this case" if not currentCase.restricted else "Unrestrict this case",
+    classes: 'hmcts-button--secondary',
+    href: "/root/flows/change-visibility/01-change-visibility"
+  }, {
+    text: 'Send email alert about this case',
+    classes: 'hmcts-button--secondary',
+    href: "/root/flows/send-alert/about-alerts" if menuItemActive else "#"
+  }]
+%}
+
+{% set hasEditRightsItems =
+  [
+    {
+      classes: 'hmcts-button--secondary',
+      text: 'Add new',
+      href: '/root/flows/add-activity/01?currentPage=case&caseid='+currentCase.id
+    },
+    {
+      classes: 'hmcts-button--secondary',
+      text: 'Actions',
+      href: '#'
+    }
+  ]
+%}
 
   {#  hmcts-menu__toggle-button hmcts-menu__toggle-button--secondary #}
 
-  {% set noEditRightsItems = [
-  {
-    classes: 'hmcts-button--secondary',
-    text: 'Add comment',
-    href: '/root/flows/add-comment/01-add-comment'
-  }
-  ]%}
+{% set noEditRightsItems = [
+{
+  classes: 'hmcts-button--secondary',
+  text: 'Add comment',
+  href: '/root/flows/add-comment/01-add-comment'
+}
+]%}
 
-  {% set caseClosedItems = [
-  {
-    text: 'Reopen case',
-    href: '/root/flows/change-status/01'
-  },
-  {
-    classes: 'hmcts-button--secondary',
-    text: 'Add comment',
-    href: '/root/flows/add-comment/01-add-comment'
-  }
-  ]%}
+{% set caseClosedItems = [
+{
+  text: 'Reopen case',
+  href: '/root/flows/change-status/01'
+},
+{
+  classes: 'hmcts-button--secondary',
+  text: 'Add comment',
+  href: '/root/flows/add-comment/01-add-comment'
+}
+]%}
 
 
 {# Assignee {{currentCase.assignee}}
 Current user: {{data['currentUser']}} #}
 
 
-{% if includeCaseActions %}
+{% if includeCaseActions == false %}
 
-{% if currentCase.status == 'Closed' %}
-  {# {% set items = caseClosedItems %} #}
-  {% set menus = [{items: caseClosedItems}] %}
+  {{ identityBar({
+    title: { html: identityBarContentHTML }
+  }) }}
 
+  {% else %}
 
-{% elseif currentCase.assignee == data['currentUser'] %}
-{# {% elseif data['currentTeam'] != 'Trading Standards' %} #}
-  {# {% set items = hasEditRightsItems %} #}
-  {% set menus = [
-     {
-      items: addNewMenuItems,
-      classes: 'hmcts-menu--add-new'
-    },
-    {
-      items: actionsMenuItems,
-      classes: 'hmcts-menu--actions'
-    }
-    ] %}
-{% else %}
-  {% set menus = [{items:noEditRightsItems}] %}
-{% endif %}
+  {% if currentCase.status == 'Closed' %}
 
+    {% set menus = [{items: caseClosedItems}] %}
+
+  {% elseif hasEditRights %}
+  {# {% elseif currentCase.assignee == data['currentUser'] %} #}
+    {% set menus = [
+      {
+        items: addNewMenuItems,
+        classes: 'hmcts-menu--add-new'
+      },
+      {
+        items: actionsMenuItems,
+        classes: 'hmcts-menu--actions'
+      }
+    ]
+    %}
+  {% else %}
+    {% set menus = [{items:noEditRightsItems}] %}
+  {% endif %}
 
   {{ identityBar({
     title: { html: identityBarContentHTML },
     menus: menus
-    }) }}
-
-{% else %}
-
-  {{ identityBar({
-    title: { html: identityBarContentHTML }
-    }) }}
+  }) }}
 
 
 {% endif %}
