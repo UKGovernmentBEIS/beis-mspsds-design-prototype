@@ -37,7 +37,7 @@ module.exports = {
   businessid: "b1",
   productid: "p1",
 
-  groupByType: 'true',
+  groupByType: 'false',
   sortOrder: 'date-added',
 
   caseListSettings: {

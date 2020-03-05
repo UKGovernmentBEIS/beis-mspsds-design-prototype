@@ -69,6 +69,24 @@ filters.setAttribute = (dictionary, key, value) => {
   return newDictionary;
 }
 
+
+// Filter results for only those containing attribute and value
+filters.filterAttr = function (arr, attr, test) {
+  var result = arr.filter(function (item) {
+     return item[attr] === test;
+  });
+  return result
+};
+
+
+// Remove items with a specified attribute and value
+filters.removeAttr = function (arr, attr, test) {
+  var result = arr.filter(function (item) {
+     return item[attr] !== test;
+  });
+  return result
+};
+
 // -------------------------------------------------------------------
 // keep the following line to return your filters to the app
 // -------------------------------------------------------------------
