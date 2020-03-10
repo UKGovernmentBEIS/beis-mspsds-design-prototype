@@ -61,10 +61,10 @@
         {% set groupByType = data.groupByType | falsify %}
 
         {% if groupByType %}
-          {% set linkText = "Show items as a single table" %}
+          {% set linkText = "Show activities as a single table" %}
           {% set groupByTypeNext = false %}
         {% else %}
-          {% set linkText = "Group items by type" %}
+          {% set linkText = "Group activites by type" %}
           {% set groupByTypeNext = true %}
         {% endif %}
         <p class="govuk-body align-right"><a href="./documents?sortOrder={{data.sortOrder}}&groupByType={{groupByTypeNext}}" class="govuk-link">{{linkText}}</a>
@@ -90,7 +90,7 @@
             },
             {
               value: "activity-date",
-              text: "Activity date",
+              text: "Date of activity",
               selected: true if data.sortOrder == 'activity-date'
             },
             {
@@ -255,7 +255,7 @@
 
   {% set tableHeader = [
       {
-        text: "Item",
+        text: "Activity",
         classes: "govuk-!-width-one-third" if columnsToShow.includes('typeExtra') else "govuk-!-width-one-half"
       },{
         text: "Type",
@@ -263,7 +263,7 @@
         remove: false if columnsToShow.includes('typeExtra') else true
       },
       {
-        text: "Activity date",
+        text: "Date of activity",
         classes: "govuk-!-width-one-quarter"
       },
       {

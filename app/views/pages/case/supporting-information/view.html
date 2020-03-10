@@ -1,11 +1,13 @@
 {% extends "includes/templates/case-view-item.html" %}
 
 {% block beforeContent %}
-  {# {{ govukBackLink({
+  {{ govukBackLink({
     text: "Back to " + (caseType | lower),
+    text: "Back to supporting  information",
+    text: "Back",
     href: formCancel
-  }) }} #}
-
+  }) }}
+{#
   {{ govukBreadcrumbs({
     items: [
       {
@@ -20,7 +22,7 @@
         text: "Document"
       }
     ]
-  }) }}
+  }) }} #}
 
 {% endblock %}
 
@@ -136,10 +138,12 @@
     {% endfor %}
   {% endset %}
 
+  {% set productsCount = riskAssessment.productsAssessed | length%}
+
   {% set arrayData = [
     ["Risk level", riskLevel],
     ["Date of assessment", riskAssessment.date | arrayToGovukDate],
-    ["Products assessed", products],
+    [ "Product" | pluralise(productsCount) +" assessed", products],
     ["Risk assessor", riskAssessor],
     ["Futher details", riskAssessment.moreDetail or "Not provided"]
 
