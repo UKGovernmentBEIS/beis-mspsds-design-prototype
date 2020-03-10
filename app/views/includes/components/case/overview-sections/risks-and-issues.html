@@ -25,6 +25,7 @@
 {% set historyItems = currentCase.report.history.items %}
 {# Add an index so we can link to documents later #}
 {% set historyItems = historyItems | addIndexCount %}
+{# Some items are hidden for ease of turning off ahead of prototyping #}
 {% set historyItems = historyItems | removeAttr('hide', true) %}
 
 
@@ -54,7 +55,7 @@
 {% set riskAssessmentLinkDestination = './risk-assessment/new' %}
 
 {# Has one or more risk assessments #}
-{% if riskAssessmentCount  %}
+{% if riskAssessmentCount %}
   {# Multiple risk assessments - link to documents tab #}
   {% set riskAssessmentLinkText = 'View' %}
   {% set riskAssessmentLinkDestination = './documents#risk-assessments' %}
@@ -80,7 +81,7 @@
         items: [
           {
             href: "./risk-level/add",
-            text: "Change" if riskLevel else 'Add',
+            text: "Change" if riskLevel else 'Set',
             visuallyHiddenText: "risk level"
           }
         ] if hasEditRights else []

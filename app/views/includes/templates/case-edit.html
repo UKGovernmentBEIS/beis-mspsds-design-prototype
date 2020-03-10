@@ -9,6 +9,10 @@
 {% set formCancel = formCancel or '../overview' %}
 {% set formAction = formAction or './save' %}
 
+{% set defaultButtonText = 'Update' if pageContext == 'edit' else 'Add' %}
+{% set submitButtonText = submitButtonText or defaultButtonText %}
+{% set submitButtonText = submitButtonText + ((' ' + contentType) if contentType) %}
+
 {% block beforeContent %}
   {{ govukBackLink({
   text: "Back to " + (caseType | lower),
@@ -16,13 +20,6 @@
 }) }}
 {% endblock %}
 
-{% set submitButtonText = submitButtonText %}
-{% set defaultButtonText = 'Update' if pageContext == 'edit' else 'Add' %}
-{% set submitButtonText = submitButtonText or defaultButtonText %}
-
-{# {% set submitButtonText = submitButtonText or ()%} #}
-
-{% set submitButtonText = submitButtonText + ((' ' + contentType) if contentType) %}
 
 {% set metaArea %}
 <div class="app-meta-area">
@@ -31,6 +28,10 @@
 {% endset %}
 
 {% block content %}
+
+
+
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
     <form action="{{formAction}}" method="post" class="form">
@@ -40,6 +41,9 @@
       {{metaArea | safe }}
       {% block formContent %}
       {% endblock %}
+
+
+
       <div class="govuk-form-group">
         {{ govukButton({
           text: submitButtonText

@@ -1,8 +1,21 @@
 {% extends "includes/templates/case-edit.html" %}
-{% set pageHeading = 'Add a case risk level' %}
+{% set pageHeading = 'Case risk level' %}
 {% set contentType = 'risk level' %}
 
-{% set pageContext = 'add' %}
+{% set pageContext = 'set' %}
+{% set verbText = 'Update' %}
+
+{% set currentCase = data.cases | withId(data['caseid']) %}
+{% set currentCase = currentCase | attachCaseChildren(data) %}
+
+{% set caseRiskLevel = currentCase.riskLevel %}
+
+{% if not caseRiskLevel %}
+  {% set pageHeading = 'Set case risk level' %}
+  {% set verbText = 'Set' %}
+{% endif %}
+
+{% set submitButtonText = verbText %}
 
 {% set formCancel = '../overview' %}
 {% set formAction = './save' %}
