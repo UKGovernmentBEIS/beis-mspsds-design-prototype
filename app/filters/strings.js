@@ -2,26 +2,11 @@
 // Imports and setup
 // -------------------------------------------------------------------
 const string = require('string')
+const _ = require('lodash');
 // Leave this filters line
 var filters = {}
 
 
-/*
-  ====================================================================
-  filterName
-  --------------------------------------------------------------------
-  Short description for the filter
-  ====================================================================
-
-  Usage:
-
-  [Usage here]
-
-  filters.sayHi = (name) => {
-    return 'Hi ' + name + '!'
-  }
-
-*/
 
 // Create url / slugs from text
 // This is a heading => this-is-a-heading
@@ -30,12 +15,19 @@ filters.slugify = (input) => {
   else return string(input).slugify().toString();
 }
 
-
 // Hyphen separate a string
 filters.toKebabCase = (string) => {
   return string.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/\s+/g, '-').toLowerCase()
 }
 
+// Sentence case - make first letter of string input uppercase
+filters.sentenceCase = (input) => {
+  if (!input) return '' // avoid printing false to client
+  if (_.isString(input)){
+    return input.charAt(0).toUpperCase() + input.slice(1);
+  }
+  else return input
+}
 
 // -------------------------------------------------------------------
 // keep the following line to return your filters to the app
