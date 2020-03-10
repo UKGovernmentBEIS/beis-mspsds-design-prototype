@@ -284,7 +284,7 @@ module.exports = {
               hasFile: 'no'
             },
             {
-              hasFile: 'no',
+              hasFile: 'yes',
               title: 'Electrical safety test',
               date: [4, 2, 2019],
               dateAdded: [11, 2, 2020],
