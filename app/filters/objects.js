@@ -69,6 +69,65 @@ filters.setAttribute = (dictionary, key, value) => {
   return newDictionary;
 }
 
+// Clear a single attribute
+filters.clearAttribute = (dictionary, key) => {
+  var newDictionary = Object.assign({}, dictionary);
+  newDictionary[key] = '';
+  return newDictionary;
+}
+
+// Clear a single attribute
+// filters.renameAttribute = (dictionary, oldKey, newKey) => {
+//   var newDictionary = Object.assign({}, dictionary);
+//   var keys = Object.keys(newDictionary)
+//   // console.log({dictionary}, {oldKey})
+
+//   if (keys.includes(oldKey)){
+//     delete Object.assign(newDictionary, dictionary, {[newKey]: dictionary[oldKey] })[oldKey];
+
+//     // console.log('old key is', newDictionary[oldKey])
+//     // newDictionary[newKey] = newDictionary[oldKey]
+//     // delete newDictionary[oldKey]
+//   }
+//   return newDictionary;
+// }
+
+
+filters.renameAttribute = (dictionary, oldKey, newKey) => {
+  const keys = Object.keys(dictionary);
+  const newObj = keys.reduce((acc, val)=>{
+    if(val === oldKey){
+        acc[newKey] = dictionary[oldKey];
+    }
+    else {
+        acc[val] = dictionary[val];
+    }
+    return acc;
+  }, {});
+
+  return newObj;
+};
+
+// Delete a single attribute
+filters.deleteAttribute = (dictionary, key) => {
+  // Don't modify the original
+  var newDictionary = Object.assign({}, dictionary);
+  delete newDictionary[key];
+  return newDictionary;
+}
+
+// Delete a single attribute
+filters.deleteBlankAttributes = (dictionary) => {
+  // Don't modify the original
+  var newDictionary = Object.assign({}, dictionary);
+  var keys = Object.keys(newDictionary)
+  keys.forEach(key => {
+    if (newDictionary[key] == ""){
+      delete newDictionary[key]
+    }
+  })
+  return newDictionary;
+}
 
 // Filter results for only those containing attribute and value
 filters.filterAttr = function (arr, attr, test) {

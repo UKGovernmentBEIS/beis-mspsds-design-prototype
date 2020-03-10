@@ -41,17 +41,33 @@
 
     {% if currentDocument.type == 'Risk assessment' %}
 
-
       {{riskAssessmentSummaryList(currentDocument)}}
+
     {% else %}
 
       {% set summaryListData = [] %}
+
+      {# Delete blank #}
+      {% set currentDocument = currentDocument | deleteBlankAttributes %}
+
+      {# Delete helper attributes #}
+      {% set currentDocument = currentDocument | deleteAttribute("hasFile") %}
+      {% set currentDocument = currentDocument | deleteAttribute("type") %}
+      {% set currentDocument = currentDocument | deleteAttribute("correspondenceType") %}
+      {% set currentDocument = currentDocument | deleteAttribute("index") %}
+
+      {# Prety names #}
+      {% set currentDocument = currentDocument | renameAttribute("dateAdded", "Date added") %}
+      {% set currentDocument = currentDocument | renameAttribute("attachmentDescription", "Attachment description") %}
+      {% set currentDocument = currentDocument | renameAttribute("typeOfAction", "Type of action") %}
+      {% set currentDocument = currentDocument | renameAttribute("durationOfMeasure", "Duration of measure") %}
+      {% set currentDocument = currentDocument | renameAttribute("otherDetails", "Other details") %}
 
       {% for name, item in currentDocument %}
         {% if (item | length == 3) %}
           {% set item = item | arrayToGovukDate %}
         {% endif %}
-        {% set row = [name | title, item | string] %}
+        {% set row = [name | sentenceCase, item | string | sentenceCase ] %}
         {% set summaryListData = summaryListData | push(row) %}
       {% endfor %}
 
@@ -143,14 +159,14 @@
   {% set arrayData = [
     ["Risk level", riskLevel],
     ["Date of assessment", riskAssessment.date | arrayToGovukDate],
-    [ "Product" | pluralise(productsCount) +" assessed", products],
+    [ "Product" | pluralise(productsCount) + " assessed", products],
     ["Risk assessor", riskAssessor],
     ["Futher details", riskAssessment.moreDetail or "Not provided"]
 
     ] %}
 
   {{ govukSummaryList({
-      rows: arrayData | arrayToSummaryList
-    }) }}
+    rows: arrayData | arrayToSummaryList
+  }) }}
 
 {% endmacro %}
