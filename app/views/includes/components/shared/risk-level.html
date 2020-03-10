@@ -1,4 +1,5 @@
 
+
 {% set theRiskLevel = currentCase.riskLevel %}
 
 {% set otherRiskLevelHTML %}
@@ -14,23 +15,52 @@
   }) }}
 {% endset %}
 
-<p class="govuk-body">Risk levels should usually be supported by a risk assessment.</p>
+<p class="govuk-body">The case risk level will usually match the risk assessment.</p>
 
+<p class="govuk-body">It can differ from risk assesments if necessary - such as when there are conflicting assesments, or where the assessment was provided by a third party.</p>
+
+{% set historyItems = currentCase.report.history.items %}
+{% set historyItems = historyItems | removeAttr('hide', true) %}
+
+{# Filter items for riskAssessments #}
+{% set riskAssessments = historyItems | filterAttr("type", "Risk assessment") | sortDateArrays(false, 'dateAdded') %}
+{% set riskAssessmentCount = riskAssessments | length %}
+{% set riskAssessment = riskAssessments[0] if riskAssessmentCount else '' %}
 {# With risk asssesment #}
-{% set insetTextHTML %}
-<p class="govuk-body">This case has <a href="../risk-assessment/">1 risk assessment</a> attached, assessing the risk as <strong>serious</strong>.</p>
-{% endset %}
+
+
+{# Has risk assessments #}
+{% if riskAssessmentCount %}
+
+  {% set insetTextHTML %}
+  <p class="govuk-body">This case has <a href="{{riskAssessmentLinkDestination}}">{{riskAssessmentCount}} risk {{'assessment' | pluralise(riskAssessmentCount)}} added</a>, assessing the risk as <strong>{{riskAssessment.riskLevel | lower}}</strong>.</p>
+  {% endset %}
+
+  {# Multiple risk assessments - link to documents tab #}
+  {% set riskAssessmentLinkText = 'View' %}
+  {% set riskAssessmentLinkDestination = '../documents#risk-assessments' %}
+
+  {# Single risk assessment - link to document #}
+  {% if riskAssessmentCount == 1 %}
+    {% set riskAssessmentLinkDestination = '../documents/' + riskAssessment.index + '/view' %}
+  {% endif %}
 
 {# Without risk assessment #}
-{% set insetTextHTML %}
-<p class="govuk-body">This case does not have a risk assessment attached. You may want to <a href="../risk-assessment/edit">add a risk assesment</a> before setting the case risk level.</p>
-{% endset %}
+{% else %}
 
+  {% set insetTextHTML %}
+  <p class="govuk-body">This case does not have a risk assessment. You may want to <a href="../risk-assessment/new">add a risk assesment</a> before setting the case risk level.</p>
+  {% endset %}
+
+{% endif %}
+
+
+{# Message about current risk assessments #}
 {{ govukInsetText({
   html: insetTextHTML
 }) }}
 
-<p class="govuk-body">The case risk level may differ from attached risk assements if necessary - such as when there are conflicting assesments, or where the assessment was provided by a third party.</p>
+
 
 
 
@@ -40,9 +70,9 @@
     name: "riskLevel",
     fieldset: {
       legend: {
-        text: "Risk level",
+        text: "Case risk level",
         isPageHeading: false,
-        classes: "govuk-fieldset__legend--m"
+        _classes: "govuk-fieldset__legend--m"
       }
     },
     items: [
