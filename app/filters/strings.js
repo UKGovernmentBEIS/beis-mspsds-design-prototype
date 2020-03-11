@@ -16,11 +16,12 @@ filters.slugify = (input) => {
 }
 
 // Hyphen separate a string
-filters.toKebabCase = (string) => {
+// This is a string => this-is-a-string
+filters.kebabCase = (string) => {
   return string.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/\s+/g, '-').toLowerCase()
 }
 
-// Sentence case - make first letter of string input uppercase
+// Sentence case - uppercase first latter
 filters.sentenceCase = (input) => {
   if (!input) return '' // avoid printing false to client
   if (_.isString(input)){

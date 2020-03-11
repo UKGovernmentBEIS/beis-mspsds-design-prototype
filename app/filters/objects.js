@@ -21,14 +21,35 @@ var filters = {}
 
 */
 
-// Merge arrays or strings together in to an array
-filters.combineArrays = (arr1=[], arr2=[]) => {
-  if (_.isString(arr1)) arr1 = [arr1]
-  if (_.isString(arr2)) arr2 = [arr2]
-  return [...arr1, ...arr2]
-}
 
-// Flatten object array to nested array
+/*
+  ====================================================================
+  objectArrayToArray
+  --------------------------------------------------------------------
+  Flatten object array to nested array, keeping just the values
+  ====================================================================
+
+  Input:
+
+  array = [
+    {
+      firstName: "Foo",
+      lastName: "Bar"
+    },{
+      firstName: "Zip",
+      lastName: "Buz"
+    }
+  ]
+
+  Output:
+
+  [
+    ["Foo", "Bar"],
+    ["Zip", "Buz"]
+  ]
+
+*/
+
 filters.objectArrayToArray = array => {
   let newArray = []
   array.forEach(item => {
@@ -43,9 +64,14 @@ filters.objectArrayToArray = array => {
 
 // Keep only whitelisted keys from object or array of objects
 filters.keepAttributes = (array, keysToKeep) => {
-  const keepKeys = function(theObject) {
-    var newObj = {}
+  const keepKeys = theObject => {
+    let newObj = {}
     // Re-orders and keeps only selected keys
+
+    // Coerce string to array
+    if (_.isString(keysToKeep)) keysToKeep = [keysToKeep]
+
+
     keysToKeep.forEach(key => {
       let objectKeys = Object.keys(theObject)
       if (objectKeys.includes(key)){
@@ -76,50 +102,34 @@ filters.clearAttribute = (dictionary, key) => {
   return newDictionary;
 }
 
-// Clear a single attribute
-// filters.renameAttribute = (dictionary, oldKey, newKey) => {
-//   var newDictionary = Object.assign({}, dictionary);
-//   var keys = Object.keys(newDictionary)
-//   // console.log({dictionary}, {oldKey})
-
-//   if (keys.includes(oldKey)){
-//     delete Object.assign(newDictionary, dictionary, {[newKey]: dictionary[oldKey] })[oldKey];
-
-//     // console.log('old key is', newDictionary[oldKey])
-//     // newDictionary[newKey] = newDictionary[oldKey]
-//     // delete newDictionary[oldKey]
-//   }
-//   return newDictionary;
-// }
-
-
+// Rename a key on an object, preserving key order
 filters.renameAttribute = (dictionary, oldKey, newKey) => {
-  const keys = Object.keys(dictionary);
+  const keys = Object.keys(dictionary)
   const newObj = keys.reduce((acc, val)=>{
     if(val === oldKey){
-        acc[newKey] = dictionary[oldKey];
+        acc[newKey] = dictionary[oldKey]
     }
     else {
-        acc[val] = dictionary[val];
+        acc[val] = dictionary[val]
     }
-    return acc;
-  }, {});
+    return acc
+  }, {})
 
-  return newObj;
+  return newObj
 };
 
 // Delete a single attribute
 filters.deleteAttribute = (dictionary, key) => {
   // Don't modify the original
-  var newDictionary = Object.assign({}, dictionary);
-  delete newDictionary[key];
-  return newDictionary;
+  var newDictionary = Object.assign({}, dictionary)
+  delete newDictionary[key]
+  return newDictionary
 }
 
-// Delete a single attribute
+// Delete a keys with blank values
 filters.deleteBlankAttributes = (dictionary) => {
   // Don't modify the original
-  var newDictionary = Object.assign({}, dictionary);
+  var newDictionary = Object.assign({}, dictionary)
   var keys = Object.keys(newDictionary)
   keys.forEach(key => {
     if (newDictionary[key] == ""){
