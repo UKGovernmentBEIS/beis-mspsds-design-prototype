@@ -54,11 +54,89 @@
       <div class="govuk-grid-column-one-half">
         <p class="govuk-body"><a href="./documents/add" class="govuk-link">Add supporting information</a>
         </p>
+        <div class="filter-area govuk-clearfix govuk-!-margin-top-8 govuk-!-margin-bottom-5">
+          <span style="float:left">
+            {% set groupByType = data.groupByType | falsify %}
+            {{ govukCheckboxes({
+              idPrefix: "group-activites",
+              name: "group-activities-together",
+              formGroup: {
+                classes: "govuk-!-margin-bottom-0 display-inline"
+              },
+              items: [
+                {
+                  value: "true",
+                  text: "Group activities by type",
+                  checked: groupByType
+                }
+              ]
+            }) }}
+          </span>
+          <span style="float:left">
+            {{ govukSelect({
+              id: "sort",
+              name: "sort",
+              formGroup: {
+                classes: "govuk-!-margin-bottom-0 govuk-!-margin-left-4 display-inline"
+              },
+              label: {
+                text: "Sort by:",
+                classes: "display-inline govuk-!-margin-right-2"
+              },
+              items: [
+                {
+                  value: "date-added",
+                  text: "Date added",
+                  selected: true if (data.sortOrder == 'date-added')
+                },
+                {
+                  value: "activity-date",
+                  text: "Date of activity",
+                  selected: true if data.sortOrder == 'activity-date'
+                },
+                {
+                  value: "author",
+                  text: "Added by",
+                  selected: true if data.sortOrder == 'author'
+                },
+                {
+                  value: "title",
+                  text: "Item title",
+                  selected: true if data.sortOrder == 'title'
+                }
+              ]
+            }) }}
+          </span>
+
+
+
+
+
+          <script>
+            var groupCheckbox = $("#group-activites-1")
+            var sortOrder = $("#sort").val()
+            groupCheckbox.change(e => {
+              console.log('checked')
+              var isChecked = groupCheckbox.is(':checked')
+              window.location.href = window.location.pathname+"?"+$.param({'sortOrder':sortOrder, 'groupByType': isChecked})
+            })
+          </script>
+          {# Reload page with sort order applied #}
+          <script>
+
+            $("#sort").change(e => {
+              var sortOrder = $("#sort").val()
+              window.location.href = window.location.pathname+"?"+$.param({'sortOrder':sortOrder})
+            })
+
+          </script>
+        </div>
+
       </div>
       <div class="govuk-grid-column-one-half">
       <div class="govuk-grid-row  ">
 
-        {% set groupByType = data.groupByType | falsify %}
+
 
         {% if groupByType %}
           {% set linkText = "Show activities as a single table" %}
@@ -67,53 +145,17 @@
           {% set linkText = "Group activites by type" %}
           {% set groupByTypeNext = true %}
         {% endif %}
-        <p class="govuk-body align-right"><a href="./documents?sortOrder={{data.sortOrder}}&groupByType={{groupByTypeNext}}" class="govuk-link">{{linkText}}</a>
+        {# <p class="govuk-body align-right"><a href="./documents?sortOrder={{data.sortOrder}}&groupByType={{groupByTypeNext}}" class="govuk-link">{{linkText}}</a>
 
-        </p>
+        </p> #}
+
+
       </div>
       <div>
         <span class="align-right">
-        {{ govukSelect({
-          id: "sort",
-          name: "sort",
-          formGroup: {
-            classes: "govuk-!-margin-bottom-4"
-          },
-          label: {
-            text: "Sort by"
-          },
-          items: [
-            {
-              value: "date-added",
-              text: "Date added",
-              selected: true if (data.sortOrder == 'date-added')
-            },
-            {
-              value: "activity-date",
-              text: "Date of activity",
-              selected: true if data.sortOrder == 'activity-date'
-            },
-            {
-              value: "author",
-              text: "Added by",
-              selected: true if data.sortOrder == 'author'
-            },
-            {
-              value: "title",
-              text: "Item title",
-              selected: true if data.sortOrder == 'title'
-            }
-          ]
-        }) }}
-      </span>
-      {# Reload page with sort order applied #}
-      <script>
 
-        $("#sort").change(e => {
-          var sortOrder = $("#sort").val()
-          window.location.href = window.location.pathname+"?"+$.param({'sortOrder':sortOrder})
-        })
-      </script>
+      </span>
+
       </div>
        {#  <span class="align-right govuk-!-margin-right-3">
           {{ govukCheckboxes({
@@ -248,6 +290,7 @@
   {# Slim down to data we need #}
   {# {% set theItems = items | keepAttributes('htmlTitle', 'dateGovuk', 'addedHtml') %} #}
   {% set theItems = items | keepAttributes(columnsToShow) %}
+
   {# Convert to nested array #}
   {% set tableData = theItems | objectArrayToArray %}
   {# Make table #}

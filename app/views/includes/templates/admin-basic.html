@@ -38,7 +38,7 @@
     {% for item in navItems %}
 
       <li>
-        <a href="/pages/platform-admin/{{item | lower | toKebabCase }}" class="govuk-link {{'active' if navCategory==item}}">{{item}}</a>
+        <a href="/pages/platform-admin/{{item | lower | kebabCase }}" class="govuk-link {{'active' if navCategory==item}}">{{item}}</a>
       </li>
     {% endfor %}
     </ul>

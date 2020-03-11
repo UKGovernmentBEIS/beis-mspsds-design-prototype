@@ -6,6 +6,14 @@ var _ = require('lodash');
 var filters = {}
 
 
+// Merge arrays or strings together in to an array
+filters.combineArrays = (arr1=[], arr2=[]) => {
+  if (_.isString(arr1)) arr1 = [arr1]
+  if (_.isString(arr2)) arr2 = [arr2]
+  return [...arr1, ...arr2]
+}
+
+
 /*
   ====================================================================
   push

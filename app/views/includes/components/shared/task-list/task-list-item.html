@@ -12,17 +12,17 @@
   {% set statusText = status.text or "Completed"
   %}
 {% endif %}
-<li class="app-task-list__item" id="{{title | toKebabCase}}">
+<li class="app-task-list__item" id="{{title | kebabCase}}">
   <div class="govuk-form-group govuk-!-margin-bottom-2">
     <span class="app-task-list__task-name">
-    {# <a href="{{link}}" {% if statusText %}aria-describedby="{{title | toKebabCase }}-{{statusText | toKebabCase }}"{% endif %}>
+    {# <a href="{{link}}" {% if statusText %}aria-describedby="{{title | kebabCase }}-{{statusText | kebabCase }}"{% endif %}>
       {{title}}
     </a> #}
     <h3 class="govuk-heading-s govuk-!-margin-bottom-0">{{title | replace("@caseType", caseType)}}</h3>
     </span>
 
   {% if statusText | length %}
-    <span class="app-task-list__task-completed hmcts-badge {{badgeColour}}" id="{{title | toKebabCase }}-{{statusText | toKebabCase }}">{{statusText}}</span>
+    <span class="app-task-list__task-completed hmcts-badge {{badgeColour}}" id="{{title | kebabCase }}-{{statusText | kebabCase }}">{{statusText}}</span>
   {% endif %}
   </div>
   {% if extra %}
