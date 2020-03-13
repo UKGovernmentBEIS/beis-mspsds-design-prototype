@@ -1,11 +1,12 @@
 
-
+{# --- DATA SETUP --------------------------------------- #}
 {% if currentItemIndex == 'new' %}
   {% set theRiskAssessment = data.riskAssessment %}
 {% else %}
   {% set theRiskAssessment = currentCase.report.history.items[currentItemIndex] %}
 {% endif %}
 
+{# --- DATE OF ASSESMENT -------------------------------- #}
 {{ govukDateInput({
   id: "assessment-date",
   namePrefix: "riskAssessment[date].",
@@ -42,28 +43,130 @@
   <a href="#" class="govuk-link js-today-link" data-target="assessment-date">Today</a>&nbsp;&nbsp;&nbsp;
   <a href="#" class="govuk-link js-yesterday-link" data-target="assessment-date">Yesterday</a>
 </p>
+{# --- END DATE OF ASSESMENT ---------------------------- #}
 
-{% set riskAssessorOtherHTML %}
-{{ govukInput({
-  id: "risk-assessor-other",
-  name: "riskAssessment[authorOtherName]",
-  value: theRiskAssessment.authorOtherName,
-  type: "tel",
-  classes: "govuk-!-width-two-thirds",
-  label: {
-    text: "Organisation name"
-  }
+
+{# --- RISK LEVEL --------------------------------------- #}
+{% set riskLevels = data.riskLevels %}
+
+{# Input for other risk level #}
+{% set riskLevelsOtherHTML %}
+  {{ govukInput({
+    id: "risk-levels-other",
+    name: "riskAssessment[riskLevelOther]",
+    value: theRiskAssessment.riskLevelOther,
+    classes: "govuk-!-width-two-thirds",
+    label: {
+      text: "Other: what was the risk level?"
+    }
+  }) }}
+{% endset -%}
+
+{% set riskItems = [] %}
+
+{# Create items array for risk levels radios #}
+{% for risk in riskLevels %}
+
+  {% if loop.last %}
+    {% set riskItems = riskItems | push({divider:"or"}) %}
+  {% endif %}
+
+  {% set riskItem = {
+    value: risk,
+    text: risk,
+    checked: true if (theRiskAssessment.riskLevel == risk),
+    conditional: {
+        html: riskLevelsOtherHTML
+      } if (risk == 'Other') else false
+    }
+  %}
+
+  {% set riskItems = riskItems | push(riskItem) %}
+
+{% endfor %}
+
+{{ govukRadios({
+  idPrefix: "where-do-you-live",
+  name: "riskAssessment[riskLevel]",
+  fieldset: {
+    legend: {
+      text: "What was the risk level?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--m"
+    }
+  },
+  items: riskItems
 }) }}
+
+{# OLD: Risk levels as autocomplete #}
+{# {{ autocompleteInput({
+  idPrefix: "legislation",
+  name:     "riskAssessment[riskLevel]",
+  legend:   "What was the risk level?",
+  hint:     "If there was more than one, choose the highest.",
+  values:   riskLevels,
+  value: theRiskAssessment.riskLevel,
+  class: 'govuk-heading-m',
+  width: 'govuk-!-width-two-thirds',
+  conditional: riskLevelsOtherHTML})
+}} #}
+
+{# --- END RISK LEVEL ----------------------------------- #}
+
+
+{# --- WHO COMPLETED / AUTHOR---------------------------- #}
+{% set riskAssessorOtherHTML %}
+  {{ govukInput({
+    id: "risk-assessor-other",
+    name: "riskAssessment[authorOtherName]",
+    value: theRiskAssessment.authorOtherName,
+    type: "tel",
+    classes: "govuk-!-width-two-thirds",
+    label: {
+      text: "Organisation name"
+    }
+  }) }}
 {% endset -%}
 
 {% set psdTeamsHTML %}
-{{ localAuthorityAutocomplete({
-    idPrefix:   'localAuthorityName',
-    name:       'riskAssessment[authorOtherPSDTeam]',
-    value:      theRiskAssessment.authorOtherPSDTeam,
+  {{ localAuthorityAutocomplete({
+      idPrefix:   'localAuthorityName',
+      name:       'riskAssessment[authorOtherPSDTeam]',
+      value:      theRiskAssessment.authorOtherPSDTeam,
+      class:      "govuk-label govuk-!-margin-bottom-1",
+      legend:     "Choose team"
+    }) }}
+{% endset -%}
+
+{% set caseBusinessListHTML %}
+
+  <p class="govuk-body govuk-hint">If the business isn’t listed, you should <a class="govuk-link" href="#">add it to the case first</a>.</p>
+
+  {% set businesses = [
+    "Chargeworx Ltd (manufacturer)",
+    "RealTime supplies (importer)",
+    "John’s Electrics (retailer)"
+    ] %}
+
+  {{ autocompleteInput({
+    idPrefix:   'businessName',
+    name:       'riskAssessment[authorBusiness]',
+    value:      theRiskAssessment.authorBusiness,
     class:      "govuk-label govuk-!-margin-bottom-1",
-    legend:     "Choose team"
+    legend:     "Choose business",
+    values:     businesses
   }) }}
+
+
+
+  {# {{ autocompleteInput({
+    idPrefix: "case-products",
+    name:     "TODO-product-input-name",
+    legend:   "Product that was assessed",
+    hint:     "Only products already added to the case are listed. <a href='#'>Add a product</a>",
+    class: 'govuk-heading-m',
+    values:   products})
+  }} #}
 {% endset -%}
 
 {{ govukRadios({
@@ -84,10 +187,18 @@
     },
     {
       value: "otherPSDTeam",
-      text: "Another team on the Product safety database",
+      text: "Another local authority or government team",
       checked: checked([theRiskAssessment['authorType']], "otherPSDTeam"),
       conditional: {
         html: psdTeamsHTML
+      }
+    },
+    {
+      value: "business",
+      text: "A business related to the case",
+      checked: checked([theRiskAssessment['authorType']], "business"),
+      conditional: {
+        html: caseBusinessListHTML
       }
     },
     {
@@ -101,6 +212,9 @@
   ]
 }) }}
 
+{# --- END WHO COMPLETED / AUTHOR ----------------------- #}
+
+{# Whether this was a RAPEX risk assessment or not #}
 {# {% set riskAssessmentTypeOtherHTML %}
 {{ govukInput({
   id: "risk-type-other",
@@ -258,72 +372,45 @@
 
 <p class="govuk-body"><a href="#" class="govuk-link">Select all products</a></p>
 
-{# {% set riskLevels = [
-  'Serious risk',
-  'High risk',
-  'Medium risk',
-  'Low risk',
-  'Other'
-] %} #}
-
-{% set riskLevels = data.riskLevels %}
 
 
-{% set riskLevelsOtherHTML %}
-{{ govukInput({
-  id: "risk-levels-other",
-  name: "riskAssessment[riskLevelOther]",
-  value: theRiskAssessment.riskLevelOther,
-  classes: "govuk-!-width-two-thirds",
-  label: {
-    text: "Other: what was the risk level?"
-  }
-}) }}
-{% endset -%}
-
-
-{{ autocompleteInput({
-  idPrefix: "legislation",
-  name:     "riskAssessment[riskLevel]",
-  legend:   "What was the risk level?",
-  hint:     "If there was more than one, choose the highest.",
-  values:   riskLevels,
-  value: theRiskAssessment.riskLevel,
-  class: 'govuk-heading-m',
-  width: 'govuk-!-width-two-thirds',
-  conditional: riskLevelsOtherHTML})
-}}
-
-{% set riskAssessmentUploadHTML -%}
-  This must be a pdf export from the <a href="#">RAPEX risk assessment tool</a>.
-{%- endset %}
-
-{% set filePickerHTML %}
-{{ govukFileUpload({
-  id: "file-upload-1",
-  name: "file-upload-1",
-  label: {
-    text: "Upload the risk assessment",
-    classes: "govuk-label--m"
-  },
-  hint: {
-    html: riskAssessmentUploadHTML
-  }
-}) }}
-{% endset %}
+{# --- FILE UPLOAD -------------------------------------- #}
 
 {% set fileName = theRiskAssessment.fileName or 'RAG Risk assessment - Foobar-Zipbuz.pdf' %}
 
-{# {{filePickerHTML | safe}} #}
+{% set fileUploadHint -%}
+  This should usually be a pdf export from the <a href="#">RAPEX risk assessment tool</a>.
+{%- endset %}
 
+{% set filePickerHTML %}
+  {{ govukFileUpload({
+    id: "file-upload-1",
+    name: "file-upload-1",
+    label: {
+      text: "Upload the risk assessment",
+      classes: "govuk-label--m"
+    },
+    hint: {
+      html: fileUploadHint
+    }
+  }) }}
+{% endset %}
+
+{# New risk assessment #}
 {% if currentItemIndex == 'new' %}
+
   {{filePickerHTML | safe}}
 
+{# Edited risk assesment #}
 {% else %}
 
+  {% set noOptionText %}
+  No, use ‘<strong>{{fileName | safe | debug}}</strong>’
+  {% endset %}
+
   {{ govukRadios({
-    idPrefix: "where-do-you-live",
-    name: "where-do-you-live",
+    idPrefix: "upload",
+    name: "upload",
     fieldset: {
       legend: {
         text: "Do you want to change the uploaded attchment?",
@@ -334,7 +421,7 @@
     items: [
       {
         value: "no",
-        html: "No, use ‘<strong>" + fileName + "’",
+        html: noOptionText,
         checked: true
       },
       {
@@ -349,6 +436,11 @@
 
 {% endif %}
 
+{# ---------------------------------------------------------------- #}
+
+
+{# --- FURTHER DETAILS ---- --------------------------------------- #}
+
 {{ govukTextarea({
   name: "riskAssessment[moreDetail]",
   id: "more-detail",
@@ -361,17 +453,22 @@
     text: "If there are other details relevant to the risk assessment, add them here."
   }
 }) }}
+{# ---------------------------------------------------------------- #}
 
-{{ govukInput({
-  id:   "issue-assignee",
-  name: "document[type]",
-  value: "Risk assessment",
-  type: "hidden"
-}) }}
-
+{# ---------------------------------------------------------------- #}
+{# All risk assesments have files #}
 {{ govukInput({
   id:   "risk-level",
   name: "riskAssessment[hasFile]",
   value: "yes",
+  type: "hidden"
+}) }}
+{# ---------------------------------------------------------------- #}
+
+{# Used in route to know how to handle data #}
+{{ govukInput({
+  id:   "issue-assignee",
+  name: "document[type]",
+  value: "Risk assessment",
   type: "hidden"
 }) }}
