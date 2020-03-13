@@ -29,6 +29,8 @@
 {# Todo: make this actually update a case #}
 {% block pageContent %}
 
+{% set hasFile = currentDocument.hasFile %}
+
 
 {% set pageHeading = currentDocument.title %}
 
@@ -48,22 +50,22 @@
       {% set summaryListData = [] %}
 
       {# Delete blank #}
-      {% set currentDocument = currentDocument | deleteBlankAttributes %}
+      {% set cleanedDocument = currentDocument | deleteBlankAttributes %}
 
       {# Delete helper attributes #}
-      {% set currentDocument = currentDocument | deleteAttribute("hasFile") %}
-      {% set currentDocument = currentDocument | deleteAttribute("type") %}
-      {% set currentDocument = currentDocument | deleteAttribute("correspondenceType") %}
-      {% set currentDocument = currentDocument | deleteAttribute("index") %}
+      {% set cleanedDocument = cleanedDocument | deleteAttribute("hasFile") %}
+      {% set cleanedDocument = cleanedDocument | deleteAttribute("type") %}
+      {% set cleanedDocument = cleanedDocument | deleteAttribute("correspondenceType") %}
+      {% set cleanedDocument = cleanedDocument | deleteAttribute("index") %}
 
       {# Prety names #}
-      {% set currentDocument = currentDocument | renameAttribute("dateAdded", "Date added") %}
-      {% set currentDocument = currentDocument | renameAttribute("attachmentDescription", "Attachment description") %}
-      {% set currentDocument = currentDocument | renameAttribute("typeOfAction", "Type of action") %}
-      {% set currentDocument = currentDocument | renameAttribute("durationOfMeasure", "Duration of measure") %}
-      {% set currentDocument = currentDocument | renameAttribute("otherDetails", "Other details") %}
+      {% set cleanedDocument = cleanedDocument | renameAttribute("dateAdded", "Date added") %}
+      {% set cleanedDocument = cleanedDocument | renameAttribute("attachmentDescription", "Attachment description") %}
+      {% set cleanedDocument = cleanedDocument | renameAttribute("typeOfAction", "Type of action") %}
+      {% set cleanedDocument = cleanedDocument | renameAttribute("durationOfMeasure", "Duration of measure") %}
+      {% set cleanedDocument = cleanedDocument | renameAttribute("otherDetails", "Other details") %}
 
-      {% for name, item in currentDocument %}
+      {% for name, item in cleanedDocument %}
         {% if (item | length == 3) %}
           {% set item = item | arrayToGovukDate %}
         {% endif %}
@@ -84,8 +86,7 @@
 
   </div>
 
-
-  {% if currentDocument.hasFile == 'yes' %}
+  {% if hasFile == 'yes' %}
 
     {# Create a fake filename #}
     {% set fileExtension = 'pdf' if currentDocument.correspondenceType != 'Email' else 'msg' %}
@@ -134,6 +135,8 @@
       {{currentTeam}}
     {% elseif riskAssessment.authorType == 'otherPSDTeam' %}
       {{riskAssessment.authorOtherPSDTeam}}
+    {% elseif riskAssessment.authorType == 'business' %}
+      {{riskAssessment.authorBusiness}}
     {% else %}
       {{riskAssessment.authorOtherName}}
     {% endif %}
