@@ -47,35 +47,46 @@
   {% set riskLevelChange = 'higher' %}
 {% endif %}
 
-{% set questionText = verbText + " the case risk level to match the risk assessment?" %}
+{% if caseRiskLevel %}
+  {% set questionText = verbText + " the case risk level to match the risk assessment?" %}
+{% else %}
+  {% set questionText = "Would you like to match the case risk level to the risk assessment level?" %}
+{% endif %}
 
+<p class="govuk-body">The risk assessment says the level of risk is <strong>{{ riskAssessmentRiskLevel | lower }}</strong>.
 
-<p class="govuk-body">
   {% if not caseRiskLevel %}
-
-    {% set questionText = "Set the case risk level to match the risk assessment?" %}
-    Would you like to set the overall case risk level to
-    <strong>{{riskAssessmentRiskLevel | lower}}</strong>?
+    {# Would you like to set the overall case risk level to
+    <strong>{{riskAssessmentRiskLevel | lower}}</strong>? #}
 
   {% elseif caseRiskLevelNumber == 'other' %}
 
-    The case risk level is currently set to {{caseRiskLevel}}. The risk assessment you added is {{riskAssessmentRiskLevel | lower}}.
+    This is different than the case risk level of {{caseRiskLevel | lower}}.
 
   {% elseif caseRiskLevelNumber > -1 %}
-
-    The risk assessment you added has a <strong>{{riskLevelChange}}</strong> risk level than the current case risk level ({{caseRiskLevel | lower}}).
+    This is <strong>{{riskLevelChange}}</strong> than the current case risk level.
   {% endif %}
 </p>
 
-{{ govukInsetText({
+<p class="govuk-body">You can give the case a different risk level to the one(s) it received in a risk assessment. You might want to do this if levels were different in each assessment, or if the assessment was provided by a third party.</p>
+
+
+
+{# {{ govukInsetText({
   text: "The case risk level can differ from risk assements if necessary - such as when there are conflicting assesments, or where the assessment was provided by a third party."
-}) }}
+}) }} #}
 
 {% set yesText %}
   Yes, {{verbText | lower}} the case risk level to <strong>{{riskAssessmentRiskLevel | lower}}</strong>
 {% endset %}
 
-
+{% set noText %}
+  {% if caseRiskLevel %}
+    No, keep the case risk level as {{caseRiskLevel}}
+  {% else %}
+    No, do not set the case risk level
+  {% endif %}
+{% endset %}
 
 {{ govukRadios({
   idPrefix: "where-do-you-live",
@@ -94,7 +105,7 @@
     },
     {
       value: "false",
-      text: "No, do not " + (verbText | lower) + " the case risk level"
+      text: noText
     }
   ]
 }) }}
