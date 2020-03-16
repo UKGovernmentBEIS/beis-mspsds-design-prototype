@@ -52,6 +52,10 @@
   <div class="govuk-grid-column-full">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-half">
+        {# {{ govukButton({
+          text: "Add supporting information",
+          href: "./documents/add"
+        }) }} #}
         <p class="govuk-body"><a href="./documents/add" class="govuk-link">Add supporting information</a>
         </p>
         <div class="filter-area govuk-clearfix govuk-!-margin-top-8 govuk-!-margin-bottom-5">
@@ -101,7 +105,7 @@
                 },
                 {
                   value: "title",
-                  text: "Item title",
+                  text: "Activity title",
                   selected: true if data.sortOrder == 'title'
                 }
               ]
@@ -134,42 +138,17 @@
 
       </div>
       <div class="govuk-grid-column-one-half">
-      <div class="govuk-grid-row  ">
-
-
-
-        {% if groupByType %}
-          {% set linkText = "Show activities as a single table" %}
-          {% set groupByTypeNext = false %}
-        {% else %}
-          {% set linkText = "Group activites by type" %}
-          {% set groupByTypeNext = true %}
-        {% endif %}
-        {# <p class="govuk-body align-right"><a href="./documents?sortOrder={{data.sortOrder}}&groupByType={{groupByTypeNext}}" class="govuk-link">{{linkText}}</a>
-
-        </p> #}
-
-
-      </div>
-      <div>
-        <span class="align-right">
-
-      </span>
-
-      </div>
-       {#  <span class="align-right govuk-!-margin-right-3">
-          {{ govukCheckboxes({
-            idPrefix: "nationality",
-            name: "nationality",
-            items: [
-              {
-                value: "british",
-                text: "Group by type",
-                checked: true
-              }
-            ]
-          }) }}
-        </span> #}
+        <div class="govuk-grid-row  ">
+          {% if groupByType %}
+            {% set linkText = "Show activities as a single table" %}
+            {% set groupByTypeNext = false %}
+          {% else %}
+            {% set linkText = "Group activites by type" %}
+            {% set groupByTypeNext = true %}
+          {% endif %}
+          {# <p class="govuk-body align-right"><a href="./documents?sortOrder={{data.sortOrder}}&groupByType={{groupByTypeNext}}" class="govuk-link">{{linkText}}</a>
+          </p> #}
+        </div>
       </div>
     </div>
 
@@ -239,10 +218,21 @@
       {% set author = ('' | faker).fullName %}
       {% set author = data.currentTeam %}
 
+      {% set dateAdded = item.dateAdded | arrayToGovukDate %}
       {% set addedHtml %}
-        {{author}}
-        <br>
-        <span class="govuk-hint govuk-!-margin-top-1 govuk-!-margin-bottom-0">{{item.dateAdded | arrayToGovukDate }}</span>
+        {% if sortOrder == 'author' %}
+          {{author}}
+          <br>
+          <span class="govuk-hint govuk-!-margin-top-1 govuk-!-margin-bottom-0">
+            on {{dateAdded}}
+          </span>
+        {% else %}
+          {{dateAdded}}
+          <br>
+          <span class="govuk-hint govuk-!-margin-top-1 govuk-!-margin-bottom-0">
+            by {{author}}
+          </span>
+        {% endif %}
 
       {% endset %}
 
@@ -268,13 +258,13 @@
           {% set items = items | sortDateArrays(sortOrderReversed, sortOrder) %}
           {% set sectionId = type | pluralise | slugify %}
           <h2 id="{{sectionId}}" class="govuk-heading-m govuk-!-margin-bottom-2">{{type | pluralise }}</h2>
-          <p class="govuk-body govuk-!-margin-bottom-2"><a href="./{{type | slugify}}/new" class="govuk-link">Add {{type | lower}}</a></p>
-          {{ itemTable(items, columnsToShow) }}
+          {# <p class="govuk-body govuk-!-margin-bottom-2"><a href="./{{type | slugify}}/new" class="govuk-link">Add {{type | lower}}</a></p> #}
+          {{ itemTable(items, columnsToShow, sortOrder) }}
           <hr class="govuk-section-break govuk-section-break--l">
       {% endfor %}
       {% else %}
       {% set columnsToShow = ['htmlTitle', 'typeExtra', 'dateGovuk', 'addedHtml'] %}
-      {{ itemTable(itemsSorted, columnsToShow) }}
+      {{ itemTable(itemsSorted, columnsToShow, sortOrder) }}
 
 
     {% endif %}
@@ -285,7 +275,7 @@
 {% endblock %}
 
 {# Generate table #}
-{% macro itemTable(items, columnsToShow) %}
+{% macro itemTable(items, columnsToShow, sortOrder) %}
 
   {# Slim down to data we need #}
   {# {% set theItems = items | keepAttributes('htmlTitle', 'dateGovuk', 'addedHtml') %} #}
@@ -309,7 +299,7 @@
         classes: "govuk-!-width-one-quarter"
       },
       {
-        text: "Added by",
+        text: "Date added" if (sortOrder != 'author') else "Added by",
         classes: "govuk-!-width-one-quarter"
       }
     ] %}
