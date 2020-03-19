@@ -61,7 +61,7 @@ filters.today = () => {
 */
 
 filters.todayGovuk = () => {
-  return filters.dateToGovukDate(new Date())
+  return moment().format('D MMMM YYYY')
 }
 
 /*
