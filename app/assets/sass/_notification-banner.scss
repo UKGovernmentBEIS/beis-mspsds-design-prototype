@@ -41,6 +41,7 @@ $accessible-orange: darken(govuk-colour("orange"), 16.5%);
 
   a:focus,
   a:hover:focus {
+    // Swap these lines if using govuk-frontend 3.0 or greater:
     // @include govuk-focused-text;
     color: $govuk-text-colour;
   }
@@ -87,6 +88,7 @@ $accessible-orange: darken(govuk-colour("orange"), 16.5%);
 
   a:focus,
   a:hover:focus {
+    // Swap these lines if using govuk-frontend 3.0 or greater:
     // @include govuk-focused-text;
     color: $govuk-text-colour;
   }
