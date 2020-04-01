@@ -1,0 +1,100 @@
+// GOV.UK orange doesn't pass colour contrast when used on a white background
+// This darkens it to the point where it passes WCAG 2 AAA at 18pt and above
+$accessible-orange: darken(govuk-colour("orange"), 16.5%);
+
+.app-banner {
+
+  @include govuk-responsive-padding(4);
+  @include govuk-responsive-margin(3, "top");
+  @include govuk-responsive-margin(7, "bottom");
+
+  border-width: 5px;
+  border-style: solid;
+  color: $govuk-brand-colour; // default colour
+}
+
+.app-banner__action {
+  margin-top: govuk-spacing(2);
+  margin-bottom: govuk-spacing(1);
+}
+
+.app-banner__heading {
+
+  margin-top: govuk-spacing(0);
+  margin-bottom: govuk-responsive-margin(4, "bottom");
+
+  @include govuk-font(36, $weight:bold);
+  color: inherit;
+
+}
+
+.app-banner__message {
+
+  @include govuk-font(24, $weight:bold);
+
+  &,
+  a:link,
+  a:active,
+  a:visited {
+    color: inherit;
+  }
+
+  a:focus,
+  a:hover:focus {
+    // Swap these lines if using govuk-frontend 3.0 or greater:
+    // @include govuk-focused-text;
+    color: $govuk-text-colour;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  &:last-of-type {
+    margin-bottom: govuk-spacing(0);
+  }
+
+}
+
+// Different coloured banners
+.app-banner--destructive {
+  color: $govuk-error-colour;
+}
+
+.app-banner--information {
+  color: $govuk-brand-colour;
+}
+
+.app-banner--success {
+  color: govuk-colour("green"); // same as button colour
+}
+
+.app-banner--warning {
+  color: $accessible-orange;
+}
+
+// Inverted banner style
+.app-banner--temporary-message {
+
+  border: none;
+  background: $govuk-brand-colour;
+
+  &,
+  a:link,
+  a:active,
+  a:visited {
+    color: govuk-colour("white");
+  }
+
+  a:focus,
+  a:hover:focus {
+    // Swap these lines if using govuk-frontend 3.0 or greater:
+    // @include govuk-focused-text;
+    color: $govuk-text-colour;
+  }
+
+  .app-banner__message {
+    @include govuk-font(19, $weight:regular);
+  }
+
+}
