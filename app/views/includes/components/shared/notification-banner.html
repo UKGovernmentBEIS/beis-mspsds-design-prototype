@@ -1,0 +1,18 @@
+
+{% macro notificationBanner(params) %}
+  <div class="app-banner app-banner--{{ params.type }} app-banner--{% if params.action %}with-action{% else %}without-action{% endif %} {{ classes if params.classes}}">
+    {% if params.heading %}
+      <h2 class="app-banner__heading">
+        {{ params.heading }}
+      </h2>
+    {% endif %}
+
+    {% if params.html %}
+      {{params.html | safe}}
+    {% elseif params.text %}
+      <p class="app-banner__message">{{ params.text }}</p>
+    {% endif %}
+    {{ params.action }}
+  </div>
+
+{% endmacro %}
