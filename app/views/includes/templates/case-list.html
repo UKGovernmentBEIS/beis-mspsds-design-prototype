@@ -21,12 +21,14 @@
 
 {% set navActive = 'cases' %}
 
+{{data.caseListSettings | debug}}
+
 
 {% set filters  = settings | caseFilters(data) %}
 {% set sortAttr = settings | caseSortAttr %}
 {% set sortDir  = settings | caseSortDir %}
-{% set cases    = data.cases | filterCollection(filters) | sort(sortDir, false, sortAttr) %}
 
+{% set cases    = data.cases | filterCollection(filters) | sort(sortDir, false, sortAttr) %}
 
 {% set bodyClasses = "mspsds-width-container case-list" %}
 
@@ -100,6 +102,19 @@
               <div id="case-creator-autocomplete-container"></div>
             </label>
           {% endset -%}
+
+
+            {{ govukCheckboxes({
+              classes: "",
+              idPrefix:   "Assignee",
+              name:       "caseListSettings[assignee]",
+              items: [
+                {
+                  value: "my-team",
+                  text: "Coronavirus cases only"
+                }
+              ]
+            }) }}
 
           {{ govukCheckboxes({
 
