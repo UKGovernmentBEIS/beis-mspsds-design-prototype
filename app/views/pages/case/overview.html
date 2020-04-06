@@ -98,6 +98,25 @@
     },
     {
       key: {
+        text: "Coronavirus related"
+      },
+      value: {
+        text: 'Coronavirus related case'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "coronavirus related status",
+            classes: "govuk-link--no-visited-state"
+          } if (hasEditRights and hasViewRights) else []
+        ]
+
+      } if false
+    },
+    {
+      key: {
         text: "Created by"
       },
       value: {
