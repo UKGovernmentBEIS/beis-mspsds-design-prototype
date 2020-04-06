@@ -43,7 +43,6 @@
     "keypather": "^3.0.0",
     "lodash": "^4.17.15",
     "marked": "^0.4.0",
-    "minimist": "1.2.0",
     "moment": "^2.24.0",
     "notifications-node-client": "^4.5.2",
     "nunjucks": "^3.1.3",
