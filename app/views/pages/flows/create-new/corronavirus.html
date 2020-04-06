@@ -1,0 +1,76 @@
+{% extends "includes/templates/flow-create-new.html" %}
+{% set pageHeading        = 'Is this case related to the coronavirus outbreak?' %}
+{% set formAction         = '' %}
+{% set returnLink = {href:'/pages/flows/create-new/product/index', text: 'Return to products'} %}
+
+{% if currentItemIndex == 'new' %}
+  {% set theProduct = data.product %}
+{% else %}
+  {% set theProduct = data.new.report.product.items[currentItemIndex] %}
+{% endif %}
+
+
+{% block flow %}
+<form action="{{formAction}}" method="post" class="form">
+
+
+  {% set covidMessage %}
+    Coronavirus (COVID-19): OPSS is urging all market surveillance authorities to prioritise coronavirus-related cases above other work.
+  {% endset %}
+
+  {{ notificationBanner({
+    type: 'information',
+    text: covidMessage
+  })}}
+
+  {% set corronavirusReasonHtml %}
+    {{ govukTextarea({
+      name: "new[report][safeSummary]",
+      id:   "allegation-safe-detail",
+      label: {
+        text: "How does the case relate? (optional)"
+      },
+      value: data['new']['report']['summary']
+    }) }}
+
+  {% endset %}
+
+  {{ govukRadios({
+    idPrefix: "product-class",
+    name: "product[class]",
+    fieldset: {
+      legend: {
+        text: pageHeading,
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    hint: {
+      text: "For example, cases relating to hand sanitiser or personal protective equipment (PPE)"
+    },
+    items: [
+      {
+        value: "yes",
+        text: "Yes, it is (or it could be)",
+        checked: checked([theProduct['class']], "generic"),
+        conditional: {
+          html: corronavirusReasonHtml
+        }
+      },{
+        value: "No",
+        text: "No, this is business as usual",
+        checked: checked([theProduct['class']], "specific")
+      }
+    ]
+  }) }}
+
+  <div class="govuk-form-group">
+    {{ govukButton({
+      text: "Continue"
+    }) }}
+  </div>
+
+
+
+</form>
+{% endblock %}
