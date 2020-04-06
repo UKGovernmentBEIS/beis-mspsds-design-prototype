@@ -6,9 +6,9 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds-from-desktop">
     <h1 class="govuk-heading-l">{{pageHeading}}</h1>
-
+    {{currentTeam}}
     {% set teamLinkHTML %}
-    <a href="../teams/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team-name={{data['team-name']}}" class="govuk-link">{{data['team-name']}}</a>
+    <a href="../teams/b1dab0f5-4651-4af8-9f15-fa8143ff338d?team-name={{data.currentTeam}}" class="govuk-link">{{data.currentTeam}}</a>
     {% endset %}
 
     {{ govukSummaryList({
@@ -62,7 +62,7 @@
                 visuallyHiddenText: "contact details"
               }
             ]
-          }
+          } if false
         },
         {
           key: {
@@ -79,7 +79,7 @@
                 visuallyHiddenText: "contact details"
               }
             ]
-          }
+          } if false
         },
         {
           key: {
@@ -99,6 +99,14 @@
           } if false
         }
       ]
+    }) }}
+
+    {% set insetContentHTML %}
+    If you need to change your details, email <a href="#" class="govuk-link">opss.enquiries@beis.gov.uk</a>
+    {% endset %}
+
+    {{ govukInsetText({
+      html: insetContentHTML
     }) }}
   </div>
 </div>
