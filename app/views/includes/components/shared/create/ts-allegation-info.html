@@ -6,27 +6,27 @@
       <div class="govuk-grid-column-two-thirds">
         <div class="hazard-wrapper" id=hazzardAutocomplete>
           {{ autocompleteInput({
-            idPrefix: "hazard-type", 
-            name:     "new[report][hazardType]", 
+            idPrefix: "hazard-type",
+            name:     "new[report][hazardType]",
             legend:   "Hazard type",
             class:    "govuk-body govuk-!-margin-bottom-1 govuk-input--width-20",
-            hint:     "The danger the product presents", 
-            values:   data.hazardTypes}) 
+            hint:     "The danger the product presents",
+            values:   data.hazardTypes})
           }}
         </div>
-       
+
       </div>
        <div class="govuk-grid-column-one-half">
            {# <a href="#" class="govuk-body govuk-link govuk-link--no-visited-state delete " id="hazzardAddAnother" data-target="hazzardAutocomplete" >Remove hazard</a> #}
         </div>
     </div>
-    
-    
+
+
 
     <p class="govuk-body"><a href="#" class="govuk-link govuk-link--no-visited-state" id="hazzardAddAnother" data-target="hazzardAutocomplete" >Add another hazard</a></p>
 
     <script>
-      
+
     </script>
 
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
@@ -53,7 +53,7 @@
 
 
 {% set complianceHtml %}
-    
+
     {{ govukTextarea({
       name: "new[report][complianceSummary]",
       id:   "allegation-compliance-detail",
@@ -65,10 +65,23 @@
 
 {% endset -%}
 
+{% set safeReasonHtml %}
+
+    {{ govukTextarea({
+      name: "new[report][safeSummary]",
+      id:   "allegation-safe-detail",
+      label: {
+        text: "Summary of why you’re reporting it"
+      },
+      value: data['new']['report']['summary']
+    }) }}
+
+{% endset -%}
 
 
 
-<div class="mspsds-input govuk-grid-column-two-thirds  govuk-!-margin-bottom-9">
+
+<div class="mspsds-input govuk-grid-column-two-thirds">
 
     {{ govukCheckboxes({
       idPrefix: "report-report-type",
@@ -77,25 +90,43 @@
         text: "Select all that apply"
       },
       items: [
-      
+
         {
           value: "unsafe",
-          text: "It’s unsafe",
-          _conditional: {
+          text: "It’s unsafe (or suspected to be)",
+          conditional: {
             html: unsafeHtml
           }
         },
         {
           value: "noncompliant",
-          text: "It’s non-compliant",
-          _conditional: {
+          text: "It’s non-compliant (or suspected to be)",
+          conditional: {
             html: complianceHtml
           }
         }
-        
       ]
     }) }}
 
+    <p class="govuk-body">or</p>
+
+    {{ govukCheckboxes({
+      idPrefix: "report-report-type",
+      name: "new[report][reportType]",
+      items: [
+        {
+          value: "safe-and-compliant",
+          text: "It’s safe and compliant",
+          hint: {
+            text: "Help other market surveillance authorities avoid testing the same product again."
+          },
+          conditional: {
+            html: safeReasonHtml
+          }
+        }
+
+      ]
+    }) }}
 
 </div>
 
