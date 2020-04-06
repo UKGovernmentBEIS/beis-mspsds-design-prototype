@@ -29,6 +29,29 @@
 {% include "includes/components/shared/service-status-banner.html" %}
 {% endif %}
 
+
+{% set covidMessage %}
+  Coronavirus (COVID-19): OPSS is urging all market surveillance authorities to prioritise coronavirus-related cases above other work.
+{% endset %}
+
+{% set covidMessageHtml %}
+  <div class="govuk-!-width-two-thirds">
+    <p class="app-banner__message">{{covidMessage}}</p>
+    <p class="app-banner__message"><a href="#">Read more</a></p>
+  </div>
+{% endset %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    {{ notificationBanner({
+      type: 'information',
+      html: covidMessageHtml
+    })}}
+  </div>
+
+</div>
+
+
 <section class="mspsds-pagetitle">
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">

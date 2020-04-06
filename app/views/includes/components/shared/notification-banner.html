@@ -12,7 +12,12 @@
     {% elseif params.text %}
       <p class="app-banner__message">{{ params.text }}</p>
     {% endif %}
-    {{ params.action }}
+    {% if params.action %}
+      <div class="app-banner__action">
+        {{ params.action | safe }}
+      </div>
+    {% endif %}
+
   </div>
 
 {% endmacro %}

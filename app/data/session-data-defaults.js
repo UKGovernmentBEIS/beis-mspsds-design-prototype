@@ -42,7 +42,7 @@ module.exports = {
 
   caseListSettings: {
     sort: "latest",
-    assignee: ["Me"],
+    _assignee: ["Me"],
     status: ["Open"]
   },
 
