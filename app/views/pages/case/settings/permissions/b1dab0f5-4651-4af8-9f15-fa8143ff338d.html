@@ -62,12 +62,14 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">{{ "Add a team to the case" if (data.team == 'new') else data.team}}</h1>
 
-    {{ govukDetails({
+    {# {{ govukDetails({
       summaryText: "What can be seen at each permission level",
       html: detailsHTML,
       open: false
     }) }}
+ #}
 
+    {# <p class="govuk-body">The team will be able to view and edit all case details. They cannot add or remove teams or close the case.</p> #}
     <form action="../permissions/save" method="post" class="form">
 
       {% if data.team == 'new' %}
@@ -178,6 +180,9 @@
         {{ govukTextarea({
           name: "more-detail",
           id: "more-detail",
+          hint: {
+              text: "Message will also be included on the case timeline"
+            },
           label: {
             text: "Message to " + (data.team if (data.team != 'new') else "the team")
           }
@@ -189,7 +194,7 @@
         name: "include-message",
         fieldset: {
           legend: {
-            text: "Do you want to include instructions or more information?",
+            text: "Do you want to include " + ("instructions or " if data.team =='new' ) + "more information?",
             isPageHeading: true,
             _classes: "govuk-fieldset__legend--s"
           }
@@ -220,7 +225,7 @@
 
 
       {{ govukButton({
-        text: "Update permission level" if data.team != 'new' else "Add team to this case"
+        text: "Update team" if data.team != 'new' else "Add team to this case"
       }) }}
     </form>
 
