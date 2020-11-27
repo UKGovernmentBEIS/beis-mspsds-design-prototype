@@ -1,0 +1,49 @@
+{% extends "includes/templates/case-validation.html" %}
+{% set pageHeading = 'Has the risk level been validated by OPSS?' %}
+{% set contentType = 'Validate' %}
+
+
+{# Todo: make this actually update a case #}
+{% block formContent %}
+
+
+{% set otherRiskLevelHTML %}
+  {{ govukInput({
+    label: {
+      text: "Has the risk level been validated by OPSS?",
+      classes: "govuk-visually-hidden"
+    },
+    id: "other-risk-level",
+    name: "riskLevelOther",
+    value: currentCase.riskLevelOther,
+    classes: "govuk-!-width-one-half"
+  }) }}
+{% endset %}
+
+
+{{ govukRadios({
+    idPrefix: "risk-validation",
+    name: "riskVal",
+    fieldset: {
+      legend: {
+        text: "",
+        isPageHeading: false,
+        _classes: "govuk-visually-hidden"
+      }
+    },
+    items: [
+      {
+        value: "validated, redirect(../../../pages/case/overview-serious-risk-validated)",
+        text: "Yes",
+        checked: checked([theRiskVal], "Yes")
+      },
+      {
+        value: "no, redirect(../../../pages/case/overview-serious-risk)",
+        text: "No",
+        checked: checked([theRiskVal], "No")
+      }
+    ]
+  }) }}
+
+
+{% endblock %}
