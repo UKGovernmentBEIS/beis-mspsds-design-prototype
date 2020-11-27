@@ -27,4 +27,5 @@ jobs:
         cf auth
         cf target -o 'beis-opss' -s sandbox
         cf push
+        echo "foo"
         cf logout
