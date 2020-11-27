@@ -1,0 +1,60 @@
+{# Template used for edit / add pages #}
+
+{% extends "./case-basic.html" %}
+{% set includeCaseActions = false %}
+
+{% set pageContext = pageContext or 'edit' %}
+
+{# Ideally these should go to previous page #}
+{% set formCancel = formCancel or '../../../pages/case/overview-serious-risk' %}
+{% set formAction = formAction or '../../../pages/case/overview-serious-risk-validated' %}
+
+{% set defaultButtonText = '' %}
+{% set submitButtonText = submitButtonText or defaultButtonText %}
+{% set submitButtonText = submitButtonText + ((' ' + contentType) if contentType) %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back to " + (caseType | lower),
+  href: formCancel
+}) }}
+{% endblock %}
+
+
+{% set metaArea %}
+<div class="app-meta-area">
+  <p class="govuk-body govuk-hint">{{metaContent | safe}}</p>
+</div>
+{% endset %}
+
+{% block content %}
+
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+    <form action="{{formAction}}" method="post" class="form">
+      {% if hidePageHeading != true %}
+      <h1 class="govuk-heading-l">{{pageHeading}}</h1>
+      {% endif %}
+      {{metaArea | safe }}
+      {% block formContent %}
+      {% endblock %}
+
+
+
+      <div class="govuk-form-group">
+        {{ govukButton({
+          text: submitButtonText
+        }) }}
+        <p class="govuk-body">
+          <a class="govuk-link govuk-link--no-visited-state" href="{{formCancel}}">Cancel</a>
+        </p>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}

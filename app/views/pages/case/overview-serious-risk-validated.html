@@ -1,0 +1,544 @@
+{% extends "mspsds-layout.html" %}
+{% set currentPage      = 'case' %}
+{% set currentCase = data.cases | withId(data['caseid']) %}
+{% set currentCase = currentCase | attachCaseChildren(data) %}
+{% set currentTeam = data.currentTeam %}
+
+{% if bodyClasses %}
+    {% set bodyClasses = bodyClasses + " mspsds-width-container case" %}
+{% else %}
+    {% set bodyClasses = " mspsds-width-container case" %}
+{% endif %}
+
+{% set navActive = 'cases' %}
+
+{% set caseNavActive = 'overview' %}
+{# {% set hasEditRights = true if (currentCase.assignee == data['currentUser']) else false %} #}
+
+{% set hasEditRights = false if (data.hasEditRights == "false") else true %}
+
+
+{% set significantDateLabel = "Last updated" if currentCase.activities.length > 1 else "Created" %}
+
+{% set hasViewRights = false if (data.hasViewRights == "false") else true %}
+
+{% set caseTitle -%}
+  {% if currentCase.title %}
+  {{currentCase.title}}
+  {% else %}
+
+  {%- if currentCase.type == "Question" -%}
+     {{- currentCase.title | safe -}}
+  {%- endif -%}
+
+  {%- if currentCase.products | length > 0 -%}
+    {{- " " + currentCase.products[0].name -}}
+  {%- else -%}
+    {{- " undefined product" -}}
+  {%- endif -%}
+
+  {%- if currentCase.type == 'case' -%}
+    {%- if currentCase.report.hazardType -%}
+      {{- " " + currentCase.report.hazardType -}}
+    {%- else -%}
+      {{- " undefined hazard" -}}
+    {%- endif -%}
+  {%- endif -%}
+  {% endif %}
+{%- endset %}
+
+
+{% block pageTitle %}
+{% endblock %}
+
+{% block header %}
+  {{ super() }}
+  {% set includeCaseActions = true %}
+
+  {% include "includes/components/case/case-bar.html" %}
+
+{% endblock %}
+
+{% block beforeContent %}
+
+
+{% endblock %}
+
+{% set permissionsHTML %}
+
+  {% for team in data.teamPermissions  | sort(attribute='teamName') %}
+    <p class="govuk-body">{{team.teamName}}</p>
+  {% endfor %}
+  {# <p class="govuk-body">{{(data.teamPermissions | length) + 1}} teams</p> #}
+  {# {% if currentCase.restricted -%}
+    <span class="hmcts-badge hmcts-badge--red">Restricted case</span>
+    {% else %}
+    <p class="govuk-body">All other users: default</p>
+  {%- endif %} #}
+{% endset %}
+
+{% set summaryMetadataRows = [
+    {
+      key: {
+        text: "Status"
+      },
+      value: {
+        text: currentCase.status
+      },
+      actions: {
+        items: [
+          {
+            href: "/root/flows/change-status/01",
+            text: "Change",
+            visuallyHiddenText: "case status",
+            classes: "govuk-link--no-visited-state"
+          } if (hasEditRights and hasViewRights) else []
+        ]
+
+      }
+    },
+    {
+      key: {
+        text: "Coronavirus related"
+      },
+      value: {
+        text: 'Coronavirus related case'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "coronavirus related status",
+            classes: "govuk-link--no-visited-state"
+          } if (hasEditRights and hasViewRights) else []
+        ]
+
+      } if false
+    },
+    {
+      key: {
+        text: "Created by"
+      },
+      value: {
+        text: data.currentUser
+      },
+      actions: {
+        items: []
+      }
+    },{
+      key: {
+        text: "Date created"
+      },
+      value: {
+        text: "4 February 2019"
+      },
+      actions: {
+        items: []
+      }
+    },
+    {
+      key: {
+        text: significantDateLabel
+      },
+      value: {
+        text: currentCase.dateUpdated | prettifyDate
+      },
+      actions: {
+        items: [
+          {
+            href: "/root/flows/add-activity/01?currentPage=case&caseid="+currentCase.id,
+            text: "Add activity",
+            classes: "govuk-link--no-visited-state"
+          }
+        ]
+      } if hasEditRights else {
+        items: [
+            {
+              href: "/root/flows/add-comment/01-add-comment",
+              text: "Add comment"
+            }
+          ]
+        }
+      },
+    {
+      key: {
+        text: "Trading Standards reference"
+      },
+      value: {
+        text: "JDGJ436343"
+      },
+      actions: {
+        items: [
+
+        ]
+      }
+      }
+  ] %}
+
+
+
+{% block content %}
+<div style="text-align:right;">
+<span class="hmcts-badge app-badge--risk-serious app-tag--nowrap hmcts-badge--aligned-right-from-tablet" >Serious risk case</span>
+</div>
+
+<div class="case-nav">
+  {% include "includes/components/case/case-navigation.html" %}
+</div>
+
+
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-l">Project: {{currentCase.id}}</span>
+
+    <h1 class="govuk-heading-l">Overview</h1>
+
+    <p class="govuk-body-l">{{caseTitle}}</p>
+
+    <h2 class="govuk-heading-m">Summary</h2>
+
+    <p class="govuk-body">{{currentCase.report.summary}}</p>
+    {% if hasEditRights %}
+    <p class="govuk-body psd--inline-link right-align"><a href="" class="govuk-link govuk-link--no-visited-state">Change summary</a></p>
+    {% endif %}
+
+    <!--
+    {% if not hasViewRights %}
+      {{ govukInsetText({
+        text: "You have default viewing rights only because you are not involved in this case."
+      }) }}
+    {% endif %}
+    -->
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+    <h2 class="govuk-heading-m">Products</h2>
+
+
+      {# {% set hazardDescription %}
+        <p class="govuk-body">{{currentCase.report.hazardSummary}}</p>
+      {% endset %}
+
+      {% set hazardHTML %}
+        <p class="govuk-body">{{currentCase.report.hazardType}}</p>
+
+        {{hazardDescription | safe}}
+      {% endset %} #}
+
+      {% set productCategoryList %}
+        <ul class="govuk-list">
+          <li>Electrical appliances and equipment</li>
+          {# <li>Explosive atmospheres equipment</li>
+          <li>Kitchen / cooking accessories</li> #}
+        </ul>
+
+      {% endset %}
+
+      {{ govukSummaryList({
+        classes: 'govuk-summary-list--no-border',
+        rows: [
+          {
+            key: {
+              text: "Product category"
+            },
+            value: {
+              text: currentCase.report.productType,
+              html: productCategoryList
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "hazard type"
+                }
+              ] if hasEditRights else []
+            } if false
+          },
+          {
+            key: {
+              text: "Product details"
+            },
+            value: {
+              text: currentCase.products | length + ' product added' if currentCase.products | length == 1 else currentCase.products | length + ' products added'
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "View",
+                  visuallyHiddenText: "contact details"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+    <h2 class="govuk-heading-m">Risks and incidents</h2>
+    {% include "includes/components/case/overview-sections/risks-and-issues-validated.html" %}
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+
+    <h2 class="govuk-heading-m">Enquiry</h2>
+
+    {% set reporterContactHTML %}
+    <p class="govuk-body">Durward Weimann</p>
+    <p class="govuk-body">durward.weimann@council.gov.uk</p>
+    <p class="govuk-body">07700 909483</p>
+
+    {% endset %}
+
+    {{ govukSummaryList({
+        classes: 'govuk-summary-list--no-border',
+        rows: [
+          {
+            key: {
+              text: "Received date"
+            },
+            value: {
+              text: "12 October 2019"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "hazard type"
+                }
+              ] if hasEditRights else []
+            } if false
+          },
+          {
+            key: {
+              text: "Received via",
+              classes: "govuk-summary-list--no-border"
+            },
+            classes: "",
+            value: {
+              text: "Email"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "hazard type"
+                }
+              ] if false
+            }
+          },
+          {
+            key: {
+              text: "Source type",
+              classes: "govuk-summary-list--no-border"
+            },
+            classes: "",
+            value: {
+              text: "Government employee"
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "hazard type"
+                }
+              ] if false
+            }
+          },
+          {
+            key: {
+              text: "Contact details",
+              classes: ""
+            },
+            classes: "govuk-summary-list--no-border",
+            value: {
+              html: reporterContactHTML
+            },
+            actions: {
+              items: [
+                {
+                  href: "#",
+                  text: "Change",
+                  visuallyHiddenText: "hazard type"
+                }
+              ] if false
+            }
+          } if hasEditRights
+
+
+        ]
+      }) }}
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+    <h2 class="govuk-heading-m">Sharing and collaboration</h2>
+
+    {% set unrestrictedText %}
+      <p class="govuk-body govuk-hint">Teams not added to case have default view rights</p>
+    {% endset %}
+
+    {% set sharingData = [
+      ["Case owner", data.currentUser+"<br>"+data.currentTeam, "/root/flows/assign/01"],
+      ["Teams added to case", permissionsHTML, "settings/permissions"],
+      ["Case restriction", 'Restricted' if currentCase.restricted else 'Unrestricted', "settings/restriction"]
+      ]
+      %}
+
+    {{ govukSummaryList({
+      classes: 'govuk-summary-list--no-border',
+      rows: sharingData | arrayToSummaryList
+    }) }}
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+    <h2 class="govuk-heading-m">About the case</h2>
+
+
+
+
+
+    {{ govukSummaryList({
+      classes: 'govuk-summary-list--no-border',
+      rows: summaryMetadataRows
+    }) }}
+
+    {# <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"> #}
+
+
+
+
+
+
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <aside class="app-related-items" role="complementary">
+      <h2 class="govuk-heading-m" id="subsection-title">
+        Products (1)
+      </h2>
+
+      <div class="overview-product-group">
+
+        <p class="govuk-body govuk-!-margin-bottom-1">
+          <a href="#" class="govuk-link">ChargeWorx adaptor</a>
+        </p>
+        <!--
+        <div class="product-image__container">
+          <img src="/public/images/charge-worx.jpg" title="Product identifying image" />
+        </div>
+        -->
+
+      </div>
+
+      {# <div class="overview-product-group">
+        <p class="govuk-body govuk-!-margin-bottom-1">
+          <a href="#" class="govuk-link">Inteligix adaptor</a>
+        </p>
+        <div class="product-image__container">
+          <img src="/public/images/slapwraphopunslow3-500x500.jpg" title="Product identifying image" />
+        </div>
+
+      </div>
+      <div class="overview-product-group">
+        <p class="govuk-body govuk-!-margin-bottom-1">
+          <a href="#" class="govuk-link">Plug adaptor</a>
+        </p>
+        <div class="product-image__container">
+          <img src="/public/images/slapwrap1.jpg" title="Product identifying image" />
+        </div>
+      </div> #}
+
+      {# <a href="#" class="govuk-body govuk-link app-toggle-link" data-target="overview-product-group" data-hide-link="true">Show 2 more products...</a>
+
+      <div class="overview-product-group target-item hidden">
+        <p class="govuk-body govuk-!-margin-bottom-1">
+          <a href="#" class="govuk-link">Plug adaptor</a>
+        </p>
+        <div class="product-image__container">
+          <img src="/public/images/slapwrap1.jpg" title="Product identifying image" />
+        </div>
+      </div>
+      <div class="overview-product-group target-item hidden">
+        <p class="govuk-body govuk-!-margin-bottom-1">
+          <a href="#" class="govuk-link">Plug adaptor</a>
+        </p>
+        <div class="product-image__container">
+          <img src="/public/images/slapwrap1.jpg" title="Product identifying image" />
+        </div>
+      </div> #}
+
+      {% set timelineHTML %}
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+      <h2 class="govuk-heading-m">Recent timeline</h2>
+      <div class="hmcts-timeline">
+
+        <div class="hmcts-timeline__item">
+          <div class="hmcts-timeline__header">
+            <h3 class="hmcts-timeline__title">
+              {% if hasViewRights %}
+              <a href="/app/cases/FR1231612322/timeline/81ec86ff-c4b9-40d5-953c-7a528b789118">Case assigned to you</a>
+              {% else %}
+              Case assigned to Tim Harwood
+              {% endif %}
+
+            </h3>
+            <p class="hmcts-timeline__by">by Jane Doe, OPSS Processing</p>
+            <p class="hmcts-timeline__date"><time datetime="2018-09-14T09:38:00.000Z">Fri 14 Sep 2018 at 9:38am</time></p>
+          </div>
+          {% if hasViewRights %}
+          <p class="govuk-body hmcts-timeline__paragraph">John, can you take a look at this please?</p>
+          {% endif %}
+
+        </div>
+        <div class="hmcts-timeline__item">
+          <div class="hmcts-timeline__header">
+            <h3 class="hmcts-timeline__title">
+              {% if hasViewRights %}
+              <a href="/app/cases/FR1231612322/timeline/b4b33a91-7b5d-4045-a3cb-2804f97a6637">Comment added</a>
+              {% else %}
+              Comment added
+              {% endif %}
+
+            </h3>
+            <p class="hmcts-timeline__by">by Simon Saint, OPSS Enforcement</p>
+            <p class="hmcts-timeline__date"><time datetime="2018-09-12T09:38:00.000Z">Wed 12 Sep 2018 at 9:38am</time></p>
+          </div>
+          {% if hasViewRights %}
+          <p class="govuk-body hmcts-timeline__paragraph">Hey Chris, would you mind taking a...</p>{% endif %}
+
+        </div>
+        <div class="hmcts-timeline__item">
+          <div class="hmcts-timeline__header">
+            <h3 class="hmcts-timeline__title">
+              {% if hasViewRights %}
+                <a href="/app/cases/FR1231612322/timeline/7e076c8e-3259-4fa4-aaaf-927a88c200f6">Email recorded</a>
+              {% else %}
+                Email recorded
+              {% endif %}
+            </h3>
+            <p class="hmcts-timeline__by">by DJ Nightingale</p>
+            <p class="hmcts-timeline__date"><time datetime="2018-09-11T16:15:00.000Z">Tue 11 Sep 2018 at 4:15pm</time></p>
+          </div>
+
+        </div>
+      </div>
+
+      <p class="govuk-body"><a href="" class="govuk-link">View full timeline</a></p>
+      {% endset %}
+
+      {# {{timelineHTML | safe}} #}
+
+    </aside>
+
+  </div>
+</div>
+
+
+{% endblock %}
