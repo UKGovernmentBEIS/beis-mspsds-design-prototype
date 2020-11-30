@@ -3,3 +3,5 @@ applications:
 - name: beis-mspsds-design-prototype
   memory: 512M
   buildpack: nodejs_buildpack
+  services:
+    - prototype-env
