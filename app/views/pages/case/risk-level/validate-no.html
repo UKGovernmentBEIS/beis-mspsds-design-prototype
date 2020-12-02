@@ -1,3 +1,12 @@
+{% extends "includes/templates/case-validation.html" %}
+{% set pageHeading = 'Have you validated the case risk level?' %}
+{% set contentType = 'Continue' %}
+
+
+{# Todo: make this actually update a case #}
+{% block formContent %}
+
+
 {% set otherRiskLevelHTML %}
   {{ govukInput({
     label: {
@@ -9,6 +18,25 @@
     value: currentCase.riskLevelOther,
     classes: "govuk-!-width-one-half"
   }) }}
+{% endset %}
+
+
+{% set whyFurtherInfoHTML %}
+
+{{ govukTextarea({
+  name: "more-detail",
+id: "more-detail",
+label: {
+  text: "Further details",
+  classes: "govuk-label--m",
+  isPageHeading: true
+},
+hint: {
+  text: "Tell us the reason in few words."
+}
+  }) }}
+
+
 {% endset %}
 
 
@@ -31,7 +59,13 @@
       {
         value: "no, redirect(../../../pages/case/overview-serious-risk)",
         text: "No",
-        checked: checked([theRiskVal], "No")
+        checked: checked([theRiskVal], "No"),
+        conditional: {
+          html: whyFurtherInfoHTML
+        }
       }
     ]
   }) }}
+
+
+{% endblock %}

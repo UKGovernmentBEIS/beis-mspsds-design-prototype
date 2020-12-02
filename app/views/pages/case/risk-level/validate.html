@@ -1,6 +1,6 @@
 {% extends "includes/templates/case-validation.html" %}
-{% set pageHeading = 'Has the risk level been validated by OPSS?' %}
-{% set contentType = 'Validate' %}
+{% set pageHeading = 'Have you validated the case risk level?' %}
+{% set contentType = 'Continue' %}
 
 
 {# Todo: make this actually update a case #}
@@ -10,7 +10,7 @@
 {% set otherRiskLevelHTML %}
   {{ govukInput({
     label: {
-      text: "Has the risk level been validated by OPSS?",
+      text: "Have you validated the case risk level?",
       classes: "govuk-visually-hidden"
     },
     id: "other-risk-level",
