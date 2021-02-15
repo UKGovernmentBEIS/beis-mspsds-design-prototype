@@ -42,7 +42,7 @@
     "gulp-util": "^3.0.7",
     "keypather": "^3.0.0",
     "lodash": "^4.17.15",
-    "marked": "^0.4.0",
+    "marked": "^1.1.1",
     "moment": "^2.24.0",
     "notifications-node-client": "^4.5.2",
     "nunjucks": "^3.1.3",
